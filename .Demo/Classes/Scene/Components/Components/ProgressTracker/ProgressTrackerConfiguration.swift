@@ -10,19 +10,6 @@ import Foundation
 
 class ProgressTrackerConfiguration: ComponentConfiguration {
 
-    // MARK: - Sub Model
-
-    struct Page: Identifiable {
-        let id: Int
-        var text: String
-        var icon: Iconography?
-
-        init(id: Int) {
-            self.id = id
-            self.text = "Page \(id)"
-        }
-    }
-
     // MARK: - Properties
 
     var intent: ProgressTrackerIntent = .random
@@ -55,7 +42,7 @@ class ProgressTrackerConfiguration: ComponentConfiguration {
         self.isEnabled.showConfiguration = true
     }
 
-    // MARK: - Getter
+    // MARK: - Update
 
     func updatePages() {
         let lastNumberOfPages = self.pages.count
@@ -69,4 +56,22 @@ class ProgressTrackerConfiguration: ComponentConfiguration {
     }
 }
 
+// MARK: - Sub Model
 
+extension ProgressTrackerConfiguration {
+    struct Page: Identifiable {
+
+        // MARK: - Properties
+
+        let id: Int
+        var text: String
+        var icon: Iconography?
+
+        // MARK: - Initialization
+
+        init(id: Int) {
+            self.id = id
+            self.text = "Page \(id)"
+        }
+    }
+}

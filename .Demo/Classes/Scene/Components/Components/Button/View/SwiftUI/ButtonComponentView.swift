@@ -70,8 +70,14 @@ struct ButtonConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: ButtonImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 ButtonCommonConfigurationView(
+                    configuration: self.configuration,
+                    isIconButton: false
+                )
+            },
+            otherSectionItemsView: {
+                ButtonCommonOtherConfigurationView(
                     configuration: self.configuration,
                     isIconButton: false
                 )

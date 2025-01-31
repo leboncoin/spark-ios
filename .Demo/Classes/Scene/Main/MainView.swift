@@ -8,11 +8,11 @@
 
 import SwiftUI
 
-struct MainView: View {
+ public struct MainView: View {
 
     // MARK: - View
 
-    var body: some View {
+    public var body: some View {
         TabView {
             // Components
             ForEach(ComponentsView.Framework.allCases, id: \.rawValue) { framework in

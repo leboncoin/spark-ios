@@ -15,7 +15,7 @@ class CheckboxConfiguration: ComponentConfiguration {
     var intent: CheckboxIntent = .random
     var alignment: CheckboxAlignment = .random
     var text = "My Checkbox"
-    var icon: Iconography? = .optionalRandom
+    var checkedIcon: Iconography = .random
     var isIndeterminate: Bool = .random()
 
     // MARK: - Initialization

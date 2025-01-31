@@ -67,7 +67,7 @@ struct PopoverConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: PopoverImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
                     values: PopoverIntent.allCases,

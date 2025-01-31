@@ -58,7 +58,7 @@ struct SliderImplementationView: ComponentImplementationViewable {
                     .frame(height: 10)
                 Text("Is Editing: \(self.isEditing)")
             }
-            .font(.footnote)
+            .demoComponentInfoBackground()
         }
     }
 }
@@ -75,7 +75,7 @@ struct SliderConfView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: SliderImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
                     values: SliderIntent.allCases,

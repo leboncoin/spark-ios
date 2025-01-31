@@ -53,7 +53,7 @@ struct RatingDisplayConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: RatingDisplayImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
                     values: RatingIntent.allCases,

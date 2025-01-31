@@ -28,12 +28,27 @@ struct TextEditorImplementationView: ComponentImplementationViewable {
     var configuration: Binding<TextEditorConfiguration>
     @State private var text: String = ""
 
+    private var textForFormField: Binding<String>? = nil // Only used by the FormField demo
+
+    // MARK: - Initialization
+
+    init(configuration: Binding<TextEditorConfiguration>) {
+        self.configuration = configuration
+        self.textForFormField = nil
+    }
+
+    // Only used by the FormField demo
+    init(configuration: Binding<TextEditorConfiguration>, textForFormField: Binding<String>) {
+        self.configuration = configuration
+        self.textForFormField = textForFormField
+    }
+
     // MARK: - View
 
     var body: some View {
         TextEditorView(
             self.configurationWrapped.placeholder,
-            text: self.$text,
+            text: self.textForFormField ?? self.$text,
             theme: self.configurationWrapped.theme.value,
             intent: self.configurationWrapped.intent
         )
@@ -55,7 +70,7 @@ struct TextEditorConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: TextEditorImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
                     values: TextEditorIntent.allCases,

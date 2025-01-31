@@ -47,7 +47,7 @@ struct TagConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: TagImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
                     values: TagIntent.allCases,
@@ -72,7 +72,7 @@ struct TagConfigurationView: ConfigurationViewable {
                 )
 
                 ToggleConfigurationView(
-                    name: "is attributed Text",
+                    name: "is attributed text",
                     isOn: self.configuration.isAttributedText
                 )
             }

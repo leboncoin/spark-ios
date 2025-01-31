@@ -28,12 +28,27 @@ struct TextFieldImplementationView: ComponentImplementationViewable {
     var configuration: Binding<TextFieldConfiguration>
     @State private var text: String = ""
 
+    private var textForFormField: Binding<String>? = nil // Only used by the FormField demo
+
+    // MARK: - Initialization
+
+    init(configuration: Binding<TextFieldConfiguration>) {
+        self.configuration = configuration
+        self.textForFormField = nil
+    }
+
+    // Only used by the FormField demo
+    init(configuration: Binding<TextFieldConfiguration>, textForFormField: Binding<String>) {
+        self.configuration = configuration
+        self.textForFormField = textForFormField
+    }
+
     // MARK: - View
 
     var body: some View {
         TextFieldView(
             LocalizedStringKey(self.configurationWrapped.placeholder),
-            text: self.$text,
+            text: self.textForFormField ?? self.$text,
             theme: self.configurationWrapped.theme.value,
             intent: self.configurationWrapped.intent,
             type: TextFieldViewTypeHelper.getType(from: self.configurationWrapped),
@@ -70,7 +85,7 @@ struct TextFieldConfigView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: TextFieldImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 TextFieldCommonConfigurationView(configuration: self.configuration)
             }
         )

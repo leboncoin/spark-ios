@@ -76,7 +76,7 @@ struct ProgressTrackerConfView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: ProgressTrackerImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
                     values: ProgressTrackerIntent.allCases,
@@ -133,43 +133,42 @@ struct ProgressTrackerConfView: ConfigurationViewable {
                     name: "is current page indicator",
                     isOn: self.configuration.isCurrentPageIndicator
                 )
-
-                Divider()
-
-                StepperConfigurationView(
-                    name: "no. of pages",
-                    value: self.configuration.numberOfPages,
-                    bounds: 2...5
-                )
-
-                ForEach(self.configuration.pages, id: \.id) { page in
-                    TextFieldConfigurationView(
-                        name: "Page \(page.id) text",
-                        text: page.text
+            },
+            otherSectionItemsView: {
+                Section("Pages") {
+                    StepperConfigurationView(
+                        name: "no. of pages",
+                        value: self.configuration.numberOfPages,
+                        bounds: 2...5
                     )
 
-                    if configuration.wrappedValue.contentType == .icon {
-                        OptionalEnumConfigurationView(
-                            name: "Page \(page.id) icon",
-                            values: Iconography.allCases,
-                            selectedValue: page.icon
+                    ForEach(self.configuration.pages, id: \.id) { page in
+                        TextFieldConfigurationView(
+                            name: "Page \(page.id) text",
+                            text: page.text
                         )
+
+                        if configuration.wrappedValue.contentType == .icon {
+                            OptionalEnumConfigurationView(
+                                name: "Page \(page.id) icon",
+                                values: Iconography.allCases,
+                                selectedValue: page.icon
+                            )
+                        }
                     }
+
+                    StepperConfigurationView(
+                        name: "current page",
+                        value: self.configuration.currentPageIndex,
+                        bounds: 0...(self.configuration.wrappedValue.numberOfPages - 1)
+                    )
+
+                    StepperConfigurationView(
+                        name: "disabled page",
+                        value: self.configuration.disabledPageIndex,
+                        bounds: -1...(self.configuration.wrappedValue.numberOfPages - 1)
+                    )
                 }
-
-                StepperConfigurationView(
-                    name: "current page",
-                    value: self.configuration.currentPageIndex,
-                    bounds: 0...(self.configuration.wrappedValue.numberOfPages - 1)
-                )
-
-                StepperConfigurationView(
-                    name: "disabled page",
-                    value: self.configuration.disabledPageIndex,
-                    bounds: -1...(self.configuration.wrappedValue.numberOfPages - 1)
-                )
-
-                Divider()
             }
         )
     }

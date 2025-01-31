@@ -62,7 +62,7 @@ struct SwitchConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: SwitchImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
                     values: SwitchIntent.allCases,
@@ -81,7 +81,7 @@ struct SwitchConfigurationView: ConfigurationViewable {
                 )
 
                 ToggleConfigurationView(
-                    name: "is attributed Text",
+                    name: "is attributed text",
                     isOn: self.configuration.isAttributedText
                 )
 

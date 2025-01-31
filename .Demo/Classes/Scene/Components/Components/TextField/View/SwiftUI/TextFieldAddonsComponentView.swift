@@ -94,7 +94,7 @@ struct TextFieldAddonsConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: TextFieldAddonsImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 TextFieldCommonConfigurationView(configuration: self.configuration)
 
                 EnumConfigurationView(

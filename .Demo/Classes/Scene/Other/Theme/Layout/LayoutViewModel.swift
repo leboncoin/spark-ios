@@ -13,7 +13,7 @@ struct LayoutViewModel {
     // MARK: - Properties
 
     func spacingItemViewModels() -> [LayoutSpacingItemViewModel] {
-        let layout = SparkTheme.shared.layout
+        let layout = DemoThemes.shared.mainTheme.value.layout
 
         return [
             .init(name: "none", value: layout.spacing.none),

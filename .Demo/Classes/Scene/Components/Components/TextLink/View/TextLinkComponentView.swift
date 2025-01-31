@@ -8,7 +8,8 @@
 
 import SwiftUI
 
-// TODO: Check to migrate sizeCategory in TextLink to dynamicTypeSize.
+// TODO: To fix :
+// Check to migrate sizeCategory in TextLink to dynamicTypeSize.
 
 // MARK: - View
 
@@ -59,7 +60,7 @@ struct TextLinkConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: TextLinkImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
                     values: TextLinkIntent.allCases,

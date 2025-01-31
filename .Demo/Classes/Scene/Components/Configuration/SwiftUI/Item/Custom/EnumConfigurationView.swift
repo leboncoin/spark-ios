@@ -45,4 +45,3 @@ struct OptionalEnumConfigurationView<Value>: View where Value: CaseIterable & Ha
         )
     }
 }
-

@@ -40,7 +40,7 @@ struct RatingInputImplementationView: ComponentImplementationViewable {
             .demoAccessibilityLabel(self.configurationWrapped)
 
             Text("Current Rating \(String(format: "%1.f", self.rating))")
-                .font(.footnote)
+                .demoComponentInfoBackground()
         }
     }
 }
@@ -57,7 +57,7 @@ struct RatingInputConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: RatingInputImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
                     values: RatingIntent.allCases,

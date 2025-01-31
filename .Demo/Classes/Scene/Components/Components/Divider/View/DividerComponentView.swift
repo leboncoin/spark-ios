@@ -12,6 +12,13 @@ import SwiftUI
 
 typealias DividerComponentView = ComponentViewable<DividerConfiguration, DividerImplementationView, DividerConfigurationView>
 
+extension DividerComponentView {
+
+    init() {
+        self.init(style: .verticalList, styles: [.alone, .verticalList])
+    }
+}
+
 // MARK: - Subview
 
 struct DividerImplementationView: ComponentImplementationViewable {
@@ -61,7 +68,7 @@ struct DividerConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: DividerImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
                     values: DividerIntent.allCases,

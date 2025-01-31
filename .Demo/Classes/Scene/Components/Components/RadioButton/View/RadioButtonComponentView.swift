@@ -26,7 +26,20 @@ struct RadioButtonImplementationView: ComponentImplementationViewable {
     // MARK: - Properties
 
     var configuration: Binding<RadioButtonConfiguration>
+    var showInfo: Bool = true
     @State private var selectedID: Int? = Bool.random() ? 1 : nil
+
+    // MARK: - Initialization
+
+    init(configuration: Binding<RadioButtonConfiguration>) {
+        self.configuration = configuration
+    }
+
+    // Only used by the FormField demo
+    init(configuration: Binding<RadioButtonConfiguration>, showInfo: Bool) {
+        self.configuration = configuration
+        self.showInfo = showInfo
+    }
 
     // MARK: - View
 
@@ -44,14 +57,16 @@ struct RadioButtonImplementationView: ComponentImplementationViewable {
             )
             .demoDisabled(self.configurationWrapped)
 
-            Group {
-                if let selectedID {
-                    Text("SelectedID: \(selectedID)")
-                } else {
-                    Text("No selection")
+            if self.showInfo {
+                Group {
+                    if let selectedID {
+                        Text("SelectedID: \(selectedID)")
+                    } else {
+                        Text("No selection")
+                    }
                 }
+                .demoComponentInfoBackground()
             }
-            .font(.footnote)
         }
     }
 }
@@ -68,7 +83,7 @@ struct RadioButtonConfView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: RadioButtonImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
                     values: RadioButtonIntent.allCases,
@@ -86,34 +101,24 @@ struct RadioButtonConfView: ConfigurationViewable {
                     values: RadioButtonGroupLayout.allCases,
                     selectedValue: self.configuration.groupLayout
                 )
-
-                Divider()
-
-                StepperConfigurationView(
-                    name: "no. of items",
-                    value: self.configuration.numberOfItems,
-                    bounds: 2...5
-                )
-
-                ForEach(self.configuration.items, id: \.id) { item in
-                    TextFieldConfigurationView(
-                        name: "Item \(item.id) text",
-                        text: item.text
+            },
+            otherSectionItemsView: {
+                Section("Items") {
+                    StepperConfigurationView(
+                        name: "no. of items",
+                        value: self.configuration.numberOfItems,
+                        bounds: 2...5
                     )
-                }
 
-                Divider()
+                    ForEach(self.configuration.items, id: \.id) { item in
+                        TextFieldConfigurationView(
+                            name: "Item \(item.id) text",
+                            text: item.text
+                        )
+                    }
+                }
             }
         )
-    }
-}
-
-// MARK: - Extension
-
-extension RadioButtonGroupLayout: @retroactive CaseIterable {
-
-    public static var allCases: [RadioButtonGroupLayout] {
-        [.horizontal, .vertical]
     }
 }
 

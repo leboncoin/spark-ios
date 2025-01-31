@@ -10,7 +10,7 @@
 struct TypographyViewModel {
 
     func itemViewModels() -> [[TypographyItemViewModel]] {
-        let typographies = SparkTheme.shared.typography
+        let typographies = DemoThemes.shared.mainTheme.value.typography
         return [
             [
                 .init(name: "display1", token: typographies.display1),

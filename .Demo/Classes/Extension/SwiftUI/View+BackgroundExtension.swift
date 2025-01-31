@@ -23,4 +23,11 @@ extension View {
             self
         }
     }
+
+    func demoComponentInfoBackground() -> some View {
+        self.font(.footnote)
+            .padding(.all, .small)
+            .background(.ultraThinMaterial)
+            .radius(.medium)
+    }
 }

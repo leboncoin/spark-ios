@@ -21,7 +21,7 @@ struct TextFieldSideView: View {
 
     // MARK: - Initialization
 
-    init(theme: Themes, sideViewContent: TextFieldSideViewContentType, side: TextFieldContentSide, isAddon: Bool = false) {
+    init(theme: DemoThemes.Theme, sideViewContent: TextFieldSideViewContentType, side: TextFieldContentSide, isAddon: Bool = false) {
         self.sideViewContent = sideViewContent
         self.theme = theme.value
         self.side = side

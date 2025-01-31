@@ -15,7 +15,7 @@ typealias BottomSheetComponentView = ComponentViewable<BottomSheetConfiguration,
 extension BottomSheetComponentView {
 
     init() {
-        self.init(style: .verticalList, styles: [.alone, .verticalList])
+        self.init(style: .verticalList, styles: [.verticalList])
     }
 }
 
@@ -99,7 +99,7 @@ struct BottomSheetConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: BottomSheetImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "content",
                     values: BottomSheetContentType.allCases,

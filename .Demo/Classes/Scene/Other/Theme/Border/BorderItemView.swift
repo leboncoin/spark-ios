@@ -16,7 +16,7 @@ struct BorderItemView: View {
 
     // MARK: - View
 
-    var theme: Theme = SparkTheme.shared
+    var theme: Theme = DemoThemes.shared.mainTheme.value
 
     var body: some View {
         VStack(alignment: .leading) {

@@ -36,6 +36,8 @@ struct ItemConfigurationView<Item: View>: View {
                 Text("\(name.capitalized)").bold()
             }
 
+            Spacer()
+
             self.item()
         }
     }

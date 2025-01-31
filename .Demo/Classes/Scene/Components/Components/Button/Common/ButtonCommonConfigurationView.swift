@@ -59,43 +59,48 @@ struct ButtonCommonConfigurationView<Configuration: ButtonConfiguration>: View {
             name: "is toggle",
             isOn: self.configuration.isToggle
         )
-
-        Divider()
-
-        ForEach(ControlState.allCases, id: \.self) { state in
-            self.content(for: state)
-        }
-
-        Divider()
     }
+}
 
-    // MARK: - Content
+// MARK: - Other Configuration View
 
-    @ViewBuilder
-    private func content(for state: ControlState) -> some View {
-        let content = switch state {
-        case .normal: self.configuration.contentNormal
-        case .highlighted: self.configuration.contentHighlighted
-        case .disabled: self.configuration.contentDisabled
-        case .selected: self.configuration.contentSelected
-        }
+struct ButtonCommonOtherConfigurationView<Configuration: ButtonConfiguration>: View {
 
-        OptionalEnumConfigurationView(
-            name: "icon (\(state) state)",
-            values: Iconography.allCases,
-            selectedValue: content.icon
-        )
+    // MARK: - Properties
 
-        if !self.isIconButton {
-            TextFieldConfigurationView(
-                name: "text (\(state) state)",
-                text: content.text
-            )
+    let configuration: Binding<Configuration>
+    let isIconButton: Bool
 
-            ToggleConfigurationView(
-                name: "is atr. text (\(state) state)",
-                isOn: content.isAttributedText
-            )
+    // MARK: - View
+
+    var body: some View {
+        ForEach(ControlState.allCases, id: \.self) { state in
+            let content = switch state {
+            case .normal: self.configuration.contentNormal
+            case .highlighted: self.configuration.contentHighlighted
+            case .disabled: self.configuration.contentDisabled
+            case .selected: self.configuration.contentSelected
+            }
+
+            Section("\(state.name) State") {
+                OptionalEnumConfigurationView(
+                    name: "icon",
+                    values: Iconography.allCases,
+                    selectedValue: content.icon
+                )
+
+                if !self.isIconButton {
+                    TextFieldConfigurationView(
+                        name: "text",
+                        text: content.text
+                    )
+
+                    ToggleConfigurationView(
+                        name: "is attributed text",
+                        isOn: content.isAttributedText
+                    )
+                }
+            }
         }
     }
 }

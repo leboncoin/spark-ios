@@ -18,7 +18,7 @@ enum ColorSectionType: CaseIterable {
     // MARK: - Properties
 
     func viewModel() -> any ColorSectionViewModelable {
-        let colors = SparkTheme.shared.colors
+        let colors = DemoThemes.shared.mainTheme.value.colors
         switch self {
         case .main:
             return ColorSectionMainViewModel(color: colors.main)

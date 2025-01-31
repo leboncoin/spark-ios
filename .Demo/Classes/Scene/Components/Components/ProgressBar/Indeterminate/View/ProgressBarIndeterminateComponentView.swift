@@ -52,7 +52,7 @@ struct ProgressBarIndeterminateConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: ProgressBarIndeterminateImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
                     values: ProgressBarIntent.allCases,

@@ -21,10 +21,13 @@ struct PickerConfigurationView<Value>: View where Value: Hashable {
     var body: some View {
         ItemConfigurationView(name: self.name) {
             Picker(self.pickerName(from: self.name), selection: self.$selectedValue) {
-                ForEach(self.values, id: \.self) { value in
+                ForEach(self.values.sorted(by: {
+                    "\($0)" < "\($1)"
+                }), id: \.self) { value in
                     self.pickerContent(from: value)
                 }
             }
+            .labelsHidden()
             .pickerStyle()
         }
     }
@@ -43,12 +46,15 @@ struct OptionalPickerConfigurationView<Value>: View where Value: Hashable {
     var body: some View {
         ItemConfigurationView(name: self.name) {
             Picker(self.pickerName(from: self.name), selection: self.$selectedValue) {
-                ForEach(self.values, id: \.self) { value in
+                ForEach(self.values.sorted(by: {
+                    "\($0)" < "\($1)"
+                }), id: \.self) { value in
                     self.pickerContent(from: value)
                 }
 
-                Text("no value").tag(nil as Value?)
+                Text("No Value").tag(nil as Value?)
             }
+            .labelsHidden()
             .pickerStyle()
         }
     }
@@ -85,8 +91,11 @@ extension PickerContent {
         switch value {
         case let icon as Iconography:
             Image(icon: icon).tag(value)
+        case let theme as DemoThemes.Theme:
+            Text(theme.name).tag(value)
         default:
-            Text("\(value.displayName)").tag(value)
+            let text = "\(value)".addSpacesBeforeCapitalLetter.capitalized
+            Text(text).tag(value)
         }
     }
 }

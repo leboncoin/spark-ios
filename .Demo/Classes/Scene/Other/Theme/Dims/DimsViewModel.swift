@@ -13,7 +13,7 @@ struct DimsViewModel {
     // MARK: - Properties
 
     func dimItemViewModels() -> [DimItemViewModel] {
-        let theme = SparkTheme.shared
+        let theme = DemoThemes.shared.mainTheme.value
 
         return [
             .init(name: "dim1", value: theme.dims.dim1),

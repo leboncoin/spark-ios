@@ -10,24 +10,12 @@ import Foundation
 
 class RadioButtonConfiguration: ComponentConfiguration {
 
-    // MARK: - Sub Model
-
-    struct Item: Identifiable {
-        let id: Int
-        var text: String
-
-        init(id: Int) {
-            self.id = id
-            self.text = "My item \(id)"
-        }
-    }
-
     // MARK: - Properties
 
     var intent: RadioButtonIntent = .random
     var labelAlignment: RadioButtonLabelAlignment = .random
     var groupLayout: RadioButtonGroupLayout = .random
-    var numberOfItems: Int = Int.random(in: 2...5) {
+    var numberOfItems: Int = Int.random(in: 2...3) {
         didSet {
             self.updateItems()
         }
@@ -44,7 +32,7 @@ class RadioButtonConfiguration: ComponentConfiguration {
         self.isEnabled.showConfiguration = true
     }
 
-    // MARK: - Getter
+    // MARK: - Update
 
     func updateItems() {
         let lastNumberOfItems = self.items.count
@@ -55,5 +43,33 @@ class RadioButtonConfiguration: ComponentConfiguration {
         } else if self.numberOfItems < lastNumberOfItems {
             self.items.removeLast()
         }
+    }
+}
+
+// MARK: - Sub Model
+
+extension RadioButtonConfiguration {
+    struct Item: Identifiable {
+
+        // MARK: - Properties
+
+        let id: Int
+        var text: String
+
+        // MARK: - Initialization
+
+        init(id: Int) {
+            self.id = id
+            self.text = "My item \(id)"
+        }
+    }
+}
+
+// MARK: - Extension
+
+extension RadioButtonGroupLayout: @retroactive CaseIterable {
+
+    public static var allCases: [RadioButtonGroupLayout] {
+        [.horizontal, .vertical]
     }
 }

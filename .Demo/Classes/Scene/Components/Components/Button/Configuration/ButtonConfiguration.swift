@@ -10,22 +10,6 @@ import Foundation
 
 class ButtonConfiguration: ComponentConfiguration {
 
-    // MARK: - Sub Model
-
-    struct Content: Identifiable {
-        let id: ControlState
-        var text: String
-        var icon: Iconography? = .optionalRandom
-        var isAttributedText: Bool = .random()
-
-        init(state: ControlState) {
-            let isNormalState = state == .normal
-            self.id = state
-            self.text = (isNormalState || Bool.random()) ? "My \(state) title" : ""
-            self.icon = isNormalState ? .random : .optionalRandom
-        }
-    }
-
     // MARK: - Properties
 
     var intent: ButtonIntent = .random
@@ -53,5 +37,28 @@ class ButtonConfiguration: ComponentConfiguration {
 
     override func isInvertedBackground() -> Bool {
         self.intent == .surface
+    }
+}
+
+// MARK: - Sub Model
+
+extension ButtonConfiguration {
+    struct Content: Identifiable {
+
+        // MARK: - Properties
+
+        let id: ControlState
+        var text: String
+        var icon: Iconography? = .optionalRandom
+        var isAttributedText: Bool = .random()
+
+        // MARK: - Initialization
+
+        init(state: ControlState) {
+            let isNormalState = state == .normal
+            self.id = state
+            self.text = (isNormalState || Bool.random()) ? "My \(state) title" : ""
+            self.icon = isNormalState ? .random : .optionalRandom
+        }
     }
 }

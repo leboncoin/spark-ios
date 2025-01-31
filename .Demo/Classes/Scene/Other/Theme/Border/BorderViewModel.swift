@@ -12,7 +12,7 @@ struct BorderViewModel {
     // MARK: - Methods
     
     func sectionViewModels() -> [BorderSectionViewModel] {
-        let border = SparkTheme.shared.border
+        let border = DemoThemes.shared.mainTheme.value.border
         return [
             .init(name: "none width",
                   itemViewModels: [

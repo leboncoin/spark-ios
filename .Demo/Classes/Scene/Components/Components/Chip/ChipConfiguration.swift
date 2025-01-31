@@ -21,7 +21,7 @@ class ChipConfiguration: ComponentConfiguration {
     var withExtraComponent: Bool = .random()
     var isSelected: Bool = .random()
 
-    var badgeConfiguration: BadgeConfiguration = .init()
+    var badgeConfiguration = BadgeConfiguration()
 
     // MARK: - Initialization
 

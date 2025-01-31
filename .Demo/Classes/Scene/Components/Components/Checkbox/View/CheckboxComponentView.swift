@@ -10,75 +10,60 @@ import SwiftUI
 
 // MARK: - View
 
-typealias ChipComponentView = ComponentViewable<ChipConfiguration, ChipImplementationView, ChipConfigurationView>
+typealias CheckboxComponentView = ComponentViewable<CheckboxConfiguration, CheckboxImplementationView, CheckboxConfigurationView>
 
 // MARK: - Subview
 
-struct ChipImplementationView: ComponentImplementationViewable {
+struct CheckboxImplementationView: ComponentImplementationViewable {
 
     // MARK: - Properties
 
-    var configuration: Binding<ChipConfiguration>
-    @State private var showAlertAction = false
+    var configuration: Binding<CheckboxConfiguration>
+    @State private var selectionState: CheckboxSelectionState = .unselected
 
     // MARK: - View
 
     var body: some View {
-        EmptyView()
-        ChipView(
-            theme: self.configurationWrapped.theme.value,
-            intent: self.configurationWrapped.intent,
-            variant: self.configurationWrapped.variant,
-            alignment: self.configurationWrapped.alignment,
-            icon: .init(icon: self.configurationWrapped.icon),
-            title: self.configurationWrapped.text,
-            action: self.configurationWrapped.withAction ? { self.showAlertAction = true} : nil
-        )
-        .component(self.configurationWrapped.withExtraComponent ? self.component() : nil)
-        .selected(self.configurationWrapped.isSelected)
-        .demoDisabled(self.configurationWrapped)
-        .demoBackground(self.configurationWrapped)
-        .demoAccessibilityLabel(self.configurationWrapped)
-        .alert("Chip Pressed", isPresented: self.$showAlertAction) {
-            Button("OK", role: .cancel) { }
-        }
-    }
+        VStack {
+            CheckboxView(
+                text: self.configurationWrapped.text,
+                checkedImage: .init(icon: self.configurationWrapped.checkedIcon),
+                alignment: self.configurationWrapped.alignment,
+                theme: self.configurationWrapped.theme.value,
+                intent: self.configurationWrapped.intent,
+                selectionState: self.configurationWrapped.isIndeterminate ? .constant(.indeterminate) : self.$selectionState
+            )
+            .demoDisabled(self.configurationWrapped)
+            .demoAccessibilityLabel(self.configurationWrapped)
 
-    private func component() -> AnyView {
-        return AnyView(
-            BadgeImplementationView(configuration: self.configuration.badgeConfiguration)
-        )
+            Text("Selection state : \(self.selectionState)")
+                .demoComponentInfoBackground()
+        }
     }
 }
 
-struct ChipConfigurationView: ConfigurationViewable {
+struct CheckboxConfigurationView: ConfigurationViewable {
 
     // MARK: - Properties
 
-    var configuration: Binding<ChipConfiguration>
+    var configuration: Binding<CheckboxConfiguration>
 
     // MARK: - View
 
     var body: some View {
         ComponentConfigurationView(
             configuration: self.configuration,
-            componentViewType: ChipImplementationView.self,
-            itemsView: {
+            componentViewType: CheckboxImplementationView.self,
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "intent",
-                    values: ChipIntent.allCases,
+                    values: CheckboxIntent.allCases,
                     selectedValue: self.configuration.intent
                 )
 
                 EnumConfigurationView(
-                    name: "variant",
-                    values: ChipVariant.allCases,
-                    selectedValue: self.configuration.variant
-                )
-
-                EnumConfigurationView(
                     name: "alignment",
-                    values: ChipAlignment.allCases,
+                    values: CheckboxAlignment.allCases,
                     selectedValue: self.configuration.alignment
                 )
 
@@ -87,25 +72,15 @@ struct ChipConfigurationView: ConfigurationViewable {
                     text: self.configuration.text
                 )
 
-                OptionalEnumConfigurationView(
-                    name: "icon",
+                EnumConfigurationView(
+                    name: "checked icon",
                     values: Iconography.allCases,
-                    selectedValue: self.configuration.icon
+                    selectedValue: self.configuration.checkedIcon
                 )
 
                 ToggleConfigurationView(
-                    name: "with action",
-                    isOn: self.configuration.withAction
-                )
-
-                ToggleConfigurationView(
-                    name: "with extra component (badge)",
-                    isOn: self.configuration.withExtraComponent
-                )
-
-                ToggleConfigurationView(
-                    name: "is selected",
-                    isOn: self.configuration.isSelected
+                    name: "is indeterminate",
+                    isOn: self.configuration.isIndeterminate
                 )
             }
         )
@@ -114,8 +89,8 @@ struct ChipConfigurationView: ConfigurationViewable {
 
 // MARK: - Preview
 
-struct ChipComponentView_Previews: PreviewProvider {
+struct CheckboxComponentView_Previews: PreviewProvider {
     static var previews: some View {
-        ChipComponentView()
+        CheckboxComponentView()
     }
 }

@@ -12,7 +12,7 @@ struct DropShadowView: View {
 
     private let viewModel = DropShadowViewModel()
 
-    var theme: Theme = SparkTheme.shared
+    var theme: Theme = DemoThemes.shared.mainTheme.value
 
     var body: some View {
         ForEach(viewModel.itemViewModels(for: self.theme), id: \.id) { itemViewModel in

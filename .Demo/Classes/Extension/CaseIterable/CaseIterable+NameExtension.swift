@@ -10,12 +10,6 @@ import Foundation
 
 extension CaseIterable {
     var name: String {
-        "\(self)".capitalizingFirstLetter
-    }
-}
-
-private extension String {
-    var capitalizingFirstLetter: String {
-        self.prefix(1).uppercased() + self.dropFirst()
+        "\(self)".addSpacesBeforeCapitalLetter.capitalized
     }
 }

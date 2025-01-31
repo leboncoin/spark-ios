@@ -8,7 +8,8 @@
 
 import SwiftUI
 
-// TODO: not working when .snackbar is on child view
+// TODO: To fix :
+// not working when .snackbar is on child view
 
 // MARK: - View
 
@@ -47,7 +48,7 @@ struct SnackbarPresentationImplementationView: ComponentImplementationViewable {
             autoDismissDelay: self.configurationWrapped.autoDismissDelay,
             snackbar: {
                 SnackbarView(
-                    theme: SparkTheme.shared,
+                    theme: DemoThemes.shared.mainTheme.value,
                     intent: .basic,
                     image: .init(icon: .infoOutline)) {
                         Text("This is a snackbar")
@@ -83,7 +84,7 @@ struct SnackbarPresentationConfigurationView: ConfigurationViewable {
         ComponentConfigurationView(
             configuration: self.configuration,
             componentViewType: SnackbarPresentationImplementationView.self,
-            itemsView: {
+            mainItemsView: {
                 EnumConfigurationView(
                     name: "direction",
                     values: SnackbarPresentationDirection.allCases,

@@ -12,7 +12,7 @@ extension String {
 
     var demoAttributedString: AttributedString {
         var attributedText = AttributedString(self)
-        attributedText.font = SparkTheme.shared.typography.body2.font
+        attributedText.font = DemoThemes.shared.mainTheme.value.typography.body2.font
         attributedText.foregroundColor = .red
         attributedText.backgroundColor = .gray
         return attributedText

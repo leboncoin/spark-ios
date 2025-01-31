@@ -8,10 +8,13 @@
 
 import SwiftUI
 
+// TODO: rajouter OtherAccessibilityItemsView: View
+
 struct ComponentConfigurationView<
     Configuration: ComponentConfiguration,
     ComponentView: ComponentImplementationViewable<Configuration>,
-    ConfigurationItemsView: View
+    ConfigurationItemsView: View,
+    OtherConfigurationItemsView: View
 >: View {
 
     // MARK: - Properties
@@ -21,84 +24,87 @@ struct ComponentConfigurationView<
     @State private var dynamicTypeSize = DynamicTypeSize.large
     @State private var colorScheme: ColorScheme = .light
 
-    var itemsView: () -> ConfigurationItemsView
+    var mainItemsView: () -> ConfigurationItemsView
+    var otherSectionItemsView: (() -> OtherConfigurationItemsView)?
 
     // MARK: - Initialization
 
     init(
         configuration: Binding<Configuration>,
         componentViewType: ComponentView.Type,
-        @ViewBuilder itemsView: @escaping () -> ConfigurationItemsView
+        @ViewBuilder mainItemsView: @escaping () -> ConfigurationItemsView
+    ) where OtherConfigurationItemsView == EmptyView {
+        self._configuration = configuration
+        self.mainItemsView = mainItemsView
+    }
+
+    init(
+        configuration: Binding<Configuration>,
+        componentViewType: ComponentView.Type,
+        @ViewBuilder mainItemsView: @escaping () -> ConfigurationItemsView,
+        @ViewBuilder otherSectionItemsView: @escaping () -> OtherConfigurationItemsView
     ) {
         self._configuration = configuration
-        self.itemsView = itemsView
+        self.mainItemsView = mainItemsView
+        self.otherSectionItemsView = otherSectionItemsView
     }
 
     // MARK: - View
 
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading, spacing: .large) {
+            VStack(alignment: .leading, spacing: .medium) {
 
+                // Component
                 ComponentView(configuration: self.$configuration)
                     .dynamicTypeSize(self.dynamicTypeSize)
                     .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, .xLarge)
 
-                VStack(alignment: .leading, spacing: .medium) {
-                    Text("Configuration")
-                        .font(.title2)
-                        .bold()
+                List {
+                    // *****
+                    // Component properties
+                    Section("Properties") {
+                        ThemeConfigurationView(
+                            name: "theme",
+                            values: DemoThemes.shared.themes,
+                            selectedValue: self.$configuration.theme
+                        )
 
-                    ScrollView {
-                        VStack(alignment: .center, spacing: .xxLarge) {
+                        self.mainItemsView()
 
-                            VStack(alignment: .leading, spacing: .small) {
-                                // *****
-                                // Component properties
-                                EnumConfigurationView(
-                                    name: "theme",
-                                    values: Themes.allCases,
-                                    selectedValue: self.$configuration.theme
-                                )
-
-                                self.itemsView()
-
-                                if self.configuration.isEnabled.showConfiguration {
-                                    ToggleConfigurationView(
-                                        name: "is enabled",
-                                        isOn: self.$configuration.isEnabled.value
-                                    )
-                                }
-
-                                // *****
-
-                                // Accessibility properties
-                                self.createAccessibilityProperties()
-
-                                // Size properties
-                                self.createSizeProperties()
-
-                                Divider()
-
-                                // Settings properties (just for sheet)
-                                self.createSettingsProperties()
-                            }
-
-                            Button("Dismiss") {
-                                self.dismiss()
-                            }
-
-                            Spacer()
+                        if self.configuration.isEnabled.showConfiguration {
+                            ToggleConfigurationView(
+                                name: "is enabled",
+                                isOn: self.$configuration.isEnabled.value
+                            )
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding(.bottom, .large)
                     }
-                    .scrollIndicators(.hidden)
+
+                    self.otherSectionItemsView?()
+                    // *****
+
+                    // Accessibility properties
+                    self.createAccessibilitySection()
+
+                    // Size properties
+                    self.createSizeSection()
+
+                    // Settings properties (just for sheet)
+                    self.createGlobalSettingsSection()
+
+                    Section {
+                        Button("Dismiss") {
+                            self.dismiss()
+                        }
+                    }
                 }
+                .listStyle(.automatic)
+                .scrollIndicators(.hidden)
             }
             .padding(.top, .large)
-            .padding(.horizontal, .medium)
             .frame(maxWidth: .infinity)
+            .background(Color(.systemGroupedBackground))
             .preferredColorScheme(self.colorScheme)
         }
     }
@@ -106,66 +112,64 @@ struct ComponentConfigurationView<
     // MARK: - Builder
 
     @ViewBuilder
-    func createAccessibilityProperties() -> some View {
+    func createAccessibilitySection() -> some View {
         let isAccessibilityLabel = self.configuration.accessibilityLabel.showConfiguration
         let isAccessibilityValue = self.configuration.accessibilityValue.showConfiguration
 
         if isAccessibilityLabel || isAccessibilityValue {
-            Divider()
-        }
+            Section("Accessibility") {
+                if isAccessibilityLabel {
+                    TextFieldConfigurationView(
+                        name: "Label",
+                        text: self.$configuration.accessibilityLabel.value
+                    )
+                }
 
-        if self.configuration.accessibilityLabel.showConfiguration {
-            TextFieldConfigurationView(
-                name: "Accessibility Label",
-                text: self.$configuration.accessibilityLabel.value
-            )
-        }
-
-        if self.configuration.accessibilityValue.showConfiguration {
-            TextFieldConfigurationView(
-                name: "Accessibility Value",
-                text: self.$configuration.accessibilityValue.value
-            )
+                if isAccessibilityValue {
+                    TextFieldConfigurationView(
+                        name: "Value",
+                        text: self.$configuration.accessibilityValue.value
+                    )
+                }
+            }
         }
     }
 
     @ViewBuilder
-    func createSizeProperties() -> some View {
+    func createSizeSection() -> some View {
         let configurations = [
             self.$configuration.width,
             self.$configuration.height
         ]
 
         if configurations.contains(where: { $0.showConfiguration.wrappedValue }) {
-            Divider()
-        }
+            ForEach(configurations, id: \.id) { $item in
+                if item.showConfiguration {
+                    Section(item.name) {
+                        TextFieldConfigurationView(
+                            name: item.name,
+                            text: $item.text,
+                            keyboardType: .numberPad
+                        )
 
-        ForEach(configurations, id: \.id) { $item in
-            if item.showConfiguration {
-                HStack {
-                    TextFieldConfigurationView(
-                        name: item.name,
-                        text: $item.text,
-                        keyboardType: .numberPad
-                    )
-
-                    VStack {
-
-                        TextField(
-                            name: "Min",
+                        TextFieldConfigurationView(
+                            name: "min",
                             text: $item.minText,
                             keyboardType: .numberPad
                         )
 
                         HStack {
-                            TextField(
-                                name: "Max",
+                            TextFieldConfigurationView(
+                                name: "max",
                                 text: $item.maxText,
                                 keyboardType: .numberPad
                             )
-                            
+
+                            Divider()
+                                .frame(height: 16)
+
                             ToggleConfigurationView(
-                                name: "∞",
+                                name: "is ∞",
                                 isOn: $item.infinite
                             )
                         }
@@ -176,8 +180,10 @@ struct ComponentConfigurationView<
     }
 
     @ViewBuilder
-    func createSettingsProperties() -> some View {
-        DynamicTypeConfigurationView(selectedValue: self.$dynamicTypeSize)
-        ColorSchemeConfigurationView(selectedValue: self.$colorScheme)
+    func createGlobalSettingsSection() -> some View {
+        Section("Global Settings") {
+            DynamicTypeConfigurationView(selectedValue: self.$dynamicTypeSize)
+            ColorSchemeConfigurationView(selectedValue: self.$colorScheme)
+        }
     }
 }
