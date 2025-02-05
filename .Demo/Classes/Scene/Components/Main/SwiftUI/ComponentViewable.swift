@@ -8,29 +8,6 @@
 
 import SwiftUI
 
-// MARK: - Protocols
-
-protocol ComponentImplementationViewable<C>: View {
-    associatedtype C: ComponentConfiguration
-    var configuration: Binding<C> { get set }
-
-    init(configuration: Binding<C>)
-}
-
-extension ComponentImplementationViewable {
-
-    var configurationWrapped: C {
-        self.configuration.wrappedValue
-    }
-}
-
-protocol ConfigurationViewable<C>: View {
-    associatedtype C: ComponentConfiguration
-    var configuration: Binding<C> { get set }
-    
-    init(configuration: Binding<C>)
-}
-
 // MARK: - Implementation
 
 struct ComponentViewable<

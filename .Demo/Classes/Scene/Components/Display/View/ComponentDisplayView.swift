@@ -8,9 +8,6 @@
 
 import SwiftUI
 
-// TODO: To fix :
-// bug on horizontalContent, the width is incorrect
-
 struct ComponentDisplayView<ComponentView: View, ConfigurationView: View, Configuration: ComponentConfiguration>: View {
 
     // MARK: - Properties

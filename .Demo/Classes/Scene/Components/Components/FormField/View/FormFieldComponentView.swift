@@ -113,28 +113,30 @@ struct FormFieldConfigurationView: ConfigurationViewable {
                     selectedValue: self.configuration.componentType
                 )
             },
-            otherSectionItemsView: {
-                Section("Accessibility") {
-                    TextFieldConfigurationView(
-                        name: "title accessibility label",
-                        text: self.configuration.titleAccessibilityLabel
-                    )
+            otherAccessibilityItemsView: {
+                TextFieldConfigurationView(
+                    name: "title accessibility label",
+                    text: self.configuration.titleAccessibilityLabel,
+                    orientation: .vertical
+                )
 
-                    TextFieldConfigurationView(
-                        name: "helper accessibility label",
-                        text: self.configuration.helperAccessibilityLabel
-                    )
+                TextFieldConfigurationView(
+                    name: "helper accessibility label",
+                    text: self.configuration.helperAccessibilityLabel,
+                    orientation: .vertical
+                )
 
-                    TextFieldConfigurationView(
-                        name: "secondary helper accessibility label",
-                        text: self.configuration.secondaryHelperAccessibilityLabel
-                    )
+                TextFieldConfigurationView(
+                    name: "secondary helper accessibility label",
+                    text: self.configuration.secondaryHelperAccessibilityLabel,
+                    orientation: .vertical
+                )
 
-                    TextFieldConfigurationView(
-                        name: "secondary helper accessibility value",
-                        text: self.configuration.secondaryHelperAccessibilityValue
-                    )
-                }
+                TextFieldConfigurationView(
+                    name: "secondary helper accessibility value",
+                    text: self.configuration.secondaryHelperAccessibilityValue,
+                    orientation: .vertical
+                )
             }
         )
     }

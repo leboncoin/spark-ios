@@ -16,6 +16,7 @@ struct TextFieldConfigurationView: View {
     let placeholder: String?
     let text: Binding<String>
     let keyboardType: UIKeyboardType
+    let orientation: Orientation
 
     @FocusState private var focusedField: Bool
 
@@ -25,18 +26,24 @@ struct TextFieldConfigurationView: View {
         name: String,
         placeholder: String? = nil,
         text: Binding<String>,
-        keyboardType: UIKeyboardType = .default
+        keyboardType: UIKeyboardType = .default,
+        orientation: Orientation = .horizontal
     ) {
         self.name = name
         self.placeholder = placeholder
         self.text = text
         self.keyboardType = keyboardType
+        self.orientation = orientation
     }
 
     // MARK: - View
 
     var body: some View {
-        ItemConfigurationView(name: self.name, spacing: .small) {
+        ItemConfigurationView(
+            name: self.name,
+            spacing: .small,
+            orientation: self.orientation
+        ) {
             TextField(
                 name: self.name,
                 placeholder: self.placeholder,
@@ -75,7 +82,7 @@ struct TextField: View {
     // MARK: - View
 
     var body: some View {
-        SwiftUI.TextField(self.placeholder ?? self.name, text: self.text)
+        SwiftUI.TextField((self.placeholder ?? self.name).capitalized, text: self.text)
             .padding(.vertical, .xSmall)
             .padding(.horizontal, .small)
             .background(.regularMaterial)
