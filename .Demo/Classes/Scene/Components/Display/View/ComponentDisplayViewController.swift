@@ -1,38 +1,48 @@
 //
-//  ComponentDisplayViewController.swift
+//  ComponentDisplayViewControllerRepresentable.swift
 //  SparkDemo
 //
-//  Created by robin.lemaire on 03/02/2025.
+//  Created by robin.lemaire on 05/02/2025.
 //  Copyright © 2025 Adevinta. All rights reserved.
 //
 
-/*
 import SwiftUI
 
 // MARK: - Representable
 
-struct ComponentDisplayViewControllerRepresentable: UIViewControllerRepresentable {
+struct ComponentDisplayViewControllerRepresentable<
+    Configuration: ComponentConfiguration,
+    ComponentView: UIView,
+    ConfigurationView: ConfigurationUIViewable<Configuration, ComponentView>,
+    ComponentViewMaker: ComponentUIViewMaker<ComponentView, Configuration, ConfigurationView>
+>: UIViewControllerRepresentable {
+    typealias UIViewControllerType = ComponentDisplayViewController<ComponentView, Configuration, ConfigurationView, ComponentViewMaker>
 
     // MARK: - View
 
-    func makeUIViewController(context: Context) -> ComponentDisplayViewController {
+    func makeUIViewController(context: Context) -> UIViewControllerType {
         .init()
     }
 
-    func updateUIViewController(_ uiViewController: ComponentDisplayViewController, context: Context) {
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
     }
 }
 
 // MARK: - View Controller
 
-class ComponentDisplayViewController: UIViewController {
+class ComponentDisplayViewController<
+    ComponentView: UIView,
+    Configuration: ComponentConfiguration,
+    ConfigurationView: ConfigurationUIViewable<Configuration, ComponentView>,
+    ComponentViewMaker: ComponentUIViewMaker<ComponentView, Configuration, ConfigurationView>
+>: UIViewController {
 
     // MARK: - Components
 
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             self.button,
-            self.tagContentStackView,
+            self.componentContentStackView,
             UIView()
         ])
         stackView.axis = .vertical
@@ -46,13 +56,13 @@ class ComponentDisplayViewController: UIViewController {
         button.setTitle("Title", for: .normal)
         button.setTitleColor(.blue, for: .normal)
         button.addAction(.init(handler: { [weak self] _ in
-            self?.presentSwiftUIView()
+            self?.presentConfigurationView()
         }), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
-    private lazy var tagContentStackView: UIStackView = {
+    private lazy var componentContentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             self.tagView,
             UIView()
@@ -61,15 +71,15 @@ class ComponentDisplayViewController: UIViewController {
         return stackView
     }()
 
-    private lazy var tagView: TagImplementationUIView = self.createComponent()
+    private lazy var tagView: ComponentImplementationUIView = self.createComponentImplementation(for: .display)
 
     // MARK: - Properties
 
-    var configuration: TagConfiguration = .init()
+    var configuration: Configuration = .init()
 
-    var configurationTagView: TagImplementationUIView?
+    var presentedComponentImpl: ComponentImplementationUIView<ComponentView, Configuration>?
 
-    lazy var _configuration: Binding<TagConfiguration> = .init {
+    lazy var _configuration: Binding<Configuration> = .init {
             self.configuration
         } set: { configuration in
             self.configuration = configuration
@@ -113,280 +123,54 @@ class ComponentDisplayViewController: UIViewController {
 
     // MARK: - Create
 
-    private func createComponent() -> TagImplementationUIView {
-        let tagView = TagImplementationUIView(
-            configuration: self.configuration,
-            contextType: .display,
-            fullWidth: true
+    private func createComponentImplementation(
+        for context: ComponentContextType
+    ) -> ComponentImplementationUIView<ComponentView, Configuration> {
+        ComponentViewMaker.createComponentImplementationView(
+            from: self.configuration,
+            context: context
         )
-        tagView.translatesAutoresizingMaskIntoConstraints = false
-        return tagView
     }
 
     // MARK: - Reload
 
     private func reloadComponent() {
-        self.tagView.componentView.intent = self.configuration.intent
+        ComponentViewMaker.updateComponentView(
+            self.tagView.componentView,
+            from: self.configuration
+        )
 
-        self.configurationTagView?.componentView.intent = self.configuration.intent
+        if let presentedComponentImpl {
+            ComponentViewMaker.updateComponentView(
+                presentedComponentImpl.componentView,
+                from: self.configuration
+            )
+        }
     }
 
     // MARK: - Actions
 
-    func presentSwiftUIView() {
-        let component = self.createComponent()
+    private func presentConfigurationView() {
+        let implementationView = self.createComponentImplementation(for: .configuration)
 
-        let tagViewRepresentable = TagImplementationUIViewRepresentable(
+        let representableView: ComponentImplementationUIViewRepresentable = .init(
             configuration: self._configuration,
-            component: component
+            componentImplementationView: implementationView
         )
 
-        let configurationView = TagConfiguration2View(
+//        let configurationView: ComponentViewMaker.ConfigurationView? = ComponentViewMaker.createConfigurationView(
+//            from: self._configuration,
+//            componentImplementationRepresentable: representableView
+//        )
+
+        let configurationView = ConfigurationView(
             configuration: self._configuration,
-            implementationView: tagViewRepresentable
+            uiKitComponentImplementationView: representableView
         )
+
         let hostingController = UIHostingController(rootView: configurationView)
-        self.configurationTagView = component
 
         self.present(hostingController, animated: true)
+        self.presentedComponentImpl = implementationView
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-struct TagConfiguration2View: ConfigurationViewable {
-
-    // MARK: - Properties
-
-    var configuration: Binding<TagConfiguration>
-    private var implementationView: TagImplementationUIViewRepresentable! // TODO: remove force unwrap
-
-    // MARK: - Initialization
-
-    init(configuration: Binding<TagConfiguration>) {
-        self.configuration = configuration
-    }
-
-    init(configuration: Binding<TagConfiguration>, implementationView: TagImplementationUIViewRepresentable) { // TODO: replace by reprensetableView
-        self.configuration = configuration
-        self.implementationView = implementationView
-    }
-
-    // MARK: - View
-
-    var body: some View {
-        ComponentConfigurationView(
-            configuration: self.configuration,
-            componentView: self.implementationView,
-            mainItemsView: {
-                EnumConfigurationView(
-                    name: "intent",
-                    values: TagIntent.allCases,
-                    selectedValue: self.configuration.intent
-                )
-
-                EnumConfigurationView(
-                    name: "variant",
-                    values: TagVariant.allCases,
-                    selectedValue: self.configuration.variant
-                )
-
-                OptionalEnumConfigurationView(
-                    name: "icon",
-                    values: Iconography.allCases,
-                    selectedValue: self.configuration.icon
-                )
-
-                TextFieldConfigurationView(
-                    name: "text",
-                    text: self.configuration.text
-                )
-
-                ToggleConfigurationView(
-                    name: "is attributed text",
-                    isOn: self.configuration.isAttributedText
-                )
-            }
-        )
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-struct TagImplementationUIViewRepresentable: UIViewRepresentable, ComponentImplementationViewable {
-
-    var configuration: Binding<TagConfiguration>
-    var component: TagImplementationUIView? // TODO: remove force unwrap and optional
-
-    init(configuration: Binding<TagConfiguration>) {
-        self.configuration = configuration
-    }
-
-    init(configuration: Binding<TagConfiguration>, component: TagImplementationUIView) {
-        self.configuration = configuration
-        self.component = component
-    }
-
-    func makeUIView(context: Context) -> TagImplementationUIView {
-        self.component!.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        self.component!.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        return self.component!
-    }
-
-    func updateUIView(_ uiView: TagImplementationUIView, context: Context) {
-        uiView.invalidateIntrinsicContentSize()
-        print("LOGROB upadte view \(configuration.intent)")
-    }
-}
-
-final class TagImplementationUIView: UIView {
-
-    // MARK: - Components
-
-    lazy var componentView: TagUIView = {
-        let view = TagUIView(
-            theme: DemoThemes.shared.mainTheme.value,
-            intent: self.configuration.intent,
-            variant: self.configuration.variant,
-//            iconImage: .init(icon: self.configuration.icon),
-//            text: "My Tag ^pao o ek  gzioj  vapi ou rgize rgnqsdpuihzauerh gpu r"
-            text: self.configuration.text
-        )
-
-//        let view = TextFieldUIView(
-//            theme: DemoThemes.shared.mainTheme.value,
-//            intent: .neutral
-//        )
-//        view.placeholder = "My placeholder"
-
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    // MARK: - Properties
-
-    var configuration: TagConfiguration
-    let contextType: ComponentContextType
-    let fullWidth: Bool
-
-    private var widthLayoutConstraint: NSLayoutConstraint?
-    private var trailingLayoutConstraint: NSLayoutConstraint?
-
-    // MARK: - Initializer
-
-    init(configuration: TagConfiguration, contextType: ComponentContextType, fullWidth: Bool = false) {
-        self.configuration = configuration
-        self.contextType = contextType
-        self.fullWidth = fullWidth
-        super.init(frame: .zero)
-
-        self.setupView()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    // MARK: - Setup
-
-    private func setupView() {
-        // Properties
-        self.backgroundColor = .clear
-        self.backgroundColor = .blue
-
-        // Subviews
-        self.addSubview(self.componentView)
-
-        // Add constraints
-        self.setupConstraints()
-    }
-
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            self.componentView.topAnchor.constraint(equalTo: self.topAnchor),
-            self.componentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.componentView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        ])
-
-        // Constraints
-        self.widthLayoutConstraint = self.componentView.widthAnchor.constraint(equalToConstant: 1)
-        self.widthLayoutConstraint?.isActive = false
-
-        self.trailingLayoutConstraint = self.componentView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-        self.trailingLayoutConstraint?.isActive = false
-    }
-
-    // MARK: - Layout
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        guard self.frame.width > 0 else {
-            return
-        }
-
-        if self.fullWidth || self.componentView.frame.size.width >= self.frame.width {
-            self.widthLayoutConstraint?.constant = self.frame.width
-            self.widthLayoutConstraint?.isActive = true
-            self.trailingLayoutConstraint?.isActive = false
-
-        } else {
-            switch self.contextType {
-            case .display:
-                self.widthLayoutConstraint?.isActive = false
-                self.trailingLayoutConstraint?.isActive = false
-
-            case .configuration:
-                self.widthLayoutConstraint?.isActive = false
-                self.trailingLayoutConstraint?.isActive = true
-            }
-        }
-    }
-
-    // MARK: - Intrinsic Content Size
-
-    override var intrinsicContentSize: CGSize {
-        return .init(width: -1, height: self.componentView.frame.height)
-    }
-}
-*/

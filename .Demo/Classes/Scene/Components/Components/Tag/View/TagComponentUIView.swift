@@ -11,11 +11,11 @@ import SwiftUI
 
 // MARK: - View Controller
 
-typealias TagComponentUIViewController = ComponentDisplayViewControllerRepresentable<TagConfiguration, TagUIView, TagComponentUIViewMaker>
+typealias TagComponentUIViewController = ComponentDisplayViewControllerRepresentable<TagConfiguration, TagUIView, TagConfigurationView, TagComponentUIViewMaker>
 
 // MARK: - View Maker
 
-class TagComponentUIViewMaker: ComponentUIViewMaker {
+final class TagComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Type Alias
 
@@ -24,21 +24,22 @@ class TagComponentUIViewMaker: ComponentUIViewMaker {
     typealias ConfigurationView = TagConfigurationView
     typealias ComponentImplementationView = ComponentImplementationUIView<ComponentView, Configuration>
 
-    // MARK: - Name
-
-    static var fullWidth: Bool {
-        false
-    }
-
     // MARK: - Methods
 
-    static func createComponentView(from configuration: Configuration) -> ComponentView {
+    static func createComponentImplementationView(from configuration: Configuration, context: ComponentContextType) -> ComponentImplementationUIView<ComponentView, Configuration> {
         // TODO: manage all case
-        return .init(
+        let componentView = ComponentView(
             theme: configuration.theme.value,
             intent: configuration.intent,
             variant: configuration.variant,
             text: configuration.text
+        )
+
+        return .init(
+            configuration: configuration,
+            componentView: componentView,
+            contextType: context,
+            fullWidth: false
         )
     }
 
@@ -49,6 +50,7 @@ class TagComponentUIViewMaker: ComponentUIViewMaker {
 
     // TODO: voir pour mettre un nouvelle init dans le ConfigurationViewable car le code sera le même pour tous les composent UIKit
     static func createConfigurationView(from configuration: Binding<Configuration>, componentImplementationRepresentable: ComponentImplementationUIViewRepresentable<ComponentView, Configuration>) -> ConfigurationView {
+
         ConfigurationView(
             configuration: configuration,
             uiKitComponentImplementationView: componentImplementationRepresentable

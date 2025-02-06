@@ -20,7 +20,7 @@ struct ComponentImplementationUIViewRepresentable<
     // MARK: - Properties
 
     var configuration: Binding<Configuration>
-    var component: UIViewType
+    var componentImplementationView: UIViewType
 
     // MARK: - Initialization
 
@@ -29,17 +29,17 @@ struct ComponentImplementationUIViewRepresentable<
         fatalError("Init without component is not authorized")
     }
 
-    init(configuration: Binding<Configuration>, component: UIViewType) {
+    init(configuration: Binding<Configuration>, componentImplementationView: UIViewType) {
         self.configuration = configuration
-        self.component = component
+        self.componentImplementationView = componentImplementationView
     }
 
     // MARK: - Make View
 
     func makeUIView(context: Context) -> UIViewType {
-        self.component.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        self.component.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        return self.component
+        self.componentImplementationView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        self.componentImplementationView.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        return self.componentImplementationView
     }
 
     func updateUIView(_ uiView: UIViewType, context: Context) {

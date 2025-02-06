@@ -9,15 +9,28 @@
 import UIKit
 import SwiftUI
 
-protocol ComponentUIViewMaker<ComponentView, Configuration> {
+protocol ComponentUIViewMaker<ComponentView, Configuration, ConfigurationView> {
+
+    // MARK: - Type Alias
+
     associatedtype Configuration: ComponentConfiguration
     associatedtype ComponentView: UIView
     associatedtype ConfigurationView: ConfigurationViewable
 
-    static var fullWidth: Bool { get }
+    // MARK: - Static Methods
 
-    static func createComponentView(from configuration: Configuration) -> ComponentView
-    static func updateComponentView(_ componentView: ComponentView, from configuration: Configuration)
+    static func createComponentImplementationView(
+        from configuration: Configuration,
+        context: ComponentContextType
+    ) -> ComponentImplementationUIView<ComponentView, Configuration>
 
-    static func createConfigurationView(from configuration: Binding<Configuration>, componentImplementationRepresentable: ComponentImplementationUIViewRepresentable<ComponentView, Configuration>) -> ConfigurationView
+    static func updateComponentView(
+        _ componentView: ComponentView,
+        from configuration: Configuration
+    )
+
+    static func createConfigurationView(
+        from configuration: Binding<Configuration>,
+        componentImplementationRepresentable: ComponentImplementationUIViewRepresentable<ComponentView, Configuration>
+    ) -> ConfigurationView
 }

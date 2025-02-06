@@ -8,7 +8,15 @@
 
 import SwiftUI
 
-struct TagConfigurationView: ConfigurationViewable {
+protocol ConfigurationUIViewable<Configuration, ComponentUIView>: View {
+    associatedtype Configuration: ComponentConfiguration
+    associatedtype ComponentUIView: UIView
+
+    init(configuration: Binding<Configuration>, uiKitComponentImplementationView: ComponentImplementationUIViewRepresentable<ComponentUIView, Configuration>)
+}
+
+struct TagConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
+    typealias ComponentUIView = TagUIView
 
     // MARK: - Properties
 
