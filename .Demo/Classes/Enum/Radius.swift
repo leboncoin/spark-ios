@@ -39,3 +39,12 @@ struct RadiusViewModifier: ViewModifier {
         content.clipShape(.rect(cornerRadius: self.radius.rawValue))
     }
 }
+
+// MARK: - CGFloat Extension
+
+extension CGFloat {
+
+    init(radius: Radius) {
+        self.init(radius.rawValue)
+    }
+}

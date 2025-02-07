@@ -59,11 +59,21 @@ final class ComponentImplementationUIView<
 
     // MARK: - Components
 
+    private lazy var contentStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            self.componentView,
+            UIView()
+        ])
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
     private(set) var componentView: ComponentView
 
     // MARK: - Properties
 
-    private var configuration: Configuration
+    private(set) var configuration: Configuration
     private let contextType: ComponentContextType
     private let fullWidth: Bool
 
@@ -98,7 +108,7 @@ final class ComponentImplementationUIView<
         self.backgroundColor = .clear
 
         // Subviews
-        self.addSubview(self.componentView)
+        self.addSubview(self.contentStackView)
 
         // Add constraints
         self.setupConstraints()
@@ -108,16 +118,20 @@ final class ComponentImplementationUIView<
         self.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            self.componentView.topAnchor.constraint(equalTo: self.topAnchor),
-            self.componentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.componentView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            self.contentStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.contentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.contentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
 
+        if self.fullWidth {
+            self.componentView.widthAnchor.constraint(equalTo: self.contentStackView.widthAnchor).isActive = true
+        }
+
         // Constraints
-        self.widthLayoutConstraint = self.componentView.widthAnchor.constraint(equalToConstant: 1)
+        self.widthLayoutConstraint = self.contentStackView.widthAnchor.constraint(equalToConstant: 1)
         self.widthLayoutConstraint?.isActive = false
 
-        self.trailingLayoutConstraint = self.componentView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        self.trailingLayoutConstraint = self.contentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         self.trailingLayoutConstraint?.isActive = false
     }
 
@@ -125,12 +139,24 @@ final class ComponentImplementationUIView<
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        self.reloadConstraints()
+    }
 
+    override func setNeedsLayout() {
+        super.setNeedsLayout()
+
+        self.reloadConstraints()
+    }
+
+    // MARK: - Constraints
+
+    private func reloadConstraints() {
         guard self.frame.width > 0 else {
             return
         }
 
-        if self.fullWidth || self.componentView.frame.size.width >= self.frame.width {
+        if self.fullWidth || self.contentStackView.frame.size.width >= self.frame.width {
             self.widthLayoutConstraint?.constant = self.frame.width
             self.widthLayoutConstraint?.isActive = true
             self.trailingLayoutConstraint?.isActive = false

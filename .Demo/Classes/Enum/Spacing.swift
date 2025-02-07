@@ -50,3 +50,13 @@ extension HStack where Content: View {
         )
     }
 }
+
+// MARK: - CGFloat Extension
+
+extension CGFloat {
+
+    init(spacing: Spacing) {
+        self.init(spacing.rawValue)
+    }
+}
+

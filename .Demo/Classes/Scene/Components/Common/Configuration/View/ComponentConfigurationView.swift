@@ -21,7 +21,7 @@ struct ComponentConfigurationView<
     @Environment(\.dismiss) var dismiss
     @Binding private var configuration: Configuration
     @State private var dynamicTypeSize = DynamicTypeSize.large
-    @State private var colorScheme: ColorScheme = .light
+    @State var colorScheme: ColorScheme = .light
 
     private var mainItemsView: () -> ConfigurationItemsView
     private var otherSectionItemsView: (() -> OtherConfigurationItemsView)?
@@ -134,7 +134,6 @@ struct ComponentConfigurationView<
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: .medium) {
-
                 // Component
                 self.componentView
                     .dynamicTypeSize(self.dynamicTypeSize)
@@ -185,7 +184,7 @@ struct ComponentConfigurationView<
             .padding(.top, .large)
             .frame(maxWidth: .infinity)
             .background(Color(.systemGroupedBackground))
-            .preferredColorScheme(self.colorScheme)
+            .environment(\.colorScheme, self.colorScheme)
         }
     }
 

@@ -186,7 +186,7 @@ struct ComponentDisplayView<ComponentView: View, ConfigurationView: View, Config
         subtitle: String,
         content: @escaping () -> Content
     ) -> some View {
-        VStack(alignment: .leading, spacing: .small) {
+        VStack(alignment: .leading, spacing: .medium) {
             // Header
             VStack(alignment: .leading) {
                 Text(title)

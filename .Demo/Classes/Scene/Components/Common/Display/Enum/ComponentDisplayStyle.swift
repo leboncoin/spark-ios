@@ -16,6 +16,8 @@ enum ComponentDisplayStyle: String, CaseIterable {
 
     // MARK: - Properties
 
+    static var allUIKitCases: [Self] = Self.allCases.filter { $0 != .horizontalList }
+
     static var `default`: Self {
         .verticalList
     }
