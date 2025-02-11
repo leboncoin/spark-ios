@@ -54,6 +54,7 @@ struct ComponentsView: View {
                 switch self.framework {
                 case .uiKit:
                     self.uiKitComponent(component)
+                        .background(Color(.systemGroupedBackground))
                         .navigationBarTitle(component.name)
 
                 case .swiftUI:
@@ -119,34 +120,11 @@ struct ComponentsView: View {
     private func uiKitComponent(_ component: Component) -> some View {
         switch component {
         case .tag: TagComponentUIViewController()
+        case .textEditor: TextEditorComponentUIViewController()
+        case .textField: TextFieldComponentUIViewController()
+        case .textFieldAddons: TextFieldAddonsComponentUIViewController()
+        case .textLink: TextLinkComponentUIViewController()
         default: EmptyView()
-        }
-    }
-}
-
-// MARK: - Framework
-
-extension ComponentsView {
-    enum Framework: String, CaseIterable, Hashable {
-        case swiftUI
-        case uiKit
-
-        var isSwiftUI: Bool {
-            self == .swiftUI
-        }
-
-        var name: String {
-            switch self {
-            case .uiKit: "UIKit"
-            case .swiftUI: "SwiftUI"
-            }
-        }
-
-        var icon: String {
-            switch self {
-            case .uiKit: "u.circle"
-            case .swiftUI: "s.circle"
-            }
         }
     }
 }
@@ -238,7 +216,13 @@ extension ComponentsView {
 
         static func allCases(for framework: Framework, familly: Familly) -> [Self] {
             let values: [Self] = switch framework {
-            case .uiKit: [.tag]
+            case .uiKit: [ // TODO: replace to allCases when migration is over
+                .tag,
+                .textEditor,
+                .textField,
+                .textFieldAddons,
+                .textLink
+            ]
             case .swiftUI:
                 self.allCases
             }

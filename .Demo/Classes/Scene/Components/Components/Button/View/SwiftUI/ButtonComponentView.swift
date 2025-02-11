@@ -104,14 +104,14 @@ private extension ButtonView {
     ) -> Self {
         let content = self.content(configuration, for: state)
 
-        if content.isAttributedText {
+        if content.isAttributedTitle {
             return self.attributedTitle(
-                content.text.demoAttributedString,
+                content.title.demoAttributedString,
                 for: state
             )
         } else {
             return self.title(
-                content.text.isEmpty ? nil : content.text,
+                content.title.isEmpty ? nil : content.title,
                 for: state
             )
         }

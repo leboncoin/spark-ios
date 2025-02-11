@@ -17,4 +17,15 @@ extension String {
         attributedText.backgroundColor = .gray
         return attributedText
     }
+
+    var demoNSAttributedString: NSAttributedString {
+        return .init(
+            string: self,
+            attributes: [
+                .foregroundColor: UIColor.red,
+                .font: UIFont.italicSystemFont(ofSize: 20),
+                .underlineStyle: NSUnderlineStyle.single.rawValue
+            ]
+        )
+    }
 }

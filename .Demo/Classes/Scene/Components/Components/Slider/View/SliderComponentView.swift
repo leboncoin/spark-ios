@@ -55,7 +55,7 @@ struct SliderImplementationView: ComponentImplementationViewable {
             HStack {
                 Text("Value \(String(format: "%.2f", self.value))")
                 Divider()
-                    .frame(height: 10)
+                    .infoFrame()
                 Text("Is Editing: \(self.isEditing)")
             }
             .demoComponentInfoBackground()

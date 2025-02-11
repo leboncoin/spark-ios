@@ -132,9 +132,9 @@ let package = Package(
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-text-link.git",
-            // path: "../spark-ios-component-text-link"
-            /*version*/ "0.0.1"..."999.999.999"
+            // url: "https://github.com/adevinta/spark-ios-component-text-link.git",
+            path: "../spark-ios-component-text-link"
+            // /*version*/ "0.0.1"..."999.999.999"
         )
     ],
     targets: [

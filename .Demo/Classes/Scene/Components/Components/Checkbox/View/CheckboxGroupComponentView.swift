@@ -8,6 +8,9 @@
 
 import SwiftUI
 
+// TODO: Fix (or maybe a demo bug)
+// - when layout changed, sometime the view is clear completly ! (seems to work correctly when the default layous is horizontal)
+
 // MARK: - View
 
 typealias CheckboxGroupComponentView = ComponentViewable<CheckboxGroupConfiguration, CheckboxGroupImplementationView, CheckboxGroupConfView>
@@ -15,7 +18,7 @@ typealias CheckboxGroupComponentView = ComponentViewable<CheckboxGroupConfigurat
 extension CheckboxGroupComponentView {
 
     init() {
-        self.init(style: .verticalList, styles: [.alone, .verticalList])
+        self.init(style: .alone, styles: [.alone])
     }
 }
 
@@ -57,11 +60,11 @@ struct CheckboxGroupImplementationView: ComponentImplementationViewable {
             .demoDisabled(self.configurationWrapped)
             .onAppear() {
                 self.items = self.configurationWrapped.items.map {
-                    $0.toSpark(isSwiftUI: true)
+                    $0.toSpark(for: .swiftUI)
                 }
             }
             .onChange(of: self.configurationWrapped.items) { items in
-                self.items = items.map { $0.toSpark(isSwiftUI: true) }
+                self.items = items.map { $0.toSpark(for: .swiftUI) }
             }
 
             if self.showInfo {
@@ -134,6 +137,11 @@ struct CheckboxGroupConfView: ConfigurationViewable {
                         ToggleConfigurationView(
                             name: "Item \(item.id) is long text",
                             isOn: item.isLongText
+                        )
+
+                        ToggleConfigurationView(
+                            name: "Item \(item.id) is attributed text",
+                            isOn: item.isAttributedText
                         )
 
                         ToggleConfigurationView(

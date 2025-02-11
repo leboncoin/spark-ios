@@ -96,6 +96,10 @@ extension PickerContent {
             Image(icon: icon).tag(value)
         case let theme as DemoThemes.Theme:
             Text(theme.name).tag(value)
+        case let enumeration as CustomStringConvertible:
+            Text(enumeration.description).tag(value)
+        case let enumeration as any CaseIterable:
+            Text(enumeration.name).tag(value)
         default:
             let text = "\(value)".addSpacesBeforeCapitalLetter.capitalized
             Text(text).tag(value)

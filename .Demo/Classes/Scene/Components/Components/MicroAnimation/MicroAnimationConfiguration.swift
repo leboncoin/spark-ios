@@ -73,7 +73,5 @@ extension MicroAnimationConfiguration {
 // MARK: - Extension
 
 extension SparkAnimationType: @retroactive CaseIterable {
-    public static var allCases: [SparkAnimationType] = {
-        [.bell]
-    }()
+    public static var allCases: [SparkAnimationType] = [.bell]
 }

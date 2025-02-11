@@ -47,6 +47,8 @@ struct ComponentImplementationUIViewRepresentable<
 
     func updateUIView(_ uiView: UIViewType, context: Context) {
         uiView.invalidateIntrinsicContentSize()
+        uiView.layoutSubviews()
+        uiView.layoutIfNeeded()
     }
 }
 
@@ -78,6 +80,9 @@ final class ComponentImplementationUIView<
     private let fullWidth: Bool
 
     private var widthLayoutConstraint: NSLayoutConstraint?
+    private var heightLayoutConstraint: NSLayoutConstraint?
+    private var minHeightLayoutConstraint: NSLayoutConstraint?
+    private var maxHeightLayoutConstraint: NSLayoutConstraint?
     private var trailingLayoutConstraint: NSLayoutConstraint?
 
     // MARK: - Initializer
@@ -106,6 +111,7 @@ final class ComponentImplementationUIView<
     private func setupView() {
         // Properties
         self.backgroundColor = .clear
+        self.contentStackView.demoBackground(self.configuration)
 
         // Subviews
         self.addSubview(self.contentStackView)
@@ -131,6 +137,15 @@ final class ComponentImplementationUIView<
         self.widthLayoutConstraint = self.contentStackView.widthAnchor.constraint(equalToConstant: 1)
         self.widthLayoutConstraint?.isActive = false
 
+        self.heightLayoutConstraint = self.contentStackView.heightAnchor.constraint(equalToConstant: 1)
+        self.heightLayoutConstraint?.isActive = false
+
+        self.minHeightLayoutConstraint = self.contentStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 1)
+        self.minHeightLayoutConstraint?.isActive = false
+
+        self.maxHeightLayoutConstraint = self.contentStackView.heightAnchor.constraint(lessThanOrEqualToConstant: 1)
+        self.maxHeightLayoutConstraint?.isActive = false
+
         self.trailingLayoutConstraint = self.contentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         self.trailingLayoutConstraint?.isActive = false
     }
@@ -143,33 +158,55 @@ final class ComponentImplementationUIView<
         self.reloadConstraints()
     }
 
-    override func setNeedsLayout() {
-        super.setNeedsLayout()
-
-        self.reloadConstraints()
-    }
-
     // MARK: - Constraints
 
     private func reloadConstraints() {
-        guard self.frame.width > 0 else {
-            return
-        }
-
-        if self.fullWidth || self.contentStackView.frame.size.width >= self.frame.width {
-            self.widthLayoutConstraint?.constant = self.frame.width
-            self.widthLayoutConstraint?.isActive = true
-            self.trailingLayoutConstraint?.isActive = false
-
-        } else {
-            switch self.contextType {
-            case .display:
-                self.widthLayoutConstraint?.isActive = false
+        // Width
+        if self.frame.width > 0 {
+            if self.fullWidth || self.contentStackView.frame.size.width >= self.frame.width {
+                self.widthLayoutConstraint?.constant = self.frame.width
+                self.widthLayoutConstraint?.isActive = true
                 self.trailingLayoutConstraint?.isActive = false
 
-            case .configuration:
-                self.widthLayoutConstraint?.isActive = false
-                self.trailingLayoutConstraint?.isActive = true
+            } else {
+                switch self.contextType {
+                case .display:
+                    self.widthLayoutConstraint?.isActive = false
+                    self.trailingLayoutConstraint?.isActive = false
+
+                case .configuration:
+                    self.widthLayoutConstraint?.isActive = false
+                    self.trailingLayoutConstraint?.isActive = true
+                }
+            }
+        }
+
+        // Height
+        if self.frame.height > 0 {
+            let componentMinHeight = self.intrinsicContentSize.height
+
+            if let height = self.configuration.height.value(),
+               height >= componentMinHeight {
+                self.heightLayoutConstraint?.constant = height
+                self.heightLayoutConstraint?.isActive = true
+            } else {
+                self.heightLayoutConstraint?.isActive = false
+            }
+
+            if let minHeight = self.configuration.height.minValue(),
+               minHeight >= componentMinHeight {
+                self.minHeightLayoutConstraint?.constant = minHeight
+                self.minHeightLayoutConstraint?.isActive = true
+            } else {
+                self.minHeightLayoutConstraint?.isActive = false
+            }
+
+            if let maxHeight = self.configuration.height.maxValue(),
+               maxHeight >= componentMinHeight {
+                self.maxHeightLayoutConstraint?.constant = maxHeight
+                self.maxHeightLayoutConstraint?.isActive = true
+            } else {
+                self.maxHeightLayoutConstraint?.isActive = false
             }
         }
     }
@@ -177,6 +214,6 @@ final class ComponentImplementationUIView<
     // MARK: - Intrinsic Content Size
 
     override var intrinsicContentSize: CGSize {
-        return .init(width: -1, height: self.componentView.frame.height)
+        return .init(width: -1, height: CGFloat.maximum(self.componentView.frame.height, self.componentView.intrinsicContentSize.height))
     }
 }

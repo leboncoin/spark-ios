@@ -92,12 +92,12 @@ struct ButtonCommonOtherConfigurationView<Configuration: ButtonConfiguration>: V
                 if !self.isIconButton {
                     TextFieldConfigurationView(
                         name: "text",
-                        text: content.text
+                        text: content.title
                     )
 
                     ToggleConfigurationView(
-                        name: "is attributed text",
-                        isOn: content.isAttributedText
+                        name: "is attributed title",
+                        isOn: content.isAttributedTitle
                     )
                 }
             }

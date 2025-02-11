@@ -24,8 +24,12 @@ class ComponentConfiguration: Identifiable {
 
     // MARK: - Size Properties
 
-    var width = ShowConfigurationSize(name: "Width")
+    var swiftUIWidth = ShowConfigurationSize(name: "Width")
     var height = ShowConfigurationSize(name: "Height")
+
+    // MARK: - Control Type (UIKit only)
+
+    var uiKitControlType = ShowUIKitControlType()
 
     // MARK: - Initialization
 
@@ -95,4 +99,12 @@ class ShowConfigurationSize: Identifiable {
 
         return self.maxText.cgFloat
     }
+}
+
+struct ShowUIKitControlType {
+
+    // MARK: - Properties
+
+    var showConfiguration = false
+    var value: ComponentControlType? = .optionalRandom
 }

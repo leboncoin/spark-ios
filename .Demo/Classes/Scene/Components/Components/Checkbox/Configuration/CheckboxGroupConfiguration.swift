@@ -14,7 +14,7 @@ class CheckboxGroupConfiguration: ComponentConfiguration {
 
     var intent: CheckboxIntent = .random
     var alignment: CheckboxAlignment = .random
-    var layout: CheckboxGroupLayout = .random
+    var layout: CheckboxGroupLayout = .horizontal
     var checkedIcon: Iconography = .random
 
     var numberOfItems: Int = Int.random(in: 2...3) {
@@ -63,10 +63,10 @@ extension CheckboxGroupConfiguration {
 
         // MARK: - Conversion
 
-        func toSpark(isSwiftUI: Bool) -> CheckboxGroupItemDefault {
-            let attributedTitleCondition = (!isSwiftUI && self.isAttributedText)
+        func toSpark(for framework: Framework) -> CheckboxGroupItemDefault {
+            let attributedTitleCondition = (framework.isUIKit && self.isAttributedText)
 
-            let text = if self.isLongText {
+            let text = if !self.isLongText {
                 "My item \(self.id)"
             } else {
                 "Quisque viverra tincidunt diam sed eleifend. Phasellus malesuada vitae dui a pharetra. Aliquam sagittis tincidunt dolor, non aliquam quam vestibulum nec."
@@ -87,7 +87,8 @@ extension CheckboxGroupConfiguration {
 
 extension CheckboxGroupLayout: @retroactive CaseIterable {
 
-    public static var allCases: [CheckboxGroupLayout] = {
-        [.vertical, .horizontal]
-    }()
+    public static var allCases: [CheckboxGroupLayout] = [
+        .vertical,
+        .horizontal
+    ]
 }

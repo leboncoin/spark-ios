@@ -32,7 +32,21 @@ protocol ConfigurationUIViewable<Configuration, ComponentUIView>: View {
     associatedtype Configuration: ComponentConfiguration
     associatedtype ComponentUIView: UIView
 
+    // MARK: - Properties
+
+    var uiKitComponentImplementationView: ComponentImplementationUIViewRepresentable<ComponentUIView, Configuration>? { get set }
+
     // MARK: - Initialization
 
-    init(configuration: Binding<Configuration>, uiKitComponentImplementationView: ComponentImplementationUIViewRepresentable<ComponentUIView, Configuration>)
+    init(
+        configuration: Binding<Configuration>,
+        uiKitComponentImplementationView: ComponentImplementationUIViewRepresentable<ComponentUIView, Configuration>
+    )
+}
+
+extension ConfigurationUIViewable {
+
+    var framework: Framework {
+        self.uiKitComponentImplementationView != nil ? .uiKit : .swiftUI
+    }
 }

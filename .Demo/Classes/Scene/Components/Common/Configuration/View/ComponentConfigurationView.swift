@@ -27,7 +27,8 @@ struct ComponentConfigurationView<
     private var otherSectionItemsView: (() -> OtherConfigurationItemsView)?
     private var otherAccessibilityItemsView: (() -> OtherAccessibilityItemsView)?
 
-    private var componentView: ComponentView
+    private let componentView: ComponentView
+    private let framework: Framework
 
     // MARK: - Initialization (Used by SwiftUI)
 
@@ -38,6 +39,7 @@ struct ComponentConfigurationView<
     ) where OtherConfigurationItemsView == EmptyView, OtherAccessibilityItemsView == EmptyView {
         self._configuration = configuration
         self.componentView = ComponentView(configuration: configuration)
+        self.framework = .swiftUI
         self.mainItemsView = mainItemsView
     }
 
@@ -49,6 +51,7 @@ struct ComponentConfigurationView<
     ) where OtherAccessibilityItemsView == EmptyView{
         self._configuration = configuration
         self.componentView = ComponentView(configuration: configuration)
+        self.framework = .swiftUI
         self.mainItemsView = mainItemsView
         self.otherSectionItemsView = otherSectionItemsView
     }
@@ -61,6 +64,7 @@ struct ComponentConfigurationView<
     ) where OtherConfigurationItemsView == EmptyView {
         self._configuration = configuration
         self.componentView = ComponentView(configuration: configuration)
+        self.framework = .swiftUI
         self.mainItemsView = mainItemsView
         self.otherAccessibilityItemsView = otherAccessibilityItemsView
     }
@@ -74,6 +78,7 @@ struct ComponentConfigurationView<
     ) {
         self._configuration = configuration
         self.componentView = ComponentView(configuration: configuration)
+        self.framework = .swiftUI
         self.mainItemsView = mainItemsView
         self.otherSectionItemsView = otherSectionItemsView
         self.otherAccessibilityItemsView = otherAccessibilityItemsView
@@ -89,6 +94,7 @@ struct ComponentConfigurationView<
         self._configuration = configuration
         self.mainItemsView = mainItemsView
         self.componentView = componentView
+        self.framework = .uiKit
     }
 
     init(
@@ -100,7 +106,8 @@ struct ComponentConfigurationView<
         self._configuration = configuration
         self.mainItemsView = mainItemsView
         self.otherSectionItemsView = otherSectionItemsView
-        self.componentView = ComponentView(configuration: configuration)
+        self.componentView = componentView
+        self.framework = .uiKit
     }
 
     init(
@@ -112,7 +119,8 @@ struct ComponentConfigurationView<
         self._configuration = configuration
         self.mainItemsView = mainItemsView
         self.otherAccessibilityItemsView = otherAccessibilityItemsView
-        self.componentView = ComponentView(configuration: configuration)
+        self.componentView = componentView
+        self.framework = .uiKit
     }
 
     init(
@@ -126,7 +134,8 @@ struct ComponentConfigurationView<
         self.mainItemsView = mainItemsView
         self.otherSectionItemsView = otherSectionItemsView
         self.otherAccessibilityItemsView = otherAccessibilityItemsView
-        self.componentView = ComponentView(configuration: configuration)
+        self.componentView = componentView
+        self.framework = .uiKit
     }
 
     // MARK: - View
@@ -156,6 +165,14 @@ struct ComponentConfigurationView<
                             ToggleConfigurationView(
                                 name: "is enabled",
                                 isOn: self.$configuration.isEnabled.value
+                            )
+                        }
+
+                        if self.framework.isUIKit && self.configuration.uiKitControlType.showConfiguration {
+                            OptionalEnumConfigurationView(
+                                name: "control type",
+                                values: ComponentControlType.allCases,
+                                selectedValue: self.$configuration.uiKitControlType.value
                             )
                         }
                     }
@@ -220,9 +237,9 @@ struct ComponentConfigurationView<
     @ViewBuilder
     private func createSizeSection() -> some View {
         let configurations = [
-            self.$configuration.width,
+            framework.isSwiftUI ? self.$configuration.swiftUIWidth : nil,
             self.$configuration.height
-        ]
+        ].compactMap { $0 }
 
         if configurations.contains(where: { $0.showConfiguration.wrappedValue }) {
             ForEach(configurations, id: \.id) { $item in
@@ -247,13 +264,15 @@ struct ComponentConfigurationView<
                                 keyboardType: .numberPad
                             )
 
-                            Divider()
-                                .frame(height: 16)
+                            if self.framework.isSwiftUI {
+                                Divider()
+                                    .frame(height: 16)
 
-                            ToggleConfigurationView(
-                                name: "is ∞",
-                                isOn: $item.infinite
-                            )
+                                ToggleConfigurationView(
+                                    name: "is ∞",
+                                    isOn: $item.infinite
+                                )
+                            }
                         }
                     }
                 }

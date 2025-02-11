@@ -69,7 +69,8 @@ extension RadioButtonConfiguration {
 
 extension RadioButtonGroupLayout: @retroactive CaseIterable {
 
-    public static var allCases: [RadioButtonGroupLayout] {
-        [.horizontal, .vertical]
-    }
+    public static var allCases: [RadioButtonGroupLayout] = [
+        .horizontal,
+        .vertical
+    ]
 }

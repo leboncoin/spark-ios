@@ -15,7 +15,7 @@ import SwiftUI
     public var body: some View {
         TabView {
             // Components
-            ForEach(ComponentsView.Framework.allCases, id: \.rawValue) { framework in
+            ForEach(Framework.allCases, id: \.rawValue) { framework in
                 ComponentsView(framework: framework)
                     .tabItem {
                         Image(systemName: framework.icon)

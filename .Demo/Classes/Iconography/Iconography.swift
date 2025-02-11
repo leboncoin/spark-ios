@@ -11,6 +11,7 @@ import UIKit
 
 enum Iconography: String, CaseIterable {
     case arrowRight = "ArrowRight"
+    case bellOutline = "BellOutline"
     case check = "Check"
     case cross = "Cross"
     case infoOutline = "InfoOutline"
@@ -21,30 +22,30 @@ enum Iconography: String, CaseIterable {
 
 extension Image {
 
-    init(_ iconography: Iconography) {
+    init(icon iconography: Iconography) {
         self.init(iconography.rawValue)
     }
 
-    init?(_ iconography: Iconography?) {
+    init?(icon iconography: Iconography?) {
         guard let iconography else {
             return nil
         }
 
-        self.init(iconography)
+        self.init(icon: iconography)
     }
 }
 
 extension UIImage {
 
-    convenience init(_ iconography: Iconography) {
+    convenience init(icon iconography: Iconography) {
         self.init(named: iconography.rawValue)!
     }
 
-    convenience init?(_ iconography: Iconography?) {
+    convenience init?(icon iconography: Iconography?) {
         guard let iconography else {
             return nil
         }
 
-        self.init(iconography)
+        self.init(icon: iconography)
     }
 }

@@ -23,7 +23,7 @@ class SwitchConfiguration: ComponentConfiguration {
     required init() {
         super.init()
 
-        self.width.showConfiguration = true
+        self.swiftUIWidth.showConfiguration = true
         self.accessibilityLabel.showConfiguration = true
     }
 }

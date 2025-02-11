@@ -10,12 +10,13 @@ import UIKit
 import SwiftUI
 
 /// Used by UIKit components only
-protocol ComponentUIViewMaker<ComponentView, Configuration> {
+protocol ComponentUIViewMaker<Configuration, ComponentView, ConfigurationView> {
 
     // MARK: - Type Alias
 
     associatedtype Configuration: ComponentConfiguration
     associatedtype ComponentView: UIView
+    associatedtype ConfigurationView: ConfigurationUIViewable<Configuration, ComponentView>
 
     // MARK: - Static Properties
 
@@ -23,10 +24,35 @@ protocol ComponentUIViewMaker<ComponentView, Configuration> {
 
     // MARK: - Static Methods
 
-    static func createComponentView(from configuration: Configuration) -> ComponentView
+    static func createComponentView(
+        for configuration: Configuration,
+        viewController: ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, Self>?
+    ) -> ComponentView
 
     static func updateComponentView(
         _ componentView: ComponentView,
-        from configuration: Configuration
+        for configuration: Configuration,
+        viewController: ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, Self>?
     )
+}
+
+extension ComponentUIViewMaker {
+
+    static func createComponentImplementationView(
+        for configuration: Configuration,
+        context: ComponentContextType,
+        viewController: ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, Self>?
+    ) -> ComponentImplementationUIView<ComponentView, Configuration> {
+        let componentView = self.createComponentView(
+            for: configuration,
+            viewController: viewController
+        )
+
+        return .init(
+            configuration: configuration,
+            componentView: componentView,
+            contextType: context,
+            fullWidth: self.fullWidth
+        )
+    }
 }

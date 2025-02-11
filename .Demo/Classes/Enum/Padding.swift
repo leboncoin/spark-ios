@@ -43,3 +43,42 @@ struct PaddingViewModifier: ViewModifier {
         content.padding(self.edges, self.padding.rawValue)
     }
 }
+
+// MARK: - UIKit Extension
+
+extension UIEdgeInsets {
+
+    init(topPadding: Padding? = nil, leftPadding: Padding? = nil, bottomPadding: Padding? = nil, rightPadding: Padding? = nil) {
+        self.init(
+            top: topPadding?.rawValue ?? 0,
+            left: leftPadding?.rawValue ?? 0,
+            bottom: bottomPadding?.rawValue ?? 0,
+            right: rightPadding?.rawValue ?? 0
+        )
+    }
+
+    init(verticalPadding: Padding? = nil, horizontalPadding: Padding? = nil) {
+        self.init(
+            top: verticalPadding?.rawValue ?? 0,
+            left: horizontalPadding?.rawValue ?? 0,
+            bottom: verticalPadding?.rawValue ?? 0,
+            right: horizontalPadding?.rawValue ?? 0
+        )
+    }
+
+    init(all: Padding) {
+        self.init(
+            top: all.rawValue,
+            left: all.rawValue,
+            bottom: all.rawValue,
+            right: all.rawValue
+        )
+    }
+}
+
+extension CGFloat {
+
+    init(padding: Padding) {
+        self.init(padding.rawValue)
+    }
+}

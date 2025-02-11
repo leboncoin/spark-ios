@@ -48,16 +48,16 @@ extension ButtonConfiguration {
         // MARK: - Properties
 
         let id: ControlState
-        var text: String
+        var title: String
         var icon: Iconography? = .optionalRandom
-        var isAttributedText: Bool = .random()
+        var isAttributedTitle: Bool = .random()
 
         // MARK: - Initialization
 
         init(state: ControlState) {
             let isNormalState = state == .normal
             self.id = state
-            self.text = (isNormalState || Bool.random()) ? "My \(state) title" : ""
+            self.title = (isNormalState || Bool.random()) ? "My \(state) title" : ""
             self.icon = isNormalState ? .random : .optionalRandom
         }
     }
