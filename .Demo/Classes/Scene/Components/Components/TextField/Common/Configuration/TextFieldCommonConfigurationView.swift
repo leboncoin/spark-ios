@@ -20,37 +20,37 @@ struct TextFieldCommonConfigurationView<Configuration: TextFieldConfiguration>: 
     // MARK: - View
 
     var body: some View {
-        EnumConfigurationView(
+        EnumConfigurationItemView(
             name: "intent",
             values: TextFieldIntent.allCases,
             selectedValue: self.configuration.intent
         )
 
-        TextFieldConfigurationView(
+        TextFieldConfigurationItemView(
             name: "placeholder",
             text: self.configuration.placeholder
         )
 
-        ToggleConfigurationView(
+        ToggleConfigurationItemView(
             name: "is secure",
             isOn: self.configuration.isSecure
         )
 
         if self.framework.isSwiftUI {
-            ToggleConfigurationView(
+            ToggleConfigurationItemView(
                 name: "is read only",
                 isOn: self.configuration.swiftUIIsReadOnly
             )
         }
 
         if self.framework.isUIKit {
-            EnumConfigurationView(
+            EnumConfigurationItemView(
                 name: "clear button mode",
                 values: UITextField.ViewMode.allCases,
                 selectedValue: self.configuration.uiKitClearButtonMode
             )
 
-            ToggleConfigurationView(
+            ToggleConfigurationItemView(
                 name: "is user interaction enabled",
                 isOn: self.configuration.uiKitIsUserInteractionEnabled
             )

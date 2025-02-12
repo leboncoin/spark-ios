@@ -12,34 +12,35 @@ struct TextEditorConfigurationView: ConfigurationViewable, ConfigurationUIViewab
 
     // MARK: - Type Alias
 
+    typealias Configuration = TextEditorConfiguration
     typealias ComponentUIView = TextEditorUIView
 
     // MARK: - Properties
 
-    var configuration: Binding<TextEditorConfiguration>
-    var uiKitComponentImplementationView: ComponentImplementationUIViewRepresentable<TextEditorUIView, TextEditorConfiguration>? = nil
+    var configuration: Binding<Configuration>
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
 
     // MARK: - Initialization
 
-    init(configuration: Binding<TextEditorConfiguration>) {
+    init(configuration: Binding<Configuration>) {
         self.configuration = configuration
     }
 
     init(
-        configuration: Binding<TextEditorConfiguration>,
-        uiKitComponentImplementationView: ComponentImplementationUIViewRepresentable<TextEditorUIView, TextEditorConfiguration>
+        configuration: Binding<Configuration>,
+        componentImplementationViewRepresentable: ComponentImplementationRepresentable
     ) {
         self.configuration = configuration
-        self.uiKitComponentImplementationView = uiKitComponentImplementationView
+        self.componentImplementationViewRepresentable = componentImplementationViewRepresentable
     }
 
     // MARK: - View
 
     var body: some View {
-        if let uiKitComponentImplementationView {
+        if let componentImplementationViewRepresentable {
             ComponentConfigurationView(
                 configuration: self.configuration,
-                componentView: uiKitComponentImplementationView,
+                componentView: componentImplementationViewRepresentable,
                 mainItemsView: { self.itemsView() }
             )
         } else {
@@ -53,24 +54,24 @@ struct TextEditorConfigurationView: ConfigurationViewable, ConfigurationUIViewab
 
     @ViewBuilder
     private func itemsView() -> some View {
-        EnumConfigurationView(
+        EnumConfigurationItemView(
             name: "intent",
             values: TextEditorIntent.allCases,
             selectedValue: self.configuration.intent
         )
 
-        TextFieldConfigurationView(
+        TextFieldConfigurationItemView(
             name: "placeholder",
             text: self.configuration.placeholder
         )
 
         if self.framework.isUIKit {
-            ToggleConfigurationView(
+            ToggleConfigurationItemView(
                 name: "is editable",
                 isOn: self.configuration.uiKitIsEditable
             )
 
-            ToggleConfigurationView(
+            ToggleConfigurationItemView(
                 name: "is scroll enabled",
                 isOn: self.configuration.uiKitIsScrollEnabled
             )

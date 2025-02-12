@@ -12,34 +12,35 @@ struct TextFieldAddonsConfigurationView: ConfigurationViewable, ConfigurationUIV
 
     // MARK: - Type Alias
 
+    typealias Configuration = TextFieldAddonsConfiguration
     typealias ComponentUIView = TextFieldAddonsUIView
 
     // MARK: - Properties
 
-    var configuration: Binding<TextFieldAddonsConfiguration>
-    var uiKitComponentImplementationView: ComponentImplementationUIViewRepresentable<TextFieldAddonsUIView, TextFieldAddonsConfiguration>? = nil
+    var configuration: Binding<Configuration>
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
 
     // MARK: - Initialization
 
-    init(configuration: Binding<TextFieldAddonsConfiguration>) {
+    init(configuration: Binding<Configuration>) {
         self.configuration = configuration
     }
 
     init(
-        configuration: Binding<TextFieldAddonsConfiguration>,
-        uiKitComponentImplementationView: ComponentImplementationUIViewRepresentable<TextFieldAddonsUIView, TextFieldAddonsConfiguration>
+        configuration: Binding<Configuration>,
+        componentImplementationViewRepresentable: ComponentImplementationRepresentable
     ) {
         self.configuration = configuration
-        self.uiKitComponentImplementationView = uiKitComponentImplementationView
+        self.componentImplementationViewRepresentable = componentImplementationViewRepresentable
     }
 
     // MARK: - View
 
     var body: some View {
-        if let uiKitComponentImplementationView {
+        if let componentImplementationViewRepresentable {
             ComponentConfigurationView(
                 configuration: self.configuration,
-                componentView: uiKitComponentImplementationView,
+                componentView: componentImplementationViewRepresentable,
                 mainItemsView: { self.itemsView() },
                 otherSectionItemsView:  { self.otherSectionItemsView() }
             )
@@ -79,13 +80,13 @@ struct TextFieldAddonsConfigurationView: ConfigurationViewable, ConfigurationUIV
             }
 
             Section("\(contentSide.name) Addon") {
-                EnumConfigurationView(
+                EnumConfigurationItemView(
                     name: "\(contentSide.name) view",
                     values: TextFieldSideViewContentType.allCases,
                     selectedValue: contentType
                 )
 
-                ToggleConfigurationView(
+                ToggleConfigurationItemView(
                     name: "is padding on \(contentSide.name) addons",
                     isOn: isPadding
                 )

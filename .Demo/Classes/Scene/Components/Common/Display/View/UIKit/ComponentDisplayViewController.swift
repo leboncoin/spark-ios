@@ -289,7 +289,7 @@ class ComponentDisplayViewController<
 
         return ConfigurationView(
             configuration: self._selectedConfiguration,
-            uiKitComponentImplementationView: representableView
+            componentImplementationViewRepresentable: representableView
         )
     }
 

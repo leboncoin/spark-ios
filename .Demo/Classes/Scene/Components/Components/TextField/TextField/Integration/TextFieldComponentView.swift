@@ -10,7 +10,7 @@ import SwiftUI
 
 // MARK: - View
 
-typealias TextFieldComponentView = ComponentViewable<TextFieldConfiguration, TextFieldImplementationView, TextFieldConfigView>
+typealias TextFieldComponentView = ComponentViewable<TextFieldConfiguration, TextFieldImplementationView, TextFieldConfigurationView>
 
 extension TextFieldComponentView {
 

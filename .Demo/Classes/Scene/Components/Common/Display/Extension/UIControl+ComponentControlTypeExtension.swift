@@ -12,7 +12,12 @@ import Combine
 
 extension UIControl {
 
-    func demoControlType<Configuration: ComponentConfiguration, ComponentView: UIView, ConfigurationView: ConfigurationUIViewable, ViewMaker: ComponentUIViewMaker>(
+    func demoControlType<
+        Configuration: ComponentConfiguration,
+        ComponentView: UIView,
+        ConfigurationView: ConfigurationUIViewable,
+        ViewMaker: ComponentUIViewMaker
+    >(
         _ configuration: Configuration,
         on viewController: ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, ViewMaker>?
     ) {

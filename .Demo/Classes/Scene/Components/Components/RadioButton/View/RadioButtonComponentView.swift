@@ -10,7 +10,7 @@ import SwiftUI
 
 // MARK: - View
 
-typealias RadioButtonComponentView = ComponentViewable<RadioButtonConfiguration, RadioButtonImplementationView, RadioButtonConfView>
+typealias RadioButtonComponentView = ComponentViewable<RadioButtonConfiguration, RadioButtonImplementationView, RadioButtonConfigurationView>
 
 extension RadioButtonComponentView {
 
@@ -68,57 +68,6 @@ struct RadioButtonImplementationView: ComponentImplementationViewable {
                 .demoComponentInfoBackground()
             }
         }
-    }
-}
-
-struct RadioButtonConfView: ConfigurationViewable {
-
-    // MARK: - Properties
-
-    var configuration: Binding<RadioButtonConfiguration>
-
-    // MARK: - View
-
-    var body: some View {
-        ComponentConfigurationView(
-            configuration: self.configuration,
-            componentViewType: RadioButtonImplementationView.self,
-            mainItemsView: {
-                EnumConfigurationView(
-                    name: "intent",
-                    values: RadioButtonIntent.allCases,
-                    selectedValue: self.configuration.intent
-                )
-
-                EnumConfigurationView(
-                    name: "label alignment",
-                    values: RadioButtonLabelAlignment.allCases,
-                    selectedValue: self.configuration.labelAlignment
-                )
-
-                EnumConfigurationView(
-                    name: "group layout",
-                    values: RadioButtonGroupLayout.allCases,
-                    selectedValue: self.configuration.groupLayout
-                )
-            },
-            otherSectionItemsView: {
-                Section("Items") {
-                    StepperConfigurationView(
-                        name: "no. of items",
-                        value: self.configuration.numberOfItems,
-                        bounds: 2...5
-                    )
-
-                    ForEach(self.configuration.items, id: \.id) { item in
-                        TextFieldConfigurationView(
-                            name: "Item \(item.id) text",
-                            text: item.text
-                        )
-                    }
-                }
-            }
-        )
     }
 }
 

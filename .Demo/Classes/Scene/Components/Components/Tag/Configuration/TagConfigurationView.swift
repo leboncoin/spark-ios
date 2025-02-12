@@ -11,35 +11,36 @@ import SwiftUI
 struct TagConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
 
     // MARK: - Type Alias
-    
+
+    typealias Configuration = TagConfiguration
     typealias ComponentUIView = TagUIView
 
     // MARK: - Properties
 
-    var configuration: Binding<TagConfiguration>
-    var uiKitComponentImplementationView: ComponentImplementationUIViewRepresentable<TagUIView, TagConfiguration>? = nil
+    var configuration: Binding<Configuration>
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
 
     // MARK: - Initialization
 
-    init(configuration: Binding<TagConfiguration>) {
+    init(configuration: Binding<Configuration>) {
         self.configuration = configuration
     }
 
     init(
-        configuration: Binding<TagConfiguration>,
-        uiKitComponentImplementationView: ComponentImplementationUIViewRepresentable<TagUIView, TagConfiguration>
+        configuration: Binding<Configuration>,
+        componentImplementationViewRepresentable: ComponentImplementationRepresentable
     ) {
         self.configuration = configuration
-        self.uiKitComponentImplementationView = uiKitComponentImplementationView
+        self.componentImplementationViewRepresentable = componentImplementationViewRepresentable
     }
 
     // MARK: - View
 
     var body: some View {
-        if let uiKitComponentImplementationView {
+        if let componentImplementationViewRepresentable {
             ComponentConfigurationView(
                 configuration: self.configuration,
-                componentView: uiKitComponentImplementationView,
+                componentView: componentImplementationViewRepresentable,
                 mainItemsView: { self.itemsView() }
             )
         } else {
@@ -53,30 +54,30 @@ struct TagConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
 
     @ViewBuilder
     private func itemsView() -> some View {
-        EnumConfigurationView(
+        EnumConfigurationItemView(
             name: "intent",
             values: TagIntent.allCases,
             selectedValue: self.configuration.intent
         )
 
-        EnumConfigurationView(
+        EnumConfigurationItemView(
             name: "variant",
             values: TagVariant.allCases,
             selectedValue: self.configuration.variant
         )
 
-        OptionalEnumConfigurationView(
+        OptionalEnumConfigurationItemView(
             name: "icon",
             values: Iconography.allCases,
             selectedValue: self.configuration.icon
         )
 
-        TextFieldConfigurationView(
+        TextFieldConfigurationItemView(
             name: "text",
             text: self.configuration.text
         )
 
-        ToggleConfigurationView(
+        ToggleConfigurationItemView(
             name: "is attributed text",
             isOn: self.configuration.isAttributedText
         )

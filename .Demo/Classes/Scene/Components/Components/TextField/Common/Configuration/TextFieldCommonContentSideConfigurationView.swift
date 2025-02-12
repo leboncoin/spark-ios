@@ -32,14 +32,14 @@ struct TextFieldCommonContentSideConfigurationView<Configuration: TextFieldConfi
             }
 
             Section("\(contentSide.name) View") {
-                EnumConfigurationView(
+                EnumConfigurationItemView(
                     name: "\(contentSide.name) view",
                     values: TextFieldSideViewContentType.allCases,
                     selectedValue: contentType
                 )
 
                 if self.framework.isUIKit {
-                    EnumConfigurationView(
+                    EnumConfigurationItemView(
                         name: "\(contentSide.name) view mode",
                         values: UITextField.ViewMode.allCases,
                         selectedValue: mode

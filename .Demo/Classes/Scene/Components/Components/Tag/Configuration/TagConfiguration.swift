@@ -14,8 +14,8 @@ class TagConfiguration: ComponentConfiguration {
     
     var intent: TagIntent = .random
     var variant: TagVariant = .random
-    var text = "My Tag"
     var icon: Iconography? = .optionalRandom
+    var text = "My Tag"
     var isAttributedText = false
 
     // MARK: - Initialization

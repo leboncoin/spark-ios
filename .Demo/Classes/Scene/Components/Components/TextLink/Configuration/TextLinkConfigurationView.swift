@@ -12,34 +12,35 @@ struct TextLinkConfigurationView: ConfigurationViewable, ConfigurationUIViewable
 
     // MARK: - Type Alias
 
+    typealias Configuration = TextLinkConfiguration
     typealias ComponentUIView = TextLinkUIView
 
     // MARK: - Properties
 
-    var configuration: Binding<TextLinkConfiguration>
-    var uiKitComponentImplementationView: ComponentImplementationUIViewRepresentable<TextLinkUIView, TextLinkConfiguration>? = nil
+    var configuration: Binding<Configuration>
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
 
     // MARK: - Initialization
 
-    init(configuration: Binding<TextLinkConfiguration>) {
+    init(configuration: Binding<Configuration>) {
         self.configuration = configuration
     }
     
     init(
-        configuration: Binding<TextLinkConfiguration>,
-        uiKitComponentImplementationView: ComponentImplementationUIViewRepresentable<TextLinkUIView, TextLinkConfiguration>
+        configuration: Binding<Configuration>,
+        componentImplementationViewRepresentable: ComponentImplementationRepresentable
     ) {
         self.configuration = configuration
-        self.uiKitComponentImplementationView = uiKitComponentImplementationView
+        self.componentImplementationViewRepresentable = componentImplementationViewRepresentable
     }
 
     // MARK: - View
 
     var body: some View {
-        if let uiKitComponentImplementationView {
+        if let componentImplementationViewRepresentable {
             ComponentConfigurationView(
                 configuration: self.configuration,
-                componentView: uiKitComponentImplementationView,
+                componentView: componentImplementationViewRepresentable,
                 mainItemsView: { self.itemsView() }
             )
         } else {
@@ -53,63 +54,63 @@ struct TextLinkConfigurationView: ConfigurationViewable, ConfigurationUIViewable
 
     @ViewBuilder
     private func itemsView() -> some View {
-        EnumConfigurationView(
+        EnumConfigurationItemView(
             name: "intent",
             values: TextLinkIntent.allCases,
             selectedValue: self.configuration.intent
         )
 
-        EnumConfigurationView(
+        EnumConfigurationItemView(
             name: "variant",
             values: TextLinkVariant.allCases,
             selectedValue: self.configuration.variant
         )
 
-        EnumConfigurationView(
+        EnumConfigurationItemView(
             name: "typography",
             values: TextLinkTypography.allCases,
             selectedValue: self.configuration.typography
         )
 
-        OptionalEnumConfigurationView(
+        OptionalEnumConfigurationItemView(
             name: "icon",
             values: Iconography.allCases,
             selectedValue: self.configuration.icon
         )
 
-        ToggleConfigurationView(
+        ToggleConfigurationItemView(
             name: "is long text",
             isOn: self.configuration.isLongText
         )
 
         if !self.configuration.wrappedValue.isLongText {
-            TextFieldConfigurationView(
+            TextFieldConfigurationItemView(
                 name: "text",
                 text: self.configuration.text
             )
         }
 
-        EnumConfigurationView(
+        EnumConfigurationItemView(
             name: "alignment (content)",
             values: TextLinkAlignment.allCases,
             selectedValue: self.configuration.alignment
         )
 
         if self.framework.isUIKit {
-            EnumConfigurationView(
+            EnumConfigurationItemView(
                 name: "alignment (text)",
                 values: NSTextAlignment.allCases,
                 selectedValue: self.configuration.uiKitTextAlignment
             )
         } else {
-            EnumConfigurationView(
+            EnumConfigurationItemView(
                 name: "alignment (text)",
                 values: TextAlignment.allCases,
                 selectedValue: self.configuration.swiftUITextAlignment
             )
         }
 
-        StepperConfigurationView(
+        StepperConfigurationItemView(
             name: "number of line",
             value: self.configuration.numberOfLine,
             bounds: 0...10,
@@ -117,7 +118,7 @@ struct TextLinkConfigurationView: ConfigurationViewable, ConfigurationUIViewable
         )
 
         if self.framework.isUIKit {
-            EnumConfigurationView(
+            EnumConfigurationItemView(
                 name: "line break mode",
                 values: NSLineBreakMode.allCases,
                 selectedValue: self.configuration.uiKitLineBreakMode
