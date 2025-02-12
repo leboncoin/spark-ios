@@ -28,23 +28,22 @@ final class TagComponentUIViewMaker: ComponentUIViewMaker {
     typealias ConfigurationView = TagConfigurationView
     typealias DisplayViewController = ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, TagComponentUIViewMaker>
 
-    // MARK: - Static Properties
+    // MARK: - Properties
 
-    static var fullWidth: Bool { false }
+    let fullWidth = false
+    weak var viewController: DisplayViewController?
 
-    // MARK: - Static Methods
+    // MARK: - Methods
 
-    static func createComponentView(
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+    func createComponentView(
+        for configuration: Configuration
     ) -> ComponentView {
         return .init(configuration: configuration)
     }
 
-    static func updateComponentView(
+    func updateComponentView(
         _ componentView: ComponentView,
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+        for configuration: Configuration
     ) {
         componentView.theme = configuration.theme.value
         componentView.intent = configuration.intent
@@ -62,7 +61,7 @@ private extension TagUIView {
 
     // MARK: - Initialization
 
-    convenience init(configuration: TagConfiguration) {
+    convenience init(configuration: TagComponentUIViewMaker.Configuration) {
         let iconImage = UIImage(icon: configuration.icon)
         let text = configuration.text.isEmpty ? nil : configuration.text
 
@@ -123,11 +122,11 @@ private extension TagUIView {
 
     // MARK: - Setter
 
-    func demoIcon(_ configuration: TagConfiguration) {
+    func demoIcon(_ configuration: TagComponentUIViewMaker.Configuration) {
         self.iconImage = .init(icon: configuration.icon)
     }
 
-    func demoText(_ configuration: TagConfiguration) {
+    func demoText(_ configuration: TagComponentUIViewMaker.Configuration) {
         let text = configuration.text
         if text.isEmpty {
             self.text = nil

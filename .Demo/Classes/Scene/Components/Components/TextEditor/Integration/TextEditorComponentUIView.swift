@@ -31,15 +31,15 @@ final class TextEditorComponentUIViewMaker: ComponentUIViewMaker {
     typealias ConfigurationView = TextEditorConfigurationView
     typealias DisplayViewController = ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, TextEditorComponentUIViewMaker>
 
-    // MARK: - Static Properties
+    // MARK: - Properties
 
-    static var fullWidth: Bool { true }
+    let fullWidth = true
+    weak var viewController: DisplayViewController?
 
-    // MARK: - Static Methods
+    // MARK: - Methods
 
-    static func createComponentView(
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+    func createComponentView(
+        for configuration: Configuration
     ) -> ComponentView {
         let componentView = ComponentView(
             theme: configuration.theme.value,
@@ -50,17 +50,16 @@ final class TextEditorComponentUIViewMaker: ComponentUIViewMaker {
         return componentView
     }
 
-    static func updateComponentView(
+    func updateComponentView(
         _ componentView: ComponentView,
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+        for configuration: Configuration
     ) {
         componentView.theme = configuration.theme.value
         componentView.intent = configuration.intent
         self.updateCommonProperties(componentView, for: configuration)
     }
 
-    private static func updateCommonProperties(
+    private func updateCommonProperties(
         _ componentView: ComponentView,
         for configuration: Configuration
     ) {

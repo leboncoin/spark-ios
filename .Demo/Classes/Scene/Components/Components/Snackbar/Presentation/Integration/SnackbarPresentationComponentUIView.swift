@@ -9,114 +9,106 @@
 import UIKit
 import SwiftUI
 
-// TODO: Tox fix :
-// - add intrinsic content size
-// - no multiline on configuration view ...
-
 // MARK: - View Controller
 
-//typealias SnackbarPresentationComponentUIViewController = ComponentDisplayViewControllerRepresentable<SnackbarPresentationConfiguration, UIButton, SnackbarPresentationConfigurationView, SnackbarPresentationComponentUIViewMaker>
-//
-//// MARK: - View Maker
-//
-//final class SnackbarPresentationComponentUIViewMaker: ComponentUIViewMaker {
-//
-//    // MARK: - Type Alias
-//
-//    typealias Configuration = SnackbarPresentationConfiguration
-//    typealias ComponentView = UIButton
-//    typealias ConfigurationView = SnackbarPresentationConfigurationView
-//    typealias DisplayViewController = ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, SnackbarPresentationComponentUIViewMaker>
-//
-//    // MARK: - Static Properties
-//
-//    static var fullWidth: Bool { false }
-//
-//    // MARK: - Static Methods
-//
-//    static func createComponentView(
-//        for configuration: Configuration,
-//        viewController: DisplayViewController?
-//    ) -> ComponentView {
-//
-//
-//        let button = UIButton(configuration: .filled())
-//        button.setTitle("Show Snackbar", for: .normal)
-//        button.addAction(.init(handler: { _ in
-//            self.snackbar.show(
-//                in: self.view,
-//                from: self.direction,
-//                insets: self.insets)
-//        }), for: .touchUpInside)
-//
-////        self.updateCommonProperties(
-////            componentView,
-////            for: configuration,
-////            viewController: viewController
-////        )
-//
-//        return button
-//    }
-//
-//    static func updateComponentView(
-//        _ componentView: ComponentView,
-//        for configuration: Configuration,
-//        viewController: DisplayViewController?
-//    ) {
-//        guard let viewController else {
-//            componentView.removeact
-//        }
-//        componentView.addAction(.init(handler: { _ in
-//
-//            if let autoDismissDelay = configuration.autoDismissDelay {
-//                self.snackbar.showAndDismiss(
-//                    in: self.view,
-//                    from: self.direction,
-//                    insets: self.insets,
-//                    autoDismissDelay: autoDismissDelay
-//                ) { isFinished in
-//                        print("Auto dismiss", isFinished)
-//                    }
-//
-//            } else {
-//                self.snackbar.show(
-//                    in: self.view,
-//                    from: self.direction,
-//                    insets: self.insets
-//                )
-//            }
-//
-//
-//            self.snackbar.show(
-//                in: self.view,
-//                from: self.direction,
-//                insets: self.insets
-//            )
-//        }), for: .touchUpInside)
-//    }
-//
-//    private static func updateCommonProperties(
-//        _ componentView: ComponentView,
-//        for configuration: Configuration,
-//        viewController: DisplayViewController?
-//    ) {
-//        componentView.alignment = configuration.alignment
-//        componentView.textAlignment = configuration.uiKitTextAlignment
-//        componentView.lineBreakMode = configuration.uiKitLineBreakMode
-//        componentView.numberOfLines = configuration.numberOfLine
-//        if configuration.isLongText {
-//            componentView.textHighlightRange = configuration.getTextHighlightRange()
-//        }
-//        componentView.demoControlType(configuration, on: viewController)
-//        componentView.demoAccessibilityLabel(configuration)
-//        componentView.demoAccessibilityValue(configuration)
-//        componentView.demoBackground(configuration)
-//    }
-//
-//    private static func makeSnackbarView(for configuration: Configuration) -> SnackbarUIView {
-//        return .init(
-//            theme: configuration.theme.value,
-//            intent: .basic
-//        )
-//    }
-//}
+typealias SnackbarPresentationComponentUIViewController = ComponentDisplayViewControllerRepresentable<SnackbarPresentationConfiguration, UIButton, SnackbarPresentationConfigurationView, SnackbarPresentationComponentUIViewMaker>
+
+extension SnackbarPresentationComponentUIViewController {
+
+    init() {
+        self.init(style: .alone, styles: [.alone])
+    }
+}
+
+// MARK: - View Maker
+
+final class SnackbarPresentationComponentUIViewMaker: ComponentUIViewMaker {
+
+    // MARK: - Type Alias
+
+    typealias Configuration = SnackbarPresentationConfiguration
+    typealias ComponentView = UIButton
+    typealias ConfigurationView = SnackbarPresentationConfigurationView
+    typealias DisplayViewController = ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, SnackbarPresentationComponentUIViewMaker>
+
+    // MARK: - Properties
+
+    let fullWidth = true
+    weak var viewController: DisplayViewController?
+
+    private var snackbar: SnackbarUIView = {
+        let view = SnackbarUIView(
+            theme: DemoThemes.shared.mainTheme.value,
+            intent: .neutral
+        )
+        view.label.text = "Snackbar text"
+        view.widthAnchor.constraint(lessThanOrEqualToConstant: 600).isActive = true
+
+        let button = view.addButton()
+        button.setTitle("Dismiss", for: .normal)
+        button.addAction(.init(handler: { _ in
+            view.dismiss(completion: { isFinished in
+                print("Dismiss action", isFinished)
+            })
+        }), for: .touchUpInside)
+
+        return view
+    }()
+
+    // MARK: - Methods
+
+    func createComponentView(
+        for configuration: Configuration
+    ) -> ComponentView {
+        let button = UIButton(configuration: .filled())
+        button.setTitle("Show Snackbar", for: .normal)
+        button.addAction(.init(handler: { [weak self] _ in
+            self?.actionHandler(for: configuration)
+        }), for: .touchUpInside)
+        return button
+    }
+
+    func updateComponentView(
+        _ componentView: ComponentView,
+        for configuration: Configuration
+    ) {
+        // Nothing to do here
+    }
+
+    private func actionHandler(for configuration: Configuration) {
+        guard let viewController else {
+            return
+        }
+
+        if let autoDismissDelay = configuration.autoDismissDelay {
+            self.snackbar.showAndDismiss(
+                in: viewController.view,
+                from: configuration.direction,
+                insets: .init(configuration),
+                autoDismissDelay: autoDismissDelay
+            ) { isFinished in
+                print("Auto dismiss", isFinished)
+            }
+        } else {
+            self.snackbar.show(
+                in: viewController.view,
+                from: configuration.direction,
+                insets: .init(configuration)
+            )
+        }
+    }
+}
+
+// MARK: - Extension
+
+private extension UIEdgeInsets {
+
+    init(_ configuration: SnackbarPresentationComponentUIViewMaker.Configuration) {
+        self = .init(
+            top: configuration.topInsetString.cgFloat ?? 0,
+            left: configuration.leftInsetString.cgFloat ?? 0,
+            bottom: configuration.bottomInsetString.cgFloat ?? 0,
+            right: configuration.rightInsetString.cgFloat ?? 0
+        )
+    }
+}

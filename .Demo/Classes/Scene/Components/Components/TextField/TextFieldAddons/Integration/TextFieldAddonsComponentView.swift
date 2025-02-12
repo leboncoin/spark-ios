@@ -8,6 +8,9 @@
 
 import SwiftUI
 
+// TODO: To fix
+// - Purple warning: maybe remove the VM for this component
+
 // MARK: - View
 
 typealias TextFieldAddonsComponentView = ComponentViewable<TextFieldAddonsConfiguration, TextFieldAddonsImplementationView, TextFieldAddonsConfigurationView>

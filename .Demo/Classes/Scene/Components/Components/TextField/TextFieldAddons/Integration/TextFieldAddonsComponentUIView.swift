@@ -30,16 +30,24 @@ final class TextFieldAddonsComponentUIViewMaker: ComponentUIViewMaker {
     typealias ComponentView = TextFieldAddonsUIView
     typealias ConfigurationView = TextFieldAddonsConfigurationView
     typealias DisplayViewController = ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, TextFieldAddonsComponentUIViewMaker>
+    typealias SideView = TextFieldSideUIView<Configuration, ComponentView, ConfigurationView, TextFieldAddonsComponentUIViewMaker>
 
-    // MARK: - Static Properties
+    // MARK: - Properties
 
-    static var fullWidth: Bool { true }
+    let fullWidth = true
+    weak var viewController: DisplayViewController?
+    var sideView = SideView()
 
-    // MARK: - Static Methods
+    // MARK: - Initialization
 
-    static func createComponentView(
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+    init() {
+        self.sideView.viewMaker = self
+    }
+
+    // MARK: - Methods
+
+    func createComponentView(
+        for configuration: Configuration
     ) -> ComponentView {
         let componentView = ComponentView(
             theme: configuration.theme.value,
@@ -50,30 +58,49 @@ final class TextFieldAddonsComponentUIViewMaker: ComponentUIViewMaker {
         return componentView
     }
 
-    static func updateComponentView(
+    func updateComponentView(
         _ componentView: ComponentView,
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+        for configuration: Configuration
     ) {
         componentView.textField.theme = configuration.theme.value
         componentView.textField.intent = configuration.intent
         self.updateCommonProperties(componentView, for: configuration)
     }
-
-    private static func updateCommonProperties(
+    
+    private func updateCommonProperties(
         _ componentView: ComponentView,
         for configuration: Configuration
     ) {
         componentView.textField.placeholder = configuration.placeholder
         componentView.textField.isSecureTextEntry = configuration.isSecure
 
-        componentView.textField.demoLeftView(configuration)
+        componentView.demoSideView(
+            configuration,
+            contentSide: .left,
+            isAddon: false,
+            sideView: sideView
+        )
         componentView.textField.leftViewMode = configuration.uiKitLeftViewMode
-        componentView.textField.demoRightView(configuration)
+        componentView.demoSideView(
+            configuration,
+            contentSide: .right,
+            isAddon: false,
+            sideView: sideView
+        )
         componentView.textField.rightViewMode = configuration.uiKitRightViewMode
 
-        componentView.demoLeftAddon(configuration)
-        componentView.demoRightAddon(configuration)
+        componentView.demoSideView(
+            configuration,
+            contentSide: .left,
+            isAddon: true,
+            sideView: self.sideView
+        )
+        componentView.demoSideView(
+            configuration,
+            contentSide: .right,
+            isAddon: true,
+            sideView: self.sideView
+        )
 
         componentView.textField.rightViewMode = configuration.uiKitRightViewMode
         componentView.textField.clearButtonMode = configuration.uiKitClearButtonMode
@@ -88,28 +115,39 @@ final class TextFieldAddonsComponentUIViewMaker: ComponentUIViewMaker {
 
 extension TextFieldAddonsUIView {
 
-    func demoLeftAddon<Configuration: TextFieldAddonsConfiguration>(
-        _ configuration: Configuration
+    func demoSideView(
+        _ configuration: TextFieldAddonsComponentUIViewMaker.Configuration,
+        contentSide: TextFieldContentSide,
+        isAddon: Bool,
+        sideView: TextFieldAddonsComponentUIViewMaker.SideView
     ) {
-        let addon = TextFieldSideUIView.sideView(
-            theme: configuration.theme,
-            sideViewContent: configuration.leftAddonContentType,
-            side: .left,
-            isAddon: true
-        )
-        self.setLeftAddon(addon, withPadding: configuration.isLeftAddonPadding)
-    }
+        let contentType = switch (contentSide, isAddon) {
+        case (.left, false):
+            configuration.leftViewContentType
+        case (.left, true):
+            configuration.leftAddonContentType
+        case (.right, false):
+            configuration.rightViewContentType
+        case (.right, true):
+            configuration.rightAddonContentType
+        }
 
-    func demoRightAddon<Configuration: TextFieldAddonsConfiguration>(
-        _ configuration: Configuration
-    ) {
-        let addon = TextFieldSideUIView.sideView(
+        let view = sideView.createSideView(
             theme: configuration.theme,
-            sideViewContent: configuration.rightAddonContentType,
-            side: .right,
-            isAddon: true
+            sideViewContent: contentType,
+            side: contentSide,
+            isAddon: isAddon
         )
-        self.setRightAddon(addon, withPadding: configuration.isRightAddonPadding)
+
+        switch (contentSide, isAddon) {
+        case (.left, false):
+            self.textField.leftView = view
+        case (.left, true):
+            self.setLeftAddon(view, withPadding: configuration.isLeftAddonPadding)
+        case (.right, false):
+            self.textField.rightView = view
+        case (.right, true):
+            self.setRightAddon(view, withPadding: configuration.isRightAddonPadding)
+        }
     }
 }
-

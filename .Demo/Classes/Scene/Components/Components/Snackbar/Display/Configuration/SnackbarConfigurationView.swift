@@ -8,59 +8,98 @@
 
 import SwiftUI
 
-struct SnackbarConfigurationView: ConfigurationViewable {
+struct SnackbarConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
+
+    // MARK: - Type Alias
+
+    typealias Configuration = SnackbarConfiguration
+    typealias ComponentUIView = SnackbarUIView
 
     // MARK: - Properties
 
-    var configuration: Binding<SnackbarConfiguration>
+    var configuration: Binding<Configuration>
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
+
+    // MARK: - Initialization
+
+    init(configuration: Binding<Configuration>) {
+        self.configuration = configuration
+    }
+
+    init(
+        configuration: Binding<Configuration>,
+        componentImplementationViewRepresentable: ComponentImplementationRepresentable
+    ) {
+        self.configuration = configuration
+        self.componentImplementationViewRepresentable = componentImplementationViewRepresentable
+    }
 
     // MARK: - View
 
     var body: some View {
-        ComponentConfigurationView(
-            configuration: self.configuration,
-            componentViewType: SnackbarImplementationView.self,
-            mainItemsView: {
-                EnumConfigurationItemView(
-                    name: "intent",
-                    values: SnackbarIntent.allCases,
-                    selectedValue: self.configuration.intent
-                )
+        if let componentImplementationViewRepresentable {
+            ComponentConfigurationView(
+                configuration: self.configuration,
+                componentView: componentImplementationViewRepresentable,
+                mainItemsView: { self.itemsView() }
+            )
+        } else {
+            ComponentConfigurationView(
+                configuration: self.configuration,
+                componentViewType: SnackbarImplementationView.self,
+                mainItemsView: { self.itemsView() }
+            )
+        }
+    }
 
-                OptionalEnumConfigurationItemView(
-                    name: "type",
-                    values: SnackbarType.allCases,
-                    selectedValue: self.configuration.type
-                )
-
-                OptionalEnumConfigurationItemView(
-                    name: "variant",
-                    values: SnackbarVariant.allCases,
-                    selectedValue: self.configuration.variant
-                )
-
-                OptionalEnumConfigurationItemView(
-                    name: "icon",
-                    values: Iconography.allCases,
-                    selectedValue: self.configuration.icon
-                )
-
-                TextFieldConfigurationItemView(
-                    name: "text",
-                    text: self.configuration.text
-                )
-
-                TextFieldConfigurationItemView(
-                    name: "button",
-                    text: self.configuration.buttonTitle
-                )
-
-                StepperConfigurationItemView(
-                    name: "max no. of lines",
-                    value: self.configuration.maxNumberOfLines,
-                    bounds: 0...100
-                )
-            }
+    @ViewBuilder
+    private func itemsView() -> some View {
+        EnumConfigurationItemView(
+            name: "intent",
+            values: SnackbarIntent.allCases,
+            selectedValue: self.configuration.intent
         )
+
+        EnumConfigurationItemView(
+            name: "type",
+            values: SnackbarType.allCases,
+            selectedValue: self.configuration.type
+        )
+
+        EnumConfigurationItemView(
+            name: "variant",
+            values: SnackbarVariant.allCases,
+            selectedValue: self.configuration.variant
+        )
+
+        OptionalEnumConfigurationItemView(
+            name: "icon",
+            values: Iconography.allCases,
+            selectedValue: self.configuration.icon
+        )
+
+        TextFieldConfigurationItemView(
+            name: "text",
+            text: self.configuration.text
+        )
+
+        StepperConfigurationItemView(
+            name: "max no. of lines",
+            value: self.configuration.maxNumberOfLines,
+            bounds: 0...100
+        )
+
+        EnumConfigurationItemView(
+            name: "content type",
+            values: SnackbarContentType.allCases(for: self.framework),
+            selectedValue: self.configuration.contentType
+        )
+
+        if self.configuration.wrappedValue.contentType == .button {
+            TextFieldConfigurationItemView(
+                name: "button",
+                text: self.configuration.buttonTitle
+            )
+        }
     }
 }

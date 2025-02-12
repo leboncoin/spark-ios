@@ -30,15 +30,15 @@ final class SpinnerComponentUIViewMaker: ComponentUIViewMaker {
     typealias ConfigurationView = SpinnerConfigurationView
     typealias DisplayViewController = ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, SpinnerComponentUIViewMaker>
 
-    // MARK: - Static Properties
+    // MARK: - Properties
 
-    static var fullWidth: Bool { false }
+    let fullWidth = false
+    weak var viewController: DisplayViewController?
 
-    // MARK: - Static Methods
+    // MARK: - Methods
 
-    static func createComponentView(
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+    func createComponentView(
+        for configuration: Configuration
     ) -> ComponentView {
         return .init(
             theme: configuration.theme.value,
@@ -47,10 +47,9 @@ final class SpinnerComponentUIViewMaker: ComponentUIViewMaker {
         )
     }
 
-    static func updateComponentView(
+    func updateComponentView(
         _ componentView: ComponentView,
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+        for configuration: Configuration
     ) {
         componentView.theme = configuration.theme.value
         componentView.intent = configuration.intent

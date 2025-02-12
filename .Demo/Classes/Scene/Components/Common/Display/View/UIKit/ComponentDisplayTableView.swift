@@ -56,12 +56,13 @@ final class ComponentDisplayTableView<
         }
     }
 
+    var viewMaker: ViewMaker
     weak var delegate: (any ComponentDisplayTableViewDelegate)?
-    weak var viewController: ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, ViewMaker>?
 
     // MARK: - Initialization
 
-    init() {
+    init(viewMaker: ViewMaker) {
+        self.viewMaker = viewMaker
         super.init(frame: .zero)
 
         self.setupView()
@@ -112,7 +113,7 @@ final class ComponentDisplayTableView<
             return .init()
         }
 
-        cell.viewController = self.viewController
+        cell.viewMaker = self.viewMaker
         cell.configuration = self.configurations[indexPath.row]
 
         return cell
@@ -127,6 +128,7 @@ final class ComponentDisplayTableView<
             delegate.updateConfiguration(id: self.configurations[indexPath.row].id)
             success(true)
         }
+        action.image = .init(systemName: "pencil")
         action.backgroundColor = .systemBlue
 
         return UISwipeActionsConfiguration(actions: [action])
@@ -139,6 +141,7 @@ final class ComponentDisplayTableView<
             delegate.removeConfiguration(id: self.configurations[indexPath.row].id)
             success(true)
         }
+        action.image = .init(systemName: "trash")
 
         return UISwipeActionsConfiguration(actions: [action])
     }

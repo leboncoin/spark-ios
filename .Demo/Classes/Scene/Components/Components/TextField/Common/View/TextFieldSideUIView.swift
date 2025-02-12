@@ -8,11 +8,20 @@
 
 import UIKit
 
-final class TextFieldSideUIView {
+final class TextFieldSideUIView<
+    Configuration: ComponentConfiguration,
+    ComponentView: UIView,
+    ConfigurationView: ConfigurationUIViewable<Configuration, ComponentView>,
+    ViewMaker: ComponentUIViewMaker<Configuration, ComponentView, ConfigurationView>
+>{
 
-    // MARK: - Initialization
+    // MARK: - Properties
 
-    static func sideView(
+    var viewMaker: ViewMaker?
+
+    // MARK: - Create
+
+    func createSideView(
         theme: DemoThemes.Theme,
         sideViewContent: TextFieldSideViewContentType,
         side: TextFieldContentSide,
@@ -22,17 +31,17 @@ final class TextFieldSideUIView {
         case .none:
             return nil
         case .button:
-            return Self.createButton(theme: theme, side: side, isAddon: isAddon)
+            return self.createButton(theme: theme, side: side, isAddon: isAddon)
         case .text:
             return self.createLabel(side: side, isAddon: isAddon)
         case .image:
-            return Self.createImage(side: side, isAddon: isAddon)
+            return self.createImage(side: side, isAddon: isAddon)
         }
     }
     
-    // MARK: - View
+    // MARK: - Subview
 
-    private static func createImage(
+    private func createImage(
         side: TextFieldContentSide,
         isAddon: Bool
     ) -> UIImageView {
@@ -50,7 +59,7 @@ final class TextFieldSideUIView {
         return imageView
     }
 
-    private static func createLabel(
+    private func createLabel(
         side: TextFieldContentSide,
         isAddon: Bool
     ) -> UILabel {
@@ -68,7 +77,7 @@ final class TextFieldSideUIView {
         return label
     }
 
-    private static func createButton(
+    private func createButton(
         theme: DemoThemes.Theme,
         side: TextFieldContentSide,
         isAddon: Bool
@@ -89,6 +98,9 @@ final class TextFieldSideUIView {
             alignment: .leadingImage
         )
         button.setTitle(side.rawValue, for: .normal)
+        button.demoControlType(
+            on: self.viewMaker?.viewController
+        )
 
         return button
     }

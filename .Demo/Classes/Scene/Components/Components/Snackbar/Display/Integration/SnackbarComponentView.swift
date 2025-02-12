@@ -39,7 +39,7 @@ struct SnackbarImplementationView: ComponentImplementationViewable {
             case .button:
                 self.snackbarWithButton()
             case .custom:
-                self.snackbarWithButton()
+                self.snackbarWithCustomView()
             }
         }
         .lineLimit(self.configurationWrapped.maxNumberOfLines)
@@ -60,8 +60,8 @@ struct SnackbarImplementationView: ComponentImplementationViewable {
             image: Image(icon: self.configurationWrapped.icon)) {
                 Text(self.configurationWrapped.text)
             }
-            .demoVariant(self.configurationWrapped)
-            .demoType(self.configurationWrapped)
+            .variant(self.configurationWrapped.variant)
+            .type(self.configurationWrapped.type)
     }
 
     @ViewBuilder private func snackbarWithButton() -> SnackbarView<ButtonView> {
@@ -82,8 +82,8 @@ struct SnackbarImplementationView: ComponentImplementationViewable {
                     }
                     .title(self.configurationWrapped.buttonTitle, for: .normal)
             }
-            .demoVariant(self.configurationWrapped)
-            .demoType(self.configurationWrapped)
+            .variant(self.configurationWrapped.variant)
+            .type(self.configurationWrapped.type)
     }
 
     @ViewBuilder private func snackbarWithCustomView() -> SnackbarView<some View> {
@@ -119,29 +119,8 @@ struct SnackbarImplementationView: ComponentImplementationViewable {
                     .image(.init(icon: .infoOutline), for: .normal)
                 }
             }
-            .demoVariant(self.configurationWrapped)
-            .demoType(self.configurationWrapped)
-    }
-}
-
-// MARK: - Extension
-
-private extension SnackbarView {
-
-    func demoVariant(_ configuration: SnackbarConfiguration) -> Self {
-        if let variant = configuration.variant {
-            self.variant(variant)
-        } else {
-            self
-        }
-    }
-
-    func demoType(_ configuration: SnackbarConfiguration) -> Self {
-        if let type = configuration.type {
-            self.type(type)
-        } else {
-            self
-        }
+            .variant(self.configurationWrapped.variant)
+            .type(self.configurationWrapped.type)
     }
 }
 

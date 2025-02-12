@@ -27,7 +27,8 @@ final class ComponentDisplayTableViewCell<
     }()
 
     var componentView: ComponentImplementationUIView<ComponentView, Configuration>?
-    weak var viewController: ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, ViewMaker>?
+    var viewMaker: ViewMaker?
+//    weak var viewController: ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, ViewMaker>?
 
     // MARK: - Properties
 
@@ -74,15 +75,14 @@ final class ComponentDisplayTableViewCell<
     // MARK: - Update
 
     private func updateView() {
-        guard let configuration = self.configuration else {
+        guard let configuration = self.configuration, let viewMaker else {
             return
         }
 
         // Create the component
-        let componentView = ViewMaker.createComponentImplementationView(
+        let componentView = viewMaker.createComponentImplementationView(
             for: configuration,
-            context: .display,
-            viewController: self.viewController
+            context: .display
         )
         self.componentView = componentView
         

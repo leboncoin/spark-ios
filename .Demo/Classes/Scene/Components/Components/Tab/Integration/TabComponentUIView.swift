@@ -31,15 +31,15 @@ final class TabComponentUIViewMaker: ComponentUIViewMaker {
     typealias ConfigurationView = TabConfigurationView
     typealias DisplayViewController = ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, TabComponentUIViewMaker>
 
-    // MARK: - Static Properties
+    // MARK: - Properties
 
-    static var fullWidth: Bool { false }
+    let fullWidth = false
+    weak var viewController: DisplayViewController?
 
-    // MARK: - Static Methods
+    // MARK: - Methods
 
-    static func createComponentView(
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+    func createComponentView(
+        for configuration: Configuration
     ) -> ComponentView {
         return switch (configuration.isText, configuration.isIcon) {
         case (true, true):
@@ -71,10 +71,9 @@ final class TabComponentUIViewMaker: ComponentUIViewMaker {
         }
     }
 
-    static func updateComponentView(
+    func updateComponentView(
         _ componentView: ComponentView,
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+        for configuration: Configuration
     ) {
         componentView.theme = configuration.theme.value
         componentView.intent = configuration.intent
@@ -94,7 +93,7 @@ final class TabComponentUIViewMaker: ComponentUIViewMaker {
 
 private extension TabUIView {
 
-    func demoDisable(for configuration: TabConfiguration) {
+    func demoDisable(for configuration: TabComponentUIViewMaker.Configuration) {
         if !configuration.isEnabled.value {
             self.isEnabled = false
         } else {
@@ -108,7 +107,7 @@ private extension TabUIView {
         }
     }
 
-    func demoContent(for configuration: TabConfiguration) {
+    func demoContent(for configuration: TabComponentUIViewMaker.Configuration) {
         if configuration.numberOfTabs < self.numberOfSegments {
             self.removeSegment(at: self.numberOfSegments - 1, animated: true)
         } else if configuration.numberOfTabs > self.numberOfSegments {
@@ -142,21 +141,21 @@ private extension TabUIView {
         }
     }
 
-    func demoText(for configuration: TabConfiguration) {
+    func demoText(for configuration: TabComponentUIViewMaker.Configuration) {
         for index in 0..<configuration.numberOfTabs {
             let title = configuration.isText ? String.demoText(at: index, for: configuration) : nil
             self.setTitle(title, forSegmentAt: index)
         }
     }
 
-    func demoImage(for configuration: TabConfiguration) {
+    func demoImage(for configuration: TabComponentUIViewMaker.Configuration) {
         for index in 0..<configuration.numberOfTabs {
             let image = configuration.isIcon ? UIImage.demoImage(at: index) : nil
             self.setImage(image, forSegmentAt: index)
         }
     }
 
-    func demoBadge(for configuration: TabConfiguration) {
+    func demoBadge(for configuration: TabComponentUIViewMaker.Configuration) {
         if !configuration.isBadge {
             for index in 0..<self.numberOfSegments {
                 self.setBadge(nil, forSegementAt: index)
@@ -168,7 +167,7 @@ private extension TabUIView {
         }
     }
 
-    private func demoCreateBadge(for configuration: TabConfiguration) -> BadgeUIView? {
+    private func demoCreateBadge(for configuration: TabComponentUIViewMaker.Configuration) -> BadgeUIView? {
         let badge = BadgeUIView(
             theme: self.theme,
             intent: .danger,
@@ -183,13 +182,13 @@ private extension TabUIView {
 
 private extension TabUIItemContent {
 
-    static func demoContents(for configuration: TabConfiguration) -> [Self] {
+    static func demoContents(for configuration: TabComponentUIViewMaker.Configuration) -> [Self] {
         (0..<configuration.numberOfTabs).map {
             self.demoContent(at: $0, for: configuration)
         }
     }
 
-    static func demoContent(at index: Int, for configuration: TabConfiguration) -> Self {
+    static func demoContent(at index: Int, for configuration: TabComponentUIViewMaker.Configuration) -> Self {
         .init(
             icon: configuration.isIcon ? .demoImage(at: index) : nil,
             title: configuration.isText ? .demoText(at: index, for: configuration) : nil
@@ -199,13 +198,13 @@ private extension TabUIItemContent {
 
 private extension String {
 
-    static func demoTitles(for configuration: TabConfiguration) -> [Self] {
+    static func demoTitles(for configuration: TabComponentUIViewMaker.Configuration) -> [Self] {
         (0..<configuration.numberOfTabs).map {
             self.demoText(at: $0, for: configuration)
         }
     }
 
-    static func demoText(at index: Int, for configuration: TabConfiguration) -> Self {
+    static func demoText(at index: Int, for configuration: TabComponentUIViewMaker.Configuration) -> Self {
         if configuration.isLongLabel {
             return "Long label \(index + 1)"
         } else {
@@ -216,7 +215,7 @@ private extension String {
 
 private extension UIImage {
 
-    static func demoImages(for configuration: TabConfiguration) -> [UIImage] {
+    static func demoImages(for configuration: TabComponentUIViewMaker.Configuration) -> [UIImage] {
         (0..<configuration.numberOfTabs).map {
             Self.demoImage(at: $0)
         }

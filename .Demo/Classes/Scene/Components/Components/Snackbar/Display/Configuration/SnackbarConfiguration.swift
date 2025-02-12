@@ -13,10 +13,10 @@ class SnackbarConfiguration: ComponentConfiguration {
     // MARK: - Properties
 
     var intent: SnackbarIntent = .random
-    var type: SnackbarType? = .optionalRandom
-    var variant: SnackbarVariant? = .optionalRandom
+    var type: SnackbarType = .random
+    var variant: SnackbarVariant = .random
     var icon: Iconography? = .optionalRandom
-    var contentType: SnackbarContentType = .random
+    var contentType: SnackbarContentType = .button // Because UIKit doesn't have allCases
 
     var text: String = "This is the snackbar text"
     var buttonTitle: String = "Tap"

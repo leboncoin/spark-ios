@@ -28,15 +28,15 @@ final class TextLinkComponentUIViewMaker: ComponentUIViewMaker {
     typealias ConfigurationView = TextLinkConfigurationView
     typealias DisplayViewController = ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, TextLinkComponentUIViewMaker>
 
-    // MARK: - Static Properties
+    // MARK: - Properties
 
-    static var fullWidth: Bool { false }
+    let fullWidth = false
+    weak var viewController: DisplayViewController?
 
-    // MARK: - Static Methods
+    // MARK: - Methods
 
-    static func createComponentView(
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+    func createComponentView(
+        for configuration: Configuration
     ) -> ComponentView {
         let componentView = ComponentView(
             theme: configuration.theme.value,
@@ -48,17 +48,15 @@ final class TextLinkComponentUIViewMaker: ComponentUIViewMaker {
         )
         self.updateCommonProperties(
             componentView,
-            for: configuration,
-            viewController: viewController
+            for: configuration
         )
 
         return componentView
     }
 
-    static func updateComponentView(
+    func updateComponentView(
         _ componentView: ComponentView,
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+        for configuration: Configuration
     ) {
         componentView.theme = configuration.theme.value
         componentView.intent = configuration.intent
@@ -68,15 +66,13 @@ final class TextLinkComponentUIViewMaker: ComponentUIViewMaker {
         componentView.image = .init(icon: configuration.icon)
         self.updateCommonProperties(
             componentView,
-            for: configuration,
-            viewController: viewController
+            for: configuration
         )
     }
 
-    private static func updateCommonProperties(
+    private func updateCommonProperties(
         _ componentView: ComponentView,
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+        for configuration: Configuration
     ) {
         componentView.alignment = configuration.alignment
         componentView.textAlignment = configuration.uiKitTextAlignment
@@ -85,7 +81,7 @@ final class TextLinkComponentUIViewMaker: ComponentUIViewMaker {
         if configuration.isLongText {
             componentView.textHighlightRange = configuration.getTextHighlightRange()
         }
-        componentView.demoControlType(configuration, on: viewController)
+        componentView.demoControlType(configuration, on: self.viewController)
         componentView.demoAccessibilityLabel(configuration)
         componentView.demoAccessibilityValue(configuration)
         componentView.demoBackground(configuration)

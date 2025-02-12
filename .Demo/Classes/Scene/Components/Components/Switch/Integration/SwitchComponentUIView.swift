@@ -30,23 +30,22 @@ final class SwitchComponentUIViewMaker: ComponentUIViewMaker {
     typealias ConfigurationView = SwitchConfigurationView
     typealias DisplayViewController = ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, SwitchComponentUIViewMaker>
 
-    // MARK: - Static Properties
+    // MARK: - Properties
 
-    static var fullWidth: Bool { false }
+    let fullWidth = false
+    weak var viewController: DisplayViewController?
 
-    // MARK: - Static Methods
+    // MARK: - Methods
 
-    static func createComponentView(
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+    func createComponentView(
+        for configuration: Configuration
     ) -> ComponentView {
         return .init(configuration: configuration)
     }
 
-    static func updateComponentView(
+    func updateComponentView(
         _ componentView: ComponentView,
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+        for configuration: Configuration
     ) {
         componentView.theme = configuration.theme.value
         componentView.intent = configuration.intent
@@ -66,7 +65,7 @@ private extension SwitchUIView {
 
     // MARK: - Initialization
 
-    convenience init(configuration: SwitchConfiguration) {
+    convenience init(configuration: SwitchComponentUIViewMaker.Configuration) {
         let isText = !configuration.text.isEmpty
         let isAttributedText = configuration.isAttributedText
         let images = SwitchUIImages.init(configuration: configuration)
@@ -137,7 +136,7 @@ private extension SwitchUIView {
 
     // MARK: - Methods
 
-    func demoText(_ configuration: SwitchConfiguration) {
+    func demoText(_ configuration: SwitchComponentUIViewMaker.Configuration) {
         let isText = !configuration.text.isEmpty
         let isAttributedText = configuration.isAttributedText
 
@@ -154,7 +153,7 @@ private extension SwitchUIView {
         }
     }
 
-    func demoIsOn(_ configuration: SwitchConfiguration) {
+    func demoIsOn(_ configuration: SwitchComponentUIViewMaker.Configuration) {
         if configuration.uiKitIsAnimated {
             self.setOn(configuration.uiKitIsOn, animated: true)
         } else {
@@ -162,7 +161,7 @@ private extension SwitchUIView {
         }
     }
 
-    func demoIsEnabled(_ configuration: SwitchConfiguration) {
+    func demoIsEnabled(_ configuration: SwitchComponentUIViewMaker.Configuration) {
         if configuration.uiKitIsEnabledAnimated {
             self.setEnabled(configuration.isEnabled.value, animated: true)
         } else {
@@ -173,7 +172,7 @@ private extension SwitchUIView {
 
 private extension SwitchUIImages {
 
-    init?(configuration: SwitchConfiguration) {
+    init?(configuration: SwitchComponentUIViewMaker.Configuration) {
         if configuration.hasImages {
             self.init(
                 on: .init(icon: Iconography.check),
