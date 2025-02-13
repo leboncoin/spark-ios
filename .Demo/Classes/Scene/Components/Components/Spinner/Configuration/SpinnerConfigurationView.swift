@@ -37,33 +37,29 @@ struct SpinnerConfigurationView: ConfigurationViewable, ConfigurationUIViewable 
     // MARK: - View
 
     var body: some View {
-        if let componentImplementationViewRepresentable {
-            ComponentConfigurationView(
-                configuration: self.configuration,
-                componentView: componentImplementationViewRepresentable,
-                mainItemsView: { self.itemsView() }
-            )
-        } else {
-            ComponentConfigurationView(
-                configuration: self.configuration,
-                componentViewType: SpinnerImplementationView.self,
-                mainItemsView: { self.itemsView() }
-            )
-        }
-    }
+        ComponentConfigurationView(
+            configuration: self.configuration,
+            framework: self.framework,
+            componentView: {
+                if let componentImplementationViewRepresentable {
+                    componentImplementationViewRepresentable
+                } else {
+                    SpinnerImplementationView(configuration: self.configuration)
+                }
+            },
+            mainItemsView: {
+                EnumConfigurationItemView(
+                    name: "intent",
+                    values: SpinnerIntent.allCases,
+                    selectedValue: self.configuration.intent
+                )
 
-    @ViewBuilder
-    private func itemsView() -> some View {
-        EnumConfigurationItemView(
-            name: "intent",
-            values: SpinnerIntent.allCases,
-            selectedValue: self.configuration.intent
-        )
-
-        EnumConfigurationItemView(
-            name: "size",
-            values: SpinnerSize.allCases,
-            selectedValue: self.configuration.spinnerSize
+                EnumConfigurationItemView(
+                    name: "size",
+                    values: SpinnerSize.allCases,
+                    selectedValue: self.configuration.spinnerSize
+                )
+            }
         )
     }
 }

@@ -37,36 +37,28 @@ struct TextFieldConfigurationView: ConfigurationViewable, ConfigurationUIViewabl
     // MARK: - View
 
     var body: some View {
-        if let componentImplementationViewRepresentable {
-            ComponentConfigurationView(
-                configuration: self.configuration,
-                componentView: componentImplementationViewRepresentable,
-                mainItemsView: { self.itemsView() },
-                otherSectionItemsView:  { self.otherSectionItemsView() }
-            )
-        } else {
-            ComponentConfigurationView(
-                configuration: self.configuration,
-                componentViewType: TextFieldImplementationView.self,
-                mainItemsView: { self.itemsView() },
-                otherSectionItemsView:  { self.otherSectionItemsView() }
-            )
-        }
-    }
-
-    @ViewBuilder
-    private func itemsView() -> some View {
-        TextFieldCommonConfigurationView(
+        ComponentConfigurationView(
             configuration: self.configuration,
-            framework: self.framework
-        )
-    }
-
-    @ViewBuilder
-    private func otherSectionItemsView() -> some View {
-        TextFieldCommonContentSideConfigurationView(
-            configuration: self.configuration,
-            framework: self.framework
+            framework: self.framework,
+            componentView: {
+                if let componentImplementationViewRepresentable {
+                    componentImplementationViewRepresentable
+                } else {
+                    TextFieldImplementationView(configuration: self.configuration)
+                }
+            },
+            mainItemsView: {
+                TextFieldCommonConfigurationView(
+                    configuration: self.configuration,
+                    framework: self.framework
+                )
+            },
+            otherSectionItemsView: {
+                TextFieldCommonContentSideConfigurationView(
+                    configuration: self.configuration,
+                    framework: self.framework
+                )
+            }
         )
     }
 }

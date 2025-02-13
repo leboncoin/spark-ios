@@ -14,6 +14,10 @@ class RatingInputConfiguration: ComponentConfiguration {
 
     var intent: RatingIntent = .random
 
+    // MARK: - UIKit Properties Only
+
+    var uiKitRating: CGFloat = CGFloat.random(in: 1...5)
+
     // MARK: - Initialization
 
     required init() {
@@ -21,5 +25,11 @@ class RatingInputConfiguration: ComponentConfiguration {
 
         self.isEnabled.showConfiguration = true
         self.accessibilityLabel.showConfiguration = true
+    }
+
+    // MARK: - Getter
+
+    func getInfoValue(from value: CGFloat) -> String {
+        "Current Rating: \(String(format: "%1.f", value))"
     }
 }

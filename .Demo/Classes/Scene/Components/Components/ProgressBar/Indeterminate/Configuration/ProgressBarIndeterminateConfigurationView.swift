@@ -8,18 +8,45 @@
 
 import SwiftUI
 
-struct ProgressBarIndeterminateConfigurationView: ConfigurationViewable {
+struct ProgressBarIndeterminateConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
+
+    // MARK: - Type Alias
+
+    typealias Configuration = ProgressBarIndeterminateConfiguration
+    typealias ComponentUIView = ProgressBarIndeterminateUIView
 
     // MARK: - Properties
 
-    var configuration: Binding<ProgressBarIndeterminateConfiguration>
+    var configuration: Binding<Configuration>
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
+
+    // MARK: - Initialization
+
+    init(configuration: Binding<Configuration>) {
+        self.configuration = configuration
+    }
+
+    init(
+        configuration: Binding<Configuration>,
+        componentImplementationViewRepresentable: ComponentImplementationRepresentable
+    ) {
+        self.configuration = configuration
+        self.componentImplementationViewRepresentable = componentImplementationViewRepresentable
+    }
 
     // MARK: - View
 
     var body: some View {
         ComponentConfigurationView(
             configuration: self.configuration,
-            componentViewType: ProgressBarIndeterminateImplementationView.self,
+            framework: self.framework,
+            componentView: {
+                if let componentImplementationViewRepresentable {
+                    componentImplementationViewRepresentable
+                } else {
+                    ProgressBarIndeterminateImplementationView(configuration: self.configuration)
+                }
+            },
             mainItemsView: {
                 EnumConfigurationItemView(
                     name: "intent",

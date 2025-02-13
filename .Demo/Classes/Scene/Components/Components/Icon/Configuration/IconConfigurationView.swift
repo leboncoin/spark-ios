@@ -8,18 +8,45 @@
 
 import SwiftUI
 
-struct IconConfigurationView: ConfigurationViewable {
+struct IconConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
+
+    // MARK: - Type Alias
+
+    typealias Configuration = IconConfiguration
+    typealias ComponentUIView = IconUIView
 
     // MARK: - Properties
 
-    var configuration: Binding<IconConfiguration>
+    var configuration: Binding<Configuration>
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
+
+    // MARK: - Initialization
+
+    init(configuration: Binding<Configuration>) {
+        self.configuration = configuration
+    }
+
+    init(
+        configuration: Binding<Configuration>,
+        componentImplementationViewRepresentable: ComponentImplementationRepresentable
+    ) {
+        self.configuration = configuration
+        self.componentImplementationViewRepresentable = componentImplementationViewRepresentable
+    }
 
     // MARK: - View
 
     var body: some View {
         ComponentConfigurationView(
             configuration: self.configuration,
-            componentViewType: IconImplementationView.self,
+            framework: self.framework,
+            componentView: {
+                if let componentImplementationViewRepresentable {
+                    componentImplementationViewRepresentable
+                } else {
+                    IconImplementationView(configuration: self.configuration)
+                }
+            },
             mainItemsView: {
                 EnumConfigurationItemView(
                     name: "icon",

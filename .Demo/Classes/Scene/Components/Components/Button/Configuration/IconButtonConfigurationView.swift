@@ -8,18 +8,45 @@
 
 import SwiftUI
 
-struct IconButtonConfigurationView: ConfigurationViewable {
+struct IconButtonConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
+
+    // MARK: - Type Alias
+
+    typealias Configuration = IconButtonConfiguration
+    typealias ComponentUIView = IconButtonUIView
 
     // MARK: - Properties
 
-    var configuration: Binding<IconButtonConfiguration>
+    var configuration: Binding<Configuration>
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
+
+    // MARK: - Initialization
+
+    init(configuration: Binding<Configuration>) {
+        self.configuration = configuration
+    }
+
+    init(
+        configuration: Binding<Configuration>,
+        componentImplementationViewRepresentable: ComponentImplementationRepresentable
+    ) {
+        self.configuration = configuration
+        self.componentImplementationViewRepresentable = componentImplementationViewRepresentable
+    }
 
     // MARK: - View
 
     var body: some View {
         ComponentConfigurationView(
             configuration: self.configuration,
-            componentViewType: IconButtonImplementationView.self,
+            framework: self.framework,
+            componentView: {
+                if let componentImplementationViewRepresentable {
+                    componentImplementationViewRepresentable
+                } else {
+                    IconButtonImplementationView(configuration: self.configuration)
+                }
+            },
             mainItemsView: {
                 ButtonCommonConfigurationView(
                     configuration: self.configuration,

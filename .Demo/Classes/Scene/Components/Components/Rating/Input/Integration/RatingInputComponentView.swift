@@ -39,7 +39,7 @@ struct RatingInputImplementationView: ComponentImplementationViewable {
             )
             .demoAccessibilityLabel(self.configurationWrapped)
 
-            Text("Current Rating \(String(format: "%1.f", self.rating))")
+            Text(self.configurationWrapped.getInfoValue(from: self.rating))
                 .demoComponentInfoBackground()
         }
     }

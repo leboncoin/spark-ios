@@ -8,47 +8,79 @@
 
 import SwiftUI
 
-struct CheckboxConfigurationView: ConfigurationViewable {
+struct CheckboxConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
+
+    // MARK: - Type Alias
+
+    typealias Configuration = CheckboxConfiguration
+    typealias ComponentUIView = CheckboxUIView
 
     // MARK: - Properties
 
-    var configuration: Binding<CheckboxConfiguration>
+    var configuration: Binding<Configuration>
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
+
+    // MARK: - Initialization
+
+    init(configuration: Binding<Configuration>) {
+        self.configuration = configuration
+    }
+
+    init(
+        configuration: Binding<Configuration>,
+        componentImplementationViewRepresentable: ComponentImplementationRepresentable
+    ) {
+        self.configuration = configuration
+        self.componentImplementationViewRepresentable = componentImplementationViewRepresentable
+    }
 
     // MARK: - View
 
     var body: some View {
         ComponentConfigurationView(
             configuration: self.configuration,
-            componentViewType: CheckboxImplementationView.self,
+            framework: self.framework,
+            componentView: {
+                if let componentImplementationViewRepresentable {
+                    componentImplementationViewRepresentable
+                } else {
+                    CheckboxImplementationView(configuration: self.configuration)
+                }
+            },
             mainItemsView: {
-                EnumConfigurationItemView(
-                    name: "intent",
-                    values: CheckboxIntent.allCases,
-                    selectedValue: self.configuration.intent
-                )
-
-                EnumConfigurationItemView(
-                    name: "alignment",
-                    values: CheckboxAlignment.allCases,
-                    selectedValue: self.configuration.alignment
-                )
-
-                TextFieldConfigurationItemView(
-                    name: "text",
-                    text: self.configuration.text
-                )
-
-                EnumConfigurationItemView(
-                    name: "checked icon",
-                    values: Iconography.allCases,
-                    selectedValue: self.configuration.checkedIcon
-                )
-
-                ToggleConfigurationItemView(
-                    name: "is indeterminate",
-                    isOn: self.configuration.isIndeterminate
-                )
+                self.itemsView()
             }
+        )
+    }
+
+    @ViewBuilder
+    private func itemsView() -> some View {
+        EnumConfigurationItemView(
+            name: "intent",
+            values: CheckboxIntent.allCases,
+            selectedValue: self.configuration.intent
+        )
+
+        EnumConfigurationItemView(
+            name: "alignment",
+            values: CheckboxAlignment.allCases,
+            selectedValue: self.configuration.alignment
+        )
+
+        TextFieldConfigurationItemView(
+            name: "text",
+            text: self.configuration.text
+        )
+
+        EnumConfigurationItemView(
+            name: "checked icon",
+            values: Iconography.allCases,
+            selectedValue: self.configuration.checkedIcon
+        )
+
+        ToggleConfigurationItemView(
+            name: "is indeterminate",
+            isOn: self.configuration.isIndeterminate
         )
     }
 }

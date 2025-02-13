@@ -21,7 +21,7 @@ typealias SliderComponentUIViewController = ComponentDisplayViewControllerRepres
 extension SliderComponentUIViewController {
 
     init() {
-        self.init(style: .alone, styles: [.alone])
+        self.init(style: .verticalList, styles: [.alone, .verticalList])
     }
 }
 
@@ -41,7 +41,7 @@ final class SliderComponentUIViewMaker: ComponentUIViewMaker {
     let fullWidth = true
     weak var viewController: DisplayViewController?
     private var infoLabel = UILabel()
-    private var cancellable: AnyCancellable?
+    private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Methods
 
@@ -58,12 +58,9 @@ final class SliderComponentUIViewMaker: ComponentUIViewMaker {
             for: configuration
         )
 
-        self.cancellable?.cancel()
-        self.cancellable = componentView.valuePublisher.sink { [weak self] value in
-            guard let self else { return }
-
-            self.infoLabel.text = String.currentValue(value)
-        }
+        componentView.valuePublisher.sink { value in
+            configuration.infoLabel?.text = configuration.getInfoValue(from: value)
+        }.store(in: &self.cancellables)
 
         return componentView
     }
@@ -95,17 +92,10 @@ final class SliderComponentUIViewMaker: ComponentUIViewMaker {
         componentView.demoDisabled(configuration)
         componentView.demoAccessibilityValue(configuration)
 
-        self.infoLabel.text = String.currentValue(value)
+        configuration.infoLabel?.text = configuration.getInfoValue(from: value)
     }
 
-    func createComponentInfoLabel(for configuration: Configuration) -> UILabel? {
-        return self.infoLabel
-    }
-}
-
-private extension String {
-
-    static func currentValue(_ value: Float) -> Self {
-        "Value \(String(format: "%.2f", value))"
+    func createComponentInfoLabel(on configuration: Configuration) {
+        configuration.infoLabel = UILabel()
     }
 }

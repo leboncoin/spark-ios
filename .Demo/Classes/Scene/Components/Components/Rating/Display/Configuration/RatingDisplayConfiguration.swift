@@ -14,7 +14,7 @@ class RatingDisplayConfiguration: ComponentConfiguration {
 
     var intent: RatingIntent = .random
     var size: RatingDisplaySize = .random
-    var rating: CGFloat = 2
+    var rating: CGFloat = CGFloat(Int.random(in: 1...5))
     var numberOfStars: RatingStarsCount = .five
 
     // MARK: - Initialization

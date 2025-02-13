@@ -18,7 +18,7 @@ enum BadgeFormat: String, CaseIterable {
     func sparkValue(customText: String, overflowValue: Int) -> SparkCore.BadgeFormat {
         switch self {
         case .default: .default
-        case .custom: .custom(formatter: BadgePreviewFormatter(text: customText))
+        case .custom: .custom(formatter: BadgePreviewFormatter(text: " " + customText))
         case .overflowCounter: .overflowCounter(maxValue: overflowValue)
         }
     }
