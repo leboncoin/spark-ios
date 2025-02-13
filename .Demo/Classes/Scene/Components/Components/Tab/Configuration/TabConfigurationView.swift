@@ -41,13 +41,15 @@ struct TabConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
             ComponentConfigurationView(
                 configuration: self.configuration,
                 componentView: componentImplementationViewRepresentable,
-                mainItemsView: { self.itemsView() }
+                mainItemsView: { self.itemsView() },
+                otherSectionItemsView: { self.otherSectionItemsView() }
             )
         } else {
             ComponentConfigurationView(
                 configuration: self.configuration,
                 componentViewType: TabImplementationView.self,
-                mainItemsView: { self.itemsView() }
+                mainItemsView: { self.itemsView() },
+                otherSectionItemsView: { self.otherSectionItemsView() }
             )
         }
     }
@@ -72,40 +74,41 @@ struct TabConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
                 isOn: self.configuration.isEqualSize
             )
         }
+    }
 
-        StepperConfigurationItemView(
-            name: "no. of tabs",
-            value: self.configuration.numberOfTabs,
-            bounds: 1...10
-        )
-
-        HStack(spacing: .medium) {
-            ToggleConfigurationItemView(
-                name: "is text",
-                isOn: self.configuration.isText
-            )
-
-            ToggleConfigurationItemView(
-                name: "is long label",
-                isOn: self.configuration.isLongLabel
+    @ViewBuilder
+    private func otherSectionItemsView() -> some View {
+        Section("Tabs") {
+            StepperConfigurationItemView(
+                name: "no. of tabs",
+                value: self.configuration.numberOfTabs,
+                bounds: 2...10
             )
         }
 
-        HStack(spacing: .medium) {
-            ToggleConfigurationItemView(
-                name: "is icon",
-                isOn: self.configuration.isIcon
-            )
+        ForEach(self.configuration.items, id: \.id) { item in
+            Section("Tab \(item.id)") {
+                TextFieldConfigurationItemView(
+                    name: "text",
+                    text: item.text
+                )
 
-            ToggleConfigurationItemView(
-                name: "is badge",
-                isOn: self.configuration.isBadge
-            )
+                OptionalEnumConfigurationItemView(
+                    name: "icon",
+                    values: Iconography.allCases,
+                    selectedValue: item.icon
+                )
+
+                ToggleConfigurationItemView(
+                    name: "is badge",
+                    isOn: item.isBadge
+                )
+
+                ToggleConfigurationItemView(
+                    name: "is enabled",
+                    isOn: item.isEnabled
+                )
+            }
         }
-
-        ToggleConfigurationItemView(
-            name: "disabled random tab",
-            isOn: self.configuration.isDisabledRandomTab
-        )
     }
 }

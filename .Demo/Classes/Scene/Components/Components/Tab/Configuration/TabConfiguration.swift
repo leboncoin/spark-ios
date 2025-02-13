@@ -8,44 +8,69 @@
 
 import Foundation
 
-// TODO: use Item like RadioButtonConfiguration to manage all tabs
-
 class TabConfiguration: ComponentConfiguration {
 
     // MARK: - Properties
 
     var intent: TabIntent = .random
-    var isText: Bool = true
-    var isLongLabel: Bool = .random()
-    var isIcon: Bool = .random()
-    var isBadge: Bool = false {
-        didSet {
-            self.badgePosition = (0..<self.numberOfTabs).randomElement() ?? 0
-        }
-    }
-    private(set) var badgePosition = 0
     var isEqualSize: Bool = .random()
     var tabSize: TabSize = .random
-    var numberOfTabs = 4
-    var isDisabledRandomTab: Bool = false {
+    var numberOfTabs = 4 {
         didSet {
-            if self.isDisabledRandomTab {
-                self.disabledTab = (0..<self.numberOfTabs).randomElement() ?? 0
-            } else {
-                self.disabledTab = 0
-            }
+            self.updateItems()
         }
     }
-    private(set) var disabledTab = 0
+
+    var items = [Item]()
 
     // MARK: - Initialization
 
     required init() {
         super.init()
 
+        self.updateItems()
+
         self.isEnabled.showConfiguration = true
     }
+
+    // MARK: - Update
+
+    func updateItems() {
+        let lastNumberOfTabs = self.items.count
+        if self.numberOfTabs > lastNumberOfTabs {
+            repeat {
+                self.items.append(Item(id: self.items.count + 1))
+            } while self.numberOfTabs > self.items.count
+        } else if self.numberOfTabs < lastNumberOfTabs {
+            self.items.removeLast()
+        }
+    }
 }
+
+// MARK: - Sub Model
+
+extension TabConfiguration {
+    struct Item: Identifiable {
+
+        // MARK: - Properties
+
+        let id: Int
+        var text: String
+        var icon: Iconography? = .optionalRandom
+        var isEnabled: Bool = .random()
+        var isBadge: Bool = .random()
+        let badgeValue = Int.random(in: 1...99)
+
+        // MARK: - Initialization
+
+        init(id: Int) {
+            self.id = id
+            self.text = "My item \(id)"
+        }
+    }
+}
+
+// MARK: - Extension
 
 extension TabSize {
 

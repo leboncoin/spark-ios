@@ -52,20 +52,22 @@ struct CheckboxGroupConfigurationView: ConfigurationViewable {
                         value: self.configuration.numberOfItems,
                         bounds: 2...4
                     )
+                }
 
-                    ForEach(self.configuration.items, id: \.id) { item in
+                ForEach(self.configuration.items, id: \.id) { item in
+                    Section("Item \(item.id)") {
                         ToggleConfigurationItemView(
-                            name: "Item \(item.id) is long text",
+                            name: "is long text",
                             isOn: item.isLongText
                         )
 
                         ToggleConfigurationItemView(
-                            name: "Item \(item.id) is attributed text",
+                            name: "is attributed text",
                             isOn: item.isAttributedText
                         )
 
                         ToggleConfigurationItemView(
-                            name: "Item \(item.id) is enabled",
+                            name: "is enabled",
                             isOn: item.isEnabled
                         )
                     }
