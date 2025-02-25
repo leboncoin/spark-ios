@@ -34,7 +34,6 @@ final class RatingInputComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Properties
 
-    let fullWidth = false
     weak var viewController: DisplayViewController?
     private var cancellables = Set<AnyCancellable>()
 
@@ -51,7 +50,7 @@ final class RatingInputComponentUIViewMaker: ComponentUIViewMaker {
         self.updateCommonProperties(componentView, for: configuration)
 
         componentView.publisher.sink { value in
-            configuration.infoLabel?.text = configuration.getInfoValue(from: value)
+            configuration.uiKitInfoLabel?.text = configuration.getInfoValue(from: value)
         }.store(in: &self.cancellables)
 
         return componentView
@@ -74,10 +73,12 @@ final class RatingInputComponentUIViewMaker: ComponentUIViewMaker {
         componentView.demoDisabled(configuration)
         componentView.demoAccessibilityLabel(configuration)
 
-        configuration.infoLabel?.text = configuration.getInfoValue(from: configuration.uiKitRating)
+        configuration.uiKitInfoLabel?.text = configuration.getInfoValue(from: configuration.uiKitRating)
     }
 
-    func createComponentInfoLabel(on configuration: Configuration) {
-        configuration.infoLabel = UILabel()
+    // MARK: - Getter
+
+    func isInfoLabel() -> Bool {
+        true
     }
 }

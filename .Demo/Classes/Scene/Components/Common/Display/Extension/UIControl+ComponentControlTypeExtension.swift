@@ -25,28 +25,50 @@ extension UIControl {
             return
         }
 
+        let controlType = configuration.uiKitControlType.value
+
         // Publisher ?
-        if configuration.uiKitControlType.value == .publisher {
-            viewController.componentControlSubcription = self.publisher(for: .touchUpInside).sink { _ in
+        if controlType == .publisher {
+            viewController.componentTapControlSubcription = self.publisher(for: .touchUpInside).sink { _ in
                 viewController.showTapAlert(for: .publisher)
             }
         } else {
-            viewController.componentControlSubcription?.cancel()
-            viewController.componentControlSubcription = nil
+            viewController.componentTapControlSubcription?.cancel()
+            viewController.componentTapControlSubcription = nil
         }
 
         // Action ?
-        if configuration.uiKitControlType.value == .action {
+        if controlType == .action {
             self.addAction(viewController.componentAction, for: .touchUpInside)
         } else {
             self.removeAction(viewController.componentAction, for: .touchUpInside)
         }
 
         // Target ?
-        if configuration.uiKitControlType.value == .target {
-            self.addTarget(viewController, action: #selector(viewController.componentTouchUpInsideTarget), for: .touchUpInside)
+        if controlType == .target {
+            self.addTarget(
+                viewController,
+                action: #selector(viewController.componentTouchUpInsideTarget),
+                for: .touchUpInside
+            )
         } else {
-            self.removeTarget(viewController, action: #selector(viewController.componentTouchUpInsideTarget), for: .touchUpInside)
+            self.removeTarget(
+                viewController,
+                action: #selector(viewController.componentTouchUpInsideTarget),
+                for: .touchUpInside
+            )
+        }
+
+        // Toggle ?
+        if controlType == .toggle {
+            viewController.componentToggleAction = UIAction { [weak self] _ in
+                guard controlType == .toggle else { return }
+                self?.isSelected.toggle()
+                configuration.uiKitIsSelected.value.toggle()
+            }
+            self.addAction(viewController.componentToggleAction, for: .touchUpInside)
+        } else {
+            self.removeAction(viewController.componentToggleAction, for: .touchUpInside)
         }
     }
 }

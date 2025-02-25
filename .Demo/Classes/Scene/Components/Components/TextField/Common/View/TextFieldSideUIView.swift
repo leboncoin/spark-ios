@@ -22,7 +22,7 @@ final class TextFieldSideUIView<
     // MARK: - Create
 
     func createSideView(
-        theme: DemoThemes.Theme,
+        configuration: Configuration,
         sideViewContent: TextFieldSideViewContentType,
         side: TextFieldContentSide,
         isAddon: Bool
@@ -31,7 +31,7 @@ final class TextFieldSideUIView<
         case .none:
             return nil
         case .button:
-            return self.createButton(theme: theme, side: side, isAddon: isAddon)
+            return self.createButton(configuration: configuration, side: side, isAddon: isAddon)
         case .text:
             return self.createLabel(side: side, isAddon: isAddon)
         case .image:
@@ -78,7 +78,7 @@ final class TextFieldSideUIView<
     }
 
     private func createButton(
-        theme: DemoThemes.Theme,
+        configuration: Configuration,
         side: TextFieldContentSide,
         isAddon: Bool
     ) -> ButtonUIView {
@@ -90,7 +90,7 @@ final class TextFieldSideUIView<
         }
 
         let button = ButtonUIView(
-            theme: theme.value,
+            theme: configuration.theme.value,
             intent: intent,
             variant: isAddon ? .tinted : .filled,
             size: isAddon ? .large : .small,
@@ -99,6 +99,7 @@ final class TextFieldSideUIView<
         )
         button.setTitle(side.rawValue, for: .normal)
         button.demoControlType(
+            configuration,
             on: self.viewMaker?.viewController
         )
 

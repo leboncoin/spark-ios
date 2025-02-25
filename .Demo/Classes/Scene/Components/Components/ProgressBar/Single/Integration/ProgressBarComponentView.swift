@@ -34,7 +34,7 @@ struct ProgressBarImplementationView: ComponentImplementationViewable {
             theme: self.configurationWrapped.theme.value,
             intent: self.configurationWrapped.intent,
             shape: self.configurationWrapped.shape,
-            value: CGFloat(self.configurationWrapped.value) / 100
+            value: self.configurationWrapped.cgFloatValue()
         )
         .demoAccessibilityLabel(self.configurationWrapped)
     }

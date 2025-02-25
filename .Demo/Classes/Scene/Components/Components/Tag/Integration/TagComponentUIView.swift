@@ -30,7 +30,6 @@ final class TagComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Properties
 
-    let fullWidth = false
     weak var viewController: DisplayViewController?
 
     // MARK: - Methods
@@ -38,7 +37,10 @@ final class TagComponentUIViewMaker: ComponentUIViewMaker {
     func createComponentView(
         for configuration: Configuration
     ) -> ComponentView {
-        return .init(configuration: configuration)
+        let componentView = ComponentView(configuration: configuration)
+        self.updateCommonProperties(componentView, for: configuration)
+
+        return componentView
     }
 
     func updateComponentView(
@@ -50,6 +52,13 @@ final class TagComponentUIViewMaker: ComponentUIViewMaker {
         componentView.variant = configuration.variant
         componentView.demoIcon(configuration)
         componentView.demoText(configuration)
+        self.updateCommonProperties(componentView, for: configuration)
+    }
+
+    private func updateCommonProperties(
+        _ componentView: ComponentView,
+        for configuration: Configuration
+    ) {
         componentView.demoAccessibilityLabel(configuration)
         componentView.demoBackground(configuration)
     }

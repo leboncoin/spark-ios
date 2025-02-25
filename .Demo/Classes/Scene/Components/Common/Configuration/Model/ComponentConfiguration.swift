@@ -27,9 +27,11 @@ class ComponentConfiguration: Identifiable {
     var swiftUIWidth = ShowConfigurationSize(name: "Width")
     var height = ShowConfigurationSize(name: "Height")
 
-    // MARK: - Control Type (UIKit only)
+    // MARK: - UIKit only Properties
 
     var uiKitControlType = ShowUIKitControlType()
+    var uiKitIsSelected = ShowConfigurationBool()
+    var uiKitInfoLabel: UILabel?
 
     // MARK: - Initialization
 

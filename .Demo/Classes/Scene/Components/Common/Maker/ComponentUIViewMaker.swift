@@ -18,41 +18,58 @@ protocol ComponentUIViewMaker<Configuration, ComponentView, ConfigurationView> {
     associatedtype ComponentView: UIView
     associatedtype ConfigurationView: ConfigurationUIViewable<Configuration, ComponentView>
 
-    // MARK: - Static Properties
+    // MARK: - Properties
 
-    static var fullWidth: Bool { get }
+    var viewController: ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, Self>? { get set }
 
-    // MARK: - Static Methods
+    // MARK: - Initialization
 
-    static func createComponentView(
-        for configuration: Configuration,
-        viewController: ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, Self>?
+    init()
+
+    // MARK: - Methods
+
+    func createComponentView(
+        for configuration: Configuration
     ) -> ComponentView
 
-    static func updateComponentView(
+    func updateComponentView(
         _ componentView: ComponentView,
-        for configuration: Configuration,
-        viewController: ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, Self>?
+        for configuration: Configuration
     )
+
+    // MARK: - Getter
+
+    func isFullWidth() -> Bool
+    func isInfoLabel() -> Bool
 }
 
 extension ComponentUIViewMaker {
 
-    static func createComponentImplementationView(
+    func isFullWidth() -> Bool {
+        false
+    }
+
+    func isInfoLabel() -> Bool {
+        false
+    }
+
+    func createComponentImplementationView(
         for configuration: Configuration,
-        context: ComponentContextType,
-        viewController: ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, Self>?
+        context: ComponentContextType
     ) -> ComponentImplementationUIView<ComponentView, Configuration> {
+        if self.isInfoLabel() {
+            configuration.uiKitInfoLabel = UILabel()
+        }
+
         let componentView = self.createComponentView(
-            for: configuration,
-            viewController: viewController
+            for: configuration
         )
 
         return .init(
             configuration: configuration,
             componentView: componentView,
             contextType: context,
-            fullWidth: self.fullWidth
+            isFullWidth: self.isFullWidth()
         )
     }
 }

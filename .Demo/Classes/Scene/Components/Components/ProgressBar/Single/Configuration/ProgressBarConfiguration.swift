@@ -24,4 +24,10 @@ class ProgressBarConfiguration: ComponentConfiguration {
 
         self.accessibilityLabel.showConfiguration = true
     }
+
+    // MARK: - Getter
+
+    func cgFloatValue() -> CGFloat {
+        CGFloat(self.value) / 100
+    }
 }

@@ -30,7 +30,6 @@ final class TextLinkComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Properties
 
-    let fullWidth = false
     weak var viewController: DisplayViewController?
 
     // MARK: - Methods
@@ -81,7 +80,10 @@ final class TextLinkComponentUIViewMaker: ComponentUIViewMaker {
         if configuration.isLongText {
             componentView.textHighlightRange = configuration.getTextHighlightRange()
         }
-        componentView.demoControlType(configuration, on: self.viewController)
+        componentView.demoControlType(
+            configuration,
+            on: self.viewController
+        )
         componentView.demoAccessibilityLabel(configuration)
         componentView.demoAccessibilityValue(configuration)
         componentView.demoBackground(configuration)

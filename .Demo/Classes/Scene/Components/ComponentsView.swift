@@ -38,16 +38,22 @@ struct ComponentsView: View {
 
     var body: some View {
         NavigationStack {
-            List(self.searchResults, id: \.self) { component in
-                NavigationLink(value: component) {
-                    VStack(alignment: .leading) {
-                        Text(component.name)
-                            .font(.body)
-                        Text(component.familly.name)
-                            .font(.footnote)
-                            .foregroundStyle(.gray)
-                            .italic()
+            List {
+                Section {
+                    ForEach(self.searchResults, id: \.self) { component in
+                        NavigationLink(value: component) {
+                            VStack(alignment: .leading) {
+                                Text(component.name)
+                                    .font(.body)
+                                Text(component.familly.name)
+                                    .font(.footnote)
+                                    .foregroundStyle(.gray)
+                                    .italic()
+                            }
+                        }
                     }
+                } footer: {
+                    Text("\(self.searchResults.count) components")
                 }
             }
             .navigationDestination(for: Component.self, destination: { component in
@@ -62,7 +68,7 @@ struct ComponentsView: View {
                         .navigationBarTitle(component.name)
                 }
             })
-            .navigationBarTitle(self.framework.name + " Components")
+            .navigationBarTitle(self.framework.name)
             .searchable(text: self.$searchText)
             .toolbar {
                 Menu("Settings", systemImage: "slider.horizontal.3") {
@@ -119,6 +125,24 @@ struct ComponentsView: View {
     @ViewBuilder
     private func uiKitComponent(_ component: Component) -> some View {
         switch component {
+        case .badge: BadgeComponentUIViewController()
+        case .button: ButtonComponentUIViewController()
+        case .bottomSheet: BottomSheetComponentUIViewController()
+        case .divider: DividerComponentUIViewController()
+        case .icon: IconComponentUIViewController()
+        case .iconButton: IconButtonComponentUIViewController()
+        case .microAnimation: MicroAnimationComponentUIViewController()
+        case .popover: PopoverComponentUIViewController()
+        case .progressBar: ProgressBarComponentUIViewController()
+        case .progressBarIndeterminate: ProgressBarIndeterminateComponentUIViewController()
+        case .ratingDisplay: RatingDisplayComponentUIViewController()
+        case .ratingInput: RatingInputComponentUIViewController()
+        case .slider: SliderComponentUIViewController()
+        case .snackbar: SnackbarComponentUIViewController()
+        case .snackbarPresentation: SnackbarPresentationComponentUIViewController()
+        case .spinner: SpinnerComponentUIViewController()
+        case .switch: SwitchComponentUIViewController()
+        case .tab: TabComponentUIViewController()
         case .tag: TagComponentUIViewController()
         case .textEditor: TextEditorComponentUIViewController()
         case .textField: TextFieldComponentUIViewController()
@@ -215,16 +239,23 @@ extension ComponentsView {
         }
 
         static func allCases(for framework: Framework, familly: Familly) -> [Self] {
-            let values: [Self] = switch framework {
-            case .uiKit: [ // TODO: replace to allCases when migration is over
-                .tag,
-                .textEditor,
-                .textField,
-                .textFieldAddons,
-                .textLink
-            ]
+            let values: [Self]
+
+            switch framework {
+            case .uiKit:
+                // TODO: replace to allCases when migration is over
+                var allCases = self.allCases
+                allCases.removeAll(where: {
+                    $0 == .checkbox ||
+                    $0 == .checkboxGroup ||
+                    $0 == .chip ||
+                    $0 == .formField ||
+                    $0 == .progressTracker ||
+                    $0 == .radioButton
+                })
+                values = allCases
             case .swiftUI:
-                self.allCases
+                values = self.allCases
             }
 
             return values.filter {

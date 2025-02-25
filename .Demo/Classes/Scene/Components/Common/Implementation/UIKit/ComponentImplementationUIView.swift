@@ -63,21 +63,46 @@ final class ComponentImplementationUIView<
 
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            self.componentView,
-            UIView()
-        ])
-        stackView.axis = .horizontal
+            self.componentStackView,
+            self.infoLabelStackView
+        ].compactMap { $0 })
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = .init(spacing: .medium)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
+    private lazy var componentStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            self.componentView,
+            UIView()
+        ])
+        stackView.axis = .horizontal
+        return stackView
+    }()
+
+    private lazy var infoLabelStackView: UIStackView? = {
+        guard let infoLabel else { return nil }
+
+        let stackView = UIStackView(arrangedSubviews: [
+            infoLabel
+        ])
+        stackView.layer.cornerRadius = .init(radius: .medium)
+        stackView.backgroundColor = .systemGroupedBackground
+        stackView.layoutMargins = .init(all: .small)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        return stackView
+    }()
+
     private(set) var componentView: ComponentView
+    private(set) var infoLabel: UILabel?
 
     // MARK: - Properties
 
     private(set) var configuration: Configuration
     private let contextType: ComponentContextType
-    private let fullWidth: Bool
+    private let isFullWidth: Bool
 
     private var widthLayoutConstraint: NSLayoutConstraint?
     private var heightLayoutConstraint: NSLayoutConstraint?
@@ -91,12 +116,15 @@ final class ComponentImplementationUIView<
         configuration: Configuration,
         componentView: ComponentView,
         contextType: ComponentContextType,
-        fullWidth: Bool = false
+        isFullWidth: Bool = false
     ) {
         self.configuration = configuration
         self.componentView = componentView
+        if contextType.mayHaveInfoLabel {
+            self.infoLabel = configuration.uiKitInfoLabel
+        }
         self.contextType = contextType
-        self.fullWidth = fullWidth
+        self.isFullWidth = isFullWidth
         super.init(frame: .zero)
 
         self.setupView()
@@ -112,6 +140,9 @@ final class ComponentImplementationUIView<
         // Properties
         self.backgroundColor = .clear
         self.contentStackView.demoBackground(self.configuration)
+
+        self.infoLabel?.numberOfLines = 1
+        self.infoLabel?.font = UIFont.systemFont(ofSize: 12)
 
         // Subviews
         self.addSubview(self.contentStackView)
@@ -129,7 +160,7 @@ final class ComponentImplementationUIView<
             self.contentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
 
-        if self.fullWidth {
+        if self.isFullWidth {
             self.componentView.widthAnchor.constraint(equalTo: self.contentStackView.widthAnchor).isActive = true
         }
 
@@ -163,7 +194,7 @@ final class ComponentImplementationUIView<
     private func reloadConstraints() {
         // Width
         if self.frame.width > 0 {
-            if self.fullWidth || self.contentStackView.frame.size.width >= self.frame.width {
+            if self.isFullWidth || self.contentStackView.frame.size.width >= self.frame.width {
                 self.widthLayoutConstraint?.constant = self.frame.width
                 self.widthLayoutConstraint?.isActive = true
                 self.trailingLayoutConstraint?.isActive = false

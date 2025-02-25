@@ -12,4 +12,13 @@ import Foundation
 enum ComponentContextType: CaseIterable {
     case display
     case configuration
+
+    // MARK: - Properties
+
+    var mayHaveInfoLabel: Bool {
+        switch self {
+        case .display: true
+        case .configuration: false
+        }
+    }
 }

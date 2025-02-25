@@ -33,7 +33,6 @@ final class SnackbarPresentationComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Properties
 
-    let fullWidth = true
     weak var viewController: DisplayViewController?
 
     private var snackbar: SnackbarUIView = {
@@ -75,6 +74,8 @@ final class SnackbarPresentationComponentUIViewMaker: ComponentUIViewMaker {
         // Nothing to do here
     }
 
+    // MARK: - Actions
+
     private func actionHandler(for configuration: Configuration) {
         guard let viewController else {
             return
@@ -96,6 +97,12 @@ final class SnackbarPresentationComponentUIViewMaker: ComponentUIViewMaker {
                 insets: .init(configuration)
             )
         }
+    }
+
+    // MARK: - Getter
+
+    func isFullWidth() -> Bool {
+        true
     }
 }
 

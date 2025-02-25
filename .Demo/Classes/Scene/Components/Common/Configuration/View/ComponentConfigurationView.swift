@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ComponentConfigurationView<
     Configuration: ComponentConfiguration,
-    ComponentView: ComponentImplementationViewable<Configuration>,
+    ComponentView: View,
     ConfigurationItemsView: View,
     OtherConfigurationItemsView: View,
     OtherAccessibilityItemsView: View
@@ -23,119 +23,69 @@ struct ComponentConfigurationView<
     @State private var dynamicTypeSize = DynamicTypeSize.large
     @State var colorScheme: ColorScheme = .light
 
+    private let componentView: () -> ComponentView
     private var mainItemsView: () -> ConfigurationItemsView
     private var otherSectionItemsView: (() -> OtherConfigurationItemsView)?
     private var otherAccessibilityItemsView: (() -> OtherAccessibilityItemsView)?
 
-    private let componentView: ComponentView
     private let framework: Framework
 
-    // MARK: - Initialization (Used by SwiftUI)
+    // MARK: - Initialization
 
     init(
         configuration: Binding<Configuration>,
-        componentViewType: ComponentView.Type,
+        framework: Framework,
+        @ViewBuilder componentView: @escaping () -> ComponentView,
         @ViewBuilder mainItemsView: @escaping () -> ConfigurationItemsView
     ) where OtherConfigurationItemsView == EmptyView, OtherAccessibilityItemsView == EmptyView {
         self._configuration = configuration
-        self.componentView = ComponentView(configuration: configuration)
-        self.framework = .swiftUI
+        self.framework = framework
+        self.componentView = componentView
         self.mainItemsView = mainItemsView
     }
 
     init(
         configuration: Binding<Configuration>,
-        componentViewType: ComponentView.Type,
+        framework: Framework,
+        @ViewBuilder componentView: @escaping () -> ComponentView,
         @ViewBuilder mainItemsView: @escaping () -> ConfigurationItemsView,
         @ViewBuilder otherSectionItemsView: @escaping () -> OtherConfigurationItemsView
-    ) where OtherAccessibilityItemsView == EmptyView{
+    ) where OtherAccessibilityItemsView == EmptyView {
         self._configuration = configuration
-        self.componentView = ComponentView(configuration: configuration)
-        self.framework = .swiftUI
+        self.framework = framework
+        self.componentView = componentView
         self.mainItemsView = mainItemsView
         self.otherSectionItemsView = otherSectionItemsView
     }
 
     init(
         configuration: Binding<Configuration>,
-        componentViewType: ComponentView.Type,
+        framework: Framework,
+        @ViewBuilder componentView: @escaping () -> ComponentView,
         @ViewBuilder mainItemsView: @escaping () -> ConfigurationItemsView,
         @ViewBuilder otherAccessibilityItemsView: @escaping () -> OtherAccessibilityItemsView
     ) where OtherConfigurationItemsView == EmptyView {
         self._configuration = configuration
-        self.componentView = ComponentView(configuration: configuration)
-        self.framework = .swiftUI
+        self.framework = framework
+        self.componentView = componentView
         self.mainItemsView = mainItemsView
         self.otherAccessibilityItemsView = otherAccessibilityItemsView
     }
 
     init(
         configuration: Binding<Configuration>,
-        componentViewType: ComponentView.Type,
+        framework: Framework,
+        @ViewBuilder componentView: @escaping () -> ComponentView,
         @ViewBuilder mainItemsView: @escaping () -> ConfigurationItemsView,
         @ViewBuilder otherSectionItemsView: @escaping () -> OtherConfigurationItemsView,
         @ViewBuilder otherAccessibilityItemsView: @escaping () -> OtherAccessibilityItemsView
     ) {
         self._configuration = configuration
-        self.componentView = ComponentView(configuration: configuration)
-        self.framework = .swiftUI
+        self.framework = framework
+        self.componentView = componentView
         self.mainItemsView = mainItemsView
         self.otherSectionItemsView = otherSectionItemsView
         self.otherAccessibilityItemsView = otherAccessibilityItemsView
-    }
-
-    // MARK: - Initialization (Used by UIKit)
-
-    init(
-        configuration: Binding<Configuration>,
-        componentView: ComponentView,
-        @ViewBuilder mainItemsView: @escaping () -> ConfigurationItemsView
-    ) where OtherConfigurationItemsView == EmptyView, OtherAccessibilityItemsView == EmptyView {
-        self._configuration = configuration
-        self.mainItemsView = mainItemsView
-        self.componentView = componentView
-        self.framework = .uiKit
-    }
-
-    init(
-        configuration: Binding<Configuration>,
-        componentView: ComponentView,
-        @ViewBuilder mainItemsView: @escaping () -> ConfigurationItemsView,
-        @ViewBuilder otherSectionItemsView: @escaping () -> OtherConfigurationItemsView
-    ) where OtherAccessibilityItemsView == EmptyView{
-        self._configuration = configuration
-        self.mainItemsView = mainItemsView
-        self.otherSectionItemsView = otherSectionItemsView
-        self.componentView = componentView
-        self.framework = .uiKit
-    }
-
-    init(
-        configuration: Binding<Configuration>,
-        componentView: ComponentView,
-        @ViewBuilder mainItemsView: @escaping () -> ConfigurationItemsView,
-        @ViewBuilder otherAccessibilityItemsView: @escaping () -> OtherAccessibilityItemsView
-    ) where OtherConfigurationItemsView == EmptyView {
-        self._configuration = configuration
-        self.mainItemsView = mainItemsView
-        self.otherAccessibilityItemsView = otherAccessibilityItemsView
-        self.componentView = componentView
-        self.framework = .uiKit
-    }
-
-    init(
-        configuration: Binding<Configuration>,
-        componentView: ComponentView,
-        @ViewBuilder mainItemsView: @escaping () -> ConfigurationItemsView,
-        @ViewBuilder otherSectionItemsView: @escaping () -> OtherConfigurationItemsView,
-        @ViewBuilder otherAccessibilityItemsView: @escaping () -> OtherAccessibilityItemsView
-    ) {
-        self._configuration = configuration
-        self.mainItemsView = mainItemsView
-        self.otherSectionItemsView = otherSectionItemsView
-        self.otherAccessibilityItemsView = otherAccessibilityItemsView
-        self.componentView = componentView
-        self.framework = .uiKit
     }
 
     // MARK: - View
@@ -144,7 +94,7 @@ struct ComponentConfigurationView<
         NavigationView {
             VStack(alignment: .leading, spacing: .medium) {
                 // Component
-                self.componentView
+                self.componentView()
                     .dynamicTypeSize(self.dynamicTypeSize)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, .xLarge)
@@ -153,7 +103,7 @@ struct ComponentConfigurationView<
                     // *****
                     // Component properties
                     Section("Properties") {
-                        ThemeConfigurationView(
+                        ThemeConfigurationItemView(
                             name: "theme",
                             values: DemoThemes.shared.themes,
                             selectedValue: self.$configuration.theme
@@ -162,14 +112,21 @@ struct ComponentConfigurationView<
                         self.mainItemsView()
 
                         if self.configuration.isEnabled.showConfiguration {
-                            ToggleConfigurationView(
+                            ToggleConfigurationItemView(
                                 name: "is enabled",
                                 isOn: self.$configuration.isEnabled.value
                             )
                         }
 
+                        if self.framework.isUIKit && self.configuration.uiKitIsSelected.showConfiguration {
+                            ToggleConfigurationItemView(
+                                name: "is selected",
+                                isOn: self.$configuration.uiKitIsSelected.value
+                            )
+                        }
+
                         if self.framework.isUIKit && self.configuration.uiKitControlType.showConfiguration {
-                            OptionalEnumConfigurationView(
+                            OptionalEnumConfigurationItemView(
                                 name: "control type",
                                 values: ComponentControlType.allCases,
                                 selectedValue: self.$configuration.uiKitControlType.value
@@ -216,14 +173,14 @@ struct ComponentConfigurationView<
         if isAccessibilityLabel || isAccessibilityValue || isOtherAccessibilityItemsView {
             Section("Accessibility") {
                 if isAccessibilityLabel {
-                    TextFieldConfigurationView(
+                    TextFieldConfigurationItemView(
                         name: "Label",
                         text: self.$configuration.accessibilityLabel.value
                     )
                 }
 
                 if isAccessibilityValue {
-                    TextFieldConfigurationView(
+                    TextFieldConfigurationItemView(
                         name: "Value",
                         text: self.$configuration.accessibilityValue.value
                     )
@@ -245,20 +202,20 @@ struct ComponentConfigurationView<
             ForEach(configurations, id: \.id) { $item in
                 if item.showConfiguration {
                     Section(item.name) {
-                        TextFieldConfigurationView(
+                        TextFieldConfigurationItemView(
                             name: item.name,
                             text: $item.text,
                             keyboardType: .numberPad
                         )
 
-                        TextFieldConfigurationView(
+                        TextFieldConfigurationItemView(
                             name: "min",
                             text: $item.minText,
                             keyboardType: .numberPad
                         )
 
                         HStack {
-                            TextFieldConfigurationView(
+                            TextFieldConfigurationItemView(
                                 name: "max",
                                 text: $item.maxText,
                                 keyboardType: .numberPad
@@ -268,7 +225,7 @@ struct ComponentConfigurationView<
                                 Divider()
                                     .frame(height: 16)
 
-                                ToggleConfigurationView(
+                                ToggleConfigurationItemView(
                                     name: "is ∞",
                                     isOn: $item.infinite
                                 )
@@ -283,8 +240,8 @@ struct ComponentConfigurationView<
     @ViewBuilder
     private func createGlobalSettingsSection() -> some View {
         Section("Global Settings") {
-            DynamicTypeConfigurationView(selectedValue: self.$dynamicTypeSize)
-            ColorSchemeConfigurationView(selectedValue: self.$colorScheme)
+            DynamicTypeConfigurationItemView(selectedValue: self.$dynamicTypeSize)
+            ColorSchemeConfigurationItemView(selectedValue: self.$colorScheme)
         }
     }
 }

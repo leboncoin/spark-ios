@@ -37,26 +37,26 @@ struct TextFieldAddonsConfigurationView: ConfigurationViewable, ConfigurationUIV
     // MARK: - View
 
     var body: some View {
-        if let componentImplementationViewRepresentable {
-            ComponentConfigurationView(
-                configuration: self.configuration,
-                componentView: componentImplementationViewRepresentable,
-                mainItemsView: { self.itemsView() },
-                otherSectionItemsView:  { self.otherSectionItemsView() }
-            )
-        } else {
-            ComponentConfigurationView(
-                configuration: self.configuration,
-                componentViewType: TextFieldAddonsImplementationView.self,
-                mainItemsView: { self.itemsView() },
-                otherSectionItemsView:  { self.otherSectionItemsView() }
-            )
-        }
-    }
-
-    @ViewBuilder
-    private func itemsView() -> some View {
-        TextFieldCommonConfigurationView(configuration: self.configuration, framework: self.framework)
+        ComponentConfigurationView(
+            configuration: self.configuration,
+            framework: self.framework,
+            componentView: {
+                if let componentImplementationViewRepresentable {
+                    componentImplementationViewRepresentable
+                } else {
+                    TextFieldAddonsImplementationView(configuration: self.configuration)
+                }
+            },
+            mainItemsView: {
+                TextFieldCommonConfigurationView(
+                    configuration: self.configuration,
+                    framework: self.framework
+                )
+            },
+            otherSectionItemsView: {
+                self.otherSectionItemsView()
+            }
+        )
     }
 
     @ViewBuilder

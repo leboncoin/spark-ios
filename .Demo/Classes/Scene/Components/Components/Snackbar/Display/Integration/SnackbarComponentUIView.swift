@@ -33,7 +33,6 @@ final class SnackbarComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Properties
 
-    let fullWidth = true
     weak var viewController: DisplayViewController?
 
     // MARK: - Methods
@@ -78,6 +77,12 @@ final class SnackbarComponentUIViewMaker: ComponentUIViewMaker {
         }
 
         componentView.demoAccessibilityLabel(configuration)
+    }
+
+    // MARK: - Getter
+
+    func isFullWidth() -> Bool {
+        true
     }
 }
 

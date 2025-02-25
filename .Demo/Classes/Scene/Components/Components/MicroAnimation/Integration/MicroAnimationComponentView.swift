@@ -19,7 +19,6 @@ extension MicroAnimationComponentView {
     }
 }
 
-
 // MARK: - Subview
 
 struct MicroAnimationImplementationView: ComponentImplementationViewable {

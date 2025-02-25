@@ -33,7 +33,7 @@ struct ButtonImplementationView: ComponentImplementationViewable {
             shape: self.configurationWrapped.shape,
             alignment: self.configurationWrapped.alignment,
             action: {
-                if self.configurationWrapped.isToggle {
+                if self.configurationWrapped.swiftUIIsToggle {
                     self.isSelected.toggle()
                 } else {
                     self.showAlertAction = true
@@ -41,7 +41,7 @@ struct ButtonImplementationView: ComponentImplementationViewable {
             })
         .disabled(!self.configurationWrapped.isEnabled.value)
         .selected(self.isSelected)
-        .frame(maxWidth: self.configurationWrapped.isFullWidth ? .infinity : nil)
+        .frame(maxWidth: self.configurationWrapped.swiftUIIsFullWidth ? .infinity : nil)
         .demoImage(self.configurationWrapped, for: .normal)
         .demoImage(self.configurationWrapped, for: .highlighted)
         .demoImage(self.configurationWrapped, for: .disabled)
@@ -76,16 +76,17 @@ private extension ButtonView {
     ) -> Self {
         let content = self.content(configuration, for: state)
 
+        guard !content.title.isEmpty else {
+            return self.title(nil, for: state)
+        }
+
         if content.isAttributedTitle {
             return self.attributedTitle(
                 content.title.demoAttributedString,
                 for: state
             )
         } else {
-            return self.title(
-                content.title.isEmpty ? nil : content.title,
-                for: state
-            )
+            return self.title(content.title, for: state)
         }
     }
 

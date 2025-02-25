@@ -26,7 +26,6 @@ final class DividerComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Properties
 
-    let fullWidth = true
     weak var viewController: DisplayViewController?
 
     // MARK: - Methods
@@ -64,6 +63,12 @@ final class DividerComponentUIViewMaker: ComponentUIViewMaker {
         componentView.demoAccessibilityLabel(configuration)
         componentView.demoBackground(configuration)
         componentView.demoHeight(configuration)
+    }
+
+    // MARK: - Getter
+
+    func isFullWidth() -> Bool {
+        true
     }
 }
 

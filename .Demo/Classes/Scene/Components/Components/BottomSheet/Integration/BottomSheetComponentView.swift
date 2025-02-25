@@ -56,7 +56,7 @@ struct BottomSheetImplementationView: ComponentImplementationViewable {
             }
 
             Text(self.configurationWrapped.contentType.description)
-                .font(.footnote)
+                .demoComponentInfoBackground()
         }
     }
 

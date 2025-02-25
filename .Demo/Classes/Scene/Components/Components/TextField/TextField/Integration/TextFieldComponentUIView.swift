@@ -30,16 +30,23 @@ final class TextFieldComponentUIViewMaker: ComponentUIViewMaker {
     typealias ComponentView = TextFieldUIView
     typealias ConfigurationView = TextFieldConfigurationView
     typealias DisplayViewController = ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, TextFieldComponentUIViewMaker>
+    typealias SideView = TextFieldSideUIView<Configuration, ComponentView, ConfigurationView, TextFieldComponentUIViewMaker>
 
-    // MARK: - Static Properties
+    // MARK: - Properties
 
-    static var fullWidth: Bool { true }
+    weak var viewController: DisplayViewController?
+    var sideView = SideView()
 
-    // MARK: - Static Methods
+    // MARK: - Initialization
 
-    static func createComponentView(
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+    init() {
+        self.sideView.viewMaker = self
+    }
+
+    // MARK: - Methods
+
+    func createComponentView(
+        for configuration: Configuration
     ) -> ComponentView {
         let componentView = ComponentView(
             theme: configuration.theme.value,
@@ -50,31 +57,36 @@ final class TextFieldComponentUIViewMaker: ComponentUIViewMaker {
         return componentView
     }
 
-    static func updateComponentView(
+    func updateComponentView(
         _ componentView: ComponentView,
-        for configuration: Configuration,
-        viewController: DisplayViewController?
+        for configuration: Configuration
     ) {
         componentView.theme = configuration.theme.value
         componentView.intent = configuration.intent
         self.updateCommonProperties(componentView, for: configuration)
     }
 
-    private static func updateCommonProperties(
+    private func updateCommonProperties(
         _ componentView: ComponentView,
         for configuration: Configuration
     ) {
         componentView.placeholder = configuration.placeholder
         componentView.isSecureTextEntry = configuration.isSecure
-        componentView.demoLeftView(configuration)
+        componentView.demoSideView(configuration, contentSide: .left, sideView: self.sideView)
         componentView.leftViewMode = configuration.uiKitLeftViewMode
-        componentView.demoRightView(configuration)
+        componentView.demoSideView(configuration, contentSide: .right, sideView: self.sideView)
         componentView.rightViewMode = configuration.uiKitRightViewMode
         componentView.clearButtonMode = configuration.uiKitClearButtonMode
         componentView.isUserInteractionEnabled = configuration.uiKitIsUserInteractionEnabled
         componentView.demoDisabled(configuration)
-        componentView.demoAccessibilityValue(configuration)
+        componentView.demoAccessibilityLabel(configuration)
         componentView.demoBackground(configuration)
+    }
+
+    // MARK: - Getter
+
+    func isFullWidth() -> Bool {
+        true
     }
 }
 
@@ -82,27 +94,28 @@ final class TextFieldComponentUIViewMaker: ComponentUIViewMaker {
 
 extension TextFieldUIView {
 
-    func demoLeftView<Configuration: TextFieldConfiguration>(
-        _ configuration: Configuration
+    func demoSideView(
+        _ configuration: TextFieldComponentUIViewMaker.Configuration,
+        contentSide: TextFieldContentSide,
+        sideView: TextFieldComponentUIViewMaker.SideView
     ) {
-        let view = TextFieldSideUIView.sideView(
-            theme: configuration.theme,
-            sideViewContent: configuration.leftViewContentType,
-            side: .left,
-            isAddon: false
-        )
-        self.leftView = view
-    }
+        let contentType = switch contentSide {
+        case .left: configuration.leftViewContentType
+        case .right: configuration.rightViewContentType
+        }
 
-    func demoRightView<Configuration: TextFieldConfiguration>(
-        _ configuration: Configuration
-    ) {
-        let view = TextFieldSideUIView.sideView(
-            theme: configuration.theme,
-            sideViewContent: configuration.rightViewContentType,
-            side: .right,
+        let view = sideView.createSideView(
+            configuration: configuration,
+            sideViewContent: contentType,
+            side: contentSide,
             isAddon: false
         )
-        self.rightView = view
+
+        switch contentSide {
+        case .left:
+            self.leftView = view
+        case .right:
+            self.rightView = view
+        }
     }
 }

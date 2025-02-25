@@ -21,8 +21,15 @@ class ButtonConfiguration: ComponentConfiguration {
     var contentHighlighted = Content(state: .highlighted)
     var contentDisabled = Content(state: .disabled)
     var contentSelected = Content(state: .selected)
-    var isFullWidth: Bool = .random()
-    var isToggle: Bool = .random()
+
+    // MARK: - SwiftUI Properties Only
+
+    var swiftUIIsFullWidth: Bool = .random()
+    var swiftUIIsToggle: Bool = .random()
+
+    // MARK: - UIKit Properties Only
+
+    var uiKitIsAnimated: Bool = .random()
 
     // MARK: - Initialization
 
@@ -30,6 +37,10 @@ class ButtonConfiguration: ComponentConfiguration {
         super.init()
 
         self.isEnabled.showConfiguration = true
+
+        self.uiKitIsSelected.showConfiguration = true
+        self.uiKitControlType.showConfiguration = true
+
         self.accessibilityLabel.showConfiguration = true
     }
 

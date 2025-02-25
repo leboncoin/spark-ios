@@ -33,7 +33,6 @@ final class TextEditorComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Properties
 
-    let fullWidth = true
     weak var viewController: DisplayViewController?
 
     // MARK: - Methods
@@ -70,5 +69,11 @@ final class TextEditorComponentUIViewMaker: ComponentUIViewMaker {
 
         componentView.demoAccessibilityLabel(configuration)
         componentView.demoBackground(configuration)
+    }
+
+    // MARK: - Getter
+
+    func isFullWidth() -> Bool {
+        true
     }
 }

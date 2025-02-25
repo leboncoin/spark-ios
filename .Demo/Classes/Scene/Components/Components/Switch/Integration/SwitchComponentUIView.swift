@@ -32,7 +32,6 @@ final class SwitchComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Properties
 
-    let fullWidth = false
     weak var viewController: DisplayViewController?
 
     // MARK: - Methods

@@ -19,6 +19,6 @@ extension UIView {
     func demoAccessibilityValue<Configuration: ComponentConfiguration>(
         _ configuration: Configuration
     ) {
-        self.accessibilityLabel = configuration.accessibilityValue.value
+        self.accessibilityValue = configuration.accessibilityValue.value
     }
 }

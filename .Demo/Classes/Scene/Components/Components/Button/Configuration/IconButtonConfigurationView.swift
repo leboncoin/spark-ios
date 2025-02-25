@@ -50,7 +50,8 @@ struct IconButtonConfigurationView: ConfigurationViewable, ConfigurationUIViewab
             mainItemsView: {
                 ButtonCommonConfigurationView(
                     configuration: self.configuration,
-                    isIconButton: true
+                    isIconButton: true,
+                    framework: framework
                 )
             },
             otherSectionItemsView: {

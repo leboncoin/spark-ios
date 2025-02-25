@@ -13,7 +13,7 @@ struct MicroAnimationConfigurationView: ConfigurationViewable, ConfigurationUIVi
     // MARK: - Type Alias
 
     typealias Configuration = MicroAnimationConfiguration
-    typealias ComponentUIView = UIStackView
+    typealias ComponentUIView = MicroAnimationContentUIView
 
     // MARK: - Properties
 

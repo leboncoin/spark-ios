@@ -28,7 +28,6 @@ final class ComponentDisplayTableViewCell<
 
     var componentView: ComponentImplementationUIView<ComponentView, Configuration>?
     var viewMaker: ViewMaker?
-//    weak var viewController: ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, ViewMaker>?
 
     // MARK: - Properties
 

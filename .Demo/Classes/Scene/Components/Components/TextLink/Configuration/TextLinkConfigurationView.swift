@@ -25,7 +25,7 @@ struct TextLinkConfigurationView: ConfigurationViewable, ConfigurationUIViewable
     init(configuration: Binding<Configuration>) {
         self.configuration = configuration
     }
-    
+
     init(
         configuration: Binding<Configuration>,
         componentImplementationViewRepresentable: ComponentImplementationRepresentable
@@ -37,19 +37,20 @@ struct TextLinkConfigurationView: ConfigurationViewable, ConfigurationUIViewable
     // MARK: - View
 
     var body: some View {
-        if let componentImplementationViewRepresentable {
-            ComponentConfigurationView(
-                configuration: self.configuration,
-                componentView: componentImplementationViewRepresentable,
-                mainItemsView: { self.itemsView() }
-            )
-        } else {
-            ComponentConfigurationView(
-                configuration: self.configuration,
-                componentViewType: TextLinkImplementationView.self,
-                mainItemsView: { self.itemsView() }
-            )
-        }
+        ComponentConfigurationView(
+            configuration: self.configuration,
+            framework: self.framework,
+            componentView: {
+                if let componentImplementationViewRepresentable {
+                    componentImplementationViewRepresentable
+                } else {
+                    TextLinkImplementationView(configuration: self.configuration)
+                }
+            },
+            mainItemsView: {
+                self.itemsView()
+            }
+        )
     }
 
     @ViewBuilder

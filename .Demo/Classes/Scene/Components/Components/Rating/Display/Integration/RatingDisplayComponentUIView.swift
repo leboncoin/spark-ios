@@ -34,7 +34,6 @@ final class RatingDisplayComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Properties
 
-    let fullWidth = false
     weak var viewController: DisplayViewController?
 
     // MARK: - Methods

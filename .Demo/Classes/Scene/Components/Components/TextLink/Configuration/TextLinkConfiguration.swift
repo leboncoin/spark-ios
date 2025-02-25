@@ -45,10 +45,10 @@ class TextLinkConfiguration: ComponentConfiguration {
     required init() {
         super.init()
 
+        self.uiKitControlType.showConfiguration = true
+
         self.accessibilityLabel.showConfiguration = true
         self.accessibilityValue.showConfiguration = true
-
-        self.uiKitControlType.showConfiguration = true
     }
 
     // MARK: - Getter

@@ -34,7 +34,6 @@ final class TextFieldAddonsComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Properties
 
-    let fullWidth = true
     weak var viewController: DisplayViewController?
     var sideView = SideView()
 
@@ -106,8 +105,14 @@ final class TextFieldAddonsComponentUIViewMaker: ComponentUIViewMaker {
         componentView.textField.clearButtonMode = configuration.uiKitClearButtonMode
         componentView.isUserInteractionEnabled = configuration.uiKitIsUserInteractionEnabled
         componentView.demoDisabled(configuration)
-        componentView.demoAccessibilityValue(configuration)
+        componentView.demoAccessibilityLabel(configuration)
         componentView.demoBackground(configuration)
+    }
+
+    // MARK: - Getter
+
+    func isFullWidth() -> Bool {
+        true
     }
 }
 
@@ -133,7 +138,7 @@ extension TextFieldAddonsUIView {
         }
 
         let view = sideView.createSideView(
-            theme: configuration.theme,
+            configuration: configuration,
             sideViewContent: contentType,
             side: contentSide,
             isAddon: isAddon

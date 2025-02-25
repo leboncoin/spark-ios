@@ -45,7 +45,7 @@ class ComponentDisplayViewController<
     ComponentView: UIView,
     ConfigurationView: ConfigurationUIViewable<Configuration, ComponentView>,
     ViewMaker: ComponentUIViewMaker<Configuration, ComponentView, ConfigurationView>
->: UIViewController, ComponentDisplayTableViewDelegate {
+>: UIViewController, ComponentDisplayTableViewDelegate, ComponentDisplayConfigurationControllerDelegate {
 
     // MARK: - Components
 
@@ -66,11 +66,11 @@ class ComponentDisplayViewController<
 
     private lazy var topBarStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
+            self.refreshButton, // TODO: test for many components if we still need to have this button
+            UIView(),
             self.displayModeButton,
             self.addItemButton,
-            self.updateItemButton,
-            UIView(),
-            self.refreshButton
+            self.updateItemButton
         ])
         stackView.axis = .horizontal
         stackView.spacing = .init(spacing: .medium)
@@ -179,13 +179,16 @@ class ComponentDisplayViewController<
     }()
 
     private lazy var verticalTableView: ComponentDisplayTableView = {
-        let tableView = ComponentDisplayTableView<Configuration, ComponentView, ConfigurationView, ViewMaker>()
+        let tableView = ComponentDisplayTableView<Configuration, ComponentView, ConfigurationView, ViewMaker>(
+            viewMaker: self.viewMaker
+        )
         tableView.delegate = self
-        tableView.viewController = self
         return tableView
     }()
 
     // MARK: - Properties
+
+    private var viewMaker = ViewMaker()
 
     private var style: ComponentDisplayStyle {
         didSet {
@@ -218,7 +221,10 @@ class ComponentDisplayViewController<
         self.showTapAlert(for: .action)
     }
 
-    var componentControlSubcription: AnyCancellable?
+    var componentTapControlSubcription: AnyCancellable?
+    var componentToggleAction: UIAction = .init { _ in
+        print("LOGROB componentToggleAction")
+    }
 
     // MARK: - Initializer
 
@@ -233,6 +239,8 @@ class ComponentDisplayViewController<
         self.styles = styles
 
         super.init(nibName: nil, bundle: nil)
+
+        self.viewMaker.viewController = self
 
         self.setupView()
     }
@@ -272,10 +280,9 @@ class ComponentDisplayViewController<
         for configuration: Configuration,
         afterUpdate: Bool = false
     ) -> ConfigurationView {
-        let implementationView = ViewMaker.createComponentImplementationView(
+        let implementationView = self.viewMaker.createComponentImplementationView(
             for: configuration,
-            context: .configuration,
-            viewController: self
+            context: .configuration
         )
 
         if !afterUpdate {
@@ -320,10 +327,9 @@ class ComponentDisplayViewController<
         // Present
         self.updatePresentRoot()
         if let presentedComponentImpl {
-            ViewMaker.updateComponentView(
+            self.viewMaker.updateComponentView(
                 presentedComponentImpl.componentView,
-                for: selectedConfiguration,
-                viewController: self
+                for: selectedConfiguration
             )
         }
         // ***
@@ -338,10 +344,9 @@ class ComponentDisplayViewController<
                 view.removeFromSuperview()
 
                 // Add the updated component view
-                let newComponentView = ViewMaker.createComponentImplementationView(
+                let newComponentView = self.viewMaker.createComponentImplementationView(
                     for: selectedConfiguration,
-                    context: .display,
-                    viewController: self
+                    context: .display
                 )
                 self.aloneSectionStackView.insertArrangedSubview(newComponentView, at: index)
             }
@@ -393,10 +398,9 @@ class ComponentDisplayViewController<
 
         // Add first component
         if let configuration = self.configurations.first {
-            let view = ViewMaker.createComponentImplementationView(
+            let view = self.viewMaker.createComponentImplementationView(
                 for: configuration,
-                context: .display,
-                viewController: self
+                context: .display
             )
             self.aloneSectionStackView.addArrangedSubview(view)
         }
@@ -414,7 +418,7 @@ class ComponentDisplayViewController<
 
         // Add all components
         for configuration in configurations {
-            let view = ViewMaker.createComponentView(for: configuration, viewController: self)
+            let view = self.viewMaker.createComponentView(for: configuration)
             self.horizontalComponentsStackView.addArrangedSubview(view)
         }
 
@@ -443,13 +447,14 @@ class ComponentDisplayViewController<
         }
 
         let configurationView = self.createConfigurationView(for: selectedConfiguration)
-        let hostingController = UIHostingController(rootView: configurationView)
+        let hostingController = ComponentDisplayConfigurationController(rootView: configurationView)
+        hostingController.delegate = self
 
         self.present(hostingController, animated: true)
     }
 
     private func updatePresentRoot() {
-        guard let hostingController = self.presentedViewController as? UIHostingController<ConfigurationView>,
+        guard let hostingController = self.presentedViewController as? ComponentDisplayConfigurationController<ConfigurationView>,
         let selectedConfiguration else {
             return
         }
@@ -460,14 +465,16 @@ class ComponentDisplayViewController<
 
     // MARK: - Alert
 
-    func showTapAlert(for controlType: ComponentControlType) {
+    func showTapAlert(for controlType: ComponentControlType, name: String? = nil) {
         let alertController = UIAlertController(
-            title: "Tap from " + controlType.name,
+            title: "Tap from " + (name ?? controlType.name),
             message: nil,
             preferredStyle: .alert
         )
         alertController.addAction(.init(title: "Ok", style: .default))
-        self.present(alertController, animated: true)
+
+        let parentViewController = self.presentedViewController ?? self
+        parentViewController.present(alertController, animated: true)
     }
 
     // MARK: - TableViewDelegate
@@ -483,5 +490,11 @@ class ComponentDisplayViewController<
 
     func removeConfiguration(id: String) {
         self.configurations.removeAll(where: { $0.id == id })
+    }
+
+    // MARK: - ComponentDisplayConfigurationControllerDelegate
+
+    func presentWillDisappear() {
+        self.reloadCurrentSection()
     }
 }

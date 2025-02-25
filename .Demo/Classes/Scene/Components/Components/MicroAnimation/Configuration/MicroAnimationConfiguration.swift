@@ -19,7 +19,7 @@ class MicroAnimationConfiguration: ComponentConfiguration {
     var bellConfiguration = BellConfiguration()
 
     var isIndefinitely = false
-    var numberOfRepeat: Int = 1
+    var numberOfRepeat: Int = Int.random(in: 1...5)
 
     // MARK: - Getter
 
@@ -62,9 +62,13 @@ extension MicroAnimationConfiguration {
             let icon: Iconography = .bellOutline
 
             self.iconConfiguration.icon = icon
+            self.iconConfiguration.size = .medium
+
             self.iconButtonConfiguration.contentNormal.icon = icon
+            self.iconButtonConfiguration.size = .medium
 
             self.buttonConfiguration.contentNormal.icon = icon
+            self.buttonConfiguration.size = .medium
             self.buttonConfiguration.contentNormal.title = "My Button"
         }
     }

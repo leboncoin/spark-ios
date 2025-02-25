@@ -38,9 +38,7 @@ final class SliderComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Properties
 
-    let fullWidth = true
     weak var viewController: DisplayViewController?
-    private var infoLabel = UILabel()
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Methods
@@ -59,7 +57,7 @@ final class SliderComponentUIViewMaker: ComponentUIViewMaker {
         )
 
         componentView.valuePublisher.sink { value in
-            configuration.infoLabel?.text = configuration.getInfoValue(from: value)
+            configuration.uiKitInfoLabel?.text = configuration.getInfoValue(from: value)
         }.store(in: &self.cancellables)
 
         return componentView
@@ -90,12 +88,18 @@ final class SliderComponentUIViewMaker: ComponentUIViewMaker {
         componentView.range = configuration.bounds()
         componentView.step = configuration.step()
         componentView.demoDisabled(configuration)
-        componentView.demoAccessibilityValue(configuration)
+        componentView.demoAccessibilityLabel(configuration)
 
-        configuration.infoLabel?.text = configuration.getInfoValue(from: value)
+        configuration.uiKitInfoLabel?.text = configuration.getInfoValue(from: value)
     }
 
-    func createComponentInfoLabel(on configuration: Configuration) {
-        configuration.infoLabel = UILabel()
+    // MARK: - Getter
+
+    func isFullWidth() -> Bool {
+        true
+    }
+
+    func isInfoLabel() -> Bool {
+        true
     }
 }

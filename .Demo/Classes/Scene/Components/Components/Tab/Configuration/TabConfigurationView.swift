@@ -37,23 +37,25 @@ struct TabConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
     // MARK: - View
 
     var body: some View {
-        if let componentImplementationViewRepresentable {
-            ComponentConfigurationView(
-                configuration: self.configuration,
-                componentView: componentImplementationViewRepresentable,
-                mainItemsView: { self.itemsView() },
-                otherSectionItemsView: { self.otherSectionItemsView() }
-            )
-        } else {
-            ComponentConfigurationView(
-                configuration: self.configuration,
-                componentViewType: TabImplementationView.self,
-                mainItemsView: { self.itemsView() },
-                otherSectionItemsView: { self.otherSectionItemsView() }
-            )
-        }
+        ComponentConfigurationView(
+            configuration: self.configuration,
+            framework: self.framework,
+            componentView: {
+                if let componentImplementationViewRepresentable {
+                    componentImplementationViewRepresentable
+                } else {
+                    TabImplementationView(configuration: self.configuration)
+                }
+            },
+            mainItemsView: {
+                self.itemsView()
+            },
+            otherSectionItemsView: {
+                self.otherSectionItemsView()
+            }
+        )
     }
-    
+
     @ViewBuilder
     private func itemsView() -> some View {
         EnumConfigurationItemView(

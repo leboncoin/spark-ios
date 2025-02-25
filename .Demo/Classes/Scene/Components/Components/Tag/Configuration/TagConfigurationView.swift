@@ -37,49 +37,45 @@ struct TagConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
     // MARK: - View
 
     var body: some View {
-        if let componentImplementationViewRepresentable {
-            ComponentConfigurationView(
-                configuration: self.configuration,
-                componentView: componentImplementationViewRepresentable,
-                mainItemsView: { self.itemsView() }
-            )
-        } else {
-            ComponentConfigurationView(
-                configuration: self.configuration,
-                componentViewType: TagImplementationView.self,
-                mainItemsView: { self.itemsView() }
-            )
-        }
-    }
+        ComponentConfigurationView(
+            configuration: self.configuration,
+            framework: self.framework,
+            componentView: {
+                if let componentImplementationViewRepresentable {
+                    componentImplementationViewRepresentable
+                } else {
+                    TagImplementationView(configuration: self.configuration)
+                }
+            },
+            mainItemsView: {
+                EnumConfigurationItemView(
+                    name: "intent",
+                    values: TagIntent.allCases,
+                    selectedValue: self.configuration.intent
+                )
 
-    @ViewBuilder
-    private func itemsView() -> some View {
-        EnumConfigurationItemView(
-            name: "intent",
-            values: TagIntent.allCases,
-            selectedValue: self.configuration.intent
-        )
+                EnumConfigurationItemView(
+                    name: "variant",
+                    values: TagVariant.allCases,
+                    selectedValue: self.configuration.variant
+                )
 
-        EnumConfigurationItemView(
-            name: "variant",
-            values: TagVariant.allCases,
-            selectedValue: self.configuration.variant
-        )
+                OptionalEnumConfigurationItemView(
+                    name: "icon",
+                    values: Iconography.allCases,
+                    selectedValue: self.configuration.icon
+                )
 
-        OptionalEnumConfigurationItemView(
-            name: "icon",
-            values: Iconography.allCases,
-            selectedValue: self.configuration.icon
-        )
+                TextFieldConfigurationItemView(
+                    name: "text",
+                    text: self.configuration.text
+                )
 
-        TextFieldConfigurationItemView(
-            name: "text",
-            text: self.configuration.text
-        )
-
-        ToggleConfigurationItemView(
-            name: "is attributed text",
-            isOn: self.configuration.isAttributedText
+                ToggleConfigurationItemView(
+                    name: "is attributed text",
+                    isOn: self.configuration.isAttributedText
+                )
+            }
         )
     }
 }

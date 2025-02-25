@@ -14,4 +14,8 @@ class PopoverConfiguration: ComponentConfiguration {
 
     var intent: PopoverIntent = .random
     var text: String = "This is the snackbar text"
+
+    // MARK: - UIKit Properties Only
+
+    var uiKitShowArrow: Bool = .random()
 }

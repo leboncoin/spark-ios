@@ -58,6 +58,13 @@ struct PopoverConfigurationView: ConfigurationViewable, ConfigurationUIViewable 
                     name: "text",
                     text: self.configuration.text
                 )
+
+                if self.framework.isUIKit {
+                    ToggleConfigurationItemView(
+                        name: "show arrow",
+                        isOn: self.configuration.uiKitShowArrow
+                    )
+                }
             }
         )
     }

@@ -1,5 +1,5 @@
 //
-//  BadgeComponentUIView.swift
+//  IconButtonComponentUIView.swift
 //  SparkDemo
 //
 //  Created by robin.lemaire on 05/02/2025.
@@ -9,23 +9,20 @@
 import UIKit
 import SwiftUI
 
-// TODO: Tox fix :
-// - Constraints crash on TableView demo
-
 // MARK: - View Controller
 
-typealias BadgeComponentUIViewController = ComponentDisplayViewControllerRepresentable<BadgeConfiguration, BadgeUIView, BadgeConfigurationView, BadgeComponentUIViewMaker>
+typealias IconButtonComponentUIViewController = ComponentDisplayViewControllerRepresentable<IconButtonConfiguration, IconButtonUIView, IconButtonConfigurationView, IconButtonComponentUIViewMaker>
 
 // MARK: - View Maker
 
-final class BadgeComponentUIViewMaker: ComponentUIViewMaker {
+final class IconButtonComponentUIViewMaker: ComponentUIViewMaker {
 
     // MARK: - Type Alias
 
-    typealias Configuration = BadgeConfiguration
-    typealias ComponentView = BadgeUIView
-    typealias ConfigurationView = BadgeConfigurationView
-    typealias DisplayViewController = ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, BadgeComponentUIViewMaker>
+    typealias Configuration = IconButtonConfiguration
+    typealias ComponentView = IconButtonUIView
+    typealias ConfigurationView = IconButtonConfigurationView
+    typealias DisplayViewController = ComponentDisplayViewController<Configuration, ComponentView, ConfigurationView, IconButtonComponentUIViewMaker>
 
     // MARK: - Properties
 
@@ -39,13 +36,9 @@ final class BadgeComponentUIViewMaker: ComponentUIViewMaker {
         let componentView = ComponentView(
             theme: configuration.theme.value,
             intent: configuration.intent,
+            variant: configuration.variant,
             size: configuration.size,
-            value: configuration.value,
-            format: configuration.format.sparkValue(
-                customText: configuration.customText,
-                overflowValue: configuration.overflowValue
-            ),
-            isBorderVisible: configuration.isBorderVisible
+            shape: configuration.shape
         )
         self.updateCommonProperties(componentView, for: configuration)
 
@@ -58,13 +51,10 @@ final class BadgeComponentUIViewMaker: ComponentUIViewMaker {
     ) {
         componentView.theme = configuration.theme.value
         componentView.intent = configuration.intent
+        componentView.variant = configuration.variant
         componentView.size = configuration.size
-        componentView.value = configuration.value
-        componentView.format = configuration.format.sparkValue(
-            customText: configuration.customText,
-            overflowValue: configuration.overflowValue
-        )
-        componentView.isBorderVisible = configuration.isBorderVisible
+        componentView.shape = configuration.shape
+
         self.updateCommonProperties(componentView, for: configuration)
     }
 
@@ -72,6 +62,14 @@ final class BadgeComponentUIViewMaker: ComponentUIViewMaker {
         _ componentView: ComponentView,
         for configuration: Configuration
     ) {
+        componentView.demoControlType(
+            configuration,
+            on: self.viewController
+        )
+        componentView.demoSetImage(configuration)
+        componentView.isAnimated = configuration.uiKitIsAnimated
+        componentView.demoSelected(configuration)
+        componentView.demoDisabled(configuration)
         componentView.demoAccessibilityLabel(configuration)
         componentView.demoBackground(configuration)
     }

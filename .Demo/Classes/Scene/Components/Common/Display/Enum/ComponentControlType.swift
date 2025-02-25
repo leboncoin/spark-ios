@@ -13,4 +13,5 @@ enum ComponentControlType: String, CaseIterable {
     case publisher
     case action
     case target
+    case toggle // Only for the button
 }

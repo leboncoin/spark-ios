@@ -64,4 +64,8 @@ class SliderConfiguration: ComponentConfiguration {
 
         return lowerBound...upperBound
     }
+
+    func getInfoValue(from value: Float) -> String {
+        "Value: " + String(format: "%.2f", value)
+    }
 }

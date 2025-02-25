@@ -35,6 +35,8 @@ class TextFieldConfiguration: ComponentConfiguration {
     required init() {
         super.init()
 
+        self.uiKitControlType.value = .action
+
         self.isEnabled.showConfiguration = true
         self.accessibilityLabel.showConfiguration = true
     }
