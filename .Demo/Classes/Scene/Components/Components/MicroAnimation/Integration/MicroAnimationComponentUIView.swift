@@ -107,31 +107,19 @@ final class MicroAnimationContentUIView: UIView {
     }()
 
     private lazy var iconButton: IconButtonUIView = {
-        // TODO: Use the ImplementationUIView
-        let view = IconButtonUIView(
-            theme: SparkTheme.shared,
-            intent: .main,
-            variant: .filled,
-            size: .medium,
-            shape: .rounded
+        let maker = IconButtonComponentUIViewMaker()
+
+        return maker.createComponentView(
+            for: self.configuration.bellConfiguration.iconButtonConfiguration
         )
-        view.setImage(self.image, for: .normal)
-        return view
     }()
 
     private lazy var button: ButtonUIView = {
-        // TODO: Use the ImplementationUIView
-        let view = ButtonUIView(
-            theme: SparkTheme.shared,
-            intent: .main,
-            variant: .outlined,
-            size: .medium,
-            shape: .rounded,
-            alignment: .leadingImage
+        let maker = ButtonComponentUIViewMaker()
+
+        return maker.createComponentView(
+            for: self.configuration.bellConfiguration.buttonConfiguration
         )
-        view.setImage(self.image, for: .normal)
-        view.setTitle("My Title", for: .normal)
-        return view
     }()
 
     private lazy var startButton: UIButton = {
