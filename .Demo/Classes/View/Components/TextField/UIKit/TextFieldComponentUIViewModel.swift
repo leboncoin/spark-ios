@@ -15,7 +15,7 @@ final class TextFieldComponentUIViewModel: ComponentUIViewModel, ObservableObjec
     @Published var theme: Theme
     @Published var intent: TextFieldIntent
     @Published var isEnabled: Bool = true
-    @Published var isUserInteractionEnabled: Bool = true
+    @Published var isReadOnly: Bool = false
     @Published var leftViewMode: UITextField.ViewMode = .always
     @Published var rightViewMode: UITextField.ViewMode = .always
     @Published var leftViewContent: TextFieldSideViewContent = .none
@@ -82,11 +82,11 @@ final class TextFieldComponentUIViewModel: ComponentUIViewModel, ObservableObjec
         )
     }()
 
-    lazy var isUserInteractionEnabledConfigurationItemViewModel: ComponentsConfigurationItemUIViewModel = {
+    lazy var isReadOnlyConfigurationItemViewModel: ComponentsConfigurationItemUIViewModel = {
         return .init(
-            name: "IsUserInteractionEnabled",
-            type: .toggle(isOn: self.isUserInteractionEnabled),
-            target: (source: self, action: #selector(self.toggleIsUserInteractionEnabled))
+            name: "IsReadOnly",
+            type: .toggle(isOn: self.isReadOnly),
+            target: (source: self, action: #selector(self.toggleIsReadOnly))
         )
     }()
 
@@ -159,7 +159,7 @@ final class TextFieldComponentUIViewModel: ComponentUIViewModel, ObservableObjec
             self.themeConfigurationItemViewModel,
             self.intentConfigurationItemViewModel,
             self.isEnabledConfigurationItemViewModel,
-            self.isUserInteractionEnabledConfigurationItemViewModel,
+            self.isReadOnlyConfigurationItemViewModel,
             self.clearButtonModeConfigurationItemViewModel,
             self.leftViewModeConfigurationItemViewModel,
             self.rightViewModeConfigurationItemViewModel,
@@ -181,8 +181,8 @@ final class TextFieldComponentUIViewModel: ComponentUIViewModel, ObservableObjec
         self.isEnabled.toggle()
     }
 
-    @objc func toggleIsUserInteractionEnabled() {
-        self.isUserInteractionEnabled.toggle()
+    @objc func toggleIsReadOnly() {
+        self.isReadOnly.toggle()
     }
 
     @objc func presentClearButtonMode() {

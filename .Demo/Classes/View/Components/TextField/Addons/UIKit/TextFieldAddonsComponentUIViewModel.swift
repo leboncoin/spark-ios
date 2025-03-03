@@ -15,7 +15,7 @@ final class TextFieldAddonsComponentUIViewModel: ComponentUIViewModel, Observabl
     @Published var theme: Theme
     @Published var intent: TextFieldIntent
     @Published var isEnabled: Bool = true
-    @Published var isUserInteractionEnabled: Bool = true
+    @Published var isReadOnly: Bool = false
     @Published var leftViewContent: TextFieldSideViewContent = .none
     @Published var rightViewContent: TextFieldSideViewContent = .none
     @Published var leftAddonContent: TextFieldAddonContent = .buttonFull
@@ -76,11 +76,11 @@ final class TextFieldAddonsComponentUIViewModel: ComponentUIViewModel, Observabl
         )
     }()
 
-    lazy var isUserInteractionEnabledConfigurationItemViewModel: ComponentsConfigurationItemUIViewModel = {
+    lazy var isReadOnlyConfigurationItemViewModel: ComponentsConfigurationItemUIViewModel = {
         return .init(
-            name: "IsUserInteractionEnabled",
-            type: .toggle(isOn: self.isUserInteractionEnabled),
-            target: (source: self, action: #selector(self.toggleIsUserInteractionEnabled))
+            name: "IsReadOnly",
+            type: .toggle(isOn: self.isReadOnly),
+            target: (source: self, action: #selector(self.toggleIsReadOnly))
         )
     }()
     lazy var leftViewContentConfigurationItemViewModel: ComponentsConfigurationItemUIViewModel = {
@@ -152,7 +152,7 @@ final class TextFieldAddonsComponentUIViewModel: ComponentUIViewModel, Observabl
             self.themeConfigurationItemViewModel,
             self.intentConfigurationItemViewModel,
             self.isEnabledConfigurationItemViewModel,
-            self.isUserInteractionEnabledConfigurationItemViewModel,
+            self.isReadOnlyConfigurationItemViewModel,
             self.leftViewContentConfigurationItemViewModel,
             self.rightViewContentConfigurationItemViewModel,
             self.leftAddonContentConfigurationItemViewModel,
@@ -174,8 +174,8 @@ final class TextFieldAddonsComponentUIViewModel: ComponentUIViewModel, Observabl
         self.isEnabled.toggle()
     }
 
-    @objc func toggleIsUserInteractionEnabled() {
-        self.isUserInteractionEnabled.toggle()
+    @objc func toggleIsReadOnly() {
+        self.isReadOnly.toggle()
     }
 
     @objc func presentLeftViewContent() {

@@ -58,10 +58,10 @@ final class TextFieldAddonsComponentUIView: ComponentUIView {
             self.textFieldAddons.isEnabled = isEnabled
         }
 
-        self.viewModel.$isUserInteractionEnabled.subscribe(in: &self.cancellables) { [weak self] isUserInteractionEnabled in
+        self.viewModel.$isReadOnly.subscribe(in: &self.cancellables) { [weak self] isReadOnly in
             guard let self = self else { return }
-            self.viewModel.isUserInteractionEnabledConfigurationItemViewModel.isOn = isUserInteractionEnabled
-            self.textFieldAddons.isUserInteractionEnabled = isUserInteractionEnabled
+            self.viewModel.isReadOnlyConfigurationItemViewModel.isOn = isReadOnly
+            self.textFieldAddons.isReadOnly = isReadOnly
         }
 
         self.viewModel.$leftViewContent.subscribe(in: &self.cancellables) { [weak self] content in
