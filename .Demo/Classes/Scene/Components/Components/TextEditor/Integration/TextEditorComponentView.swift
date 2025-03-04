@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+// TODO: NOT WORKING ANYMORE
+
 // MARK: - View
 
 typealias TextEditorComponentView = ComponentViewable<TextEditorConfiguration, TextEditorImplementationView, TextEditorConfigurationView>

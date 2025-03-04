@@ -235,6 +235,15 @@ struct ComponentConfigurationView<
                 }
             }
         }
+
+        if self.framework.isSwiftUI, self.$configuration.wrappedValue.swiftUIIsMinWidth.showConfiguration {
+            Section("Width") {
+                ToggleConfigurationItemView(
+                    name: "Takes minimun space",
+                    isOn: self.$configuration.swiftUIIsMinWidth.value
+                )
+            }
+        }
     }
 
     @ViewBuilder

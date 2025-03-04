@@ -24,6 +24,7 @@ class ComponentConfiguration: Identifiable {
 
     // MARK: - Size Properties
 
+    var swiftUIIsMinWidth = ShowConfigurationBool()
     var swiftUIWidth = ShowConfigurationSize(name: "Width")
     var height = ShowConfigurationSize(name: "Height")
 
@@ -47,7 +48,11 @@ class ComponentConfiguration: Identifiable {
 
 // MARK: - Sub
 
-struct ShowConfigurationBool {
+protocol ShowConfiguration {
+    var showConfiguration: Bool { get set }
+}
+
+struct ShowConfigurationBool: ShowConfiguration {
 
     // MARK: - Properties
 
@@ -55,7 +60,7 @@ struct ShowConfigurationBool {
     var value = true
 }
 
-struct ShowConfigurationString {
+struct ShowConfigurationString: ShowConfiguration {
 
     // MARK: - Properties
 
@@ -63,7 +68,7 @@ struct ShowConfigurationString {
     var value = ""
 }
 
-class ShowConfigurationSize: Identifiable {
+class ShowConfigurationSize: Identifiable, ShowConfiguration {
 
     // MARK: - Properties
 
@@ -103,7 +108,7 @@ class ShowConfigurationSize: Identifiable {
     }
 }
 
-struct ShowUIKitControlType {
+struct ShowUIKitControlType: ShowConfiguration {
 
     // MARK: - Properties
 

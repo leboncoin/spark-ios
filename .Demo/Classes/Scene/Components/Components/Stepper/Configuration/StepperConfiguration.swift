@@ -16,12 +16,12 @@ class StepperConfiguration: ComponentConfiguration {
     var incrementIcon: Iconography = .plus
     var format: StepperFormat? = .optionalRandom
 
-    var valueString: String = String(Int.random(in: 0..<10))
+    var valueString: String = String(Int.random(in: 0..<100))
 
     var stepString: String = "1"
 
     var lowerBoundString: String = "0"
-    var upperBoundString: String = "10"
+    var upperBoundString: String = "100"
 
     var decrementAccessibilityLabel: String = ""
     var incrementAccessibilityLabel: String = ""
@@ -59,7 +59,7 @@ class StepperConfiguration: ComponentConfiguration {
         guard let lowerBound = Float(self.lowerBoundString),
               let upperBound = Float(self.upperBoundString),
               upperBound > lowerBound else {
-            return 0...10
+            return 0...100
         }
 
         return lowerBound...upperBound

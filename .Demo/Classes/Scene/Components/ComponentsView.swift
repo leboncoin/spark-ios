@@ -110,6 +110,7 @@ struct ComponentsView: View {
         case .snackbar: SnackbarComponentView()
         case .snackbarPresentation: SnackbarPresentationComponentView()
         case .spinner: SpinnerComponentView()
+        case .stepper: StepperComponentView()
         case .switch: SwitchComponentView()
         case .tab: TabComponentView()
         case .tag: TagComponentView()
@@ -141,6 +142,7 @@ struct ComponentsView: View {
         case .snackbar: SnackbarComponentUIViewController()
         case .snackbarPresentation: SnackbarPresentationComponentUIViewController()
         case .spinner: SpinnerComponentUIViewController()
+        case .stepper: StepperComponentUIViewController()
         case .switch: SwitchComponentUIViewController()
         case .tab: TabComponentUIViewController()
         case .tag: TagComponentUIViewController()
@@ -194,6 +196,7 @@ extension ComponentsView {
         case snackbar
         case snackbarPresentation
         case spinner
+        case stepper
         case `switch`
         case tab
         case tag
@@ -228,6 +231,7 @@ extension ComponentsView {
             case .snackbar: .overlays
             case .snackbarPresentation: .overlays
             case .spinner: .indicator
+            case .stepper: .dataInput
             case .switch: .dataInput
             case .tab: .navigation
             case .tag: .dataDisplay

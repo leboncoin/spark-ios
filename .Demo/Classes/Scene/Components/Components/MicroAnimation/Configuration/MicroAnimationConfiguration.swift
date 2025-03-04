@@ -62,14 +62,20 @@ extension MicroAnimationConfiguration {
             let icon: Iconography = .bellOutline
 
             self.iconConfiguration.icon = icon
+            self.iconConfiguration.intent = .basic
             self.iconConfiguration.size = .medium
 
             self.iconButtonConfiguration.contentNormal.icon = icon
+            self.iconButtonConfiguration.intent = .main
+            self.iconButtonConfiguration.variant = .filled
             self.iconButtonConfiguration.size = .medium
 
             self.buttonConfiguration.contentNormal.icon = icon
+            self.buttonConfiguration.intent = .main
+            self.buttonConfiguration.variant = .filled
             self.buttonConfiguration.size = .medium
             self.buttonConfiguration.contentNormal.title = "My Button"
+            self.buttonConfiguration.contentNormal.isAttributedTitle = false
         }
     }
 }

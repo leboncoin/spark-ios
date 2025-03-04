@@ -35,12 +35,6 @@ class SliderConfiguration: ComponentConfiguration {
         self.accessibilityLabel.showConfiguration = true
     }
 
-    // MARK: - Setter
-
-    func setValueString(_ value: Float) {
-        self.valueString = String(value)
-    }
-
     // MARK: - Getter
 
     func value() -> Float {
