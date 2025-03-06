@@ -13,7 +13,7 @@ struct RadioButtonConfigurationView: ConfigurationViewable, ConfigurationUIViewa
     // MARK: - Type Alias
 
     typealias Configuration = RadioButtonConfiguration
-    typealias ComponentUIView = UIView // TODO: should be RadioButtonUIView<>
+    typealias ComponentUIView = RadioButtonIntUIView
 
     // MARK: - Properties
 
@@ -49,9 +49,6 @@ struct RadioButtonConfigurationView: ConfigurationViewable, ConfigurationUIViewa
             },
             mainItemsView: {
                 self.itemsView()
-            },
-            otherSectionItemsView: {
-                self.otherSectionItemsView()
             }
         )
     }
@@ -70,28 +67,16 @@ struct RadioButtonConfigurationView: ConfigurationViewable, ConfigurationUIViewa
             selectedValue: self.configuration.labelAlignment
         )
 
-        EnumConfigurationItemView(
-            name: "group layout",
-            values: RadioButtonGroupLayout.allCases,
-            selectedValue: self.configuration.groupLayout
+        TextFieldConfigurationItemView(
+            name: "text",
+            text: self.configuration.text
         )
-    }
 
-    @ViewBuilder
-    private func otherSectionItemsView() -> some View {
-        Section("Items") {
-            StepperConfigurationItemView(
-                name: "no. of items",
-                value: self.configuration.numberOfItems,
-                bounds: 2...5
+        if self.framework.isUIKit {
+            ToggleConfigurationItemView(
+                name: "is attributed text",
+                isOn: self.configuration.uiKitIsAttributedText
             )
-
-            ForEach(self.configuration.items, id: \.id) { item in
-                TextFieldConfigurationItemView(
-                    name: "Item \(item.id) text",
-                    text: item.text
-                )
-            }
         }
     }
 }

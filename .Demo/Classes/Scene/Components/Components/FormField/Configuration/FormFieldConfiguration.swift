@@ -25,7 +25,7 @@ class FormFieldConfiguration: ComponentConfiguration {
     var secondaryHelperAccessibilityValue: String = ""
 
     var checkboxGroupConfiguration = CheckboxGroupConfiguration()
-    var radioButtonConfiguration = RadioButtonConfiguration()
+    var radioButtonConfiguration = RadioButtonGroupConfiguration()
     var textEditorConfiguration = TextEditorConfiguration()
     var textFieldConfiguration = TextFieldConfiguration()
 }

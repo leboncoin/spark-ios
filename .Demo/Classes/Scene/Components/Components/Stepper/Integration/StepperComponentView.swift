@@ -44,7 +44,6 @@ struct StepperImplementationView: ComponentImplementationViewable {
             }
     }
 
-
     @ViewBuilder
     func createComponent() -> some View {
         switch self.configurationWrapped.format {

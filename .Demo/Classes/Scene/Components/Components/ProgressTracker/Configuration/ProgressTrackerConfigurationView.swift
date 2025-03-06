@@ -94,10 +94,12 @@ struct ProgressTrackerConfigurationView: ConfigurationViewable, ConfigurationUIV
             selectedValue: self.configuration.contentType
         )
 
-        ToggleConfigurationItemView(
-            name: "use full width",
-            isOn: self.configuration.useFullWidth
-        )
+        if self.framework.isSwiftUI {
+            ToggleConfigurationItemView(
+                name: "use full width",
+                isOn: self.configuration.swiftUIUseFullWidth
+            )
+        }
 
         ToggleConfigurationItemView(
             name: "show label",
@@ -110,9 +112,10 @@ struct ProgressTrackerConfigurationView: ConfigurationViewable, ConfigurationUIV
             selectedValue: self.configuration.completedPageIndicatorIcon
         )
 
-        ToggleConfigurationItemView(
-            name: "is current page indicator",
-            isOn: self.configuration.isCurrentPageIndicator
+        OptionalEnumConfigurationItemView(
+            name: "current page indicator icon",
+            values: Iconography.allCases,
+            selectedValue: self.configuration.currentPageIndicatorIcon
         )
     }
 
@@ -125,21 +128,6 @@ struct ProgressTrackerConfigurationView: ConfigurationViewable, ConfigurationUIV
                 bounds: 2...5
             )
 
-            ForEach(self.configuration.pages, id: \.id) { page in
-                TextFieldConfigurationItemView(
-                    name: "Page \(page.id) text",
-                    text: page.text
-                )
-
-                if configuration.wrappedValue.contentType == .icon {
-                    OptionalEnumConfigurationItemView(
-                        name: "Page \(page.id) icon",
-                        values: Iconography.allCases,
-                        selectedValue: page.icon
-                    )
-                }
-            }
-
             StepperConfigurationItemView(
                 name: "current page",
                 value: self.configuration.currentPageIndex,
@@ -151,6 +139,40 @@ struct ProgressTrackerConfigurationView: ConfigurationViewable, ConfigurationUIV
                 value: self.configuration.disabledPageIndex,
                 bounds: -1...(self.configuration.wrappedValue.numberOfPages - 1)
             )
+        }
+
+        ForEach(self.configuration.pages, id: \.id) { page in
+            Section("Item \(page.id + 1)") {
+                TextFieldConfigurationItemView(
+                    name: "title",
+                    text: page.title
+                )
+
+                if self.framework.isUIKit {
+                    ToggleConfigurationItemView(
+                        name: "is attributed title",
+                        isOn: page.isAttributedTitle
+                    )
+                }
+
+                switch configuration.wrappedValue.contentType {
+                case .icon:
+                    EnumConfigurationItemView(
+                        name: "icon indicator",
+                        values: Iconography.allCases,
+                        selectedValue: page.indicatorIcon
+                    )
+
+                case .text:
+                    TextFieldConfigurationItemView(
+                        name: "text indicator",
+                        text: page.indicatorText
+                    )
+
+                default:
+                    EmptyView()
+                }
+            }
         }
     }
 }

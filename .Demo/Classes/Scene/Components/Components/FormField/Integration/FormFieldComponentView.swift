@@ -31,6 +31,7 @@ struct FormFieldImplementationView: ComponentImplementationViewable {
     // MARK: - View
 
     var body: some View {
+        // TODO: add the stepper
         FormFieldView(self.configurationWrapped, component: {
             switch self.configurationWrapped.componentType {
             case .checkbox:
@@ -39,7 +40,7 @@ struct FormFieldImplementationView: ComponentImplementationViewable {
                     showInfo: false
                 )
             case .radioButton:
-                RadioButtonImplementationView(
+                RadioButtonGroupImplementationView(
                     configuration: self.configuration.radioButtonConfiguration,
                     showInfo: false
                 )

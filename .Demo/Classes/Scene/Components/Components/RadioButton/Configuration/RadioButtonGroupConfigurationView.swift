@@ -1,5 +1,5 @@
 //
-//  CheckboxGroupConfigurationView.swift
+//  RadioButtonGroupConfigurationView.swift
 //  SparkDemo
 //
 //  Created by robin.lemaire on 12/02/2025.
@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-struct CheckboxGroupConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
+struct RadioButtonGroupConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
 
     // MARK: - Type Alias
 
-    typealias Configuration = CheckboxGroupConfiguration
-    typealias ComponentUIView = CheckboxGroupUIView
+    typealias Configuration = RadioButtonGroupConfiguration
+    typealias ComponentUIView = RadioButtonIntUIGroupView
 
     // MARK: - Properties
 
@@ -44,7 +44,7 @@ struct CheckboxGroupConfigurationView: ConfigurationViewable, ConfigurationUIVie
                 if let componentImplementationViewRepresentable {
                     componentImplementationViewRepresentable
                 } else {
-                    CheckboxGroupImplementationView(configuration: self.configuration)
+                    RadioButtonGroupImplementationView(configuration: self.configuration)
                 }
             },
             mainItemsView: {
@@ -60,31 +60,20 @@ struct CheckboxGroupConfigurationView: ConfigurationViewable, ConfigurationUIVie
     private func itemsView() -> some View {
         EnumConfigurationItemView(
             name: "intent",
-            values: CheckboxIntent.allCases,
+            values: RadioButtonIntent.allCases,
             selectedValue: self.configuration.intent
         )
 
         EnumConfigurationItemView(
-            name: "alignment",
-            values: CheckboxAlignment.allCases,
-            selectedValue: self.configuration.alignment
+            name: "label alignment",
+            values: RadioButtonLabelAlignment.allCases,
+            selectedValue: self.configuration.labelAlignment
         )
 
         EnumConfigurationItemView(
-            name: "layout",
-            values: CheckboxGroupLayout.allCases,
-            selectedValue: self.configuration.layout
-        )
-
-        TextFieldConfigurationItemView(
-            name: "title",
-            text: self.configuration.title
-        )
-
-        EnumConfigurationItemView(
-            name: "checked icon",
-            values: Iconography.allCases,
-            selectedValue: self.configuration.checkedIcon
+            name: "group layout",
+            values: RadioButtonGroupLayout.allCases,
+            selectedValue: self.configuration.groupLayout
         )
     }
 
@@ -94,8 +83,16 @@ struct CheckboxGroupConfigurationView: ConfigurationViewable, ConfigurationUIVie
             StepperConfigurationItemView(
                 name: "no. of items",
                 value: self.configuration.numberOfItems,
-                bounds: 2...4
+                bounds: 2...5
             )
+
+            if self.framework.isUIKit {
+                StepperConfigurationItemView(
+                    name: "selected ID",
+                    value: self.configuration.uiKitSelectedId,
+                    bounds: -1...self.configuration.wrappedValue.numberOfItems
+                )
+            }
         }
 
         ForEach(self.configuration.items, id: \.id) { item in
@@ -111,11 +108,6 @@ struct CheckboxGroupConfigurationView: ConfigurationViewable, ConfigurationUIVie
                         isOn: item.isAttributedText
                     )
                 }
-
-                ToggleConfigurationItemView(
-                    name: "is enabled",
-                    isOn: item.isEnabled
-                )
             }
         }
     }

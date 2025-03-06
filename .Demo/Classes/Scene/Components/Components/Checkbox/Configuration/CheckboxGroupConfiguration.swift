@@ -15,6 +15,7 @@ class CheckboxGroupConfiguration: ComponentConfiguration {
     var intent: CheckboxIntent = .random
     var alignment: CheckboxAlignment = .random
     var layout: CheckboxGroupLayout = .horizontal
+    var title = "My Title Group"
     var checkedIcon: Iconography = .random
 
     var numberOfItems: Int = Int.random(in: 2...3) {
@@ -46,6 +47,15 @@ class CheckboxGroupConfiguration: ComponentConfiguration {
             self.items.removeLast()
         }
     }
+
+    // MARK: - Getter
+
+    func getInfoValue(from selections: [CheckboxSelectionState]) -> String {
+        let texts: [String] = selections.enumerated().map { index, selection in
+            return "\(index + 1) \(selection)"
+            }
+        return texts.joined(separator: " | ")
+    }
 }
 
 // MARK: - Sub Model
@@ -64,17 +74,17 @@ extension CheckboxGroupConfiguration {
         // MARK: - Conversion
 
         func toSpark(for framework: Framework) -> CheckboxGroupItemDefault {
-            let attributedTitleCondition = (framework.isUIKit && self.isAttributedText)
+            let isAttributedTitleCondition = (framework.isUIKit && self.isAttributedText)
 
-            let text = if !self.isLongText {
-                "My item \(self.id)"
-            } else {
+            let text = if self.isLongText {
                 "Quisque viverra tincidunt diam sed eleifend. Phasellus malesuada vitae dui a pharetra. Aliquam sagittis tincidunt dolor, non aliquam quam vestibulum nec."
+            } else {
+                "My item \(self.id)"
             }
 
             return CheckboxGroupItemDefault(
-                title: attributedTitleCondition ? nil : text,
-                attributedTitle: attributedTitleCondition ? NSAttributedString(text.demoAttributedString) : nil,
+                title: isAttributedTitleCondition ? nil : text,
+                attributedTitle: isAttributedTitleCondition ? text.demoNSAttributedString : nil,
                 id: String(self.id),
                 selectionState: self.selectionState,
                 isEnabled: self.isEnabled

@@ -2,7 +2,7 @@
 //  RadioButtonConfiguration.swift
 //  SparkDemo
 //
-//  Created by robin.lemaire on 29/01/2025.
+//  Created by robin.lemaire on 30/01/2025.
 //  Copyright © 2025 Adevinta. All rights reserved.
 //
 
@@ -14,63 +14,33 @@ class RadioButtonConfiguration: ComponentConfiguration {
 
     var intent: RadioButtonIntent = .random
     var labelAlignment: RadioButtonLabelAlignment = .random
-    var groupLayout: RadioButtonGroupLayout = .random
-    var numberOfItems: Int = Int.random(in: 2...3) {
-        didSet {
-            self.updateItems()
-        }
-    }
-    var items = [Item]()
+    var text = "My RadioButton"
+
+    // MARK: - UIKit Properties Only
+
+    var uiKitIsAttributedText: Bool = .random()
 
     // MARK: - Initialization
 
     required init() {
         super.init()
 
-        self.updateItems()
+        self.accessibilityLabel.showConfiguration = true
 
         self.isEnabled.showConfiguration = true
+
+        self.uiKitIsSelected.showConfiguration = true
+        self.uiKitIsSelected.value = false
     }
 
-    // MARK: - Update
+    // MARK: - Getter
 
-    func updateItems() {
-        let lastNumberOfItems = self.items.count
-        if self.numberOfItems > lastNumberOfItems {
-            repeat {
-                self.items.append(Item(id: self.items.count + 1))
-            } while self.numberOfItems > self.items.count
-        } else if self.numberOfItems < lastNumberOfItems {
-            self.items.removeLast()
+    func getInfoValue(from selectedID: Int?) -> String {
+        if let selectedID {
+            return "Selected ID : \(selectedID)"
+        } else {
+            return "No selection"
         }
+
     }
-}
-
-// MARK: - Sub Model
-
-extension RadioButtonConfiguration {
-    struct Item: Identifiable {
-
-        // MARK: - Properties
-
-        let id: Int
-        var text: String
-
-        // MARK: - Initialization
-
-        init(id: Int) {
-            self.id = id
-            self.text = "My item \(id)"
-        }
-    }
-}
-
-// MARK: - Extension
-
-extension RadioButtonGroupLayout: @retroactive CaseIterable {
-
-    public static var allCases: [RadioButtonGroupLayout] = [
-        .horizontal,
-        .vertical
-    ]
 }

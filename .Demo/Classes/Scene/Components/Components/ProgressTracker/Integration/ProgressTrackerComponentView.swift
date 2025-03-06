@@ -32,7 +32,7 @@ struct ProgressTrackerImplementationView: ComponentImplementationViewable {
     var body: some View {
         return self.component()
             .interactionState(self.configurationWrapped.interaction)
-            .useFullWidth(self.configurationWrapped.useFullWidth)
+            .useFullWidth(self.configurationWrapped.swiftUIUseFullWidth)
             .completedIndicatorImage(.init(icon: self.configurationWrapped.completedPageIndicatorIcon))
             .demoDisable(self.configurationWrapped)
             .demoCurrentPageIndicatorImage(self.configurationWrapped)
@@ -46,7 +46,7 @@ struct ProgressTrackerImplementationView: ComponentImplementationViewable {
                 intent: self.configurationWrapped.intent,
                 variant: self.configurationWrapped.variant,
                 size: self.configurationWrapped.size,
-                labels: self.configurationWrapped.pages.map { $0.text },
+                labels: self.configurationWrapped.pages.map { $0.title },
                 orientation: self.configurationWrapped.orientation,
                 currentPageIndex: self.configuration.currentPageIndex
             )
@@ -69,7 +69,7 @@ struct ProgressTrackerImplementationView: ComponentImplementationViewable {
 private extension ProgressTrackerView {
 
     func demoDisable(_ configuration: ProgressTrackerConfiguration) -> Self {
-        if configuration.disabledPageIndex > 0 {
+        if configuration.disabledPageIndex >= 0 {
             self.disable(true, forIndex: configuration.disabledPageIndex)
         } else {
             self
@@ -78,13 +78,20 @@ private extension ProgressTrackerView {
 
     func demoCurrentPageIndicatorImage(_ configuration: ProgressTrackerConfiguration) -> Self {
         var copy = self
-        if configuration.isCurrentPageIndicator {
-            for page in configuration.pages {
-                copy = copy.currentPageIndicatorImage(
-                    .init(icon: page.icon),
-                    forIndex: page.id
-                )
+        for page in configuration.pages {
+
+            let icon: Iconography? = if let icon = configuration.currentPageIndicatorIcon, configuration.currentPageIndex == page.id {
+                icon
+            } else if configuration.contentType == .icon {
+                page.indicatorIcon
+            } else {
+                nil
             }
+
+            copy = copy.currentPageIndicatorImage(
+                .init(icon: icon),
+                forIndex: page.id
+            )
         }
 
         return copy
@@ -100,7 +107,7 @@ private extension ProgressTrackerView {
             var copy = self
             for page in configuration.pages {
                 copy = copy.indicatorLabel(
-                    "A\(page.id)",
+                    page.indicatorText,
                     forIndex: page.id
                 )
             }
@@ -109,7 +116,7 @@ private extension ProgressTrackerView {
             var copy = self
             for page in configuration.pages {
                 copy = copy.indicatorImage(
-                    .init(icon: page.icon),
+                    .init(icon: page.indicatorIcon),
                     forIndex: page.id
                 )
             }

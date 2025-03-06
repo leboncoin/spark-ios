@@ -17,18 +17,24 @@ class ChipConfiguration: ComponentConfiguration {
     var alignment: ChipAlignment = .random
     var text = "My Chip"
     var icon: Iconography? = .optionalRandom
-    var withAction: Bool = .random()
     var withExtraComponent: Bool = .random()
     var isSelected: Bool = .random()
 
     var badgeConfiguration = BadgeConfiguration()
+
+    // MARK: - SwiftUI Properties Only
+
+    var swiftUIWithAction: Bool = .random()
 
     // MARK: - Initialization
 
     required init() {
         super.init()
 
+        self.isEnabled.showConfiguration = true
+
         self.accessibilityLabel.showConfiguration = true
+        self.uiKitControlType.showConfiguration = true
 
         self.badgeConfiguration.customText = ""
     }

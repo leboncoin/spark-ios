@@ -18,10 +18,9 @@ class ProgressTrackerConfiguration: ComponentConfiguration {
     var orientation: ProgressTrackerOrientation = .random
     var interaction: ProgressTrackerInteractionState = .random
     var contentType: ProgressTrackerContentType = .random
-    var useFullWidth: Bool = .random()
     var showLabel: Bool = .random()
     var completedPageIndicatorIcon: Iconography? = .optionalRandom
-    var isCurrentPageIndicator: Bool = .random()
+    var currentPageIndicatorIcon: Iconography? = .optionalRandom
     var numberOfPages: Int = Int.random(in: 2...5) {
         didSet {
             self.updatePages()
@@ -31,6 +30,10 @@ class ProgressTrackerConfiguration: ComponentConfiguration {
 
     var currentPageIndex: Int = 0
     var disabledPageIndex: Int = -1
+
+    // MARK: - SwiftUI Properties Only
+
+    var swiftUIUseFullWidth: Bool = .random()
 
     // MARK: - Initialization
 
@@ -48,7 +51,7 @@ class ProgressTrackerConfiguration: ComponentConfiguration {
         let lastNumberOfPages = self.pages.count
         if self.numberOfPages > lastNumberOfPages {
             repeat {
-                self.pages.append(Page(id: self.pages.count + 1))
+                self.pages.append(Page(id: self.pages.count))
             } while self.numberOfPages > self.pages.count
         } else if self.numberOfPages < lastNumberOfPages {
             self.pages.removeLast()
@@ -64,14 +67,17 @@ extension ProgressTrackerConfiguration {
         // MARK: - Properties
 
         let id: Int
-        var text: String
-        var icon: Iconography?
+        var title: String
+        var isAttributedTitle: Bool = .random()
+        var indicatorIcon: Iconography = .random
+        var indicatorText: String
 
         // MARK: - Initialization
 
         init(id: Int) {
             self.id = id
-            self.text = "Page \(id)"
+            self.title = "Page \(id + 1)"
+            self.indicatorText = "A\(id + 1)"
         }
     }
 }

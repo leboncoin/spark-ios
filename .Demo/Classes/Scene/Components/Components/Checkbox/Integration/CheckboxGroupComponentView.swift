@@ -49,7 +49,7 @@ struct CheckboxGroupImplementationView: ComponentImplementationViewable {
     var body: some View {
         VStack {
             CheckboxGroupView(
-                title: "",
+                title: self.configurationWrapped.title.isEmpty ? nil : self.configurationWrapped.title,
                 checkedImage: .init(icon: self.configurationWrapped.checkedIcon),
                 items: self.$items,
                 layout: self.configurationWrapped.layout,
@@ -77,14 +77,7 @@ struct CheckboxGroupImplementationView: ComponentImplementationViewable {
     // MARK: - Getter
 
     func selectedItemsText() -> String {
-        var text: String = ""
-        let texts: [String] = self.items.enumerated()
-            .map { index, checkbox in
-                let line: String = index == (self.items.count - 1) ? "" : " | "
-                return "\(index + 1) \(checkbox.selectionState)" + line
-            }
-        texts.forEach { text += $0 }
-        return text
+        return self.configurationWrapped.getInfoValue(from: self.items.map(\.selectionState))
     }
 }
 

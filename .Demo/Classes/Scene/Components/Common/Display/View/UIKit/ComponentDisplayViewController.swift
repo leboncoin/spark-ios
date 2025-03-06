@@ -282,7 +282,8 @@ class ComponentDisplayViewController<
     ) -> ConfigurationView {
         let implementationView = self.viewMaker.createComponentImplementationView(
             for: configuration,
-            context: .configuration
+            context: .configuration,
+            displayStyle: self.style
         )
 
         if !afterUpdate {
@@ -346,7 +347,8 @@ class ComponentDisplayViewController<
                 // Add the updated component view
                 let newComponentView = self.viewMaker.createComponentImplementationView(
                     for: selectedConfiguration,
-                    context: .display
+                    context: .display,
+                    displayStyle: self.style
                 )
                 self.aloneSectionStackView.insertArrangedSubview(newComponentView, at: index)
             }
@@ -400,7 +402,8 @@ class ComponentDisplayViewController<
         if let configuration = self.configurations.first {
             let view = self.viewMaker.createComponentImplementationView(
                 for: configuration,
-                context: .display
+                context: .display,
+                displayStyle: self.style
             )
             self.aloneSectionStackView.addArrangedSubview(view)
         }

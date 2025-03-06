@@ -64,10 +64,7 @@ final class ButtonComponentUIViewMaker: ComponentUIViewMaker {
         _ componentView: ComponentView,
         for configuration: Configuration
     ) {
-        componentView.demoControlType(
-            configuration,
-            on: self.viewController
-        )
+        componentView.demoControlType(configuration, on: self.viewController)
         componentView.demoSetImage(configuration)
         componentView.demoSetTitle(configuration)
         componentView.isAnimated = configuration.uiKitIsAnimated

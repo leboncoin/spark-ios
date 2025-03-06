@@ -89,7 +89,7 @@ final class ComponentImplementationUIView<
             infoLabel
         ])
         stackView.layer.cornerRadius = .init(radius: .medium)
-        stackView.backgroundColor = .systemGroupedBackground
+        stackView.backgroundColor = self.displayStyle == .alone ? .systemBackground : .systemGroupedBackground
         stackView.layoutMargins = .init(all: .small)
         stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
@@ -102,6 +102,7 @@ final class ComponentImplementationUIView<
 
     private(set) var configuration: Configuration
     private let contextType: ComponentContextType
+    private let displayStyle: ComponentDisplayStyle?
     private let isFullWidth: Bool
 
     private var widthLayoutConstraint: NSLayoutConstraint?
@@ -116,6 +117,7 @@ final class ComponentImplementationUIView<
         configuration: Configuration,
         componentView: ComponentView,
         contextType: ComponentContextType,
+        displayStyle: ComponentDisplayStyle?,
         isFullWidth: Bool = false
     ) {
         self.configuration = configuration
@@ -124,6 +126,7 @@ final class ComponentImplementationUIView<
             self.infoLabel = configuration.uiKitInfoLabel
         }
         self.contextType = contextType
+        self.displayStyle = displayStyle
         self.isFullWidth = isFullWidth
         super.init(frame: .zero)
 

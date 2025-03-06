@@ -62,10 +62,7 @@ final class IconButtonComponentUIViewMaker: ComponentUIViewMaker {
         _ componentView: ComponentView,
         for configuration: Configuration
     ) {
-        componentView.demoControlType(
-            configuration,
-            on: self.viewController
-        )
+        componentView.demoControlType(configuration, on: self.viewController)
         componentView.demoSetImage(configuration)
         componentView.isAnimated = configuration.uiKitIsAnimated
         componentView.demoSelected(configuration)

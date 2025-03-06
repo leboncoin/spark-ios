@@ -2,7 +2,7 @@
 //  RadioButtonComponentView.swift
 //  SparkDemo
 //
-//  Created by robin.lemaire on 29/01/2025.
+//  Created by robin.lemaire on 30/01/2025.
 //  Copyright © 2025 Adevinta. All rights reserved.
 //
 
@@ -12,13 +12,6 @@ import SwiftUI
 
 typealias RadioButtonComponentView = ComponentViewable<RadioButtonConfiguration, RadioButtonImplementationView, RadioButtonConfigurationView>
 
-extension RadioButtonComponentView {
-
-    init() {
-        self.init(style: .verticalList, styles: [.alone, .verticalList])
-    }
-}
-
 // MARK: - Subview
 
 struct RadioButtonImplementationView: ComponentImplementationViewable {
@@ -26,47 +19,25 @@ struct RadioButtonImplementationView: ComponentImplementationViewable {
     // MARK: - Properties
 
     var configuration: Binding<RadioButtonConfiguration>
-    var showInfo: Bool = true
     @State private var selectedID: Int? = Bool.random() ? 1 : nil
-
-    // MARK: - Initialization
-
-    init(configuration: Binding<RadioButtonConfiguration>) {
-        self.configuration = configuration
-    }
-
-    // Only used by the FormField demo
-    init(configuration: Binding<RadioButtonConfiguration>, showInfo: Bool) {
-        self.configuration = configuration
-        self.showInfo = showInfo
-    }
 
     // MARK: - View
 
     var body: some View {
         VStack {
-            RadioButtonGroupView(
+            RadioButtonView(
                 theme: self.configurationWrapped.theme.value,
                 intent: self.configurationWrapped.intent,
+                id: 1,
+                label: self.configurationWrapped.text,
                 selectedID: self.$selectedID,
-                items: self.configurationWrapped.items.map {
-                    RadioButtonItem(id: $0.id, label: $0.text)
-                },
-                labelAlignment: self.configurationWrapped.labelAlignment,
-                groupLayout: self.configurationWrapped.groupLayout
+                labelAlignment: self.configurationWrapped.labelAlignment
             )
             .demoDisabled(self.configurationWrapped)
+            .demoAccessibilityLabel(self.configurationWrapped)
 
-            if self.showInfo {
-                Group {
-                    if let selectedID {
-                        Text("SelectedID: \(selectedID)")
-                    } else {
-                        Text("No selection")
-                    }
-                }
+            Text(self.configurationWrapped.getInfoValue(from: self.selectedID))
                 .demoComponentInfoBackground()
-            }
         }
     }
 }

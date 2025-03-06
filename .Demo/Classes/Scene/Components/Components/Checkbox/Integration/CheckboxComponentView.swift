@@ -36,7 +36,7 @@ struct CheckboxImplementationView: ComponentImplementationViewable {
             .demoDisabled(self.configurationWrapped)
             .demoAccessibilityLabel(self.configurationWrapped)
 
-            Text("Selection state : \(self.selectionState)")
+            Text(self.configurationWrapped.getInfoValue(from: self.selectionState))
                 .demoComponentInfoBackground()
         }
     }

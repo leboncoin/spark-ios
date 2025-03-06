@@ -72,11 +72,26 @@ struct CheckboxConfigurationView: ConfigurationViewable, ConfigurationUIViewable
             text: self.configuration.text
         )
 
+        if self.framework.isUIKit {
+            ToggleConfigurationItemView(
+                name: "is attributed text",
+                isOn: self.configuration.uiKitIsAttributedText
+            )
+        }
+
         EnumConfigurationItemView(
             name: "checked icon",
             values: Iconography.allCases,
             selectedValue: self.configuration.checkedIcon
         )
+
+        if self.framework.isUIKit {
+            EnumConfigurationItemView(
+                name: "selection state",
+                values: CheckboxSelectionState.allCases,
+                selectedValue: self.configuration.uiKitSelectionState
+            )
+        }
 
         ToggleConfigurationItemView(
             name: "is indeterminate",

@@ -84,10 +84,12 @@ struct ChipConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
             selectedValue: self.configuration.icon
         )
 
-        ToggleConfigurationItemView(
-            name: "with action",
-            isOn: self.configuration.withAction
-        )
+        if self.framework.isSwiftUI {
+            ToggleConfigurationItemView(
+                name: "with action",
+                isOn: self.configuration.swiftUIWithAction
+            )
+        }
 
         ToggleConfigurationItemView(
             name: "with extra component (badge)",

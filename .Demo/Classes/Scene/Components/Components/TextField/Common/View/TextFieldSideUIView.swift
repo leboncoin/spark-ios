@@ -98,10 +98,7 @@ final class TextFieldSideUIView<
             alignment: .leadingImage
         )
         button.setTitle(side.rawValue, for: .normal)
-        button.demoControlType(
-            configuration,
-            on: self.viewMaker?.viewController
-        )
+        button.demoControlType(configuration, on: self.viewMaker?.viewController)
 
         return button
     }

@@ -18,11 +18,23 @@ class CheckboxConfiguration: ComponentConfiguration {
     var checkedIcon: Iconography = .random
     var isIndeterminate: Bool = .random()
 
+    // MARK: - UIKit Properties Only
+
+    var uiKitSelectionState: CheckboxSelectionState = .unselected
+    var uiKitIsAttributedText: Bool = .random()
+
     // MARK: - Initialization
 
     required init() {
         super.init()
 
         self.accessibilityLabel.showConfiguration = true
+        self.isEnabled.showConfiguration = true
+    }
+
+    // MARK: - Getter
+
+    func getInfoValue(from selectionState: CheckboxSelectionState) -> String {
+        return "Selection state : \(selectionState)"
     }
 }

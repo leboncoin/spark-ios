@@ -32,7 +32,7 @@ struct ChipImplementationView: ComponentImplementationViewable {
             alignment: self.configurationWrapped.alignment,
             icon: .init(icon: self.configurationWrapped.icon),
             title: self.configurationWrapped.text,
-            action: self.configurationWrapped.withAction ? { self.showAlertAction = true} : nil
+            action: self.configurationWrapped.swiftUIWithAction ? { self.showAlertAction = true} : nil
         )
         .component(self.configurationWrapped.withExtraComponent ? self.component() : nil)
         .selected(self.configurationWrapped.isSelected)

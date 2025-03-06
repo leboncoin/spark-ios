@@ -55,7 +55,8 @@ extension ComponentUIViewMaker {
 
     func createComponentImplementationView(
         for configuration: Configuration,
-        context: ComponentContextType
+        context: ComponentContextType,
+        displayStyle: ComponentDisplayStyle? = nil
     ) -> ComponentImplementationUIView<ComponentView, Configuration> {
         if self.isInfoLabel() {
             configuration.uiKitInfoLabel = UILabel()
@@ -69,6 +70,7 @@ extension ComponentUIViewMaker {
             configuration: configuration,
             componentView: componentView,
             contextType: context,
+            displayStyle: displayStyle,
             isFullWidth: self.isFullWidth()
         )
     }
