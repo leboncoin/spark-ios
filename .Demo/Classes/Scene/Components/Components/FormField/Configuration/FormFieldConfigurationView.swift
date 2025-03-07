@@ -13,7 +13,7 @@ struct FormFieldConfigurationView: ConfigurationViewable, ConfigurationUIViewabl
     // MARK: - Type Alias
 
     typealias Configuration = FormFieldConfiguration
-    typealias ComponentUIView = UIView // TODO: FormFieldUIView<>
+    typealias ComponentUIView = FormFieldDynamicUIView
 
     // MARK: - Properties
 
@@ -83,11 +83,14 @@ struct FormFieldConfigurationView: ConfigurationViewable, ConfigurationUIViewabl
             name: "is attributed string",
             isOn: self.configuration.isAttributedString
         )
-        EnumConfigurationItemView(
-            name: "component type",
-            values: FormFieldComponentType.allCases,
-            selectedValue: self.configuration.componentType
-        )
+
+        if self.framework.isSwiftUI {
+            EnumConfigurationItemView(
+                name: "component type",
+                values: FormFieldComponentType.allCases,
+                selectedValue: self.configuration.componentType
+            )
+        }
     }
 
     @ViewBuilder

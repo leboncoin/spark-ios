@@ -38,6 +38,7 @@ final class ProgressTrackerComponentUIViewMaker: ComponentUIViewMaker {
     // MARK: - Properties
 
     weak var viewController: DisplayViewController?
+    private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Methods
 
@@ -64,6 +65,10 @@ final class ProgressTrackerComponentUIViewMaker: ComponentUIViewMaker {
 
         self.updateCommonProperties(componentView, for: configuration)
 
+        componentView.publisher.sink { value in
+            componentView.demoCurrentPageIndicatorImage(configuration, currentPageIndex: value)
+        }.store(in: &self.cancellables)
+
         return componentView
     }
 
@@ -76,7 +81,6 @@ final class ProgressTrackerComponentUIViewMaker: ComponentUIViewMaker {
         componentView.variant = configuration.variant
         componentView.orientation = configuration.orientation
         componentView.numberOfPages = configuration.numberOfPages
-        componentView.demoLabels(configuration)
 
         self.updateCommonProperties(componentView, for: configuration)
     }
@@ -90,6 +94,7 @@ final class ProgressTrackerComponentUIViewMaker: ComponentUIViewMaker {
         componentView.currentPageIndex = configuration.currentPageIndex
         componentView.setCompletedIndicatorImage(.init(icon: configuration.completedPageIndicatorIcon))
         componentView.showDefaultPageNumber = configuration.contentType == .page
+        componentView.demoLabels(configuration)
         componentView.demoDisableItem(configuration)
         componentView.demoCurrentPageIndicatorImage(configuration)
         componentView.demoContentType(configuration)
@@ -116,17 +121,16 @@ private extension ProgressTrackerUIControl {
         }
     }
 
-    func demoCurrentPageIndicatorImage(_ configuration: ProgressTrackerConfiguration) {
+    func demoCurrentPageIndicatorImage(_ configuration: ProgressTrackerConfiguration, currentPageIndex: Int? = nil) {
+        let currentPageIndex = currentPageIndex ?? configuration.currentPageIndex
         for page in configuration.pages {
-
-            let icon: Iconography? = if let icon = configuration.currentPageIndicatorIcon, configuration.currentPageIndex == page.id {
+            let icon: Iconography? = if let icon = configuration.currentPageIndicatorIcon, currentPageIndex == page.id {
                 icon
             } else if configuration.contentType == .icon {
                 page.indicatorIcon
             } else {
                 nil
             }
-
             self.setCurrentPageIndicatorImage(
                 .init(icon: icon),
                 forIndex: page.id

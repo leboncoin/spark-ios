@@ -17,13 +17,4 @@ extension UIView {
             self.backgroundColor = .gray.withAlphaComponent(0.2)
         }
     }
-
-    // TODO:
-//    func demoComponentInfoBackground() {
-//        self.font(.footnote)
-//            .padding(.all, .small)
-//            .background(.ultraThinMaterial)
-//            .radius(.medium)
-//    }
 }
-

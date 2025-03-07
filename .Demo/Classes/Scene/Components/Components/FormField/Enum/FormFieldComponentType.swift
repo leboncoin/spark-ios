@@ -11,6 +11,7 @@ import SwiftUI
 enum FormFieldComponentType: String, CaseIterable {
     case checkbox
     case radioButton
+    case stepper
     case textEditor
     case textField
 
