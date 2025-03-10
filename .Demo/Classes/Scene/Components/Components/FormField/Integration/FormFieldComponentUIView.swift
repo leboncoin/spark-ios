@@ -75,14 +75,12 @@ final class FormFieldDynamicUIView: UIView {
     private var formFieldView: UIView?
     private var text: String? {
         didSet {
-            switch self.configuration.componentType {
-            case .textEditor:
-                let view = self.formFieldView as? FormFieldUIView<TextEditorComponentUIViewMaker.ComponentView>
-                view?.demoSetCounterIfPossible(on: self.text, for: self.configuration)
+            switch self.formFieldView {
+            case let view as FormFieldUIView<TextEditorComponentUIViewMaker.ComponentView>:
+                view.demoSetCounterIfPossible(on: self.text, for: self.configuration)
 
-            case .textField:
-                let view = self.formFieldView as? FormFieldUIView<TextFieldComponentUIViewMaker.ComponentView>
-                view?.demoSetCounterIfPossible(on: self.text, for: self.configuration)
+            case let view as FormFieldUIView<TextFieldComponentUIViewMaker.ComponentView>:
+                view.demoSetCounterIfPossible(on: self.text, for: self.configuration)
 
             default: break
             }
@@ -174,26 +172,23 @@ final class FormFieldDynamicUIView: UIView {
     // MARK: - Update
 
     func updateView(for configuration: Configuration) {
-        switch self.configuration.componentType {
-        case .checkbox:
-            let view = self.formFieldView as? FormFieldUIView<CheckboxGroupComponentUIViewMaker.ComponentView>
-            view?.updateProperties(self.configuration, text: self.text)
+        switch self.formFieldView {
+        case let view as FormFieldUIView<CheckboxGroupComponentUIViewMaker.ComponentView>:
+            view.updateProperties(self.configuration, text: self.text)
 
-        case .radioButton:
-            let view = self.formFieldView as? FormFieldUIView<RadioButtonGroupComponentUIViewMaker.ComponentView>
-            view?.updateProperties(self.configuration, text: self.text)
+        case let view as FormFieldUIView<RadioButtonGroupComponentUIViewMaker.ComponentView>:
+            view.updateProperties(self.configuration, text: self.text)
 
-        case .stepper:
-            let view = self.formFieldView as? FormFieldUIView<StepperComponentUIViewMaker.ComponentView>
-            view?.updateProperties(self.configuration, text: self.text)
+        case let view as FormFieldUIView<StepperComponentUIViewMaker.ComponentView>:
+            view.updateProperties(self.configuration, text: self.text)
 
-        case .textEditor:
-            let view = self.formFieldView as? FormFieldUIView<TextEditorComponentUIViewMaker.ComponentView>
-            view?.updateProperties(self.configuration, text: self.text)
+        case let view as FormFieldUIView<TextEditorComponentUIViewMaker.ComponentView>:
+            view.updateProperties(self.configuration, text: self.text)
 
-        case .textField:
-            let view = self.formFieldView as? FormFieldUIView<TextFieldComponentUIViewMaker.ComponentView>
-            view?.updateProperties(self.configuration, text: self.text)
+        case let view as FormFieldUIView<TextFieldComponentUIViewMaker.ComponentView>:
+            view.updateProperties(self.configuration, text: self.text)
+
+        default: break
         }
     }
 }

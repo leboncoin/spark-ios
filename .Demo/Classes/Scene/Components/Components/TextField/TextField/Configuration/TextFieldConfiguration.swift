@@ -16,19 +16,15 @@ class TextFieldConfiguration: ComponentConfiguration {
     var intent: TextFieldIntent = .random
     var placeholder: String = "My placeholder"
     var isSecure: Bool = false
+    var isReadOnly = false
     var leftViewContentType: TextFieldSideViewContentType = .random
     var rightViewContentType: TextFieldSideViewContentType = .random
-
-    // MARK: - SwiftUI Properties Only
-
-    var swiftUIIsReadOnly = false
 
     // MARK: - UIKit Properties Only
 
     var uiKitLeftViewMode: UITextField.ViewMode = .random
     var uiKitRightViewMode: UITextField.ViewMode = .random
     var uiKitClearButtonMode: UITextField.ViewMode = .random
-    var uiKitIsUserInteractionEnabled: Bool = .random()
 
     // MARK: - Initialization
 

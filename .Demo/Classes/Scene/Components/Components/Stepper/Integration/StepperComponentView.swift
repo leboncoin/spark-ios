@@ -30,6 +30,12 @@ struct StepperImplementationView: ComponentImplementationViewable {
     @State private var intValue: Int = 0
     @State private var isEditing: Bool = false
 
+    // MARK: - Initialization
+
+    init(configuration: Binding<StepperConfiguration>) {
+        self.configuration = configuration
+    }
+
     // MARK: - View
 
     var body: some View {

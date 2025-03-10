@@ -79,7 +79,6 @@ private extension ProgressTrackerView {
     func demoCurrentPageIndicatorImage(_ configuration: ProgressTrackerConfiguration) -> Self {
         var copy = self
         for page in configuration.pages {
-
             let icon: Iconography? = if let icon = configuration.currentPageIndicatorIcon, configuration.currentPageIndex == page.id {
                 icon
             } else if configuration.contentType == .icon {

@@ -51,7 +51,6 @@ class ComponentDisplayViewController<
 
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            self.topBarStackView,
             self.aloneSectionStackView,
             self.horizontalContentSectionStackView,
             self.verticalTableView,
@@ -62,76 +61,6 @@ class ComponentDisplayViewController<
         stackView.spacing = .init(spacing: .medium)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
-    }()
-
-    private lazy var topBarStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            self.refreshButton, // TODO: test for many components if we still need to have this button
-            UIView(),
-            self.displayModeButton,
-            self.addItemButton,
-            self.updateItemButton
-        ])
-        stackView.axis = .horizontal
-        stackView.spacing = .init(spacing: .medium)
-        stackView.layer.cornerRadius = .init(radius: .medium)
-        stackView.backgroundColor = .systemBackground
-        stackView.layoutMargins = .init(all: .small)
-        stackView.isLayoutMarginsRelativeArrangement = true
-        return stackView
-    }()
-
-    private lazy var displayModeButton: UIButton = {
-        let menu = UIMenu(title: "", children: self.styles.map { style in
-            UIAction(title: style.name, image: UIImage(systemName: style.systemImage), handler: { _ in
-                self.style = style
-            })
-        })
-
-        return self.createTopBarButton(
-            with: menu
-        )
-    }()
-
-    private lazy var addItemButton: UIButton = {
-        let button = self.createTopBarButton(
-            systemName: "plus"
-        )
-        button.addAction(.init(handler: { _ in
-            let newConfiguration = Configuration()
-            self.configurations.append(newConfiguration)
-
-            // Show a present configuration view
-            if self.style.showConfiguration {
-                self.selectedConfiguration = newConfiguration
-                self.presentConfigurationView()
-            }
-        }), for: .touchUpInside)
-        return button
-    }()
-
-    private lazy var updateItemButton: UIButton = {
-        let button = self.createTopBarButton(
-            systemName: "pencil"
-        )
-        button.addAction(.init(handler: { _ in
-            guard let configuration = self.configurations.first else { return }
-
-            // Show a present configuration view
-            self.selectedConfiguration = configuration
-            self.presentConfigurationView()
-        }), for: .touchUpInside)
-        return button
-    }()
-
-    private lazy var refreshButton: UIButton = {
-        let button = self.createTopBarButton(
-            systemName: "arrow.counterclockwise"
-        )
-        button.addAction(.init(handler: { _ in
-            self.reloadCurrentSection()
-        }), for: .touchUpInside)
-        return button
     }()
 
     private lazy var aloneSectionStackView: UIStackView = {
@@ -222,9 +151,7 @@ class ComponentDisplayViewController<
     }
 
     var componentTapControlSubcription: AnyCancellable?
-    var componentToggleAction: UIAction = .init { _ in
-        print("LOGROB componentToggleAction")
-    }
+    var componentToggleAction: UIAction = .init { _ in }
 
     // MARK: - Initializer
 
@@ -272,6 +199,12 @@ class ComponentDisplayViewController<
             to: self.view,
             insets: .init(horizontalPadding: .medium)
         )
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.reloadNavigationItems()
     }
 
     // MARK: - Create
@@ -369,19 +302,48 @@ class ComponentDisplayViewController<
         }
     }
 
+    private func reloadNavigationItems() {
+        var rightBarButtonItems = [UIBarButtonItem]()
+        if self.styles.hasAddButton(currentStyle: self.style) {
+            rightBarButtonItems.append(.init(
+                image: .init(systemName: "plus"),
+                style: .plain,
+                target: self,
+                action: #selector(addComponentAction)
+            ))
+        }
+        if self.selectedConfiguration != nil && self.style == .alone {
+            rightBarButtonItems.append(.init(
+                image: .init(systemName: "pencil"),
+                style: .plain,
+                target: self,
+                action: #selector(updateItemAction)
+            ))
+        }
+        if self.styles.count > 1 {
+            let menu = UIMenu(title: "uhoh", children: self.styles.map { style in
+                UIAction(title: style.name, image: UIImage(systemName: style.systemImage), handler: { _ in
+                    self.style = style
+                })
+            })
+
+            rightBarButtonItems.append(.init(
+                image: UIImage(systemName: self.style.systemImage),
+                menu: menu)
+            )
+        }
+
+        self.navigationController?.topViewController?.navigationItem.rightBarButtonItems = rightBarButtonItems
+    }
+
     private func reloadSectionVisibility() {
-        // Top bar buttons
-        self.addItemButton.isHidden = !self.styles.hasAddButton(currentStyle: self.style)
-        self.updateItemButton.isHidden = self.selectedConfiguration == nil || self.style != .alone
-        self.displayModeButton.isHidden = self.styles.count == 1
+        // Navigation buttons
+        self.reloadNavigationItems()
 
         // Section visibility
         self.aloneSectionStackView.isHidden = self.style != .alone
         self.horizontalContentSectionStackView.isHidden = self.style != .horizontalContent
         self.verticalTableView.isHidden = self.style != .verticalList
-
-        // Button icon
-        self.displayModeButton.setImage(UIImage(systemName: self.style.systemImage), for: .normal)
     }
 
     private func reloadSectionContents() {
@@ -438,7 +400,38 @@ class ComponentDisplayViewController<
 
     // MARK: - Actions
 
-    @objc func componentTouchUpInsideTarget() {
+    @objc func displayModeAction() {
+//        let menu = UIMenu(title: "", children: self.styles.map { style in
+//            UIAction(title: style.name, image: UIImage(systemName: style.systemImage), handler: { _ in
+//                self.style = style
+//            })
+//        })
+//
+//        return self.createTopBarButton(
+//            with: menu
+//        )
+    }
+
+    @objc func addComponentAction() {
+        let newConfiguration = Configuration()
+        self.configurations.append(newConfiguration)
+
+        // Show a present configuration view
+        if self.style.showConfiguration {
+            self.selectedConfiguration = newConfiguration
+            self.presentConfigurationView()
+        }
+    }
+
+    @objc func updateItemAction() {
+        guard let configuration = self.configurations.first else { return }
+
+        // Show a present configuration view
+        self.selectedConfiguration = configuration
+        self.presentConfigurationView()
+    }
+
+    @objc func componentTouchUpInsideAction() {
         self.showTapAlert(for: .target)
     }
 

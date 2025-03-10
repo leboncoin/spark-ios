@@ -77,7 +77,7 @@ final class TextFieldComponentUIViewMaker: ComponentUIViewMaker {
         componentView.demoSideView(configuration, contentSide: .right, sideView: self.sideView)
         componentView.rightViewMode = configuration.uiKitRightViewMode
         componentView.clearButtonMode = configuration.uiKitClearButtonMode
-        componentView.isUserInteractionEnabled = configuration.uiKitIsUserInteractionEnabled
+        componentView.isReadOnly = configuration.isReadOnly
         componentView.demoDisabled(configuration)
         componentView.demoAccessibilityLabel(configuration)
         componentView.demoBackground(configuration)

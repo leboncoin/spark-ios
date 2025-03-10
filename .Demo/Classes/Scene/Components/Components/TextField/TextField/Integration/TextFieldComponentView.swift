@@ -52,7 +52,7 @@ struct TextFieldImplementationView: ComponentImplementationViewable {
             theme: self.configurationWrapped.theme.value,
             intent: self.configurationWrapped.intent,
             type: TextFieldViewTypeHelper.getType(from: self.configurationWrapped),
-            isReadOnly: self.configurationWrapped.swiftUIIsReadOnly,
+            isReadOnly: self.configurationWrapped.isReadOnly,
             leftView: {
                 TextFieldSideView(
                     theme: self.configurationWrapped.theme,

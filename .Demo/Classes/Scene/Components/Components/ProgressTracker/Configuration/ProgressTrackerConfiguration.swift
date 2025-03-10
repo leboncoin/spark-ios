@@ -18,7 +18,7 @@ class ProgressTrackerConfiguration: ComponentConfiguration {
     var orientation: ProgressTrackerOrientation = .random
     var interaction: ProgressTrackerInteractionState = .random
     var contentType: ProgressTrackerContentType = .random
-    var showLabel: Bool = .random()
+    var showLabel: Bool = true
     var completedPageIndicatorIcon: Iconography? = .optionalRandom
     var currentPageIndicatorIcon: Iconography? = .optionalRandom
     var numberOfPages: Int = Int.random(in: 2...5) {

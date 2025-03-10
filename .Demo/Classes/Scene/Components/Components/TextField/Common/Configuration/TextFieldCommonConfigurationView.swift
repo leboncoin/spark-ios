@@ -36,23 +36,16 @@ struct TextFieldCommonConfigurationView<Configuration: TextFieldConfiguration>: 
             isOn: self.configuration.isSecure
         )
 
-        if self.framework.isSwiftUI {
-            ToggleConfigurationItemView(
-                name: "is read only",
-                isOn: self.configuration.swiftUIIsReadOnly
-            )
-        }
+        ToggleConfigurationItemView(
+            name: "is read only",
+            isOn: self.configuration.isReadOnly
+        )
 
         if self.framework.isUIKit {
             EnumConfigurationItemView(
                 name: "clear button mode",
                 values: UITextField.ViewMode.allCases,
                 selectedValue: self.configuration.uiKitClearButtonMode
-            )
-
-            ToggleConfigurationItemView(
-                name: "is user interaction enabled",
-                isOn: self.configuration.uiKitIsUserInteractionEnabled
             )
         }
     }

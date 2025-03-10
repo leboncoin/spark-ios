@@ -31,7 +31,6 @@ struct FormFieldImplementationView: ComponentImplementationViewable {
     // MARK: - View
 
     var body: some View {
-        // TODO: add the stepper
         FormFieldView(self.configurationWrapped, component: {
             switch self.configurationWrapped.componentType {
             case .checkbox:
@@ -43,6 +42,10 @@ struct FormFieldImplementationView: ComponentImplementationViewable {
                 RadioButtonGroupImplementationView(
                     configuration: self.configuration.radioButtonConfiguration,
                     showInfo: false
+                )
+            case .stepper:
+                StepperImplementationView(
+                    configuration: self.configuration.stepperConfiguration
                 )
             case .textEditor:
                 TextEditorImplementationView(
@@ -58,8 +61,7 @@ struct FormFieldImplementationView: ComponentImplementationViewable {
         })
         .counterIfPossible(
             on: self.text,
-            limit: 100,
-            show: self.configurationWrapped.componentType.isSecondaryHelper
+            for: self.configurationWrapped
         )
         .demoTitleAccessibilityLabel(self.configurationWrapped)
         .demoHelperAccessibilityLabel(self.configurationWrapped)
@@ -143,9 +145,9 @@ private extension FormFieldView {
 
 private extension FormFieldView {
 
-    func counterIfPossible(on text: String, limit: Int?, show: Bool) -> Self {
-        if show {
-            self.counter(on: text, limit: limit)
+    func counterIfPossible(on text: String, for configuration: FormFieldConfiguration) -> Self {
+        if configuration.componentType.isSecondaryHelper {
+            self.counter(on: text, limit: configuration.textInputCounterLimit)
         } else {
             self
         }

@@ -103,7 +103,7 @@ final class TextFieldAddonsComponentUIViewMaker: ComponentUIViewMaker {
 
         componentView.textField.rightViewMode = configuration.uiKitRightViewMode
         componentView.textField.clearButtonMode = configuration.uiKitClearButtonMode
-        componentView.isUserInteractionEnabled = configuration.uiKitIsUserInteractionEnabled
+        componentView.isReadOnly = configuration.isReadOnly
         componentView.demoDisabled(configuration)
         componentView.demoAccessibilityLabel(configuration)
         componentView.demoBackground(configuration)

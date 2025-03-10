@@ -104,6 +104,7 @@ struct ComponentsView: View {
         case .progressBarIndeterminate: ProgressBarIndeterminateComponentView()
         case .progressTracker: ProgressTrackerComponentView()
         case .radioButton: RadioButtonComponentView()
+        case .radioButtonGroup: RadioButtonGroupComponentView()
         case .ratingDisplay: RatingDisplayComponentView()
         case .ratingInput: RatingInputComponentView()
         case .slider: SliderComponentView()
@@ -129,13 +130,20 @@ struct ComponentsView: View {
         case .badge: BadgeComponentUIViewController()
         case .button: ButtonComponentUIViewController()
         case .bottomSheet: BottomSheetComponentUIViewController()
+        case .checkbox: CheckboxComponentUIViewController()
+        case .checkboxGroup: CheckboxGroupComponentUIViewController()
+        case .chip: ChipComponentUIViewController()
         case .divider: DividerComponentUIViewController()
+        case .formField: FormFieldComponentUIViewController()
         case .icon: IconComponentUIViewController()
         case .iconButton: IconButtonComponentUIViewController()
         case .microAnimation: MicroAnimationComponentUIViewController()
         case .popover: PopoverComponentUIViewController()
         case .progressBar: ProgressBarComponentUIViewController()
         case .progressBarIndeterminate: ProgressBarIndeterminateComponentUIViewController()
+        case .progressTracker: ProgressTrackerComponentUIViewController()
+        case .radioButton: RadioButtonComponentUIViewController()
+        case .radioButtonGroup: RadioButtonGroupComponentUIViewController()
         case .ratingDisplay: RatingDisplayComponentUIViewController()
         case .ratingInput: RatingInputComponentUIViewController()
         case .slider: SliderComponentUIViewController()
@@ -150,7 +158,6 @@ struct ComponentsView: View {
         case .textField: TextFieldComponentUIViewController()
         case .textFieldAddons: TextFieldAddonsComponentUIViewController()
         case .textLink: TextLinkComponentUIViewController()
-        default: EmptyView()
         }
     }
 }
@@ -190,6 +197,7 @@ extension ComponentsView {
         case progressBarIndeterminate
         case progressTracker
         case radioButton
+        case radioButtonGroup
         case ratingDisplay
         case ratingInput
         case slider
@@ -225,6 +233,7 @@ extension ComponentsView {
             case .progressBarIndeterminate: .indicator
             case .progressTracker: .indicator
             case .radioButton: .dataInput
+            case .radioButtonGroup: .dataInput
             case .ratingDisplay: .dataDisplay
             case .ratingInput: .dataInput
             case .slider: .dataInput
@@ -247,17 +256,7 @@ extension ComponentsView {
 
             switch framework {
             case .uiKit:
-                // TODO: replace to allCases when migration is over
-                var allCases = self.allCases
-                allCases.removeAll(where: {
-                    $0 == .checkbox ||
-                    $0 == .checkboxGroup ||
-                    $0 == .chip ||
-                    $0 == .formField ||
-                    $0 == .progressTracker ||
-                    $0 == .radioButton
-                })
-                values = allCases
+                values = self.allCases
             case .swiftUI:
                 values = self.allCases
             }

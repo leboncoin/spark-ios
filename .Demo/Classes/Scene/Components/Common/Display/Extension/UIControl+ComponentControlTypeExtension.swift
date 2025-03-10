@@ -48,13 +48,13 @@ extension UIControl {
         if controlType == .target {
             self.addTarget(
                 viewController,
-                action: #selector(viewController.componentTouchUpInsideTarget),
+                action: #selector(viewController.componentTouchUpInsideAction),
                 for: .touchUpInside
             )
         } else {
             self.removeTarget(
                 viewController,
-                action: #selector(viewController.componentTouchUpInsideTarget),
+                action: #selector(viewController.componentTouchUpInsideAction),
                 for: .touchUpInside
             )
         }
