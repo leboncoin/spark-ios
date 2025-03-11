@@ -10,7 +10,9 @@ options:
   groupSortPosition: top
   deploymentTarget:
     iOS: 16.0
-  useBaseInternationalization: false
+  useBaseInternationalization: true
+  developmentLanguage: fr
+
   postGenCommand: sh .postGenCommand.sh
 
 packages:

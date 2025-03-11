@@ -32,13 +32,14 @@ struct RightSpaceViewModifier<Configuration: ComponentConfiguration>: ViewModifi
         if self.configuration.swiftUIIsMinWidth.value {
             HStack(spacing: .medium) {
                 content
+                    .fixedSize(horizontal: true, vertical: true)
 
                 Rectangle()
                     .fill(.clear)
             }
         } else {
             content
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }
-

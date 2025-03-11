@@ -9,6 +9,8 @@
 import SwiftUI
 import Combine
 
+// TODO: UIKit: iOS 17 - Modal configuration bug
+
 // MARK: - Representable
 
 struct ComponentDisplayViewControllerRepresentable<
@@ -443,6 +445,8 @@ class ComponentDisplayViewController<
         }
 
         let configurationView = self.createConfigurationView(for: selectedConfiguration)
+        .navigationViewStyle(StackNavigationViewStyle())
+
         let hostingController = ComponentDisplayConfigurationController(rootView: configurationView)
         hostingController.delegate = self
 

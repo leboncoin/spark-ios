@@ -47,7 +47,6 @@ struct SwitchImplementationView: ComponentImplementationViewable {
         .demoAccessibilityValue(self.configurationWrapped)
         .demoDisabled(self.configurationWrapped)
         .demoFrame(self.configurationWrapped)
-        .demoRightSpace(self.configurationWrapped)
     }
 }
 
