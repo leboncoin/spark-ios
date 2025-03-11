@@ -3,7 +3,7 @@
 //  SparkDemo
 //
 //  Created by robin.lemaire on 02/03/2023.
-//  Copyright © 2023 Adevinta. All rights reserved.
+//  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
 import SwiftUI

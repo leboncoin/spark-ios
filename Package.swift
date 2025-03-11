@@ -22,122 +22,122 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/adevinta/spark-ios-common.git",
+            url: "https://github.com/leboncoin/spark-ios-common.git",
             // path: "../spark-ios-common"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-theming.git",
+            url: "https://github.com/leboncoin/spark-ios-theming.git",
             // path: "../spark-ios-theming"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-badge.git",
+            url: "https://github.com/leboncoin/spark-ios-component-badge.git",
             // path: "../spark-ios-component-badge"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-bottom-sheet.git",
+            url: "https://github.com/leboncoin/spark-ios-component-bottom-sheet.git",
             // path: "../spark-ios-component-bottom-sheet"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-button.git",
+            url: "https://github.com/leboncoin/spark-ios-component-button.git",
             // path: "../spark-ios-component-button"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-checkbox.git",
+            url: "https://github.com/leboncoin/spark-ios-component-checkbox.git",
             // path: "../spark-ios-component-checkbox"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-chip.git",
+            url: "https://github.com/leboncoin/spark-ios-component-chip.git",
             // path: "../spark-ios-component-chip"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-divider.git",
+            url: "https://github.com/leboncoin/spark-ios-component-divider.git",
             // path: "../spark-ios-component-divider"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-form-field.git",
+            url: "https://github.com/leboncoin/spark-ios-component-form-field.git",
             // path: "../spark-ios-component-form-field"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            // url: "https://github.com/adevinta/spark-ios-component-icon.git",
+            // url: "https://github.com/leboncoin/spark-ios-component-icon.git",
             path: "../spark-ios-component-icon"
             // /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-popover.git",
+            url: "https://github.com/leboncoin/spark-ios-component-popover.git",
             // path: "../spark-ios-component-popover"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-progress-bar.git",
+            url: "https://github.com/leboncoin/spark-ios-component-progress-bar.git",
             // path: "../spark-ios-component-progress-bar"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-progress-tracker.git",
+            url: "https://github.com/leboncoin/spark-ios-component-progress-tracker.git",
             // path: "../spark-ios-component-progress-tracker"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-radio-button.git",
+            url: "https://github.com/leboncoin/spark-ios-component-radio-button.git",
             // path: "../spark-ios-component-radio-button"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-rating.git",
+            url: "https://github.com/leboncoin/spark-ios-component-rating.git",
             // path: "../spark-ios-component-rating"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-snackbar.git",
+            url: "https://github.com/leboncoin/spark-ios-component-snackbar.git",
             // path: "../spark-ios-component-snackbar"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-slider.git",
+            url: "https://github.com/leboncoin/spark-ios-component-slider.git",
             // path: "../spark-ios-component-slider"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-spinner.git",
+            url: "https://github.com/leboncoin/spark-ios-component-spinner.git",
             // path: "../spark-ios-component-spinner"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            // url: "https://github.com/adevinta/spark-ios-component-stepper.git",
+            // url: "https://github.com/leboncoin/spark-ios-component-stepper.git",
             path: "../spark-ios-component-stepper"
             // /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-switch.git",
+            url: "https://github.com/leboncoin/spark-ios-component-switch.git",
             // path: "../spark-ios-component-switch"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-tab.git",
+            url: "https://github.com/leboncoin/spark-ios-component-tab.git",
             // path: "../spark-ios-component-tab"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            // url: "https://github.com/adevinta/spark-ios-component-tag.git",
+            // url: "https://github.com/leboncoin/spark-ios-component-tag.git",
             path: "../spark-ios-component-tag"
             // /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            url: "https://github.com/adevinta/spark-ios-component-text-input.git",
+            url: "https://github.com/leboncoin/spark-ios-component-text-input.git",
             // path: "../spark-ios-component-text-input"
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            // url: "https://github.com/adevinta/spark-ios-component-text-link.git",
+            // url: "https://github.com/leboncoin/spark-ios-component-text-link.git",
             path: "../spark-ios-component-text-link"
             // /*version*/ "0.0.1"..."999.999.999"
         )
