@@ -29,14 +29,6 @@ targetTemplates:
         SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
         SUPPORTS_MACCATALYST: NO
         SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
-    info:
-      path: spark/Demo/Info.plist
-      properties:
-        UILaunchScreen: []
-
-        UIApplicationSceneManifest:
-          UIApplicationSupportsMultipleScenes: false
-          UISceneConfigurations: {}
     sources:
       - path: .Demo
     dependencies:
