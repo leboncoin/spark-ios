@@ -31,7 +31,7 @@ struct ActionViewModifier: ViewModifier {
 
     // MARK: - View
 
-    public func body(content: Content) -> some View {
+    func body(content: Content) -> some View {
         content
             .alert(self.title, isPresented: self.$showIngActionAlert) {
                 Button("OK", role: .cancel) { }

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SliderConfigurationItemView<Value>: View where Value: BinaryFloatingPoint, Value.Stride : BinaryFloatingPoint {
+struct SliderConfigurationItemView<Value>: View where Value: BinaryFloatingPoint, Value.Stride: BinaryFloatingPoint {
 
     // MARK: - Properties
 

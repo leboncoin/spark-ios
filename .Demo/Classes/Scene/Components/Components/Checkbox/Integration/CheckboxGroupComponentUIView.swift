@@ -85,7 +85,7 @@ final class CheckboxGroupComponentUIViewMaker: ComponentUIViewMaker {
         componentView.demoDisabled(configuration)
         componentView.demoAccessibilityLabel(configuration)
         componentView.demoBackground(configuration)
-        
+
         configuration.uiKitInfoLabel?.text = configuration.getInfoValue(from: componentView.checkboxes.map(\.selectionState))
     }
 

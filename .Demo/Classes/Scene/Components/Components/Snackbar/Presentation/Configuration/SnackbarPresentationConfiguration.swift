@@ -11,7 +11,7 @@ import Foundation
 class SnackbarPresentationConfiguration: ComponentConfiguration {
 
     // MARK: - Properties
-    
+
     var direction: SnackbarPresentationDirection = .random
     var autoDismissDelay: SnackbarAutoDismissDelay? = .optionalRandom
 

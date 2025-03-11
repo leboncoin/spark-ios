@@ -6,7 +6,6 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-
 struct ColorSectionBasicViewModel: ColorSectionViewModelable {
 
     // MARK: - Properties

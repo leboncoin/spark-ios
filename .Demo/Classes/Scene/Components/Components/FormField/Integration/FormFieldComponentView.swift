@@ -43,10 +43,11 @@ struct FormFieldImplementationView: ComponentImplementationViewable {
                     configuration: self.configuration.radioButtonConfiguration,
                     showInfo: false
                 )
-            case .stepper:
-                StepperImplementationView(
-                    configuration: self.configuration.stepperConfiguration
-                )
+                // TODO: remettre
+//            case .stepper:
+//                StepperImplementationView(
+//                    configuration: self.configuration.stepperConfiguration
+//                )
             case .textEditor:
                 TextEditorImplementationView(
                     configuration: self.configuration.textEditorConfiguration,
@@ -153,7 +154,6 @@ private extension FormFieldView {
         }
     }
 }
-
 
 // MARK: - Preview
 

@@ -28,7 +28,7 @@ struct TextFieldImplementationView: ComponentImplementationViewable {
     var configuration: Binding<TextFieldConfiguration>
     @State private var text: String = ""
 
-    private var textForFormField: Binding<String>? = nil // Only used by the FormField demo
+    private var textForFormField: Binding<String>? // Only used by the FormField demo
 
     // MARK: - Initialization
 

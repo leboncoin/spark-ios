@@ -11,7 +11,7 @@ import SwiftUI
 struct ColorSchemeConfigurationItemView: View {
 
     // MARK: - Properties
-    
+
     @Binding var selectedValue: ColorScheme
 
     // MARK: - View

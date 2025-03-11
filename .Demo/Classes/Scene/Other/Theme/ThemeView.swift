@@ -21,7 +21,6 @@ struct ThemeView: View {
         case typography
     }
 
-
     // MARK: - View
 
     var body: some View {
@@ -30,12 +29,12 @@ struct ThemeView: View {
             }
             .navigationDestination(for: Styles.self, destination: { component in
                 switch component {
-                case .border : BorderView()
-                case .colors : ColorView()
-                case .dims : DimsView()
-                case .elevation : ElevationView()
-                case .layout : LayoutView()
-                case .typography : TypographyView()
+                case .border: BorderView()
+                case .colors: ColorView()
+                case .dims: DimsView()
+                case .elevation: ElevationView()
+                case .layout: LayoutView()
+                case .typography: TypographyView()
                 }
             })
             .navigationBarTitle("Theme")

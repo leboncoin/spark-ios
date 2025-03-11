@@ -39,7 +39,7 @@ struct PaddingViewModifier: ViewModifier {
 
     // MARK: - View
 
-    public func body(content: Content) -> some View {
+    func body(content: Content) -> some View {
         content.padding(self.edges, self.padding.rawValue)
     }
 }

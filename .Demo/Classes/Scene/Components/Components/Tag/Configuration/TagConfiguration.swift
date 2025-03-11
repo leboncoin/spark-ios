@@ -11,7 +11,7 @@ import Foundation
 class TagConfiguration: ComponentConfiguration {
 
     // MARK: - Properties
-    
+
     var intent: TagIntent = .random
     var variant: TagVariant = .random
     var icon: Iconography? = .optionalRandom

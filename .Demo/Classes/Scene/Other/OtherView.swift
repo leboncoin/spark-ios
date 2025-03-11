@@ -25,7 +25,7 @@ struct OtherView: View {
             }
             .navigationDestination(for: Redirection.self, destination: { redirection in
                 switch redirection {
-                case .theme : ThemeView()
+                case .theme: ThemeView()
                 }
             })
             .navigationBarTitle("Other")

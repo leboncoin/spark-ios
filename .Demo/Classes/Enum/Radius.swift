@@ -35,7 +35,7 @@ struct RadiusViewModifier: ViewModifier {
 
     // MARK: - View
 
-    public func body(content: Content) -> some View {
+    func body(content: Content) -> some View {
         content.clipShape(.rect(cornerRadius: self.radius.rawValue))
     }
 }

@@ -6,6 +6,8 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
+// TODO: remettre
+/*
 import SwiftUI
 
 // MARK: - View
@@ -128,3 +130,4 @@ struct StepperComponentView_Previews: PreviewProvider {
         StepperComponentView()
     }
 }
+*/

@@ -6,6 +6,8 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
+// TODO: remettre
+/*
 import SwiftUI
 
 struct StepperConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
@@ -18,7 +20,7 @@ struct StepperConfigurationView: ConfigurationViewable, ConfigurationUIViewable 
     // MARK: - Properties
 
     var configuration: Binding<Configuration>
-    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable?
 
     // MARK: - Initialization
 
@@ -137,3 +139,4 @@ struct StepperConfigurationView: ConfigurationViewable, ConfigurationUIViewable 
         )
     }
 }
+*/

@@ -67,9 +67,9 @@ let package = Package(
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            // url: "https://github.com/leboncoin/spark-ios-component-icon.git",
-            path: "../spark-ios-component-icon"
-            // /*version*/ "0.0.1"..."999.999.999"
+            url: "https://github.com/leboncoin/spark-ios-component-icon.git",
+            // path: "../spark-ios-component-icon"
+            /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
             url: "https://github.com/leboncoin/spark-ios-component-popover.git",
@@ -111,11 +111,12 @@ let package = Package(
             // path: "../spark-ios-component-spinner"
             /*version*/ "0.0.1"..."999.999.999"
         ),
-        .package(
-            // url: "https://github.com/leboncoin/spark-ios-component-stepper.git",
-            path: "../spark-ios-component-stepper"
-            // /*version*/ "0.0.1"..."999.999.999"
-        ),
+        // TODO: remettre
+//        .package(
+//            url: "https://github.com/leboncoin/spark-ios-component-stepper.git",
+//            // path: "../spark-ios-component-stepper"
+//            /*version*/ "0.0.1"..."999.999.999"
+//        ),
         .package(
             url: "https://github.com/leboncoin/spark-ios-component-switch.git",
             // path: "../spark-ios-component-switch"
@@ -127,9 +128,9 @@ let package = Package(
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            // url: "https://github.com/leboncoin/spark-ios-component-tag.git",
-            path: "../spark-ios-component-tag"
-            // /*version*/ "0.0.1"..."999.999.999"
+            url: "https://github.com/leboncoin/spark-ios-component-tag.git",
+            // path: "../spark-ios-component-tag"
+            /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
             url: "https://github.com/leboncoin/spark-ios-component-text-input.git",
@@ -137,9 +138,9 @@ let package = Package(
             /*version*/ "0.0.1"..."999.999.999"
         ),
         .package(
-            // url: "https://github.com/leboncoin/spark-ios-component-text-link.git",
-            path: "../spark-ios-component-text-link"
-            // /*version*/ "0.0.1"..."999.999.999"
+            url: "https://github.com/leboncoin/spark-ios-component-text-link.git",
+            // path: "../spark-ios-component-text-link"
+            /*version*/ "0.0.1"..."999.999.999"
         )
     ],
     targets: [
@@ -220,10 +221,12 @@ let package = Package(
                     name: "SparkSpinner",
                     package: "spark-ios-component-spinner"
                 ),
-                .product(
-                    name: "SparkStepper",
-                    package: "spark-ios-component-stepper"
-                ),
+
+                // TODO: remettre
+//                .product(
+//                    name: "SparkStepper",
+//                    package: "spark-ios-component-stepper"
+//                ),
                 .product(
                     name: "SparkSwitch",
                     package: "spark-ios-component-switch"

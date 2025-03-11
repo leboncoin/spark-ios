@@ -163,7 +163,7 @@ private extension TabUIView {
         for configuration: TabComponentUIViewMaker.Configuration
     ) -> BadgeUIView? {
         guard item.isBadge else { return nil }
-        
+
         let badge = BadgeUIView(
             theme: self.theme,
             intent: .danger,

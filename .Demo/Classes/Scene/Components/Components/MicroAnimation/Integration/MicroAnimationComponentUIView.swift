@@ -13,7 +13,6 @@ import SwiftUI
 
 typealias MicroAnimationComponentUIViewController = ComponentDisplayViewControllerRepresentable<MicroAnimationConfiguration, MicroAnimationContentUIView, MicroAnimationConfigurationView, MicroAnimationComponentUIViewMaker>
 
-
 extension MicroAnimationComponentUIViewController {
 
     init() {

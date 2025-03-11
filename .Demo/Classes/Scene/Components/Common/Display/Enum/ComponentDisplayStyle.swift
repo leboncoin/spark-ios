@@ -21,7 +21,7 @@ enum ComponentDisplayStyle: String, CaseIterable {
     static var `default`: Self {
         .verticalList
     }
-    
+
     var systemImage: String {
         switch self {
         case .alone: "square"

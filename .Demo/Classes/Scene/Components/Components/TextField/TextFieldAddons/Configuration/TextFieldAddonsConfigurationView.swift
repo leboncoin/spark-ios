@@ -18,7 +18,7 @@ struct TextFieldAddonsConfigurationView: ConfigurationViewable, ConfigurationUIV
     // MARK: - Properties
 
     var configuration: Binding<Configuration>
-    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable?
 
     // MARK: - Initialization
 

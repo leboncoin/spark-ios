@@ -18,7 +18,7 @@ struct SliderConfigurationView: ConfigurationViewable, ConfigurationUIViewable {
     // MARK: - Properties
 
     var configuration: Binding<Configuration>
-    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable?
 
     // MARK: - Initialization
 

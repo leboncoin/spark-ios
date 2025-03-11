@@ -5,7 +5,6 @@
 //  Created by robin.lemaire on 01/03/2023.
 //
 
-
 struct ColorSectionStatesViewModel: ColorSectionViewModelable {
 
     // MARK: - Properties

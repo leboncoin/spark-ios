@@ -28,7 +28,7 @@ struct RightSpaceViewModifier<Configuration: ComponentConfiguration>: ViewModifi
 
     // MARK: - View
 
-    public func body(content: Content) -> some View {
+    func body(content: Content) -> some View {
         if self.configuration.swiftUIIsMinWidth.value {
             HStack(spacing: .medium) {
                 content

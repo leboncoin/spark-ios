@@ -18,7 +18,7 @@ struct TextEditorConfigurationView: ConfigurationViewable, ConfigurationUIViewab
     // MARK: - Properties
 
     var configuration: Binding<Configuration>
-    var componentImplementationViewRepresentable: ComponentImplementationRepresentable? = nil
+    var componentImplementationViewRepresentable: ComponentImplementationRepresentable?
 
     // MARK: - Initialization
 
@@ -58,7 +58,7 @@ struct TextEditorConfigurationView: ConfigurationViewable, ConfigurationUIViewab
                     name: "placeholder",
                     text: self.configuration.placeholder
                 )
-                
+
                 if self.framework.isUIKit {
                     ToggleConfigurationItemView(
                         name: "is editable",

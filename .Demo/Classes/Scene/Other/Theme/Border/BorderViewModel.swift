@@ -6,11 +6,10 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-
 struct BorderViewModel {
 
     // MARK: - Methods
-    
+
     func sectionViewModels() -> [BorderSectionViewModel] {
         let border = DemoThemes.shared.mainTheme.value.border
         return [

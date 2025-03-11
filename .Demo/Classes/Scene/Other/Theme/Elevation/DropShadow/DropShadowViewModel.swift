@@ -6,7 +6,6 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-
 struct DropShadowViewModel {
 
     func itemViewModels(for theme: Theme) -> [DropShadowItemViewModel] {

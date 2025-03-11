@@ -84,7 +84,6 @@ final class ComponentDisplayTableViewCell<
             context: .display
         )
         self.componentView = componentView
-        
 
         // Remove the previous component in the stack view
         for view in self.contentStackView.arrangedSubviews.filter({

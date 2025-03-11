@@ -36,7 +36,7 @@ struct DynamicTypeConfigurationItemView: View {
                         set: { index in
                             self.selectedValue = self.values[Int(index)]
                         }),
-                    range: 0...Double(self.values.count-1),
+                    range: 0...Double(self.values.count - 1),
                     step: 1
                 )
 

@@ -124,7 +124,7 @@ final class ComponentDisplayTableView<
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let delegate = self.delegate, self.configurations.count > indexPath.row else { return nil }
 
-        let action = UIContextualAction(style: .normal, title: "Update") { (action, view, success) in
+        let action = UIContextualAction(style: .normal, title: "Update") { action, view, success in
             delegate.updateConfiguration(id: self.configurations[indexPath.row].id)
             success(true)
         }
@@ -137,7 +137,7 @@ final class ComponentDisplayTableView<
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let delegate = self.delegate, self.configurations.count > indexPath.row, self.configurations.count > 1 else { return nil }
 
-        let action = UIContextualAction(style: .destructive, title: "Remove") { (action, view, success) in
+        let action = UIContextualAction(style: .destructive, title: "Remove") { action, view, success in
             delegate.removeConfiguration(id: self.configurations[indexPath.row].id)
             success(true)
         }

@@ -65,7 +65,7 @@ final class TextFieldAddonsComponentUIViewMaker: ComponentUIViewMaker {
         componentView.textField.intent = configuration.intent
         self.updateCommonProperties(componentView, for: configuration)
     }
-    
+
     private func updateCommonProperties(
         _ componentView: ComponentView,
         for configuration: Configuration

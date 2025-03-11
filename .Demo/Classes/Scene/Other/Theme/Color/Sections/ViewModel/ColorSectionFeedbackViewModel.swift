@@ -5,7 +5,6 @@
 //  Created by robin.lemaire on 01/03/2023.
 //
 
-
 struct ColorSectionFeedbackViewModel: ColorSectionViewModelable {
 
     // MARK: - Properties

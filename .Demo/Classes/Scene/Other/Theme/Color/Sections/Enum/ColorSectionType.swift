@@ -5,7 +5,6 @@
 //  Created by robin.lemaire on 13/03/2023.
 //
 
-
 enum ColorSectionType: CaseIterable {
     case main
     case support

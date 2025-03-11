@@ -38,7 +38,7 @@ final class TextFieldSideUIView<
             return self.createImage(side: side, isAddon: isAddon)
         }
     }
-    
+
     // MARK: - Subview
 
     private func createImage(
