@@ -1,10 +1,10 @@
 name: lint-build
 on:
   pull_request:
-    types: [ opened, edited, synchronize ]
+    types: [opened, edited, synchronize]
 
 jobs:
   linter:
-    uses: adevinta/spark-ios-common/.github/workflows/linter.yml@main
+    uses: leboncoin/spark-ios-common/.github/workflows/linter.yml@main
   buildDemo:
-    uses: adevinta/spark-ios/.github/workflows/buildDemo.yml@main
+    uses: leboncoin/spark-ios/.github/workflows/buildDemo.yml@main

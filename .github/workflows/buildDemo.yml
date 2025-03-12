@@ -3,7 +3,7 @@ on: workflow_call
 
 env:
   app_name: SparkDemo
-  xcode_path: "/Applications/Xcode_15.4.app"
+  xcode_path: "/Applications/Xcode_16.2.app"
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
           version: "2.41.0"
       - name: Build
         run: |
-          xcodebuild -scheme ${{ env.app_name }} -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15 pro,OS=17.5' build
+          xcodebuild -scheme ${{ env.app_name }} -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 pro,OS=18.0' build
       - name: Upload xcresult file
         uses: actions/upload-artifact@v4
         if: ${{ failure() }}

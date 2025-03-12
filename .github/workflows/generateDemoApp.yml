@@ -8,10 +8,10 @@ on:
 env:
   app_name: SparkDemo
   swift_version: "5.9"
-  xcode_path: "/Applications/Xcode_15.4.app"
+  xcode_path: "/Applications/Xcode_16.2.app"
   xcodebuild_sdk: -sdk iphonesimulator
   xcodebuild_derivedData: ".derivedData/"
-  xcodebuild_destination: -destination 'platform=iOS Simulator,name=iPhone 15 pro,OS=17.5'
+  xcodebuild_destination: -destination 'platform=iOS Simulator,name=iPhone 16 pro,OS=18.0'
 
 jobs:
   build-demo-app:
