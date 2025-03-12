@@ -6,8 +6,6 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-// TODO: remettre
-/*
 import UIKit
 import SwiftUI
 import Combine
@@ -101,7 +99,7 @@ final class StepperComponentUIViewMaker: ComponentUIViewMaker {
             componentView.valuePublisher.sink { [weak self] value in
                 self?.updateInfoLabel(with: componentView.value, configuration: configuration)
             }
- .store(in: &self.cancellables)
+            .store(in: &self.cancellables)
 
             if let action {
                 componentView.removeAction(action, for: .valueChanged)
@@ -133,6 +131,7 @@ private extension SparkUIStepper {
         case .currency:
             formatter.numberStyle = .currency
             formatter.currencyCode = "EUR"
+            formatter.locale = .init(identifier: "fr_FR")
 
         case .percent:
             formatter.numberStyle = .percent
@@ -162,4 +161,3 @@ private extension SparkUIStepper {
         }
     }
 }
-*/

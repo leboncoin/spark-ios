@@ -122,13 +122,12 @@ final class FormFieldDynamicUIView: UIView {
             formFieldView.demoUpdateCommonProperties(self.configuration)
             self.formFieldView = formFieldView
 
-            // TODO: remettre
-//        case .stepper:
-//            let maker = StepperComponentUIViewMaker()
-//            let view = maker.createComponentView(for: self.configuration.stepperConfiguration)
-//            let formFieldView = FormFieldUIView(self.configuration, component: view)
-//            formFieldView.demoUpdateCommonProperties(self.configuration)
-//            self.formFieldView = formFieldView
+        case .stepper:
+            let maker = StepperComponentUIViewMaker()
+            let view = maker.createComponentView(for: self.configuration.stepperConfiguration)
+            let formFieldView = FormFieldUIView(self.configuration, component: view)
+            formFieldView.demoUpdateCommonProperties(self.configuration)
+            self.formFieldView = formFieldView
 
         case .textEditor:
             let maker = TextEditorComponentUIViewMaker()
@@ -180,9 +179,8 @@ final class FormFieldDynamicUIView: UIView {
         case let view as FormFieldUIView<RadioButtonGroupComponentUIViewMaker.ComponentView>:
             view.updateProperties(self.configuration, text: self.text)
 
-            // TODO: remettre
-//        case let view as FormFieldUIView<StepperComponentUIViewMaker.ComponentView>:
-//            view.updateProperties(self.configuration, text: self.text)
+        case let view as FormFieldUIView<StepperComponentUIViewMaker.ComponentView>:
+            view.updateProperties(self.configuration, text: self.text)
 
         case let view as FormFieldUIView<TextEditorComponentUIViewMaker.ComponentView>:
             view.updateProperties(self.configuration, text: self.text)

@@ -43,11 +43,10 @@ struct FormFieldImplementationView: ComponentImplementationViewable {
                     configuration: self.configuration.radioButtonConfiguration,
                     showInfo: false
                 )
-                // TODO: remettre
-//            case .stepper:
-//                StepperImplementationView(
-//                    configuration: self.configuration.stepperConfiguration
-//                )
+            case .stepper:
+                StepperImplementationView(
+                    configuration: self.configuration.stepperConfiguration
+                )
             case .textEditor:
                 TextEditorImplementationView(
                     configuration: self.configuration.textEditorConfiguration,

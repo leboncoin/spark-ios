@@ -28,8 +28,7 @@ class FormFieldConfiguration: ComponentConfiguration {
 
     var checkboxGroupConfiguration = CheckboxGroupConfiguration()
     var radioButtonConfiguration = RadioButtonGroupConfiguration()
-    // TODO: remettre
-//    var stepperConfiguration = StepperConfiguration()
+    var stepperConfiguration = StepperConfiguration()
     var textEditorConfiguration = TextEditorConfiguration()
     var textFieldConfiguration = TextFieldConfiguration()
 
@@ -66,8 +65,7 @@ class FormFieldConfiguration: ComponentConfiguration {
             self.radioButtonConfiguration.items[index].isAttributedText = false
         }
 
-        // TODO: remettre
-//        self.stepperConfiguration.isEnabled.value = true
+        self.stepperConfiguration.isEnabled.value = true
 
         self.textEditorConfiguration.isEnabled.value = true
         self.textEditorConfiguration.uiKitIsEditable = true

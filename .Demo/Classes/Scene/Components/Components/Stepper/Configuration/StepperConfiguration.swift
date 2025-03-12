@@ -6,8 +6,6 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-// TODO: remettre
-/*
 import Foundation
 
 class StepperConfiguration: ComponentConfiguration {
@@ -67,4 +65,3 @@ class StepperConfiguration: ComponentConfiguration {
         return lowerBound...upperBound
     }
 }
-*/
