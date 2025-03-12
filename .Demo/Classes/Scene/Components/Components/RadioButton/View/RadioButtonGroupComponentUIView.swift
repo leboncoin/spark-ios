@@ -61,7 +61,8 @@ final class RadioButtonGroupComponentUIViewMaker: ComponentUIViewMaker {
 
         componentView.publisher.sink { value in
             configuration.uiKitInfoLabel?.text = configuration.getInfoValue(from: value)
-        }.store(in: &self.cancellables)
+        }
+        .store(in: &self.cancellables)
 
         return componentView
     }

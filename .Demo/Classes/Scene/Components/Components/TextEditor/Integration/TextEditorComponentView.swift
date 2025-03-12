@@ -48,13 +48,12 @@ struct TextEditorImplementationView: ComponentImplementationViewable {
     // MARK: - View
 
     var body: some View {
-        TextEditor(text: self.$text)
-//        TextEditorView(
-//            self.configurationWrapped.placeholder,
-//            text: self.textForFormField ?? self.$text,
-//            theme: self.configurationWrapped.theme.value,
-//            intent: self.configurationWrapped.intent
-//        )
+        TextEditorView(
+            self.configurationWrapped.placeholder,
+            text: self.textForFormField ?? self.$text,
+            theme: self.configurationWrapped.theme.value,
+            intent: self.configurationWrapped.intent
+        )
         .demoDisabled(self.configurationWrapped)
         .demoAccessibilityLabel(self.configurationWrapped)
         .demoFrame(self.configurationWrapped)

@@ -125,7 +125,8 @@ struct ComponentDisplayView<ComponentView: View, ConfigurationView: View, Config
     private func horizontalList() -> some View {
         self.section(
             title: "Horizontal scroll list",
-            subtitle: "Infinite", content: {
+            subtitle: "Infinite",
+            content: {
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(self.$configurations, id: \.wrappedValue.id) { $configuration in
@@ -142,7 +143,8 @@ struct ComponentDisplayView<ComponentView: View, ConfigurationView: View, Config
     private func horizontalContent() -> some View {
         self.section(
             title: "Horizontal content",
-            subtitle: "Max screen width", content: {
+            subtitle: "Max screen width",
+            content: {
                 HStack {
                     ForEach(self.$configurations, id: \.wrappedValue.id) { $configuration in
                         self.componentView($configuration)

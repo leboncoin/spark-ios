@@ -67,7 +67,8 @@ final class ProgressTrackerComponentUIViewMaker: ComponentUIViewMaker {
 
         componentView.publisher.sink { value in
             componentView.demoCurrentPageIndicatorImage(configuration, currentPageIndex: value)
-        }.store(in: &self.cancellables)
+        }
+        .store(in: &self.cancellables)
 
         return componentView
     }

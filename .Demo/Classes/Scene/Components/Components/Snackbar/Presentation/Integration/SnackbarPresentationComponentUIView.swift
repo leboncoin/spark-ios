@@ -47,6 +47,7 @@ final class SnackbarPresentationComponentUIViewMaker: ComponentUIViewMaker {
         button.setTitle("Dismiss", for: .normal)
         button.addAction(.init(handler: { _ in
             view.dismiss(completion: { isFinished in
+                // swiftlint:disable no_debugging_method
                 print("Dismiss action", isFinished)
             })
         }), for: .touchUpInside)
@@ -88,6 +89,7 @@ final class SnackbarPresentationComponentUIViewMaker: ComponentUIViewMaker {
                 insets: .init(configuration),
                 autoDismissDelay: autoDismissDelay
             ) { isFinished in
+                // swiftlint:disable no_debugging_method
                 print("Auto dismiss", isFinished)
             }
         } else {

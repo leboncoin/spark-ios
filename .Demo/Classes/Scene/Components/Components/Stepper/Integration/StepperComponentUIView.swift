@@ -100,7 +100,8 @@ final class StepperComponentUIViewMaker: ComponentUIViewMaker {
         case .publisher:
             componentView.valuePublisher.sink { [weak self] value in
                 self?.updateInfoLabel(with: componentView.value, configuration: configuration)
-            }.store(in: &self.cancellables)
+            }
+ .store(in: &self.cancellables)
 
             if let action {
                 componentView.removeAction(action, for: .valueChanged)

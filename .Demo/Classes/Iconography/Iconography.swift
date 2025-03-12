@@ -39,6 +39,7 @@ extension Image {
 
 extension UIImage {
 
+    // swiftlint:disable force_unwrapping
     convenience init(icon iconography: Iconography) {
         self.init(named: iconography.rawValue)!
     }

@@ -58,7 +58,8 @@ final class SliderComponentUIViewMaker: ComponentUIViewMaker {
 
         componentView.valuePublisher.sink { value in
             configuration.uiKitInfoLabel?.text = configuration.getInfoValue(from: value)
-        }.store(in: &self.cancellables)
+        }
+        .store(in: &self.cancellables)
 
         return componentView
     }

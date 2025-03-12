@@ -8,6 +8,7 @@
 
 import Foundation
 
+// swiftlint:disable no_debugging_method
 struct TextFieldViewTypeHelper {
 
     static func getType(from configuration: TextFieldConfiguration) -> TextFieldViewType {

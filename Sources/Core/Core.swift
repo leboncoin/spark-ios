@@ -20,7 +20,7 @@
 @_exported import SparkSlider
 @_exported import SparkSpinner
 // TODO: remettre
-//@_exported import SparkStepper
+// @_exported import SparkStepper
 @_exported import SparkSwitch
 @_exported import SparkTab
 @_exported import SparkTag

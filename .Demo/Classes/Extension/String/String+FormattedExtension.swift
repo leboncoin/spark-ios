@@ -13,6 +13,7 @@ extension String {
     var addSpacesBeforeCapitalLetter: String {
         self.map {
             $0.isUppercase ? " \($0)" : String($0)
-        }.joined(separator: "")
+        }
+        .joined(separator: "")
     }
 }

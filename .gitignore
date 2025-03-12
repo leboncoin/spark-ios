@@ -102,7 +102,6 @@ fastlane/README.md
 out
 
 #plists
-*.plist
 !IDETemplateMacros.plist
 
 #sourcery

@@ -9,15 +9,13 @@
 import Foundation
 
 extension CaseIterable {
+
+    // swiftlint:disable force_unwrapping
     static var random: Self {
         return self.allCases.randomElement()!
     }
 
     static var optionalRandom: Self? {
-        if 1 == Int.random(in: 0...3) {
-            return nil
-        } else {
-            return self.random
-        }
+        return (1 == Int.random(in: 0...3)) ? nil : self.random
     }
 }

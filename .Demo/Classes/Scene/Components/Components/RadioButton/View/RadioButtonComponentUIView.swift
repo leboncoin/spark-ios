@@ -55,7 +55,8 @@ final class RadioButtonComponentUIViewMaker: ComponentUIViewMaker {
 
         componentView.publisher.sink { value in
             configuration.uiKitInfoLabel?.text = configuration.getInfoValue(from: value ? componentView.id : nil)
-        }.store(in: &self.cancellables)
+        }
+        .store(in: &self.cancellables)
 
         self.updateCommonProperties(componentView, for: configuration)
 

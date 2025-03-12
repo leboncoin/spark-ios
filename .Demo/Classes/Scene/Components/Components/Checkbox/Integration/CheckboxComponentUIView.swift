@@ -61,7 +61,8 @@ final class CheckboxComponentUIViewMaker: ComponentUIViewMaker {
 
         componentView.publisher.sink { value in
             configuration.uiKitInfoLabel?.text = configuration.getInfoValue(from: componentView.selectionState)
-        }.store(in: &self.cancellables)
+        }
+        .store(in: &self.cancellables)
 
         self.updateCommonProperties(componentView, for: configuration)
 

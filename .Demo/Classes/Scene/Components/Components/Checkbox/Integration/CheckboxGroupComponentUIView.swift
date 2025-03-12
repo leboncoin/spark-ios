@@ -58,7 +58,8 @@ final class CheckboxGroupComponentUIViewMaker: ComponentUIViewMaker {
 
         componentView.publisher.sink { value in
             configuration.uiKitInfoLabel?.text = configuration.getInfoValue(from: componentView.checkboxes.map(\.selectionState))
-        }.store(in: &self.cancellables)
+        }
+        .store(in: &self.cancellables)
 
         return componentView
     }
