@@ -10,12 +10,18 @@ import UIKit
 import SwiftUI
 
 // TODO: To Fix
-// - Commit the modification in Icon repo
 // - Constraints crash on TableView demo
 
 // MARK: - View Controller
 
 typealias IconComponentUIViewController = ComponentDisplayViewControllerRepresentable<IconConfiguration, IconUIView, IconConfigurationView, IconComponentUIViewMaker>
+
+extension IconComponentUIViewController {
+
+    init() {
+        self.init(style: .verticalList, styles: [.alone, .verticalList])
+    }
+}
 
 // MARK: - View Maker
 
@@ -55,7 +61,7 @@ final class IconComponentUIViewMaker: ComponentUIViewMaker {
         componentView.icon = .init(icon: configuration.icon)
         componentView.theme = configuration.theme.value
         componentView.intent = configuration.intent
-//        componentView.size = configuration.size
+        componentView.size = configuration.size
         self.updateCommonProperties(componentView, for: configuration)
     }
 

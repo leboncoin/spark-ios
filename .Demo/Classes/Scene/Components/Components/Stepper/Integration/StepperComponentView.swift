@@ -6,8 +6,6 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-// TODO: remettre
-/*
 import SwiftUI
 
 // MARK: - View
@@ -61,7 +59,7 @@ struct StepperImplementationView: ComponentImplementationViewable {
                 value: self.$floatValue,
                 in: self.configurationWrapped.bounds(),
                 step: self.configurationWrapped.step(),
-                format: .currency(code: "EUR"),
+                format: .currency(code: "EUR").locale(.init(identifier: "fr_FR")),
                 decrementImage: .init(icon: self.configurationWrapped.decrementIcon),
                 incrementImage: .init(icon: self.configurationWrapped.incrementIcon)
             )
@@ -130,4 +128,3 @@ struct StepperComponentView_Previews: PreviewProvider {
         StepperComponentView()
     }
 }
-*/
