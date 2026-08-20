@@ -1,82 +1,92 @@
-# Spark-iOS
+# Spark iOS Design System
 
-## Introduction
+<p align="center">
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="art/spark-logo-dark.svg">
+    <img alt="Spark Design System logo" src="art/spark-logo-light.svg">
+  </picture>
+</p>
 
-Spark is [Leboncoin’s](https://www.leboncoin.fr/) iOS (UIKit and SwiftUI) Design System.
-Its mission is to provide an easy to use, customizable UI experience for consumers.
+[![👷 Build → 🧑‍🔬 Test → 🕵️ Lint](https://github.com/leboncoin/spark-ios/actions/workflows/ci.yml/badge.svg)](https://github.com/leboncoin/spark-ios/actions/workflows/ci.yml)
 
-## Packages
+**Spark** is the [Leboncoin](https://www.leboncoin.fr/)'s _Design System_.
 
-Spark for iOS is a multi-repositories solution.
+// TODO: improve
 
-You can plug and play the entire Spark iOS by importing the _SparkCore_ package.
+## 🚀 Getting Started
 
-You can also use only one or more packages.
+_Note: Instructions below are for using **SPM** without the Xcode UI. It's the easiest to go to your Project Settings -> Swift Packages and add SparkComponentButton from there._
 
-**SparkCore** contains the following packages:
+To integrate using Apple's Swift package manager, without Xcode integration, add the following as a dependency to your `Package.swift`:
 
-- [Common](https://github.com/leboncoin/spark-ios-common.git)
-- [Theming](https://github.com/leboncoin/spark-ios-theming.git)
-- [Badge](https://github.com/leboncoin/spark-ios-component-badge.git)
-- [BottomSheet](https://github.com/leboncoin/spark-ios-component-bottom-sheet.git)
-- [Button](https://github.com/leboncoin/spark-ios-component-button.git)
-- [Checkbox](https://github.com/leboncoin/spark-ios-component-checkbox.git)
-- [Chip](https://github.com/leboncoin/spark-ios-component-chip.git)
-- [FormField](https://github.com/leboncoin/spark-ios-component-form-field.git)
-- [Icon](https://github.com/leboncoin/spark-ios-component-icon.git)
-- [ProgressBar](https://github.com/leboncoin/spark-ios-component-progress-bar.git)
-- [ProgressTracker](https://github.com/leboncoin/spark-ios-component-progress-tracker.git)
-- [RadioButton](https://github.com/leboncoin/spark-ios-component-radio-button.git)
-- [Rating](https://github.com/leboncoin/spark-ios-component-rating.git)
-- [Slider](https://github.com/leboncoin/spark-ios-component-slider.git)
-- [Spinner](https://github.com/leboncoin/spark-ios-component-spinner.git)
-- [Switch](https://github.com/leboncoin/spark-ios-component-switch.git)
-- [Tab](https://github.com/leboncoin/spark-ios-component-tab.git)
-- [Tag](https://github.com/leboncoin/spark-ios-component-tag.git)
-- [TextField](https://github.com/leboncoin/spark-ios-component-text-field.git)
-- [TextLink](https://github.com/leboncoin/spark-ios-component-text-link.git)
+```swift
+.package(url: "https://github.com/leboncoin/spark-ios.git", .upToNextMajor(from: "2.0.0"))
+```
 
-## More Details In Wiki
+and then specify `Spark` as a dependency of the Target in which you wish to use the SparkComponentButton.
 
-[Spark Wiki Page](https://github.com/leboncoin/spark-ios/wiki)
+Here's an example `Package.swift`:
 
-Also, you can find design specifications and tech information for supported platforms by Leboncoin on [zeroheight](https://zeroheight.com/1186e1705/p/25ae4e-spark/b/86bb5c).
+```swift
+// swift-tools-version:5.9
+import PackageDescription
 
-## Getting Started
+let package = Package(
+    name: "MyPackage",
+    platforms: [
+        .iOS(.v16)
+    ],
+    products: [
+        .library(
+            name: "MyPackage",
+            targets: ["MyPackage"]),
+    ],
+    dependencies: [
+        .package(
+            url: "https://github.com/leboncoin/spark-ios.git",
+            .upToNextMajor(from: "1.0.0")
+        )
+    ],
+    targets: [
+        .target(
+            name: "MyPackage",
+            dependencies: [
+                .product(
+                    name: "Spark",
+                    package: "spark-ios"
+                ),
+            ]
+        )
+    ]
+)
+```
 
-### Installation
+## Documentation
 
-- SPM (_Swift Package Manager_): `https://github.com/leboncoin/spark-ios.git`, named `SparkCore`.
-
-#### Plug & Play
-
-If you want the easy-to-use Spark, a Plug & Play solution containing a single Theme is provided and ready to be used. For that, import SparkCore.
-It's also possible to create your [own theme](https://github.com/leboncoin/spark-ios/wiki/Theming#your-own-theming)
+You are a developer ? Technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/).
 
 ## Contributing
 
+Please take a look at the [contribution guide](docs/CONTRIBUTING.md) to setup your dev environment and get a list of common tasks used in this project, as well as the [Code of conduct](docs/CODE_OF_CONDUCT.md).
+
 ## License
 
-```
-MIT License
-
-Copyright (c) 2023 Leboncoin
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+    Copyright (c) 2023 Adevinta
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+    
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
