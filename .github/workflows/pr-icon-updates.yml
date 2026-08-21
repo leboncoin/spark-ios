@@ -1,0 +1,58 @@
+# Local Documentation : https://github.com/leboncoin/spark-ios/blob/main/docs/WORKFLOW_PR_ICON_UPDATES.md
+
+name: '🎨 PR icon updates'
+
+on:
+  push:
+    branches: [ "chore-updated-icons" ]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+env:
+  swift_version: "6.2"
+
+jobs:
+  pr-icon-updates:
+    # Detect recursive calls based on last commit message
+    if: ${{ github.event.head_commit.message != '🤖 Update iconography' }}
+    runs-on: macos-26
+    steps:
+      - name: Set Swift Version
+        uses: swift-actions/setup-swift@v2.4.0
+        with:
+          swift-version: ${{ env.swift_version }}
+      - name: Get swift version
+        run: swift --version
+      - name: Checkout Action
+        uses: actions/checkout@v6
+        with:
+          ref: chore-updated-icons
+          fetch-depth: 0
+          token: ${{ secrets.PAT_SPARK || secrets.GITHUB_TOKEN }}
+      - name: Create Pull Request
+        run: gh pr create --fill
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Manage icons and update the pull Request if needed
+        run: |
+          swift .script/generate-iconography-assets.swift spark-token/iconography
+          swift .script/generate-iconography-codebase.swift
+          git add Resources/Sources/Core/Assets/Iconography.xcassets/*
+          if ! git diff --cached --quiet --exit-code ;
+          then
+            git config user.name 'spark-ui-bot'
+            git config user.email 'spark-ui-bot@users.noreply.github.com'
+            git commit -m '🤖 Update iconography'
+            git show
+            git push
+            echo "::notice::UPDATED"
+          else
+            echo "::notice::UP-TO-DATE"
+          fi
