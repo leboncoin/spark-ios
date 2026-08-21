@@ -1,0 +1,283 @@
+{% macro removeGenericContentInMethodName name %}{% if method.shortName| hasSuffix:">" %}{% for element in name|split:"<" %}{% if forloop.first %}{{ element }}{% endif %}{% endfor %}{% else %}{{name}}{% endif %}{% endmacro %}
+{% macro swiftifyMethodNameV2 method %}{% if method.parameters.count > 0 %}{% call removeGenericContentInMethodName method.shortName %}With{% for param in method.parameters %}{{ param.name | snakeToCamelCase }}{% if not forloop.last %}And{% endif %}{% endfor %}{% else %}{{method.shortName}}{% endif %}{% endmacro %}
+{% macro mockName protocol %}{{ protocol.name }}GeneratedMock{% endmacro %}
+{% macro dynamicTypeName name %}_{{ name | upperFirstLetter }}{% endmacro %}
+{% macro givenParameter name %}given{{ param.name | snakeToCamelCase }}{% endmacro %}
+
+{% for protocol in types.protocols where protocol|annotated:"AutoMockTest" %}{% if protocol.name != "AutoMockTest" %}
+@_spi(SI_SPI) public final class {{ protocol.name }}MockTest {
+
+    // MARK: - Initialization
+
+    private init(){
+    }
+
+    // MARK: - XCTest
+
+    {% for method in protocol.allMethods|!definedInExtension %}
+
+    public static func XCTCallsCount(
+        _ mock: {% call mockName protocol %},
+        {% call swiftifyMethodNameV2 method %}NumberOfCalls numberOfCalls: Int
+    ) {
+        XCTAssertEqual(
+            mock.{% call swiftifyMethodNameV2 method %}CallsCount,
+            numberOfCalls,
+            "Wrong {{ method.name }} number of called on {{ protocol.name }}"
+        )
+    }
+
+    public static func XCTCalled(
+        _ mock: {% call mockName protocol %},
+        {% call swiftifyMethodNameV2 method %}Called isCalled: Bool
+    ) {
+        XCTAssertEqual(
+            mock.{% call swiftifyMethodNameV2 method %}Called,
+            isCalled,
+            "Wrong {{ method.name }} isCalled on {{ protocol.name }}"
+        )
+    }
+
+    public static func XCTAssert{% for key, value in method.annotations where value == "Identical" %}{% if forloop.first %}<
+    {% for param in method.parameters where method.annotations[param.name] == "Identical" %}
+        {% call dynamicTypeName param.name %}: AnyObject{% if not forloop.last or method.annotations["return"] == "Identical" %},{% endif %}
+    {% endfor %}
+    {% if method.annotations["return"] == "Identical" %}
+        {% call dynamicTypeName "return" %}: AnyObject
+    {% endif %}
+    >{% endif %}{% endfor %}(
+        _ mock: {% call mockName protocol %},
+        expectedNumberOfCalls: Int,
+    {% for param in method.parameters %}
+        {% call givenParameter param %}: {% if method.annotations[param.name] == "Identical" %}{% call dynamicTypeName param.name %}{% elif protocol.associatedTypes[param.typeName] != nil %}{% call mockName protocol %}.{{ protocol.associatedTypes[param.typeName].name }}Mock{% else %}{{ '(' if param.isClosure or param.typeName|contains:"any"  }}{{ param.typeName | replace:"?","" }}{{ ')' if param.isClosure or param.typeName|contains:"any"  }}{% endif %}? = nil{% if not forloop.last or not method.returnTypeName.isVoid %}, {% endif %}
+    {% endfor %}
+        {% if not method.returnTypeName.isVoid %}expectedReturnValue: {% if method.annotations["return"] == "Identical" %}{% call dynamicTypeName "return" %}{% elif protocol.associatedTypes["Return"] != nil %}{% call mockName protocol %}.ReturnMock{% if method.isOptionalReturnType %}?{% endif %}{% else %}{{ method.returnTypeName }}{% endif %}{% endif %}
+    ) {
+        // Count
+        XCTAssertEqual(
+            mock.{% call swiftifyMethodNameV2 method %}CallsCount,
+            expectedNumberOfCalls,
+            "Wrong {{ method.name }} number of called on {{ protocol.name }}"
+        )
+
+        // Parameters
+        if expectedNumberOfCalls > 0 {
+            {% if method.parameters.count > 1 %}
+            let args = mock.{% call swiftifyMethodNameV2 method %}ReceivedArguments
+
+            {% endif %}
+            {% for param in method.parameters %}
+            // {{ param.name|upperFirstLetter }}
+            if let {% call givenParameter param %} {
+        
+                {% if method.annotations[param.name] == "Identical" %}
+                    {% if method.parameters.count == 1 %}
+                XCTAssertIdentical(
+                    mock.{% call swiftifyMethodNameV2 method %}Received{{ param.name|upperFirstLetter }} as? _{{ param.name|upperFirstLetter }},
+                    given{{ param.name | snakeToCamelCase }},
+                    "Wrong {{ method.name }} {{ param.name }} parameter on {{ protocol.name }}"
+                )
+                    {% else %}
+                XCTAssertIdentical(
+                    args?.{{ param.name }} as? _{{ param.name|upperFirstLetter }},
+                    given{{ param.name | snakeToCamelCase }},
+                    "Wrong {{ method.name }} {{ param.name }} parameter on {{ protocol.name }}"
+                )
+                    {% endif %}
+                {% else %}
+                    {% if method.parameters.count == 1 %}
+                XCTAssertEqual(
+                    mock.{% call swiftifyMethodNameV2 method %}Received{{ param.name|upperFirstLetter }},
+                    given{{ param.name | snakeToCamelCase }},
+                    "Wrong {{ method.name }} {{ param.name }} parameter on {{ protocol.name }}"
+                )
+                    {% else %}
+                XCTAssertEqual(
+                    args?.{{ param.name }},
+                    given{{ param.name | snakeToCamelCase }},
+                    "Wrong {{ method.name }} {{ param.name }} parameter on {{ protocol.name }}"
+                )
+                    {% endif %}
+                {% endif %}
+            } else {
+                XCTAssertNil(
+                    {% if method.parameters.count == 1 %}mock.{% call swiftifyMethodNameV2 method %}Received{{ param.name|upperFirstLetter }}{% else %}args?.{{ param.name }}{% endif %},
+                    "Wrong {{ method.name }} {{ param.name }} parameter value on {{ protocol.name }}. Should be nil"
+                )
+            }
+
+            {% endfor %}
+        }
+
+        {% if not method.returnTypeName.isVoid %}
+        // Return
+        {% if method.isOptionalReturnType %}if let expectedReturnValue { {% endif %}
+            {% if method.annotations["return"] == "Identical" %}
+        XCTAssertIdentical(
+            mock.{% call swiftifyMethodNameV2 method %}ReturnValue as? _Return,
+            expectedReturnValue,
+            "Wrong {{ method.name }} return value on {{ protocol.name }}"
+        )
+            {% else %}
+            XCTAssertEqual(
+                mock.{% call swiftifyMethodNameV2 method %}ReturnValue,
+                expectedReturnValue,
+                "Wrong {{ method.name }} return value on {{ protocol.name }}"
+            )
+            {% endif %}
+        {% endif %}
+        {% if method.isOptionalReturnType %} } else {
+            XCTAssertNil(
+                mock.{% call swiftifyMethodNameV2 method %}ReturnValue,
+                "Wrong {{ method.name }} return value on {{ protocol.name }}. Should be nil"
+            )
+        }
+        {% endif %}
+    }
+
+    {% endfor %}
+
+    // MARK: - Swift Testing
+
+    {% for method in protocol.allMethods|!definedInExtension %}
+
+    public static func expectCallsCount(
+        _ mock: {% call mockName protocol %},
+        {% call swiftifyMethodNameV2 method %}NumberOfCalls numberOfCalls: Int,
+        sourceLocation: Testing.SourceLocation = #_sourceLocation
+    ) {
+        #expect(
+            mock.{% call swiftifyMethodNameV2 method %}CallsCount == numberOfCalls,
+            "Wrong {{ method.name }} number of called on {{ protocol.name }}. Expected \(numberOfCalls), got \(mock.{% call swiftifyMethodNameV2 method %}CallsCount)",
+            sourceLocation: sourceLocation
+        )
+    }
+
+    public static func expectCalled(
+        _ mock: {% call mockName protocol %},
+        {% call swiftifyMethodNameV2 method %}Called isCalled: Bool,
+        sourceLocation: Testing.SourceLocation = #_sourceLocation
+    ) {
+        #expect(
+            mock.{% call swiftifyMethodNameV2 method %}Called == isCalled,
+            "Wrong {{ method.name }} isCalled on {{ protocol.name }}. Expected \(isCalled), got \(mock.{% call swiftifyMethodNameV2 method %}Called)",
+            sourceLocation: sourceLocation
+        )
+    }
+
+    public static func expect{% for key, value in method.annotations where value == "Identical" %}{% if forloop.first %}<
+    {% for param in method.parameters where method.annotations[param.name] == "Identical" %}
+        {% call dynamicTypeName param.name %}: AnyObject{% if not forloop.last or method.annotations["return"] == "Identical" %},{% endif %}
+    {% endfor %}
+    {% if method.annotations["return"] == "Identical" %}
+        {% call dynamicTypeName "return" %}: AnyObject
+    {% endif %}
+    >{% endif %}{% endfor %}(
+        _ mock: {% call mockName protocol %},
+        expectedNumberOfCalls: Int,
+    {% for param in method.parameters %}
+        {% call givenParameter param %}: {% if method.annotations[param.name] == "Identical" %}{% call dynamicTypeName param.name %}{% elif protocol.associatedTypes[param.typeName] != nil %}{% call mockName protocol %}.{{ protocol.associatedTypes[param.typeName].name }}Mock{% else %}{{ '(' if param.isClosure or param.typeName|contains:"any"  }}{{ param.typeName | replace:"?","" }}{{ ')' if param.isClosure or param.typeName|contains:"any"  }}{% endif %}? = nil{% if not forloop.last or not method.returnTypeName.isVoid %}, {% endif %}
+    {% endfor %}
+        {% if not method.returnTypeName.isVoid %}expectedReturnValue: {% if method.annotations["return"] == "Identical" %}{% call dynamicTypeName "return" %}{% elif protocol.associatedTypes["Return"] != nil %}{% call mockName protocol %}.ReturnMock{% if method.isOptionalReturnType %}?{% endif %}{% else %}{{ method.returnTypeName }}{% endif %},{% endif %}
+        sourceLocation: Testing.SourceLocation = #_sourceLocation
+    ) {
+        // Count
+        #expect(
+            mock.{% call swiftifyMethodNameV2 method %}CallsCount == expectedNumberOfCalls,
+            "Wrong {{ method.name }} number of called on {{ protocol.name }}. Expected \(expectedNumberOfCalls), got \(mock.{% call swiftifyMethodNameV2 method %}CallsCount)",
+            sourceLocation: sourceLocation
+        )
+
+        // Parameters
+        if expectedNumberOfCalls > 0 {
+            {% if method.parameters.count > 1 %}
+            let args = mock.{% call swiftifyMethodNameV2 method %}ReceivedArguments
+
+            {% endif %}
+            {% for param in method.parameters %}
+            // {{ param.name|upperFirstLetter }}
+            if let {% call givenParameter param %} {
+
+                {% if method.annotations[param.name] == "Identical" %}
+                    {% if method.parameters.count == 1 %}
+                guard let receivedValue = mock.{% call swiftifyMethodNameV2 method %}Received{{ param.name|upperFirstLetter }} as? _{{ param.name|upperFirstLetter }} else {
+                    Issue.record("Wrong {{ method.name }} {{ param.name }} parameter type on {{ protocol.name }}", sourceLocation: sourceLocation)
+                    return
+                }
+                #expect(
+                    receivedValue === given{{ param.name | snakeToCamelCase }},
+                    "Wrong {{ method.name }} {{ param.name }} parameter on {{ protocol.name }}",
+                    sourceLocation: sourceLocation
+                )
+                    {% else %}
+                guard let receivedValue = args?.{{ param.name }} as? _{{ param.name|upperFirstLetter }} else {
+                    Issue.record("Wrong {{ method.name }} {{ param.name }} parameter type on {{ protocol.name }}", sourceLocation: sourceLocation)
+                    return
+                }
+                #expect(
+                    receivedValue === given{{ param.name | snakeToCamelCase }},
+                    "Wrong {{ method.name }} {{ param.name }} parameter on {{ protocol.name }}",
+                    sourceLocation: sourceLocation
+                )
+                    {% endif %}
+                {% else %}
+                    {% if method.parameters.count == 1 %}
+                #expect(
+                    mock.{% call swiftifyMethodNameV2 method %}Received{{ param.name|upperFirstLetter }} == given{{ param.name | snakeToCamelCase }},
+                    "Wrong {{ method.name }} {{ param.name }} parameter on {{ protocol.name }}. Expected \(String(describing: given{{ param.name | snakeToCamelCase }})), got \(String(describing: mock.{% call swiftifyMethodNameV2 method %}Received{{ param.name|upperFirstLetter }}))",
+                    sourceLocation: sourceLocation
+                )
+                    {% else %}
+                #expect(
+                    args?.{{ param.name }} == given{{ param.name | snakeToCamelCase }},
+                    "Wrong {{ method.name }} {{ param.name }} parameter on {{ protocol.name }}. Expected \(String(describing: given{{ param.name | snakeToCamelCase }})), got \(String(describing: args?.{{ param.name }}))",
+                    sourceLocation: sourceLocation
+                )
+                    {% endif %}
+                {% endif %}
+            } else {
+                #expect(
+                    {% if method.parameters.count == 1 %}mock.{% call swiftifyMethodNameV2 method %}Received{{ param.name|upperFirstLetter }}{% else %}args?.{{ param.name }}{% endif %} == nil,
+                    "Wrong {{ method.name }} {{ param.name }} parameter value on {{ protocol.name }}. Should be nil but got \(String(describing: {% if method.parameters.count == 1 %}mock.{% call swiftifyMethodNameV2 method %}Received{{ param.name|upperFirstLetter }}{% else %}args?.{{ param.name }}{% endif %}))",
+                    sourceLocation: sourceLocation
+                )
+            }
+
+            {% endfor %}
+        }
+
+        {% if not method.returnTypeName.isVoid %}
+        // Return
+        {% if method.isOptionalReturnType %}if let expectedReturnValue { {% endif %}
+            {% if method.annotations["return"] == "Identical" %}
+        guard let returnValue = mock.{% call swiftifyMethodNameV2 method %}ReturnValue as? _Return else {
+            Issue.record("Wrong {{ method.name }} return value type on {{ protocol.name }}", sourceLocation: sourceLocation)
+            return
+        }
+        #expect(
+            returnValue === expectedReturnValue,
+            "Wrong {{ method.name }} return value on {{ protocol.name }}",
+            sourceLocation: sourceLocation
+        )
+            {% else %}
+        #expect(
+            mock.{% call swiftifyMethodNameV2 method %}ReturnValue == expectedReturnValue,
+            "Wrong {{ method.name }} return value on {{ protocol.name }}. Expected \(String(describing: expectedReturnValue)), got \(String(describing: mock.{% call swiftifyMethodNameV2 method %}ReturnValue))",
+            sourceLocation: sourceLocation
+        )
+            {% endif %}
+        {% endif %}
+        {% if method.isOptionalReturnType %} } else {
+        #expect(
+            mock.{% call swiftifyMethodNameV2 method %}ReturnValue == nil,
+            "Wrong {{ method.name }} return value on {{ protocol.name }}. Should be nil but got \(String(describing: mock.{% call swiftifyMethodNameV2 method %}ReturnValue))",
+            sourceLocation: sourceLocation
+        )
+        }
+        {% endif %}
+    }
+
+    {% endfor %}
+}
+
+{% endif %}{% endfor %}

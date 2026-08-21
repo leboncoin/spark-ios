@@ -2,12 +2,11 @@
 
 <p align="center">
 <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="art/spark-logo-dark.svg">
-    <img alt="Spark Design System logo" src="art/spark-logo-light.svg">
+    <source media="(prefers-color-scheme: dark)" srcset=".art/spark-logo-dark.svg">
+    <img alt="Spark Design System logo" src=".art/spark-logo-light.svg">
   </picture>
 </p>
 
-[![👷 Build → 🧑‍🔬 Test → 🕵️ Lint](https://github.com/leboncoin/spark-ios/actions/workflows/ci.yml/badge.svg)](https://github.com/leboncoin/spark-ios/actions/workflows/ci.yml)
 
 **Spark** is the [Leboncoin](https://www.leboncoin.fr/)'s _Design System_.
 
