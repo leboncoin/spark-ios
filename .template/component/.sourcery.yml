@@ -1,0 +1,13 @@
+configurations:
+  - sources:
+      include:
+        - Sources/
+      exclude:
+        - Sources/Testing/
+        - Sources/SnapshotTesting/
+    templates:
+      - ../../.tools/.sourcery/template/
+    output: Sources/Testing/Generated/Sourcery.generated.swift
+    args:
+      autoMockableImports: [Combine]
+      autoMockableTestableImports: [SparkComponent__COMPONENT_NAME___]

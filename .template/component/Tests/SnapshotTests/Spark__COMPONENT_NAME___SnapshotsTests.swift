@@ -1,0 +1,3 @@
+import Testing
+@testable import SparkComponent__COMPONENT_NAME___
+import CommonTesting
