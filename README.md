@@ -7,7 +7,6 @@
   </picture>
 </p>
 
-
 **Spark** is the [Leboncoin](https://www.leboncoin.fr/)'s _Design System_.
 
 // TODO: improve
@@ -62,7 +61,26 @@ let package = Package(
 
 ## Documentation
 
-You are a developer ? Technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/).
+### DocC
+
+Technical *API* documentation in _DocC_ format is available on our dedicated [website](https://leboncoin.github.io/spark-ios/).
+
+### Makefile
+
+Build, test, and development commands are documented in the [Makefile documentation](docs/MAKEFILE.md).
+
+### GitHub Actions
+
+Continuous integration and deployment workflows:
+- [Build and Test Workflow](docs/WORKFLOW_BUILD_AND_TEST.md) - Automated building and testing
+- [Deploy DocC to GitHub Pages](docs/WORKFLOW_DEPLOY_DOCC_PAGE.md) - Documentation deployment
+- [PR Icon Updates](docs/WORKFLOW_PR_ICON_UPDATES.md) - Automated icon processing
+
+### Scripts
+
+Utility scripts for code generation and asset management:
+- [Generate Iconography Assets](docs/SCRIPT_GENERATE_ICONOGRAPHY_ASSETS.md) - Process and organize icon assets
+- [Generate Iconography Codebase](docs/SCRIPT_GENERATE_ICONOGRAPHY_CODEBASE.md) - Generate type-safe Swift code for icons
 
 ## Contributing
 
