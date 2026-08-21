@@ -45,7 +45,7 @@ This will create two files:
 1. Navigate to the spark-tokens repository on GitHub
 2. Go to **Settings** → **Secrets and variables** → **Actions**
 3. Click **New repository secret**
-4. Set the name to `SSH_DEPLOY_KEY_IOS`
+4. Set the name to `SSH_DEPLOY_KEY_SPARK_IOS`
 5. Paste the entire contents of `spark-ios-deploy-key` (private key)
    - The content should start with `-----BEGIN OPENSSH PRIVATE KEY-----`
 6. Click **Add secret**
@@ -66,7 +66,7 @@ If you already have an SSH key set up, you may need to verify the configuration 
 
 1. **Verify the secret exists in spark-tokens:**
    - Go to spark-tokens → **Settings** → **Secrets and variables** → **Actions**
-   - Confirm `SSH_DEPLOY_KEY_IOS` exists
+   - Confirm `SSH_DEPLOY_KEY_SPARK_IOS` exists
    - The value should contain a valid private key starting with `-----BEGIN OPENSSH PRIVATE KEY-----` or `-----BEGIN RSA PRIVATE KEY-----`
 
 2. **Verify the deploy key in spark-ios:**
@@ -85,7 +85,7 @@ If you already have an SSH key set up, you may need to verify the configuration 
 
 If the workflow fails with authentication errors:
 - Verify that "Allow write access" is enabled on the deploy key
-- Check that the secret name is exactly `SSH_DEPLOY_KEY_IOS`
+- Check that the secret name is exactly `SSH_DEPLOY_KEY_SPARK_IOS`
 - Ensure the private key in the secret matches the public key in deploy keys
 - Try regenerating the key pair using Option 1
 
