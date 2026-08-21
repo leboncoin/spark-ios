@@ -82,6 +82,11 @@ Utility scripts for code generation and asset management:
 - [Generate Iconography Assets](docs/SCRIPT_GENERATE_ICONOGRAPHY_ASSETS.md) - Process and organize icon assets
 - [Generate Iconography Codebase](docs/SCRIPT_GENERATE_ICONOGRAPHY_CODEBASE.md) - Generate type-safe Swift code for icons
 
+### Configurations
+
+- [Spark Tokens Bridge Setup](docs/SPARK_TOKENS_BRIDGE_SETUP.md) - Setup and configuration for the Spark tokens bridge
+
+
 ## Contributing
 
 Please take a look at the [contribution guide](docs/CONTRIBUTING.md) to setup your dev environment and get a list of common tasks used in this project, as well as the [Code of conduct](docs/CODE_OF_CONDUCT.md).
