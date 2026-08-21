@@ -14,11 +14,13 @@ The spark-tokens repository contains a GitHub Actions workflow (`deliver-icons-t
 
 ## Setup Options
 
-### Option 1: Regenerate the SSH Deploy Key (Recommended)
+### SSH key
+
+#### Option 1: Regenerate the SSH Deploy Key (Recommended)
 
 This is the recommended approach when setting up a new bridge or if the existing key has been compromised or lost.
 
-#### Step 1: Generate a New SSH Key Pair
+##### Step 1: Generate a New SSH Key Pair
 
 ```bash
 $ ssh-keygen -t ed25519 -f spark-ios-deploy-key -C "spark-tokens-deploy"
@@ -30,7 +32,7 @@ This will create two files:
 
 **Note:** Do not set a passphrase when prompted, as this key will be used by automated processes.
 
-#### Step 2: Add the Public Key as a Deploy Key to spark-ios
+##### Step 2: Add the Public Key as a Deploy Key to spark-ios
 
 1. Navigate to the spark-ios repository on GitHub
 2. Go to **Settings** → **Deploy keys**
@@ -40,7 +42,7 @@ This will create two files:
 6. **Important:** Enable "Allow write access" checkbox
 7. Click **Add key**
 
-#### Step 3: Add the Private Key as a Secret to spark-tokens
+##### Step 3: Add the Private Key as a Secret to spark-tokens
 
 1. Navigate to the spark-tokens repository on GitHub
 2. Go to **Settings** → **Secrets and variables** → **Actions**
@@ -50,7 +52,7 @@ This will create two files:
    - The content should start with `-----BEGIN OPENSSH PRIVATE KEY-----`
 6. Click **Add secret**
 
-#### Step 4: Clean Up Local Keys
+##### Step 4: Clean Up Local Keys
 
 ```bash
 $ rm spark-ios-deploy-key spark-ios-deploy-key.pub
@@ -58,11 +60,11 @@ $ rm spark-ios-deploy-key spark-ios-deploy-key.pub
 
 Remove the local key files after adding them to GitHub for security.
 
-### Option 2: Verify Existing Secret
+#### Option 2: Verify Existing Secret
 
 If you already have an SSH key set up, you may need to verify the configuration instead of regenerating.
 
-#### Verification Checklist
+##### Verification Checklist
 
 1. **Verify the secret exists in spark-tokens:**
    - Go to spark-tokens → **Settings** → **Secrets and variables** → **Actions**
@@ -78,6 +80,61 @@ If you already have an SSH key set up, you may need to verify the configuration 
 3. **Verify the key hasn't been revoked:**
    - Ensure the deploy key appears in the active keys list
    - If it shows as unused or has been removed, regenerate using Option 1
+
+### Create a Fine-Grained Personal Access Token (PAT)
+
+If you need to create pull requests automatically via GitHub Actions, you'll need a Personal Access Token with appropriate permissions.
+
+#### Step 1: Navigate to GitHub Token Settings
+
+1. Go to **GitHub Settings** → **Developer Settings** → **Personal access tokens** → **Fine-grained tokens**
+2. Click **Generate new token**
+
+#### Step 2: Configure the Token
+
+Set the following parameters:
+
+- **Token name:** `Spark Token to Spark iOS`
+- **Expiration:** Choose appropriate duration (recommended: 90 days or 1 year)
+- **Resource owner:** Select your organization or account
+- **Repository access:** Select "Only select repositories" → choose `spark-ios`
+
+#### Step 3: Set Repository Permissions
+
+Under "Repository permissions", configure:
+
+- **Contents:** Read and write (needed for pushing changes)
+- **Pull requests:** Read and write (for PR operations)
+
+#### Step 4: Generate and Copy the Token
+
+1. Click **Generate token**
+2. **Important:** Copy the token immediately - you won't be able to see it again
+
+#### Step 5: Add Token as a Repository Secret
+
+1. Go to your repository → **Settings** → **Secrets and variables** → **Actions**
+2. Click **New repository secret**
+3. Name it `PAT_SPARK`
+4. Paste the token value
+5. Click **Add secret**
+
+#### Step 6: Update Workflow Configuration
+
+Ensure your workflow file uses the token for authentication:
+
+```yaml
+- name: Create Pull Request
+  uses: peter-evans/create-pull-request@v5
+  with:
+    token: ${{ secrets.PAT_SPARK }}
+```
+
+#### Token Management
+
+- **Renewal:** Set a calendar reminder to renew the token before expiration
+- **Rotation:** Rotate tokens regularly for security
+- **Revocation:** If compromised, immediately revoke the token in GitHub settings and generate a new one
 
 ## Troubleshooting
 
