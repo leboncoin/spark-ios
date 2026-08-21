@@ -8,6 +8,9 @@ import DeveloperToolsSupport
 
 // swiftlint:disable all
 public enum CriteriaIconography: String, CaseIterable {
+    case accessories
+    case attic
+    case axles
     case babyBed
     case babyBottle
     case balcony
@@ -167,6 +170,9 @@ public enum CriteriaIconography: String, CaseIterable {
 
     public var imageResource: ImageResource {
         return switch self {
+        case .accessories: .SparkCriteria.accessories
+        case .attic: .SparkCriteria.attic
+        case .axles: .SparkCriteria.axles
         case .babyBed: .SparkCriteria.babyBed
         case .babyBottle: .SparkCriteria.babyBottle
         case .balcony: .SparkCriteria.balcony
@@ -329,6 +335,25 @@ public enum CriteriaIconography: String, CaseIterable {
 
 // swiftlint:disable all
 public enum Iconography: String, CaseIterable {
+    case actionsFill
+    case actionsOutline
+    case activity
+    case addCircleFill
+    case addCircleOutline
+    case addImageFill
+    case addImageOutline
+    case addSquareFill
+    case addSquareOutline
+    case alertFill
+    case alertOutline
+    case allDirectionArrows
+    case arrowDown
+    case arrowExpand
+    case arrowLeft
+    case arrowReduce
+    case arrowRight
+    case arrowUp
+    case attachFile
     case babyBottle
     case ball
     case bannedFill
@@ -354,6 +379,7 @@ public enum Iconography: String, CaseIterable {
     case boxes
     case briefcase
     case broomstick
+    case broomstickSparks
     case bubbleChatFill
     case bubbleChatOutline
     case bubbleCheck
@@ -376,10 +402,10 @@ public enum Iconography: String, CaseIterable {
     case calendarDotOutline
     case calendarTextFill
     case calendarTextOutline
-    case cameraAI
     case cameraFill
     case cameraLens
     case cameraOutline
+    case cameraSparks
     case cameraVideo
     case camper
     case carFill
@@ -389,6 +415,7 @@ public enum Iconography: String, CaseIterable {
     case cardBoard
     case cardBrand
     case chain
+    case chatSparks
     case check
     case chevronHorizontalDown
     case chevronHorizontalUp
@@ -552,11 +579,11 @@ public enum Iconography: String, CaseIterable {
     case megaphoneMuteOutline
     case megaphoneOutline
     case messengerLogo
-    case microphoneAI
     case microphoneFill
     case microphoneOffFill
     case microphoneOffOutline
     case microphoneOutline
+    case microphoneSparks
     case microwave
     case minus
     case minusCircleFill
@@ -581,7 +608,7 @@ public enum Iconography: String, CaseIterable {
     case openLetterFill
     case openLetterOutline
     case paintPalette
-    case paintbrushAI
+    case paintbrushSparks
     case paperMapFill
     case paperMapOutline
     case parasolFill
@@ -599,6 +626,8 @@ public enum Iconography: String, CaseIterable {
     case phoneCallMissFill
     case phoneCallMissOutline
     case phoneCallOutline
+    case phoneCallSparksFill
+    case phoneCallSparksOutline
     case phoneCallSuccessFill
     case phoneCallSuccessOutline
     case phoneFill
@@ -725,6 +754,25 @@ public enum Iconography: String, CaseIterable {
 
     public var imageResource: ImageResource {
         return switch self {
+        case .actionsFill: .Spark.actionsFill
+        case .actionsOutline: .Spark.actionsOutline
+        case .activity: .Spark.activity
+        case .addCircleFill: .Spark.addCircleFill
+        case .addCircleOutline: .Spark.addCircleOutline
+        case .addImageFill: .Spark.addImageFill
+        case .addImageOutline: .Spark.addImageOutline
+        case .addSquareFill: .Spark.addSquareFill
+        case .addSquareOutline: .Spark.addSquareOutline
+        case .alertFill: .Spark.alertFill
+        case .alertOutline: .Spark.alertOutline
+        case .allDirectionArrows: .Spark.allDirectionArrows
+        case .arrowDown: .Spark.arrowDown
+        case .arrowExpand: .Spark.arrowExpand
+        case .arrowLeft: .Spark.arrowLeft
+        case .arrowReduce: .Spark.arrowReduce
+        case .arrowRight: .Spark.arrowRight
+        case .arrowUp: .Spark.arrowUp
+        case .attachFile: .Spark.attachFile
         case .babyBottle: .Spark.babyBottle
         case .ball: .Spark.ball
         case .bannedFill: .Spark.bannedFill
@@ -750,6 +798,7 @@ public enum Iconography: String, CaseIterable {
         case .boxes: .Spark.boxes
         case .briefcase: .Spark.briefcase
         case .broomstick: .Spark.broomstick
+        case .broomstickSparks: .Spark.broomstickSparks
         case .bubbleChatFill: .Spark.bubbleChatFill
         case .bubbleChatOutline: .Spark.bubbleChatOutline
         case .bubbleCheck: .Spark.bubbleCheck
@@ -772,10 +821,10 @@ public enum Iconography: String, CaseIterable {
         case .calendarDotOutline: .Spark.calendarDotOutline
         case .calendarTextFill: .Spark.calendarTextFill
         case .calendarTextOutline: .Spark.calendarTextOutline
-        case .cameraAI: .Spark.cameraAI
         case .cameraFill: .Spark.cameraFill
         case .cameraLens: .Spark.cameraLens
         case .cameraOutline: .Spark.cameraOutline
+        case .cameraSparks: .Spark.cameraSparks
         case .cameraVideo: .Spark.cameraVideo
         case .camper: .Spark.camper
         case .carFill: .Spark.carFill
@@ -785,6 +834,7 @@ public enum Iconography: String, CaseIterable {
         case .cardBoard: .Spark.cardBoard
         case .cardBrand: .Spark.cardBrand
         case .chain: .Spark.chain
+        case .chatSparks: .Spark.chatSparks
         case .check: .Spark.check
         case .chevronHorizontalDown: .Spark.chevronHorizontalDown
         case .chevronHorizontalUp: .Spark.chevronHorizontalUp
@@ -948,11 +998,11 @@ public enum Iconography: String, CaseIterable {
         case .megaphoneMuteOutline: .Spark.megaphoneMuteOutline
         case .megaphoneOutline: .Spark.megaphoneOutline
         case .messengerLogo: .Spark.messengerLogo
-        case .microphoneAI: .Spark.microphoneAI
         case .microphoneFill: .Spark.microphoneFill
         case .microphoneOffFill: .Spark.microphoneOffFill
         case .microphoneOffOutline: .Spark.microphoneOffOutline
         case .microphoneOutline: .Spark.microphoneOutline
+        case .microphoneSparks: .Spark.microphoneSparks
         case .microwave: .Spark.microwave
         case .minus: .Spark.minus
         case .minusCircleFill: .Spark.minusCircleFill
@@ -977,7 +1027,7 @@ public enum Iconography: String, CaseIterable {
         case .openLetterFill: .Spark.openLetterFill
         case .openLetterOutline: .Spark.openLetterOutline
         case .paintPalette: .Spark.paintPalette
-        case .paintbrushAI: .Spark.paintbrushAI
+        case .paintbrushSparks: .Spark.paintbrushSparks
         case .paperMapFill: .Spark.paperMapFill
         case .paperMapOutline: .Spark.paperMapOutline
         case .parasolFill: .Spark.parasolFill
@@ -995,6 +1045,8 @@ public enum Iconography: String, CaseIterable {
         case .phoneCallMissFill: .Spark.phoneCallMissFill
         case .phoneCallMissOutline: .Spark.phoneCallMissOutline
         case .phoneCallOutline: .Spark.phoneCallOutline
+        case .phoneCallSparksFill: .Spark.phoneCallSparksFill
+        case .phoneCallSparksOutline: .Spark.phoneCallSparksOutline
         case .phoneCallSuccessFill: .Spark.phoneCallSuccessFill
         case .phoneCallSuccessOutline: .Spark.phoneCallSuccessOutline
         case .phoneFill: .Spark.phoneFill
