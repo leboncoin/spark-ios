@@ -22,7 +22,7 @@ DEMO_APP_DESTINATION = platform=iOS Simulator,name=iPhone 17,OS=26.2
 ##
 
 # Build the project ($ make build)
-build:
+build: sourcery
 	@rm -rf Spark.xcodeproj # xcodebuild silently prefers this over the Spark-Package SPM scheme when both exist
 	@failed_pkgs=""; \
 	if ! xcodebuild -scheme Spark-Package $(XCODEBUILD_FLAGS) build; then \
@@ -40,7 +40,7 @@ build:
 ##
 
 # Build the demo app for the iOS Simulator, requires xcodegen to have been run ($ make build-demo-app)
-build-demo-app:
+build-demo-app: sourcery
 	@echo "Building $(DEMO_APP_NAME)..."; \
 	if ! xcodebuild -scheme $(DEMO_APP_NAME) -derivedDataPath $(DERIVED_DATA_PATH) -sdk $(SDK) -destination "$(DEMO_APP_DESTINATION)" -resultBundlePath $(DEMO_APP_NAME).xcresult build; then \
 		echo "\n✗ $(DEMO_APP_NAME) build failed"; \
