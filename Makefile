@@ -61,7 +61,7 @@ build-demo-app:
 ## TESTS
 ##
 
-# Run tests with .xcresult bundles ($ make test)
+# Run unit and snapshots tests with .xcresult bundles ($ make test)
 test: sourcery
 	@rm -rf Spark.xcodeproj # xcodebuild silently prefers this over the Spark-Package SPM scheme when both exist
 	@mkdir -p $(RESULTS_DIR)/xcresult

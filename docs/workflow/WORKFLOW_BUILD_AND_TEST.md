@@ -45,9 +45,9 @@ This workflow runs automatically and manually:
 5. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
 6. **Build** - Executes `make build` to build all packages
 
-### 2. Unit Test Job
+### 2. Tests Job
 
-**Name**: Unit Test
+**Name**: Tests
 **Runner**: macos-26
 
 **Steps**:
@@ -56,20 +56,7 @@ This workflow runs automatically and manually:
 3. **Get swift version** - Verifies Swift installation
 4. **Select Xcode** - Configures Xcode 26.3
 5. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
-6. **Test** - Executes `make test-unit` with a 15-minute timeout
-
-### 3. Snapshot Test Job
-
-**Name**: Snapshot Test
-**Runner**: macos-26
-
-**Steps**:
-1. **Package name** - Logs the workspace path
-2. **Set Swift Version** - Uses `swift-actions/setup-swift@v2.4.0` to configure Swift 6.2
-3. **Get swift version** - Verifies Swift installation
-4. **Select Xcode** - Configures Xcode 26.3
-5. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
-6. **Test** - Executes `make test-snapshots` with a 15-minute timeout
+6. **Test** - Executes `make test` with a 30-minute timeout
 
 ### 4. Build Demo App Job
 
