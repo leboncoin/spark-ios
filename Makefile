@@ -40,7 +40,7 @@ build: sourcery
 ##
 
 # Build the demo app for the iOS Simulator, requires xcodegen to have been run ($ make build-demo-app)
-build-demo-app: sourcery
+build-demo-app:
 	@echo "Building $(DEMO_APP_NAME)..."; \
 	if ! xcodebuild -scheme $(DEMO_APP_NAME) -derivedDataPath $(DERIVED_DATA_PATH) -sdk $(SDK) -destination "$(DEMO_APP_DESTINATION)" -resultBundlePath $(DEMO_APP_NAME).xcresult build; then \
 		echo "\n✗ $(DEMO_APP_NAME) build failed"; \

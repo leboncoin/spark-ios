@@ -66,7 +66,6 @@ make build-demo-app
 ```
 
 **Description:**
-- First runs the `sourcery` target to generate necessary code
 - Requires the Xcode project to already be generated (e.g. via `xcodegen`)
 - Builds the `DEMO_APP_NAME` scheme with the configured `SDK` and `DEMO_APP_DESTINATION`
 - Produces a `.xcresult` bundle named `[DEMO_APP_NAME].xcresult` at the project root

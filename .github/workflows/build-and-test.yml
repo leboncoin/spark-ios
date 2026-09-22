@@ -32,6 +32,9 @@ jobs:
         run: sudo xcode-select -s ${{ env.xcode_path }}
       - name: Checkout Action
         uses: actions/checkout@v6
+      - name: Get sourcery
+        run: |
+          brew install sourcery
       - name: Build
         run: make build
 
@@ -51,6 +54,9 @@ jobs:
         run: sudo xcode-select -s ${{ env.xcode_path }}
       - name: Checkout Action
         uses: actions/checkout@v6
+      - name: Get sourcery
+        run: |
+          brew install sourcery
       - name: Test
         timeout-minutes: 30
         run: make test

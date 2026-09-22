@@ -9,4 +9,4 @@ WORKSPACE_SHARED_DATA_FOLDER=$WORKSPACE_FILE/xcshareddata/
 mkdir -p $WORKSPACE_SHARED_DATA_FOLDER
 
 # Move file header template in workspace shared data folder
-cp -rf IDETemplateMacros.plist $WORKSPACE_SHARED_DATA_FOLDER
+cp -rf .script/xcodegen/IDETemplateMacros.plist $WORKSPACE_SHARED_DATA_FOLDER
