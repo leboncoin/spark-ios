@@ -60,6 +60,13 @@ jobs:
       - name: Test
         timeout-minutes: 30
         run: make test
+      - name: Upload xcresult file
+        uses: actions/upload-artifact@v6
+        if: ${{ failure() }}
+        with:
+          name: Spark-${{ github.run_number }}.xcresult
+          path: .testResults/xcresult/*.xcresult
+          retention-days: 15
 
   build-demo-app:
     name: Build Demo App

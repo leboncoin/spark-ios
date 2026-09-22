@@ -57,6 +57,7 @@ This workflow runs automatically and manually:
 4. **Select Xcode** - Configures Xcode 26.3
 5. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
 6. **Test** - Executes `make test` with a 30-minute timeout
+7. **Upload xcresult file** - On failure, uploads the `.xcresult` bundle as an artifact (`actions/upload-artifact@v6`), retained for 15 days
 
 ### 4. Build Demo App Job
 
