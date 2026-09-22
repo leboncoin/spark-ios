@@ -146,6 +146,96 @@ Update the main Spark module to export the new component:
 @_exported import SparkTheming
 ```
 
+### Step 10: Update Package.swift
+
+Add the new component to the root Package.swift file:
+
+**File:** `spark-ios/Package.swift`
+
+For each new component, you need to add:
+
+1. **Package Dependency** (in `dependencies` array):
+   - [ ] Add `.package(path: "Dependencies/Component{ComponentName}")` in alphabetical order
+
+2. **Products** (in `products` array, after main Spark product):
+   - [ ] Add main component library product:
+     ```swift
+     .library(
+         name: "SparkComponent{ComponentName}",
+         targets: ["SparkComponent{ComponentName}"]
+     ),
+     ```
+   - [ ] Add testing library product:
+     ```swift
+     .library(
+         name: "SparkComponent{ComponentName}Testing",
+         targets: ["SparkComponent{ComponentName}Testing"]
+     ),
+     ```
+
+3. **Main Spark Target Dependency** (in main Spark target's `dependencies` array):
+   - [ ] Add `.product(name: "SparkComponent{ComponentName}", package: "Component{ComponentName}")`
+
+4. **Component Targets** (in `targets` array, after core targets, before demo targets):
+   - [ ] Add main component target:
+     ```swift
+     .target(
+         name: "SparkComponent{ComponentName}",
+         dependencies: [
+             "SparkCommon",
+             "SparkTheming",
+             // Add other component dependencies as needed
+         ],
+         path: "Dependencies/Component{ComponentName}/Sources/Core"
+     ),
+     ```
+   - [ ] Add testing target:
+     ```swift
+     .target(
+         name: "SparkComponent{ComponentName}Testing",
+         dependencies: [
+             "SparkComponent{ComponentName}",
+             "SparkCommon",
+             "SparkCommonTesting",
+             "SparkThemingTesting",
+             "SparkTheme"
+         ],
+         path: "Dependencies/Component{ComponentName}/Sources/Testing"
+     ),
+     ```
+
+5. **Test Targets** (in `targets` array, in test targets section):
+   - [ ] Add unit test target:
+     ```swift
+     .testTarget(
+         name: "SparkComponent{ComponentName}UnitTests",
+         dependencies: [
+             "SparkComponent{ComponentName}",
+             "SparkComponent{ComponentName}Testing",
+             "SparkCommonTesting",
+             "SparkThemingTesting"
+         ],
+         path: "Dependencies/Component{ComponentName}/Tests/UnitTests"
+     ),
+     ```
+   - [ ] Add snapshot test target:
+     ```swift
+     .testTarget(
+         name: "SparkComponent{ComponentName}SnapshotTests",
+         dependencies: [
+             "SparkComponent{ComponentName}",
+             "SparkComponent{ComponentName}Testing",
+             "SparkCommonSnapshotTesting",
+         ],
+         path: "Dependencies/Component{ComponentName}/Tests/SnapshotTests"
+     ),
+     ```
+
+**Important Notes:**
+- Maintain alphabetical ordering within each section
+- Ensure proper indentation (4 spaces per level)
+- Add dependencies based on what the component actually needs (check the template or similar components)
+
 ## Placeholder Details
 
 Pay careful attention to underscores:
@@ -193,6 +283,12 @@ Before finishing:
 - [ ] Anatomy image renamed and in correct location
 - [ ] Component directory structure matches template
 - [ ] `Import.swift` updated with new component export
+- [ ] `Package.swift` updated with:
+  - [ ] Package dependency added
+  - [ ] Products added (main + testing)
+  - [ ] Main Spark target dependency added
+  - [ ] Component targets added (main + testing)
+  - [ ] Test targets added (unit + snapshot)
 - [ ] No errors reported during execution
 
 ## Final Output
@@ -200,8 +296,12 @@ Before finishing:
 When complete, provide the user with:
 1. ✅ Success message
 2. 📁 Path to new component: `Dependencies/SparkComponent{ComponentName}/`
-3. 📝 Summary of modified files
+3. 📝 Summary of modified files:
+   - Component files created
+   - `Import.swift` updated
+   - `Package.swift` updated
 4. ➡️ Next steps:
    - Implement component logic in `Sources/Core/{ComponentName}.swift`
    - Review and customize generated files
+   - Run `swift package resolve` to verify package configuration
    - Run any required build/test commands

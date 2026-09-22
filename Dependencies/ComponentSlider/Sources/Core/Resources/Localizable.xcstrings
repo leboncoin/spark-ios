@@ -1,0 +1,23 @@
+{
+  "sourceLanguage" : "fr",
+  "strings" : {
+    "accessibility_label_range_values" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Values ​​between %@ and %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valeurs comprises entre %@ et %@ "
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

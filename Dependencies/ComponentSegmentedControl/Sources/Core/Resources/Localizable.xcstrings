@@ -1,0 +1,23 @@
+{
+  "sourceLanguage" : "fr",
+  "strings" : {
+    "accessibility_value" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%i of %i "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%i sur %i "
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

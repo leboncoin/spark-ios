@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Segmented Gauge Component",
+    "description": "Lets users quickly specify a numerical value within a given range",
+    "image": "gauge",
+    "zeroheight": "https://zeroheight.com/1186e1705/p/71a76b-segmented-gauge",
+    "figma": "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=60972-1300"
+  }
+]

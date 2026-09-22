@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Slider Component",
+    "description": "Lets users set values by moving a handle within a defined range",
+    "image": "slider",
+    "zeroheight": "https://zeroheight.com/1186e1705/p/25cceb-slider",
+    "figma": "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=3282-22023"
+  }
+]

@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Rating Component",
+    "description": "Lets users see and/or set a star rating for a user or experience",
+    "image": "rating-display",
+    "zeroheight": "https://zeroheight.com/1186e1705/p/63e136-rating",
+    "figma": "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=7792-7244"
+  }
+]

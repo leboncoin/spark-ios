@@ -1,0 +1,40 @@
+{
+  "sourceLanguage" : "fr",
+  "strings" : {
+    "accessibility_label_decrement" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decrement"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Décrémenter"
+          }
+        }
+      }
+    },
+    "accessibility_label_increment" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Increment"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incrémenter"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

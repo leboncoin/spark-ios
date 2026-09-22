@@ -1,0 +1,122 @@
+//
+//  TagViewModelDeprecated.swift
+//  SparkComponentTag
+//
+//  Created by robin.lemaire on 27/04/2023.
+//  Copyright © 2023 Leboncoin. All rights reserved.
+//
+
+import SwiftUI
+import SparkTheming
+
+final class TagViewModelDeprecated: ObservableObject {
+
+    // MARK: - Public properties
+
+    @Published var colors: TagColors
+    @Published var typography: any Typography
+    @Published var spacing: any LayoutSpacing
+    @Published var border: any Border
+
+    @Published var iconImage: Image?
+    @Published var text: String?
+    @Published var attributedText: AttributedString?
+
+    // MARK: - Private properties
+
+    private let theme: any Theme
+    private var intent: TagIntent {
+        didSet {
+            self.reloadColors()
+        }
+    }
+    private var variant: TagVariant {
+        didSet {
+            self.reloadColors()
+        }
+    }
+
+    private let getColorsUseCase: any TagGetColorsUseCaseable
+
+    // MARK: - Initialization
+
+    init(
+        theme: any Theme,
+        intent: TagIntent = .main,
+        variant: TagVariant = .filled,
+        iconImage: Image? = nil,
+        text: String? = nil,
+        attributedText: AttributedString? = nil,
+        getColorsUseCase: any TagGetColorsUseCaseable = TagGetColorsUseCase()
+    ) {
+        self.colors = Self.getColors(
+            for: theme,
+            intent: intent,
+            variant: variant,
+            useCase: getColorsUseCase
+        )
+        self.typography = theme.typography
+        self.spacing = theme.layout.spacing
+        self.border = theme.border
+
+        self.iconImage = iconImage
+        self.text = text
+        self.attributedText = attributedText
+
+        self.theme = theme
+        self.intent = intent
+        self.variant = variant
+
+        self.getColorsUseCase = getColorsUseCase
+    }
+
+    // MARK: - Load
+
+    private func reloadColors() {
+        self.colors = Self.getColors(
+            for: self.theme,
+            intent: intent,
+            variant: variant,
+            useCase: getColorsUseCase
+        )
+    }
+
+    // MARK: - Public Setter
+
+    func setIntent(_ intent: TagIntent) {
+        self.intent = intent
+    }
+
+    func setVariant(_ variant: TagVariant) {
+        self.variant = variant
+    }
+
+    func setIconImage(_ iconImage: Image?) {
+        self.iconImage = iconImage
+    }
+
+    func setText(_ text: String?) {
+        self.attributedText = nil
+        self.text = text
+    }
+
+    func setAttributedText(_ attributedText: AttributedString?) {
+        self.text = nil
+        self.attributedText = attributedText
+    }
+
+    // MARK: - Getter
+
+    private static func getColors(
+        for theme: any Theme,
+        intent: TagIntent,
+        variant: TagVariant,
+        useCase: any TagGetColorsUseCaseable
+    ) -> TagColors {
+        return useCase.execute(
+            theme: theme,
+            intent: intent,
+            variant: variant
+        )
+    }
+}

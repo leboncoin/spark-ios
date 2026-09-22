@@ -34,5 +34,5 @@
 @_exported import SparkComponentTag
 @_exported import SparkComponentTextInput
 @_exported import SparkComponentTextLink
+@_exported import SparkResources
 @_exported import SparkTheming
-@_exported import SparkTheme
