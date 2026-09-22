@@ -1,13 +1,15 @@
-# Local Documentation : https://github.com/leboncoin/spark-ios/blob/main/docs/WORKFLOW_DEPLOY_DOCC_PAGE.md
+# Local Documentation : https://github.com/leboncoin/spark-ios/blob/main/docs/WORKFLOW_DEPLOY_DOC_PAGE.md
 
-name: deploy-docC-on-github-page
+name: 📑 Deploy Documentation
 
 on:
-  workflow_dispatch
+  push:
+    branches: ["main"]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 env:
   repo_name: ${{ github.event.repository.name }}
-  xcodebuild_derivedData: ".derivedData"
   doc_path: "docs"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -23,6 +25,7 @@ concurrency:
 
 jobs:
   deploy:
+    name: Deploy
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

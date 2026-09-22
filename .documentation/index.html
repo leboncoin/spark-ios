@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Documentation - ECommerce Monorepo</title>
+  <title>Documentation - Spark</title>
   <style>
     :root {
       --bg-color: #ffffff;
@@ -260,19 +260,19 @@
     <img src="assets/light/spark.svg" alt="Spark" id="sparkLogo">
   </div>
   <div class="header">
-    <h1>ECommerce Monorepo Documentation</h1>
+    <h1>Spark Documentation</h1>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <span id="themeIcon">🌙</span>
     </button>
   </div>
-  <p class="intro">Welcome to the documentation for the ECommerce monorepo packages.</p>
+  <p class="intro">Welcome to the documentation for the Spark iOS packages.</p>
   <ul class="package-grid" id="packageGrid">
     <!-- Cards will be dynamically generated here -->
   </ul>
 
   <footer class="footer">
     <p class="footer-description">
-      Spark is the Design System for <a href="https://www.leboncoin.fr/" target="_blank" rel="noopener noreferrer">Leboncoin</a>
+      Spark is <a href="https://www.leboncoin.fr/" target="_blank" rel="noopener noreferrer">Leboncoin</a>'s Design System
     </p>
     <div class="footer-links">
       <a href="https://github.com/leboncoin/spark-ios" class="footer-icon-button" target="_blank" rel="noopener noreferrer" title="View on GitHub">
@@ -325,8 +325,8 @@
 
           const img = document.createElement('img');
           img.className = 'card-image theme-image';
-          img.setAttribute('data-light', `https://raw.githubusercontent.com/robergro/poc-monorepo/main/.github/assets/light/${pkg.image}.png`);
-          img.setAttribute('data-dark', `https://raw.githubusercontent.com/robergro/poc-monorepo/main/.github/assets/dark/${pkg.image}.png`);
+          img.setAttribute('data-light', `https://github.com/leboncoin/spark-ios/blob/main/.github/assets/doc/light/${pkg.image}.png`);
+          img.setAttribute('data-dark', `https://github.com/leboncoin/spark-ios/blob/main/.github/assets/doc/dark/${pkg.image}.png`);
           img.alt = pkg.title;
 
           imageContainer.appendChild(img);

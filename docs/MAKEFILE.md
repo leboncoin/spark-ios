@@ -26,6 +26,8 @@ The Makefile uses the following configuration variables that can be customized:
 | `DESTINATION` | `platform=iOS Simulator,name=iPhone 17 Pro Max,OS=26.4.1` | Simulator destination for builds and tests |
 | `DOCC_OUTPUT_PATH` | `.docs` | Output directory for DocC documentation |
 | `HOSTING_BASE_PATH` | `poc-monorepo` | Base path for hosting static documentation (can be overridden) |
+| `DEMO_APP_NAME` | `SparkDemoApp` | Scheme name of the demo app |
+| `DEMO_APP_DESTINATION` | `platform=iOS Simulator,name=iPhone 17,OS=26.2` | Simulator destination for the demo app build |
 
 ---
 
@@ -50,6 +52,27 @@ make build
 **Output:**
 - `✓ All packages built successfully` on success
 - `✗ Failed packages: [package names]` on failure
+
+---
+
+### `build-demo-app`
+
+Builds the `SparkDemoApp` scheme for the iOS Simulator using xcodebuild.
+
+**Usage:**
+```bash
+make build-demo-app
+```
+
+**Description:**
+- Requires the Xcode project to already be generated (e.g. via `xcodegen`)
+- Builds the `DEMO_APP_NAME` scheme with the configured `SDK` and `DEMO_APP_DESTINATION`
+- Produces a `.xcresult` bundle named `[DEMO_APP_NAME].xcresult` at the project root
+- Exits with error code 1 if the build fails
+
+**Output:**
+- `✓ [DEMO_APP_NAME] built successfully` on success
+- `✗ [DEMO_APP_NAME] build failed` on failure
 
 ---
 
@@ -106,7 +129,7 @@ make docc DOCC_OUTPUT_PATH=my-output-path HOSTING_BASE_PATH=my-custom-path
 - Builds DocC documentation using xcodebuild docbuild
 - Processes all .doccarchive files (excluding those containing "Testing")
 - Transforms documentation for static hosting
-- Copies documentation.json files from package directories if available
+- Copies documentation.json files from `Dependencies/[package]/` (matched by stripping the `Spark` prefix from the doccarchive name), from `Demo/` for the demo app, or falls back to the root `Spark/documentation.json`
 - Copies additional files from `.documentation/` directory if it exists
 - Generates a `packages.json` file with metadata for all packages
 - Extracts title, description, image, zeroheight, and figma links from documentation.json files

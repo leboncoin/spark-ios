@@ -2,20 +2,30 @@
 
 ## Overview
 
-This GitHub Actions workflow generates and deploys DocC documentation to GitHub Pages, making the documentation publicly accessible online.
+This GitHub Actions workflow generates and deploys DocC documentation for the entire Spark iOS monorepo to GitHub Pages, making the documentation publicly accessible online. It consolidates documentation from all components in the `Dependencies/` folder into a single unified documentation site.
 
 ## Workflow File
 
-`.github/workflows/deploy-docc-page.yml`
+`.github/workflows/deploy-doc-page.yml`
 
-## Trigger
+## Triggers
 
-- **Manual Trigger**: `workflow_dispatch` - Can be manually triggered from the GitHub Actions tab
+This workflow runs automatically and manually:
+
+1. **Push to Main Branch**: `push`
+   - Trigger: Automatically runs on every push to the `main` branch
+   - Purpose: Keep documentation up-to-date with latest code changes
+   - Ensures documentation is always synchronized with the codebase
+
+2. **Manual Trigger**: `workflow_dispatch`
+   - Can be manually triggered from the GitHub Actions tab
+   - Navigate to Actions → "deploy-docC-on-github-page" → "Run workflow"
+   - Useful for deploying documentation without pushing to main
+   - Requires appropriate repository permissions
 
 ## Environment Variables
 
 - `repo_name`: `${{ github.event.repository.name }}` - Repository name (automatically set)
-- `xcodebuild_derivedData`: `.derivedData` - Path for Xcode build artifacts
 - `doc_path`: `docs` - Output path for generated documentation
 
 ## Permissions
@@ -59,6 +69,7 @@ The workflow requires specific GitHub token permissions:
 - New deployments will automatically cancel any in-progress deployments
 - The documentation will be accessible at the GitHub Pages URL after successful deployment
 - The workflow uses macOS runners as DocC is an Apple technology requiring Xcode
+- Documentation is built from all components in `Dependencies/` folder
 
 ## Usage
 
@@ -66,11 +77,12 @@ This workflow should be manually triggered when you want to:
 - Update the public documentation after significant changes
 - Publish new component documentation
 - Refresh the DocC documentation website
+- Deploy documentation after component additions or updates
+- Update documentation after API changes across components
 
 ## Related Files
 
 - `Makefile` - Contains the `docc` target for building documentation
-- Documentation source files in component directories (`.docc` folders)
 
 ## GitHub Pages Setup
 

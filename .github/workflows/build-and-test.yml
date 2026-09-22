@@ -2,17 +2,18 @@
 # Macos runner info : https://github.com/actions/runner-images/tree/main/images/macos
 # Local Documentation : https://github.com/leboncoin/spark-ios/blob/main/docs/WORKFLOW_BUILD_AND_TEST.md
 
+name: ⚒️ Build and test
 
-# TODO: Build the Demo too !
-
-
-name: build-and-test
 on:
-  workflow_dispatch
+  pull_request:
+    types: [opened, edited, synchronize]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 env:
   swift_version: "6.2"
   xcode_path: "/Applications/Xcode_26.3.app"
+  demo_app_name: SparkDemoApp
 
 jobs:
   build:
@@ -35,7 +36,7 @@ jobs:
         run: make build
 
   unit-test:
-    name: Unit Test
+    name: Unit Tests
     runs-on: macos-26
     steps:
       - name: "Package name"
@@ -55,7 +56,7 @@ jobs:
         run: make test-unit
 
   snapshots-test:
-    name: Snapshot Test
+    name: Snapshot Tests
     runs-on: macos-26
     steps:
       - name: "Package name"
@@ -73,3 +74,26 @@ jobs:
       - name: Test
         timeout-minutes: 15
         run: make test-snapshots
+
+  build-demo-app:
+    name: Build Demo App
+    runs-on: macos-26
+    steps:
+      - name: Select Xcode
+        run: sudo xcode-select -s ${{ env.xcode_path }}
+      - name: Checkout Action
+        uses: actions/checkout@v6
+      - name: Run xcodegen
+        uses: xavierLowmiller/xcodegen-action@1.2.2
+        with:
+          spec: project.yml
+          version: "2.41.0"
+      - name: Build
+        run: make build-demo-app
+      - name: Upload xcresult file
+        uses: actions/upload-artifact@v6
+        if: ${{ failure() }}
+        with:
+          name: ${{ env.demo_app_name }}-${{ github.run_number }}.xcresult
+          path: ${{ env.demo_app_name }}.xcresult
+          retention-days: 15

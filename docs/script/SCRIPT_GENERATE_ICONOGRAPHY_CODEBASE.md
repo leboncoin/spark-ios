@@ -33,7 +33,7 @@ No arguments required. The script uses the current working directory.
 
 ### Output
 - **Resources Code**: `Resources/Sources/Core/Extension/ImageResource+IconographyGenerated.swift`
-- **Demo Code**: `Demo/Sources/Iconography/Iconography+Generated.swift`
+- **Demo Code**: `Demo/Sources/Core/Iconography/Iconography+Generated.swift`
 
 ## Process Flow
 
@@ -272,7 +272,7 @@ Writes demo files and cleans up old separate files.
 ✅ Successfully generated: Resources/Sources/Core/Extension/ImageResource+IconographyGenerated.swift
 
 💻 Generating combined demo file...
-✅ Successfully generated: Demo/Sources/Iconography/Iconography+Generated.swift
+✅ Successfully generated: Demo/Sources/Core/Iconography/Iconography+Generated.swift
 🗑️  Removed old file: GlobalIconography.swift
 
 🎉 Done!
@@ -294,7 +294,7 @@ public extension ImageResource {
     }
 }
 
-// Demo/Sources/Iconography/Iconography+Generated.swift
+// Demo/Sources/Core/Iconography/Iconography+Generated.swift
 public enum Iconography: String, CaseIterable {
     case addCircleFill
     case arrowLeft
@@ -353,7 +353,7 @@ ForEach(Iconography.allCases, id: \.self) { icon in
 
 - `.script/generate-iconography-assets.swift` - Processes icon assets (run this first)
 - `Resources/Sources/Core/Extension/ImageResource+IconographyGenerated.swift` - Generated output
-- `Demo/Sources/Iconography/Iconography+Generated.swift` - Generated demo code
+- `Demo/Sources/Core/Iconography/Iconography+Generated.swift` - Generated demo code
 - `.github/workflows/pr-icon-updates.yml` - Workflow that uses this script
 
 ## Dependencies

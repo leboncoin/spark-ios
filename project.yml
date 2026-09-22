@@ -1,0 +1,41 @@
+name: Spark
+
+configs:
+  Debug: debug
+  Release: release
+
+options:
+  createIntermediateGroups: true
+  defaultConfig: Release
+  groupSortPosition: top
+  deploymentTarget:
+    iOS: 17.0
+  useBaseInternationalization: true
+  developmentLanguage: fr
+
+  postGenCommand: sh .script/xcodegen/.postGenCommand.sh
+
+packages:
+  SparkDemo:
+    path: .demo/..
+
+targetTemplates:
+  SparkDemoTemplate:
+    type: application
+    platform: iOS
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: "com.lbc.spark.demo"
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        SUPPORTS_MACCATALYST: NO
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+    sources:
+      - path: .demo
+    dependencies:
+      - package: SparkDemo
+        product: SparkDemo
+
+targets:
+  SparkDemoApp:
+    templates:
+      - SparkDemoTemplate

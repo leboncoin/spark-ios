@@ -1,6 +1,6 @@
 # Local Documentation : https://github.com/leboncoin/spark-ios/blob/main/docs/WORKFLOW_RELEASE_CHANGELOG_UPDATE.md
 
-name: '📝 Release changelog update'
+name: 📝 Release changelog update
 
 on:
   release:
@@ -15,6 +15,7 @@ env:
 
 jobs:
   update-changelog:
+    name: Update Changelog
     runs-on: macos-26
     steps:
       - name: Set Swift Version

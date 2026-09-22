@@ -1,6 +1,8 @@
 parent_config: .tools/.swiftlint.yml
 
-excluded:
-  - "**/*.generated.swift"
-  - "**/.build/"
-  - ".build/"
+included:
+  - .demo/
+  - Demo/
+  - Dependencies/
+  - Resources/
+  - Spark/

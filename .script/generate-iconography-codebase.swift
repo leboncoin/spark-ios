@@ -111,11 +111,13 @@ private func getCategoryEnumName(category: String) -> String {
 
 private func generateCategoryEnum(category: IconCategory) -> String {
     let enumName = getCategoryEnumName(category: category.name)
-    var output = "    enum \(enumName) {\n"
+    var output = "    /// Icons for the \(category.name) icon category.\n"
+    output += "    enum \(enumName) {\n"
 
     // Generate static properties for each icon
     for icon in category.icons {
         let propertyName = sanitizeName(toCamelCase(icon))
+        output += "        /// The \"\(category.name)/\(icon)\" icon.\n"
         output += "        public static let \(propertyName) = ImageResource(name: \"\(category.name)/\(icon)\", bundle: .current)\n"
     }
 
@@ -179,7 +181,7 @@ private func generateDemoCaseIterableEnum(category: IconCategory, enumName: Stri
     let imageResourceEnumName = getCategoryEnumName(category: category.name)
 
     var output = "// swiftlint:disable all\n"
-    output += "public enum \(enumName): String, CaseIterable {\n"
+    output += "enum \(enumName): String, CaseIterable {\n"
 
     // Generate cases for each icon
     for icon in category.icons {
@@ -187,16 +189,16 @@ private func generateDemoCaseIterableEnum(category: IconCategory, enumName: Stri
         output += "    case \(caseName)\n"
     }
 
-    // Add computed property for ImageResource
+    // Add computed property for the KeyPath to the icon on ImageResource
     output += "\n"
     output += "    // MARK: - Properties\n"
     output += "\n"
-    output += "    public var imageResource: ImageResource {\n"
+    output += "    var keyPath: KeyPath<ImageResource.\(imageResourceEnumName).Type, ImageResource> {\n"
     output += "        return switch self {\n"
 
     for icon in category.icons {
         let caseName = sanitizeName(toCamelCase(icon))
-        output += "        case .\(caseName): .\(imageResourceEnumName).\(caseName)\n"
+        output += "        case .\(caseName): \\.\(caseName)\n"
     }
 
     output += "        }\n"
@@ -240,7 +242,7 @@ private func generateCombinedDemoFile(categories: [IconCategory]) -> String {
 }
 
 private func writeDemoFiles(categories: [IconCategory], currentDirectory: String) {
-    let demoOutputPath = "\(currentDirectory)/Demo/Sources/Iconography"
+    let demoOutputPath = "\(currentDirectory)/Demo/Sources/Core/Iconography"
     let combinedDemoFile = "\(demoOutputPath)/Iconography+Generated.swift"
 
     // Create demo output directory if needed

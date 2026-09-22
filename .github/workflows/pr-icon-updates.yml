@@ -1,6 +1,6 @@
 # Local Documentation : https://github.com/leboncoin/spark-ios/blob/main/docs/WORKFLOW_PR_ICON_UPDATES.md
 
-name: '🎨 PR icon updates'
+name: 🎨 PR icon updates
 
 on:
   push:
@@ -19,6 +19,7 @@ env:
 
 jobs:
   pr-icon-updates:
+    name: PR Icon Updates
     # Detect recursive calls based on last commit message
     if: ${{ github.event.head_commit.message != '🤖 Update iconography' }}
     runs-on: macos-26

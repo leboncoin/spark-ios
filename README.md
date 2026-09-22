@@ -9,7 +9,9 @@
 
 **Spark** is the [Leboncoin](https://www.leboncoin.fr/)'s _Design System_.
 
-// TODO: improve
+This repository is for **iOS only**, supporting both **SwiftUI** and **UIKit**.
+
+It is composed of a theming solution, components, and resources (iconography).
 
 ## 🚀 Getting Started
 
@@ -42,7 +44,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/leboncoin/spark-ios.git",
-            .upToNextMajor(from: "1.0.0")
+            .upToNextMajor(from: "2.0.0")
         )
     ],
     targets: [
@@ -58,6 +60,16 @@ let package = Package(
     ]
 )
 ```
+
+## Demo
+
+To launch the demo app, launch the command line :
+
+```
+$ xcodegen
+```
+
+Then open the generated file : `Spark.xcodeproj`.
 
 ## Documentation
 
@@ -92,22 +104,26 @@ Please take a look at the [contribution guide](docs/CONTRIBUTING.md) to setup yo
 
 ## License
 
-    Copyright (c) 2023 Adevinta
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
+```
+MIT License
+
+Copyright (c) 2026 Leboncoin
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```

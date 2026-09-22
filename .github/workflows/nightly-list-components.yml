@@ -1,0 +1,36 @@
+# Local Documentation : https://github.com/leboncoin/spark-ios/blob/main/docs/WORKFLOW_NIGHTLY_LIST_COMPONENTS.md
+
+name: 📋 Nightly Get all Components
+
+on:
+  push:
+    branches: ["main"]
+  schedule:
+    - cron: '0 23 * * *' # Daily at 11 P.M
+  workflow_dispatch:
+    
+env:
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  list-components:
+    name: List Components
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout monorepo
+        uses: actions/checkout@v6
+
+      - name: List Dependencies structure
+        run: ls -la Dependencies/
+
+      - name: Run component listing script
+        run: |
+          chmod +x .script/list-components.sh
+          ./.script/list-components.sh
+
+      - name: Upload component list artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: spark-components-listing
+          path: spark-components-listing.txt
+          retention-days: 90

@@ -184,6 +184,31 @@ All component development skills support parameter-based targeting:
 
 ---
 
+### spark-component-token
+
+**Purpose**: Create or update token files (theme-derived values grouped by category) in component.
+
+**Usage**: `/spark-component-token [component-name]`
+
+**Location**: `Sources/Core/Token`
+
+**Rules**:
+- Root file `XXXToken.swift` is a `public struct XXXToken: Equatable` with one property per category the component actually needs (no fixed list or count — categories are whatever the component needs, e.g. `Opacity`, `Layout`, `Border`, `Size`, `Typography`, `Color`, ...)
+- Each category lives in its own file `XXXToken+CategoryName.swift` as a `public extension XXXToken` with a nested `struct CategoryName: Equatable`
+- Constant-only category (no theme dependency): parameterless `public init()`, stored as a default value on the root struct (not assigned in the root `init(theme:)`)
+- Theme-dependent category: `public init(theme: any Theme)`, assigned in the root `init(theme:)`
+- Category holding `any ColorToken`, `any TypographyFontToken`, or any other non-natively-`Equatable` existential: manual `static func ==` using `.equals()`
+- Root file's top-level doc comment must list every category with a doc link, a "Creating a Custom XXX" usage example, and a section on using sub-structs directly
+
+**Workflow**:
+1. Add/Update token code
+2. Add/Update documentation (token files are always public)
+3. Run swiftlint: `$ swiftlint`
+4. Run sourcery: `$ sourcery`
+5. Implement unit tests using Swift Testing framework
+
+---
+
 ### spark-component-use-case
 
 **Purpose**: Create or update use case files (business logic) in component.
@@ -445,6 +470,7 @@ Dependencies/{component-name}/
 │       ├── Enum/
 │       ├── Environment/
 │       ├── Model/
+│       ├── Token/
 │       ├── UseCase/
 │       ├── View/
 │       └── ViewModel/
@@ -457,12 +483,13 @@ Dependencies/{component-name}/
 
 1. Enum
 2. Model
-3. Environment
-4. UseCase
-5. ViewModel
-6. View
-7. Tests
-8. Documentation
+3. Token
+4. Environment
+5. UseCase
+6. ViewModel
+7. View
+8. Tests
+9. Documentation
 
 ---
 

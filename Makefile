@@ -1,6 +1,6 @@
 # READ THE DOCUMENTATION HERE : https://github.com/leboncoin/spark-ios/blob/main/docs/MAKEFILE.md
 
-.PHONY: build test docc clean clear-snapshots sourcery
+.PHONY: build build-demo-app test docc clean clear-snapshots sourcery
 
 PACKAGES = $(shell find Dependencies -maxdepth 1 -mindepth 1 -type d -exec basename {} \; | sort)
 RESULTS_DIR = .testResults
@@ -10,6 +10,8 @@ DESTINATION = platform=iOS Simulator,name=iPhone 17 Pro Max,OS=26.4.1
 XCODEBUILD_FLAGS = -derivedDataPath $(DERIVED_DATA_PATH) -sdk $(SDK) -destination "$(DESTINATION)"
 DOCC_OUTPUT_PATH = .docs
 HOSTING_BASE_PATH ?= spark-ios
+DEMO_APP_NAME = SparkDemoApp
+DEMO_APP_DESTINATION = platform=iOS Simulator,name=iPhone 17,OS=26.2
 
 ###################################
 #######################
@@ -21,6 +23,7 @@ HOSTING_BASE_PATH ?= spark-ios
 
 # Build the project ($ make build)
 build:
+	@rm -rf Spark.xcodeproj # xcodebuild silently prefers this over the Spark-Package SPM scheme when both exist
 	@failed_pkgs=""; \
 	if ! xcodebuild -scheme Spark-Package $(XCODEBUILD_FLAGS) build; then \
 		failed_pkgs="$$failed_pkgs Spark"; \
@@ -30,6 +33,20 @@ build:
 		exit 1; \
 	else \
 		echo "\n✓ All packages built successfully"; \
+	fi
+
+##
+## BUILD DEMO APP
+##
+
+# Build the demo app for the iOS Simulator, requires xcodegen to have been run ($ make build-demo-app)
+build-demo-app:
+	@echo "Building $(DEMO_APP_NAME)..."; \
+	if ! xcodebuild -scheme $(DEMO_APP_NAME) -derivedDataPath $(DERIVED_DATA_PATH) -sdk $(SDK) -destination "$(DEMO_APP_DESTINATION)" -resultBundlePath $(DEMO_APP_NAME).xcresult build; then \
+		echo "\n✗ $(DEMO_APP_NAME) build failed"; \
+		exit 1; \
+	else \
+		echo "\n✓ $(DEMO_APP_NAME) built successfully"; \
 	fi
 
 ###########
@@ -46,6 +63,7 @@ build:
 
 # Run tests with .xcresult bundles ($ make test)
 test: sourcery
+	@rm -rf Spark.xcodeproj # xcodebuild silently prefers this over the Spark-Package SPM scheme when both exist
 	@mkdir -p $(RESULTS_DIR)/xcresult
 	@rm -rf $(RESULTS_DIR)/xcresult/*.xcresult
 	@echo "Running snapshot tests for Spark..."; \
@@ -76,6 +94,7 @@ test: sourcery
 # Then open http://localhost:8000
 docc:
 	@echo "Generating DocC documentation..."
+	@rm -rf Spark.xcodeproj # xcodebuild silently prefers this over the Spark-Package SPM scheme when both exist
 	@mkdir -p $(DOCC_OUTPUT_PATH)
 	@echo "Building DocC for Spark..."; \
 	if ! xcodebuild docbuild -scheme Spark-Package -derivedDataPath $(DERIVED_DATA_PATH) -destination 'generic/platform=iOS'; then \
@@ -97,12 +116,18 @@ docc:
 				transform-for-static-hosting $$archive \
 				--output-path $(DOCC_OUTPUT_PATH)/$$pkg_lower \
 				--hosting-base-path $(HOSTING_BASE_PATH)/$$pkg_lower; \
-			if [ -f "Dependencies/$$archive_name/documentation.json" ]; then \
-				cp Dependencies/$$archive_name/documentation.json $(DOCC_OUTPUT_PATH)/$$pkg_lower/documentation.json; \
-				echo "Copied documentation.json from Dependencies/$$archive_name to $(DOCC_OUTPUT_PATH)/$$pkg_lower/"; \
-			elif [ -f "Spark/documentation.json" ]; then \
-				cp Spark/documentation.json $(DOCC_OUTPUT_PATH)/$$pkg_lower/documentation.json; \
+			dep_name=$$(echo "$$archive_name" | sed 's/^Spark//'); \
+			if [ -f "Dependencies/$$dep_name/documentation.json" ]; then \
+				cp "Dependencies/$$dep_name/documentation.json" $(DOCC_OUTPUT_PATH)/$$pkg_lower/documentation.json; \
+				echo "Copied documentation.json from Dependencies/$$dep_name to $(DOCC_OUTPUT_PATH)/$$pkg_lower/"; \
+			elif [ -n "$$dep_name" ] && [ -f "$$dep_name/documentation.json" ]; then \
+				cp "$$dep_name/documentation.json" $(DOCC_OUTPUT_PATH)/$$pkg_lower/documentation.json; \
+				echo "Copied documentation.json from $$dep_name to $(DOCC_OUTPUT_PATH)/$$pkg_lower/"; \
+			elif [ "$$archive_name" = "Spark" ] && [ -f "Spark/documentation.json" ]; then \
+				cp "Spark/documentation.json" $(DOCC_OUTPUT_PATH)/$$pkg_lower/documentation.json; \
 				echo "Copied documentation.json from Spark to $(DOCC_OUTPUT_PATH)/$$pkg_lower/"; \
+			else \
+				echo "No documentation.json found for $$archive_name, skipping card"; \
 			fi; \
 			echo ""; \
 		fi; \
@@ -113,33 +138,10 @@ docc:
 	fi; \
 	echo ""; \
 	echo "Generating packages.json with metadata..."; \
-	echo "[" > $(DOCC_OUTPUT_PATH)/packages.json; \
-	first=true; \
-	for dir in $$(find $(DOCC_OUTPUT_PATH) -mindepth 1 -maxdepth 1 -type d | sort); do \
-		if [ -f "$$dir/documentation.json" ]; then \
-			folder=$$(basename "$$dir"); \
-			if [ "$$first" = true ]; then \
-				first=false; \
-			else \
-				printf ",\n" >> $(DOCC_OUTPUT_PATH)/packages.json; \
-			fi; \
-			title=$$(grep '"title"' "$$dir/documentation.json" | head -1 | sed 's/.*"title"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/'); \
-			description=$$(grep '"description"' "$$dir/documentation.json" | head -1 | sed 's/.*"description"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/'); \
-			image=$$(grep '"image"' "$$dir/documentation.json" | head -1 | sed 's/.*"image"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/'); \
-			zeroheight=$$(grep '"zeroheight"' "$$dir/documentation.json" | head -1 | sed 's/.*"zeroheight"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/'); \
-			figma=$$(grep '"figma"' "$$dir/documentation.json" | head -1 | sed 's/.*"figma"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/'); \
-			printf "  {\n    \"title\": \"$$title\",\n    \"description\": \"$$description\",\n    \"image\": \"$$image\",\n    \"path\": \"$$folder/documentation/$$folder\"" >> $(DOCC_OUTPUT_PATH)/packages.json; \
-			if [ -n "$$zeroheight" ]; then \
-				printf ",\n    \"zeroheight\": \"$$zeroheight\"" >> $(DOCC_OUTPUT_PATH)/packages.json; \
-			fi; \
-			if [ -n "$$figma" ]; then \
-				printf ",\n    \"figma\": \"$$figma\"" >> $(DOCC_OUTPUT_PATH)/packages.json; \
-			fi; \
-			printf "\n  }" >> $(DOCC_OUTPUT_PATH)/packages.json; \
-		fi; \
-	done; \
-	printf "\n]\n" >> $(DOCC_OUTPUT_PATH)/packages.json; \
-	echo "Generated packages.json with $$(grep -c '"title"' $(DOCC_OUTPUT_PATH)/packages.json) packages"; \
+	if ! .script/generate-packages-json.swift $(DOCC_OUTPUT_PATH); then \
+		echo "\n✗ packages.json generation failed"; \
+		exit 1; \
+	fi; \
 	echo "\n✓ DocC documentation generated successfully in $(DOCC_OUTPUT_PATH)/"
 
 ###########

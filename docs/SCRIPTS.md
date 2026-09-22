@@ -4,11 +4,46 @@ This document provides an overview of all utility scripts available in the proje
 
 ## Table of Contents
 
+- [Component Tracking Scripts](#component-tracking-scripts)
+  - [List Components](#list-components)
+  - [List Deprecated Components](#list-deprecated-components)
 - [Iconography Scripts](#iconography-scripts)
   - [Generate Iconography Assets](#generate-iconography-assets)
   - [Generate Iconography Codebase](#generate-iconography-codebase)
 - [Release Management Scripts](#release-management-scripts)
   - [Update Changelog](#update-changelog)
+
+---
+
+## Component Tracking Scripts
+
+### List Components
+
+Scans the monorepo to extract and list all public Spark component views.
+
+**Documentation:** [SCRIPT_LIST_COMPONENTS.md](script/SCRIPT_LIST_COMPONENTS.md)
+
+**Description:**
+- Scans all `Dependencies/*/Sources/Core` directories
+- Extracts public UIKit and SwiftUI component declarations
+- Filters and validates component types
+- Generates alphabetically sorted component list
+- Outputs to `spark-components-listing.txt` (120 components)
+
+---
+
+### List Deprecated Components
+
+Identifies deprecated components and maps them to their recommended replacements.
+
+**Documentation:** [SCRIPT_LIST_DEPRECATED_COMPONENTS.md](script/SCRIPT_LIST_DEPRECATED_COMPONENTS.md)
+
+**Description:**
+- Scans all `Dependencies/*/Sources/Core` directories
+- Identifies `@available(*, deprecated)` annotations
+- Extracts deprecated component names and replacements
+- Generates JSON mapping for migration guidance
+- Outputs to `spark-deprecated-components-listing.json` (36 deprecated components)
 
 ---
 

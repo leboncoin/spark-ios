@@ -73,3 +73,10 @@ fastlane/test_output
 
 # macOS
 .DS_Store
+
+# Script
+spark-components-listing.txt
+spark-deprecated-components-listing.json
+
+# SwiftLint Remote Config Cache
+.swiftlint/RemoteConfigCache
