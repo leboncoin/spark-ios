@@ -8,7 +8,7 @@ on:
 env:
   app_name: SparkDemoApp
   swift_version: "6.2"
-  xcode_path: "/Applications/Xcode_26.3.app"
+  xcode_path: "/Applications/Xcode_26.6.app"
   derived_data_path: ".derivedData/"
 
 jobs:

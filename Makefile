@@ -11,7 +11,6 @@ XCODEBUILD_FLAGS = -derivedDataPath $(DERIVED_DATA_PATH) -sdk $(SDK) -destinatio
 DOCC_OUTPUT_PATH = .docs
 HOSTING_BASE_PATH ?= spark-ios
 DEMO_APP_NAME = SparkDemoApp
-DEMO_APP_DESTINATION = platform=iOS Simulator,name=iPhone 17,OS=26.2
 
 ###################################
 #######################
@@ -42,7 +41,7 @@ build: sourcery
 # Build the demo app for the iOS Simulator, requires xcodegen to have been run ($ make build-demo-app)
 build-demo-app:
 	@echo "Building $(DEMO_APP_NAME)..."; \
-	if ! xcodebuild -scheme $(DEMO_APP_NAME) -derivedDataPath $(DERIVED_DATA_PATH) -sdk $(SDK) -destination "$(DEMO_APP_DESTINATION)" -resultBundlePath $(DEMO_APP_NAME).xcresult build; then \
+	if ! xcodebuild -scheme $(DEMO_APP_NAME) -derivedDataPath $(DERIVED_DATA_PATH) -sdk $(SDK) -destination "$(DESTINATION)" -resultBundlePath $(DEMO_APP_NAME).xcresult build; then \
 		echo "\n✗ $(DEMO_APP_NAME) build failed"; \
 		exit 1; \
 	else \

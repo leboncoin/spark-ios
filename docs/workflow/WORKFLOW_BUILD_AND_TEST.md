@@ -27,7 +27,7 @@ This workflow runs automatically and manually:
 ## Environment Variables
 
 - `swift_version`: `6.2` - Swift version used for all jobs
-- `xcode_path`: `/Applications/Xcode_26.3.app` - Xcode installation path
+- `xcode_path`: `/Applications/Xcode_26.6.app` - Xcode installation path
 - `demo_app_name`: `SparkDemoApp` - Name of the demo app scheme, used to build it and to name the uploaded xcresult artifact
 
 ## Jobs
@@ -41,7 +41,7 @@ This workflow runs automatically and manually:
 1. **Package name** - Logs the workspace path
 2. **Set Swift Version** - Uses `swift-actions/setup-swift@v2.4.0` to configure Swift 6.2
 3. **Get swift version** - Verifies Swift installation
-4. **Select Xcode** - Configures Xcode 26.3
+4. **Select Xcode** - Configures Xcode 26.6
 5. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
 6. **Build** - Executes `make build` to build all packages
 
@@ -54,7 +54,7 @@ This workflow runs automatically and manually:
 1. **Package name** - Logs the workspace path
 2. **Set Swift Version** - Uses `swift-actions/setup-swift@v2.4.0` to configure Swift 6.2
 3. **Get swift version** - Verifies Swift installation
-4. **Select Xcode** - Configures Xcode 26.3
+4. **Select Xcode** - Configures Xcode 26.6
 5. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
 6. **Test** - Executes `make test` with a 30-minute timeout
 7. **Upload xcresult file** - On failure, uploads the `.xcresult` bundle as an artifact (`actions/upload-artifact@v6`), retained for 15 days
@@ -65,7 +65,7 @@ This workflow runs automatically and manually:
 **Runner**: macos-26
 
 **Steps**:
-1. **Select Xcode** - Configures Xcode 26.3
+1. **Select Xcode** - Configures Xcode 26.6
 2. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
 3. **Run xcodegen** - Uses `xavierLowmiller/xcodegen-action@1.2.2` to generate the Xcode project from `project.yml`
 4. **Build** - Executes `make build-demo-app` to build the demo app scheme for the iOS Simulator (`iPhone 17`, `OS=26.2`)
