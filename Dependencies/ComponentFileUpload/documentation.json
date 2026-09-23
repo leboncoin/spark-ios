@@ -1,0 +1,9 @@
+[
+  {
+    "title": "FileUpload Component",
+    "description": "Allows users to upload a file from their device",
+    "image": "file-upload",
+    "zeroheight": "https://zeroheight.com/1186e1705/p/737568-fileupload",
+    "figma": "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=59809-4315"
+  }
+]

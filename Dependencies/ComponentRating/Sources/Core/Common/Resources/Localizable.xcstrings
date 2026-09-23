@@ -1,0 +1,40 @@
+{
+  "sourceLanguage" : "fr",
+  "strings" : {
+    "accessibility_value" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ out of %i"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ sur %i"
+          }
+        }
+      }
+    },
+    "accessiiblity_label_display_count" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "based on %@ reviews"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "basé sur %@ avis"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Checkbox Component",
+    "description": "A small square used to select or deselect multiple options in a list",
+    "image": "checkbox",
+    "zeroheight": "https://zeroheight.com/1186e1705/p/76f5a8-checkbox",
+    "figma": "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=127-1880"
+  },
+  {
+    "title": "RadioButton Component",
+    "description": "A small circle used to select only one option from a list of choices",
+    "image": "radio-button",
+    "zeroheight": "https://zeroheight.com/1186e1705/p/98058f-radio-button",
+    "figma": "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=127-6137"
+  },
+  {
+    "title": "Toggle Component",
+    "description": "A control that toggles between on and off states",
+    "image": "switch",
+    "zeroheight": "https://zeroheight.com/1186e1705/p/58a2c6-switch",
+    "figma": "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=267-8340"
+  }
+]

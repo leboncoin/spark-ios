@@ -7,580 +7,1153 @@ import DeveloperToolsSupport
 // swiftlint:disable all
 public extension ImageResource {
 
+    /// Icons for the Criteria icon category.
     enum SparkCriteria {
+        /// The "Criteria/Accessories" icon.
         public static let accessories = ImageResource(name: "Criteria/Accessories", bundle: .current)
+        /// The "Criteria/Attic" icon.
         public static let attic = ImageResource(name: "Criteria/Attic", bundle: .current)
+        /// The "Criteria/Axles" icon.
         public static let axles = ImageResource(name: "Criteria/Axles", bundle: .current)
+        /// The "Criteria/BabyBed" icon.
         public static let babyBed = ImageResource(name: "Criteria/BabyBed", bundle: .current)
+        /// The "Criteria/BabyBottle" icon.
         public static let babyBottle = ImageResource(name: "Criteria/BabyBottle", bundle: .current)
+        /// The "Criteria/Balcony" icon.
         public static let balcony = ImageResource(name: "Criteria/Balcony", bundle: .current)
+        /// The "Criteria/Barrow" icon.
         public static let barrow = ImageResource(name: "Criteria/Barrow", bundle: .current)
+        /// The "Criteria/Bathtub" icon.
         public static let bathtub = ImageResource(name: "Criteria/Bathtub", bundle: .current)
+        /// The "Criteria/Bear" icon.
         public static let bear = ImageResource(name: "Criteria/Bear", bundle: .current)
+        /// The "Criteria/Bed" icon.
         public static let bed = ImageResource(name: "Criteria/Bed", bundle: .current)
+        /// The "Criteria/Bell" icon.
         public static let bell = ImageResource(name: "Criteria/Bell", bundle: .current)
+        /// The "Criteria/Bicycle" icon.
         public static let bicycle = ImageResource(name: "Criteria/Bicycle", bundle: .current)
+        /// The "Criteria/BikeSize" icon.
         public static let bikeSize = ImageResource(name: "Criteria/BikeSize", bundle: .current)
+        /// The "Criteria/Bird" icon.
         public static let bird = ImageResource(name: "Criteria/Bird", bundle: .current)
+        /// The "Criteria/BirthdayCake" icon.
         public static let birthdayCake = ImageResource(name: "Criteria/BirthdayCake", bundle: .current)
+        /// The "Criteria/Bluetooth" icon.
         public static let bluetooth = ImageResource(name: "Criteria/Bluetooth", bundle: .current)
+        /// The "Criteria/Boat" icon.
         public static let boat = ImageResource(name: "Criteria/Boat", bundle: .current)
+        /// The "Criteria/Book" icon.
         public static let book = ImageResource(name: "Criteria/Book", bundle: .current)
+        /// The "Criteria/Box" icon.
         public static let box = ImageResource(name: "Criteria/Box", bundle: .current)
+        /// The "Criteria/Brand" icon.
         public static let brand = ImageResource(name: "Criteria/Brand", bundle: .current)
+        /// The "Criteria/Briefcase" icon.
         public static let briefcase = ImageResource(name: "Criteria/Briefcase", bundle: .current)
+        /// The "Criteria/Buildings" icon.
         public static let buildings = ImageResource(name: "Criteria/Buildings", bundle: .current)
+        /// The "Criteria/Calendar" icon.
         public static let calendar = ImageResource(name: "Criteria/Calendar", bundle: .current)
+        /// The "Criteria/CarBattery" icon.
         public static let carBattery = ImageResource(name: "Criteria/CarBattery", bundle: .current)
+        /// The "Criteria/CarCloseup" icon.
         public static let carCloseup = ImageResource(name: "Criteria/CarCloseup", bundle: .current)
+        /// The "Criteria/CarType" icon.
         public static let carType = ImageResource(name: "Criteria/CarType", bundle: .current)
+        /// The "Criteria/Cave" icon.
         public static let cave = ImageResource(name: "Criteria/Cave", bundle: .current)
+        /// The "Criteria/CircleWeight" icon.
         public static let circleWeight = ImageResource(name: "Criteria/CircleWeight", bundle: .current)
+        /// The "Criteria/Class" icon.
         public static let `class` = ImageResource(name: "Criteria/Class", bundle: .current)
+        /// The "Criteria/Clock" icon.
         public static let clock = ImageResource(name: "Criteria/Clock", bundle: .current)
+        /// The "Criteria/Closure" icon.
         public static let closure = ImageResource(name: "Criteria/Closure", bundle: .current)
+        /// The "Criteria/Coffee" icon.
         public static let coffee = ImageResource(name: "Criteria/Coffee", bundle: .current)
+        /// The "Criteria/CommonHouse" icon.
         public static let commonHouse = ImageResource(name: "Criteria/CommonHouse", bundle: .current)
+        /// The "Criteria/Compass" icon.
         public static let compass = ImageResource(name: "Criteria/Compass", bundle: .current)
+        /// The "Criteria/Controller" icon.
         public static let controller = ImageResource(name: "Criteria/Controller", bundle: .current)
+        /// The "Criteria/Coverage" icon.
         public static let coverage = ImageResource(name: "Criteria/Coverage", bundle: .current)
+        /// The "Criteria/Cutlery" icon.
         public static let cutlery = ImageResource(name: "Criteria/Cutlery", bundle: .current)
+        /// The "Criteria/Cylindrical" icon.
         public static let cylindrical = ImageResource(name: "Criteria/Cylindrical", bundle: .current)
+        /// The "Criteria/Diamond" icon.
         public static let diamond = ImageResource(name: "Criteria/Diamond", bundle: .current)
+        /// The "Criteria/Digicode" icon.
         public static let digicode = ImageResource(name: "Criteria/Digicode", bundle: .current)
+        /// The "Criteria/DoorsCar" icon.
         public static let doorsCar = ImageResource(name: "Criteria/DoorsCar", bundle: .current)
+        /// The "Criteria/Dumbbell" icon.
         public static let dumbbell = ImageResource(name: "Criteria/Dumbbell", bundle: .current)
+        /// The "Criteria/DumpTruck" icon.
         public static let dumpTruck = ImageResource(name: "Criteria/DumpTruck", bundle: .current)
+        /// The "Criteria/Duplex" icon.
         public static let duplex = ImageResource(name: "Criteria/Duplex", bundle: .current)
+        /// The "Criteria/ElectricalSocket" icon.
         public static let electricalSocket = ImageResource(name: "Criteria/ElectricalSocket", bundle: .current)
+        /// The "Criteria/Energy" icon.
         public static let energy = ImageResource(name: "Criteria/Energy", bundle: .current)
+        /// The "Criteria/EngineCar" icon.
         public static let engineCar = ImageResource(name: "Criteria/EngineCar", bundle: .current)
+        /// The "Criteria/Euros" icon.
         public static let euros = ImageResource(name: "Criteria/Euros", bundle: .current)
+        /// The "Criteria/Excavator" icon.
         public static let excavator = ImageResource(name: "Criteria/Excavator", bundle: .current)
+        /// The "Criteria/Fabric" icon.
         public static let fabric = ImageResource(name: "Criteria/Fabric", bundle: .current)
+        /// The "Criteria/Family" icon.
         public static let family = ImageResource(name: "Criteria/Family", bundle: .current)
+        /// The "Criteria/Fireplace" icon.
         public static let fireplace = ImageResource(name: "Criteria/Fireplace", bundle: .current)
+        /// The "Criteria/Flower" icon.
         public static let flower = ImageResource(name: "Criteria/Flower", bundle: .current)
+        /// The "Criteria/Foot" icon.
         public static let foot = ImageResource(name: "Criteria/Foot", bundle: .current)
+        /// The "Criteria/Fuel" icon.
         public static let fuel = ImageResource(name: "Criteria/Fuel", bundle: .current)
+        /// The "Criteria/Furniture" icon.
         public static let furniture = ImageResource(name: "Criteria/Furniture", bundle: .current)
+        /// The "Criteria/FurnitureType" icon.
         public static let furnitureType = ImageResource(name: "Criteria/FurnitureType", bundle: .current)
+        /// The "Criteria/Garage" icon.
         public static let garage = ImageResource(name: "Criteria/Garage", bundle: .current)
+        /// The "Criteria/Garden" icon.
         public static let garden = ImageResource(name: "Criteria/Garden", bundle: .current)
+        /// The "Criteria/GlassWindows" icon.
         public static let glassWindows = ImageResource(name: "Criteria/GlassWindows", bundle: .current)
+        /// The "Criteria/Gps" icon.
         public static let gps = ImageResource(name: "Criteria/Gps", bundle: .current)
+        /// The "Criteria/Graphic" icon.
         public static let graphic = ImageResource(name: "Criteria/Graphic", bundle: .current)
+        /// The "Criteria/GroundFloor" icon.
         public static let groundFloor = ImageResource(name: "Criteria/GroundFloor", bundle: .current)
+        /// The "Criteria/HandCat" icon.
         public static let handCat = ImageResource(name: "Criteria/HandCat", bundle: .current)
+        /// The "Criteria/HandDelivered" icon.
         public static let handDelivered = ImageResource(name: "Criteria/HandDelivered", bundle: .current)
+        /// The "Criteria/HandGift" icon.
         public static let handGift = ImageResource(name: "Criteria/HandGift", bundle: .current)
+        /// The "Criteria/Headlight" icon.
         public static let headlight = ImageResource(name: "Criteria/Headlight", bundle: .current)
+        /// The "Criteria/HeadsCat" icon.
         public static let headsCat = ImageResource(name: "Criteria/HeadsCat", bundle: .current)
+        /// The "Criteria/HeadsDog" icon.
         public static let headsDog = ImageResource(name: "Criteria/HeadsDog", bundle: .current)
+        /// The "Criteria/HouseQuestion" icon.
         public static let houseQuestion = ImageResource(name: "Criteria/HouseQuestion", bundle: .current)
+        /// The "Criteria/Interphone" icon.
         public static let interphone = ImageResource(name: "Criteria/Interphone", bundle: .current)
+        /// The "Criteria/Jewels" icon.
         public static let jewels = ImageResource(name: "Criteria/Jewels", bundle: .current)
+        /// The "Criteria/KeylessAccess" icon.
         public static let keylessAccess = ImageResource(name: "Criteria/KeylessAccess", bundle: .current)
+        /// The "Criteria/LastFloor" icon.
         public static let lastFloor = ImageResource(name: "Criteria/LastFloor", bundle: .current)
+        /// The "Criteria/License" icon.
         public static let license = ImageResource(name: "Criteria/License", bundle: .current)
+        /// The "Criteria/Lift" icon.
         public static let lift = ImageResource(name: "Criteria/Lift", bundle: .current)
+        /// The "Criteria/Like" icon.
         public static let like = ImageResource(name: "Criteria/Like", bundle: .current)
+        /// The "Criteria/Linens" icon.
         public static let linens = ImageResource(name: "Criteria/Linens", bundle: .current)
+        /// The "Criteria/Listing" icon.
         public static let listing = ImageResource(name: "Criteria/Listing", bundle: .current)
+        /// The "Criteria/Localisation" icon.
         public static let localisation = ImageResource(name: "Criteria/Localisation", bundle: .current)
+        /// The "Criteria/Loft" icon.
         public static let loft = ImageResource(name: "Criteria/Loft", bundle: .current)
+        /// The "Criteria/Loggia" icon.
         public static let loggia = ImageResource(name: "Criteria/Loggia", bundle: .current)
+        /// The "Criteria/LotusFlower" icon.
         public static let lotusFlower = ImageResource(name: "Criteria/LotusFlower", bundle: .current)
+        /// The "Criteria/ManUniform" icon.
         public static let manUniform = ImageResource(name: "Criteria/ManUniform", bundle: .current)
+        /// The "Criteria/ManorHouse" icon.
         public static let manorHouse = ImageResource(name: "Criteria/ManorHouse", bundle: .current)
+        /// The "Criteria/Materials" icon.
         public static let materials = ImageResource(name: "Criteria/Materials", bundle: .current)
+        /// The "Criteria/Measures" icon.
         public static let measures = ImageResource(name: "Criteria/Measures", bundle: .current)
+        /// The "Criteria/Medal" icon.
         public static let medal = ImageResource(name: "Criteria/Medal", bundle: .current)
+        /// The "Criteria/Meter" icon.
         public static let meter = ImageResource(name: "Criteria/Meter", bundle: .current)
+        /// The "Criteria/Metro" icon.
         public static let metro = ImageResource(name: "Criteria/Metro", bundle: .current)
+        /// The "Criteria/MicrochipPet" icon.
         public static let microchipPet = ImageResource(name: "Criteria/MicrochipPet", bundle: .current)
+        /// The "Criteria/Mileage" icon.
         public static let mileage = ImageResource(name: "Criteria/Mileage", bundle: .current)
+        /// The "Criteria/Mobile" icon.
         public static let mobile = ImageResource(name: "Criteria/Mobile", bundle: .current)
+        /// The "Criteria/MobileQuestion" icon.
         public static let mobileQuestion = ImageResource(name: "Criteria/MobileQuestion", bundle: .current)
+        /// The "Criteria/Moto" icon.
         public static let moto = ImageResource(name: "Criteria/Moto", bundle: .current)
+        /// The "Criteria/Moulding" icon.
         public static let moulding = ImageResource(name: "Criteria/Moulding", bundle: .current)
+        /// The "Criteria/MouseComputer" icon.
         public static let mouseComputer = ImageResource(name: "Criteria/MouseComputer", bundle: .current)
+        /// The "Criteria/PaintPalette" icon.
         public static let paintPalette = ImageResource(name: "Criteria/PaintPalette", bundle: .current)
+        /// The "Criteria/PaperJob" icon.
         public static let paperJob = ImageResource(name: "Criteria/PaperJob", bundle: .current)
+        /// The "Criteria/PaperProperty" icon.
         public static let paperProperty = ImageResource(name: "Criteria/PaperProperty", bundle: .current)
+        /// The "Criteria/ParkAssist" icon.
         public static let parkAssist = ImageResource(name: "Criteria/ParkAssist", bundle: .current)
+        /// The "Criteria/Parking" icon.
         public static let parking = ImageResource(name: "Criteria/Parking", bundle: .current)
+        /// The "Criteria/ParkingSensor" icon.
         public static let parkingSensor = ImageResource(name: "Criteria/ParkingSensor", bundle: .current)
+        /// The "Criteria/Parquet" icon.
         public static let parquet = ImageResource(name: "Criteria/Parquet", bundle: .current)
+        /// The "Criteria/Paw" icon.
         public static let paw = ImageResource(name: "Criteria/Paw", bundle: .current)
+        /// The "Criteria/PencilDocuments" icon.
         public static let pencilDocuments = ImageResource(name: "Criteria/PencilDocuments", bundle: .current)
+        /// The "Criteria/People" icon.
         public static let people = ImageResource(name: "Criteria/People", bundle: .current)
+        /// The "Criteria/Person" icon.
         public static let person = ImageResource(name: "Criteria/Person", bundle: .current)
+        /// The "Criteria/PetAccessory" icon.
         public static let petAccessory = ImageResource(name: "Criteria/PetAccessory", bundle: .current)
+        /// The "Criteria/PhotoFrame" icon.
         public static let photoFrame = ImageResource(name: "Criteria/PhotoFrame", bundle: .current)
+        /// The "Criteria/Plan" icon.
         public static let plan = ImageResource(name: "Criteria/Plan", bundle: .current)
+        /// The "Criteria/PlumbingElectrical" icon.
         public static let plumbingElectrical = ImageResource(name: "Criteria/PlumbingElectrical", bundle: .current)
+        /// The "Criteria/Pool" icon.
         public static let pool = ImageResource(name: "Criteria/Pool", bundle: .current)
+        /// The "Criteria/Power" icon.
         public static let power = ImageResource(name: "Criteria/Power", bundle: .current)
+        /// The "Criteria/RainSensor" icon.
         public static let rainSensor = ImageResource(name: "Criteria/RainSensor", bundle: .current)
+        /// The "Criteria/RearviewCamera" icon.
         public static let rearviewCamera = ImageResource(name: "Criteria/RearviewCamera", bundle: .current)
+        /// The "Criteria/SeaView" icon.
         public static let seaView = ImageResource(name: "Criteria/SeaView", bundle: .current)
+        /// The "Criteria/SeatCar" icon.
         public static let seatCar = ImageResource(name: "Criteria/SeatCar", bundle: .current)
+        /// The "Criteria/SeatsCar" icon.
         public static let seatsCar = ImageResource(name: "Criteria/SeatsCar", bundle: .current)
+        /// The "Criteria/Serringue" icon.
         public static let serringue = ImageResource(name: "Criteria/Serringue", bundle: .current)
+        /// The "Criteria/Shoes" icon.
         public static let shoes = ImageResource(name: "Criteria/Shoes", bundle: .current)
+        /// The "Criteria/ShovelRake" icon.
         public static let shovelRake = ImageResource(name: "Criteria/ShovelRake", bundle: .current)
+        /// The "Criteria/Shower" icon.
         public static let shower = ImageResource(name: "Criteria/Shower", bundle: .current)
+        /// The "Criteria/SimCard" icon.
         public static let simCard = ImageResource(name: "Criteria/SimCard", bundle: .current)
+        /// The "Criteria/Smoking" icon.
         public static let smoking = ImageResource(name: "Criteria/Smoking", bundle: .current)
+        /// The "Criteria/Snowflake" icon.
         public static let snowflake = ImageResource(name: "Criteria/Snowflake", bundle: .current)
+        /// The "Criteria/Sort" icon.
         public static let sort = ImageResource(name: "Criteria/Sort", bundle: .current)
+        /// The "Criteria/Speaker" icon.
         public static let speaker = ImageResource(name: "Criteria/Speaker", bundle: .current)
+        /// The "Criteria/Speed" icon.
         public static let speed = ImageResource(name: "Criteria/Speed", bundle: .current)
+        /// The "Criteria/SpeedIndicator" icon.
         public static let speedIndicator = ImageResource(name: "Criteria/SpeedIndicator", bundle: .current)
+        /// The "Criteria/Sprayer" icon.
         public static let sprayer = ImageResource(name: "Criteria/Sprayer", bundle: .current)
+        /// The "Criteria/Stairs" icon.
         public static let stairs = ImageResource(name: "Criteria/Stairs", bundle: .current)
+        /// The "Criteria/StarHouse" icon.
         public static let starHouse = ImageResource(name: "Criteria/StarHouse", bundle: .current)
+        /// The "Criteria/Stars" icon.
         public static let stars = ImageResource(name: "Criteria/Stars", bundle: .current)
+        /// The "Criteria/State" icon.
         public static let state = ImageResource(name: "Criteria/State", bundle: .current)
+        /// The "Criteria/Sticker" icon.
         public static let sticker = ImageResource(name: "Criteria/Sticker", bundle: .current)
+        /// The "Criteria/Store" icon.
         public static let store = ImageResource(name: "Criteria/Store", bundle: .current)
+        /// The "Criteria/StudentHat" icon.
         public static let studentHat = ImageResource(name: "Criteria/StudentHat", bundle: .current)
+        /// The "Criteria/Sun" icon.
         public static let sun = ImageResource(name: "Criteria/Sun", bundle: .current)
+        /// The "Criteria/Sunroof" icon.
         public static let sunroof = ImageResource(name: "Criteria/Sunroof", bundle: .current)
+        /// The "Criteria/Terrace" icon.
         public static let terrace = ImageResource(name: "Criteria/Terrace", bundle: .current)
+        /// The "Criteria/Timer" icon.
         public static let timer = ImageResource(name: "Criteria/Timer", bundle: .current)
+        /// The "Criteria/Tools" icon.
         public static let tools = ImageResource(name: "Criteria/Tools", bundle: .current)
+        /// The "Criteria/Towel" icon.
         public static let towel = ImageResource(name: "Criteria/Towel", bundle: .current)
+        /// The "Criteria/Tractor" icon.
         public static let tractor = ImageResource(name: "Criteria/Tractor", bundle: .current)
+        /// The "Criteria/Truck" icon.
         public static let truck = ImageResource(name: "Criteria/Truck", bundle: .current)
+        /// The "Criteria/TrunkCar" icon.
         public static let trunkCar = ImageResource(name: "Criteria/TrunkCar", bundle: .current)
+        /// The "Criteria/TshirtShort" icon.
         public static let tshirtShort = ImageResource(name: "Criteria/TshirtShort", bundle: .current)
+        /// The "Criteria/Tv" icon.
         public static let tv = ImageResource(name: "Criteria/Tv", bundle: .current)
+        /// The "Criteria/View" icon.
         public static let view = ImageResource(name: "Criteria/View", bundle: .current)
+        /// The "Criteria/Wardrobe" icon.
         public static let wardrobe = ImageResource(name: "Criteria/Wardrobe", bundle: .current)
+        /// The "Criteria/WashingMachine" icon.
         public static let washingMachine = ImageResource(name: "Criteria/WashingMachine", bundle: .current)
+        /// The "Criteria/Wc" icon.
         public static let wc = ImageResource(name: "Criteria/Wc", bundle: .current)
+        /// The "Criteria/Weight" icon.
         public static let weight = ImageResource(name: "Criteria/Weight", bundle: .current)
+        /// The "Criteria/WheelRim" icon.
         public static let wheelRim = ImageResource(name: "Criteria/WheelRim", bundle: .current)
+        /// The "Criteria/Wifi" icon.
         public static let wifi = ImageResource(name: "Criteria/Wifi", bundle: .current)
+        /// The "Criteria/WoodenDoor" icon.
         public static let woodenDoor = ImageResource(name: "Criteria/WoodenDoor", bundle: .current)
     }
 
+    /// Icons for the Global icon category.
     enum Spark {
+        /// The "Global/ActionsFill" icon.
         public static let actionsFill = ImageResource(name: "Global/ActionsFill", bundle: .current)
+        /// The "Global/ActionsOutline" icon.
         public static let actionsOutline = ImageResource(name: "Global/ActionsOutline", bundle: .current)
+        /// The "Global/Activity" icon.
         public static let activity = ImageResource(name: "Global/Activity", bundle: .current)
+        /// The "Global/AddCircleFill" icon.
         public static let addCircleFill = ImageResource(name: "Global/AddCircleFill", bundle: .current)
+        /// The "Global/AddCircleOutline" icon.
         public static let addCircleOutline = ImageResource(name: "Global/AddCircleOutline", bundle: .current)
+        /// The "Global/AddImageFill" icon.
         public static let addImageFill = ImageResource(name: "Global/AddImageFill", bundle: .current)
+        /// The "Global/AddImageOutline" icon.
         public static let addImageOutline = ImageResource(name: "Global/AddImageOutline", bundle: .current)
+        /// The "Global/AddSquareFill" icon.
         public static let addSquareFill = ImageResource(name: "Global/AddSquareFill", bundle: .current)
+        /// The "Global/AddSquareOutline" icon.
         public static let addSquareOutline = ImageResource(name: "Global/AddSquareOutline", bundle: .current)
+        /// The "Global/AlertFill" icon.
         public static let alertFill = ImageResource(name: "Global/AlertFill", bundle: .current)
+        /// The "Global/AlertOutline" icon.
         public static let alertOutline = ImageResource(name: "Global/AlertOutline", bundle: .current)
+        /// The "Global/AllDirectionArrows" icon.
         public static let allDirectionArrows = ImageResource(name: "Global/AllDirectionArrows", bundle: .current)
+        /// The "Global/ArrowDown" icon.
         public static let arrowDown = ImageResource(name: "Global/ArrowDown", bundle: .current)
+        /// The "Global/ArrowExpand" icon.
         public static let arrowExpand = ImageResource(name: "Global/ArrowExpand", bundle: .current)
+        /// The "Global/ArrowLeft" icon.
         public static let arrowLeft = ImageResource(name: "Global/ArrowLeft", bundle: .current)
+        /// The "Global/ArrowReduce" icon.
         public static let arrowReduce = ImageResource(name: "Global/ArrowReduce", bundle: .current)
+        /// The "Global/ArrowRight" icon.
         public static let arrowRight = ImageResource(name: "Global/ArrowRight", bundle: .current)
+        /// The "Global/ArrowUp" icon.
         public static let arrowUp = ImageResource(name: "Global/ArrowUp", bundle: .current)
+        /// The "Global/AttachFile" icon.
         public static let attachFile = ImageResource(name: "Global/AttachFile", bundle: .current)
+        /// The "Global/BabyBottle" icon.
         public static let babyBottle = ImageResource(name: "Global/BabyBottle", bundle: .current)
+        /// The "Global/Ball" icon.
         public static let ball = ImageResource(name: "Global/Ball", bundle: .current)
+        /// The "Global/BannedFill" icon.
         public static let bannedFill = ImageResource(name: "Global/BannedFill", bundle: .current)
+        /// The "Global/BannedOutline" icon.
         public static let bannedOutline = ImageResource(name: "Global/BannedOutline", bundle: .current)
+        /// The "Global/BedFill" icon.
         public static let bedFill = ImageResource(name: "Global/BedFill", bundle: .current)
+        /// The "Global/BedLinen" icon.
         public static let bedLinen = ImageResource(name: "Global/BedLinen", bundle: .current)
+        /// The "Global/BedOutline" icon.
         public static let bedOutline = ImageResource(name: "Global/BedOutline", bundle: .current)
+        /// The "Global/BellFill" icon.
         public static let bellFill = ImageResource(name: "Global/BellFill", bundle: .current)
+        /// The "Global/BellOffFill" icon.
         public static let bellOffFill = ImageResource(name: "Global/BellOffFill", bundle: .current)
+        /// The "Global/BellOffOutline" icon.
         public static let bellOffOutline = ImageResource(name: "Global/BellOffOutline", bundle: .current)
+        /// The "Global/BellOnFill" icon.
         public static let bellOnFill = ImageResource(name: "Global/BellOnFill", bundle: .current)
+        /// The "Global/BellOnOutline" icon.
         public static let bellOnOutline = ImageResource(name: "Global/BellOnOutline", bundle: .current)
+        /// The "Global/BellOutline" icon.
         public static let bellOutline = ImageResource(name: "Global/BellOutline", bundle: .current)
+        /// The "Global/BellShakeFill" icon.
         public static let bellShakeFill = ImageResource(name: "Global/BellShakeFill", bundle: .current)
+        /// The "Global/BellShakeOutline" icon.
         public static let bellShakeOutline = ImageResource(name: "Global/BellShakeOutline", bundle: .current)
+        /// The "Global/Bike" icon.
         public static let bike = ImageResource(name: "Global/Bike", bundle: .current)
+        /// The "Global/BodySuit" icon.
         public static let bodySuit = ImageResource(name: "Global/BodySuit", bundle: .current)
+        /// The "Global/Book" icon.
         public static let book = ImageResource(name: "Global/Book", bundle: .current)
+        /// The "Global/BookmarkFill" icon.
         public static let bookmarkFill = ImageResource(name: "Global/BookmarkFill", bundle: .current)
+        /// The "Global/BookmarkOutline" icon.
         public static let bookmarkOutline = ImageResource(name: "Global/BookmarkOutline", bundle: .current)
+        /// The "Global/BoxFill" icon.
         public static let boxFill = ImageResource(name: "Global/BoxFill", bundle: .current)
+        /// The "Global/BoxOutline" icon.
         public static let boxOutline = ImageResource(name: "Global/BoxOutline", bundle: .current)
+        /// The "Global/Boxes" icon.
         public static let boxes = ImageResource(name: "Global/Boxes", bundle: .current)
+        /// The "Global/Briefcase" icon.
         public static let briefcase = ImageResource(name: "Global/Briefcase", bundle: .current)
+        /// The "Global/Broomstick" icon.
         public static let broomstick = ImageResource(name: "Global/Broomstick", bundle: .current)
+        /// The "Global/BroomstickSparks" icon.
         public static let broomstickSparks = ImageResource(name: "Global/BroomstickSparks", bundle: .current)
+        /// The "Global/BubbleChatFill" icon.
         public static let bubbleChatFill = ImageResource(name: "Global/BubbleChatFill", bundle: .current)
+        /// The "Global/BubbleChatOutline" icon.
         public static let bubbleChatOutline = ImageResource(name: "Global/BubbleChatOutline", bundle: .current)
+        /// The "Global/BubbleCheck" icon.
         public static let bubbleCheck = ImageResource(name: "Global/BubbleCheck", bundle: .current)
+        /// The "Global/BubbleDotsFill" icon.
         public static let bubbleDotsFill = ImageResource(name: "Global/BubbleDotsFill", bundle: .current)
+        /// The "Global/BubbleDotsOutline" icon.
         public static let bubbleDotsOutline = ImageResource(name: "Global/BubbleDotsOutline", bundle: .current)
+        /// The "Global/BubbleLightning" icon.
         public static let bubbleLightning = ImageResource(name: "Global/BubbleLightning", bundle: .current)
+        /// The "Global/BubbleTextFill" icon.
         public static let bubbleTextFill = ImageResource(name: "Global/BubbleTextFill", bundle: .current)
+        /// The "Global/BubbleTextOutline" icon.
         public static let bubbleTextOutline = ImageResource(name: "Global/BubbleTextOutline", bundle: .current)
+        /// The "Global/BubbleWarningFill" icon.
         public static let bubbleWarningFill = ImageResource(name: "Global/BubbleWarningFill", bundle: .current)
+        /// The "Global/BubbleWarningOutline" icon.
         public static let bubbleWarningOutline = ImageResource(name: "Global/BubbleWarningOutline", bundle: .current)
+        /// The "Global/Building" icon.
         public static let building = ImageResource(name: "Global/Building", bundle: .current)
+        /// The "Global/BuildingCircle" icon.
         public static let buildingCircle = ImageResource(name: "Global/BuildingCircle", bundle: .current)
+        /// The "Global/BuildingSquare" icon.
         public static let buildingSquare = ImageResource(name: "Global/BuildingSquare", bundle: .current)
+        /// The "Global/BurgerMenu" icon.
         public static let burgerMenu = ImageResource(name: "Global/BurgerMenu", bundle: .current)
+        /// The "Global/CalculatorFill" icon.
         public static let calculatorFill = ImageResource(name: "Global/CalculatorFill", bundle: .current)
+        /// The "Global/CalculatorOutline" icon.
         public static let calculatorOutline = ImageResource(name: "Global/CalculatorOutline", bundle: .current)
+        /// The "Global/CalendarCheckFill" icon.
         public static let calendarCheckFill = ImageResource(name: "Global/CalendarCheckFill", bundle: .current)
+        /// The "Global/CalendarCheckOutline" icon.
         public static let calendarCheckOutline = ImageResource(name: "Global/CalendarCheckOutline", bundle: .current)
+        /// The "Global/CalendarDotFill" icon.
         public static let calendarDotFill = ImageResource(name: "Global/CalendarDotFill", bundle: .current)
+        /// The "Global/CalendarDotOutline" icon.
         public static let calendarDotOutline = ImageResource(name: "Global/CalendarDotOutline", bundle: .current)
+        /// The "Global/CalendarTextFill" icon.
         public static let calendarTextFill = ImageResource(name: "Global/CalendarTextFill", bundle: .current)
+        /// The "Global/CalendarTextOutline" icon.
         public static let calendarTextOutline = ImageResource(name: "Global/CalendarTextOutline", bundle: .current)
+        /// The "Global/CameraFill" icon.
         public static let cameraFill = ImageResource(name: "Global/CameraFill", bundle: .current)
+        /// The "Global/CameraLens" icon.
         public static let cameraLens = ImageResource(name: "Global/CameraLens", bundle: .current)
+        /// The "Global/CameraOutline" icon.
         public static let cameraOutline = ImageResource(name: "Global/CameraOutline", bundle: .current)
+        /// The "Global/CameraSparks" icon.
         public static let cameraSparks = ImageResource(name: "Global/CameraSparks", bundle: .current)
+        /// The "Global/CameraVideo" icon.
         public static let cameraVideo = ImageResource(name: "Global/CameraVideo", bundle: .current)
+        /// The "Global/Camper" icon.
         public static let camper = ImageResource(name: "Global/Camper", bundle: .current)
+        /// The "Global/CarFill" icon.
         public static let carFill = ImageResource(name: "Global/CarFill", bundle: .current)
+        /// The "Global/CarOutline" icon.
         public static let carOutline = ImageResource(name: "Global/CarOutline", bundle: .current)
+        /// The "Global/CarWarrantyFill" icon.
         public static let carWarrantyFill = ImageResource(name: "Global/CarWarrantyFill", bundle: .current)
+        /// The "Global/CarWarrantyOutline" icon.
         public static let carWarrantyOutline = ImageResource(name: "Global/CarWarrantyOutline", bundle: .current)
+        /// The "Global/CardBoard" icon.
         public static let cardBoard = ImageResource(name: "Global/CardBoard", bundle: .current)
+        /// The "Global/CardBrand" icon.
         public static let cardBrand = ImageResource(name: "Global/CardBrand", bundle: .current)
+        /// The "Global/Chain" icon.
         public static let chain = ImageResource(name: "Global/Chain", bundle: .current)
+        /// The "Global/ChatSparks" icon.
         public static let chatSparks = ImageResource(name: "Global/ChatSparks", bundle: .current)
+        /// The "Global/Check" icon.
         public static let check = ImageResource(name: "Global/Check", bundle: .current)
+        /// The "Global/ChevronHorizontalDown" icon.
         public static let chevronHorizontalDown = ImageResource(name: "Global/ChevronHorizontalDown", bundle: .current)
+        /// The "Global/ChevronHorizontalUp" icon.
         public static let chevronHorizontalUp = ImageResource(name: "Global/ChevronHorizontalUp", bundle: .current)
+        /// The "Global/ChevronVerticalLeft" icon.
         public static let chevronVerticalLeft = ImageResource(name: "Global/ChevronVerticalLeft", bundle: .current)
+        /// The "Global/ChevronVerticalRight" icon.
         public static let chevronVerticalRight = ImageResource(name: "Global/ChevronVerticalRight", bundle: .current)
+        /// The "Global/CircleCheckFill" icon.
         public static let circleCheckFill = ImageResource(name: "Global/CircleCheckFill", bundle: .current)
+        /// The "Global/CircleCheckOutline" icon.
         public static let circleCheckOutline = ImageResource(name: "Global/CircleCheckOutline", bundle: .current)
+        /// The "Global/CircleCrossFill" icon.
         public static let circleCrossFill = ImageResource(name: "Global/CircleCrossFill", bundle: .current)
+        /// The "Global/CircleCrossOutline" icon.
         public static let circleCrossOutline = ImageResource(name: "Global/CircleCrossOutline", bundle: .current)
+        /// The "Global/ClickCursorFill" icon.
         public static let clickCursorFill = ImageResource(name: "Global/ClickCursorFill", bundle: .current)
+        /// The "Global/ClickCursorOutline" icon.
         public static let clickCursorOutline = ImageResource(name: "Global/ClickCursorOutline", bundle: .current)
+        /// The "Global/ClockArrow" icon.
         public static let clockArrow = ImageResource(name: "Global/ClockArrow", bundle: .current)
+        /// The "Global/ClockFill" icon.
         public static let clockFill = ImageResource(name: "Global/ClockFill", bundle: .current)
+        /// The "Global/ClockOutline" icon.
         public static let clockOutline = ImageResource(name: "Global/ClockOutline", bundle: .current)
+        /// The "Global/CoinsFill" icon.
         public static let coinsFill = ImageResource(name: "Global/CoinsFill", bundle: .current)
+        /// The "Global/CoinsOutline" icon.
         public static let coinsOutline = ImageResource(name: "Global/CoinsOutline", bundle: .current)
+        /// The "Global/Computer" icon.
         public static let computer = ImageResource(name: "Global/Computer", bundle: .current)
+        /// The "Global/ConnectedWatch" icon.
         public static let connectedWatch = ImageResource(name: "Global/ConnectedWatch", bundle: .current)
+        /// The "Global/Controller" icon.
         public static let controller = ImageResource(name: "Global/Controller", bundle: .current)
+        /// The "Global/CopyFill" icon.
         public static let copyFill = ImageResource(name: "Global/CopyFill", bundle: .current)
+        /// The "Global/CopyOutline" icon.
         public static let copyOutline = ImageResource(name: "Global/CopyOutline", bundle: .current)
+        /// The "Global/Couch" icon.
         public static let couch = ImageResource(name: "Global/Couch", bundle: .current)
+        /// The "Global/Cradle" icon.
         public static let cradle = ImageResource(name: "Global/Cradle", bundle: .current)
+        /// The "Global/CreditCardFill" icon.
         public static let creditCardFill = ImageResource(name: "Global/CreditCardFill", bundle: .current)
+        /// The "Global/CreditCardOutline" icon.
         public static let creditCardOutline = ImageResource(name: "Global/CreditCardOutline", bundle: .current)
+        /// The "Global/Critair" icon.
         public static let critair = ImageResource(name: "Global/Critair", bundle: .current)
+        /// The "Global/Crop" icon.
         public static let crop = ImageResource(name: "Global/Crop", bundle: .current)
+        /// The "Global/Cross" icon.
         public static let cross = ImageResource(name: "Global/Cross", bundle: .current)
+        /// The "Global/CursorFill" icon.
         public static let cursorFill = ImageResource(name: "Global/CursorFill", bundle: .current)
+        /// The "Global/CursorOutline" icon.
         public static let cursorOutline = ImageResource(name: "Global/CursorOutline", bundle: .current)
+        /// The "Global/DeliveryBoxFill" icon.
         public static let deliveryBoxFill = ImageResource(name: "Global/DeliveryBoxFill", bundle: .current)
+        /// The "Global/DeliveryBoxOutline" icon.
         public static let deliveryBoxOutline = ImageResource(name: "Global/DeliveryBoxOutline", bundle: .current)
+        /// The "Global/DeliveryHandsFill" icon.
         public static let deliveryHandsFill = ImageResource(name: "Global/DeliveryHandsFill", bundle: .current)
+        /// The "Global/DeliveryHandsOutline" icon.
         public static let deliveryHandsOutline = ImageResource(name: "Global/DeliveryHandsOutline", bundle: .current)
+        /// The "Global/DeliveryTruckFill" icon.
         public static let deliveryTruckFill = ImageResource(name: "Global/DeliveryTruckFill", bundle: .current)
+        /// The "Global/DeliveryTruckOutline" icon.
         public static let deliveryTruckOutline = ImageResource(name: "Global/DeliveryTruckOutline", bundle: .current)
+        /// The "Global/Disconnect" icon.
         public static let disconnect = ImageResource(name: "Global/Disconnect", bundle: .current)
+        /// The "Global/DissatisfiedFaceFill" icon.
         public static let dissatisfiedFaceFill = ImageResource(name: "Global/DissatisfiedFaceFill", bundle: .current)
+        /// The "Global/DissatisfiedFaceOutline" icon.
         public static let dissatisfiedFaceOutline = ImageResource(name: "Global/DissatisfiedFaceOutline", bundle: .current)
+        /// The "Global/DoubleCheck" icon.
         public static let doubleCheck = ImageResource(name: "Global/DoubleCheck", bundle: .current)
+        /// The "Global/DoubleChevronsLeft" icon.
         public static let doubleChevronsLeft = ImageResource(name: "Global/DoubleChevronsLeft", bundle: .current)
+        /// The "Global/DoubleChevronsRight" icon.
         public static let doubleChevronsRight = ImageResource(name: "Global/DoubleChevronsRight", bundle: .current)
+        /// The "Global/DownloadFileFill" icon.
         public static let downloadFileFill = ImageResource(name: "Global/DownloadFileFill", bundle: .current)
+        /// The "Global/DownloadFileOutline" icon.
         public static let downloadFileOutline = ImageResource(name: "Global/DownloadFileOutline", bundle: .current)
+        /// The "Global/Dress" icon.
         public static let dress = ImageResource(name: "Global/Dress", bundle: .current)
+        /// The "Global/ElectricalPlug" icon.
         public static let electricalPlug = ImageResource(name: "Global/ElectricalPlug", bundle: .current)
+        /// The "Global/EuroShieldFill" icon.
         public static let euroShieldFill = ImageResource(name: "Global/EuroShieldFill", bundle: .current)
+        /// The "Global/EuroShieldOutline" icon.
         public static let euroShieldOutline = ImageResource(name: "Global/EuroShieldOutline", bundle: .current)
+        /// The "Global/EuroSymbol" icon.
         public static let euroSymbol = ImageResource(name: "Global/EuroSymbol", bundle: .current)
+        /// The "Global/Export" icon.
         public static let export = ImageResource(name: "Global/Export", bundle: .current)
+        /// The "Global/EyeFill" icon.
         public static let eyeFill = ImageResource(name: "Global/EyeFill", bundle: .current)
+        /// The "Global/EyeOffFill" icon.
         public static let eyeOffFill = ImageResource(name: "Global/EyeOffFill", bundle: .current)
+        /// The "Global/EyeOffOutline" icon.
         public static let eyeOffOutline = ImageResource(name: "Global/EyeOffOutline", bundle: .current)
+        /// The "Global/EyeOutline" icon.
         public static let eyeOutline = ImageResource(name: "Global/EyeOutline", bundle: .current)
+        /// The "Global/FacebookLogoFill" icon.
         public static let facebookLogoFill = ImageResource(name: "Global/FacebookLogoFill", bundle: .current)
+        /// The "Global/FacebookLogoOutline" icon.
         public static let facebookLogoOutline = ImageResource(name: "Global/FacebookLogoOutline", bundle: .current)
+        /// The "Global/Family" icon.
         public static let family = ImageResource(name: "Global/Family", bundle: .current)
+        /// The "Global/FileFill" icon.
         public static let fileFill = ImageResource(name: "Global/FileFill", bundle: .current)
+        /// The "Global/FileOffFill" icon.
         public static let fileOffFill = ImageResource(name: "Global/FileOffFill", bundle: .current)
+        /// The "Global/FileOffOutline" icon.
         public static let fileOffOutline = ImageResource(name: "Global/FileOffOutline", bundle: .current)
+        /// The "Global/FileOutline" icon.
         public static let fileOutline = ImageResource(name: "Global/FileOutline", bundle: .current)
+        /// The "Global/Filter" icon.
         public static let filter = ImageResource(name: "Global/Filter", bundle: .current)
+        /// The "Global/FireFill" icon.
         public static let fireFill = ImageResource(name: "Global/FireFill", bundle: .current)
+        /// The "Global/FireOutline" icon.
         public static let fireOutline = ImageResource(name: "Global/FireOutline", bundle: .current)
+        /// The "Global/FlagFill" icon.
         public static let flagFill = ImageResource(name: "Global/FlagFill", bundle: .current)
+        /// The "Global/FlagOutline" icon.
         public static let flagOutline = ImageResource(name: "Global/FlagOutline", bundle: .current)
+        /// The "Global/FlashlightFill" icon.
         public static let flashlightFill = ImageResource(name: "Global/FlashlightFill", bundle: .current)
+        /// The "Global/FlashlightOutline" icon.
         public static let flashlightOutline = ImageResource(name: "Global/FlashlightOutline", bundle: .current)
+        /// The "Global/FloorPlan" icon.
         public static let floorPlan = ImageResource(name: "Global/FloorPlan", bundle: .current)
+        /// The "Global/FoldedEnvelopFill" icon.
         public static let foldedEnvelopFill = ImageResource(name: "Global/FoldedEnvelopFill", bundle: .current)
+        /// The "Global/FoldedEnvelopOutline" icon.
         public static let foldedEnvelopOutline = ImageResource(name: "Global/FoldedEnvelopOutline", bundle: .current)
+        /// The "Global/ForwardFill" icon.
         public static let forwardFill = ImageResource(name: "Global/ForwardFill", bundle: .current)
+        /// The "Global/ForwardOutline" icon.
         public static let forwardOutline = ImageResource(name: "Global/ForwardOutline", bundle: .current)
+        /// The "Global/FountainPen" icon.
         public static let fountainPen = ImageResource(name: "Global/FountainPen", bundle: .current)
+        /// The "Global/FranceFill" icon.
         public static let franceFill = ImageResource(name: "Global/FranceFill", bundle: .current)
+        /// The "Global/FranceOutline" icon.
         public static let franceOutline = ImageResource(name: "Global/FranceOutline", bundle: .current)
+        /// The "Global/GalleryFill" icon.
         public static let galleryFill = ImageResource(name: "Global/GalleryFill", bundle: .current)
+        /// The "Global/GalleryOutline" icon.
         public static let galleryOutline = ImageResource(name: "Global/GalleryOutline", bundle: .current)
+        /// The "Global/GameBoy" icon.
         public static let gameBoy = ImageResource(name: "Global/GameBoy", bundle: .current)
+        /// The "Global/Garage" icon.
         public static let garage = ImageResource(name: "Global/Garage", bundle: .current)
+        /// The "Global/GardenTools" icon.
         public static let gardenTools = ImageResource(name: "Global/GardenTools", bundle: .current)
+        /// The "Global/GearFill" icon.
         public static let gearFill = ImageResource(name: "Global/GearFill", bundle: .current)
+        /// The "Global/GearOutline" icon.
         public static let gearOutline = ImageResource(name: "Global/GearOutline", bundle: .current)
+        /// The "Global/Gift" icon.
         public static let gift = ImageResource(name: "Global/Gift", bundle: .current)
+        /// The "Global/Grapes" icon.
         public static let grapes = ImageResource(name: "Global/Grapes", bundle: .current)
+        /// The "Global/GraphArrowDown" icon.
         public static let graphArrowDown = ImageResource(name: "Global/GraphArrowDown", bundle: .current)
+        /// The "Global/GraphArrowUp" icon.
         public static let graphArrowUp = ImageResource(name: "Global/GraphArrowUp", bundle: .current)
+        /// The "Global/GraphFill" icon.
         public static let graphFill = ImageResource(name: "Global/GraphFill", bundle: .current)
+        /// The "Global/GraphOutline" icon.
         public static let graphOutline = ImageResource(name: "Global/GraphOutline", bundle: .current)
+        /// The "Global/GraphicCursor" icon.
         public static let graphicCursor = ImageResource(name: "Global/GraphicCursor", bundle: .current)
+        /// The "Global/GraphicHand" icon.
         public static let graphicHand = ImageResource(name: "Global/GraphicHand", bundle: .current)
+        /// The "Global/GroupFill" icon.
         public static let groupFill = ImageResource(name: "Global/GroupFill", bundle: .current)
+        /// The "Global/GroupOutline" icon.
         public static let groupOutline = ImageResource(name: "Global/GroupOutline", bundle: .current)
+        /// The "Global/Guitar" icon.
         public static let guitar = ImageResource(name: "Global/Guitar", bundle: .current)
+        /// The "Global/HandGift" icon.
         public static let handGift = ImageResource(name: "Global/HandGift", bundle: .current)
+        /// The "Global/HappyFaceFill" icon.
         public static let happyFaceFill = ImageResource(name: "Global/HappyFaceFill", bundle: .current)
+        /// The "Global/HappyFaceOutline" icon.
         public static let happyFaceOutline = ImageResource(name: "Global/HappyFaceOutline", bundle: .current)
+        /// The "Global/HeadphoneFill" icon.
         public static let headphoneFill = ImageResource(name: "Global/HeadphoneFill", bundle: .current)
+        /// The "Global/HeadphoneOutline" icon.
         public static let headphoneOutline = ImageResource(name: "Global/HeadphoneOutline", bundle: .current)
+        /// The "Global/HeadphoneSmileFill" icon.
         public static let headphoneSmileFill = ImageResource(name: "Global/HeadphoneSmileFill", bundle: .current)
+        /// The "Global/HeadphoneSmileOutline" icon.
         public static let headphoneSmileOutline = ImageResource(name: "Global/HeadphoneSmileOutline", bundle: .current)
+        /// The "Global/HeartFill" icon.
         public static let heartFill = ImageResource(name: "Global/HeartFill", bundle: .current)
+        /// The "Global/HeartHandshake" icon.
         public static let heartHandshake = ImageResource(name: "Global/HeartHandshake", bundle: .current)
+        /// The "Global/HeartOutline" icon.
         public static let heartOutline = ImageResource(name: "Global/HeartOutline", bundle: .current)
+        /// The "Global/HeatingHouse" icon.
         public static let heatingHouse = ImageResource(name: "Global/HeatingHouse", bundle: .current)
+        /// The "Global/Highlight" icon.
         public static let highlight = ImageResource(name: "Global/Highlight", bundle: .current)
+        /// The "Global/HomeCheckFill" icon.
         public static let homeCheckFill = ImageResource(name: "Global/HomeCheckFill", bundle: .current)
+        /// The "Global/HomeCheckOutline" icon.
         public static let homeCheckOutline = ImageResource(name: "Global/HomeCheckOutline", bundle: .current)
+        /// The "Global/HomeFill" icon.
         public static let homeFill = ImageResource(name: "Global/HomeFill", bundle: .current)
+        /// The "Global/HomeOutline" icon.
         public static let homeOutline = ImageResource(name: "Global/HomeOutline", bundle: .current)
+        /// The "Global/HotWaterdrop" icon.
         public static let hotWaterdrop = ImageResource(name: "Global/HotWaterdrop", bundle: .current)
+        /// The "Global/House" icon.
         public static let house = ImageResource(name: "Global/House", bundle: .current)
+        /// The "Global/IdentityCardFill" icon.
         public static let identityCardFill = ImageResource(name: "Global/IdentityCardFill", bundle: .current)
+        /// The "Global/IdentityCardOutline" icon.
         public static let identityCardOutline = ImageResource(name: "Global/IdentityCardOutline", bundle: .current)
+        /// The "Global/ImageFill" icon.
         public static let imageFill = ImageResource(name: "Global/ImageFill", bundle: .current)
+        /// The "Global/ImageOutline" icon.
         public static let imageOutline = ImageResource(name: "Global/ImageOutline", bundle: .current)
+        /// The "Global/Import" icon.
         public static let `import` = ImageResource(name: "Global/Import", bundle: .current)
+        /// The "Global/InfoFill" icon.
         public static let infoFill = ImageResource(name: "Global/InfoFill", bundle: .current)
+        /// The "Global/InfoOutline" icon.
         public static let infoOutline = ImageResource(name: "Global/InfoOutline", bundle: .current)
+        /// The "Global/InstagramLogoFill" icon.
         public static let instagramLogoFill = ImageResource(name: "Global/InstagramLogoFill", bundle: .current)
+        /// The "Global/InstagramLogoOutline" icon.
         public static let instagramLogoOutline = ImageResource(name: "Global/InstagramLogoOutline", bundle: .current)
+        /// The "Global/KeyFill" icon.
         public static let keyFill = ImageResource(name: "Global/KeyFill", bundle: .current)
+        /// The "Global/KeyHouse" icon.
         public static let keyHouse = ImageResource(name: "Global/KeyHouse", bundle: .current)
+        /// The "Global/KeyOutline" icon.
         public static let keyOutline = ImageResource(name: "Global/KeyOutline", bundle: .current)
+        /// The "Global/Lamp" icon.
         public static let lamp = ImageResource(name: "Global/Lamp", bundle: .current)
+        /// The "Global/LargeArrowUpFill" icon.
         public static let largeArrowUpFill = ImageResource(name: "Global/LargeArrowUpFill", bundle: .current)
+        /// The "Global/LargeArrowUpOutline" icon.
         public static let largeArrowUpOutline = ImageResource(name: "Global/LargeArrowUpOutline", bundle: .current)
+        /// The "Global/LayerFill" icon.
         public static let layerFill = ImageResource(name: "Global/LayerFill", bundle: .current)
+        /// The "Global/LayerOutline" icon.
         public static let layerOutline = ImageResource(name: "Global/LayerOutline", bundle: .current)
+        /// The "Global/LetterDotFill" icon.
         public static let letterDotFill = ImageResource(name: "Global/LetterDotFill", bundle: .current)
+        /// The "Global/LetterDotOutline" icon.
         public static let letterDotOutline = ImageResource(name: "Global/LetterDotOutline", bundle: .current)
+        /// The "Global/LetterFill" icon.
         public static let letterFill = ImageResource(name: "Global/LetterFill", bundle: .current)
+        /// The "Global/LetterOutline" icon.
         public static let letterOutline = ImageResource(name: "Global/LetterOutline", bundle: .current)
+        /// The "Global/LightBulbFill" icon.
         public static let lightBulbFill = ImageResource(name: "Global/LightBulbFill", bundle: .current)
+        /// The "Global/LightBulbOutline" icon.
         public static let lightBulbOutline = ImageResource(name: "Global/LightBulbOutline", bundle: .current)
+        /// The "Global/LightningFill" icon.
         public static let lightningFill = ImageResource(name: "Global/LightningFill", bundle: .current)
+        /// The "Global/LightningOutline" icon.
         public static let lightningOutline = ImageResource(name: "Global/LightningOutline", bundle: .current)
+        /// The "Global/LinkedinLogo" icon.
         public static let linkedinLogo = ImageResource(name: "Global/LinkedinLogo", bundle: .current)
+        /// The "Global/List" icon.
         public static let list = ImageResource(name: "Global/List", bundle: .current)
+        /// The "Global/ListItemSelected" icon.
         public static let listItemSelected = ImageResource(name: "Global/ListItemSelected", bundle: .current)
+        /// The "Global/LockFill" icon.
         public static let lockFill = ImageResource(name: "Global/LockFill", bundle: .current)
+        /// The "Global/LockOutline" icon.
         public static let lockOutline = ImageResource(name: "Global/LockOutline", bundle: .current)
+        /// The "Global/LockerFill" icon.
         public static let lockerFill = ImageResource(name: "Global/LockerFill", bundle: .current)
+        /// The "Global/LockerOutline" icon.
         public static let lockerOutline = ImageResource(name: "Global/LockerOutline", bundle: .current)
+        /// The "Global/Luggages" icon.
         public static let luggages = ImageResource(name: "Global/Luggages", bundle: .current)
+        /// The "Global/MagnifierCrossFill" icon.
         public static let magnifierCrossFill = ImageResource(name: "Global/MagnifierCrossFill", bundle: .current)
+        /// The "Global/MagnifierCrossOutline" icon.
         public static let magnifierCrossOutline = ImageResource(name: "Global/MagnifierCrossOutline", bundle: .current)
+        /// The "Global/MagnifierFill" icon.
         public static let magnifierFill = ImageResource(name: "Global/MagnifierFill", bundle: .current)
+        /// The "Global/MagnifierOutline" icon.
         public static let magnifierOutline = ImageResource(name: "Global/MagnifierOutline", bundle: .current)
+        /// The "Global/MagnifierScan" icon.
         public static let magnifierScan = ImageResource(name: "Global/MagnifierScan", bundle: .current)
+        /// The "Global/MailBoxCloseFill" icon.
         public static let mailBoxCloseFill = ImageResource(name: "Global/MailBoxCloseFill", bundle: .current)
+        /// The "Global/MailBoxCloseOutline" icon.
         public static let mailBoxCloseOutline = ImageResource(name: "Global/MailBoxCloseOutline", bundle: .current)
+        /// The "Global/MailBoxOpenFill" icon.
         public static let mailBoxOpenFill = ImageResource(name: "Global/MailBoxOpenFill", bundle: .current)
+        /// The "Global/MailBoxOpenOutline" icon.
         public static let mailBoxOpenOutline = ImageResource(name: "Global/MailBoxOpenOutline", bundle: .current)
+        /// The "Global/ManWalkingFill" icon.
         public static let manWalkingFill = ImageResource(name: "Global/ManWalkingFill", bundle: .current)
+        /// The "Global/ManWalkingOutline" icon.
         public static let manWalkingOutline = ImageResource(name: "Global/ManWalkingOutline", bundle: .current)
+        /// The "Global/Maternity" icon.
         public static let maternity = ImageResource(name: "Global/Maternity", bundle: .current)
+        /// The "Global/Medal" icon.
         public static let medal = ImageResource(name: "Global/Medal", bundle: .current)
+        /// The "Global/MegaphoneFill" icon.
         public static let megaphoneFill = ImageResource(name: "Global/MegaphoneFill", bundle: .current)
+        /// The "Global/MegaphoneMuteFill" icon.
         public static let megaphoneMuteFill = ImageResource(name: "Global/MegaphoneMuteFill", bundle: .current)
+        /// The "Global/MegaphoneMuteOutline" icon.
         public static let megaphoneMuteOutline = ImageResource(name: "Global/MegaphoneMuteOutline", bundle: .current)
+        /// The "Global/MegaphoneOutline" icon.
         public static let megaphoneOutline = ImageResource(name: "Global/MegaphoneOutline", bundle: .current)
+        /// The "Global/MessengerLogo" icon.
         public static let messengerLogo = ImageResource(name: "Global/MessengerLogo", bundle: .current)
+        /// The "Global/MicrophoneFill" icon.
         public static let microphoneFill = ImageResource(name: "Global/MicrophoneFill", bundle: .current)
+        /// The "Global/MicrophoneOffFill" icon.
         public static let microphoneOffFill = ImageResource(name: "Global/MicrophoneOffFill", bundle: .current)
+        /// The "Global/MicrophoneOffOutline" icon.
         public static let microphoneOffOutline = ImageResource(name: "Global/MicrophoneOffOutline", bundle: .current)
+        /// The "Global/MicrophoneOutline" icon.
         public static let microphoneOutline = ImageResource(name: "Global/MicrophoneOutline", bundle: .current)
+        /// The "Global/MicrophoneSparks" icon.
         public static let microphoneSparks = ImageResource(name: "Global/MicrophoneSparks", bundle: .current)
+        /// The "Global/Microwave" icon.
         public static let microwave = ImageResource(name: "Global/Microwave", bundle: .current)
+        /// The "Global/Minus" icon.
         public static let minus = ImageResource(name: "Global/Minus", bundle: .current)
+        /// The "Global/MinusCircleFill" icon.
         public static let minusCircleFill = ImageResource(name: "Global/MinusCircleFill", bundle: .current)
+        /// The "Global/MinusCircleOutline" icon.
         public static let minusCircleOutline = ImageResource(name: "Global/MinusCircleOutline", bundle: .current)
+        /// The "Global/Mobile" icon.
         public static let mobile = ImageResource(name: "Global/Mobile", bundle: .current)
+        /// The "Global/MobileCheck" icon.
         public static let mobileCheck = ImageResource(name: "Global/MobileCheck", bundle: .current)
+        /// The "Global/MonumentFill" icon.
         public static let monumentFill = ImageResource(name: "Global/MonumentFill", bundle: .current)
+        /// The "Global/MonumentOutline" icon.
         public static let monumentOutline = ImageResource(name: "Global/MonumentOutline", bundle: .current)
+        /// The "Global/MoonStar" icon.
         public static let moonStar = ImageResource(name: "Global/MoonStar", bundle: .current)
+        /// The "Global/MotorBike" icon.
         public static let motorBike = ImageResource(name: "Global/MotorBike", bundle: .current)
+        /// The "Global/Mouse" icon.
         public static let mouse = ImageResource(name: "Global/Mouse", bundle: .current)
+        /// The "Global/MoveUp" icon.
         public static let moveUp = ImageResource(name: "Global/MoveUp", bundle: .current)
+        /// The "Global/Movie" icon.
         public static let movie = ImageResource(name: "Global/Movie", bundle: .current)
+        /// The "Global/Multimedia" icon.
         public static let multimedia = ImageResource(name: "Global/Multimedia", bundle: .current)
+        /// The "Global/MultimediaSystem" icon.
         public static let multimediaSystem = ImageResource(name: "Global/MultimediaSystem", bundle: .current)
+        /// The "Global/Music" icon.
         public static let music = ImageResource(name: "Global/Music", bundle: .current)
+        /// The "Global/Musician" icon.
         public static let musician = ImageResource(name: "Global/Musician", bundle: .current)
+        /// The "Global/NeutralFaceFill" icon.
         public static let neutralFaceFill = ImageResource(name: "Global/NeutralFaceFill", bundle: .current)
+        /// The "Global/NeutralFaceOutline" icon.
         public static let neutralFaceOutline = ImageResource(name: "Global/NeutralFaceOutline", bundle: .current)
+        /// The "Global/OldFill" icon.
         public static let oldFill = ImageResource(name: "Global/OldFill", bundle: .current)
+        /// The "Global/OldOutline" icon.
         public static let oldOutline = ImageResource(name: "Global/OldOutline", bundle: .current)
+        /// The "Global/OpenLetterFill" icon.
         public static let openLetterFill = ImageResource(name: "Global/OpenLetterFill", bundle: .current)
+        /// The "Global/OpenLetterOutline" icon.
         public static let openLetterOutline = ImageResource(name: "Global/OpenLetterOutline", bundle: .current)
+        /// The "Global/PaintPalette" icon.
         public static let paintPalette = ImageResource(name: "Global/PaintPalette", bundle: .current)
+        /// The "Global/PaintbrushSparks" icon.
         public static let paintbrushSparks = ImageResource(name: "Global/PaintbrushSparks", bundle: .current)
+        /// The "Global/PaperMapFill" icon.
         public static let paperMapFill = ImageResource(name: "Global/PaperMapFill", bundle: .current)
+        /// The "Global/PaperMapOutline" icon.
         public static let paperMapOutline = ImageResource(name: "Global/PaperMapOutline", bundle: .current)
+        /// The "Global/ParasolFill" icon.
         public static let parasolFill = ImageResource(name: "Global/ParasolFill", bundle: .current)
+        /// The "Global/ParasolOutline" icon.
         public static let parasolOutline = ImageResource(name: "Global/ParasolOutline", bundle: .current)
+        /// The "Global/Pawn" icon.
         public static let pawn = ImageResource(name: "Global/Pawn", bundle: .current)
+        /// The "Global/PdfFill" icon.
         public static let pdfFill = ImageResource(name: "Global/PdfFill", bundle: .current)
+        /// The "Global/PdfOutline" icon.
         public static let pdfOutline = ImageResource(name: "Global/PdfOutline", bundle: .current)
+        /// The "Global/PenFill" icon.
         public static let penFill = ImageResource(name: "Global/PenFill", bundle: .current)
+        /// The "Global/PenOutline" icon.
         public static let penOutline = ImageResource(name: "Global/PenOutline", bundle: .current)
+        /// The "Global/Percentage" icon.
         public static let percentage = ImageResource(name: "Global/Percentage", bundle: .current)
+        /// The "Global/PetPaw" icon.
         public static let petPaw = ImageResource(name: "Global/PetPaw", bundle: .current)
+        /// The "Global/PhoneCallEnterFill" icon.
         public static let phoneCallEnterFill = ImageResource(name: "Global/PhoneCallEnterFill", bundle: .current)
+        /// The "Global/PhoneCallEnterOutline" icon.
         public static let phoneCallEnterOutline = ImageResource(name: "Global/PhoneCallEnterOutline", bundle: .current)
+        /// The "Global/PhoneCallFill" icon.
         public static let phoneCallFill = ImageResource(name: "Global/PhoneCallFill", bundle: .current)
+        /// The "Global/PhoneCallMissFill" icon.
         public static let phoneCallMissFill = ImageResource(name: "Global/PhoneCallMissFill", bundle: .current)
+        /// The "Global/PhoneCallMissOutline" icon.
         public static let phoneCallMissOutline = ImageResource(name: "Global/PhoneCallMissOutline", bundle: .current)
+        /// The "Global/PhoneCallOutline" icon.
         public static let phoneCallOutline = ImageResource(name: "Global/PhoneCallOutline", bundle: .current)
+        /// The "Global/PhoneCallSparksFill" icon.
         public static let phoneCallSparksFill = ImageResource(name: "Global/PhoneCallSparksFill", bundle: .current)
+        /// The "Global/PhoneCallSparksOutline" icon.
         public static let phoneCallSparksOutline = ImageResource(name: "Global/PhoneCallSparksOutline", bundle: .current)
+        /// The "Global/PhoneCallSuccessFill" icon.
         public static let phoneCallSuccessFill = ImageResource(name: "Global/PhoneCallSuccessFill", bundle: .current)
+        /// The "Global/PhoneCallSuccessOutline" icon.
         public static let phoneCallSuccessOutline = ImageResource(name: "Global/PhoneCallSuccessOutline", bundle: .current)
+        /// The "Global/PhoneFill" icon.
         public static let phoneFill = ImageResource(name: "Global/PhoneFill", bundle: .current)
+        /// The "Global/PhoneOutline" icon.
         public static let phoneOutline = ImageResource(name: "Global/PhoneOutline", bundle: .current)
+        /// The "Global/PhotoPack" icon.
         public static let photoPack = ImageResource(name: "Global/PhotoPack", bundle: .current)
+        /// The "Global/PiggyBankFill" icon.
         public static let piggyBankFill = ImageResource(name: "Global/PiggyBankFill", bundle: .current)
+        /// The "Global/PiggyBankOutline" icon.
         public static let piggyBankOutline = ImageResource(name: "Global/PiggyBankOutline", bundle: .current)
+        /// The "Global/PinFill" icon.
         public static let pinFill = ImageResource(name: "Global/PinFill", bundle: .current)
+        /// The "Global/PinOutline" icon.
         public static let pinOutline = ImageResource(name: "Global/PinOutline", bundle: .current)
+        /// The "Global/PinterestLogo" icon.
         public static let pinterestLogo = ImageResource(name: "Global/PinterestLogo", bundle: .current)
+        /// The "Global/Placeholder" icon.
         public static let placeholder = ImageResource(name: "Global/Placeholder", bundle: .current)
+        /// The "Global/Plant" icon.
         public static let plant = ImageResource(name: "Global/Plant", bundle: .current)
+        /// The "Global/PlayFill" icon.
         public static let playFill = ImageResource(name: "Global/PlayFill", bundle: .current)
+        /// The "Global/PlayOutline" icon.
         public static let playOutline = ImageResource(name: "Global/PlayOutline", bundle: .current)
+        /// The "Global/Plus" icon.
         public static let plus = ImageResource(name: "Global/Plus", bundle: .current)
+        /// The "Global/PremiumFill" icon.
         public static let premiumFill = ImageResource(name: "Global/PremiumFill", bundle: .current)
+        /// The "Global/PremiumOutline" icon.
         public static let premiumOutline = ImageResource(name: "Global/PremiumOutline", bundle: .current)
+        /// The "Global/PrinterFill" icon.
         public static let printerFill = ImageResource(name: "Global/PrinterFill", bundle: .current)
+        /// The "Global/PrinterOutline" icon.
         public static let printerOutline = ImageResource(name: "Global/PrinterOutline", bundle: .current)
+        /// The "Global/ProfileFill" icon.
         public static let profileFill = ImageResource(name: "Global/ProfileFill", bundle: .current)
+        /// The "Global/ProfileOutline" icon.
         public static let profileOutline = ImageResource(name: "Global/ProfileOutline", bundle: .current)
+        /// The "Global/Pyramid" icon.
         public static let pyramid = ImageResource(name: "Global/Pyramid", bundle: .current)
+        /// The "Global/QRCodeScan" icon.
         public static let qRCodeScan = ImageResource(name: "Global/QRCodeScan", bundle: .current)
+        /// The "Global/QuestionFill" icon.
         public static let questionFill = ImageResource(name: "Global/QuestionFill", bundle: .current)
+        /// The "Global/QuestionOutline" icon.
         public static let questionOutline = ImageResource(name: "Global/QuestionOutline", bundle: .current)
+        /// The "Global/Rearviewmirror" icon.
         public static let rearviewmirror = ImageResource(name: "Global/Rearviewmirror", bundle: .current)
+        /// The "Global/RedoArrow" icon.
         public static let redoArrow = ImageResource(name: "Global/RedoArrow", bundle: .current)
+        /// The "Global/Refresh" icon.
         public static let refresh = ImageResource(name: "Global/Refresh", bundle: .current)
+        /// The "Global/RefundEuro" icon.
         public static let refundEuro = ImageResource(name: "Global/RefundEuro", bundle: .current)
+        /// The "Global/RocketFill" icon.
         public static let rocketFill = ImageResource(name: "Global/RocketFill", bundle: .current)
+        /// The "Global/RocketOutline" icon.
         public static let rocketOutline = ImageResource(name: "Global/RocketOutline", bundle: .current)
+        /// The "Global/RotateImage" icon.
         public static let rotateImage = ImageResource(name: "Global/RotateImage", bundle: .current)
+        /// The "Global/SadFaceFill" icon.
         public static let sadFaceFill = ImageResource(name: "Global/SadFaceFill", bundle: .current)
+        /// The "Global/SadFaceOutline" icon.
         public static let sadFaceOutline = ImageResource(name: "Global/SadFaceOutline", bundle: .current)
+        /// The "Global/Sailboat" icon.
         public static let sailboat = ImageResource(name: "Global/Sailboat", bundle: .current)
+        /// The "Global/SandglassFill" icon.
         public static let sandglassFill = ImageResource(name: "Global/SandglassFill", bundle: .current)
+        /// The "Global/SandglassOutline" icon.
         public static let sandglassOutline = ImageResource(name: "Global/SandglassOutline", bundle: .current)
+        /// The "Global/Scan" icon.
         public static let scan = ImageResource(name: "Global/Scan", bundle: .current)
+        /// The "Global/SchoolBag" icon.
         public static let schoolBag = ImageResource(name: "Global/SchoolBag", bundle: .current)
+        /// The "Global/ShareExternal" icon.
         public static let shareExternal = ImageResource(name: "Global/ShareExternal", bundle: .current)
+        /// The "Global/ShareFill" icon.
         public static let shareFill = ImageResource(name: "Global/ShareFill", bundle: .current)
+        /// The "Global/ShareOutline" icon.
         public static let shareOutline = ImageResource(name: "Global/ShareOutline", bundle: .current)
+        /// The "Global/ShareiOs" icon.
         public static let shareiOs = ImageResource(name: "Global/ShareiOs", bundle: .current)
+        /// The "Global/ShinyBuildings" icon.
         public static let shinyBuildings = ImageResource(name: "Global/ShinyBuildings", bundle: .current)
+        /// The "Global/Shoes" icon.
         public static let shoes = ImageResource(name: "Global/Shoes", bundle: .current)
+        /// The "Global/ShoppingCartFill" icon.
         public static let shoppingCartFill = ImageResource(name: "Global/ShoppingCartFill", bundle: .current)
+        /// The "Global/ShoppingCartOutline" icon.
         public static let shoppingCartOutline = ImageResource(name: "Global/ShoppingCartOutline", bundle: .current)
+        /// The "Global/Sort" icon.
         public static let sort = ImageResource(name: "Global/Sort", bundle: .current)
+        /// The "Global/Sparks" icon.
         public static let sparks = ImageResource(name: "Global/Sparks", bundle: .current)
+        /// The "Global/SpeedmeterFill" icon.
         public static let speedmeterFill = ImageResource(name: "Global/SpeedmeterFill", bundle: .current)
+        /// The "Global/SpeedmeterOutline" icon.
         public static let speedmeterOutline = ImageResource(name: "Global/SpeedmeterOutline", bundle: .current)
+        /// The "Global/Stack" icon.
         public static let stack = ImageResource(name: "Global/Stack", bundle: .current)
+        /// The "Global/StarFill" icon.
         public static let starFill = ImageResource(name: "Global/StarFill", bundle: .current)
+        /// The "Global/StarOutline" icon.
         public static let starOutline = ImageResource(name: "Global/StarOutline", bundle: .current)
+        /// The "Global/StopFill" icon.
         public static let stopFill = ImageResource(name: "Global/StopFill", bundle: .current)
+        /// The "Global/StopOutline" icon.
         public static let stopOutline = ImageResource(name: "Global/StopOutline", bundle: .current)
+        /// The "Global/Stoplight" icon.
         public static let stoplight = ImageResource(name: "Global/Stoplight", bundle: .current)
+        /// The "Global/StoreFill" icon.
         public static let storeFill = ImageResource(name: "Global/StoreFill", bundle: .current)
+        /// The "Global/StoreOutline" icon.
         public static let storeOutline = ImageResource(name: "Global/StoreOutline", bundle: .current)
+        /// The "Global/StrokeImage" icon.
         public static let strokeImage = ImageResource(name: "Global/StrokeImage", bundle: .current)
+        /// The "Global/Stroller" icon.
         public static let stroller = ImageResource(name: "Global/Stroller", bundle: .current)
+        /// The "Global/StudentHat" icon.
         public static let studentHat = ImageResource(name: "Global/StudentHat", bundle: .current)
+        /// The "Global/Sun" icon.
         public static let sun = ImageResource(name: "Global/Sun", bundle: .current)
+        /// The "Global/SunMoon" icon.
         public static let sunMoon = ImageResource(name: "Global/SunMoon", bundle: .current)
+        /// The "Global/SunnyHouse" icon.
         public static let sunnyHouse = ImageResource(name: "Global/SunnyHouse", bundle: .current)
+        /// The "Global/Tablet" icon.
         public static let tablet = ImageResource(name: "Global/Tablet", bundle: .current)
+        /// The "Global/Tableware" icon.
         public static let tableware = ImageResource(name: "Global/Tableware", bundle: .current)
+        /// The "Global/TagFill" icon.
         public static let tagFill = ImageResource(name: "Global/TagFill", bundle: .current)
+        /// The "Global/TagOutline" icon.
         public static let tagOutline = ImageResource(name: "Global/TagOutline", bundle: .current)
+        /// The "Global/TargetFill" icon.
         public static let targetFill = ImageResource(name: "Global/TargetFill", bundle: .current)
+        /// The "Global/TargetOutline" icon.
         public static let targetOutline = ImageResource(name: "Global/TargetOutline", bundle: .current)
+        /// The "Global/TeddyBear" icon.
         public static let teddyBear = ImageResource(name: "Global/TeddyBear", bundle: .current)
+        /// The "Global/ThreeDimension" icon.
         public static let threeDimension = ImageResource(name: "Global/ThreeDimension", bundle: .current)
+        /// The "Global/ThreeDimension_2" icon.
         public static let threeDimension_2 = ImageResource(name: "Global/ThreeDimension_2", bundle: .current)
+        /// The "Global/ThreeDotsHorizontal" icon.
         public static let threeDotsHorizontal = ImageResource(name: "Global/ThreeDotsHorizontal", bundle: .current)
+        /// The "Global/ThreeDotsVertical" icon.
         public static let threeDotsVertical = ImageResource(name: "Global/ThreeDotsVertical", bundle: .current)
+        /// The "Global/ThreeSixty" icon.
         public static let threeSixty = ImageResource(name: "Global/ThreeSixty", bundle: .current)
+        /// The "Global/ThumbDownFill" icon.
         public static let thumbDownFill = ImageResource(name: "Global/ThumbDownFill", bundle: .current)
+        /// The "Global/ThumbDownOutline" icon.
         public static let thumbDownOutline = ImageResource(name: "Global/ThumbDownOutline", bundle: .current)
+        /// The "Global/ThumbUpFill" icon.
         public static let thumbUpFill = ImageResource(name: "Global/ThumbUpFill", bundle: .current)
+        /// The "Global/ThumbUpOutline" icon.
         public static let thumbUpOutline = ImageResource(name: "Global/ThumbUpOutline", bundle: .current)
+        /// The "Global/Thumbtack" icon.
         public static let thumbtack = ImageResource(name: "Global/Thumbtack", bundle: .current)
+        /// The "Global/Ticket" icon.
         public static let ticket = ImageResource(name: "Global/Ticket", bundle: .current)
+        /// The "Global/Tractor" icon.
         public static let tractor = ImageResource(name: "Global/Tractor", bundle: .current)
+        /// The "Global/TrainFill" icon.
         public static let trainFill = ImageResource(name: "Global/TrainFill", bundle: .current)
+        /// The "Global/TrainOutline" icon.
         public static let trainOutline = ImageResource(name: "Global/TrainOutline", bundle: .current)
+        /// The "Global/TrashCrossFill" icon.
         public static let trashCrossFill = ImageResource(name: "Global/TrashCrossFill", bundle: .current)
+        /// The "Global/TrashCrossOutline" icon.
         public static let trashCrossOutline = ImageResource(name: "Global/TrashCrossOutline", bundle: .current)
+        /// The "Global/TrashFill" icon.
         public static let trashFill = ImageResource(name: "Global/TrashFill", bundle: .current)
+        /// The "Global/TrashOutline" icon.
         public static let trashOutline = ImageResource(name: "Global/TrashOutline", bundle: .current)
+        /// The "Global/TreeFence" icon.
         public static let treeFence = ImageResource(name: "Global/TreeFence", bundle: .current)
+        /// The "Global/TruckClockFill" icon.
         public static let truckClockFill = ImageResource(name: "Global/TruckClockFill", bundle: .current)
+        /// The "Global/TruckClockOutline" icon.
         public static let truckClockOutline = ImageResource(name: "Global/TruckClockOutline", bundle: .current)
+        /// The "Global/Tshirt" icon.
         public static let tshirt = ImageResource(name: "Global/Tshirt", bundle: .current)
+        /// The "Global/TwitterLogo" icon.
         public static let twitterLogo = ImageResource(name: "Global/TwitterLogo", bundle: .current)
+        /// The "Global/UndoArrow" icon.
         public static let undoArrow = ImageResource(name: "Global/UndoArrow", bundle: .current)
+        /// The "Global/UnlockFill" icon.
         public static let unlockFill = ImageResource(name: "Global/UnlockFill", bundle: .current)
+        /// The "Global/UnlockOutline" icon.
         public static let unlockOutline = ImageResource(name: "Global/UnlockOutline", bundle: .current)
+        /// The "Global/UserCheckFill" icon.
         public static let userCheckFill = ImageResource(name: "Global/UserCheckFill", bundle: .current)
+        /// The "Global/UserCheckOutline" icon.
         public static let userCheckOutline = ImageResource(name: "Global/UserCheckOutline", bundle: .current)
+        /// The "Global/UserCircleFill" icon.
         public static let userCircleFill = ImageResource(name: "Global/UserCircleFill", bundle: .current)
+        /// The "Global/UserCircleOutline" icon.
         public static let userCircleOutline = ImageResource(name: "Global/UserCircleOutline", bundle: .current)
+        /// The "Global/UserFill" icon.
         public static let userFill = ImageResource(name: "Global/UserFill", bundle: .current)
+        /// The "Global/UserOutline" icon.
         public static let userOutline = ImageResource(name: "Global/UserOutline", bundle: .current)
+        /// The "Global/UtilityTruck" icon.
         public static let utilityTruck = ImageResource(name: "Global/UtilityTruck", bundle: .current)
+        /// The "Global/Vase" icon.
         public static let vase = ImageResource(name: "Global/Vase", bundle: .current)
+        /// The "Global/VerifiedShieldFill" icon.
         public static let verifiedShieldFill = ImageResource(name: "Global/VerifiedShieldFill", bundle: .current)
+        /// The "Global/VerifiedShieldOutline" icon.
         public static let verifiedShieldOutline = ImageResource(name: "Global/VerifiedShieldOutline", bundle: .current)
+        /// The "Global/WalletBrand" icon.
         public static let walletBrand = ImageResource(name: "Global/WalletBrand", bundle: .current)
+        /// The "Global/WarningFill" icon.
         public static let warningFill = ImageResource(name: "Global/WarningFill", bundle: .current)
+        /// The "Global/WarningImage" icon.
         public static let warningImage = ImageResource(name: "Global/WarningImage", bundle: .current)
+        /// The "Global/WarningOutline" icon.
         public static let warningOutline = ImageResource(name: "Global/WarningOutline", bundle: .current)
+        /// The "Global/WarningShieldFill" icon.
         public static let warningShieldFill = ImageResource(name: "Global/WarningShieldFill", bundle: .current)
+        /// The "Global/WarningShieldOutline" icon.
         public static let warningShieldOutline = ImageResource(name: "Global/WarningShieldOutline", bundle: .current)
+        /// The "Global/Watch" icon.
         public static let watch = ImageResource(name: "Global/Watch", bundle: .current)
+        /// The "Global/Waterdrop" icon.
         public static let waterdrop = ImageResource(name: "Global/Waterdrop", bundle: .current)
+        /// The "Global/WhatsappLogo" icon.
         public static let whatsappLogo = ImageResource(name: "Global/WhatsappLogo", bundle: .current)
+        /// The "Global/Wifi" icon.
         public static let wifi = ImageResource(name: "Global/Wifi", bundle: .current)
+        /// The "Global/WorkFill" icon.
         public static let workFill = ImageResource(name: "Global/WorkFill", bundle: .current)
+        /// The "Global/WorkOutline" icon.
         public static let workOutline = ImageResource(name: "Global/WorkOutline", bundle: .current)
+        /// The "Global/Wrench" icon.
         public static let wrench = ImageResource(name: "Global/Wrench", bundle: .current)
     }
 }

@@ -1,7 +1,5 @@
 # ___COMPONENT_NAME___
 
-**Spark** is the [Leboncoin](https://www.leboncoin.fr/)'s _Design System_.
-
 The folder here contains only the **iOS ___COMPONENT_NAME___** for _SwiftUI_ and _UIKit_.
 
 ## Specifications
@@ -21,7 +19,7 @@ _Note: Instructions below are for using **SPM** without the Xcode UI. It's the e
 To integrate using Apple's Swift package manager, without Xcode integration, add the following as a dependency to your `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/leboncoin/spark-ios.git", .upToNextMajor(from: "1.0.0"))
+.package(url: "https://github.com/leboncoin/spark-ios.git", .upToNextMajor(from: "2.0.0"))
 ```
 
 and then specify `SparkComponent___COMPONENT_NAME___` as a dependency of the Target in which you wish to use the SparkComponent___COMPONENT_NAME___.
@@ -45,7 +43,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/leboncoin/spark-ios.git",
-            .upToNextMajor(from: "1.0.0")
+            .upToNextMajor(from: "2.0.0")
         )
     ],
     targets: [

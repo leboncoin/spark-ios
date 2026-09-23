@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Stepper Component",
+    "description": "Lets users quickly specify a numerical value within a given range",
+    "image": "stepper",
+    "zeroheight": "https://zeroheight.com/1186e1705/p/95f37c-stepper",
+    "figma": "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=51908-6090"
+  }
+]

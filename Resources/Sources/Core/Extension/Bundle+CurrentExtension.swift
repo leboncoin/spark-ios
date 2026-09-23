@@ -1,6 +1,6 @@
 //
 //  Bundle+CurrentExtension.swift
-//  Resources
+//  SparkResources
 //
 //  Created by robin.lemaire on 10/02/2026.
 //  Copyright © 2026 Leboncoin. All rights reserved.

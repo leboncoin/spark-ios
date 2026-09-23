@@ -1,4 +1,4 @@
-# ``SparkComponent___COMPONENT_NAME___``
+# SparkComponent___COMPONENT_NAME___
 
 TODO: 
 

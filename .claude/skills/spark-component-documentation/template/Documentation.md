@@ -1,4 +1,4 @@
-# ``SparkComponentXXX``
+# SparkComponentXXX
 
 /*TODO: Put description here*/
 

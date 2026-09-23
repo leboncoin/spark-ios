@@ -1,0 +1,16 @@
+[
+  {
+    "title": "TextField Component",
+    "description": "Displays an editable text interface",
+    "image": "input-textfield",
+    "zeroheight": "https://zeroheight.com/1186e1705/p/773c60-input--text-field",
+    "figma": "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=267-8336"
+  },
+  {
+    "title": "TextEditor Component",
+    "description": "Displays and edits long-form text",
+    "image": "text-area",
+    "zeroheight": "https://zeroheight.com/1186e1705/p/365c2e-text-area--text-view",
+    "figma": "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=3661-22748"
+  }
+]
