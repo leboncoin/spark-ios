@@ -6,7 +6,7 @@ PACKAGES = $(shell find Dependencies -maxdepth 1 -mindepth 1 -type d -exec basen
 RESULTS_DIR = .testResults
 DERIVED_DATA_PATH = .derivedData/
 SDK = iphonesimulator
-DESTINATION = platform=iOS Simulator,name=iPhone 17 Pro Max,OS=26.4.1
+DESTINATION = platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5
 XCODEBUILD_FLAGS = -derivedDataPath $(DERIVED_DATA_PATH) -sdk $(SDK) -destination "$(DESTINATION)"
 DOCC_OUTPUT_PATH = .docs
 HOSTING_BASE_PATH ?= spark-ios

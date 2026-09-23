@@ -23,7 +23,7 @@ The Makefile uses the following configuration variables that can be customized:
 | `RESULTS_DIR` | `.testResults` | Directory where test results are stored |
 | `DERIVED_DATA_PATH` | `.derivedData/` | Path for Xcode derived data |
 | `SDK` | `iphonesimulator` | SDK to use for building |
-| `DESTINATION` | `platform=iOS Simulator,name=iPhone 17 Pro Max,OS=26.4.1` | Simulator destination for builds and tests |
+| `DESTINATION` | `platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5` | Simulator destination for builds and tests |
 | `DOCC_OUTPUT_PATH` | `.docs` | Output directory for DocC documentation |
 | `HOSTING_BASE_PATH` | `poc-monorepo` | Base path for hosting static documentation (can be overridden) |
 | `DEMO_APP_NAME` | `SparkDemoApp` | Scheme name of the demo app |
