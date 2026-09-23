@@ -27,7 +27,6 @@ The Makefile uses the following configuration variables that can be customized:
 | `DOCC_OUTPUT_PATH` | `.docs` | Output directory for DocC documentation |
 | `HOSTING_BASE_PATH` | `poc-monorepo` | Base path for hosting static documentation (can be overridden) |
 | `DEMO_APP_NAME` | `SparkDemoApp` | Scheme name of the demo app |
-| `DEMO_APP_DESTINATION` | `platform=iOS Simulator,name=iPhone 17,OS=26.2` | Simulator destination for the demo app build |
 
 ---
 
@@ -67,7 +66,7 @@ make build-demo-app
 
 **Description:**
 - Requires the Xcode project to already be generated (e.g. via `xcodegen`)
-- Builds the `DEMO_APP_NAME` scheme with the configured `SDK` and `DEMO_APP_DESTINATION`
+- Builds the `DEMO_APP_NAME` scheme with the configured `SDK` and `DESTINATION`
 - Produces a `.xcresult` bundle named `[DEMO_APP_NAME].xcresult` at the project root
 - Exits with error code 1 if the build fails
 
@@ -127,6 +126,7 @@ make docc DOCC_OUTPUT_PATH=my-output-path HOSTING_BASE_PATH=my-custom-path
 ```
 
 **Description:**
+- First runs the `sourcery` target to generate necessary code
 - Builds DocC documentation using xcodebuild docbuild
 - Processes all .doccarchive files (excluding those containing "Testing")
 - Transforms documentation for static hosting

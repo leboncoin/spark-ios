@@ -91,7 +91,7 @@ test: sourcery
 # To test locally, use :
 # $ cd .docs && python3 -m http.server 8000
 # Then open http://localhost:8000
-docc:
+docc: sourcery
 	@echo "Generating DocC documentation..."
 	@rm -rf Spark.xcodeproj # xcodebuild silently prefers this over the Spark-Package SPM scheme when both exist
 	@mkdir -p $(DOCC_OUTPUT_PATH)

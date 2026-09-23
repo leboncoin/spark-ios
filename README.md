@@ -61,6 +61,10 @@ let package = Package(
 )
 ```
 
+### Other SPM configurations
+
+More `Package.swift` examples are available in the [SPM Integration documentation](docs/SPM_INTEGRATION.md).
+
 ## Demo
 
 To launch the demo app, launch the command line :
