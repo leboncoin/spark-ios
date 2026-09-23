@@ -43,7 +43,8 @@ This workflow runs automatically and manually:
 3. **Get swift version** - Verifies Swift installation
 4. **Select Xcode** - Configures Xcode 26.6
 5. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
-6. **Build** - Executes `make build` to build all packages
+6. **Get sourcery** - Installs Sourcery via `brew install sourcery` (required to generate code before building)
+7. **Build** - Executes `make build` to build all packages
 
 ### 2. Tests Job
 
@@ -56,8 +57,9 @@ This workflow runs automatically and manually:
 3. **Get swift version** - Verifies Swift installation
 4. **Select Xcode** - Configures Xcode 26.6
 5. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
-6. **Test** - Executes `make test` with a 30-minute timeout
-7. **Upload xcresult file** - On failure, uploads the `.xcresult` bundle as an artifact (`actions/upload-artifact@v6`), retained for 15 days
+6. **Get sourcery** - Installs Sourcery via `brew install sourcery` (required to generate code before testing)
+7. **Test** - Executes `make test` with a 30-minute timeout
+8. **Upload xcresult file** - On failure, uploads the `.xcresult` bundle as an artifact (`actions/upload-artifact@v6`), retained for 15 days
 
 ### 4. Build Demo App Job
 

@@ -52,13 +52,14 @@ The workflow requires specific GitHub token permissions:
 
 1. **Package names** - Logs the repository name
 2. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
-3. **Create docs directory** - Creates the output directory for documentation
-4. **Build DocC** - Executes `make docc` with:
+3. **Get sourcery** - Installs Sourcery via `brew install sourcery` (required to generate code before building the documentation)
+4. **Create docs directory** - Creates the output directory for documentation
+5. **Build DocC** - Executes `make docc` with:
    - `DOCC_OUTPUT_PATH=${{ env.doc_path }}` - Output directory
    - `HOSTING_BASE_PATH=${{ env.repo_name }}` - Base path for hosted documentation
-5. **Setup Pages** - Configures GitHub Pages using `actions/configure-pages@v5`
-6. **Upload artifact** - Uploads the documentation as an artifact using `actions/upload-pages-artifact@v3`
-7. **Deploy to GitHub Pages** - Deploys the artifact to GitHub Pages using `actions/deploy-pages@v5`
+6. **Setup Pages** - Configures GitHub Pages using `actions/configure-pages@v5`
+7. **Upload artifact** - Uploads the documentation as an artifact using `actions/upload-pages-artifact@v3`
+8. **Deploy to GitHub Pages** - Deploys the artifact to GitHub Pages using `actions/deploy-pages@v5`
 
 **Output**:
 - `page_url` - The URL where the documentation is deployed (available via `${{ steps.deployment.outputs.page_url }}`)

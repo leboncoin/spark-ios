@@ -35,6 +35,9 @@ jobs:
         run: echo "Generate DocC packages at ${{ env.repo_name }}"
       - name: Checkout Action
         uses: actions/checkout@v6
+      - name: Get sourcery
+        run: |
+          brew install sourcery
       - name: Create docs directory
         run: mkdir -p ${{ env.doc_path }}
       - name: Build DocC 
