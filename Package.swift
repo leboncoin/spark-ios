@@ -91,7 +91,7 @@ let package = Package(
             dependencies: [
                 "SparkTheming"
             ],
-            path: "Dependencies/Common/Sources/Core"
+            path: "Modules/Common/Sources/Core"
         ),
         .target(
             name: "SparkCommonTesting",
@@ -100,7 +100,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/Common/Sources/Testing"
+            path: "Modules/Common/Sources/Testing"
         ),
         .target(
             name: "SparkCommonSnapshotTesting",
@@ -113,25 +113,25 @@ let package = Package(
                     package: "swift-snapshot-testing"
                 ),
             ],
-            path: "Dependencies/Common/Sources/SnapshotTesting"
+            path: "Modules/Common/Sources/SnapshotTesting"
         ),
         .target(
             name: "SparkTheming",
-            path: "Dependencies/Theming/Sources/Core"
+            path: "Modules/Theming/Sources/Core"
         ),
         .target(
             name: "SparkThemingTesting",
             dependencies: [
                 "SparkTheming"
             ],
-            path: "Dependencies/Theming/Sources/Testing"
+            path: "Modules/Theming/Sources/Testing"
         ),
         .target(
             name: "SparkTheme",
             dependencies: [
                 "SparkTheming"
             ],
-            path: "Dependencies/Theming/Sources/Theme",
+            path: "Modules/Theming/Sources/Theme",
             resources: [
                 .process("Resources/")
             ]
@@ -147,7 +147,7 @@ let package = Package(
                 "SparkTheming",
                 "SparkComponentBadge"
             ],
-            path: "Dependencies/ComponentAvatar/Sources/Core"
+            path: "Modules/Components/Avatar/Sources/Core"
         ),
         .target(
             name: "SparkComponentAvatarTesting",
@@ -158,7 +158,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentAvatar/Sources/Testing"
+            path: "Modules/Components/Avatar/Sources/Testing"
         ),
 
         // Badge
@@ -168,7 +168,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentBadge/Sources/Core"
+            path: "Modules/Components/Badge/Sources/Core"
         ),
         .target(
             name: "SparkComponentBadgeTesting",
@@ -179,7 +179,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentBadge/Sources/Testing"
+            path: "Modules/Components/Badge/Sources/Testing"
         ),
 
         // BottomSheet
@@ -189,7 +189,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentBottomSheet/Sources/Core"
+            path: "Modules/Components/BottomSheet/Sources/Core"
         ),
         .target(
             name: "SparkBottomSheetTesting",
@@ -200,7 +200,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentBottomSheet/Sources/Testing"
+            path: "Modules/Components/BottomSheet/Sources/Testing"
         ),
 
         // Button
@@ -211,7 +211,7 @@ let package = Package(
                 "SparkComponentSpinner",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentButton/Sources/Core"
+            path: "Modules/Components/Button/Sources/Core"
         ),
         .target(
             name: "SparkComponentButtonTesting",
@@ -223,7 +223,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentButton/Sources/Testing"
+            path: "Modules/Components/Button/Sources/Testing"
         ),
 
         // Card
@@ -235,7 +235,7 @@ let package = Package(
                 "SparkComponentTextLink",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentCard/Sources/Core"
+            path: "Modules/Components/Card/Sources/Core"
         ),
         .target(
             name: "SparkComponentCardTesting",
@@ -246,7 +246,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentCard/Sources/Testing"
+            path: "Modules/Components/Card/Sources/Testing"
         ),
 
         // Checkbox
@@ -256,7 +256,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentCheckbox/Sources/Core"
+            path: "Modules/Components/Checkbox/Sources/Core"
         ),
         .target(
             name: "SparkComponentCheckboxTesting",
@@ -267,7 +267,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentCheckbox/Sources/Testing"
+            path: "Modules/Components/Checkbox/Sources/Testing"
         ),
 
         // Chip
@@ -277,7 +277,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentChip/Sources/Core"
+            path: "Modules/Components/Chip/Sources/Core"
         ),
         .target(
             name: "SparkComponentChipTesting",
@@ -288,7 +288,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentChip/Sources/Testing"
+            path: "Modules/Components/Chip/Sources/Testing"
         ),
 
         // CircularMeter
@@ -298,7 +298,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentCircularMeter/Sources/Core"
+            path: "Modules/Components/CircularMeter/Sources/Core"
         ),
         .target(
             name: "SparkComponentCircularMeterTesting",
@@ -309,7 +309,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentCircularMeter/Sources/Testing"
+            path: "Modules/Components/CircularMeter/Sources/Testing"
         ),
 
         // Divider
@@ -319,7 +319,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentDivider/Sources/Core"
+            path: "Modules/Components/Divider/Sources/Core"
         ),
         .target(
             name: "SparkComponentDividerTesting",
@@ -330,7 +330,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentDivider/Sources/Testing"
+            path: "Modules/Components/Divider/Sources/Testing"
         ),
 
         // FileUpload
@@ -343,7 +343,7 @@ let package = Package(
                 "SparkComponentSpinner",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentFileUpload/Sources/Core"
+            path: "Modules/Components/FileUpload/Sources/Core"
         ),
         .target(
             name: "SparkComponentFileUploadTesting",
@@ -356,7 +356,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentFileUpload/Sources/Testing",
+            path: "Modules/Components/FileUpload/Sources/Testing",
             resources: [
                 .process("Resources")
             ]
@@ -370,7 +370,7 @@ let package = Package(
                 "SparkComponentTextInput",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentFormField/Sources/Core"
+            path: "Modules/Components/FormField/Sources/Core"
         ),
         .target(
             name: "SparkComponentFormFieldTesting",
@@ -381,7 +381,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentFormField/Sources/Testing"
+            path: "Modules/Components/FormField/Sources/Testing"
         ),
 
         // Icon
@@ -391,7 +391,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentIcon/Sources/Core"
+            path: "Modules/Components/Icon/Sources/Core"
         ),
         .target(
             name: "SparkComponentIconTesting",
@@ -402,7 +402,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentIcon/Sources/Testing"
+            path: "Modules/Components/Icon/Sources/Testing"
         ),
 
         // InputOTP
@@ -413,7 +413,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentInputOTP/Sources/Core"
+            path: "Modules/Components/InputOTP/Sources/Core"
         ),
         .target(
             name: "SparkComponentInputOTPTesting",
@@ -424,7 +424,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentInputOTP/Sources/Testing"
+            path: "Modules/Components/InputOTP/Sources/Testing"
         ),
 
         // Popover
@@ -434,7 +434,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentPopover/Sources/Core"
+            path: "Modules/Components/Popover/Sources/Core"
         ),
         .target(
             name: "SparkComponentPopoverTesting",
@@ -445,7 +445,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentPopover/Sources/Testing"
+            path: "Modules/Components/Popover/Sources/Testing"
         ),
 
         // ProgressBar
@@ -455,7 +455,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentProgressBar/Sources/Core"
+            path: "Modules/Components/ProgressBar/Sources/Core"
         ),
         .target(
             name: "SparkComponentProgressBarTesting",
@@ -466,7 +466,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentProgressBar/Sources/Testing"
+            path: "Modules/Components/ProgressBar/Sources/Testing"
         ),
 
         // ProgressTracker
@@ -476,7 +476,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentProgressTracker/Sources/Core"
+            path: "Modules/Components/ProgressTracker/Sources/Core"
         ),
         .target(
             name: "SparkComponentProgressTrackerTesting",
@@ -487,7 +487,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentProgressTracker/Sources/Testing"
+            path: "Modules/Components/ProgressTracker/Sources/Testing"
         ),
 
         // RadioButton
@@ -497,7 +497,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentRadioButton/Sources/Core"
+            path: "Modules/Components/RadioButton/Sources/Core"
         ),
         .target(
             name: "SparkComponentRadioButtonTesting",
@@ -508,7 +508,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentRadioButton/Sources/Testing"
+            path: "Modules/Components/RadioButton/Sources/Testing"
         ),
 
         // Rating
@@ -519,7 +519,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentRating/Sources/Core"
+            path: "Modules/Components/Rating/Sources/Core"
         ),
         .target(
             name: "SparkComponentRatingTesting",
@@ -530,7 +530,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentRating/Sources/Testing"
+            path: "Modules/Components/Rating/Sources/Testing"
         ),
 
         // SegmentedControl
@@ -540,7 +540,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentSegmentedControl/Sources/Core"
+            path: "Modules/Components/SegmentedControl/Sources/Core"
         ),
         .target(
             name: "SparkComponentSegmentedControlTesting",
@@ -551,7 +551,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentSegmentedControl/Sources/Testing"
+            path: "Modules/Components/SegmentedControl/Sources/Testing"
         ),
 
         // SegmentedGauge
@@ -561,7 +561,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentSegmentedGauge/Sources/Core"
+            path: "Modules/Components/SegmentedGauge/Sources/Core"
         ),
         .target(
             name: "SparkComponentSegmentedGaugeTesting",
@@ -572,7 +572,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentSegmentedGauge/Sources/Testing"
+            path: "Modules/Components/SegmentedGauge/Sources/Testing"
         ),
 
         // SelectionControls
@@ -583,7 +583,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentSelectionControls/Sources/Core"
+            path: "Modules/Components/SelectionControls/Sources/Core"
         ),
         .target(
             name: "SparkComponentSelectionControlsTesting",
@@ -594,7 +594,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentSelectionControls/Sources/Testing"
+            path: "Modules/Components/SelectionControls/Sources/Testing"
         ),
 
         // Slider
@@ -604,7 +604,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentSlider/Sources/Core"
+            path: "Modules/Components/Slider/Sources/Core"
         ),
         .target(
             name: "SparkComponentSliderTesting",
@@ -615,7 +615,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentSlider/Sources/Testing"
+            path: "Modules/Components/Slider/Sources/Testing"
         ),
 
         // Snackbar
@@ -626,7 +626,7 @@ let package = Package(
                 "SparkTheming",
                 "SparkComponentButton"
             ],
-            path: "Dependencies/ComponentSnackbar/Sources/Core"
+            path: "Modules/Components/Snackbar/Sources/Core"
         ),
         .target(
             name: "SparkComponentSnackbarTesting",
@@ -637,7 +637,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentSnackbar/Sources/Testing"
+            path: "Modules/Components/Snackbar/Sources/Testing"
         ),
 
         // Spinner
@@ -647,7 +647,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentSpinner/Sources/Core"
+            path: "Modules/Components/Spinner/Sources/Core"
         ),
         .target(
             name: "SparkComponentSpinnerTesting",
@@ -658,7 +658,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentSpinner/Sources/Testing"
+            path: "Modules/Components/Spinner/Sources/Testing"
         ),
 
         // Stepper
@@ -670,7 +670,7 @@ let package = Package(
                 "SparkTheming",
                 "SparkComponentButton"
             ],
-            path: "Dependencies/ComponentStepper/Sources/Core",
+            path: "Modules/Components/Stepper/Sources/Core",
             resources: [
                 .process("Resources/Localizable.xcstrings")
             ]
@@ -684,7 +684,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentStepper/Sources/Testing"
+            path: "Modules/Components/Stepper/Sources/Testing"
         ),
 
         // Switch
@@ -694,7 +694,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentSwitch/Sources/Core"
+            path: "Modules/Components/Switch/Sources/Core"
         ),
         .target(
             name: "SparkComponentSwitchTesting",
@@ -705,7 +705,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentSwitch/Sources/Testing"
+            path: "Modules/Components/Switch/Sources/Testing"
         ),
 
         // Tab
@@ -716,7 +716,7 @@ let package = Package(
                 "SparkTheming",
                 "SparkComponentBadge"
             ],
-            path: "Dependencies/ComponentTab/Sources/Core"
+            path: "Modules/Components/Tab/Sources/Core"
         ),
         .target(
             name: "SparkComponentTabTesting",
@@ -727,7 +727,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentTab/Sources/Testing"
+            path: "Modules/Components/Tab/Sources/Testing"
         ),
 
         // Tag
@@ -737,7 +737,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentTag/Sources/Core"
+            path: "Modules/Components/Tag/Sources/Core"
         ),
         .target(
             name: "SparkComponentTagTesting",
@@ -748,7 +748,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentTag/Sources/Testing"
+            path: "Modules/Components/Tag/Sources/Testing"
         ),
 
         // TextInput
@@ -758,7 +758,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentTextInput/Sources/Core"
+            path: "Modules/Components/TextInput/Sources/Core"
         ),
         .target(
             name: "SparkComponentTextInputTesting",
@@ -769,7 +769,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentTextInput/Sources/Testing"
+            path: "Modules/Components/TextInput/Sources/Testing"
         ),
 
         // TextLink
@@ -779,7 +779,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkTheming"
             ],
-            path: "Dependencies/ComponentTextLink/Sources/Core"
+            path: "Modules/Components/TextLink/Sources/Core"
         ),
         .target(
             name: "SparkComponentTextLinkTesting",
@@ -790,7 +790,7 @@ let package = Package(
                 "SparkThemingTesting",
                 "SparkTheme"
             ],
-            path: "Dependencies/ComponentTextLink/Sources/Testing"
+            path: "Modules/Components/TextLink/Sources/Testing"
         ),
 
         // Core test targets
@@ -800,7 +800,7 @@ let package = Package(
                 "SparkCommon",
                 "SparkCommonTesting"
             ],
-            path: "Dependencies/Common/Tests/UnitTests"
+            path: "Modules/Common/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkCommonSnapshotTests",
@@ -809,7 +809,7 @@ let package = Package(
                 "SparkCommonSnapshotTesting",
                 "SparkCommonTesting"
             ],
-            path: "Dependencies/Common/Tests/SnapshotTests"
+            path: "Modules/Common/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkThemingUnitTests",
@@ -817,7 +817,7 @@ let package = Package(
                 "SparkTheming",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/Theming/Tests/UnitTests"
+            path: "Modules/Theming/Tests/UnitTests"
         ),
 
         // Component test targets (alphabetically sorted)
@@ -830,7 +830,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentAvatar/Tests/UnitTests"
+            path: "Modules/Components/Avatar/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentAvatarSnapshotTests",
@@ -839,7 +839,7 @@ let package = Package(
                 "SparkComponentAvatarTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentAvatar/Tests/SnapshotTests"
+            path: "Modules/Components/Avatar/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentBadgeUnitTests",
@@ -849,7 +849,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentBadge/Tests/UnitTests"
+            path: "Modules/Components/Badge/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentBadgeSnapshotTests",
@@ -858,7 +858,7 @@ let package = Package(
                 "SparkComponentBadgeTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentBadge/Tests/SnapshotTests"
+            path: "Modules/Components/Badge/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkBottomSheetUnitTests",
@@ -868,7 +868,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentBottomSheet/Tests/UnitTests"
+            path: "Modules/Components/BottomSheet/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkBottomSheetSnapshotTests",
@@ -877,7 +877,7 @@ let package = Package(
                 "SparkBottomSheetTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentBottomSheet/Tests/SnapshotTests"
+            path: "Modules/Components/BottomSheet/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentButtonUnitTests",
@@ -888,7 +888,7 @@ let package = Package(
                 "SparkComponentSpinner",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentButton/Tests/UnitTests"
+            path: "Modules/Components/Button/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentButtonSnapshotTests",
@@ -897,7 +897,7 @@ let package = Package(
                 "SparkComponentButtonTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentButton/Tests/SnapshotTests"
+            path: "Modules/Components/Button/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentCardUnitTests",
@@ -907,7 +907,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentCard/Tests/UnitTests"
+            path: "Modules/Components/Card/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentCardSnapshotTests",
@@ -917,7 +917,7 @@ let package = Package(
                 "SparkComponentCardTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentCard/Tests/SnapshotTests"
+            path: "Modules/Components/Card/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentCheckboxUnitTests",
@@ -927,7 +927,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentCheckbox/Tests/UnitTests"
+            path: "Modules/Components/Checkbox/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentCheckboxSnapshotTests",
@@ -936,7 +936,7 @@ let package = Package(
                 "SparkComponentCheckboxTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentCheckbox/Tests/SnapshotTests"
+            path: "Modules/Components/Checkbox/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentChipUnitTests",
@@ -946,7 +946,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentChip/Tests/UnitTests"
+            path: "Modules/Components/Chip/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentChipSnapshotTests",
@@ -955,7 +955,7 @@ let package = Package(
                 "SparkComponentChipTesting",
                 "SparkCommonSnapshotTesting"
             ],
-            path: "Dependencies/ComponentChip/Tests/SnapshotTests"
+            path: "Modules/Components/Chip/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentCircularMeterUnitTests",
@@ -965,7 +965,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentCircularMeter/Tests/UnitTests"
+            path: "Modules/Components/CircularMeter/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentCircularMeterSnapshotTests",
@@ -975,7 +975,7 @@ let package = Package(
                 "SparkComponentCircularMeterTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentCircularMeter/Tests/SnapshotTests"
+            path: "Modules/Components/CircularMeter/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentDividerUnitTests",
@@ -985,7 +985,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentDivider/Tests/UnitTests"
+            path: "Modules/Components/Divider/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentDividerSnapshotTests",
@@ -994,7 +994,7 @@ let package = Package(
                 "SparkComponentDividerTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentDivider/Tests/SnapshotTests"
+            path: "Modules/Components/Divider/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentFileUploadUnitTests",
@@ -1007,7 +1007,7 @@ let package = Package(
                 "SparkComponentSpinnerTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentFileUpload/Tests/UnitTests"
+            path: "Modules/Components/FileUpload/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentFileUploadSnapshotTests",
@@ -1017,7 +1017,7 @@ let package = Package(
                 "SparkComponentFileUploadTesting",
                 "SparkCommonSnapshotTesting"
             ],
-            path: "Dependencies/ComponentFileUpload/Tests/SnapshotTests"
+            path: "Modules/Components/FileUpload/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentFormFieldUnitTests",
@@ -1027,7 +1027,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentFormField/Tests/UnitTests"
+            path: "Modules/Components/FormField/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentFormFieldSnapshotTests",
@@ -1036,7 +1036,7 @@ let package = Package(
                 "SparkComponentFormFieldTesting",
                 "SparkCommonSnapshotTesting"
             ],
-            path: "Dependencies/ComponentFormField/Tests/SnapshotTests"
+            path: "Modules/Components/FormField/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentIconUnitTests",
@@ -1046,7 +1046,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentIcon/Tests/UnitTests"
+            path: "Modules/Components/Icon/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentIconSnapshotTests",
@@ -1055,7 +1055,7 @@ let package = Package(
                 "SparkComponentIconTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentIcon/Tests/SnapshotTests"
+            path: "Modules/Components/Icon/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentInputOTPUnitTests",
@@ -1065,7 +1065,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentInputOTP/Tests/UnitTests"
+            path: "Modules/Components/InputOTP/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentInputOTPSnapshotTests",
@@ -1074,7 +1074,7 @@ let package = Package(
                 "SparkComponentInputOTPTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentInputOTP/Tests/SnapshotTests"
+            path: "Modules/Components/InputOTP/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentPopoverUnitTests",
@@ -1084,7 +1084,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentPopover/Tests/UnitTests"
+            path: "Modules/Components/Popover/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentPopoverSnapshotTests",
@@ -1093,7 +1093,7 @@ let package = Package(
                 "SparkComponentPopoverTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentPopover/Tests/SnapshotTests"
+            path: "Modules/Components/Popover/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentProgressBarUnitTests",
@@ -1103,7 +1103,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentProgressBar/Tests/UnitTests"
+            path: "Modules/Components/ProgressBar/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentProgressBarSnapshotTests",
@@ -1112,7 +1112,7 @@ let package = Package(
                 "SparkComponentProgressBarTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentProgressBar/Tests/SnapshotTests"
+            path: "Modules/Components/ProgressBar/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentProgressTrackerUnitTests",
@@ -1122,7 +1122,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentProgressTracker/Tests/UnitTests"
+            path: "Modules/Components/ProgressTracker/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentProgressTrackerSnapshotTests",
@@ -1131,7 +1131,7 @@ let package = Package(
                 "SparkComponentProgressTrackerTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentProgressTracker/Tests/SnapshotTests"
+            path: "Modules/Components/ProgressTracker/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentRadioButtonUnitTests",
@@ -1141,7 +1141,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentRadioButton/Tests/UnitTests"
+            path: "Modules/Components/RadioButton/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentRadioButtonSnapshotTests",
@@ -1150,7 +1150,7 @@ let package = Package(
                 "SparkComponentRadioButtonTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentRadioButton/Tests/SnapshotTests"
+            path: "Modules/Components/RadioButton/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentRatingUnitTests",
@@ -1160,7 +1160,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentRating/Tests/UnitTests"
+            path: "Modules/Components/Rating/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentRatingSnapshotTests",
@@ -1169,7 +1169,7 @@ let package = Package(
                 "SparkComponentRatingTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentRating/Tests/SnapshotTests"
+            path: "Modules/Components/Rating/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentSegmentedControlUnitTests",
@@ -1179,7 +1179,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentSegmentedControl/Tests/UnitTests"
+            path: "Modules/Components/SegmentedControl/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentSegmentedControlSnapshotTests",
@@ -1189,7 +1189,7 @@ let package = Package(
                 "SparkComponentSegmentedControlTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentSegmentedControl/Tests/SnapshotTests"
+            path: "Modules/Components/SegmentedControl/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentSegmentedGaugeUnitTests",
@@ -1199,7 +1199,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentSegmentedGauge/Tests/UnitTests"
+            path: "Modules/Components/SegmentedGauge/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentSegmentedGaugeSnapshotTests",
@@ -1208,7 +1208,7 @@ let package = Package(
                 "SparkComponentSegmentedGaugeTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentSegmentedGauge/Tests/SnapshotTests"
+            path: "Modules/Components/SegmentedGauge/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentSelectionControlsUnitTests",
@@ -1218,7 +1218,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentSelectionControls/Tests/UnitTests"
+            path: "Modules/Components/SelectionControls/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentSelectionControlsSnapshotTests",
@@ -1227,7 +1227,7 @@ let package = Package(
                 "SparkComponentSelectionControlsTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentSelectionControls/Tests/SnapshotTests"
+            path: "Modules/Components/SelectionControls/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentSliderUnitTests",
@@ -1237,7 +1237,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentSlider/Tests/UnitTests"
+            path: "Modules/Components/Slider/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentSliderSnapshotTests",
@@ -1246,7 +1246,7 @@ let package = Package(
                 "SparkComponentSliderTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentSlider/Tests/SnapshotTests"
+            path: "Modules/Components/Slider/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentSnackbarUnitTests",
@@ -1256,7 +1256,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentSnackbar/Tests/UnitTests"
+            path: "Modules/Components/Snackbar/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentSnackbarSnapshotTests",
@@ -1265,7 +1265,7 @@ let package = Package(
                 "SparkComponentSnackbarTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentSnackbar/Tests/SnapshotTests"
+            path: "Modules/Components/Snackbar/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentSpinnerUnitTests",
@@ -1275,7 +1275,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentSpinner/Tests/UnitTests"
+            path: "Modules/Components/Spinner/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentSpinnerSnapshotTests",
@@ -1284,7 +1284,7 @@ let package = Package(
                 "SparkComponentSpinnerTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentSpinner/Tests/SnapshotTests"
+            path: "Modules/Components/Spinner/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentStepperUnitTests",
@@ -1294,7 +1294,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentStepper/Tests/UnitTests"
+            path: "Modules/Components/Stepper/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentStepperSnapshotTests",
@@ -1303,7 +1303,7 @@ let package = Package(
                 "SparkComponentStepperTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentStepper/Tests/SnapshotTests"
+            path: "Modules/Components/Stepper/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentSwitchUnitTests",
@@ -1313,7 +1313,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentSwitch/Tests/UnitTests"
+            path: "Modules/Components/Switch/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentSwitchSnapshotTests",
@@ -1322,7 +1322,7 @@ let package = Package(
                 "SparkComponentSwitchTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentSwitch/Tests/SnapshotTests"
+            path: "Modules/Components/Switch/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentTabUnitTests",
@@ -1332,7 +1332,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentTab/Tests/UnitTests"
+            path: "Modules/Components/Tab/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentTabSnapshotTests",
@@ -1341,7 +1341,7 @@ let package = Package(
                 "SparkComponentTabTesting",
                 "SparkCommonSnapshotTesting"
             ],
-            path: "Dependencies/ComponentTab/Tests/SnapshotTests"
+            path: "Modules/Components/Tab/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentTagUnitTests",
@@ -1351,7 +1351,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentTag/Tests/UnitTests"
+            path: "Modules/Components/Tag/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentTagSnapshotTests",
@@ -1360,7 +1360,7 @@ let package = Package(
                 "SparkComponentTagTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentTag/Tests/SnapshotTests"
+            path: "Modules/Components/Tag/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentTextInputUnitTests",
@@ -1370,7 +1370,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentTextInput/Tests/UnitTests"
+            path: "Modules/Components/TextInput/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentTextInputSnapshotTests",
@@ -1379,7 +1379,7 @@ let package = Package(
                 "SparkComponentTextInputTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentTextInput/Tests/SnapshotTests"
+            path: "Modules/Components/TextInput/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentTextLinkUnitTests",
@@ -1389,7 +1389,7 @@ let package = Package(
                 "SparkCommonTesting",
                 "SparkThemingTesting"
             ],
-            path: "Dependencies/ComponentTextLink/Tests/UnitTests"
+            path: "Modules/Components/TextLink/Tests/UnitTests"
         ),
         .testTarget(
             name: "SparkComponentTextLinkSnapshotTests",
@@ -1398,7 +1398,7 @@ let package = Package(
                 "SparkComponentTextLinkTesting",
                 "SparkCommonSnapshotTesting",
             ],
-            path: "Dependencies/ComponentTextLink/Tests/SnapshotTests"
+            path: "Modules/Components/TextLink/Tests/SnapshotTests"
         ),
 
         // Resources

@@ -14,17 +14,17 @@ This skill guides you to implement/update a token in spark component.
 **Parameter Handling:**
 - If the skill is invoked with a parameter (e.g., `/spark-component-token button`):
   - Use the parameter as the component name
-  - Verify the folder exists in `Dependencies/{component-name}/`
+  - Verify the folder exists in `Modules/Components/{component-name}/`
   - If found, use that component and skip the selection step
 
 - If no parameter is provided:
-  - List all folders in the `Dependencies/` directory
+  - List all folders in the `Modules/Components/` directory
   - Use AskUserQuestion to let the user select ONE component from the list
   - Format: Display folder names as options (e.g., "button", "card", "checkbox")
 
-**Once the component is selected, all operations must be performed in `Dependencies/{component-name}/` folder.**
+**Once the component is selected, all operations must be performed in `Modules/Components/{component-name}/` folder.**
 
-Use the files in the **template** folder as reference to manage the *token* and the *unit tests*. See `Dependencies/ComponentChip/Sources/Core/Token` for a full real-world example.
+Use the files in the **template** folder as reference to manage the *token* and the *unit tests*. See `Modules/Components/Chip/Sources/Core/Token` for a full real-world example.
 
 > The template uses `Border`, `Size`, and `Typography` purely as illustrations of three recurring *patterns* (see Rules below). A real component's token categories are whatever it actually needs — e.g. `Opacity`, `Layout`, `Spacing`, `Color`, `Icon`, `Animation`, ... Determine the category names and count from the component's design/usage, not from the template names.
 

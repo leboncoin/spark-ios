@@ -20,8 +20,8 @@ jobs:
       - name: Checkout monorepo
         uses: actions/checkout@v6
 
-      - name: List Dependencies structure
-        run: ls -la Dependencies/
+      - name: List Modules/Components structure
+        run: ls -la Modules/Components/
 
       - name: Run component listing script
         run: |

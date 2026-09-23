@@ -19,13 +19,13 @@ The Makefile uses the following configuration variables that can be customized:
 
 | Variable | Default Value | Description |
 |----------|---------------|-------------|
-| `PACKAGES` | Auto-detected from Dependencies folder | List of all packages found in the Dependencies directory |
+| `PACKAGES` | Auto-detected from Modules folder | Paths of all packages (folders containing `Sources/`) found in `Modules/` and `Modules/Components/` |
 | `RESULTS_DIR` | `.testResults` | Directory where test results are stored |
 | `DERIVED_DATA_PATH` | `.derivedData/` | Path for Xcode derived data |
 | `SDK` | `iphonesimulator` | SDK to use for building |
 | `DESTINATION` | `platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5` | Simulator destination for builds and tests |
 | `DOCC_OUTPUT_PATH` | `.docs` | Output directory for DocC documentation |
-| `HOSTING_BASE_PATH` | `poc-monorepo` | Base path for hosting static documentation (can be overridden) |
+| `HOSTING_BASE_PATH` | `spark-ios` | Base path for hosting static documentation (can be overridden) |
 | `DEMO_APP_NAME` | `SparkDemoApp` | Scheme name of the demo app |
 
 ---
@@ -57,7 +57,7 @@ make build
 
 ### `build-demo-app`
 
-Builds the `SparkDemoApp` scheme for the iOS Simulator using xcodebuild.
+Generates the Xcode project with xcodegen and builds the `SparkDemoApp` scheme for the iOS Simulator.
 
 **Usage:**
 ```bash
@@ -65,7 +65,8 @@ make build-demo-app
 ```
 
 **Description:**
-- Requires the Xcode project to already be generated (e.g. via `xcodegen`)
+- Removes any previous `[DEMO_APP_NAME].xcresult` bundle
+- Generates the Xcode project by running `xcodegen` (requires `xcodegen` to be installed)
 - Builds the `DEMO_APP_NAME` scheme with the configured `SDK` and `DESTINATION`
 - Produces a `.xcresult` bundle named `[DEMO_APP_NAME].xcresult` at the project root
 - Exits with error code 1 if the build fails
@@ -130,7 +131,7 @@ make docc DOCC_OUTPUT_PATH=my-output-path HOSTING_BASE_PATH=my-custom-path
 - Builds DocC documentation using xcodebuild docbuild
 - Processes all .doccarchive files (excluding those containing "Testing")
 - Transforms documentation for static hosting
-- Copies documentation.json files from `Dependencies/[package]/` (matched by stripping the `Spark` prefix from the doccarchive name), from `Demo/` for the demo app, or falls back to the root `Spark/documentation.json`
+- Copies documentation.json files from `Modules/[package]/` or `Modules/Components/[component]/` (matched by stripping the `Spark` prefix, then the `Component` prefix, from the doccarchive name), from `Demo/` for the demo app, or falls back to the root `Spark/documentation.json`
 - Copies additional files from `.documentation/` directory if it exists
 - Generates a `packages.json` file with metadata for all packages
 - Extracts title, description, image, zeroheight, and figma links from documentation.json files
@@ -172,11 +173,12 @@ make clean
 - Removes derived data directory (`.derivedData/`)
 - Removes documentation output directory (`.docs/`)
 - Deletes all Sourcery generated files (`Sourcery.generated.swift`) from:
-  - All packages in `Dependencies/`
+  - All packages in `Modules/` and `Modules/Components/`
   - `Spark/` directory
 
 **Output:**
-- `✓ Sourcery generated files removed` on success
+- `✓ Sourcery generated files removed` once generated files are deleted
+- `✓ The cleaning is finished.` on completion
 
 **What Gets Removed:**
 - Swift package build cache
@@ -198,7 +200,7 @@ make clear-snapshots
 **Description:**
 - Searches for all `*.__snapshots__` directories in Tests folders
 - Clears the contents of each snapshot directory
-- Processes packages in both `Dependencies/` and `Spark/` directories
+- Processes packages in `Modules/`, `Modules/Components/` and `Spark/` directories
 
 **Use Case:**
 - When you want to regenerate all snapshot reference images
@@ -211,7 +213,8 @@ make clear-snapshots
 - `✓ All snapshots cleared successfully` on completion
 
 **Directories Searched:**
-- `Dependencies/*/Tests/**/__snapshots__/`
+- `Modules/*/Tests/**/__snapshots__/`
+- `Modules/Components/*/Tests/**/__snapshots__/`
 - `Spark/Tests/**/__snapshots__/`
 
 ---
@@ -230,13 +233,14 @@ make sourcery
 **Description:**
 - Runs Sourcery using `.sourcery.yml` configuration files
 - Processes the root package configuration if present
-- Iterates through all packages in `Dependencies/` directory
+- Iterates through all packages in `Modules/` and `Modules/Components/` directories
+- Stops with error code 1 as soon as Sourcery fails for a package
 - Processes `Spark/` package if configuration exists
 - Generates mock files and other code based on Sourcery templates
 
 **Configuration Files:**
 - `.sourcery.yml` - Root package configuration
-- `Dependencies/[package]/.sourcery.yml` - Individual package configurations
+- `Modules/[package]/.sourcery.yml` and `Modules/Components/[component]/.sourcery.yml` - Individual package configurations
 - `Spark/.sourcery.yml` - Spark package configuration
 
 **Output:**

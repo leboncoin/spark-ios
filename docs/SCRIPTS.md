@@ -24,7 +24,7 @@ Scans the monorepo to extract and list all public Spark component views.
 **Documentation:** [SCRIPT_LIST_COMPONENTS.md](script/SCRIPT_LIST_COMPONENTS.md)
 
 **Description:**
-- Scans all `Dependencies/*/Sources/Core` directories
+- Scans all `Modules/Components/*/Sources/Core` directories
 - Extracts public UIKit and SwiftUI component declarations
 - Filters and validates component types
 - Generates alphabetically sorted component list
@@ -39,7 +39,7 @@ Identifies deprecated components and maps them to their recommended replacements
 **Documentation:** [SCRIPT_LIST_DEPRECATED_COMPONENTS.md](script/SCRIPT_LIST_DEPRECATED_COMPONENTS.md)
 
 **Description:**
-- Scans all `Dependencies/*/Sources/Core` directories
+- Scans all `Modules/Components/*/Sources/Core` directories
 - Identifies `@available(*, deprecated)` annotations
 - Extracts deprecated component names and replacements
 - Generates JSON mapping for migration guidance

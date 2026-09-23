@@ -2,7 +2,7 @@
 
 ## Overview
 
-This Bash script scans the monorepo's `Dependencies/` folder to extract and list all public Spark component views. It identifies UIKit and SwiftUI components by analyzing Swift source files and outputs a comprehensive list of component names.
+This Bash script scans the monorepo's `Modules/Components/` folder to extract and list all public Spark component views. It identifies UIKit and SwiftUI components by analyzing Swift source files and outputs a comprehensive list of component names.
 
 ## Script File
 
@@ -33,11 +33,11 @@ cd /path/to/spark-ios
 
 The script executes the following steps:
 
-### Step 1: Scan Dependencies Directories
+### Step 1: Scan Modules/Components Directories
 
-Searches all subdirectories within `Dependencies/` that contain a `Sources/Core` folder structure.
+Searches all subdirectories within `Modules/Components/` that contain a `Sources/Core` folder structure.
 
-**Pattern**: `Dependencies/*/Sources/Core`
+**Pattern**: `Modules/Components/*/Sources/Core`
 
 ### Step 2: Extract Public Component Declarations
 
@@ -80,7 +80,7 @@ Creates `spark-components-listing.txt` with the sorted list of component names.
 
 **Console Output**:
 ```
-Scanning Dependencies directories for components in Sources/Core...
+Scanning Modules/Components directories for components in Sources/Core...
 ✅ Successfully created spark-components-listing.txt
    Total components: 120
 ```
@@ -125,7 +125,7 @@ This script has been adapted for the monorepo structure:
 - Required: All repositories cloned
 
 **After (Monorepo)**:
-- Scans: `Dependencies/*/Sources/Core` directories
+- Scans: `Modules/Components/*/Sources/Core` directories
 - Benefits: All components local, no cloning needed
 
 ## Use Cases
@@ -141,7 +141,7 @@ This script has been adapted for the monorepo structure:
 - The script is idempotent - running it multiple times produces the same result
 - Overwrites `spark-components-listing.txt` on each run
 - Requires execution from the monorepo root directory
-- All components from all packages in `Dependencies/` are included
+- All components from all packages in `Modules/Components/` are included
 - Both UIKit and SwiftUI variants are listed separately
 
 ## Related Files

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This GitHub Actions workflow generates and deploys DocC documentation for the entire Spark iOS monorepo to GitHub Pages, making the documentation publicly accessible online. It consolidates documentation from all components in the `Dependencies/` folder into a single unified documentation site.
+This GitHub Actions workflow generates and deploys DocC documentation for the entire Spark iOS monorepo to GitHub Pages, making the documentation publicly accessible online. It consolidates documentation from all components in the `Modules/` folder into a single unified documentation site.
 
 ## Workflow File
 
@@ -70,7 +70,7 @@ The workflow requires specific GitHub token permissions:
 - New deployments will automatically cancel any in-progress deployments
 - The documentation will be accessible at the GitHub Pages URL after successful deployment
 - The workflow uses macOS runners as DocC is an Apple technology requiring Xcode
-- Documentation is built from all components in `Dependencies/` folder
+- Documentation is built from all components in `Modules/` folder
 
 ## Usage
 

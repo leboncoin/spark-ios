@@ -2,7 +2,7 @@
 
 ## Overview
 
-This Bash script scans the monorepo's `Dependencies/` folder to identify deprecated Spark components and their recommended replacements. It analyzes `@available` deprecation annotations in Swift source files and generates a JSON mapping of deprecated components to their modern alternatives.
+This Bash script scans the monorepo's `Modules/Components/` folder to identify deprecated Spark components and their recommended replacements. It analyzes `@available` deprecation annotations in Swift source files and generates a JSON mapping of deprecated components to their modern alternatives.
 
 ## Script File
 
@@ -48,11 +48,11 @@ cd /path/to/spark-ios
 
 The script executes the following steps:
 
-### Step 1: Scan Dependencies Directories
+### Step 1: Scan Modules/Components Directories
 
-Searches all subdirectories within `Dependencies/` that contain a `Sources/Core` folder structure.
+Searches all subdirectories within `Modules/Components/` that contain a `Sources/Core` folder structure.
 
-**Pattern**: `Dependencies/*/Sources/Core`
+**Pattern**: `Modules/Components/*/Sources/Core`
 
 ### Step 2: Find Deprecated Annotations
 
@@ -94,7 +94,7 @@ Creates a well-formatted JSON file with:
 
 **Console Output**:
 ```
-Scanning Dependencies directories for deprecated views...
+Scanning Modules/Components directories for deprecated views...
 ✅ Successfully created spark-deprecated-components-listing.json
    Total deprecated components: 36
 ```
@@ -143,7 +143,7 @@ This script has been adapted for the monorepo structure:
 - Used: `gh` CLI to list and clone repositories
 
 **After (Monorepo)**:
-- Scans: `Dependencies/*/Sources/Core` directories
+- Scans: `Modules/Components/*/Sources/Core` directories
 - Benefits: All components local, no cloning needed
 - Faster execution with direct file access
 

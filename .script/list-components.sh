@@ -15,10 +15,10 @@ TEMP_FILE=$(mktemp)
 UIKIT_FILE=$(mktemp)
 SWIFTUI_FILE=$(mktemp)
 
-echo "Scanning Dependencies directories for components in Sources/Core..."
+echo "Scanning Modules/Components directories for components in Sources/Core..."
 
-# Find all directories with Sources/Core in Dependencies folder
-for dir in Dependencies/*/; do
+# Find all directories with Sources/Core in Modules/Components folder
+for dir in Modules/Components/*/; do
     if [ -d "${dir}Sources/Core" ]; then
         # Find all Swift files and extract public structs/classes that are views
         find "${dir}Sources/Core" -name "*.swift" -type f -exec grep -H "^public.*\(struct\|class\)" {} \; 2>/dev/null | while IFS=: read -r file line; do

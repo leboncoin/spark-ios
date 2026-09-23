@@ -45,8 +45,8 @@ The workflow runs automatically in three scenarios:
    - Purpose: Clone the monorepo to the runner
    - Result: Full repository available for scanning
 
-2. **List Dependencies structure**
-   - Command: `ls -la Dependencies/`
+2. **List Modules/Components structure**
+   - Command: `ls -la Modules/Components/`
    - Purpose: Verify monorepo structure and log component packages
    - Output: Lists all component directories for debugging
 
@@ -82,7 +82,7 @@ Trigger (push/schedule/manual)
     ↓
 Checkout Monorepo
     ↓
-Verify Dependencies Structure
+Verify Modules/Components Structure
     ↓
 Execute list-components.sh
     ↓
@@ -97,16 +97,16 @@ Workflow Complete
 
 **Workflow Console Output**:
 ```
-Run ls -la Dependencies/
+Run ls -la Modules/Components/
 total 0
-drwxr-xr-x  35 runner staff  1120 Dependencies
+drwxr-xr-x  35 runner staff  1120 Components
 drwxr-xr-x  18 runner staff   576 Common
 drwxr-xr-x  18 runner staff   576 Theming
 drwxr-xr-x  18 runner staff   576 ComponentAvatar
 ...
 
 Run ./.script/list-components.sh
-Scanning Dependencies directories for components in Sources/Core...
+Scanning Modules/Components directories for components in Sources/Core...
 ✅ Successfully created spark-components-listing.txt
    Total components: 120
 
@@ -134,7 +134,7 @@ This workflow has been optimized for the monorepo structure:
 
 **After (Monorepo)**:
 - Single checkout: One repository clone
-- Local scanning: All components in `Dependencies/`
+- Local scanning: All components in `Modules/Components/`
 - Duration: Seconds for complete execution
 
 **Benefits**:
@@ -224,7 +224,7 @@ curl -L -H "Authorization: token $GITHUB_TOKEN" \
 
 **Issue**: No components found
 - **Cause**: Incorrect directory structure
-- **Solution**: Verify `Dependencies/*/Sources/Core` exists with the "List Dependencies structure" step
+- **Solution**: Verify `Modules/Components/*/Sources/Core` exists with the "List Modules/Components structure" step
 
 **Issue**: Artifact not uploaded
 - **Cause**: Script didn't generate output file

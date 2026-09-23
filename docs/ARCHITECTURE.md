@@ -21,28 +21,28 @@ The repository is a single Swift package (`Package.swift` at the root, product n
 | Folder | Product(s) | Role |
 |---|---|---|
 | `Spark/` | `Spark` | The umbrella target. `@_exported import`s every component, `SparkCommon`, `SparkTheming` and `SparkResources` in `Sources/Core/Import.swift`, so a consumer only needs `import Spark` to get everything. |
-| `Dependencies/` | `SparkCommon`, `SparkTheming`, `SparkComponentXXX`, ... | Every individual package: the shared `Common` code, the `Theming` system, and one folder per UI component (`ComponentButton`, `ComponentChip`, ...). |
+| `Modules/` | `SparkCommon`, `SparkTheming`, `SparkComponentXXX`, ... | Every individual package: the shared `Common` code, the `Theming` system, and one folder per UI component under `Modules/Components/` (`Button`, `Chip`, ...). |
 | `Resources/` | `SparkResources` | The Spark iconography: the asset catalog, the generated `ImageResource` accessors, and the `Image`/`UIImage` convenience initializers. |
 | `Demo/` | `SparkDemo` | The demo application code (`MainView`, per-component demo screens, theming playground) — see [Demo App](#demo-app). |
 
-Each package under `Dependencies/` (and `Resources/`, `Demo/`, `Spark/`) has its own `README.md` (integration instructions) and `Sources/Core/Documentation.docc/Documentation.md` (DocC reference) — this file only covers the *shared shape* those packages follow, not their individual APIs.
+Each package under `Modules/` (and `Resources/`, `Demo/`, `Spark/`) has its own `README.md` (integration instructions) and `Sources/Core/Documentation.docc/Documentation.md` (DocC reference) — this file only covers the *shared shape* those packages follow, not their individual APIs.
 
-### Dependencies/Common
+### Modules/Common
 
 `SparkCommon` holds code shared by every component: cross-component protocols, extensions, and helpers. Some of it is only meant for use *within* the Spark team's own repositories, in which case it's marked `@_spi(SI_SPI)` to keep it out of the public API surface seen by consumers of the design system. It ships two extra products for testing: `SparkCommonTesting` (public protocol mocks) and `SparkCommonSnapshotTesting` (shared snapshot-testing helpers).
 
-### Dependencies/ComponentXXX
+### Modules/Components/XXX
 
-Every UI component (`ComponentButton`, `ComponentChip`, `ComponentSelectionControls`, ...) follows the identical internal structure described in [Component Architecture](#component-architecture) below.
+Every UI component (`Components/Button`, `Components/Chip`, `Components/SelectionControls`, ...) follows the identical internal structure described in [Component Architecture](#component-architecture) below.
 
 ---
 
 ## Component Architecture
 
-Every component package under `Dependencies/ComponentXXX/` is structured as:
+Every component package under `Modules/Components/XXX/` is structured as:
 
 ```
-ComponentXXX/
+Modules/Components/XXX/
 ├── Sources/
 │   ├── Core/            — production code
 │   │   ├── AccessibilityIdentifier/
@@ -149,7 +149,7 @@ Tests/SnapshotTests/
 
 ## Theming Architecture
 
-Theming lives in `Dependencies/Theming` (`SparkTheming`) and is the foundation every component's `Token` folder builds on.
+Theming lives in `Modules/Theming` (`SparkTheming`) and is the foundation every component's `Token` folder builds on.
 
 ### The `Theme` protocol
 
@@ -182,7 +182,7 @@ A token wraps both the UIKit and SwiftUI representation of a single design value
 - Swap themes at runtime (a token is resolved lazily from `any Theme`, not baked into a constant).
 - Mock theme values in tests (`// sourcery: AutoMockable` on every category and token protocol, e.g. `ThemeGeneratedMock`, `ColorTokenGeneratedMock`).
 
-`Dependencies/Theming` ships the concrete "Spark" implementation of every protocol (`ThemeDefault`, `ColorsDefault`, ...) as well as `SparkThemingTesting` (public mocks) — consumers can also implement `Theme` themselves to plug in a fully custom brand theme (see `Demo`'s `DemoTheme`/`MyThemes` customization example).
+`Modules/Theming` ships the concrete "Spark" implementation of every protocol (`ThemeDefault`, `ColorsDefault`, ...) as well as `SparkThemingTesting` (public mocks) — consumers can also implement `Theme` themselves to plug in a fully custom brand theme (see `Demo`'s `DemoTheme`/`MyThemes` customization example).
 
 ### From Theme to component Token
 
