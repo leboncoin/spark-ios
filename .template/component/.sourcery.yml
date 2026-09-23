@@ -6,7 +6,7 @@ configurations:
         - Sources/Testing/
         - Sources/SnapshotTesting/
     templates:
-      - ../../.tools/.sourcery/template/
+      - ../../../.tools/.sourcery/template/
     output: Sources/Testing/Generated/Sourcery.generated.swift
     args:
       autoMockableImports: [Combine]

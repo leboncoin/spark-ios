@@ -1,13 +1,13 @@
 ---
 name: spark-create-component
-description: Create a new component in the Dependencies folder from template with proper documentation and placeholders replacement.
+description: Create a new component in the Modules folder from template with proper documentation and placeholders replacement.
 ---
 
-# Add New Component to Dependencies Folder
+# Add New Component to Modules Folder
 
 ## Overview & Prerequisites
 
-This skill helps you create a new component in the Dependencies folder using the template-based approach.
+This skill helps you create a new component in the Modules folder using the template-based approach.
 
 ❗️ This skill should be used from the root of the monorepo project ❗️
 
@@ -67,12 +67,12 @@ From the component name (e.g., "Button", "Avatar"), generate:
 - **COMPONENT_NAME_LOWER**: Lowercase (e.g., "button")
 - **REMOVE SPARK MENTION**: Remove all *Spark* or *SparkComponent* in the name (e.g, "SparkButton" must be "Button" ; "SparkComponentButton" must be "Button" ; )
 
-### Step 3: Copy Template to Dependencies
+### Step 3: Copy Template to Modules
 
 Copy the template to create the new component directory:
 
 ```bash
-cp -r .template/component/ "Dependencies/SparkComponent${COMPONENT_NAME_PASCAL}/"
+cp -r .template/component/ "Modules/Components/${COMPONENT_NAME_PASCAL}/"
 ```
 
 ### Step 4: Handle Anatomy Image
@@ -82,7 +82,7 @@ cp -r .template/component/ "Dependencies/SparkComponent${COMPONENT_NAME_PASCAL}/
 
 ### Step 5: Update documentation.json
 
-Read `Dependencies/SparkComponent{ComponentName}/documentation.json` and update:
+Read `Modules/Components/{ComponentName}/documentation.json` and update:
 - [ ] `title`: Set to component name + "SparkComponent" in prefix (e.g., "SparkComponentButton")
 - [ ] `description`: Set to the user-provided description
 - [ ] `figma`: Set to the Figma link
@@ -91,7 +91,7 @@ Read `Dependencies/SparkComponent{ComponentName}/documentation.json` and update:
 
 ### Step 6: Update Documentation.md
 
-Read `Dependencies/SparkComponent{ComponentName}/Sources/Core/Documentation.docc/Documentation.md` and:
+Read `Modules/Components/{ComponentName}/Sources/Core/Documentation.docc/Documentation.md` and:
 - [ ] Replace `TODO` in Zeroheight link with actual URL
 - [ ] Replace `TODO` in Figma link with actual URL
 
@@ -155,7 +155,7 @@ Add the new component to the root Package.swift file:
 For each new component, you need to add:
 
 1. **Package Dependency** (in `dependencies` array):
-   - [ ] Add `.package(path: "Dependencies/Component{ComponentName}")` in alphabetical order
+   - [ ] Add `.package(path: "Modules/Components/{ComponentName}")` in alphabetical order
 
 2. **Products** (in `products` array, after main Spark product):
    - [ ] Add main component library product:
@@ -186,7 +186,7 @@ For each new component, you need to add:
              "SparkTheming",
              // Add other component dependencies as needed
          ],
-         path: "Dependencies/Component{ComponentName}/Sources/Core"
+         path: "Modules/Components/{ComponentName}/Sources/Core"
      ),
      ```
    - [ ] Add testing target:
@@ -200,7 +200,7 @@ For each new component, you need to add:
              "SparkThemingTesting",
              "SparkTheme"
          ],
-         path: "Dependencies/Component{ComponentName}/Sources/Testing"
+         path: "Modules/Components/{ComponentName}/Sources/Testing"
      ),
      ```
 
@@ -215,7 +215,7 @@ For each new component, you need to add:
              "SparkCommonTesting",
              "SparkThemingTesting"
          ],
-         path: "Dependencies/Component{ComponentName}/Tests/UnitTests"
+         path: "Modules/Components/{ComponentName}/Tests/UnitTests"
      ),
      ```
    - [ ] Add snapshot test target:
@@ -227,7 +227,7 @@ For each new component, you need to add:
              "SparkComponent{ComponentName}Testing",
              "SparkCommonSnapshotTesting",
          ],
-         path: "Dependencies/Component{ComponentName}/Tests/SnapshotTests"
+         path: "Modules/Components/{ComponentName}/Tests/SnapshotTests"
      ),
      ```
 
@@ -258,7 +258,7 @@ Add a new component SparkButton with:
 ```
 
 **Expected Result:**
-- ✅ Directory created: `Dependencies/SparkComponentButton/`
+- ✅ Directory created: `Modules/Components/Button/`
 - ✅ `documentation.json` populated with correct values
 - ✅ All placeholders replaced: "Button" or "button"
 - ✅ Anatomy image: `sparkcomponent-button-anatomy.png`
@@ -295,7 +295,7 @@ Before finishing:
 
 When complete, provide the user with:
 1. ✅ Success message
-2. 📁 Path to new component: `Dependencies/SparkComponent{ComponentName}/`
+2. 📁 Path to new component: `Modules/Components/{ComponentName}/`
 3. 📝 Summary of modified files:
    - Component files created
    - `Import.swift` updated

@@ -2,7 +2,7 @@
 
 .PHONY: build build-demo-app test docc clean clear-snapshots sourcery
 
-PACKAGES = $(shell find Dependencies -maxdepth 1 -mindepth 1 -type d -exec basename {} \; | sort)
+PACKAGES = $(shell find Modules -mindepth 2 -maxdepth 3 -type d -name Sources -exec dirname {} \; | sort)
 RESULTS_DIR = .testResults
 DERIVED_DATA_PATH = .derivedData/
 SDK = iphonesimulator
@@ -38,8 +38,11 @@ build: sourcery
 ## BUILD DEMO APP
 ##
 
-# Build the demo app for the iOS Simulator, requires xcodegen to have been run ($ make build-demo-app)
+# Generate the Xcode project with xcodegen and build the demo app for the iOS Simulator ($ make build-demo-app)
 build-demo-app:
+	@rm -rf $(DEMO_APP_NAME).xcresult
+	@echo "Generating Xcode project with xcodegen..."
+	@xcodegen
 	@echo "Building $(DEMO_APP_NAME)..."; \
 	if ! xcodebuild -scheme $(DEMO_APP_NAME) -derivedDataPath $(DERIVED_DATA_PATH) -sdk $(SDK) -destination "$(DESTINATION)" -resultBundlePath $(DEMO_APP_NAME).xcresult build; then \
 		echo "\n✗ $(DEMO_APP_NAME) build failed"; \
@@ -116,9 +119,10 @@ docc: sourcery
 				--output-path $(DOCC_OUTPUT_PATH)/$$pkg_lower \
 				--hosting-base-path $(HOSTING_BASE_PATH)/$$pkg_lower; \
 			dep_name=$$(echo "$$archive_name" | sed 's/^Spark//'); \
-			if [ -f "Dependencies/$$dep_name/documentation.json" ]; then \
-				cp "Dependencies/$$dep_name/documentation.json" $(DOCC_OUTPUT_PATH)/$$pkg_lower/documentation.json; \
-				echo "Copied documentation.json from Dependencies/$$dep_name to $(DOCC_OUTPUT_PATH)/$$pkg_lower/"; \
+			module_path=$$(echo "$$dep_name" | sed 's#^Component#Components/#'); \
+			if [ -f "Modules/$$module_path/documentation.json" ]; then \
+				cp "Modules/$$module_path/documentation.json" $(DOCC_OUTPUT_PATH)/$$pkg_lower/documentation.json; \
+				echo "Copied documentation.json from Modules/$$module_path to $(DOCC_OUTPUT_PATH)/$$pkg_lower/"; \
 			elif [ -n "$$dep_name" ] && [ -f "$$dep_name/documentation.json" ]; then \
 				cp "$$dep_name/documentation.json" $(DOCC_OUTPUT_PATH)/$$pkg_lower/documentation.json; \
 				echo "Copied documentation.json from $$dep_name to $(DOCC_OUTPUT_PATH)/$$pkg_lower/"; \
@@ -161,16 +165,17 @@ clean:
 	@rm -rf $(DERIVED_DATA_PATH)
 	@rm -rf $(DOCC_OUTPUT_PATH)
 	@echo "Removing Sourcery generated files..."
-	@find Dependencies -type f -name "Sourcery.generated.swift" -delete 2>/dev/null || true
+	@find Modules -type f -name "Sourcery.generated.swift" -delete 2>/dev/null || true
 	@find Spark -type f -name "Sourcery.generated.swift" -delete 2>/dev/null || true
 	@echo "✓ Sourcery generated files removed"
+	@echo "\n✓ The cleaning is finished."
 
 # Remove all snapshot files from Tests folders ($ make clear-snapshots)
 clear-snapshots:
 	@for pkg in $(PACKAGES); do \
-		if [ -d "Dependencies/$$pkg/Tests" ]; then \
+		if [ -d "$$pkg/Tests" ]; then \
 			echo "Checking $$pkg for snapshots..."; \
-			find Dependencies/$$pkg/Tests -type d -name "*.__snapshots__" -exec sh -c 'echo "Clearing snapshots in {}"; rm -rf {}/*' \; ; \
+			find $$pkg/Tests -type d -name "*.__snapshots__" -exec sh -c 'echo "Clearing snapshots in {}"; rm -rf {}/*' \; ; \
 		fi \
 	done
 	@if [ -d "Spark/Tests" ]; then \
@@ -199,9 +204,9 @@ sourcery:
 	fi
 	@echo ""
 	@for pkg in $(PACKAGES); do \
-		if [ -f "Dependencies/$$pkg/.sourcery.yml" ]; then \
+		if [ -f "$$pkg/.sourcery.yml" ]; then \
 			echo "Running Sourcery for $$pkg..."; \
-			cd Dependencies/$$pkg && sourcery --config .sourcery.yml && cd ../..; \
+			(cd $$pkg && sourcery --config .sourcery.yml) || exit 1; \
 			echo ""; \
 		fi \
 	done

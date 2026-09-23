@@ -3,6 +3,6 @@ parent_config: .tools/.swiftlint.yml
 included:
   - .demo/
   - Demo/
-  - Dependencies/
+  - Modules/
   - Resources/
   - Spark/

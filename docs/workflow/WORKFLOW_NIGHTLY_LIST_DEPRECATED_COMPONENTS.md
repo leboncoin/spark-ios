@@ -45,8 +45,8 @@ The workflow runs automatically in three scenarios:
    - Purpose: Clone the monorepo to the runner
    - Result: Full repository available for scanning
 
-2. **List Dependencies structure**
-   - Command: `ls -la Dependencies/`
+2. **List Modules/Components structure**
+   - Command: `ls -la Modules/Components/`
    - Purpose: Verify monorepo structure and log component packages
    - Output: Lists all component directories for debugging
 
@@ -96,7 +96,7 @@ Trigger (push/schedule/manual)
     ↓
 Checkout Monorepo
     ↓
-Verify Dependencies Structure
+Verify Modules/Components Structure
     ↓
 Execute list-deprecated-components.sh
     ↓
@@ -111,16 +111,16 @@ Workflow Complete
 
 **Workflow Console Output**:
 ```
-Run ls -la Dependencies/
+Run ls -la Modules/Components/
 total 0
-drwxr-xr-x  35 runner staff  1120 Dependencies
+drwxr-xr-x  35 runner staff  1120 Components
 drwxr-xr-x  18 runner staff   576 Common
 drwxr-xr-x  18 runner staff   576 Theming
 drwxr-xr-x  18 runner staff   576 ComponentAvatar
 ...
 
 Run ./.script/list-deprecated-components.sh
-Scanning Dependencies directories for deprecated views...
+Scanning Modules/Components directories for deprecated views...
 ✅ Successfully created spark-deprecated-components-listing.json
    Total deprecated components: 36
 
@@ -151,7 +151,7 @@ This workflow has been optimized for the monorepo structure:
 
 **After (Monorepo)**:
 - Single checkout: One repository clone
-- Local scanning: All components in `Dependencies/`
+- Local scanning: All components in `Modules/Components/`
 - Duration: Seconds for complete execution
 - Reliability: No external API dependencies
 

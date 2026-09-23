@@ -14,15 +14,15 @@ This skill guides you to implement/update an use case in spark component.
 **Parameter Handling:**
 - If the skill is invoked with a parameter (e.g., `/spark-component-use-case button`):
   - Use the parameter as the component name
-  - Verify the folder exists in `Dependencies/{component-name}/`
+  - Verify the folder exists in `Modules/Components/{component-name}/`
   - If found, use that component and skip the selection step
 
 - If no parameter is provided:
-  - List all folders in the `Dependencies/` directory
+  - List all folders in the `Modules/Components/` directory
   - Use AskUserQuestion to let the user select ONE component from the list
   - Format: Display folder names as options (e.g., "button", "card", "checkbox")
 
-**Once the component is selected, all operations must be performed in `Dependencies/{component-name}/` folder.**
+**Once the component is selected, all operations must be performed in `Modules/Components/{component-name}/` folder.**
 
 Use the files in the **template** folder as reference to manage the *use case* and the *unit tests*.
 

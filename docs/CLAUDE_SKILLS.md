@@ -35,7 +35,7 @@ Skills can be invoked using the `/` prefix followed by the skill name:
 
 ### spark-create-component
 
-**Purpose**: Create a new component in the Dependencies folder using the template-based approach.
+**Purpose**: Create a new component in the Modules folder using the template-based approach.
 
 **Usage**: `/spark-create-component`
 
@@ -50,7 +50,7 @@ Skills can be invoked using the `/` prefix followed by the skill name:
 
 **Workflow**:
 1. Validates all required parameters
-2. Copies template to `Dependencies/SparkComponent{Name}/`
+2. Copies template to `Modules/Components/{Name}/`
 3. Handles anatomy image setup in `.github/assets`
 4. Updates `documentation.json` with metadata
 5. Replaces all placeholders in files and filenames
@@ -69,7 +69,7 @@ Skills can be invoked using the `/` prefix followed by the skill name:
 
 All component development skills support parameter-based targeting:
 - With parameter: `/skill-name button` (directly targets that component)
-- Without parameter: Prompts to select from available components in `Dependencies/`
+- Without parameter: Prompts to select from available components in `Modules/Components/`
 
 ### spark-component-accessibility-identifier
 
@@ -461,7 +461,7 @@ func test() -> String {
 ### Folder Structure
 
 ```
-Dependencies/{component-name}/
+Modules/Components/{component-name}/
 ├── Sources/
 │   └── Core/
 │       ├── AccessibilityIdentifier/

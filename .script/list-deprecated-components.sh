@@ -6,10 +6,10 @@
 # Temporary file for collecting entries
 TEMP_ENTRIES=$(mktemp)
 
-echo "Scanning Dependencies directories for deprecated views..." >&2
+echo "Scanning Modules/Components directories for deprecated views..." >&2
 
-# Loop through all component directories in Dependencies folder
-for component_dir in Dependencies/*/; do
+# Loop through all component directories in Modules/Components folder
+for component_dir in Modules/Components/*/; do
     # Check if Sources/Core exists in this directory
     if [ -d "${component_dir}Sources/Core" ]; then
         # Find all Swift files in Sources/Core that contain @available with deprecated
