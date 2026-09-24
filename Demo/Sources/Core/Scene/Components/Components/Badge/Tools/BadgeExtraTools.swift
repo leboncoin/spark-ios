@@ -13,7 +13,7 @@ struct BadgeExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=643-15510"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-badge/documentation/sparkcomponentbadge/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentbadge/documentation/sparkcomponentbadge/documentation"
 
     // MARK: - Code Syntax
 

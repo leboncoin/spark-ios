@@ -16,4 +16,4 @@ D – Action button (optional).
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentsnackbar/documentation/sparkcomponentsnackbar/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentsnackbar/documentation/sparkcomponentsnackbar/documentation).

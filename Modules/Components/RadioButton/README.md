@@ -12,4 +12,4 @@ The radio-button specifications on Zeroheight is [here](https://spark.adevinta.c
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentradiobutton/documentation/sparkcomponentradiobutton/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentradiobutton/documentation/sparkcomponentradiobutton/documentation).

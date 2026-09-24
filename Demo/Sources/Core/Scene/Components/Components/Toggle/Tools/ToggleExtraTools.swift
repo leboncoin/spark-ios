@@ -13,7 +13,7 @@ struct ToggleExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=267-8340"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-selection-controls/documentation/sparkcomponentselectioncontrols/#ToggleSwitch"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentselectioncontrols/documentation/sparkcomponentselectioncontrols/documentation#ToggleSwitch"
 
     // MARK: - Code Syntax
 

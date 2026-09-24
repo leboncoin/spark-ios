@@ -13,7 +13,7 @@ struct SegmentedControlExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=65227-17269"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-segmented-control/documentation/sparkcomponentsegmentedcontrol/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentsegmentedcontrol/documentation/sparkcomponentsegmentedcontrol/documentation"
 
     // MARK: - Code Syntax
 

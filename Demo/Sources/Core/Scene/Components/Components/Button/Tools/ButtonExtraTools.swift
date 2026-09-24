@@ -13,7 +13,7 @@ struct ButtonExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=18-1591"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-button/documentation/sparkcomponentbutton/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentbutton/documentation/sparkcomponentbutton/documentation"
 
     // MARK: - Code Syntax
 

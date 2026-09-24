@@ -13,7 +13,7 @@ struct RadioButtonExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=127-6137"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-selection-controls/documentation/sparkcomponentselectioncontrols/#RadioButton"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentselectioncontrols/documentation/sparkcomponentselectioncontrols/documentation#RadioButton"
 
     // MARK: - Code Syntax
 

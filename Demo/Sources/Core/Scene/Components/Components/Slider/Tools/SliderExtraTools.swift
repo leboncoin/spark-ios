@@ -13,7 +13,7 @@ struct SliderExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=3282-22023"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-slider/documentation/sparkcomponentslider/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentslider/documentation/sparkcomponentslider/documentation"
 
     // MARK: - Code Syntax
 

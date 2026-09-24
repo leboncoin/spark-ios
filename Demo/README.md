@@ -14,7 +14,7 @@ Then open the generated file : `Spark.xcodeproj`.
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkdemo/documentation/sparkdemo/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkdemo/documentation/sparkdemo/documentation).
 
 ### Swift Package Manager
 

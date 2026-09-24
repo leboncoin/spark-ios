@@ -13,7 +13,7 @@ struct DividerExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=643-21226"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-divider/documentation/sparkcomponentdivider/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentdivider/documentation/sparkcomponentdivider/documentation"
 
     // MARK: - Code Syntax
 

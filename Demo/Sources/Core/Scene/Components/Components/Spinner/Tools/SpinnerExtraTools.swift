@@ -13,7 +13,7 @@ struct SpinnerExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=2411-23008"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-spinner/documentation/sparkcomponentspinner/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentspinner/documentation/sparkcomponentspinner/documentation"
 
     // MARK: - Code Syntax
 

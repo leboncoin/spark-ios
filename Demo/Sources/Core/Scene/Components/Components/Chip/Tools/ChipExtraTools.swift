@@ -13,7 +13,7 @@ struct ChipExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=643-21226"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-chip/documentation/sparkcomponentchip/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentchip/documentation/sparkcomponentchip/documentation"
 
     // MARK: - Code Syntax
 

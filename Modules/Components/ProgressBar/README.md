@@ -10,4 +10,4 @@ The progress bar specifications on Zeroheight is [here](https://zeroheight.com/1
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentprogress-bar/documentation/sparkcomponentprogress-bar/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentprogress-bar/documentation/sparkcomponentprogress-bar/documentation).

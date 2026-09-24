@@ -22,4 +22,4 @@ The repository contains 3 parts :
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentfileupload/documentation/sparkcomponentfileupload/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentfileupload/documentation/sparkcomponentfileupload/documentation).

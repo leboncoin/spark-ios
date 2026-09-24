@@ -265,7 +265,7 @@
       <span id="themeIcon">🌙</span>
     </button>
   </div>
-  <p class="intro">Welcome to the documentation for the Spark iOS packages.</p>
+  <p class="intro">Welcome to the Spark's documentation.</p>
   <ul class="package-grid" id="packageGrid">
     <!-- Cards will be dynamically generated here -->
   </ul>
@@ -325,8 +325,8 @@
 
           const img = document.createElement('img');
           img.className = 'card-image theme-image';
-          img.setAttribute('data-light', `https://github.com/leboncoin/spark-ios/blob/main/.github/assets/doc/light/${pkg.image}.png`);
-          img.setAttribute('data-dark', `https://github.com/leboncoin/spark-ios/blob/main/.github/assets/doc/dark/${pkg.image}.png`);
+          img.setAttribute('data-light', `https://raw.githubusercontent.com/leboncoin/spark-ios/main/.github/assets/doc/light/${pkg.image}.png`);
+          img.setAttribute('data-dark', `https://raw.githubusercontent.com/leboncoin/spark-ios/main/.github/assets/doc/dark/${pkg.image}.png`);
           img.alt = pkg.title;
 
           imageContainer.appendChild(img);

@@ -141,7 +141,7 @@ docc: sourcery
 	fi; \
 	echo ""; \
 	echo "Generating packages.json with metadata..."; \
-	if ! .script/generate-packages-json.swift $(DOCC_OUTPUT_PATH); then \
+	if ! .script/generate-docc-packages-json.swift $(DOCC_OUTPUT_PATH); then \
 		echo "\n✗ packages.json generation failed"; \
 		exit 1; \
 	fi; \

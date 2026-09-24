@@ -13,7 +13,7 @@ struct CornerRadiusExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = nil
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-common/documentation/sparkcommon"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcommon/documentation/sparkcommon/documentation"
 
     // MARK: - Code Syntax
 

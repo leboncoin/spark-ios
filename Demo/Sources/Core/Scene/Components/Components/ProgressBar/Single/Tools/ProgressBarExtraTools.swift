@@ -13,7 +13,7 @@ struct ProgressBarExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=7229-1207"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-progress-bar/documentation/sparkcomponentprogressbar/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentprogressbar/documentation/sparkcomponentprogressbar/documentation"
 
     // MARK: - Code Syntax
 

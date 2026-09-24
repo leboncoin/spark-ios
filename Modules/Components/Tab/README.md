@@ -10,4 +10,4 @@ The tab specifications on Zeroheight is [here](https://spark.adevinta.com/1186e1
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponenttab/documentation/sparkcomponenttab/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponenttab/documentation/sparkcomponenttab/documentation).

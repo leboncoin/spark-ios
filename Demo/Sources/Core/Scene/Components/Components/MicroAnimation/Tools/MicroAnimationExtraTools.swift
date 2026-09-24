@@ -13,7 +13,7 @@ struct MicroAnimationExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = nil
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-common/documentation/sparkcommon/swiftuicore/view/animate(type:play:delay:repeat:completion:)"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcommon/documentation/sparkcommon/swiftuicore/view/animate(type:play:delay:repeat:completion:)"
 
     // MARK: - Code Syntax
 

@@ -13,7 +13,7 @@ struct StepperExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=51908-6090"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-stepper/documentation/sparkcomponentstepper/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentstepper/documentation/sparkcomponentstepper/documentation"
 
     // MARK: - Code Syntax
 

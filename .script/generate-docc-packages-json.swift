@@ -3,9 +3,9 @@
 /// Script to merge every docc output folder's documentation.json (an array of package entries)
 /// into a single packages.json for the documentation site.
 /// Direct execution
-/// ```./.script/generate-packages-json.swift <docsOutputPath>```
+/// ```./.script/generate-docc-packages-json.swift <docsOutputPath>```
 /// Or
-/// ```swift .script/generate-packages-json.swift <docsOutputPath>```
+/// ```swift .script/generate-docc-packages-json.swift <docsOutputPath>```
 
 import Foundation
 
@@ -47,7 +47,7 @@ func main() {
         do {
             var items = try JSONDecoder().decode([PackageEntry].self, from: data)
             for index in items.indices {
-                items[index].path = "\(folder)/documentation/\(folder)"
+                items[index].path = "\(folder)/documentation/\(folder)/documentation"
             }
             packages.append(contentsOf: items)
         } catch {

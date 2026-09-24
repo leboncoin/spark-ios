@@ -13,7 +13,7 @@ struct TextEditorExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=3661-22748"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-text-input/documentation/sparkcomponenttextinput/#TextEditor"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponenttextinput/documentation/sparkcomponenttextinput/documentation#TextEditor"
 
     // MARK: - Code Syntax
 

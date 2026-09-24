@@ -12,4 +12,4 @@ The checkbox specifications on Zeroheight is [here](https://spark.adevinta.com/1
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentcheckbox/documentation/sparkcomponentcheckbox/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentcheckbox/documentation/sparkcomponentcheckbox/documentation).

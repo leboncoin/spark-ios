@@ -4,7 +4,7 @@ The folder here contains the main Spark target, which re-exports all components,
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/spark/documentation/spark/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/spark/documentation/spark/documentation).
 
 ### Swift Package Manager
 

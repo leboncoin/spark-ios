@@ -13,7 +13,7 @@ struct SnackbarExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=43405-12813"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-snackbar/documentation/sparkcomponentsnackbar/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentsnackbar/documentation/sparkcomponentsnackbar/documentation"
 
     // MARK: - Code Syntax
 

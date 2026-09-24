@@ -13,7 +13,7 @@ struct AvatarExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=57191-9907"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-avatar/documentation/sparkcomponentavatar/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentavatar/documentation/sparkcomponentavatar/documentation"
 
     // MARK: - Code Syntax
 

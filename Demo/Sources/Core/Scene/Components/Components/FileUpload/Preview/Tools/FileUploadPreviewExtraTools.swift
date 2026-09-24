@@ -13,7 +13,7 @@ struct FileUploadPreviewExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=59809-4315"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-file-upload/documentation/sparkcomponentfileupload/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentfileupload/documentation/sparkcomponentfileupload/documentation"
 
     // MARK: - Code Syntax
 

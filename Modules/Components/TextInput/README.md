@@ -18,4 +18,4 @@ The TextEditor specifications on Zeroheight is [here](https://spark.adevinta.com
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponenttextinput/documentation/sparkcomponenttextinput/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponenttextinput/documentation/sparkcomponenttextinput/documentation).

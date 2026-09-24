@@ -10,4 +10,4 @@ The spinner specifications on Zeroheight is [here](https://spark.adevinta.com/11
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentspinner/documentation/sparkcomponentspinner/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentspinner/documentation/sparkcomponentspinner/documentation).

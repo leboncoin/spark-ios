@@ -10,4 +10,4 @@ The badge specifications on Zeroheight is [here](https://spark.adevinta.com/1186
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentbadge/documentation/sparkcomponentbadge/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentbadge/documentation/sparkcomponentbadge/documentation).

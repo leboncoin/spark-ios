@@ -8,4 +8,4 @@ The formfield specifications on Zeroheight is [here](https://spark.adevinta.com/
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentformfield/documentation/sparkcomponentformfield/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentformfield/documentation/sparkcomponentformfield/documentation).

@@ -13,7 +13,7 @@ struct CheckboxExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=127-1880"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-selection-controls/documentation/sparkcomponentselectioncontrols/#Checkbox"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentselectioncontrols/documentation/sparkcomponentselectioncontrols/documentation#Checkbox"
 
     // MARK: - Code Syntax
 

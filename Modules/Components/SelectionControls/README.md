@@ -19,4 +19,4 @@ The folder here contains the _SwiftUI_ and _UIKit_ **iOS** :
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentselectioncontrols/documentation/sparkcomponentselectioncontrols/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentselectioncontrols/documentation/sparkcomponentselectioncontrols/documentation).

@@ -10,4 +10,4 @@ The stepper specifications is visible on [Zeroheight](https://zeroheight.com/118
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentstepper/documentation/sparkcomponentstepper/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentstepper/documentation/sparkcomponentstepper/documentation).

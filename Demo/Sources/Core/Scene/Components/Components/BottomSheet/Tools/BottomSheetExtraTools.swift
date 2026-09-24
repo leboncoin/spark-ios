@@ -13,7 +13,7 @@ struct BottomSheetExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = nil
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-bottom-sheet/documentation/sparkcomponentbottomsheet/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentbottomsheet/documentation/sparkcomponentbottomsheet/documentation"
 
     // MARK: - Code Syntax
 

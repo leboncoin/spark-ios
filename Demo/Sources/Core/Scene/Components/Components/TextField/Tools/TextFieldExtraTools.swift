@@ -13,7 +13,7 @@ struct TextFieldExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=267-8336"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-text-input/documentation/sparkcomponenttextinput/#TextField"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponenttextinput/documentation/sparkcomponenttextinput/documentation#TextField"
 
     // MARK: - Code Syntax
 

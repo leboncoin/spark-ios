@@ -10,4 +10,4 @@ The segmentedcontrol specifications is visible on [Zeroheight](https://zeroheigh
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentsegmented-control/documentation/sparkcomponentsegmented-control/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentsegmented-control/documentation/sparkcomponentsegmented-control/documentation).

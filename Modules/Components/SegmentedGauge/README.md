@@ -10,4 +10,4 @@ The segmented gauge specifications is visible on [Zeroheight](https://zeroheight
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentsegmented-gauge/documentation/sparkcomponentsegmented-gauge/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentsegmented-gauge/documentation/sparkcomponentsegmented-gauge/documentation).

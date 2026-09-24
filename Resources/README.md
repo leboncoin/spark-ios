@@ -4,7 +4,7 @@ The folder here contains the Spark iconography assets and the tools to use them 
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkresources/documentation/sparkresources/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkresources/documentation/sparkresources/documentation).
 
 ### Swift Package Manager
 

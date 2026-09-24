@@ -10,4 +10,4 @@ The slider specifications on Zeroheight are [here](https://zeroheight.com/1186e1
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentslider/documentation/sparkcomponentslider/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentslider/documentation/sparkcomponentslider/documentation).

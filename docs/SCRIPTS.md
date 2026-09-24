@@ -7,6 +7,8 @@ This document provides an overview of all utility scripts available in the proje
 - [Component Tracking Scripts](#component-tracking-scripts)
   - [List Components](#list-components)
   - [List Deprecated Components](#list-deprecated-components)
+- [Documentation Scripts](#documentation-scripts)
+  - [Generate DocC Packages JSON](#generate-docc-packages-json)
 - [Iconography Scripts](#iconography-scripts)
   - [Generate Iconography Assets](#generate-iconography-assets)
   - [Generate Iconography Codebase](#generate-iconography-codebase)
@@ -44,6 +46,23 @@ Identifies deprecated components and maps them to their recommended replacements
 - Extracts deprecated component names and replacements
 - Generates JSON mapping for migration guidance
 - Outputs to `spark-deprecated-components-listing.json` (36 deprecated components)
+
+---
+
+## Documentation Scripts
+
+### Generate DocC Packages JSON
+
+Merges every package `documentation.json` into a single `packages.json` used by the documentation site.
+
+**Documentation:** [SCRIPT_GENERATE_DOCC_PACKAGES_JSON.md](script/SCRIPT_GENERATE_DOCC_PACKAGES_JSON.md)
+
+**Description:**
+- Scans all package folders of the DocC output (default `.docs`)
+- Decodes each `documentation.json` (title, description, image, zeroheight, figma)
+- Sets the DocC `path` of each package
+- Outputs to `<docsOutputPath>/packages.json`
+- Called automatically by `make docc`
 
 ---
 

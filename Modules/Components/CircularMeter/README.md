@@ -10,4 +10,4 @@ The circularmeter specifications is visible on [Zeroheight](https://zeroheight.c
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentcircular-meter/documentation/sparkcomponentcircular-meter/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentcircular-meter/documentation/sparkcomponentcircular-meter/documentation).

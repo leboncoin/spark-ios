@@ -10,7 +10,7 @@ The ___component_name___ specifications is visible on [Zeroheight](TODO).
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponent___component_name___/documentation/sparkcomponent___component_name___/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponent___component_name___/documentation/sparkcomponent___component_name___/documentation).
 
 ### Swift Package Manager
 

@@ -13,7 +13,7 @@ struct FormFieldExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = "https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=44899-1278"
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios-component-form-field/documentation/sparkcomponentformfield/"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcomponentformfield/documentation/sparkcomponentformfield/documentation"
 
     // MARK: - Code Syntax
 

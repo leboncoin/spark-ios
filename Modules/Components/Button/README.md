@@ -10,4 +10,4 @@ The button specifications on Zeroheight is [here](https://spark.adevinta.com/118
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentbutton/documentation/sparkcomponentbutton/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentbutton/documentation/sparkcomponentbutton/documentation).

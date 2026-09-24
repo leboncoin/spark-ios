@@ -10,4 +10,4 @@ The input OTP specifications is visible on [Zeroheight](https://zeroheight.com/1
 
 ## Technical Documentation
 
-You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentinput-o-t-p/documentation/sparkcomponentinput-o-t-p/).
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkcomponentinput-o-t-p/documentation/sparkcomponentinput-o-t-p/documentation).
