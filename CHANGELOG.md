@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+## [2.0.0]
+
+_25/09/2026_
+
+❗️❗️ Use the /spark-changelog skills to improve the content ❗️❗️
+
+* feat(icons): update icons by @github-actions[bot] in https://github.com/leboncoin/spark-ios/pull/1115
+* chore: import full monorepo source tree by @robergro in https://github.com/leboncoin/spark-ios/pull/1116
+* chore: rename Dependencies folder to Modules by @robergro in https://github.com/leboncoin/spark-ios/pull/1117
+
+## New Contributors
+* @github-actions[bot] made their first contribution in https://github.com/leboncoin/spark-ios/pull/1115
+
 ## [1.0.0]
 
 _27/03/2025_
