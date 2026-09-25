@@ -12,15 +12,15 @@ This GitHub Actions workflow generates and deploys DocC documentation for the en
 
 This workflow runs automatically and manually:
 
-1. **Push to Main Branch**: `push`
-   - Trigger: Automatically runs on every push to the `main` branch
-   - Purpose: Keep documentation up-to-date with latest code changes
-   - Ensures documentation is always synchronized with the codebase
+1. **Release Published**: `release` (`types: [published]`)
+   - Trigger: Automatically runs when a GitHub release is published
+   - Purpose: Keep the public documentation aligned with the latest released version
+   - Pushes to `main` no longer deploy the documentation
 
 2. **Manual Trigger**: `workflow_dispatch`
    - Can be manually triggered from the GitHub Actions tab
-   - Navigate to Actions → "deploy-docC-on-github-page" → "Run workflow"
-   - Useful for deploying documentation without pushing to main
+   - Navigate to Actions → "📑 Deploy Documentation" → "Run workflow"
+   - Useful for deploying documentation without publishing a release
    - Requires appropriate repository permissions
 
 ## Environment Variables
@@ -74,7 +74,7 @@ The workflow requires specific GitHub token permissions:
 
 ## Usage
 
-This workflow should be manually triggered when you want to:
+This workflow runs on each published release. Trigger it manually when you want to deploy between releases, for example to:
 - Update the public documentation after significant changes
 - Publish new component documentation
 - Refresh the DocC documentation website
