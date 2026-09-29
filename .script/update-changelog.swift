@@ -50,34 +50,23 @@ private func cleanReleaseNotes(_ notes: String) -> String {
 private func updateChangelogContent(_ content: String, withTag tag: String, andNotes notes: String, date: String) -> String {
     var updatedContent = content
 
-    // Step 1: Find and update the [Unreleased] link
-    let unreleasedPattern = #"\[Unreleased\]:\s*https://github\.com/[^/]+/[^/]+/compare/([^.]+)\.\.\.HEAD"#
+    // Step 1 & 2: Point [Unreleased] to the new tag and add the new release link before the previous ones
+    let unreleasedPattern = #"\[Unreleased\]:\s*(https://github\.com/[^/\s]+/[^/\s]+)/compare/(\S+?)\.\.\.HEAD\n*"#
     if let regex = try? NSRegularExpression(pattern: unreleasedPattern, options: []),
-       let match = regex.firstMatch(in: updatedContent, options: [], range: NSRange(updatedContent.startIndex..., in: updatedContent)) {
+       let match = regex.firstMatch(in: updatedContent, options: [], range: NSRange(updatedContent.startIndex..., in: updatedContent)),
+       let fullRange = Range(match.range, in: updatedContent),
+       let repositoryRange = Range(match.range(at: 1), in: updatedContent),
+       let previousVersionRange = Range(match.range(at: 2), in: updatedContent) {
 
-        let fullRange = Range(match.range, in: updatedContent)!
-        let oldUnreleasedLink = String(updatedContent[fullRange])
-        let newUnreleasedLink = oldUnreleasedLink.replacingOccurrences(
-            of: #"/compare/[^.]+\.\.\.HEAD"#,
-            with: "/compare/\(tag)...HEAD",
-            options: .regularExpression
-        )
-        updatedContent = updatedContent.replacingOccurrences(of: oldUnreleasedLink, with: newUnreleasedLink)
+        let repositoryURL = String(updatedContent[repositoryRange])
+        let previousVersion = String(updatedContent[previousVersionRange])
+        let newLinks = """
+        [Unreleased]: \(repositoryURL)/compare/\(tag)...HEAD
 
-        // Step 2: Extract the previous version and add the new release link
-        if let previousMatch = regex.firstMatch(in: newUnreleasedLink, options: [], range: NSRange(newUnreleasedLink.startIndex..., in: newUnreleasedLink)),
-           previousMatch.numberOfRanges > 1,
-           let previousVersionRange = Range(previousMatch.range(at: 1), in: newUnreleasedLink) {
+        [\(tag)]: \(repositoryURL)/compare/\(previousVersion)...\(tag)
 
-            let previousVersion = String(newUnreleasedLink[previousVersionRange])
-            let newReleaseLink = "\n[\(tag)]: https://github.com/leboncoin/spark-ios/compare/\(previousVersion)...\(tag)"
-
-            // Insert the new release link after the Unreleased link
-            if let insertionPoint = updatedContent.range(of: newUnreleasedLink) {
-                let insertionIndex = insertionPoint.upperBound
-                updatedContent.insert(contentsOf: newReleaseLink, at: insertionIndex)
-            }
-        }
+        """
+        updatedContent.replaceSubrange(fullRange, with: newLinks)
     }
 
     // Step 3: Create the new version section
