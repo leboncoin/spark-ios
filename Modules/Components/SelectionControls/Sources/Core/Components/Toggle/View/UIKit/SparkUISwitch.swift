@@ -259,6 +259,8 @@ public final class SparkUISwitch: UIControl {
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Creates a Spark switch.
@@ -345,6 +347,7 @@ public final class SparkUISwitch: UIControl {
         super.layoutSubviews()
 
         self.updateCornerRadius()
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Gesture

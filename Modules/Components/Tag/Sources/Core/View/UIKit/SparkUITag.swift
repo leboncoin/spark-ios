@@ -215,6 +215,8 @@ public final class SparkUITag: UIView {
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Creates a Spark tag.
@@ -293,6 +295,7 @@ public final class SparkUITag: UIView {
         super.layoutSubviews()
 
         self.updateBorder()
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Constraints

@@ -218,6 +218,8 @@ public final class SparkUITextLink: UIControl {
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Create an icon with an image.
@@ -461,6 +463,14 @@ public final class SparkUITextLink: UIControl {
 
             self.alpha = dim
         }
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Trait Collection

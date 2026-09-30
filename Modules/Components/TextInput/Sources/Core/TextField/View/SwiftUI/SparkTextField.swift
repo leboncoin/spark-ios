@@ -598,6 +598,7 @@ public struct SparkTextField<Value, LeftView: View, RightView: View, LeftAddon: 
         .opacity(self.viewModel.dim)
         .dynamicTypeSize(...DynamicTypeSize.accessibility3)
         .accessibilityElement(children: .contain)
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.updateAll(
                 theme: self.deprecatedTheme ?? self.theme.value,

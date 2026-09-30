@@ -44,6 +44,7 @@ internal struct CommonGroup<Content>: View where Content: View {
     var body: some View {
         self.stack()
             .selectionControlsStyleContext(.group(axis: self.axis))
+            .sparkVisualIdentification()
             .onAppear() {
                 self.viewModel.setup(
                     theme: self.deprecatedTheme ?? self.theme.value,

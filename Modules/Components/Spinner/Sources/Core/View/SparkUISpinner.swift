@@ -68,6 +68,8 @@ public final class SparkUISpinner: UIView {
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Create a spinner.
@@ -172,6 +174,14 @@ public final class SparkUISpinner: UIView {
             )
             self.invalidateIntrinsicContentSize()
         }
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Trait Collection

@@ -168,6 +168,8 @@ public final class SparkUICard: UIControl {
         }
     }
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Creates a Spark card.
@@ -253,6 +255,7 @@ public final class SparkUICard: UIControl {
         super.layoutSubviews()
 
         self.updateBorderRadius()
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Actions

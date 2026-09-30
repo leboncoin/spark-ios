@@ -265,6 +265,7 @@ public struct SparkChip<Label, ExtraContent>: View where Label: View, ExtraConte
         .accessibilityAddTraits(.isSelected, condition: self.isSelected)
         .accessibilityElement(children: .combine)
         .dynamicTypeSize(...DynamicTypeSize.accessibility3)
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value,

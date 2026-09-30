@@ -64,6 +64,8 @@ public final class CheckboxGroupUIView: UIControl {
     @ScaledUIMetric private var padding: CGFloat = CheckboxControlUIView.Constants.lineWidthPressed
     @ScaledUIMetric private var spacingSmall: CGFloat
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Public properties.
 
     /// The delegate CheckboxGroupUIViewDelegate` which may be set to retrieve changes to the checkboxes.
@@ -218,6 +220,14 @@ public final class CheckboxGroupUIView: UIControl {
         self.enableTouch()
         self.updateTitle()
         self.updateAccessibility()
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Methods

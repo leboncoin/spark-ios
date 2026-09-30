@@ -283,6 +283,7 @@ public struct SparkRatingDisplay<ValueLabel, CountLabel, AdditionalLabel>: View 
             rating: self.value,
             numberOfStars: stars.rawValue
         ))
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value,

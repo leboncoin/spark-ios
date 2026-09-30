@@ -307,6 +307,7 @@ public struct SparkStepper<V>: View where V: Strideable {
         }
         .opacity(self.opacity())
         .compositingGroup()
+        .sparkVisualIdentification()
         .onChange(of: self.value) { value in
             self.formattedTextObservable.setValue(value)
         }

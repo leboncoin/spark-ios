@@ -216,6 +216,8 @@ public final class ProgressTrackerUIControl: UIControl {
         )
     }
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Internal init
     init(
         theme: any Theme,
@@ -244,6 +246,14 @@ public final class ProgressTrackerUIControl: UIControl {
         self.addPanGestureToPreventCancelTracking()
         self.isUserInteractionEnabled = false
         self.accessibilityContainerType = .semanticGroup
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

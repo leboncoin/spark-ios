@@ -288,6 +288,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
         })
         .accessibilityIdentifier(SegmentedControlAccessibilityIdentifier.view)
         .dynamicTypeSize(.large)
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value,

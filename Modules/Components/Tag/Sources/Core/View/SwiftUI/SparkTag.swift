@@ -241,6 +241,7 @@ public struct SparkTag<Label>: View where Label: View {
             }
         }
         .dynamicTypeSize(...DynamicTypeSize.accessibility3)
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.deprecatedTheme ?? self.theme.value,

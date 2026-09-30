@@ -189,6 +189,8 @@ public final class SparkUIDivider: UIView {
 
     @LimitedScaledUIMetric private var spacing: CGFloat = 0
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Creates a Spark divider.
@@ -250,6 +252,14 @@ public final class SparkUIDivider: UIView {
             axis: self.axis,
             intent: self.intent
         )
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Constraints

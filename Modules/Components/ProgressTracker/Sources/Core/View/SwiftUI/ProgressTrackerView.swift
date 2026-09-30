@@ -8,6 +8,7 @@
 
 import SwiftUI
 import SparkTheming
+@_spi(SI_SPI) import SparkCommon
 
 /// A progress tracker, similar to the UIPageControl
 public struct ProgressTrackerView: View {
@@ -100,6 +101,7 @@ public struct ProgressTrackerView: View {
         self.progressTrackerView
             .accessibilityElement(children: .contain)
             .accessibilityIdentifier(AccessibilityIdentifier.identifier)
+            .sparkVisualIdentification()
             .accessibilityValue("\(self.currentPageIndex)")
             .overlayPreferenceValue(ProgressTrackerSizePreferences.self) { preferences in
                 if self.viewModel.interactionState != .none {

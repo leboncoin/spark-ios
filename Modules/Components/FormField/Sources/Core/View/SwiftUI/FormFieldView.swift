@@ -348,6 +348,7 @@ public struct FormFieldView<Component: View>: View {
         }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier(FormFieldAccessibilityIdentifier.formField)
+        .sparkVisualIdentification()
     }
 
     // MARK: - Accessibility Modifier

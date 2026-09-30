@@ -59,6 +59,8 @@ public final class TextFieldAddonsUIView: UIControl {
         set { self.textField.isReadOnly = newValue }
     }
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// TextFieldAddonsUIView  initializer
@@ -295,6 +297,14 @@ public final class TextFieldAddonsUIView: UIControl {
         ].compactMap { $0 }
 
         self.accessibilityElements = accessibilityElements
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Trait Collection

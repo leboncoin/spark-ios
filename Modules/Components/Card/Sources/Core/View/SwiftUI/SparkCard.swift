@@ -132,6 +132,7 @@ public struct SparkCard<Content, Header>: View where Content: View, Header: View
         .accessibilityIdentifier(CardAccessibilityIdentifier.view)
         .accessibilityElement(children: .contain)
         .sparkSensoryFeedback(.selection, trigger: self.feedbackID)
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value,

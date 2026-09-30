@@ -17,6 +17,7 @@ import SparkTheming
 public final class CheckboxUIView: UIControl {
 
     // MARK: - Private Properties.
+
     private let textLabel: UILabel = {
         let label = UILabel()
         label.isAccessibilityElement = false
@@ -58,6 +59,8 @@ public final class CheckboxUIView: UIControl {
     private var checkboxSizeConstraint: NSLayoutConstraint?
     private var textObserver: NSKeyValueObservation?
     private var attributedTextObserver: NSKeyValueObservation?
+
+    private let visualIdentification = UUID().uuidString
 
     // MARK: - Public properties.
 
@@ -267,6 +270,14 @@ public final class CheckboxUIView: UIControl {
         self.updateAccessibility()
         self.addActions()
         self.addObservers()
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Methods

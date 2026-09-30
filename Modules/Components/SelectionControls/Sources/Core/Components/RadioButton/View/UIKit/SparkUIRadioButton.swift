@@ -233,6 +233,8 @@ public final class SparkUIRadioButton: UIControl {
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Creates a Spark radio button.
@@ -285,6 +287,7 @@ public final class SparkUIRadioButton: UIControl {
 
         self.updateToggleBorderRadius()
         self.updateToggleSelectedDotCornerRadius()
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - View setup

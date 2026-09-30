@@ -206,6 +206,7 @@ public struct SparkTextLink: View {
         .accessibilityAddTraits(.isLink)
         .accessibilityShowsLargeContentViewer()
         .sparkSensoryFeedback(.selection, trigger: self.feedbackID)
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value,

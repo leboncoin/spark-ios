@@ -282,6 +282,8 @@ public final class SparkUISegmentedGauge: UIView {
     @LimitedScaledUIMetric private var subContentSpacing: CGFloat = 0
     @LimitedScaledUIMetric private var segmentsSpacing: CGFloat = 0
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Creates a Spark segmented gauge.
@@ -346,6 +348,14 @@ public final class SparkUISegmentedGauge: UIView {
             size: self.size,
             type: self.type
         )
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Constraints

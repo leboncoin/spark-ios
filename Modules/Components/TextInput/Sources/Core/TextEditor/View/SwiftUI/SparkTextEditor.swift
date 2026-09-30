@@ -165,6 +165,7 @@ public struct SparkTextEditor: View {
         .allowsHitTesting(!self.isReadOnly)
         .dynamicTypeSize(...DynamicTypeSize.accessibility3)
         .accessibilityIdentifier(TextEditorAccessibilityIdentifier.view)
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.updateAll(
                 theme: self.deprecatedTheme ?? self.theme.value,

@@ -417,6 +417,8 @@ public final class SparkUISlider: UIControl {
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Create a slider.
@@ -499,6 +501,7 @@ public final class SparkUISlider: UIControl {
         super.layoutSubviews()
 
         self.updateValueLabelPosition()
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Constraints

@@ -288,6 +288,8 @@ public final class SparkUISnackbar: UIView {
 
     private var iconWidthConstraint: NSLayoutConstraint?
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Creates a snackbar with a theme.
@@ -394,6 +396,7 @@ public final class SparkUISnackbar: UIView {
         super.layoutSubviews()
 
         self.updateLayer()
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Constraints

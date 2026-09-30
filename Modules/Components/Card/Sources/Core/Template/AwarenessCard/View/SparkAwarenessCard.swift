@@ -162,6 +162,7 @@ public struct SparkAwarenessCard<TitleLabel, DescriptionLabel, ActionLabel>: Vie
         }
         .sparkCardPadding(.all)
         .accessibilityIdentifier(AwarenessCardAccessibilityIdentifier.view)
+        .sparkVisualIdentification()
         .onAppear {
             self.viewModel.setup(theme: self.theme.value)
         }

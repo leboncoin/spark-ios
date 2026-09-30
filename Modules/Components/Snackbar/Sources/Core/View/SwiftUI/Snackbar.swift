@@ -110,6 +110,7 @@ internal struct Snackbar<TitleLabel, DescriptionLabel, ActionButton>: View where
         .transition(.move(edge: self.direction.edge).combined(with: .opacity))
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier(SnackbarAccessibilityIdentifier.view)
+        .sparkVisualIdentification()
         .onAppear {
             self.viewModel.setup(
                 theme: self.theme.value,

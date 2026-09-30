@@ -280,6 +280,7 @@ public struct SparkCircularMeter<ValueLabel, ContentLabel>: View where ValueLabe
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier(CircularMeterAccessibilityIdentifier.view)
         .accessibilityValue(Text(self.value.toPercentageString()))
+        .sparkVisualIdentification()
         .onAppear {
             self.viewModel.setup(
                 theme: self.theme.value,

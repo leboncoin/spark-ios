@@ -102,6 +102,7 @@ public struct SparkSpinner: View {
             }
             .accessibilityIdentifier(SpinnerAccessibilityIdentifier.view)
             .accessibilityHidden(true)
+            .sparkVisualIdentification()
             .onAppear() {
                 self.viewModel.setup(
                     theme: self.theme.value,

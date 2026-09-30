@@ -316,6 +316,7 @@ public struct SparkCheckbox<Label>: View where Label: View {
         .accessibilityIdentifier(CheckboxAccessibilityIdentifier.view)
         .accessibilityRemoveToggleTraits()
         .accessibilityValue(String.accessibilityValue(selectionState: self.selectionState))
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.deprecatedTheme ?? self.theme.value,
