@@ -41,7 +41,7 @@ let package = Package(
                 .product(
                     name: "Spark",
                     package: "spark-ios"
-                ),
+                )
             ]
         )
     ]
@@ -79,7 +79,7 @@ let package = Package(
                 .product(
                     name: "Spark",
                     package: "spark-ios"
-                ),
+                )
             ]
         ),
         .testTarget(
@@ -89,7 +89,7 @@ let package = Package(
                 .product(
                     name: "SparkThemingTesting",
                     package: "spark-ios"
-                ),
+                )
             ]
         )
     ]
@@ -131,7 +131,7 @@ let package = Package(
                 .product(
                     name: "SparkTheme",
                     package: "spark-ios"
-                ),
+                )
             ]
         )
     ]
@@ -169,7 +169,7 @@ let package = Package(
                 .product(
                     name: "SparkDemo",
                     package: "spark-ios"
-                ),
+                )
             ]
         )
     ]

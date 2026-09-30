@@ -68,7 +68,7 @@ final class RadioButtonUIViewSnapshotTests: UIKitComponentSnapshotTestCase  {
                 view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
                 view.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
                 view.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-                view.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+                view.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
             ])
 
             if configuration.hasExpendedContainer {

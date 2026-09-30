@@ -47,7 +47,7 @@ let package = Package(
                 .product(
                     name: "Spark", // All components, common code, theming and resources
                     package: "Spark"
-                ),
+                )
             ]
         ),
     ]

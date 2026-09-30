@@ -468,7 +468,7 @@ public final class RadioButtonUIView<ID: Equatable & CustomStringConvertible>: U
 
             return [
                 toggleViewTrailingConstraint,
-                self.textLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                self.textLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor)
             ]
         }
     }
