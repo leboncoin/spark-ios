@@ -97,9 +97,6 @@ public struct SparkSpinner: View {
                 .rotation(self.rotate),
                 value: self.rotate
             )
-            .task {
-                self.rotate = true
-            }
             .accessibilityIdentifier(SpinnerAccessibilityIdentifier.view)
             .accessibilityHidden(true)
             .sparkVisualIdentification()
@@ -118,6 +115,9 @@ public struct SparkSpinner: View {
             }
             .onChange(of: self.size) { size in
                 self.viewModel.size = size
+            }
+            .onChange(of: self.viewModel.isAnimated) {
+                self.rotate = self.viewModel.isAnimated
             }
     }
 }

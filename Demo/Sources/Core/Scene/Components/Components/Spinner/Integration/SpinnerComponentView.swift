@@ -30,12 +30,6 @@ struct SpinnerImplementationView: ComponentImplementationViewable {
                 .sparkSpinnerSize(self.configurationWrapped.size)
             .demoAccessibilityLabel(self.configurationWrapped)
             .demoAccessibilityHidden(self.configurationWrapped)
-
-            SpinnerView(
-                theme: self.configurationWrapped.theme.value,
-                intent: self.configurationWrapped.intent.toRealType(self.configurationWrapped),
-                spinnerSize: self.configurationWrapped.size
-            )
         }
         .demoAccessibilityLabel(self.configurationWrapped)
         .demoAccessibilityHidden(self.configurationWrapped)
