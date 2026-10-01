@@ -54,7 +54,7 @@ let package = Package(
                 .product(
                     name: "Spark",
                     package: "spark-ios"
-                ),
+                )
             ]
         )
     ]

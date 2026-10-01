@@ -111,7 +111,7 @@ let package = Package(
                 .product(
                     name: "SnapshotTesting",
                     package: "swift-snapshot-testing"
-                ),
+                )
             ],
             path: "Modules/Common/Sources/SnapshotTesting"
         ),
