@@ -33,7 +33,8 @@ final class SpinnerViewModelTests: XCTestCase {
         XCTAssertEqualToExpected(
             on: stub,
             othercolorToken: ColorTokenClear(),
-            otherContentSize: 0
+            otherContentSize: 0,
+            otherIsAnimated: false
         )
 
         XCTAssertNotCalled(
@@ -177,7 +178,8 @@ final class SpinnerViewModelTests: XCTestCase {
         XCTAssertEqualToExpected(
             on: stub,
             othercolorToken: ColorTokenClear(),
-            otherContentSize: 0
+            otherContentSize: 0,
+            otherIsAnimated: false
         )
 
         XCTAssertNotCalled(
@@ -248,6 +250,7 @@ private final class Stub {
 
     let expectedcolorToken = ColorTokenGeneratedMock.red()
     let expectedContentSize: CGFloat = 24.0
+    let expectedIsAnimated = true
 
     // MARK: - Use Case Mocks
 
@@ -316,7 +319,8 @@ private func XCTAssertNotCalled(
 private func XCTAssertEqualToExpected(
     on stub: Stub,
     othercolorToken: (any ColorToken)? = nil,
-    otherContentSize: CGFloat? = nil
+    otherContentSize: CGFloat? = nil,
+    otherIsAnimated: Bool? = nil
 ) {
     let viewModel = stub.viewModel
 
@@ -328,6 +332,11 @@ private func XCTAssertEqualToExpected(
         viewModel.contentSize,
         otherContentSize ?? stub.expectedContentSize,
         "Wrong contentSize value"
+    )
+    XCTAssertEqual(
+        viewModel.isAnimated,
+        otherIsAnimated ?? stub.expectedIsAnimated,
+        "Wrong isAnimated value"
     )
 }
 

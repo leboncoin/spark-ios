@@ -17,6 +17,7 @@ final class SpinnerViewModel: ObservableObject {
 
     @Published private(set) var colorToken: any ColorToken = ColorTokenClear()
     @Published private(set) var contentSize: CGFloat = 0
+    @Published private(set) var isAnimated: Bool = false
 
     // MARK: - Properties
 
@@ -78,6 +79,7 @@ final class SpinnerViewModel: ObservableObject {
         self.setContentSize()
 
         self.alreadyUpdateAll = true
+        self.isAnimated = true
     }
 
     // MARK: - Private Setter
