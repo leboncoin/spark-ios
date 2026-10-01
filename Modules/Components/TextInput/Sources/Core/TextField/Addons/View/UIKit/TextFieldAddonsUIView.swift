@@ -303,7 +303,7 @@ public final class TextFieldAddonsUIView: UIControl {
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         self.sparkVisualIdentification(id: self.visualIdentification)
     }
 

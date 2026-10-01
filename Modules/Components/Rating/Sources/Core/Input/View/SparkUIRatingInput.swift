@@ -164,7 +164,7 @@ public final class SparkUIRatingInput: UIControl {
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         self.sparkVisualIdentification(id: self.visualIdentification)
     }
 

@@ -101,7 +101,7 @@ public class SelectionControlsGroup<ID>: UIControl where ID: SelectionControlsGr
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         self.sparkVisualIdentification(id: self.visualIdentification)
     }
 

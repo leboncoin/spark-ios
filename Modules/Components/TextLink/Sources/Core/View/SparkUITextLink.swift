@@ -469,7 +469,7 @@ public final class SparkUITextLink: UIControl {
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         self.sparkVisualIdentification(id: self.visualIdentification)
     }
 

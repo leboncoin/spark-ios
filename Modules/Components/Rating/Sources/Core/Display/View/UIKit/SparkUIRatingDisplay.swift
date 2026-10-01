@@ -343,7 +343,7 @@ public final class SparkUIRatingDisplay: UIView {
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         self.sparkVisualIdentification(id: self.visualIdentification)
     }
 

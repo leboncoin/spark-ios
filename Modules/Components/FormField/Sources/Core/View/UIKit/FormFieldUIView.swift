@@ -526,7 +526,7 @@ public final class FormFieldUIView<Component: UIView>: UIView {
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
