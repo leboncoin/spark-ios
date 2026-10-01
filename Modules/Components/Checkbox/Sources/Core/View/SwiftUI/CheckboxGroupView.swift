@@ -126,6 +126,7 @@ public struct CheckboxGroupView: View {
         }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier(CheckboxAccessibilityIdentifier.checkboxGroup)
+        .sparkVisualIdentification()
     }
 
     @ViewBuilder

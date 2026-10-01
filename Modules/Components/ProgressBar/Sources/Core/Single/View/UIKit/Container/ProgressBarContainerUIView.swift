@@ -57,6 +57,8 @@ public class ProgressBarContainerUIView: UIView {
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     internal init(
@@ -108,6 +110,7 @@ public class ProgressBarContainerUIView: UIView {
 
         self.layoutIfNeeded()
         self.updateCornerRadius()
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Constraints

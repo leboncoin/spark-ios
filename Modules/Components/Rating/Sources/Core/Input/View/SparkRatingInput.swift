@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import SparkCommon
+@_spi(SI_SPI) import SparkCommon
 
 /// The ratings let users set a star rating for a user or experience.
 ///
@@ -175,6 +175,7 @@ public struct SparkRatingInput: View {
                 break
             }
         }
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value,

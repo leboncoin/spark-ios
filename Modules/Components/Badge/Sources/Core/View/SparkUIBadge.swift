@@ -167,6 +167,8 @@ public final class SparkUIBadge: UIView {
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Attach Properties
 
     private var attachLeadingAnchorConstraint: NSLayoutConstraint?
@@ -247,6 +249,7 @@ public final class SparkUIBadge: UIView {
         super.layoutSubviews()
 
         self.updateBorderRadius()
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Constraints

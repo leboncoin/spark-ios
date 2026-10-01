@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+@_spi(SI_SPI) import SparkCommon
 
 /// A badge is a visual indicator for numeric values such as tallies and scores.
 ///
@@ -221,6 +222,7 @@ public struct SparkBadge: View {
         .accessibilityIdentifier(BadgeAccessibilityIdentifier.view)
         .accessibilityLabel(text: self.viewModel.text)
         .dynamicTypeSize(...DynamicTypeSize.accessibility3)
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value,

@@ -150,6 +150,7 @@ public struct SparkFileUploadButton<Label>: View where Label: View {
                     )
                 }
         }
+        .sparkVisualIdentification()
         .photosPicker(
             isPresented: self.$showPhotos,
             selection: self.$photoSelection,

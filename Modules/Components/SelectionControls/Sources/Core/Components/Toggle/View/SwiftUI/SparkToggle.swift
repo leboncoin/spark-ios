@@ -297,6 +297,7 @@ public struct SparkToggle<Label>: View where Label: View {
                 viewModel: self.viewModel
             ))
             .accessibilityIdentifier(ToggleAccessibilityIdentifier.view)
+            .sparkVisualIdentification()
             .onAppear() {
                 self.viewModel.setup(
                     theme: self.deprecatedTheme ?? self.theme.value,

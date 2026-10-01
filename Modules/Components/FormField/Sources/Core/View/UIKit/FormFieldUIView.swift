@@ -376,6 +376,8 @@ public final class FormFieldUIView<Component: UIView>: UIView {
 
     private var helperIconSizeWidthLayoutConstraint: NSLayoutConstraint?
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Not implemented. Please use another init.
@@ -518,6 +520,14 @@ public final class FormFieldUIView<Component: UIView>: UIView {
             helper: attributedHelper?.string,
             isRequired: isTitleRequired
         )
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Setup

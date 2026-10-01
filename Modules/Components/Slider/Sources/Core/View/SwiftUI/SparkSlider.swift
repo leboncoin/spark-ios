@@ -336,6 +336,7 @@ public struct SparkSlider<TitleLabel, ValueLabel, MinValueLabel, MaxValueLabel, 
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier(SliderAccessibilityIdentifier.view)
         .sparkSensoryFeedback(.selection, trigger: self.feedbackID)
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value,

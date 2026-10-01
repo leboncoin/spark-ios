@@ -276,6 +276,8 @@ public final class SparkUIRatingDisplay: UIView {
 
     @LimitedScaledUIMetric private var contentSpacing: CGFloat = 0
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Create a rating display.
@@ -335,6 +337,14 @@ public final class SparkUIRatingDisplay: UIView {
             theme: self.theme,
             size: self.size
         )
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Constraints

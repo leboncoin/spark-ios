@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import SparkCommon
+@_spi(SI_SPI) import SparkCommon
 
 /// A progress bar visually represents the completion status of a task or process.
 ///
@@ -107,6 +107,7 @@ public struct SparkProgressBar<Value>: View where Value: BinaryFloatingPoint {
             ))
             .sparkFrame(height: ProgressBarConstants.height)
             .accessibilityIdentifier(ProgressBarAccessibilityIdentifier.view)
+            .sparkVisualIdentification()
             .onAppear() {
                 self.viewModel.setup(
                     theme: self.theme.value,

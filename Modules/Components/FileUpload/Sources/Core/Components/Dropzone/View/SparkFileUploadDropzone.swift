@@ -198,6 +198,7 @@ public struct SparkFileUploadDropzone<DescriptionLabel, UploadButton, Additional
         .sparkSensoryFeedback(.selection, trigger: self.targetFeedbackID)
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier(FileUploadDropzoneAccessibilityIdentifier.view)
+        .sparkVisualIdentification()
         .onAppear {
             self.viewModel.setup(
                 theme: self.theme.value

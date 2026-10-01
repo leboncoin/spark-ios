@@ -270,6 +270,8 @@ public final class SparkUICheckbox: UIControl {
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Creates a Spark checkbox.
@@ -321,6 +323,7 @@ public final class SparkUICheckbox: UIControl {
         super.layoutSubviews()
 
         self.updateToggleBorderRadius()
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - View setup

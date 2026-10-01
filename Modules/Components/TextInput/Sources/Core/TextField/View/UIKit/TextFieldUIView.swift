@@ -80,6 +80,8 @@ public final class TextFieldUIView: UITextField {
         }
     }
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     internal init(viewModel: TextInputUIViewModel) {
@@ -225,6 +227,7 @@ public final class TextFieldUIView: UITextField {
         super.layoutSubviews()
 
         self.updateBorder()
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Update

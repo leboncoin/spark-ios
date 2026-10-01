@@ -260,6 +260,8 @@ public final class SwitchUIView: UIView {
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Initialize a new switch view without images and text.
@@ -526,6 +528,7 @@ public final class SwitchUIView: UIView {
 
         self.toggleDotView.layoutIfNeeded()
         self.toggleDotView.setCornerRadius(self.theme.border.radius.full)
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Instrinsic Content Size

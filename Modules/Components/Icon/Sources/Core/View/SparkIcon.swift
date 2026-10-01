@@ -104,6 +104,7 @@ public struct SparkIcon: View {
             .accessibilityIdentifier(IconAccessibilityIdentifier.view)
             .accessibilityHidden(true)
             .dynamicTypeSize(...DynamicTypeSize.large)
+            .sparkVisualIdentification()
             .onAppear() {
                 self.viewModel.setup(
                     theme: self.theme.value,

@@ -114,6 +114,7 @@ public struct CheckboxView: View {
         .accessibilityIdentifier(CheckboxAccessibilityIdentifier.checkbox)
         .accessibilityValue(setAccessibilityValue(selectionState: self.viewModel.selectionState))
         .accessibilityRemoveTraits(.isSelected)
+        .sparkVisualIdentification()
     }
 
     private func setAccessibilityValue(selectionState: CheckboxSelectionState) -> String {

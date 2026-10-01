@@ -98,6 +98,8 @@ public final class SparkUIRatingInput: UIControl {
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Create a rating input.
@@ -156,6 +158,14 @@ public final class SparkUIRatingInput: UIControl {
             theme: self.theme,
             isEnabled: self.isEnabled
         )
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Constraints

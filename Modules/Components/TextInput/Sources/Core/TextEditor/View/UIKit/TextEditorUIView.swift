@@ -126,6 +126,8 @@ public final class TextEditorUIView: UITextView {
         UITextView.textDidEndEditingNotification
     ]
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// TextEditorUIView initializer
@@ -186,6 +188,7 @@ public final class TextEditorUIView: UITextView {
 
         self.updateBorder()
         self.updatePaddings()
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Constraints

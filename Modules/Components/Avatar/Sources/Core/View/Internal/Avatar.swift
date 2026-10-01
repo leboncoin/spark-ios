@@ -114,6 +114,7 @@ struct Avatar<Placeholder, CornerView>: View where Placeholder: View, CornerView
         .accessibilityIdentifier(AvatarAccessibilityIdentifier.view)
         .accessibilityElement(children: .ignore)
         .dynamicTypeSize(.large)
+        .sparkVisualIdentification()
         .onAppear {
             self.viewModel.setup(
                 theme: self.theme.value,

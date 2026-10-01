@@ -268,6 +268,7 @@ public struct SparkFileUploadPreview<ProgressContent>: View where ProgressConten
                 Text(String.previewAlertMessage(fileName: file.name))
             }
         )
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value,

@@ -207,6 +207,8 @@ public final class SparkUITab: UIControl {
     private let viewModel = TabViewModel()
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Creates a tab control with the specified theme and titles.
@@ -883,6 +885,14 @@ public final class SparkUITab: UIControl {
 
             self.alpha = dim
         }
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Trait Collection

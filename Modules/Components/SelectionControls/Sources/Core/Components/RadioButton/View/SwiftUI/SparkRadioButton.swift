@@ -301,6 +301,7 @@ public struct SparkRadioButton<Label>: View where Label: View {
         .accessibilityIdentifier(RadioButtonAccessibilityIdentifier.view)
         .accessibilityRemoveToggleTraits()
         .accessibilityValue(String.accessibilityValue(isSelected: self.isSelected))
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.deprecatedTheme ?? self.theme.value,

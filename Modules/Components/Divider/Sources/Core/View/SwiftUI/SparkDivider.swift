@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+@_spi(SI_SPI) import SparkCommon
 
 /// The Divider component provides a thin, unobtrusive line that separates
 /// and distinguishes sections of content to reinforce visual hierarchy.
@@ -246,6 +247,7 @@ public struct SparkDivider<Label>: View where Label: View {
         .accessibilityIdentifier(DividerAccessibilityIdentifier.view)
         .accessibilityElement(children: .combine)
         .dynamicTypeSize(...DynamicTypeSize.accessibility3)
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value,

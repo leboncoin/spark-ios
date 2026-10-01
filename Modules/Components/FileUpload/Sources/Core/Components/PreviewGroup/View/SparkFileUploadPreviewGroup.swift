@@ -94,6 +94,7 @@ public struct SparkFileUploadPreviewGroup: View {
             }
         }
         .accessibilityIdentifier(FileUploadPreviewGroupAccessibilityIdentifier.view)
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value

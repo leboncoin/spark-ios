@@ -236,6 +236,8 @@ public final class SparkUIStepper: UIControl {
     private let setValueUseCase: StepperSetValueUseCaseable
     private let stopTrackingUseCase: StepperStopTrackingUseCaseable
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Components
 
     private lazy var contentStackView: UIStackView = {
@@ -602,6 +604,14 @@ public final class SparkUIStepper: UIControl {
 
             self.trackingInterval = self.getAcceleratedIntervalUseCase.execute(from: self.trackingInterval)
         }
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Trait Collection

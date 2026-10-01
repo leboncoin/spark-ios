@@ -264,6 +264,7 @@ public struct SparkInputOTP: View {
             }
         }
         .dynamicTypeSize(...DynamicTypeSize.large)
+        .sparkVisualIdentification()
         .onAppear {
             self.isFocused = true
 

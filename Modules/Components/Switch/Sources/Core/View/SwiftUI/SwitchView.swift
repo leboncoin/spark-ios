@@ -66,6 +66,7 @@ public struct SwitchView: View {
                 self.makeSubview(from: $0)
             }
         }
+        .sparkVisualIdentification()
         .onChange(of: self.viewModel.isOnChanged) { isOn in
             guard let isOn else { return }
             self.isOn = isOn

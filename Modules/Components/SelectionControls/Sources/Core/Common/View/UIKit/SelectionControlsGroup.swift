@@ -59,6 +59,8 @@ public class SelectionControlsGroup<ID>: UIControl where ID: SelectionControlsGr
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     internal init(theme: any Theme) {
@@ -93,6 +95,14 @@ public class SelectionControlsGroup<ID>: UIControl where ID: SelectionControlsGr
         self.viewModel.load(
             isAccessibilitySize: self.traitCollection.preferredContentSizeCategory.isAccessibilityCategory
         )
+    }
+
+    // MARK: - Layout
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Constraints

@@ -245,6 +245,7 @@ public struct SparkTab<SelectionValue, Content>: View where SelectionValue: Hash
         })
         .accessibilityIdentifier(TabAccessibilityIdentifier.view)
         .dynamicTypeSize(DynamicTypeSize.large)
+        .sparkVisualIdentification()
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value,

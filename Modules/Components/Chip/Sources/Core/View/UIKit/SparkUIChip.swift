@@ -289,6 +289,8 @@ public final class SparkUIChip: UIControl {
 
     private var subscriptions = Set<AnyCancellable>()
 
+    private let visualIdentification = UUID().uuidString
+
     // MARK: - Initialization
 
     /// Creates a Spark chip.
@@ -366,6 +368,7 @@ public final class SparkUIChip: UIControl {
         super.layoutSubviews()
 
         self.updateBorderRadius()
+        self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
     // MARK: - Constraints
