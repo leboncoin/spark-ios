@@ -326,17 +326,17 @@ public struct SparkCheckbox<Label>: View where Label: View {
                 isCustomLabel: Label.self != EmptyView.self && Label.self != Text.self
             )
         }
-        .onChange(of: self.theme) { newTheme in
-            self.viewModel.theme = newTheme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
-        .onChange(of: self.selectionState) { selectionState in
-            self.viewModel.selectionState = selectionState
+        .onChange(of: self.selectionState) {
+            self.viewModel.selectionState = self.selectionState
         }
-        .onChange(of: self.isEnabled) { isEnabled in
-            self.viewModel.isEnabled = isEnabled
+        .onChange(of: self.isEnabled) {
+            self.viewModel.isEnabled = self.isEnabled
         }
     }
 }

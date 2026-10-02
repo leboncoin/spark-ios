@@ -30,8 +30,8 @@ struct ToastModifier: ViewModifier {
             }
         }
         .animation(self.isPresented ? self.showAnimation : self.hideAnimation, value: self.isPresented)
-        .onChange(of: self.isPresented) { value in
-            guard value else { return }
+        .onChange(of: self.isPresented) {
+            guard self.isPresented else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + self.duration) {
                 withAnimation {
                     self.isPresented = false

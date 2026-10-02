@@ -324,6 +324,9 @@ public final class SparkUIXXX: UIView {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup subscriptions
         self.setupSubscriptions()
 
@@ -409,11 +412,15 @@ public final class SparkUIXXX: UIView {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        self._contentSpacing.update(traitCollection: self.traitCollection)
-        self.updateSpacing()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            self._contentSpacing.update(traitCollection: self.traitCollection)
+            self.updateSpacing()
+        }
     }
 }
 

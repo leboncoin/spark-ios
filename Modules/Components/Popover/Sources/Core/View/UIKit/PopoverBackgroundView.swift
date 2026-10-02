@@ -68,6 +68,8 @@ final class PopoverBackgroundView: UIPopoverBackgroundView {
             self.topConstraint,
             self.bottomConstraint
         ])
+
+        self.setupTraitCollection()
     }
 
     required init?(coder: NSCoder) {
@@ -206,9 +208,16 @@ final class PopoverBackgroundView: UIPopoverBackgroundView {
         return path
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        guard  self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
-        self.arrowShape?.fillColor = PopoverBackgroundConfiguration.backgroundColor.resolvedColor(with: self.traitCollection).cgColor
+    // MARK: - Trait Collection
+
+    private func setupTraitCollection() {
+        self.setupUserInterfaceStyleTraitCollection()
+    }
+
+    private func setupUserInterfaceStyleTraitCollection() {
+        self.registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            guard self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else { return }
+            self.arrowShape?.fillColor = PopoverBackgroundConfiguration.backgroundColor.resolvedColor(with: self.traitCollection).cgColor
+        }
     }
 }

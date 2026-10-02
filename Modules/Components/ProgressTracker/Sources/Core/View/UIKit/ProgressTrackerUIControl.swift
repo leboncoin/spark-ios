@@ -246,6 +246,8 @@ public final class ProgressTrackerUIControl: UIControl {
         self.addPanGestureToPreventCancelTracking()
         self.isUserInteractionEnabled = false
         self.accessibilityContainerType = .semanticGroup
+
+        self.setupTraitCollection()
     }
 
     // MARK: - Layout
@@ -256,11 +258,18 @@ public final class ProgressTrackerUIControl: UIControl {
         self.sparkVisualIdentification(id: self.visualIdentification)
     }
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    // MARK: - Trait Collection
 
-        if self.traitCollection.hasDifferentSizeCategory(comparedTo: previousTraitCollection) {        self._scaleFactor.update(traitCollection: self.traitCollection)
-            self.didUpdate(spacings: self.viewModel.spacings)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
+
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            if self.traitCollection.hasDifferentSizeCategory(comparedTo: previousTraitCollection) {
+                self._scaleFactor.update(traitCollection: self.traitCollection)
+                self.didUpdate(spacings: self.viewModel.spacings)
+            }
         }
     }
 

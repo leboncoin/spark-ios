@@ -10,7 +10,6 @@ import SwiftUI
 import SparkTheming
 @_spi(SI_SPI) import SparkCommon
 
-@available(iOS 16.4, *)
 struct PopoverView<Content>: View where Content: View {
 
     private let viewModel: PopoverViewModel

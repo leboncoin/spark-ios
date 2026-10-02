@@ -134,6 +134,9 @@ public final class TextFieldUIView: UITextField {
         self.setContentCompressionResistancePriority(.required, for: .vertical)
 
         self.accessibilityIdentifier = TextFieldAccessibilityIdentifier.view
+
+        // Setup trait collection
+        self.setupTraitCollection()
     }
 
     private func subscribeToViewModel() {
@@ -328,24 +331,29 @@ public final class TextFieldUIView: UITextField {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+        self.setupUserInterfaceStyleTraitCollection()
+    }
 
-        if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self._height.update(traitCollection: self.traitCollection)
+
+            self._cornerRadius.update(traitCollection: self.traitCollection)
+            self._borderWidth.update(traitCollection: self.traitCollection)
+
+            self.updateBorder()
+
+            self.invalidateIntrinsicContentSize()
+            self.setNeedsLayout()
+        }
+    }
+
+    private func setupUserInterfaceStyleTraitCollection() {
+        self.registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
             self.setBorderColor(from: self.viewModel.borderColor)
         }
-
-        guard previousTraitCollection?.preferredContentSizeCategory != self.traitCollection.preferredContentSizeCategory else { return }
-
-        self._height.update(traitCollection: self.traitCollection)
-
-        self._cornerRadius.update(traitCollection: self.traitCollection)
-        self._borderWidth.update(traitCollection: self.traitCollection)
-
-        self.updateBorder()
-
-        self.invalidateIntrinsicContentSize()
-        self.setNeedsLayout()
     }
 
     // MARK: - Instrinsic Content Size

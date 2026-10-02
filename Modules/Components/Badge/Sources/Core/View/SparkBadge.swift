@@ -233,23 +233,23 @@ public struct SparkBadge: View {
                 unit: self.unit
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.isBorder) { isBorder in
-            self.viewModel.isBorder = isBorder
+        .onChange(of: self.isBorder) {
+            self.viewModel.isBorder = self.isBorder
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
-        .onChange(of: self.size) { size in
-            self.viewModel.size = size
+        .onChange(of: self.size) {
+            self.viewModel.size = self.size
         }
-        .onChange(of: self.value) { value in
-            self.viewModel.value = value
+        .onChange(of: self.value) {
+            self.viewModel.value = self.value
         }
-        .onChange(of: self.unit) { unit in
-            self.viewModel.unit = unit
+        .onChange(of: self.unit) {
+            self.viewModel.unit = self.unit
         }
     }
 }

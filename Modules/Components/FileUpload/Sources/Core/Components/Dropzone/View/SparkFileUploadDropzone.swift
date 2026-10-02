@@ -204,11 +204,11 @@ public struct SparkFileUploadDropzone<DescriptionLabel, UploadButton, Additional
                 theme: self.theme.value
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.isTargeted) { isTargeted in
-            self.viewModel.isTargeted = isTargeted
+        .onChange(of: self.isTargeted) {
+            self.viewModel.isTargeted = self.isTargeted
             self.targetFeedbackID = .init()
         }
     }

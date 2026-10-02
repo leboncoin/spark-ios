@@ -85,6 +85,9 @@ public class SelectionControlsGroup<ID>: UIControl where ID: SelectionControlsGr
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup publisher subcriptions
         self.setupSubscriptions()
 
@@ -164,13 +167,19 @@ public class SelectionControlsGroup<ID>: UIControl where ID: SelectionControlsGr
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        self.viewModel.isAccessibilitySize = self.traitCollection.preferredContentSizeCategory.isAccessibilityCategory
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (_: UITraitEnvironment, _: UITraitCollection) in
+            guard let self else { return }
 
-        // Update sizes
-        self._contentSpacing.update(traitCollection: self.traitCollection)
-        self.updateContentStackSpacing()
+            self.viewModel.isAccessibilitySize = self.traitCollection.preferredContentSizeCategory.isAccessibilityCategory
+
+            // Update sizes
+            self._contentSpacing.update(traitCollection: self.traitCollection)
+            self.updateContentStackSpacing()
+        }
     }
 }

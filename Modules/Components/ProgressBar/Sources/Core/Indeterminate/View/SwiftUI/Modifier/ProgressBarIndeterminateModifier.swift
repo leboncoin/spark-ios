@@ -31,8 +31,8 @@ struct ProgressBarIndeterminateModifier: ViewModifier {
                 .onAppear {
                     self.width = geometryReader.size.width
                 }
-                .onChange(of: geometryReader.size) { newSize in
-                    self.width = newSize.width
+                .onChange(of: geometryReader.size) {
+                    self.width = geometryReader.size.width
                 }
         }
         .onReceive(self.viewModel.$animationType) { type in

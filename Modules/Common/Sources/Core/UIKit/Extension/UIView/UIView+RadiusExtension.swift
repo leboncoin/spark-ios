@@ -42,9 +42,7 @@ public extension UIView {
             return
         }
 
-        if #available(iOS 17.0, *) {
-            self.updateTraitsIfNeeded()
-        }
+        self.updateTraitsIfNeeded()
 
         let radius = self.validatedCornerRadius(radius)
         let borderColor = colorToken.uiColor.resolvedColor(with: self.traitCollection).cgColor
@@ -109,9 +107,7 @@ public extension UIView {
             return
         }
 
-        if #available(iOS 17.0, *) {
-            self.updateTraitsIfNeeded()
-        }
+        self.updateTraitsIfNeeded()
 
         let radius = self.validatedCornerRadius(radius)
         let borderColor = colorToken.uiColor.resolvedColor(with: self.traitCollection).cgColor

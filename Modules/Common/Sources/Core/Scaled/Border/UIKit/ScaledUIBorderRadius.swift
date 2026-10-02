@@ -23,6 +23,7 @@ import UIKit
 ///         super.init(frame: .zero)
 ///
 ///         // Setup
+///         self.setupTraitCollection()
 ///         self.layer.cornerRadius = self.radius
 ///     }
 ///
@@ -30,11 +31,11 @@ import UIKit
 ///         fatalError("init(coder:) has not been implemented")
 ///     }
 ///
-///     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-///         super.traitCollectionDidChange(previousTraitCollection)
-///
-///         self._radius.update(traitCollection: self.traitCollection)
-///         self.layer.cornerRadius = self.radius
+///     private func setupTraitCollection() {
+///         self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+///             self._radius.update(traitCollection: self.traitCollection)
+///             self.layer.cornerRadius = self.radius
+///         }
 ///     }
 /// }
 /// ```

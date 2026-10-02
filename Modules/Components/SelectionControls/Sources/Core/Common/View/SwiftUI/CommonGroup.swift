@@ -52,11 +52,11 @@ internal struct CommonGroup<Content>: View where Content: View {
                     isAccessibilitySize: self.dynamicTypeSize.isAccessibilitySize
                 )
             }
-            .onChange(of: self.axis) { axis in
-                self.viewModel.axis = axis
+            .onChange(of: self.axis) {
+                self.viewModel.axis = self.axis
             }
-            .onChange(of: self.dynamicTypeSize) { dynamicTypeSize in
-                self.viewModel.isAccessibilitySize = dynamicTypeSize.isAccessibilitySize
+            .onChange(of: self.dynamicTypeSize) {
+                self.viewModel.isAccessibilitySize = self.dynamicTypeSize.isAccessibilitySize
             }
     }
 

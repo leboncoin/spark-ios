@@ -70,10 +70,7 @@ public final class SwitchUIView: UIView {
 
     private lazy var toggleView: UIView = {
         let view = UIView()
-        view.accessibilityTraits = [.button]
-        if #available(iOS 17.0, *) {
-            view.accessibilityTraits.insert(.toggleButton)
-        }
+        view.accessibilityTraits = [.button, .toggleButton]
         view.isAccessibilityElement = true
         view.accessibilityIdentifier = AccessibilityIdentifier.toggleView
         view.addSubview(self.toggleContentStackView)

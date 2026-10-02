@@ -177,6 +177,9 @@ public final class TextEditorUIView: UITextView {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup publisher subcriptions
         self.setupSubscriptions()
     }
@@ -401,31 +404,36 @@ public final class TextEditorUIView: UITextView {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+        self.setupUserInterfaceStyleTraitCollection()
+    }
 
-        if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            // Update all Scaled variables
+            self._height.update(traitCollection: self.traitCollection)
+
+            self._cornerRadius.update(traitCollection: self.traitCollection)
+            self._borderWidth.update(traitCollection: self.traitCollection)
+
+            self._leftSpacing.update(traitCollection: self.traitCollection)
+            self._verticalSpacing.update(traitCollection: self.traitCollection)
+            self._rightSpacing.update(traitCollection: self.traitCollection)
+
+            self.heightConstraint?.constant = self.height
+            self.updateConstraintsIfNeeded()
+
+            self.updateBorder()
+
+            self.invalidateIntrinsicContentSize()
+            self.layoutIfNeeded()
+        }
+    }
+
+    private func setupUserInterfaceStyleTraitCollection() {
+        self.registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
             self.setBorderColor(from: self.viewModel.borderColor)
         }
-
-        guard previousTraitCollection?.preferredContentSizeCategory != self.traitCollection.preferredContentSizeCategory else { return }
-
-        // Update all Scaled variables
-        self._height.update(traitCollection: self.traitCollection)
-
-        self._cornerRadius.update(traitCollection: self.traitCollection)
-        self._borderWidth.update(traitCollection: self.traitCollection)
-
-        self._leftSpacing.update(traitCollection: self.traitCollection)
-        self._verticalSpacing.update(traitCollection: self.traitCollection)
-        self._rightSpacing.update(traitCollection: self.traitCollection)
-
-        self.heightConstraint?.constant = self.height
-        self.updateConstraintsIfNeeded()
-
-        self.updateBorder()
-
-        self.invalidateIntrinsicContentSize()
-        self.layoutIfNeeded()
     }
 }

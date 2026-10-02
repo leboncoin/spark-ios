@@ -7,7 +7,7 @@ It can be external (e.g. a different web page) or internal (e.g. a specific elem
 
 ## Overview
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 It can be external (e.g. a different web page) or internal (e.g. a specific element in the current page).
 

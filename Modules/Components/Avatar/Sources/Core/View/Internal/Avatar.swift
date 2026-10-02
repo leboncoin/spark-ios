@@ -124,20 +124,20 @@ struct Avatar<Placeholder, CornerView>: View where Placeholder: View, CornerView
                 isEnabled: self.isEnabled
             )
         }
-        .onChange(of: self.theme) { _ in
+        .onChange(of: self.theme) {
             self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.contentType) { contentType in
-            self.viewModel.contentType = contentType
+        .onChange(of: self.contentType) {
+            self.viewModel.contentType = self.contentType
         }
-        .onChange(of: self.size) { size in
-            self.viewModel.size = size
+        .onChange(of: self.size) {
+            self.viewModel.size = self.size
         }
-        .onChange(of: self.isBorder) { isBorder in
-            self.viewModel.isBorder = isBorder
+        .onChange(of: self.isBorder) {
+            self.viewModel.isBorder = self.isBorder
         }
-        .onChange(of: self.isEnabled) { isEnabled in
-            self.viewModel.isEnabled = isEnabled
+        .onChange(of: self.isEnabled) {
+            self.viewModel.isEnabled = self.isEnabled
         }
     }
 

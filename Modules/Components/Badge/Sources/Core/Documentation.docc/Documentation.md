@@ -4,7 +4,7 @@ The badges are a visual indicator for numeric values such as tallies and scores.
 
 ## Overview
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 It is composed by an optional value and unit. 
 

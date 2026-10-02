@@ -10,7 +10,6 @@ import SwiftUI
 
 // MARK: - ViewModifier
 
-@available(iOS 17.0, *)
 private struct AccessibleAnimationModifier<Content: View, ModifiedContent: View>: View {
 
     // MARK: - Properties
@@ -33,7 +32,6 @@ private struct AccessibleAnimationModifier<Content: View, ModifiedContent: View>
     }
 }
 
-@available(iOS 17.0, *)
 public extension View {
 
     /// Applies animation to specific modifiers within the body closure, respecting accessibility reduce motion settings.

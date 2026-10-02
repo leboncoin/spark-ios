@@ -4,7 +4,7 @@ A bottom sheet is a UI component commonly used in mobile applications to present
 
 ## Overview
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 ## Resources
 

@@ -67,8 +67,8 @@ public struct SwitchView: View {
             }
         }
         .sparkVisualIdentification()
-        .onChange(of: self.viewModel.isOnChanged) { isOn in
-            guard let isOn else { return }
+        .onChange(of: self.viewModel.isOnChanged) {
+            guard let isOn = self.viewModel.isOnChanged else { return }
             self.isOn = isOn
         }
         .isEnabledChanged { isEnabled in
@@ -212,11 +212,7 @@ public struct SwitchView: View {
     }
 
     private func getAccessibilityTraits() -> AccessibilityTraits {
-        var traits: AccessibilityTraits = [.isButton]
-        if #available(iOS 17, *) {
-            _ = traits.insert(.isToggle)
-        }
-        return traits
+        return [.isButton, .isToggle]
     }
 
     // MARK: - Modifier

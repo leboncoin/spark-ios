@@ -439,6 +439,8 @@ public final class FormFieldUIView<Component: UIView>: UIView {
         self.setComponent()
         self.subscribe()
         self.updateAccessibility()
+
+        self.setupTraitCollection()
     }
 
     /// Initialize a formField.
@@ -666,17 +668,22 @@ public final class FormFieldUIView<Component: UIView>: UIView {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        if self.traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
-            self._spacing.update(traitCollection: traitCollection)
-            self.updateSpacing()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak self] (_: UITraitEnvironment, previousTraitCollection: UITraitCollection) in
+            guard let self else { return }
+            if self.traitCollection.preferredContentSizeCategory != previousTraitCollection.preferredContentSizeCategory {
+                self._spacing.update(traitCollection: self.traitCollection)
+                self.updateSpacing()
 
-            self._iconSize.update(traitCollection: traitCollection)
-            self.updateClearButtonImage()
-            self.helperIconSizeWidthLayoutConstraint?.constant = self.iconSize
-            self.helperImageView.updateConstraintsIfNeeded()
+                self._iconSize.update(traitCollection: self.traitCollection)
+                self.updateClearButtonImage()
+                self.helperIconSizeWidthLayoutConstraint?.constant = self.iconSize
+                self.helperImageView.updateConstraintsIfNeeded()
+            }
         }
     }
 }

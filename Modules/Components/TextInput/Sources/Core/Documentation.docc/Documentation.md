@@ -8,7 +8,7 @@ The Spark Text Input is composed by two components:
 
 ### Overview
 
-The text editor is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The text editor is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 It can display and edit long-form text.
 
@@ -36,7 +36,7 @@ With a multiline text
 
 ### Overview
 
-The textfield is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The textfield is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 It displays an editable text interface.
 

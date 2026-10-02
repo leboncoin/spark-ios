@@ -256,17 +256,17 @@ public struct SparkDivider<Label>: View where Label: View {
                 intent: self.intent
             )
         }
-        .onChange(of: self.theme) { theme in
+        .onChange(of: self.theme) {
             self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.alignment) { alignment in
-            self.viewModel.alignment = alignment
+        .onChange(of: self.alignment) {
+            self.viewModel.alignment = self.alignment
         }
-        .onChange(of: self.axis) { axis in
-            self.viewModel.axis = axis
+        .onChange(of: self.axis) {
+            self.viewModel.axis = self.axis
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
     }
 

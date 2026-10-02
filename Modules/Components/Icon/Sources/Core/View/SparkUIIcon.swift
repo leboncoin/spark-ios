@@ -121,6 +121,9 @@ public final class SparkUIIcon: UIImageView {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup publisher subcriptions
         self.setupSubscriptions()
 
@@ -185,10 +188,14 @@ public final class SparkUIIcon: UIImageView {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        self._height.update(traitCollection: self.traitCollection)
-        self.updateHeight()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self._height.update(traitCollection: self.traitCollection)
+            self.updateHeight()
+        }
     }
 }

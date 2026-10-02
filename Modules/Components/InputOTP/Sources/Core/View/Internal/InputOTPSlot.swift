@@ -65,17 +65,17 @@ struct InputOTPSlot: View {
                 isFocus: self.isFocus
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.value) { value in
-            self.viewModel.value = value
+        .onChange(of: self.value) {
+            self.viewModel.value = self.value
         }
-        .onChange(of: self.onError) { onError in
-            self.viewModel.onError = onError
+        .onChange(of: self.onError) {
+            self.viewModel.onError = self.onError
         }
-        .onChange(of: self.isFocus) { isFocus in
-            self.viewModel.isFocus = isFocus
+        .onChange(of: self.isFocus) {
+            self.viewModel.isFocus = self.isFocus
         }
     }
 }

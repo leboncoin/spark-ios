@@ -92,12 +92,15 @@ public class ProgressBarContainerUIView: UIView {
         // View properties
         self.backgroundColor = .clear
 
+        // Setup constraints
+        self.setupConstraints()
+
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Updates UI
         self.updateHeight()
         self.updateCornerRadius()
-
-        // Setup constraints
-        self.setupConstraints()
 
         // Setup subscriptions
         self.setupSubscriptions()
@@ -212,13 +215,17 @@ public class ProgressBarContainerUIView: UIView {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        self._height.update(traitCollection: self.traitCollection)
-        self.updateHeight()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self._height.update(traitCollection: self.traitCollection)
+            self.updateHeight()
 
-        self._cornerRadius.update(traitCollection: self.traitCollection)
-        self.updateCornerRadius()
+            self._cornerRadius.update(traitCollection: self.traitCollection)
+            self.updateCornerRadius()
+        }
     }
 }

@@ -4,7 +4,7 @@ A Spark Segmented control provides closely related choices that affect an object
 
 ## Overview
 
-The component is available on **SwiftUI** and requires at least **iOS 16**.
+The component is available on **SwiftUI** and requires at least **iOS 17**.
 
 ### Introduction
 

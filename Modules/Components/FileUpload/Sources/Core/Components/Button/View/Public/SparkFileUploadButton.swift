@@ -141,12 +141,12 @@ public struct SparkFileUploadButton<Label>: View where Label: View {
         ZStack {
             self.button()
                 .sparkButtonStyle(.fileUpload)
-                .onChange(of: self.files) { files in
+                .onChange(of: self.files) {
                     // Remove the selected photo in the picker if
                     // they not exists anymore in the Spark object
                     self.services.clearPhotosSelection.execute(
                         &self.photoSelection,
-                        files: files
+                        files: self.files
                     )
                 }
         }
@@ -200,11 +200,11 @@ public struct SparkFileUploadButton<Label>: View where Label: View {
                 fileTypes: self.fileTypes
             )
         }
-        .onChange(of: self.photoTypes) { photoTypes in
-            self.viewModel.photoTypes = photoTypes
+        .onChange(of: self.photoTypes) {
+            self.viewModel.photoTypes = self.photoTypes
         }
-        .onChange(of: self.fileTypes) { fileTypes in
-            self.viewModel.fileTypes = fileTypes
+        .onChange(of: self.fileTypes) {
+            self.viewModel.fileTypes = self.fileTypes
         }
     }
 

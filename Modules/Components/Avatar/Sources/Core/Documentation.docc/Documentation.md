@@ -6,7 +6,7 @@ The Spark Avatars are visual representations of private and professional users. 
 
 Avatars are visual representations of private and professional users. They help humanize and personalize the platform experience.
 
-The component is available on **SwiftUI** (only) and requires at least **iOS 16**.
+The component is available on **SwiftUI** (only) and requires at least **iOS 17**.
 
 There are two public avatar components:
 - ``SparkUserAvatar``: For displaying user avatars with initials extracted from placeholder text

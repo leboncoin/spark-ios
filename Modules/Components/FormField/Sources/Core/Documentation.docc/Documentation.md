@@ -4,7 +4,7 @@ The Spark FormField provide context to your form elements easily, unifying an a 
 
 ## Overview
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 ### Implementation
 

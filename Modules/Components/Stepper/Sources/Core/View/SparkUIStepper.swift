@@ -396,6 +396,9 @@ public final class SparkUIStepper: UIControl {
 
         // Setup constraints
         self.setupConstraints()
+
+        // Setup trait collection
+        self.setupTraitCollection()
     }
 
     // MARK: - Constraints
@@ -616,12 +619,16 @@ public final class SparkUIStepper: UIControl {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        // Update Label min width
-        self._valueLabelMinWidth.update(traitCollection: self.traitCollection)
-        self.updateValueLabelMinWidth()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            // Update Label min width
+            self._valueLabelMinWidth.update(traitCollection: self.traitCollection)
+            self.updateValueLabelMinWidth()
+        }
     }
 }
 

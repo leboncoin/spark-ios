@@ -11,7 +11,7 @@ This waiting time can be either determinate or indeterminate.
 - Determinate progress bar: We use this variant when the progress of a process is known.
 - Indeterminate progress bar: We use this variant when the progress of a process is unknown.
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 ### Implementation
 

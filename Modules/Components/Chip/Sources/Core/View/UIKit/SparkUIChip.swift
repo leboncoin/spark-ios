@@ -339,6 +339,9 @@ public final class SparkUIChip: UIControl {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup publisher subcriptions
         self.setupSubscriptions()
 
@@ -640,23 +643,27 @@ public final class SparkUIChip: UIControl {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeTraitCollection()
+    }
 
-        // **
-        // Update sizes
-        self._padding.update(traitCollection: self.traitCollection)
-        self._extraContentSpacing.update(traitCollection: self.traitCollection)
-        self._spacing.update(traitCollection: self.traitCollection)
-        self.updateLayout()
+    private func setupContentSizeTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            // **
+            // Update sizes
+            self._padding.update(traitCollection: self.traitCollection)
+            self._extraContentSpacing.update(traitCollection: self.traitCollection)
+            self._spacing.update(traitCollection: self.traitCollection)
+            self.updateLayout()
 
-        self._borderWidth.update(traitCollection: self.traitCollection)
-        self._cornerRadius.update(traitCollection: self.traitCollection)
-        self._borderDash.update(traitCollection: self.traitCollection)
-        self.updateBorderRadius()
+            self._borderWidth.update(traitCollection: self.traitCollection)
+            self._cornerRadius.update(traitCollection: self.traitCollection)
+            self._borderDash.update(traitCollection: self.traitCollection)
+            self.updateBorderRadius()
 
-        self._height.update(traitCollection: self.traitCollection)
-        self._iconSize.update(traitCollection: self.traitCollection)
-        self.updateSizes()
+            self._height.update(traitCollection: self.traitCollection)
+            self._iconSize.update(traitCollection: self.traitCollection)
+            self.updateSizes()
+        }
     }
 }

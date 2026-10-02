@@ -611,29 +611,29 @@ public struct SparkTextField<Value, LeftView: View, RightView: View, LeftAddon: 
                 isEnabled: self.isEnabled
             )
         }
-        .onChange(of: self.theme) { newTheme in
-            self.viewModel.theme = newTheme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
-        .onChange(of: self.isReadOnly) { isReadOnly in
-            self.viewModel.isReadOnly = isReadOnly
+        .onChange(of: self.isReadOnly) {
+            self.viewModel.isReadOnly = self.isReadOnly
         }
-        .onChange(of: self.clearMode) { clearMode in
-            self.viewModel.clearMode = clearMode.mode
+        .onChange(of: self.clearMode) {
+            self.viewModel.clearMode = self.clearMode.mode
         }
-        .onChange(of: self.leftAddonConfiguration) { leftAddonConfiguration in
-            self.viewModel.leftAddonConfiguration = leftAddonConfiguration
+        .onChange(of: self.leftAddonConfiguration) {
+            self.viewModel.leftAddonConfiguration = self.leftAddonConfiguration
         }
-        .onChange(of: self.rightAddonConfiguration) { rightAddonConfiguration in
-            self.viewModel.rightAddonConfiguration = rightAddonConfiguration
+        .onChange(of: self.rightAddonConfiguration) {
+            self.viewModel.rightAddonConfiguration = self.rightAddonConfiguration
         }
-        .onChange(of: self.isFocused) { isFocused in
-            self.viewModel.isFocused = isFocused
+        .onChange(of: self.isFocused) {
+            self.viewModel.isFocused = self.isFocused
         }
-        .onChange(of: self.isEnabled) { isEnabled in
-            self.viewModel.isEnabled = isEnabled
+        .onChange(of: self.isEnabled) {
+            self.viewModel.isEnabled = self.isEnabled
         }
     }
 

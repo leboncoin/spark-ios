@@ -77,15 +77,22 @@ final class ProgressTrackerTrackUIView: UIView {
 
         self.setupView()
         self.setupSubscriptions()
+
+        self.setupTraitCollection()
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if self.traitCollection.hasDifferentSizeCategory(comparedTo: previousTraitCollection) {
+    // MARK: - Trait Collection
 
-            self._scaleFactor.update(traitCollection: self.traitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-            self.updateSizeConstraints()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            if self.traitCollection.hasDifferentSizeCategory(comparedTo: previousTraitCollection) {
+                self._scaleFactor.update(traitCollection: self.traitCollection)
+                self.updateSizeConstraints()
+            }
         }
     }
 

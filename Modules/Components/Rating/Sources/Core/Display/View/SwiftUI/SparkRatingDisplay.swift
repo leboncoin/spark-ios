@@ -290,11 +290,11 @@ public struct SparkRatingDisplay<ValueLabel, CountLabel, AdditionalLabel>: View 
                 size: self.size
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.size) { size in
-            self.viewModel.size = size
+        .onChange(of: self.size) {
+            self.viewModel.size = self.size
         }
     }
 }

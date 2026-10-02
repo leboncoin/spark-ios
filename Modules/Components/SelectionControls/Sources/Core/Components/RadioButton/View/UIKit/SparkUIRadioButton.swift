@@ -302,6 +302,9 @@ public final class SparkUIRadioButton: UIControl {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup publisher subcriptions
         self.setupSubscriptions()
 
@@ -524,9 +527,7 @@ public final class SparkUIRadioButton: UIControl {
         self.accessibilityIdentifier = AccessibilityIdentifier.view
 
         self.toggleView.accessibilityTraits.insert(.button)
-        if #available(iOS 17.0, *) {
-            self.toggleView.accessibilityTraits.insert(.toggleButton)
-        }
+        self.toggleView.accessibilityTraits.insert(.toggleButton)
 
         self.updateAccessibility()
     }
@@ -636,20 +637,24 @@ public final class SparkUIRadioButton: UIControl {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        // **
-        // Update sizes
-        self._toggleWidth.update(traitCollection: self.traitCollection)
-        self.updateToggleViewSize()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            // **
+            // Update sizes
+            self._toggleWidth.update(traitCollection: self.traitCollection)
+            self.updateToggleViewSize()
 
-        self._toggleSelectedDotWidth.update(traitCollection: self.traitCollection)
-        self.updateToggleSelectedDotView()
-        self.updateToggleSelectedDotCornerRadius()
+            self._toggleSelectedDotWidth.update(traitCollection: self.traitCollection)
+            self.updateToggleSelectedDotView()
+            self.updateToggleSelectedDotCornerRadius()
 
-        self._toggleBorderWidth.update(traitCollection: self.traitCollection)
-        self.updateToggleBorderRadius()
-        // **
+            self._toggleBorderWidth.update(traitCollection: self.traitCollection)
+            self.updateToggleBorderRadius()
+            // **
+        }
     }
 }
