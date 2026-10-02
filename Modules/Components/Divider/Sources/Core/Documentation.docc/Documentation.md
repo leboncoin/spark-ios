@@ -5,7 +5,7 @@ and distinguishes sections of content to reinforce visual hierarchy. 
 
 ## Overview
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 It is composed by:
 - if text : two separators between text.

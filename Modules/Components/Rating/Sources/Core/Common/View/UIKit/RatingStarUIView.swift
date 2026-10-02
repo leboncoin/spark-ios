@@ -96,6 +96,9 @@ final class RatingStarUIView: UIView {
         // Constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Update UI
         self.updateSize()
         self.updateFilledMask()
@@ -161,11 +164,15 @@ final class RatingStarUIView: UIView {
 
     // MARK: - Trait Collection
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        if self.traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
-            self.updateFilledMask()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            if self.traitCollection.preferredContentSizeCategory != previousTraitCollection.preferredContentSizeCategory {
+                self.updateFilledMask()
+            }
         }
     }
 }

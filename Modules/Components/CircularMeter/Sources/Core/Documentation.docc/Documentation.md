@@ -4,7 +4,7 @@ The Spark Circular Meter is a component used to display a progression or a rate 
 
 ## Overview
 
-The component is available on **SwiftUI** and requires at least **iOS 16**.
+The component is available on **SwiftUI** and requires at least **iOS 17**.
 
 ### Introduction
 

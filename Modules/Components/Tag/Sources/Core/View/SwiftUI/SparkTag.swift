@@ -250,17 +250,17 @@ public struct SparkTag<Label>: View where Label: View {
                 variant: self.variant
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
-        .onChange(of: self.size) { size in
-            self.viewModel.size = size
+        .onChange(of: self.size) {
+            self.viewModel.size = self.size
         }
-        .onChange(of: self.variant) { variant in
-            self.viewModel.variant = variant
+        .onChange(of: self.variant) {
+            self.viewModel.variant = self.variant
         }
     }
 }

@@ -121,7 +121,7 @@ public struct CheckboxGroupView: View {
                 }
             }
         )
-        .onChange(of: self.itemContents) { newValue in
+        .onChange(of: self.itemContents) {
             self.isScrollableHStack = true
         }
         .accessibilityElement(children: .contain)

@@ -308,20 +308,20 @@ public struct SparkToggle<Label>: View where Label: View {
                     isCustomLabel: Label.self != EmptyView.self && Label.self != Text.self
                 )
             }
-            .onChange(of: self.theme) { newTheme in
-                self.viewModel.theme = newTheme.value
+            .onChange(of: self.theme) {
+                self.viewModel.theme = self.theme.value
             }
-            .onChange(of: self.isOn) { isOn in
-                self.viewModel.isOn = isOn
+            .onChange(of: self.isOn) {
+                self.viewModel.isOn = self.isOn
             }
-            .onChange(of: UIAccessibility.isOnOffSwitchLabelsEnabled) { isOnOffSwitchLabelsEnabled in
-                self.viewModel.isOnOffSwitchLabelsEnabled = isOnOffSwitchLabelsEnabled
+            .onChange(of: UIAccessibility.isOnOffSwitchLabelsEnabled) {
+                self.viewModel.isOnOffSwitchLabelsEnabled = UIAccessibility.isOnOffSwitchLabelsEnabled
             }
-            .onChange(of: self.contrast) { contrast in
-                self.viewModel.contrast = contrast
+            .onChange(of: self.contrast) {
+                self.viewModel.contrast = self.contrast
             }
-            .onChange(of: self.isEnabled) { isEnabled in
-                self.viewModel.isEnabled = isEnabled
+            .onChange(of: self.isEnabled) {
+                self.viewModel.isEnabled = self.isEnabled
             }
     }
 }

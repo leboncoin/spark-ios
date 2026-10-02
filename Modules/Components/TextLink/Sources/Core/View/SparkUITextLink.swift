@@ -276,6 +276,9 @@ public final class SparkUITextLink: UIControl {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup gesture
         self.enableTouch()
 
@@ -475,13 +478,17 @@ public final class SparkUITextLink: UIControl {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        // Update spacings
-        self._spacing.update(traitCollection: self.traitCollection)
-        self.updateContentStackViewSpacing()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            // Update spacings
+            self._spacing.update(traitCollection: self.traitCollection)
+            self.updateContentStackViewSpacing()
 
-        self.viewModel.contentSizeCategoryDidUpdate()
+            self.viewModel.contentSizeCategoryDidUpdate()
+        }
     }
 }

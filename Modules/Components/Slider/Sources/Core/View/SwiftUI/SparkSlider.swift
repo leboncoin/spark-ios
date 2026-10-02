@@ -345,19 +345,19 @@ public struct SparkSlider<TitleLabel, ValueLabel, MinValueLabel, MaxValueLabel, 
                 isEnabled: self.isEnabled
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
-        .onChange(of: self.isFloatingValueLabel) { isFloatingValueLabel in
-            self.viewModel.isFloatingValueLabel = isFloatingValueLabel
+        .onChange(of: self.isFloatingValueLabel) {
+            self.viewModel.isFloatingValueLabel = self.isFloatingValueLabel
         }
-        .onChange(of: self.isEnabled) { isEnabled in
-            self.viewModel.isEnabled = isEnabled
+        .onChange(of: self.isEnabled) {
+            self.viewModel.isEnabled = self.isEnabled
         }
-        .onChange(of: self.value) { value in
+        .onChange(of: self.value) {
             if self.step != nil {
                 self.feedbackID = .init()
             }

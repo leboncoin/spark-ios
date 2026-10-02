@@ -59,6 +59,9 @@ final class ButtonUIImageView: UIView {
 
         // Setup constraints
         self.setupConstraints()
+
+        // Setup trait collection
+        self.setupTraitCollection()
     }
 
     // MARK: - Constraints
@@ -101,10 +104,14 @@ final class ButtonUIImageView: UIView {
 
     // MARK: - Trait Collection
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeTraitCollection()
+    }
 
-        self._imageSize.update(traitCollection: self.traitCollection)
-        self.updateImageHeight()
+    private func setupContentSizeTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            self._imageSize.update(traitCollection: self.traitCollection)
+            self.updateImageHeight()
+        }
     }
 }

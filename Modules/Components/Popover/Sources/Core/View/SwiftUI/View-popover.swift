@@ -10,7 +10,6 @@ import SwiftUI
 import SparkTheming
 
 public extension View {
-    @available(iOS 16.4, *)
     /// Presents a Spark popover when a given condition is true.
     /// - Parameters:
     ///   - theme: The Spark theme of the Spark popover.

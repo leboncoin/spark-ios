@@ -277,26 +277,26 @@ public struct SparkChip<Label, ExtraContent>: View where Label: View, ExtraConte
                 isEnabled: self.isEnabled
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.alignment) { alignment in
-            self.viewModel.alignment = alignment
+        .onChange(of: self.alignment) {
+            self.viewModel.alignment = self.alignment
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
-        .onChange(of: self.variant) { variant in
-            self.viewModel.variant = variant
+        .onChange(of: self.variant) {
+            self.viewModel.variant = self.variant
         }
-        .onChange(of: self.size) { size in
-            self.viewModel.size = size
+        .onChange(of: self.size) {
+            self.viewModel.size = self.size
         }
-        .onChange(of: self.isSelected) { isSelected in
-            self.viewModel.isSelected = isSelected
+        .onChange(of: self.isSelected) {
+            self.viewModel.isSelected = self.isSelected
         }
-        .onChange(of: self.isEnabled) { isEnabled in
-            self.viewModel.isEnabled = isEnabled
+        .onChange(of: self.isEnabled) {
+            self.viewModel.isEnabled = self.isEnabled
         }
     }
 

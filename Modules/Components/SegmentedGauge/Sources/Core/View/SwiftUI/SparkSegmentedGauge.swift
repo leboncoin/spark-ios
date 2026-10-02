@@ -237,20 +237,20 @@ public struct SparkSegmentedGauge<TitleLabel, DescriptionLabel>: View where Titl
                 type: self.type
             )
         }
-        .onChange(of: self.theme) { theme in
+        .onChange(of: self.theme) {
             self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.alignment) { alignment in
-            self.viewModel.alignment = alignment
+        .onChange(of: self.alignment) {
+            self.viewModel.alignment = self.alignment
         }
-        .onChange(of: self.segments) { segments in
-            self.viewModel.segments = segments
+        .onChange(of: self.segments) {
+            self.viewModel.segments = self.segments
         }
-        .onChange(of: self.size) { size in
-            self.viewModel.size = size
+        .onChange(of: self.size) {
+            self.viewModel.size = self.size
         }
-        .onChange(of: self.type) { type in
-            self.viewModel.type = type
+        .onChange(of: self.type) {
+            self.viewModel.type = self.type
         }
     }
 

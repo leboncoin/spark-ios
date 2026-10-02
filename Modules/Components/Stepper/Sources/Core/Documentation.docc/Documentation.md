@@ -4,7 +4,7 @@ The Spark Stepper allow users to quickly specify a numerical value within a give
 
 ## Overview
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 It can manage a simple numeric number or a complexe format (currency, percent, ...)
 

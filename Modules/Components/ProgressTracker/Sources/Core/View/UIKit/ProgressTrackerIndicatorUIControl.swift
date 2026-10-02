@@ -168,17 +168,32 @@ final class ProgressTrackerIndicatorUIControl: UIControl {
         self.update(font: self.viewModel.font)
         self.updateBorderWidth()
         self.setupSubscriptions()
+
+        self.setupTraitCollection()
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        self._scaleFactor.update(traitCollection: self.traitCollection)
+    // MARK: - Trait Collection
 
-        if self.traitCollection.hasDifferentSizeCategory(comparedTo: previousTraitCollection) {
-            self.sizesChanged()
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+        self.setupUserInterfaceStyleTraitCollection()
+    }
+
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self._scaleFactor.update(traitCollection: self.traitCollection)
+
+            if self.traitCollection.hasDifferentSizeCategory(comparedTo: previousTraitCollection) {
+                self.sizesChanged()
+            }
         }
-        if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            self.updateBorderColor()
+    }
+
+    private func setupUserInterfaceStyleTraitCollection() {
+        self.registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                self.updateBorderColor()
+            }
         }
     }
 

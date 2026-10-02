@@ -112,14 +112,14 @@ public struct SparkIcon: View {
                     size: self.size
                 )
             }
-            .onChange(of: self.theme) { theme in
+            .onChange(of: self.theme) {
                 self.viewModel.theme = self.theme.value
             }
-            .onChange(of: self.intent) { intent in
-                self.viewModel.intent = intent
+            .onChange(of: self.intent) {
+                self.viewModel.intent = self.intent
             }
-            .onChange(of: self.size) { size in
-                self.viewModel.size = size
+            .onChange(of: self.size) {
+                self.viewModel.size = self.size
             }
     }
 }

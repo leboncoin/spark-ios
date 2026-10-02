@@ -4,7 +4,7 @@ The Spark Theming contains many class to manage styles like colors, border, ...
 
 ## Overview
 
-The theming is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The theming is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 The Spark theming is composed by:
 

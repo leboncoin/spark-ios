@@ -274,16 +274,16 @@ public struct SparkInputOTP: View {
                 isEnabled: self.isEnabled
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.digits) { digits in
-            self.viewModel.digits = digits
+        .onChange(of: self.digits) {
+            self.viewModel.digits = self.digits
         }
-        .onChange(of: self.isEnabled) { isEnabled in
-            self.viewModel.isEnabled = isEnabled
+        .onChange(of: self.isEnabled) {
+            self.viewModel.isEnabled = self.isEnabled
         }
-        .onChange(of: self.value) { newValue in
+        .onChange(of: self.value) { _, newValue in
             self.validateAndTruncateValue(newValue)
 
             if newValue.count == self.digits.rawValue {

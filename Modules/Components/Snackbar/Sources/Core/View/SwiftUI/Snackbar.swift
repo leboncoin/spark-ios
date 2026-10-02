@@ -117,11 +117,11 @@ internal struct Snackbar<TitleLabel, DescriptionLabel, ActionButton>: View where
                 intent: self.intent
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
     }
 

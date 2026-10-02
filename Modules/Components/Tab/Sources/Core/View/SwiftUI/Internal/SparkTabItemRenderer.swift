@@ -79,20 +79,20 @@ struct SparkTabItemRenderer<Label, ExtraLabel>: View where Label: View, ExtraLab
                 isSelected: self.isSelected
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
-        .onChange(of: self.size) { size in
-            self.viewModel.size = size
+        .onChange(of: self.size) {
+            self.viewModel.size = self.size
         }
-        .onChange(of: self.isSelected) { isSelected in
-            self.viewModel.isSelected = isSelected
+        .onChange(of: self.isSelected) {
+            self.viewModel.isSelected = self.isSelected
         }
-        .onChange(of: self.isPressed) { isPressed in
-            self.viewModel.isPressed = isPressed
+        .onChange(of: self.isPressed) {
+            self.viewModel.isPressed = self.isPressed
         }
     }
 }

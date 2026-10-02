@@ -93,6 +93,9 @@ final class RatingStarsUIStackView: UIStackView {
 
         // Setup Accessibility
         self.isAccessibilityElement = false
+
+        // Setup trait collection
+        self.setupTraitCollection()
     }
 
     // MARK: - Update UI
@@ -150,14 +153,18 @@ final class RatingStarsUIStackView: UIStackView {
 
     // MARK: - Trait Collection
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        self._scaledSpacing.update(traitCollection: self.traitCollection)
-        self.updateSpacing()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            self._scaledSpacing.update(traitCollection: self.traitCollection)
+            self.updateSpacing()
 
-        self._scaledStarSize.update(traitCollection: self.traitCollection)
-        self.updateStarsSize()
+            self._scaledStarSize.update(traitCollection: self.traitCollection)
+            self.updateStarsSize()
+        }
     }
 }
 

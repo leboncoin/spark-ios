@@ -407,6 +407,9 @@ public final class SparkUIButton: UIControl {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup accessibility
         self.setupAccessibility()
 
@@ -841,18 +844,22 @@ public final class SparkUIButton: UIControl {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeTraitCollection()
+    }
 
-        // Sizes
-        self._height.update(traitCollection: self.traitCollection)
-        self._width.update(traitCollection: self.traitCollection)
-        self.updateSize()
+    private func setupContentSizeTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            // Sizes
+            self._height.update(traitCollection: self.traitCollection)
+            self._width.update(traitCollection: self.traitCollection)
+            self.updateSize()
 
-        // Corner
-        self._cornerRadius.update(traitCollection: self.traitCollection)
-        self._borderWidth.update(traitCollection: self.traitCollection)
-        self.updateBorder()
+            // Corner
+            self._cornerRadius.update(traitCollection: self.traitCollection)
+            self._borderWidth.update(traitCollection: self.traitCollection)
+            self.updateBorder()
+        }
     }
 }
 

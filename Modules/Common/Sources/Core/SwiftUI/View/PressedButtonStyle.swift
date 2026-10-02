@@ -24,9 +24,9 @@ import SwiftUI
         let animation: Animation? = self.duration <= 0 ? .none : .easeInOut(duration: self.duration)
 
         return configuration.label
-            .onChange(of: configuration.isPressed) { isPressed in
-                if isPressed != self.isPressed {
-                    self.isPressed = isPressed
+            .onChange(of: configuration.isPressed) {
+                if configuration.isPressed != self.isPressed {
+                    self.isPressed = configuration.isPressed
                 }
             }
             .animation(animation, value: configuration.isPressed)

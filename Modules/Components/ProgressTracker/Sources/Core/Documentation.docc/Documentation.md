@@ -4,7 +4,7 @@ A progress tracker component is a visual navigation element typically used to di
 
 ## Overview
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 ## Resources
 

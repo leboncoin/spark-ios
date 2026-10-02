@@ -4,7 +4,7 @@ A popover is a small surface that appears when someone interacts with a componen
 
 ## Overview
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 ## Resources
 

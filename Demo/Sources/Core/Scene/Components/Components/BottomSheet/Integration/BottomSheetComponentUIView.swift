@@ -84,9 +84,7 @@ final class BottomSheetComponentUIViewMaker: ComponentUIViewMaker {
         if let sheet = controller.sheetPresentationController {
             sheet.detents = detents
             sheet.prefersScrollingExpandsWhenScrolledToEdge = true
-            if #available(iOS 17.0, *) {
-                sheet.prefersPageSizing = true
-            }
+            sheet.prefersPageSizing = true
             sheet.prefersGrabberVisible = true
             sheet.prefersEdgeAttachedInCompactHeight = true
             sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true

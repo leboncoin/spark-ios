@@ -144,26 +144,26 @@ public struct SparkCard<Content, Header>: View where Content: View, Header: View
                 headerPosition: self.headerPosition
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
-        .onChange(of: self.isEnabled) { isEnabled in
-            self.viewModel.isEnabled = isEnabled
+        .onChange(of: self.isEnabled) {
+            self.viewModel.isEnabled = self.isEnabled
         }
-        .onChange(of: self.padding) { padding in
-            self.viewModel.padding = padding
+        .onChange(of: self.padding) {
+            self.viewModel.padding = self.padding
         }
-        .onChange(of: self.variant) { variant in
-            self.viewModel.variant = variant
+        .onChange(of: self.variant) {
+            self.viewModel.variant = self.variant
         }
-        .onChange(of: self.isHeader) { isHeader in
-            self.viewModel.isHeader = isHeader
+        .onChange(of: self.isHeader) {
+            self.viewModel.isHeader = self.isHeader
         }
-        .onChange(of: self.headerPosition) { headerPosition in
-            self.viewModel.headerPosition = headerPosition
+        .onChange(of: self.headerPosition) {
+            self.viewModel.headerPosition = self.headerPosition
         }
     }
 

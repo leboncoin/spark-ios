@@ -9,7 +9,7 @@ The Spark Selection Controls is composed by three components:
 
 ### Overview
 
-The checkbox/checkboxGroup are available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The checkbox/checkboxGroup are available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 It is a small square used to select or deselect multiple options in a list.
 
@@ -66,7 +66,7 @@ It is a small square used to select or deselect multiple options in a list.
 
 ### Overview
 
-The radioButton/radioGroup are available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The radioButton/radioGroup are available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 It is a small circle used to select only one option from a list of choices.
 
@@ -120,7 +120,7 @@ It is a small circle used to select only one option from a list of choices.
 
 ### Overview
 
-The toggle/switch is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The toggle/switch is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 It is a control that toggles between on and off states.
 

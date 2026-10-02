@@ -330,6 +330,9 @@ public final class SparkUISegmentedGauge: UIView {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup publisher subcriptions
         self.setupSubscriptions()
 
@@ -495,12 +498,16 @@ public final class SparkUISegmentedGauge: UIView {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        self._contentSpacing.update(traitCollection: self.traitCollection)
-        self._subContentSpacing.update(traitCollection: self.traitCollection)
-        self._segmentsSpacing.update(traitCollection: self.traitCollection)
-        self.updateLayout()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            self._contentSpacing.update(traitCollection: self.traitCollection)
+            self._subContentSpacing.update(traitCollection: self.traitCollection)
+            self._segmentsSpacing.update(traitCollection: self.traitCollection)
+            self.updateLayout()
+        }
     }
 }

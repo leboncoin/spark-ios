@@ -21,7 +21,7 @@ import PackageDescription
 let package = Package(
     name: "MyPackage",
     platforms: [
-        .iOS(.v16)
+        .iOS(.v17)
     ],
     products: [
         .library(
@@ -59,7 +59,7 @@ import PackageDescription
 let package = Package(
     name: "MyPackage",
     platforms: [
-        .iOS(.v16)
+        .iOS(.v17)
     ],
     products: [
         .library(
@@ -107,7 +107,7 @@ import PackageDescription
 let package = Package(
     name: "MyPackage",
     platforms: [
-        .iOS(.v16)
+        .iOS(.v17)
     ],
     products: [
         .library(
@@ -149,7 +149,7 @@ import PackageDescription
 let package = Package(
     name: "MyPackage",
     platforms: [
-        .iOS(.v16)
+        .iOS(.v17)
     ],
     products: [
         .library(

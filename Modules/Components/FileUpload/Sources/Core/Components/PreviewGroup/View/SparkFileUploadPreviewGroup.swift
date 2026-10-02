@@ -100,8 +100,8 @@ public struct SparkFileUploadPreviewGroup: View {
                 theme: self.theme.value
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
     }
 }

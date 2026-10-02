@@ -7,7 +7,7 @@ The Spark Spinner is a revolving animated icon indicating ongoing process or loa
 A spinner is a dynamic graphical element used to indicate loading or processing, 
 providing visual feedback during wait times or background tasks.
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 ### Implementation
 

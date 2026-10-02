@@ -29,18 +29,8 @@ public enum FileUploadPhotoSelectionBehavior: CaseIterable {
         return switch self {
         case .default: .default
         case .ordered: .ordered
-        case .continuous:
-            if #available(iOS 17.0, *) {
-                .continuous
-            } else {
-                .default
-            }
-        case .continuousAndOrdered:
-            if #available(iOS 17.0, *) {
-                .continuousAndOrdered
-            } else {
-                .ordered
-            }
+        case .continuous: .continuous
+        case .continuousAndOrdered: .continuousAndOrdered
         }
     }
 }

@@ -44,8 +44,8 @@ struct SliderImplementationView: ComponentImplementationViewable {
                 .onAppear() {
                     self.value = Float(self.configurationWrapped.valueString) ?? 0
                 }
-                .onChange(of: self.configurationWrapped.valueString) { newValue in
-                    self.value = Float(newValue) ?? 0
+                .onChange(of: self.configurationWrapped.valueString) {
+                    self.value = Float(self.configurationWrapped.valueString) ?? 0
                 }
 
             HStack {

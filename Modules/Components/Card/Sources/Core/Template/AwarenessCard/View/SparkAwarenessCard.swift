@@ -166,8 +166,8 @@ public struct SparkAwarenessCard<TitleLabel, DescriptionLabel, ActionLabel>: Vie
         .onAppear {
             self.viewModel.setup(theme: self.theme.value)
         }
-        .onChange(of: self.theme) { newTheme in
-            self.viewModel.theme = newTheme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
     }
 }

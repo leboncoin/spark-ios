@@ -8,7 +8,7 @@ The Tabs are used to group different but related content, allowing users to navi
 They always contain at least two items and one tab is active at a time. 
 Tabs can be used on full page layouts or in components such as modals, cards, or side panels.
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 ### Implementation
 

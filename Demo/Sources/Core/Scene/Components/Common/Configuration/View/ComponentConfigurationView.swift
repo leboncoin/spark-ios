@@ -176,8 +176,8 @@ struct ComponentConfigurationView<
         .onAppear() {
             self.customDynamicTypeSize = self.realDynamicTypeSize
         }
-        .onChange(of: self.realDynamicTypeSize) { realDynamicTypeSize in
-            self.customDynamicTypeSize = realDynamicTypeSize
+        .onChange(of: self.realDynamicTypeSize) {
+            self.customDynamicTypeSize = self.realDynamicTypeSize
         }
     }
 

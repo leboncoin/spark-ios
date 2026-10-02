@@ -75,6 +75,9 @@ final class SegmentedGaugeSegmentMarkerUIView: UIView {
 
         // Setup constraints
         self.setupConstraints()
+
+        // Setup trait collection
+        self.setupTraitCollection()
     }
 
     // MARK: - Layout
@@ -177,11 +180,15 @@ final class SegmentedGaugeSegmentMarkerUIView: UIView {
 
     // MARK: - Trait Collection
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        self._height.update(traitCollection: self.traitCollection)
-        self._innerCircleHeight.update(traitCollection: self.traitCollection)
-        self.updateSizes()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            self._height.update(traitCollection: self.traitCollection)
+            self._innerCircleHeight.update(traitCollection: self.traitCollection)
+            self.updateSizes()
+        }
     }
 }
