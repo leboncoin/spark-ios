@@ -30,7 +30,7 @@ struct SegmentedControlGetDisplayTagsUseCaseTests {
         let tags: [AnyHashable] = [0]
 
         // WHEN
-        let result = self.sut.execute(tags: tags)
+        let result = self.sut.execute(tags: tags, rowLength: 4)
 
         // THEN
         #expect(result.count == 1)
@@ -44,7 +44,7 @@ struct SegmentedControlGetDisplayTagsUseCaseTests {
         let tags: [AnyHashable] = [0, 1, 2, 3]
 
         // WHEN
-        let result = self.sut.execute(tags: tags)
+        let result = self.sut.execute(tags: tags, rowLength: 4)
 
         // THEN
         #expect(result.count == 1)
@@ -58,7 +58,7 @@ struct SegmentedControlGetDisplayTagsUseCaseTests {
         let tags: [AnyHashable] = [0, 1, 2, 3, 4]
 
         // WHEN
-        let result = self.sut.execute(tags: tags)
+        let result = self.sut.execute(tags: tags, rowLength: 4)
 
         // THEN
         #expect(result.count == 2)
@@ -74,7 +74,7 @@ struct SegmentedControlGetDisplayTagsUseCaseTests {
         let tags: [AnyHashable] = [0, 1, 2, 3, 4, 5]
 
         // WHEN
-        let result = self.sut.execute(tags: tags)
+        let result = self.sut.execute(tags: tags, rowLength: 4)
 
         // THEN
         #expect(result.count == 2)
@@ -90,7 +90,7 @@ struct SegmentedControlGetDisplayTagsUseCaseTests {
         let tags: [AnyHashable] = [0, 1, 2, 3, 4, 5, 6, 7]
 
         // WHEN
-        let result = self.sut.execute(tags: tags)
+        let result = self.sut.execute(tags: tags, rowLength: 4)
 
         // THEN
         #expect(result.count == 2)
@@ -106,7 +106,7 @@ struct SegmentedControlGetDisplayTagsUseCaseTests {
         let tags: [AnyHashable] = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
         // WHEN
-        let result = self.sut.execute(tags: tags)
+        let result = self.sut.execute(tags: tags, rowLength: 4)
 
         // THEN
         #expect(result.count == 3)
@@ -124,10 +124,66 @@ struct SegmentedControlGetDisplayTagsUseCaseTests {
         let tags: [AnyHashable] = []
 
         // WHEN
-        let result = self.sut.execute(tags: tags)
+        let result = self.sut.execute(tags: tags, rowLength: 4)
 
         // THEN
         #expect(result.count == 1)
         #expect(result[0].isEmpty)
+    }
+
+    // MARK: - Tests with custom row length
+
+    @Test("Execute returns single row when rowLength is 0")
+    func executeReturnsSingleRowWhenRowLengthIsZero() {
+        // GIVEN
+        let tags: [AnyHashable] = [0, 1, 2, 3, 4, 5, 6, 7]
+
+        // WHEN
+        let result = self.sut.execute(tags: tags, rowLength: 0)
+
+        // THEN
+        #expect(result.count == 1)
+        #expect(result[0] == tags)
+    }
+
+    @Test("Execute returns one item per row when rowLength is 1")
+    func executeReturnsOneItemPerRowWhenRowLengthIsOne() {
+        // GIVEN
+        let tags: [AnyHashable] = [0, 1]
+
+        // WHEN
+        let result = self.sut.execute(tags: tags, rowLength: 1)
+
+        // THEN
+        #expect(result.count == 2)
+        #expect(result[0] == [0])
+        #expect(result[1] == [1])
+    }
+
+    @Test("Execute returns two rows for 3 items when rowLength is 2")
+    func executeReturnsTwoRowsFor3ItemsWhenRowLengthIsTwo() {
+        // GIVEN
+        let tags: [AnyHashable] = [0, 1, 2]
+
+        // WHEN
+        let result = self.sut.execute(tags: tags, rowLength: 2)
+
+        // THEN
+        #expect(result.count == 2)
+        #expect(result[0] == [0, 1])
+        #expect(result[1] == [2])
+    }
+
+    @Test("Execute returns single row when items count is lower than rowLength")
+    func executeReturnsSingleRowWhenItemsCountIsLowerThanRowLength() {
+        // GIVEN
+        let tags: [AnyHashable] = [0, 1, 2, 3, 4, 5]
+
+        // WHEN
+        let result = self.sut.execute(tags: tags, rowLength: 10)
+
+        // THEN
+        #expect(result.count == 1)
+        #expect(result[0] == tags)
     }
 }

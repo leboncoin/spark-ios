@@ -117,10 +117,51 @@ import SparkTheming
 ///
 /// This component use some EnvironmentValues :
 /// - **theme** : ``sparkTheme(_:)`` (View extension)
+/// - **rowLength** : ``sparkSegmentedControlRowLength(_:)`` (View extension)
 ///
 /// > If these values are not set, default values will be applied.
 ///
 /// > **YOU MUST PROVIDE ``sparkTheme(_:)``**
+///
+/// ## Row Length
+///
+/// The **rowLength** (set with ``sparkSegmentedControlRowLength(_:)``, default *4*) is the maximum number of items per line.
+///
+/// The items are displayed following these rules :
+/// - If the **rowLength** is **0**, all items are displayed on a single line.
+/// - If the number of items is **lower than or equal to** the **rowLength**, all items are displayed on a single line.
+/// - Otherwise, the number of lines is the minimum needed to respect the **rowLength**,
+/// and the items are **balanced** between these lines (the first lines can contain one more item than the last ones).
+///
+/// | Items | Row Length | Result |
+/// |:---:|:---:|:---:|
+/// | 8 | 0 | 8 |
+/// | 4 | 4 | 4 |
+/// | 5 | 4 | 3 + 2 |
+/// | 6 | 4 | 3 + 3 |
+/// | 7 | 4 | 4 + 3 |
+/// | 8 | 4 | 4 + 4 |
+/// | 9 | 4 | 3 + 3 + 3 |
+/// | 3 | 2 | 2 + 1 |
+///
+/// ### Example of usage
+///
+/// ```swift
+/// struct MyView: View {
+///     let theme: SparkTheming.Theme = MyTheme()
+///     @State private var selection = 0
+///
+///     var body: some View {
+///         SparkSegmentedControl(selection: self.$selection) {
+///             ForEach(0..<6, id: \.self) { index in
+///                 SparkSegmentedControlItem(tag: index, text: "Item \(index)")
+///             }
+///         }
+///         .sparkSegmentedControlRowLength(3)
+///         .sparkTheme(self.theme)
+///     }
+/// }
+/// ```
 ///
 /// ## Accessibility
 ///
@@ -154,6 +195,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
 
     @Environment(\.theme) private var theme
     @Environment(\.isEnabled) private var isEnabled
+    @Environment(\.segmentedControlRowLength) private var rowLength
 
     @StateObject private var viewModel = SegmentedControlViewModel()
 
@@ -280,7 +322,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
                 .segmentedControlContext(.collecting)
                 .onPreferenceChange(SegmentedControlTagsPreferenceKey.self) { value in
                     self.flattedTags = value
-                    self.tags = self.viewModel.getDisplayTags(from: value)
+                    self.tags = self.viewModel.getDisplayTags(from: value, rowLength: self.rowLength)
                 }
         )
         .popover(isPresented: self.$showAccessibilityList, content: {
@@ -289,6 +331,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
         .accessibilityIdentifier(SegmentedControlAccessibilityIdentifier.view)
         .dynamicTypeSize(.large)
         .sparkVisualIdentification()
+        .id("spark-segmented-control-\(self.rowLength)")
         .onAppear() {
             self.viewModel.setup(
                 theme: self.theme.value,

@@ -63,6 +63,12 @@ struct SegmentedControlConfigurationView: ConfigurationViewable, ConfigurationUI
             values: SegmentedControlContentType.allCases,
             selectedValue: self.configuration.contentType
         )
+
+        StepperConfigurationItemView(
+            name: "row length",
+            value: self.configuration.rowLength,
+            bounds: 0...12
+        )
     }
 
     @ViewBuilder
