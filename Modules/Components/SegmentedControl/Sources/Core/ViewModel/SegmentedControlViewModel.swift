@@ -119,8 +119,14 @@ final class SegmentedControlViewModel: ObservableObject {
 
     // MARK: - Getter
 
-    func getDisplayTags(from tags: [AnyHashable]) -> [[AnyHashable]] {
-        return self.getDisplayTagsUseCase.execute(tags: tags)
+    func getDisplayTags(
+        from tags: [AnyHashable],
+        rowLength: Int
+    ) -> [[AnyHashable]] {
+        return self.getDisplayTagsUseCase.execute(
+            tags: tags,
+            rowLength: rowLength
+        )
     }
 
     func getIsVerticalSeparator(

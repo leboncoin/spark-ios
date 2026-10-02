@@ -17,7 +17,8 @@ struct SegmentedControlCodeSyntaxes {
             .init(title: "Icon", code: Self.icon),
             .init(title: "Text", code: Self.text),
             .init(title: "Icon and Text", code: Self.iconAndText),
-            .init(title: "Custom", code: Self.custom)
+            .init(title: "Custom", code: Self.custom),
+            .init(title: "Row Length", code: Self.rowLength)
         ]
     }()
 
@@ -89,6 +90,23 @@ struct SegmentedControlCodeSyntaxes {
                 }
             }
         }
+        .sparkTheme(theme)
+        """
+    }
+
+    private static var rowLength: String {
+        """
+        @State var selection: Int = 1
+
+        SparkSegmentedControl(selection: $selection) {
+            ForEach(0..<6, id: \\.self) { index in
+                SparkSegmentedControlItem(
+                    tag: index,
+                    text: "Item \\(index)"
+                )
+            }
+        }
+        .sparkSegmentedControlRowLength(3)
         .sparkTheme(theme)
         """
     }
