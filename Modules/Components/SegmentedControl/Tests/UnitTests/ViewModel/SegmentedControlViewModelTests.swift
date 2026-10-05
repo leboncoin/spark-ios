@@ -263,15 +263,22 @@ struct SegmentedControlViewModelTests {
         let stub = Stub()
         let viewModel = stub.viewModel
         let tags: [AnyHashable] = [0, 1, 2, 3, 4]
+        let rowLength = 3
 
         // WHEN
-        let result = viewModel.getDisplayTags(from: tags)
+        let result = viewModel.getDisplayTags(
+            from: tags,
+            rowLength: rowLength
+        )
 
         // THEN
+        #expect(result == stub.expectedDisplayTags)
+
         SegmentedControlGetDisplayTagsUseCaseableMockTest.expect(
             stub.getDisplayTagsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTags: tags,
+            givenRowLength: rowLength,
             expectedReturnValue: stub.expectedDisplayTags
         )
     }
@@ -369,7 +376,7 @@ private final class Stub {
         getDimUseCaseMock.executeWithThemeAndIsEnabledReturnValue = self.expectedDim
 
         let getDisplayTagsUseCaseMock = SegmentedControlGetDisplayTagsUseCaseableGeneratedMock()
-        getDisplayTagsUseCaseMock.executeWithTagsReturnValue = self.expectedDisplayTags
+        getDisplayTagsUseCaseMock.executeWithTagsAndRowLengthReturnValue = self.expectedDisplayTags
 
         let getIsVerticalSeparatorUseCaseMock = SegmentedControlGetIsVerticalSeparatorUseCaseableGeneratedMock()
         getIsVerticalSeparatorUseCaseMock.executeWithTagsAndHorizontalTagsAndColumnIndexReturnValue = self.expectedIsVerticalSeparator
@@ -451,7 +458,7 @@ private func expectNotCalled(
 
     SegmentedControlGetDisplayTagsUseCaseableMockTest.expectCalled(
         stub.getDisplayTagsUseCaseMock,
-        executeWithTagsCalled: false
+        executeWithTagsAndRowLengthCalled: false
     )
 
     SegmentedControlGetIsVerticalSeparatorUseCaseableMockTest.expectCalled(

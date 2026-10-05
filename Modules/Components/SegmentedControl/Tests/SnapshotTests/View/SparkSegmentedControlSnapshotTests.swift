@@ -34,8 +34,9 @@ final class SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTestCase
 
             for configuration in configurations {
                 let view = self.component(configuration: configuration)
+                    .sparkSegmentedControlRowLength(configuration.rowLength.value)
                     .sparkTheme(self.theme)
-                    .frame(width: 300)
+                    .frame(width: configuration.rowLength.width)
                     .padding(.vertical, 50)
                     .padding(.horizontal, 20)
                     .background(.background)

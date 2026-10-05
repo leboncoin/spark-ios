@@ -10,17 +10,17 @@ import Foundation
 
 // sourcery: AutoMockable, AutoMockTest
 protocol SegmentedControlGetDisplayTagsUseCaseable {
-    func execute(tags: [AnyHashable]) -> [[AnyHashable]]
+    func execute(tags: [AnyHashable], rowLength: Int) -> [[AnyHashable]]
 }
 
 struct SegmentedControlGetDisplayTagsUseCase: SegmentedControlGetDisplayTagsUseCaseable {
 
     // MARK: - Methods
 
-    func execute(tags: [AnyHashable]) -> [[AnyHashable]] {
-        let maxTagByLine = 4
+    func execute(tags: [AnyHashable], rowLength: Int) -> [[AnyHashable]] {
+        let maxTagByLine = rowLength
 
-        guard tags.count > maxTagByLine else {
+        guard maxTagByLine > 0, tags.count > maxTagByLine else {
             return [tags]
         }
 

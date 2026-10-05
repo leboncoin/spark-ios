@@ -19,6 +19,7 @@ enum SegmentedControlScenarioSnapshotTests: String, CaseIterable {
     case test2
     case test3
     case test4
+    case test5
     case documentation
 
     // MARK: - Type Alias
@@ -39,6 +40,7 @@ enum SegmentedControlScenarioSnapshotTests: String, CaseIterable {
         case .test2: self.test2()
         case .test3: self.test3()
         case .test4: self.test4()
+        case .test5: self.test5()
         case .documentation: self.documentation()
         }
     }
@@ -99,6 +101,22 @@ enum SegmentedControlScenarioSnapshotTests: String, CaseIterable {
                 modes: Constants.Modes.all
             )
         ]
+    }
+
+    /// **Test 5**
+    ///
+    /// Description: To test all row lengths.
+    ///
+    private func test5() -> [SegmentedControlConfigurationSnapshotTests] {
+        let rowLengths = SegmentedControlRowLength.allCases
+
+        return rowLengths.map { rowLength in
+            .init(
+                scenario: self,
+                items: rowLength.items,
+                rowLength: rowLength
+            )
+        }
     }
 
     // MARK: - Documentation

@@ -18,6 +18,7 @@ class SegmentedControlConfiguration: ComponentConfiguration {
         }
     }
     var contentType: SegmentedControlContentType = .default
+    var rowLength = 4
 
     var items = [Item]()
 
@@ -56,6 +57,7 @@ class SegmentedControlConfiguration: ComponentConfiguration {
     override func random() {
         self.numberOfSegments = Int.random(in: 2...8)
         self.contentType = .random
+        self.rowLength = Int.random(in: 0...8)
     }
 }
 

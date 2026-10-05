@@ -33,6 +33,7 @@ struct SegmentedControlImplementationView: ComponentImplementationViewable {
 
     var body: some View {
         self.component()
+            .sparkSegmentedControlRowLength(self.configurationWrapped.rowLength)
             .sparkTheme(self.configurationWrapped.theme.value)
             .demoBackground(self.configurationWrapped)
             .demoDisabled(self.configurationWrapped)
