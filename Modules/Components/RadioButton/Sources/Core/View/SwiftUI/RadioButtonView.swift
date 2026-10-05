@@ -18,7 +18,7 @@ private enum Constants {
 }
 /// RadioButtonView is a single radio button control.
 /// Radio buttons are used for selecting a single value from a selection of values.
-/// The values from which can be selected need to be ``Equatable`` & ``CustomStringConvertible``.
+/// The values from which can be selected need to be **Equatable** & ``CustomStringConvertible``.
 ///
 /// The radio button is created by providing:
 /// - A theme

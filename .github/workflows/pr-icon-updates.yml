@@ -45,6 +45,7 @@ jobs:
         run: |
           swift .script/generate-iconography-assets.swift spark-token/iconography
           swift .script/generate-iconography-codebase.swift
+          swift .script/generate-iconography-documentation.swift
           rm -rf spark-token
           git add .
           if ! git diff --cached --quiet --exit-code ;

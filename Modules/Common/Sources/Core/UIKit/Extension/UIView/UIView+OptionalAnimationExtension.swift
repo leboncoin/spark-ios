@@ -21,7 +21,7 @@ public extension UIView {
     ///   Specify a value of 0 to begin the animations immediately.
     ///
     ///   - options: A mask of options indicating how you want to perform the animations.
-    ///   For a list of valid constants, see ``UIView.AnimationOptions``.
+    ///   For a list of valid constants, see **UIView.AnimationOptions**.
     ///
     ///   - animations: A block object containing the changes to commit to the views.
     ///   This is where you programmatically change any animatable properties of the views in your view hierarchy.

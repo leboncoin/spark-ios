@@ -9,18 +9,19 @@
 import SwiftUI
 import SparkTheming
 
-// sourcery: AutoPublisherTest, AutoViewModelStub
-final class AvatarViewModel: ObservableObject {
+// sourcery: AutoViewModelStub
+@Observable
+final class AvatarViewModel {
 
-    // MARK: - Published Properties
+    // MARK: - Observable Properties
 
-    @Published private(set) var colors = AvatarColors()
-    @Published private(set) var border = AvatarBorder()
-    @Published private(set) var dim: CGFloat = .zero
-    @Published private(set) var sizes = AvatarSizes()
-    @Published private(set) var layout = AvatarLayout()
-    @Published private(set) var typographies = AvatarTypographies()
-    @Published private(set) var scaleEffect: CGFloat = 1.0
+    private(set) var colors = AvatarColors()
+    private(set) var border = AvatarBorder()
+    private(set) var dim: CGFloat = .zero
+    private(set) var sizes = AvatarSizes()
+    private(set) var layout = AvatarLayout()
+    private(set) var typographies = AvatarTypographies()
+    private(set) var scaleEffect: CGFloat = 1.0
 
     // MARK: - Properties
 
@@ -83,7 +84,7 @@ final class AvatarViewModel: ObservableObject {
 
     // MARK: - Private Properties
 
-    private var alreadyUpdateAll = false
+    @ObservationIgnored private var alreadyUpdateAll = false
 
     // MARK: - Use Case Properties
 

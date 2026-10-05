@@ -21,20 +21,20 @@ This repository is developed and maintained by **Leboncoin iOS developers**. Con
 ## Before You Start
 
 1. Never commit directly to `main`. Create a branch for your change.
-2. Get familiar with [`docs/ARCHITECTURE.md`](ARCHITECTURE.md) — it describes the project layout, the shared structure every component follows, and the theming system. Most changes fit into one of the folders described there.
-3. Use the matching `spark-component-*` skill (see [`docs/CLAUDE_SKILLS.md`](CLAUDE_SKILLS.md)) when adding or updating an Enum, Model, Token, Environment, UseCase, ViewModel, View, AccessibilityIdentifier, Constants, or DocC documentation — they encode the exact conventions and templates for that file type.
-4. Run `make sourcery` before writing tests that rely on generated mocks, and `make build` / `make test` before opening a pull request (see [`docs/MAKEFILE.md`](MAKEFILE.md)).
+2. Get familiar with [`docs/ARCHITECTURE.md`](/docs/ARCHITECTURE.md) — it describes the project layout, the shared structure every component follows, and the theming system. Most changes fit into one of the folders described there.
+3. Use the matching `spark-component-*` skill (see [`docs/CLAUDE_SKILLS.md`](/docs/CLAUDE_SKILLS.md)) when adding or updating an Enum, Model, Token, Environment, UseCase, ViewModel, View, AccessibilityIdentifier, Constants, or DocC documentation — they encode the exact conventions and templates for that file type.
+4. Run `make sourcery` before writing tests that rely on generated mocks, and `make build` / `make test` before opening a pull request (see [`docs/MAKEFILE.md`](/docs/MAKEFILE.md)).
 
 ## Documentation Requirements
 
 - **All public code must be documented.** Every public `struct`, `class`, `protocol`, `enum`, `func`, and property needs a doc comment (`///`) explaining what it does. This is checked by the `spark-check-before-push` skill and by code review.
 - **All scripts and GitHub Actions workflows must be documented**, in `docs/script/` and `docs/workflow/` respectively (one Markdown file per script/workflow). After adding or changing a script or workflow:
   1. Add or update its file under `docs/script/SCRIPT_XXX.md` or `docs/workflow/WORKFLOW_XXX.md`.
-  2. Update the corresponding index — [`docs/SCRIPTS.md`](SCRIPTS.md) or [`docs/WORKFLOWS.md`](WORKFLOWS.md) — to reference it.
+  2. Update the corresponding index — [`docs/SCRIPTS.md`](/docs/SCRIPTS.md) or [`docs/WORKFLOWS.md`](/docs/WORKFLOWS.md) — to reference it.
 
 ## Testing Requirements
 
-Every component change needs corresponding tests — see [`docs/ARCHITECTURE.md#component-testing`](ARCHITECTURE.md#component-testing) for the full breakdown of unit tests and snapshot tests. In short:
+Every component change needs corresponding tests — see [`docs/ARCHITECTURE.md#component-testing`](/docs/ARCHITECTURE.md#component-testing) for the full breakdown of unit tests and snapshot tests. In short:
 
 - Add or update **unit tests** under `Tests/UnitTests/`, mirroring the `Sources/Core/` structure you changed. Use **Swift Testing**, except for ViewModel tests and UseCase-of-UseCase tests, which use XCTest.
 - Add or update **snapshot tests** under `Tests/SnapshotTests/` for any visual change. Review generated snapshot diffs before committing new baselines — a passing re-record is not the same as an intentional visual change.
@@ -58,7 +58,7 @@ The `spark-check-before-push` skill runs all of these checks for you; `spark-pus
 
 Each modification should ship as its own release rather than being batched with several unrelated changes — a small, isolated release is much easier to revert than a large one.
 
-Releases are tracked in [`CHANGELOG.md`](../CHANGELOG.md). When a GitHub release is published, the `📝 Release changelog update` workflow (see [`docs/workflow/WORKFLOW_RELEASE_CHANGELOG_UPDATE.md`](workflow/WORKFLOW_RELEASE_CHANGELOG_UPDATE.md)) automatically opens a pull request updating it from the release notes.
+Releases are tracked in [`CHANGELOG.md`](/CHANGELOG.md). When a GitHub release is published, the `📝 Release changelog update` workflow (see [`docs/workflow/WORKFLOW_RELEASE_CHANGELOG_UPDATE.md`](/docs/workflow/WORKFLOW_RELEASE_CHANGELOG_UPDATE.md)) automatically opens a pull request updating it from the release notes.
 
 ### Versioning
 
@@ -72,4 +72,4 @@ Releases follow `1.2.3` version numbers:
 
 ## Code of Conduct
 
-All contributions are expected to follow the project's [Code of Conduct](CODE_OF_CONDUCT.md).
+All contributions are expected to follow the project's [Code of Conduct](/docs/CODE_OF_CONDUCT.md).

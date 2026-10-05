@@ -14,7 +14,7 @@ Adevinta’s success depends on earning the trust and confidence of our employee
 
 We look to build trust and confidence from our customers and shareholders by upholding the highest standards of ethical business conduct, displaying honesty and integrity and reaching company goals by acting with integrity and unity.
 
-## [Our Standards](https://zeroheight.com/2c2e9ba82/p/4614f7-code-of-conduct)
+## Our Standards
 
 - Foster open, respectful, and inclusive discussions
 - Use respectful language
@@ -32,7 +32,7 @@ We look to build trust and confidence from our customers and shareholders by uph
 - Avoid bothering others (including spamming)
 - Don't use or share any private content if you don't have permission from the author (intellectual property, brand, etc)
 
-### [Communication](https://zeroheight.com/2c2e9ba82/p/77af7e-comunication)
+### Communication
 
 We value every effort to bring designers and developers closer together. The language you use should always be correct but not at the expense of providing clarity.
 
@@ -42,7 +42,7 @@ We value every effort to bring designers and developers closer together. The lan
 - Give examples and descriptions for new words
 - Force yourself to be consistent with the vocabulary when writing and talking
 
-### [Judgment and Decision-making](https://zeroheight.com/2c2e9ba82/p/177da9-judgment-and-decision-making)
+### Judgment and Decision-making
 
 There are many correct ways to do things and solve problems. Many times we have to make decisions without the help of best-practice examples to follow and move forward. To deal with uncertainty and still move forward we foster having strong opinions, weakly held
 
@@ -53,14 +53,14 @@ There are many correct ways to do things and solve problems. Many times we have 
 - Seek feedback on code review often, and more often when a solution takes you down a new path
 - Take time to provide good code review, encompassing the above values when providing feedback.
 
-### [Innovation](https://zeroheight.com/2c2e9ba82/p/255e7f-innovation)
+### Innovation
 
 - Avoid big bangs: Make small experiments that provide data
 - Ship your ideas
 - Ship often
 - Work on reducing complexity and simplifying solutions to enable us to innovate faster
 
-### [Implementation](https://zeroheight.com/2c2e9ba82/p/85d5e7-implementation)
+### Implementation
 
 - Develop just enough of a solution
 - Value declarative over abstraction

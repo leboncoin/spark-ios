@@ -28,7 +28,7 @@ public struct SelectionControlsGroupItem<ID, Label>: Identifiable where ID: Sele
     /// Creates a radio group item from a localized string key.
     ///
     /// - Parameters:
-    ///  - id: A unique ID bound to a generic type which has the constraints that it need be ``Equatable`` & ``Hashable``
+    ///  - id: A unique ID bound to a generic type which has the constraints that it need be **Equatable** & **Hashable**
     ///  - titleKey: The key for the item's localized title, that describes the purpose of the item.
     ///  - isEnabled: The current control state of the item. Default is **true**.
     public init(
@@ -44,7 +44,7 @@ public struct SelectionControlsGroupItem<ID, Label>: Identifiable where ID: Sele
     /// Creates a radio group item from a string.
     ///
     /// - Parameters:
-    ///  - id: A unique ID bound to a generic type which has the constraints that it need be ``Equatable`` & ``Hashable``
+    ///  - id: A unique ID bound to a generic type which has the constraints that it need be **Equatable** & **Hashable**
     ///  - title: The key for the item's title, that describes the purpose of the item.
     ///  - isEnabled: The current control state of the item. Default is **true**.
     public init(
@@ -60,7 +60,7 @@ public struct SelectionControlsGroupItem<ID, Label>: Identifiable where ID: Sele
     /// Creates a radio group item from a label.
     ///
     /// - Parameters:
-    ///  - id: A unique ID bound to a generic type which has the constraints that it need be ``Equatable`` & ``Hashable``
+    ///  - id: A unique ID bound to a generic type which has the constraints that it need be **Equatable** & **Hashable**
     ///  - label: A view that describes the purpose of the item.
     ///  - isEnabled: The current control state of the item. Default is **true**.
     public init(
