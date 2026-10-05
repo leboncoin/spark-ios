@@ -2,6 +2,50 @@
 
 ## [Unreleased]
 
+## [2.1.0]
+
+_05/10/2026_
+
+### ✨ New Features
+
+#### Components
+- Added visual identification to all SwiftUI and UIKit component views ([#1120](https://github.com/leboncoin/spark-ios/pull/1120))
+
+#### SegmentedControl Component
+- Added `sparkSegmentedControlRowLength(_:)` environment value to split segments into rows (default 4, 0 for a single line) ([#1122](https://github.com/leboncoin/spark-ios/pull/1122))
+
+#### Iconography
+- Added a script to generate the iconography DocC documentation, run by the icon update workflow ([#1123](https://github.com/leboncoin/spark-ios/pull/1123))
+
+### 🚀 Improvements
+
+- Migrated `AvatarViewModel` from `ObservableObject` to `@Observable` ([#1123](https://github.com/leboncoin/spark-ios/pull/1123))
+
+### 🐛 Bug Fixes
+
+- Fixed the Spinner rotation by starting it once the view model is set up ([#1121](https://github.com/leboncoin/spark-ios/pull/1121))
+- Fixed DocC warnings by replacing symbol links to external types ([#1123](https://github.com/leboncoin/spark-ios/pull/1123))
+
+### 📱 Demo App Improvements
+
+- Added row length stepper and code syntax to the SegmentedControl demo ([#1122](https://github.com/leboncoin/spark-ios/pull/1122))
+- Removed the deprecated SpinnerView from the Spinner demo ([#1121](https://github.com/leboncoin/spark-ios/pull/1121))
+
+### 📚 Documentation
+
+- Added 2.0.0 release notes and the changelog generation skill ([#1118](https://github.com/leboncoin/spark-ios/pull/1118))
+- Added the Iconography page to the Resources documentation ([#1123](https://github.com/leboncoin/spark-ios/pull/1123))
+- Documented the SegmentedControl row splitting rules ([#1122](https://github.com/leboncoin/spark-ios/pull/1122))
+
+### 🔧 Infrastructure & CI/CD
+
+- Deployed the documentation on published releases instead of pushes to main ([#1118](https://github.com/leboncoin/spark-ios/pull/1118))
+- Fixed the `[Unreleased]` compare link and release links order in the update-changelog script ([#1118](https://github.com/leboncoin/spark-ios/pull/1118))
+
+### 🧹 Chores
+
+- Removed trailing commas in array literals ([#1119](https://github.com/leboncoin/spark-ios/pull/1119))
+
 ## [2.0.0]
 
 _25/09/2026_
@@ -73,7 +117,8 @@ _27/03/2025_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-ios/compare/2.0.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-ios/compare/2.1.0...HEAD
 
+[2.1.0]: https://github.com/leboncoin/spark-ios/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/leboncoin/spark-ios/compare/1.0.0...2.0.0
 [1.0.0]: https://github.com/leboncoin/spark-ios/compare/0.21.0...1.0.0
