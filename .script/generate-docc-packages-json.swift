@@ -47,7 +47,8 @@ func main() {
         do {
             var items = try JSONDecoder().decode([PackageEntry].self, from: data)
             for index in items.indices {
-                items[index].path = "\(folder)/documentation/\(folder)/documentation"
+                let basePath = "\(folder)/documentation/\(folder)"
+                items[index].path = folder == "sparkcommon" ? basePath : "\(basePath)/documentation"
             }
             packages.append(contentsOf: items)
         } catch {

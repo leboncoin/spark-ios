@@ -13,7 +13,7 @@ struct AdaptativeStackExtraTools: ComponentExtraTools {
     // MARK: - Link Properties
 
     let figmaLink: String? = nil
-    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcommon/documentation/sparkcommon/documentation"
+    let documentationLink: String? = "https://leboncoin.github.io/spark-ios/sparkcommon/documentation/sparkcommon"
 
     // MARK: - Code Syntax
 
