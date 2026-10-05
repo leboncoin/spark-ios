@@ -47,10 +47,12 @@ This GitHub Actions workflow automatically manages iconography updates by proces
 5. **Manage icons and update the pull request if needed** - Multi-step process:
    - Runs `generate-iconography-assets.swift` to process icons from `spark-token/iconography`
    - Runs `generate-iconography-codebase.swift` to generate code
-   - Stages changes in `Resources/Sources/Core/Assets/Iconography.xcassets/`
+   - Runs `generate-iconography-documentation.swift` to generate the Iconography DocC page
+   - Removes the `spark-token` source folder
+   - Stages all changes (`git add .`)
    - If changes are detected:
      - Configures git with bot credentials (`spark-ui-bot`)
-     - Commits with message `🤖 Update iconography`
+     - Commits with message `chore(icons-bot) 🤖 Update iconography`
      - Shows commit details
      - Pushes to remote
      - Outputs "UPDATED" notice
@@ -103,10 +105,13 @@ To trigger this workflow:
 
 - `.script/generate-iconography-assets.swift` - Processes and organizes icon assets
 - `.script/generate-iconography-codebase.swift` - Generates Swift code for icons
+- `.script/generate-iconography-documentation.swift` - Generates the Iconography DocC page
 - `Resources/Sources/Core/Assets/Iconography.xcassets/` - Icon asset catalog
+- `Resources/Sources/Core/Documentation.docc/Iconography.md` - Generated Iconography DocC page
+- `Resources/Sources/Core/Documentation.docc/Resources/Iconography/` - Generated DocC icon images
 
 ## Bot Configuration
 
 - **Bot Name**: spark-ui-bot
 - **Bot Email**: spark-ui-bot@users.noreply.github.com
-- **Commit Message Format**: `🤖 Update iconography`
+- **Commit Message Format**: `chore(icons-bot) 🤖 Update iconography`

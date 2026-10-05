@@ -27,7 +27,7 @@ struct Avatar<Placeholder, CornerView>: View where Placeholder: View, CornerView
     @Environment(\.avatarSize) private var size
     @Environment(\.isEnabled) private var isEnabled
 
-    @StateObject private var viewModel = AvatarViewModel()
+    @State private var viewModel = AvatarViewModel()
 
     @State var cornerViewSize: CGSize?
     @State private var showImage = false

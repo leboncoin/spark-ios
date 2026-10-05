@@ -30,7 +30,7 @@ public struct SelectionControlsGroupUIItem<ID>: Identifiable where ID: Selection
     /// Creates a checkbox group item from a localized string key.
     ///
     /// - Parameters:
-    ///  - id: A unique ID bound to a generic type which has the constraints that it need be ``Equatable`` & ``Hashable``
+    ///  - id: A unique ID bound to a generic type which has the constraints that it need be **Equatable** & **Hashable**
     ///  - text: The text for the checkbox, that describes the purpose of the checkbox.
     ///  - isEnabled: The current control state of the checkbox. Default is **true**.
     public init(
@@ -47,7 +47,7 @@ public struct SelectionControlsGroupUIItem<ID>: Identifiable where ID: Selection
     /// Creates a checkbox group item from a string.
     ///
     /// - Parameters:
-    ///  - id: A unique ID bound to a generic type which has the constraints that it need be ``Equatable`` & ``Hashable``
+    ///  - id: A unique ID bound to a generic type which has the constraints that it need be **Equatable** & **Hashable**
     ///  - attributedText: The attributed text for the checkbox, that describes the purpose of the checkbox.
     ///  - isEnabled: The current control state of the checkbox. Default is **true**.
     public init(

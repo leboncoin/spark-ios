@@ -11,8 +11,8 @@ import SwiftUI
 /// Returns the result of recomputing the view's body with the provided
 /// animation.
 ///
-/// This function sets the given ``Animation`` as the ``Transaction/animation``
-/// property of the thread's current ``Transaction``.
+/// This function sets the given **Animation** as the **Transaction/animation**
+/// property of the thread's current **Transaction**.
 public func withOptionalAnimation<Result>(_ animation: Animation? = .default, _ body: () throws -> Result) rethrows -> Result {
     if UIAccessibility.isReduceMotionEnabled {
         return try body()

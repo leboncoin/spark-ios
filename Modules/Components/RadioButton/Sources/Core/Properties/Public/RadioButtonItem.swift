@@ -18,7 +18,7 @@ public struct RadioButtonItem<ID: Equatable & Hashable> {
 
     // MARK: - Initialization
     /// Parameters:
-    /// - id: A unique ID bound to a generic type which has the constraints that it need be ``Equatable`` & ``Hashable``.
+    /// - id: A unique ID bound to a generic type which has the constraints that it need be **Equatable** & **Hashable**.
     /// - label: The label of the radio button
     public init(id: ID, label: String) {
         self.id = id

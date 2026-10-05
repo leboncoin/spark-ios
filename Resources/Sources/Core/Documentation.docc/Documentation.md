@@ -8,8 +8,12 @@ The package can be used in **UIKit** and **SwiftUI** project.
 
 It is composed by:
 - The **Iconography** asset catalog, containing the `Global` and `Criteria` icon sets.
-- A generated `ImageResource` extension, exposing every icon as a static property on ``ImageResource/Spark`` and ``ImageResource/SparkCriteria``.
+- A generated `ImageResource` extension, exposing every icon as a static property on **ImageResource/Spark** and **ImageResource/SparkCriteria**.
 - Convenience initializers on `Image` and `UIImage` to create an icon from a Spark icon.
+
+## Listing
+
+The complete list of icons is available on the documentation, check the <doc:Iconography> page.
 
 ### Implementation
 
@@ -48,6 +52,6 @@ Every update of the iconography assets on **spark-tokens** automatically creates
 
 ## Code Generation
 
-The icons are generated using `.script/generate-iconography-codebase.swift`.
+The icons are generated using `.script/generate-iconography-assets.swift` and `.script/generate-iconography-codebase.swift`.
 
-Do not edit ``ImageResource/Spark`` and ``ImageResource/SparkCriteria`` manually: run the script again after adding or updating icons in the **Iconography** asset catalog.
+Do not edit **ImageResource/Spark** and **ImageResource/SparkCriteria** manually: run the script again after adding or updating icons in the **Iconography** asset catalog.

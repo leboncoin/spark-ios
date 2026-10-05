@@ -12,6 +12,7 @@ This document provides an overview of all utility scripts available in the proje
 - [Iconography Scripts](#iconography-scripts)
   - [Generate Iconography Assets](#generate-iconography-assets)
   - [Generate Iconography Codebase](#generate-iconography-codebase)
+  - [Generate Iconography Documentation](#generate-iconography-documentation)
 - [Release Management Scripts](#release-management-scripts)
   - [Update Changelog](#update-changelog)
 
@@ -93,6 +94,20 @@ Generates type-safe Swift code for icons.
 - Creates type-safe enums for icon references
 - Ensures compile-time checking of icon resources
 - Provides a clean API for accessing icons in code
+
+---
+
+### Generate Iconography Documentation
+
+Generates the DocC page listing every icon with its image and name.
+
+**Documentation:** [SCRIPT_GENERATE_ICONOGRAPHY_DOCUMENTATION.md](script/SCRIPT_GENERATE_ICONOGRAPHY_DOCUMENTATION.md)
+
+**Description:**
+- Scans the iconography asset catalog
+- Copies every SVG into `Resources/Sources/Core/Documentation.docc/Resources/Iconography`
+- Generates one table per category (icon + name)
+- Outputs to `Resources/Sources/Core/Documentation.docc/Iconography.md` (571 icons)
 
 ---
 
