@@ -21,7 +21,7 @@ struct InputOTPSlot: View {
     private let isFocus: Bool
     private let typographies: InputOTPTypographies
 
-    @StateObject private var viewModel = InputOTPSlotViewModel()
+    @State private var viewModel = InputOTPSlotViewModel()
 
     // MARK: - Initialization
 

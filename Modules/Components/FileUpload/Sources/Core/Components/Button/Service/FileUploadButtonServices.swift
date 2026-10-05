@@ -9,7 +9,7 @@
 import SwiftUI
 @_spi(SI_SPI) import SparkTheming
 
-final class FileUploadButtonServices: ObservableObject {
+@Observable final class FileUploadButtonServices {
 
     // MARK: - Properties
 

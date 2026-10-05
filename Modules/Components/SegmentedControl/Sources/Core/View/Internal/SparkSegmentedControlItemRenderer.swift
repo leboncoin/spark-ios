@@ -21,7 +21,7 @@ struct SparkSegmentedControlItemRenderer<Label>: View where Label: View {
     @Environment(\.segmentedControlItemIsPressed) private var isPressed
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    @StateObject private var viewModel = SegmentedControlItemViewModel()
+    @State private var viewModel = SegmentedControlItemViewModel()
 
     // MARK: - Initialization
 

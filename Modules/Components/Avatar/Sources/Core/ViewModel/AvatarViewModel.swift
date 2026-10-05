@@ -10,8 +10,7 @@ import SwiftUI
 import SparkTheming
 
 // sourcery: AutoViewModelStub
-@Observable
-final class AvatarViewModel {
+@Observable final class AvatarViewModel {
 
     // MARK: - Observable Properties
 
@@ -25,7 +24,7 @@ final class AvatarViewModel {
 
     // MARK: - Properties
 
-    var theme: (any Theme)? {
+    @ObservationIgnored var theme: (any Theme)? {
         didSet {
             guard !oldValue.equals(self.theme), self.alreadyUpdateAll else { return }
 
@@ -37,7 +36,7 @@ final class AvatarViewModel {
         }
     }
 
-    var contentType: AvatarContentType? {
+    @ObservationIgnored var contentType: AvatarContentType? {
         didSet {
             guard oldValue != self.contentType, self.alreadyUpdateAll else { return }
 
@@ -46,7 +45,7 @@ final class AvatarViewModel {
         }
     }
 
-    var size: AvatarSize? {
+    @ObservationIgnored var size: AvatarSize? {
         didSet {
             guard oldValue != self.size, self.alreadyUpdateAll else { return }
 
@@ -57,7 +56,7 @@ final class AvatarViewModel {
         }
     }
 
-    var isBorder: Bool? {
+    @ObservationIgnored var isBorder: Bool? {
         didSet {
             guard oldValue != self.isBorder, self.alreadyUpdateAll else { return }
 
@@ -65,6 +64,7 @@ final class AvatarViewModel {
         }
     }
 
+    // Not @ObservationIgnored: read by the view (animation value and button style binding).
     var isPressed: Bool = false {
         didSet {
             guard oldValue != self.isPressed, self.alreadyUpdateAll else { return }
@@ -74,7 +74,7 @@ final class AvatarViewModel {
         }
     }
 
-    var isEnabled: Bool? {
+    @ObservationIgnored var isEnabled: Bool? {
         didSet {
             guard oldValue != self.isEnabled, self.alreadyUpdateAll else { return }
 
@@ -84,7 +84,7 @@ final class AvatarViewModel {
 
     // MARK: - Private Properties
 
-    @ObservationIgnored private var alreadyUpdateAll = false
+    private var alreadyUpdateAll = false
 
     // MARK: - Use Case Properties
 

@@ -128,7 +128,7 @@ public struct SparkInputOTP: View {
 
     private var onComplete: ((String) -> Void)?
 
-    @StateObject private var viewModel = InputOTPViewModel()
+    @State private var viewModel = InputOTPViewModel()
     @FocusState private var isFocused: Bool
     @State private var lastCharacterIsFiltered: Bool = false
 

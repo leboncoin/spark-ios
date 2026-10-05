@@ -9,19 +9,19 @@
 import SwiftUI
 @_spi(SI_SPI) import SparkTheming
 
-// sourcery: AutoPublisherTest, AutoViewModelStub
-final class FileUploadDropzoneViewModel: ObservableObject {
+// sourcery: AutoViewModelStub
+@Observable final class FileUploadDropzoneViewModel {
 
-    // MARK: - Published Properties
+    // MARK: - Observable Properties
 
-    @Published private(set) var border = FileUploadDropzoneBorder()
-    @Published private(set) var colors = FileUploadDropzoneColors()
-    @Published private(set) var fonts = FileUploadDropzoneFonts()
-    @Published private(set) var layout = FileUploadDropzoneLayout()
+    private(set) var border = FileUploadDropzoneBorder()
+    private(set) var colors = FileUploadDropzoneColors()
+    private(set) var fonts = FileUploadDropzoneFonts()
+    private(set) var layout = FileUploadDropzoneLayout()
 
     // MARK: - Properties
 
-    var theme: (any Theme)? {
+    @ObservationIgnored var theme: (any Theme)? {
         didSet {
             guard !oldValue.equals(self.theme), self.alreadyUpdateAll else { return }
 
@@ -32,7 +32,7 @@ final class FileUploadDropzoneViewModel: ObservableObject {
         }
     }
 
-    var isTargeted: Bool = false {
+    @ObservationIgnored var isTargeted: Bool = false {
         didSet {
             guard oldValue != self.isTargeted, self.alreadyUpdateAll else { return }
 

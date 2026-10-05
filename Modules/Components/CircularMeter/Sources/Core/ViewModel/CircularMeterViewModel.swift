@@ -9,20 +9,20 @@
 import SwiftUI
 import SparkTheming
 
-// sourcery: AutoPublisherTest, AutoViewModelStub
-final class CircularMeterViewModel: ObservableObject {
+// sourcery: AutoViewModelStub
+@Observable final class CircularMeterViewModel {
 
-    // MARK: - Published Properties
+    // MARK: - Observable Properties
 
-    @Published private(set) var colors = CircularMeterColors()
-    @Published private(set) var sizes = CircularMeterSizes()
-    @Published private(set) var typographies = CircularMeterTypographies()
-    @Published private(set) var layout = CircularMeterLayout()
-    @Published private(set) var isInsideContent = false
+    private(set) var colors = CircularMeterColors()
+    private(set) var sizes = CircularMeterSizes()
+    private(set) var typographies = CircularMeterTypographies()
+    private(set) var layout = CircularMeterLayout()
+    private(set) var isInsideContent = false
 
     // MARK: - Properties
 
-    var theme: (any Theme)? {
+    @ObservationIgnored var theme: (any Theme)? {
         didSet {
             guard !oldValue.equals(self.theme), self.alreadyUpdateAll else { return }
 
@@ -32,7 +32,7 @@ final class CircularMeterViewModel: ObservableObject {
         }
     }
 
-    var intent: CircularMeterIntent? {
+    @ObservationIgnored var intent: CircularMeterIntent? {
         didSet {
             guard oldValue != self.intent, self.alreadyUpdateAll else { return }
 
@@ -40,7 +40,7 @@ final class CircularMeterViewModel: ObservableObject {
         }
     }
 
-    var size: CircularMeterSize? {
+    @ObservationIgnored var size: CircularMeterSize? {
         didSet {
             guard oldValue != self.size, self.alreadyUpdateAll else { return }
 

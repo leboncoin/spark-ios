@@ -142,7 +142,7 @@ public struct SparkCircularMeter<ValueLabel, ContentLabel>: View where ValueLabe
     @Environment(\.circularMeterIntent) private var intent
     @Environment(\.circularMeterSize) private var size
 
-    @StateObject private var viewModel = CircularMeterViewModel()
+    @State private var viewModel = CircularMeterViewModel()
 
     // MARK: - Public Initialization
 

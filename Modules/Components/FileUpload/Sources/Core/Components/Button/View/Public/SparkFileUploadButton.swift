@@ -108,8 +108,8 @@ public struct SparkFileUploadButton<Label>: View where Label: View {
     @State private var showFiles = false
     @State private var showCamera = false
 
-    @StateObject private var viewModel = FileUploadButtonViewModel()
-    @StateObject private var services = FileUploadButtonServices()
+    @State private var viewModel = FileUploadButtonViewModel()
+    @State private var services = FileUploadButtonServices()
 
     // MARK: - Initialization
 

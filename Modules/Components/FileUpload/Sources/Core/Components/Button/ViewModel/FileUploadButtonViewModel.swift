@@ -12,16 +12,16 @@ import SwiftUI
 import PhotosUI
 import UIKit
 
-// sourcery: AutoPublisherTest, AutoViewModelStub
-final class FileUploadButtonViewModel: ObservableObject {
+// sourcery: AutoViewModelStub
+@Observable final class FileUploadButtonViewModel {
 
-    // MARK: - Published Properties
+    // MARK: - Observable Properties
 
-    @Published private(set) var contentType: FileUploadButtonContentType = .default
+    private(set) var contentType: FileUploadButtonContentType = .default
 
     // MARK: - Properties
 
-    var photoTypes: [PHPickerFilter]? {
+    @ObservationIgnored var photoTypes: [PHPickerFilter]? {
         didSet {
             guard oldValue != self.photoTypes, self.alreadyUpdateAll else { return }
 
@@ -29,7 +29,7 @@ final class FileUploadButtonViewModel: ObservableObject {
         }
     }
 
-    var fileTypes: [UTType]? {
+    @ObservationIgnored var fileTypes: [UTType]? {
         didSet {
             guard oldValue != self.fileTypes, self.alreadyUpdateAll else { return }
 

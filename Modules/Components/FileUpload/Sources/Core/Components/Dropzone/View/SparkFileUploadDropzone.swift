@@ -88,8 +88,8 @@ public struct SparkFileUploadDropzone<DescriptionLabel, UploadButton, Additional
 
     @Environment(\.theme) private var theme
 
-    @StateObject private var viewModel = FileUploadDropzoneViewModel()
-    @StateObject private var services = FileUploadDropzoneServices()
+    @State private var viewModel = FileUploadDropzoneViewModel()
+    @State private var services = FileUploadDropzoneServices()
 
     @State private var isTargeted = false
     @State private var targetFeedbackID: UUID = UUID()

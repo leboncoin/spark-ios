@@ -9,18 +9,18 @@
 import SwiftUI
 @_spi(SI_SPI) import SparkTheming
 
-// sourcery: AutoPublisherTest, AutoViewModelStub
-final class InputOTPSlotViewModel: ObservableObject {
+// sourcery: AutoViewModelStub
+@Observable final class InputOTPSlotViewModel {
 
-    // MARK: - Published Properties
+    // MARK: - Observable Properties
 
-    @Published private(set) var colors = InputOTPSlotColors()
-    @Published private(set) var border = InputOTPSlotBorder()
-    @Published private(set) var content = ""
+    private(set) var colors = InputOTPSlotColors()
+    private(set) var border = InputOTPSlotBorder()
+    private(set) var content = ""
 
     // MARK: - Properties
 
-    var theme: (any Theme)? {
+    @ObservationIgnored var theme: (any Theme)? {
         didSet {
             guard !oldValue.equals(self.theme), self.alreadyUpdateAll else { return }
 
@@ -29,7 +29,7 @@ final class InputOTPSlotViewModel: ObservableObject {
         }
     }
 
-    var value: String? {
+    @ObservationIgnored var value: String? {
         didSet {
             guard oldValue != self.value, self.alreadyUpdateAll else { return }
 
@@ -38,7 +38,7 @@ final class InputOTPSlotViewModel: ObservableObject {
         }
     }
 
-    var onError: Bool? {
+    @ObservationIgnored var onError: Bool? {
         didSet {
             guard oldValue != self.onError, self.alreadyUpdateAll else { return }
 
@@ -47,7 +47,7 @@ final class InputOTPSlotViewModel: ObservableObject {
         }
     }
 
-    var isFocus: Bool? {
+    @ObservationIgnored var isFocus: Bool? {
         didSet {
             guard oldValue != self.isFocus, self.alreadyUpdateAll else { return }
 

@@ -9,16 +9,16 @@
 import SwiftUI
 @_spi(SI_SPI) import SparkTheming
 
-// sourcery: AutoPublisherTest, AutoViewModelStub
-final class FileUploadPreviewGroupViewModel: ObservableObject {
+// sourcery: AutoViewModelStub
+@Observable final class FileUploadPreviewGroupViewModel {
 
-    // MARK: - Published Properties
+    // MARK: - Observable Properties
 
-    @Published private(set) var layout = FileUploadPreviewGroupLayout()
+    private(set) var layout = FileUploadPreviewGroupLayout()
 
     // MARK: - Properties
 
-    var theme: (any Theme)? {
+    @ObservationIgnored var theme: (any Theme)? {
         didSet {
             guard !oldValue.equals(self.theme), self.alreadyUpdateAll else { return }
 

@@ -197,7 +197,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.segmentedControlRowLength) private var rowLength
 
-    @StateObject private var viewModel = SegmentedControlViewModel()
+    @State private var viewModel = SegmentedControlViewModel()
 
     @State private var tags: [[AnyHashable]] = []
     @State private var flattedTags: [AnyHashable] = []

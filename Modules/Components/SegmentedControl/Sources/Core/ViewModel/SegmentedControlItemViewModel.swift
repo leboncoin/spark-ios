@@ -9,18 +9,18 @@
 import SwiftUI
 import SparkTheming
 
-// sourcery: AutoPublisherTest, AutoViewModelStub
-final class SegmentedControlItemViewModel: ObservableObject {
+// sourcery: AutoViewModelStub
+@Observable final class SegmentedControlItemViewModel {
 
-    // MARK: - Published Properties
+    // MARK: - Observable Properties
 
-    @Published private(set) var colors = SegmentedControlItemColors()
-    @Published private(set) var typographies = SegmentedControlItemTypographies()
-    @Published private(set) var layout = SegmentedControlItemLayout()
+    private(set) var colors = SegmentedControlItemColors()
+    private(set) var typographies = SegmentedControlItemTypographies()
+    private(set) var layout = SegmentedControlItemLayout()
 
     // MARK: - Properties
 
-    var theme: (any Theme)? {
+    @ObservationIgnored var theme: (any Theme)? {
         didSet {
             guard !oldValue.equals(self.theme), self.alreadyUpdateAll else { return }
 
@@ -30,7 +30,7 @@ final class SegmentedControlItemViewModel: ObservableObject {
         }
     }
 
-    var isSelected: Bool? {
+    @ObservationIgnored var isSelected: Bool? {
         didSet {
             guard oldValue != self.isSelected, self.alreadyUpdateAll else { return }
 
@@ -38,6 +38,7 @@ final class SegmentedControlItemViewModel: ObservableObject {
         }
     }
 
+    // Not @ObservationIgnored: read by the view (scale effect and animation value).
     var isPressed: Bool = false {
         didSet {
             guard oldValue != self.isPressed, self.alreadyUpdateAll else { return }

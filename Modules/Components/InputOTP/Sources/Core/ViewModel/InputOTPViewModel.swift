@@ -9,20 +9,20 @@
 import SwiftUI
 @_spi(SI_SPI) import SparkTheming
 
-// sourcery: AutoPublisherTest, AutoViewModelStub
-final class InputOTPViewModel: ObservableObject {
+// sourcery: AutoViewModelStub
+@Observable final class InputOTPViewModel {
 
-    // MARK: - Published Properties
+    // MARK: - Observable Properties
 
-    @Published private(set) var colors = InputOTPColors()
-    @Published private(set) var layout = InputOTPLayout()
-    @Published private(set) var typographies = InputOTPTypographies()
-    @Published private(set) var dim: CGFloat = .zero
-    @Published private(set) var isSeparator = false
+    private(set) var colors = InputOTPColors()
+    private(set) var layout = InputOTPLayout()
+    private(set) var typographies = InputOTPTypographies()
+    private(set) var dim: CGFloat = .zero
+    private(set) var isSeparator = false
 
     // MARK: - Properties
 
-    var theme: (any Theme)? {
+    @ObservationIgnored var theme: (any Theme)? {
         didSet {
             guard !oldValue.equals(self.theme), self.alreadyUpdateAll else { return }
 
@@ -33,7 +33,7 @@ final class InputOTPViewModel: ObservableObject {
         }
     }
 
-    var digits: InputOTPDigits? {
+    @ObservationIgnored var digits: InputOTPDigits? {
         didSet {
             guard oldValue != self.digits, self.alreadyUpdateAll else { return }
 
@@ -41,7 +41,7 @@ final class InputOTPViewModel: ObservableObject {
         }
     }
 
-    var isEnabled: Bool? {
+    @ObservationIgnored var isEnabled: Bool? {
         didSet {
             guard oldValue != self.isEnabled, self.alreadyUpdateAll else { return }
 

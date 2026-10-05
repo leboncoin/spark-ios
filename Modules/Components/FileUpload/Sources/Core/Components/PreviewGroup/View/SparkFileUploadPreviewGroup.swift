@@ -43,7 +43,7 @@ public struct SparkFileUploadPreviewGroup: View {
 
     @Environment(\.theme) private var theme
 
-    @StateObject private var viewModel = FileUploadPreviewGroupViewModel()
+    @State private var viewModel = FileUploadPreviewGroupViewModel()
     @State private var fileToDelete: FileUpload?
     @State private var showDeleteAlert = false
 

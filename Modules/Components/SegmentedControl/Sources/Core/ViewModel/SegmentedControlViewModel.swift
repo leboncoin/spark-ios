@@ -9,19 +9,19 @@
 import SwiftUI
 import SparkTheming
 
-// sourcery: AutoPublisherTest, AutoViewModelStub
-final class SegmentedControlViewModel: ObservableObject {
+// sourcery: AutoViewModelStub
+@Observable final class SegmentedControlViewModel {
 
-    // MARK: - Published Properties
+    // MARK: - Observable Properties
 
-    @Published private(set) var colors = SegmentedControlColors()
-    @Published private(set) var border = SegmentedControlBorder()
-    @Published private(set) var layout = SegmentedControlLayout()
-    @Published private(set) var dim: CGFloat = .zero
+    private(set) var colors = SegmentedControlColors()
+    private(set) var border = SegmentedControlBorder()
+    private(set) var layout = SegmentedControlLayout()
+    private(set) var dim: CGFloat = .zero
 
     // MARK: - Properties
 
-    var theme: (any Theme)? {
+    @ObservationIgnored var theme: (any Theme)? {
         didSet {
             guard !oldValue.equals(self.theme), self.alreadyUpdateAll else { return }
 
@@ -32,7 +32,7 @@ final class SegmentedControlViewModel: ObservableObject {
         }
     }
 
-    var isEnabled: Bool? {
+    @ObservationIgnored var isEnabled: Bool? {
         didSet {
             guard oldValue != self.isEnabled, self.alreadyUpdateAll else { return }
 

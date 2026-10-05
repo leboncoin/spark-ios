@@ -65,7 +65,7 @@ public struct SparkFileUploadPreview<ProgressContent>: View where ProgressConten
 
     @Environment(\.theme) private var theme
 
-    @StateObject private var viewModel = FileUploadPreviewViewModel()
+    @State private var viewModel = FileUploadPreviewViewModel()
     @State private var showViewer = false
     @State private var showDeleteAlert = false
 

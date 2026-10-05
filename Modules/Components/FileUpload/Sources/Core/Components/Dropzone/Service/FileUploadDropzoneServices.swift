@@ -9,7 +9,7 @@
 import SwiftUI
 @_spi(SI_SPI) import SparkTheming
 
-final class FileUploadDropzoneServices: ObservableObject {
+@Observable final class FileUploadDropzoneServices {
 
     // MARK: - Properties
 

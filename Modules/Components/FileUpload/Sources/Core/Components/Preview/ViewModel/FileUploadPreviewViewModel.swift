@@ -9,21 +9,21 @@
 import SwiftUI
 @_spi(SI_SPI) import SparkTheming
 
-// sourcery: AutoPublisherTest, AutoViewModelStub
-final class FileUploadPreviewViewModel: ObservableObject {
+// sourcery: AutoViewModelStub
+@Observable final class FileUploadPreviewViewModel {
 
-    // MARK: - Published Properties
+    // MARK: - Observable Properties
 
-    @Published private(set) var border = FileUploadPreviewBorder()
-    @Published private(set) var colors = FileUploadPreviewColors()
-    @Published private(set) var content = FileUploadPreviewContent()
-    @Published private(set) var fonts = FileUploadPreviewFonts()
-    @Published private(set) var image: FileUploadPreviewImage = .file
-    @Published private(set) var layout = FileUploadPreviewLayout()
+    private(set) var border = FileUploadPreviewBorder()
+    private(set) var colors = FileUploadPreviewColors()
+    private(set) var content = FileUploadPreviewContent()
+    private(set) var fonts = FileUploadPreviewFonts()
+    private(set) var image: FileUploadPreviewImage = .file
+    private(set) var layout = FileUploadPreviewLayout()
 
     // MARK: - Properties
 
-    var theme: (any Theme)? {
+    @ObservationIgnored var theme: (any Theme)? {
         didSet {
             guard !oldValue.equals(self.theme), self.alreadyUpdateAll else { return }
 
@@ -34,7 +34,7 @@ final class FileUploadPreviewViewModel: ObservableObject {
         }
     }
 
-    var file: FileUpload? {
+    @ObservationIgnored var file: FileUpload? {
         didSet {
             guard oldValue != self.file, self.alreadyUpdateAll else { return }
 
@@ -45,6 +45,7 @@ final class FileUploadPreviewViewModel: ObservableObject {
         }
     }
 
+    // Not @ObservationIgnored: read by the view (scale effect and animation value).
     var isPressed: Bool = false {
         didSet {
             guard oldValue != self.isPressed, self.alreadyUpdateAll else { return }
