@@ -2,7 +2,7 @@
 
 ## Overview
 
-This GitHub Actions workflow automatically generates and archives a comprehensive list of all Spark components in the monorepo. It runs on a schedule, on every push to main, and can be manually triggered to track component inventory over time.
+This GitHub Actions workflow automatically generates and archives a comprehensive list of all Spark components in the monorepo. It runs on a schedule and can be manually triggered to track component inventory over time.
 
 ## Workflow File
 
@@ -10,19 +10,14 @@ This GitHub Actions workflow automatically generates and archives a comprehensiv
 
 ## Triggers
 
-The workflow runs automatically in three scenarios:
+The workflow runs in two scenarios:
 
-1. **Push to Main Branch**:
-   - Trigger: `push` event
-   - Branch: `main`
-   - Purpose: Update component list after merges
-
-2. **Daily Schedule**:
+1. **Daily Schedule**:
    - Trigger: `schedule` with cron expression
    - Time: `0 23 * * *` (11:00 PM UTC daily)
    - Purpose: Regular inventory updates
 
-3. **Manual Trigger**:
+2. **Manual Trigger**:
    - Trigger: `workflow_dispatch`
    - Purpose: On-demand component listing
 
@@ -78,7 +73,7 @@ The workflow runs automatically in three scenarios:
 ## Workflow Execution Flow
 
 ```
-Trigger (push/schedule/manual)
+Trigger (schedule/manual)
     ↓
 Checkout Monorepo
     ↓

@@ -3,11 +3,9 @@
 name: 📋 Nightly Get all Components
 
 on:
-  push:
-    branches: ["main"]
+  workflow_dispatch:
   schedule:
     - cron: '0 23 * * *' # Daily at 11 P.M
-  workflow_dispatch:
     
 env:
   GH_TOKEN: ${{ github.token }}

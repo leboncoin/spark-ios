@@ -2,7 +2,7 @@
 
 ## Overview
 
-This GitHub Actions workflow automatically generates and archives a comprehensive mapping of all deprecated Spark components to their recommended replacements. It runs on a schedule, on every push to main, and can be manually triggered to track deprecation status and help guide migration efforts.
+This GitHub Actions workflow automatically generates and archives a comprehensive mapping of all deprecated Spark components to their recommended replacements. It runs on a schedule and can be manually triggered to track deprecation status and help guide migration efforts.
 
 ## Workflow File
 
@@ -10,19 +10,14 @@ This GitHub Actions workflow automatically generates and archives a comprehensiv
 
 ## Triggers
 
-The workflow runs automatically in three scenarios:
+The workflow runs in two scenarios:
 
-1. **Push to Main Branch**:
-   - Trigger: `push` event
-   - Branch: `main`
-   - Purpose: Update deprecation list after merges
-
-2. **Daily Schedule**:
+1. **Daily Schedule**:
    - Trigger: `schedule` with cron expression
    - Time: `0 23 * * *` (11:00 PM UTC daily)
    - Purpose: Regular deprecation tracking
 
-3. **Manual Trigger**:
+2. **Manual Trigger**:
    - Trigger: `workflow_dispatch`
    - Purpose: On-demand deprecation analysis
 
@@ -92,7 +87,7 @@ The workflow runs automatically in three scenarios:
 ## Workflow Execution Flow
 
 ```
-Trigger (push/schedule/manual)
+Trigger (schedule/manual)
     ↓
 Checkout Monorepo
     ↓
