@@ -75,6 +75,8 @@ $ xcodegen
 
 Then open the generated file : `Spark.xcodeproj`.
 
+A prebuilt demo app (simulator build) from the latest nightly run is also available: [download SparkMainDemo.app](https://nightly.link/leboncoin/spark-ios/workflows/nightly-demo-app/main/SparkMainDemo.app.zip) (see the [Nightly Demo App workflow](https://github.com/leboncoin/spark-ios/actions/workflows/nightly-demo-app.yml)).
+
 ## Documentation
 
 ### DocC

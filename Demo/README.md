@@ -16,6 +16,10 @@ Then open the generated file : `Spark.xcodeproj`.
 
 You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios/sparkdemo/documentation/sparkdemo/documentation).
 
+## Download App
+
+A prebuilt demo app (simulator build) from the latest nightly run is also available: [download SparkMainDemo.app](https://nightly.link/leboncoin/spark-ios/workflows/nightly-demo-app/main/SparkMainDemo.app.zip) (see the [Nightly Demo App workflow](https://github.com/leboncoin/spark-ios/actions/workflows/nightly-demo-app.yml)).
+
 ### Swift Package Manager
 
 _Note: Instructions below are for using **SPM** without the Xcode UI. It's the easiest to go to your Project Settings -> Swift Packages and add SparkDemo from there._

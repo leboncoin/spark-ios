@@ -14,7 +14,7 @@ By default, there is four entries in the TabBar :
 
 A `.app` build of the demo app is generated every night at midnight from the `main` branch by the [nightly-demo-app](https://github.com/leboncoin/spark-ios/actions/workflows/nightly-demo-app.yml) GitHub Action.
 
-The artifact can be downloaded from that action's page (select the latest successful run).
+The artifact can be [downloaded directly here](https://nightly.link/leboncoin/spark-ios/workflows/nightly-demo-app/main/SparkMainDemo.app.zip) or from that action's page (select the latest successful run)
 
 ### Installation
 
