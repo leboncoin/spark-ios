@@ -75,7 +75,16 @@ $ xcodegen
 
 Then open the generated file : `Spark.xcodeproj`.
 
+### Download App
+
 A prebuilt demo app (simulator build) from the latest nightly run is also available: [download SparkMainDemo.app](https://nightly.link/leboncoin/spark-ios/workflows/nightly-demo-app/main/SparkMainDemo.app.zip) (see the [Nightly Demo App workflow](https://github.com/leboncoin/spark-ios/actions/workflows/nightly-demo-app.yml)).
+
+To install it on a simulator:
+
+1. Download and unzip `SparkMainDemo.app.zip`.
+2. Launch a simulator (from Xcode, or with `open -a Simulator`).
+3. Drag and drop `SparkMainDemo.app` onto the simulator window.
+4. The app is installed and appears on the simulator home screen.
 
 ## Documentation
 

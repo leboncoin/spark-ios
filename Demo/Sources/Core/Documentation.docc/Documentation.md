@@ -18,8 +18,10 @@ The artifact can be [downloaded directly here](https://nightly.link/leboncoin/sp
 
 ### Installation
 
-1. Unzip the downloaded file.
-2. Drag and drop the `.app` onto an iPhone Simulator on macOS.
+1. Download and unzip `SparkMainDemo.app.zip`.
+2. Launch a simulator (from Xcode, or with `open -a Simulator`).
+3. Drag and drop `SparkMainDemo.app` onto the simulator window.
+4. The app is installed and appears on the simulator home screen.
 
 ## Configuration
 
