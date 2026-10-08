@@ -32,6 +32,25 @@ This workflow runs automatically and manually:
 
 ## Jobs
 
+### 0. Detect changes Job
+
+**Name**: Detect changes
+**Runner**: ubuntu-latest
+
+Runs `.script/github-action-detect-changes.sh` on the files changed by the pull request (manual runs execute everything):
+
+| Changed files | Build | Tests | Build Demo App |
+|---|---|---|---|
+| `Modules/Theming`, `Modules/Common`, `.tools`, `Package.swift`, `Package.resolved`, `Makefile`, this workflow | ✅ | ✅ all | ✅ |
+| `Modules/Components/<X>` | ✅ | ✅ `<X>` + components depending on `<X>` (transitively) | ✅ |
+| `Spark`, `Resources` | ✅ | ❌ | ✅ |
+| `Demo`, `.demo`, `project.yml` | ❌ | ❌ | ✅ |
+| Anything else (and every `*.md` file) | ❌ | ❌ | ❌ |
+
+Skipped jobs are reported as successful, so they don't block required status checks.
+
+To check locally: `CHANGED_FILES="Modules/Components/Badge/Sources/Core/A.swift" .script/github-action-detect-changes.sh`
+
 ### 1. Build Job
 
 **Name**: Build
@@ -58,7 +77,7 @@ This workflow runs automatically and manually:
 4. **Select Xcode** - Configures Xcode 26.6
 5. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
 6. **Get sourcery** - Installs Sourcery via `brew install sourcery` (required to generate code before testing)
-7. **Test** - Executes `make test` with a 30-minute timeout
+7. **Test** - Executes `make test TEST_TARGETS=...` with a 30-minute timeout (empty `TEST_TARGETS` runs all tests)
 8. **Upload xcresult file** - On failure, uploads the `.xcresult` bundle as an artifact (`actions/upload-artifact@v6`), retained for 15 days
 
 ### 4. Build Demo App Job

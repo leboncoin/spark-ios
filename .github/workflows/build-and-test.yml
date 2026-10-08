@@ -16,8 +16,36 @@ env:
   demo_app_name: SparkDemoApp
 
 jobs:
+  changes:
+    name: Detect changes
+    runs-on: ubuntu-latest
+    outputs:
+      run_build: ${{ steps.detect.outputs.run_build }}
+      run_tests: ${{ steps.detect.outputs.run_tests }}
+      run_demo: ${{ steps.detect.outputs.run_demo }}
+      test_targets: ${{ steps.detect.outputs.test_targets }}
+    steps:
+      - name: Checkout Action
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Detect changes
+        id: detect
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            if ! .script/github-action-detect-changes.sh "origin/${{ github.base_ref }}"; then
+              echo "::warning::Change detection failed: everything is executed"
+              { echo "run_build=true"; echo "run_tests=true"; echo "run_demo=true"; echo "test_targets="; } >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "Manual run: everything is executed"
+            { echo "run_build=true"; echo "run_tests=true"; echo "run_demo=true"; echo "test_targets="; } >> "$GITHUB_OUTPUT"
+          fi
+
   build:
     name: Build
+    needs: changes
+    if: needs.changes.outputs.run_build == 'true'
     runs-on: macos-26
     steps:
       - name: "Package name"
@@ -40,6 +68,8 @@ jobs:
 
   test:
     name: Tests
+    needs: changes
+    if: needs.changes.outputs.run_tests == 'true'
     runs-on: macos-26
     steps:
       - name: "Package name"
@@ -59,7 +89,7 @@ jobs:
           brew install sourcery
       - name: Test
         timeout-minutes: 30
-        run: make test
+        run: make test TEST_TARGETS="${{ needs.changes.outputs.test_targets }}"
       - name: Upload xcresult file
         uses: actions/upload-artifact@v6
         if: ${{ failure() }}
@@ -70,6 +100,8 @@ jobs:
 
   build-demo-app:
     name: Build Demo App
+    needs: changes
+    if: needs.changes.outputs.run_demo == 'true'
     runs-on: macos-26
     steps:
       - name: Select Xcode

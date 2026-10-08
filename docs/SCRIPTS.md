@@ -4,6 +4,8 @@ This document provides an overview of all utility scripts available in the proje
 
 ## Table of Contents
 
+- [CI Scripts](#ci-scripts)
+  - [GitHub Action Detect Changes](#github-action-detect-changes)
 - [Component Tracking Scripts](#component-tracking-scripts)
   - [List Components](#list-components)
   - [List Deprecated Components](#list-deprecated-components)
@@ -15,6 +17,23 @@ This document provides an overview of all utility scripts available in the proje
   - [Generate Iconography Documentation](#generate-iconography-documentation)
 - [Release Management Scripts](#release-management-scripts)
   - [Update Changelog](#update-changelog)
+
+---
+
+## CI Scripts
+
+### GitHub Action Detect Changes
+
+Decides which jobs of the Build and Test workflow must run from the files changed by a pull request.
+
+**Documentation:** [SCRIPT_GITHUB_ACTION_DETECT_CHANGES.md](script/SCRIPT_GITHUB_ACTION_DETECT_CHANGES.md)
+
+**Description:**
+- Lists the changed files with `git diff <base-ref>...HEAD`
+- Runs everything for `Modules/Theming`, `Modules/Common`, `.tools` changes
+- Finds the components depending on a changed component (from `Package.swift`)
+- Outputs `run_build`, `run_tests`, `run_demo` and `test_targets` to `$GITHUB_OUTPUT`
+- Called by the `Detect changes` job of `build-and-test.yml`
 
 ---
 

@@ -11,6 +11,8 @@ XCODEBUILD_FLAGS = -derivedDataPath $(DERIVED_DATA_PATH) -sdk $(SDK) -destinatio
 DOCC_OUTPUT_PATH = .docs
 HOSTING_BASE_PATH ?= spark-ios
 DEMO_APP_NAME = SparkDemoApp
+TEST_TARGETS ?=
+ONLY_TESTING_FLAGS = $(foreach target,$(TEST_TARGETS),-only-testing:$(target))
 
 ###################################
 #######################
@@ -63,13 +65,13 @@ build-demo-app:
 ## TESTS
 ##
 
-# Run unit and snapshots tests with .xcresult bundles ($ make test)
+# Run unit and snapshots tests with .xcresult bundles ($ make test or $ make test TEST_TARGETS="SparkComponentBadgeUnitTests SparkComponentBadgeSnapshotTests")
 test: sourcery
 	@rm -rf Spark.xcodeproj # xcodebuild silently prefers this over the Spark-Package SPM scheme when both exist
 	@mkdir -p $(RESULTS_DIR)/xcresult
 	@rm -rf $(RESULTS_DIR)/xcresult/*.xcresult
 	@echo "Running snapshot tests for Spark..."; \
-	if ! xcodebuild -scheme Spark-Package $(XCODEBUILD_FLAGS) -resultBundlePath $(RESULTS_DIR)/xcresult/Spark-snapshots.xcresult test; then \
+	if ! xcodebuild -scheme Spark-Package $(XCODEBUILD_FLAGS) $(ONLY_TESTING_FLAGS) -resultBundlePath $(RESULTS_DIR)/xcresult/Spark-snapshots.xcresult test; then \
 		echo "\n✗ Tests failed"; \
 		exit 1; \
 	fi; \
