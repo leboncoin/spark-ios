@@ -277,6 +277,9 @@ public final class SparkUITag: UIView {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup publisher subcriptions
         self.setupSubscriptions()
 
@@ -451,19 +454,21 @@ public final class SparkUITag: UIView {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        // **
-        // Update content size
-        self._height.update(traitCollection: self.traitCollection)
-        self._iconSize.update(traitCollection: self.traitCollection)
-        self._horizontalPadding.update(traitCollection: self.traitCollection)
-        self._horizontalSpacing.update(traitCollection: self.traitCollection)
-        self._borderWidth.update(traitCollection: self.traitCollection)
-        self._borderRadius.update(traitCollection: self.traitCollection)
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            // Update content size
+            self._height.update(traitCollection: self.traitCollection)
+            self._iconSize.update(traitCollection: self.traitCollection)
+            self._horizontalPadding.update(traitCollection: self.traitCollection)
+            self._horizontalSpacing.update(traitCollection: self.traitCollection)
+            self._borderWidth.update(traitCollection: self.traitCollection)
+            self._borderRadius.update(traitCollection: self.traitCollection)
 
-        self.updateAll()
-        // **
+            self.updateAll()
+        }
     }
 }

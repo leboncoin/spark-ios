@@ -6,7 +6,7 @@ A slider is an interactive component that allows users to set values by moving a
 
 The Slider allows users to select a single value or a range of values along a continuous or discrete scale (e.g. volume, brightness, price range).
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 ### Implementation
 

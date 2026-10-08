@@ -270,6 +270,9 @@ public final class CheckboxUIView: UIControl {
         self.updateAccessibility()
         self.addActions()
         self.addObservers()
+
+        // Setup trait collection
+        self.setupTraitCollection()
     }
 
     // MARK: - Layout
@@ -332,14 +335,19 @@ public final class CheckboxUIView: UIControl {
         ])
     }
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        guard traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory else { return }
+    // MARK: - Trait Collection
 
-        self._checkboxSize.update(traitCollection: self.traitCollection)
-        self.checkboxSizeConstraint?.constant = self.checkboxSize
-        self._spacing.update(traitCollection: traitCollection)
-        self.stackView.spacing = self.spacing
+    private func setupTraitCollection() {
+        self.setupContentSizeTraitCollection()
+    }
+
+    private func setupContentSizeTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            self._checkboxSize.update(traitCollection: self.traitCollection)
+            self.checkboxSizeConstraint?.constant = self.checkboxSize
+            self._spacing.update(traitCollection: self.traitCollection)
+            self.stackView.spacing = self.spacing
+        }
     }
 
     private func subscribe() {

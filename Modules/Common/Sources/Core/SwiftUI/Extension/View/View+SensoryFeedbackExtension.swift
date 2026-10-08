@@ -70,7 +70,6 @@ public struct SparkSensoryFeedback: Equatable, Sendable {
 
     // MARK: - Methods
 
-    @available(iOS 17.0, *)
     fileprivate func feedback() -> SensoryFeedback? {
         switch self {
         case .impact: .impact
@@ -86,7 +85,6 @@ public struct SparkSensoryFeedback: Equatable, Sendable {
 
 // MARK: - FeedbackStyle Extension
 
-@available(iOS 17.0, *)
 private extension UIImpactFeedbackGenerator.FeedbackStyle {
 
     var sensoryImpactParameters: (weight: SensoryFeedback.Weight, intensity: Double) {
@@ -115,36 +113,18 @@ public extension View {
         _ effect: SparkSensoryFeedback = .impact,
         trigger: some Equatable
     ) -> some View {
-        if #available(iOS 17.0, *) {
-            if let feedback = effect.feedback() {
-                self.sensoryFeedback(feedback, trigger: trigger)
-            } else if let sensoryParameters = effect.style?.sensoryImpactParameters {
-                self.sensoryFeedback(
-                    .impact(
-                        weight: sensoryParameters.weight,
-                        intensity: effect.intensity ?? sensoryParameters.intensity
-                    ),
-                    trigger: trigger
-                )
-            } else {
-                self.sensoryFeedback(.impact, trigger: trigger)
-            }
+        if let feedback = effect.feedback() {
+            self.sensoryFeedback(feedback, trigger: trigger)
+        } else if let sensoryParameters = effect.style?.sensoryImpactParameters {
+            self.sensoryFeedback(
+                .impact(
+                    weight: sensoryParameters.weight,
+                    intensity: effect.intensity ?? sensoryParameters.intensity
+                ),
+                trigger: trigger
+            )
         } else {
-            switch effect {
-            case .impact:
-                self.onChange(of: trigger) { _ in
-                    UIImpactFeedbackGenerator().impactOccurred()
-                }
-            case .selection:
-                self.onChange(of: trigger) { _ in
-                    UISelectionFeedbackGenerator().selectionChanged()
-                }
-
-            default:
-                self.onChange(of: trigger) { _ in
-                    UIImpactFeedbackGenerator(style: effect.style ?? .medium).impactOccurred()
-                }
-            }
+            self.sensoryFeedback(.impact, trigger: trigger)
         }
     }
 
@@ -161,27 +141,23 @@ public extension View {
         trigger: T,
         condition: @escaping (_ oldValue: T, _ newValue: T) -> Bool
     ) -> some View where T: Equatable {
-        if #available(iOS 17.0, *) {
-            if let feedback = effect.feedback() {
-                self.sensoryFeedback(
-                    feedback,
-                    trigger: trigger,
-                    condition: condition
-                )
-            } else if let sensoryParameters = effect.style?.sensoryImpactParameters {
-                self.sensoryFeedback(
-                    .impact(
-                        weight: sensoryParameters.weight,
-                        intensity: effect.intensity ?? sensoryParameters.intensity
-                    ),
-                    trigger: trigger,
-                    condition: condition
-                )
-            } else {
-                self.sensoryFeedback(.impact, trigger: trigger)
-            }
+        if let feedback = effect.feedback() {
+            self.sensoryFeedback(
+                feedback,
+                trigger: trigger,
+                condition: condition
+            )
+        } else if let sensoryParameters = effect.style?.sensoryImpactParameters {
+            self.sensoryFeedback(
+                .impact(
+                    weight: sensoryParameters.weight,
+                    intensity: effect.intensity ?? sensoryParameters.intensity
+                ),
+                trigger: trigger,
+                condition: condition
+            )
         } else {
-            self.sparkSensoryFeedback(effect, trigger: trigger)
+            self.sensoryFeedback(.impact, trigger: trigger)
         }
     }
 }

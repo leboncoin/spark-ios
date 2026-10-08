@@ -1,6 +1,6 @@
 # Popover
 
-The folder here contains only the **iOS Popover** for _SwiftUI_ (iOS 16.4) and _UIKit_.
+The folder here contains only the **iOS Popover** for _SwiftUI_ and _UIKit_.
 
 ## Specifications
 

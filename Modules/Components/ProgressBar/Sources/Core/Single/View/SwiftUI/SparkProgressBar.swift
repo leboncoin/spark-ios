@@ -115,14 +115,14 @@ public struct SparkProgressBar<Value>: View where Value: BinaryFloatingPoint {
                     shape: self.shape
                 )
             }
-            .onChange(of: self.theme) { theme in
-                self.viewModel.theme = theme.value
+            .onChange(of: self.theme) {
+                self.viewModel.theme = self.theme.value
             }
-            .onChange(of: self.intent) { intent in
-                self.viewModel.intent = intent
+            .onChange(of: self.intent) {
+                self.viewModel.intent = self.intent
             }
-            .onChange(of: self.shape) { shape in
-                self.viewModel.shape = shape
+            .onChange(of: self.shape) {
+                self.viewModel.shape = self.shape
             }
     }
 }

@@ -4,7 +4,7 @@ Allows the user to enter a **one-time security code**.
 
 ## Overview
 
-The component is available on **SwiftUI** and requires at least **iOS 16**.
+The component is available on **SwiftUI** and requires at least **iOS 17**.
 
 ### Introduction
 

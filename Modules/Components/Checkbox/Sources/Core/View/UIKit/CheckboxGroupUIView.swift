@@ -220,6 +220,9 @@ public final class CheckboxGroupUIView: UIControl {
         self.enableTouch()
         self.updateTitle()
         self.updateAccessibility()
+
+        // Setup trait collection
+        self.setupTraitCollection()
     }
 
     // MARK: - Layout
@@ -232,13 +235,18 @@ public final class CheckboxGroupUIView: UIControl {
 
     // MARK: - Methods
 
-    /// The trait collection was updated causing the view to update its constraints (e.g. dynamic content size change).
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    // MARK: - Trait Collection
 
-        self._spacingLarge.update(traitCollection: self.traitCollection)
-        self._spacingSmall.update(traitCollection: self.traitCollection)
-        self._padding.update(traitCollection: self.traitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeTraitCollection()
+    }
+
+    private func setupContentSizeTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            self._spacingLarge.update(traitCollection: self.traitCollection)
+            self._spacingSmall.update(traitCollection: self.traitCollection)
+            self._padding.update(traitCollection: self.traitCollection)
+        }
     }
 
     private func updateAccessibility() {

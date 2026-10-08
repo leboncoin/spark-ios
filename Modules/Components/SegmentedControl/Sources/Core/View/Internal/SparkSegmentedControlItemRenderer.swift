@@ -73,14 +73,14 @@ struct SparkSegmentedControlItemRenderer<Label>: View where Label: View {
                 isPressed: self.isPressed
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.isSelected) { isSelected in
-            self.viewModel.isSelected = isSelected
+        .onChange(of: self.isSelected) {
+            self.viewModel.isSelected = self.isSelected
         }
-        .onChange(of: self.isPressed) { isPressed in
-            self.viewModel.isPressed = isPressed
+        .onChange(of: self.isPressed) {
+            self.viewModel.isPressed = self.isPressed
         }
     }
 }

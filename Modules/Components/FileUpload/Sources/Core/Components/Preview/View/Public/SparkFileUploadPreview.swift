@@ -275,11 +275,11 @@ public struct SparkFileUploadPreview<ProgressContent>: View where ProgressConten
                 file: self.file
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.file) { file in
-            self.viewModel.file = file
+        .onChange(of: self.file) {
+            self.viewModel.file = self.file
         }
     }
 }

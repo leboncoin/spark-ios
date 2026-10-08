@@ -235,6 +235,9 @@ public final class SparkUIDivider: UIView {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup publisher subcriptions
         self.setupSubscriptions()
 
@@ -352,10 +355,14 @@ public final class SparkUIDivider: UIView {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeTraitCollection()
+    }
 
-        self._spacing.update(traitCollection: self.traitCollection)
-        self.updateLayout()
+    private func setupContentSizeTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            self._spacing.update(traitCollection: self.traitCollection)
+            self.updateLayout()
+        }
     }
 }

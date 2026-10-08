@@ -293,6 +293,9 @@ public final class SparkUIXXX: UIControl {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup subscriptions
         self.setupSubscriptions()
 
@@ -887,9 +890,13 @@ public final class SparkUIXXX: UIControl {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        self.updateGesturesRecognizer()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            self.updateGesturesRecognizer()
+        }
     }
 }

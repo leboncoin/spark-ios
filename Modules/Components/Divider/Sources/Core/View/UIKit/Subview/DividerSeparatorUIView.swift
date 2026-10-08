@@ -76,6 +76,9 @@ final class DividerSeparatorUIView: UIView {
 
         // Setup constraints
         self.setupConstraints()
+
+        // Setup trait collection
+        self.setupTraitCollection()
     }
 
     // MARK: - Constraints
@@ -167,11 +170,15 @@ final class DividerSeparatorUIView: UIView {
 
     // MARK: - Trait Collection
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeTraitCollection()
+    }
 
-        self._thickness.update(traitCollection: self.traitCollection)
-        self._minSize.update(traitCollection: self.traitCollection)
-        self.updateSizes()
+    private func setupContentSizeTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            self._thickness.update(traitCollection: self.traitCollection)
+            self._minSize.update(traitCollection: self.traitCollection)
+            self.updateSizes()
+        }
     }
 }

@@ -112,6 +112,9 @@ public final class SparkUISpinner: UIView {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup publisher subcriptions
         self.setupSubscriptions()
 
@@ -186,17 +189,21 @@ public final class SparkUISpinner: UIView {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        let oldContentSize = self.contentSize
-        let oldStrokeWidth = self.strokeWidth
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            let oldContentSize = self.contentSize
+            let oldStrokeWidth = self.strokeWidth
 
-        self._strokeWidth.update(traitCollection: self.traitCollection)
-        self._contentSize.update(traitCollection: self.traitCollection)
+            self._strokeWidth.update(traitCollection: self.traitCollection)
+            self._contentSize.update(traitCollection: self.traitCollection)
 
-        if self.contentSize != oldContentSize || self.strokeWidth != oldStrokeWidth {
-            self.setNeedsLayout()
+            if self.contentSize != oldContentSize || self.strokeWidth != oldStrokeWidth {
+                self.setNeedsLayout()
+            }
         }
     }
 }

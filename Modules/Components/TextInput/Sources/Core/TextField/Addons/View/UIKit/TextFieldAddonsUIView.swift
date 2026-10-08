@@ -117,6 +117,9 @@ public final class TextFieldAddonsUIView: UIControl {
         self.setupSeparators()
         self.setLeftAddon(nil)
         self.setRightAddon(nil)
+
+        // Setup trait collection
+        self.setupTraitCollection()
     }
 
     private func setupSeparators() {
@@ -309,24 +312,29 @@ public final class TextFieldAddonsUIView: UIControl {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+        self.setupUserInterfaceStyleTraitCollection()
+    }
 
-        if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self._cornerRadius.update(traitCollection: self.traitCollection)
+            self._borderWidth.update(traitCollection: self.traitCollection)
+
+            self.setCornerRadius(self.cornerRadius)
+            self.setBorderWidthAndRefreshAddonsXCenter(self.borderWidth)
+            self.setLeftSpacing(self.viewModel.leftSpacing, borderWidth: self.borderWidth)
+            self.setRightSpacing(self.viewModel.rightSpacing, borderWidth: self.borderWidth)
+            self.leftSeparatorWidthConstraint.constant = self.borderWidth
+            self.rightSeparatorWidthConstraint.constant = self.borderWidth
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+
+    private func setupUserInterfaceStyleTraitCollection() {
+        self.registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
             self.setBorderColor(from: self.viewModel.textFieldViewModel.borderColor)
         }
-
-        guard previousTraitCollection?.preferredContentSizeCategory != self.traitCollection.preferredContentSizeCategory else { return }
-
-        self._cornerRadius.update(traitCollection: self.traitCollection)
-        self._borderWidth.update(traitCollection: self.traitCollection)
-
-        self.setCornerRadius(self.cornerRadius)
-        self.setBorderWidthAndRefreshAddonsXCenter(self.borderWidth)
-        self.setLeftSpacing(self.viewModel.leftSpacing, borderWidth: self.borderWidth)
-        self.setRightSpacing(self.viewModel.rightSpacing, borderWidth: self.borderWidth)
-        self.leftSeparatorWidthConstraint.constant = self.borderWidth
-        self.rightSeparatorWidthConstraint.constant = self.borderWidth
-        self.invalidateIntrinsicContentSize()
     }
 }

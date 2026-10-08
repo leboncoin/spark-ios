@@ -8,7 +8,7 @@ We recommend using it in forms, messaging, or user profiles (e.g., profile pictu
 
 ## Overview
 
-The component is available only on **SwiftUI** and requires at least **iOS 16**.
+The component is available only on **SwiftUI** and requires at least **iOS 17**.
 
 This repository contains four sub components : 
 - ``SparkFileUploadButton``

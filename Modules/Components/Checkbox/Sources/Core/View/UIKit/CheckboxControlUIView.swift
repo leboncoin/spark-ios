@@ -99,6 +99,9 @@ class CheckboxControlUIView: UIView {
 
         self.backgroundColor = .clear
         self.addSubview(pressedBorderView)
+
+        // Setup trait collection
+        self.setupTraitCollection()
     }
 
     private func addBorderToView(for view: UIView) {
@@ -113,19 +116,30 @@ class CheckboxControlUIView: UIView {
         view.layer.cornerRadius = self.cornerRadiusPressed
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    // MARK: - Trait Collection
 
-        if traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
+    private func setupTraitCollection() {
+        self.setupContentSizeTraitCollection()
+        self.setupUserInterfaceStyleTraitCollection()
+    }
+
+    private func setupContentSizeTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
             let traitCollection = self.traitCollection
             self._cornerRadius.update(traitCollection: traitCollection)
             self._cornerRadiusPressed.update(traitCollection: traitCollection)
             self._lineWidth.update(traitCollection: traitCollection)
             self._lineWidthPressed.update(traitCollection: traitCollection)
             self._controlSize.update(traitCollection: traitCollection)
-        }
 
-        self.addBorderToView(for: self.pressedBorderView)
+            self.addBorderToView(for: self.pressedBorderView)
+        }
+    }
+
+    private func setupUserInterfaceStyleTraitCollection() {
+        self.registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, _: UITraitCollection) in
+            self.addBorderToView(for: self.pressedBorderView)
+        }
     }
 
     required init?(coder: NSCoder) {

@@ -32,25 +32,21 @@ struct PopoverImplementationView: ComponentImplementationViewable {
     // MARK: - View
 
     var body: some View {
-        if #available(iOS 16.4, *) {
-            Button(action: {
-                self.isPresented = true
-            }, label: {
-                Text("Show popover")
-                    .frame(maxWidth: .infinity)
-            })
-            .buttonStyle(.borderedProminent)
-            .popover(
-                theme: self.configurationWrapped.theme.value,
-                intent: self.configurationWrapped.intent,
-                isPresented: self.$isPresented
-            ) { colors in
-                Text(self.configurationWrapped.text)
-                    .foregroundStyle(colors.foreground.color)
-                    .frame(width: 300)
-            }
-        } else {
-            Text("Popover is available since iOS 16.4")
+        Button(action: {
+            self.isPresented = true
+        }, label: {
+            Text("Show popover")
+                .frame(maxWidth: .infinity)
+        })
+        .buttonStyle(.borderedProminent)
+        .popover(
+            theme: self.configurationWrapped.theme.value,
+            intent: self.configurationWrapped.intent,
+            isPresented: self.$isPresented
+        ) { colors in
+            Text(self.configurationWrapped.text)
+                .foregroundStyle(colors.foreground.color)
+                .frame(width: 300)
         }
     }
 }

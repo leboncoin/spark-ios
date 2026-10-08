@@ -253,17 +253,17 @@ public struct SparkXXX<SelectionValue, Content>: View where SelectionValue: Hash
                 isEnabled: self.isEnabled
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
-        .onChange(of: self.size) { size in
-            self.viewModel.size = size
+        .onChange(of: self.size) {
+            self.viewModel.size = self.size
         }
-        .onChange(of: self.isEnabled) { isEnabled in
-            self.viewModel.isEnabled = isEnabled
+        .onChange(of: self.isEnabled) {
+            self.viewModel.isEnabled = self.isEnabled
         }
     }
 
@@ -283,8 +283,8 @@ public struct SparkXXX<SelectionValue, Content>: View where SelectionValue: Hash
                     content()
                 }
                 .scrollIndicators(.hidden)
-                .scrollBounceBehavior()
-                .onChange(of: self.tags) { _ in
+                .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
+                .onChange(of: self.tags) {
                     // Scroll to selection when tags are populated
                     if !self.tags.isEmpty {
                         DispatchQueue.main.async {
@@ -292,10 +292,10 @@ public struct SparkXXX<SelectionValue, Content>: View where SelectionValue: Hash
                         }
                     }
                 }
-                .onChange(of: self.selection) { newSelection in
+                .onChange(of: self.selection) {
                     DispatchQueue.main.async {
                         withAnimation(.easeInOut(duration: XXXConstants.animationDuration)) {
-                            proxy.scrollTo(newSelection)
+                            proxy.scrollTo(self.selection)
                         }
                     }
                 }
@@ -389,9 +389,9 @@ public struct SparkXXX<SelectionValue, Content>: View where SelectionValue: Hash
             .padding(.vertical, self.viewModel.layout.verticalPadding)
         }
         .padding(.horizontal, self.viewModel.layout.horizontalPadding)
-        .scrollBounceBehavior()
+        .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
         .scrollIndicators(.hidden)
-        .presentationCompactAdaptation()
+        .presentationCompactAdaptation(.popover)
     }
 
     // MARK: - Methods
@@ -408,24 +408,6 @@ public struct SparkXXX<SelectionValue, Content>: View where SelectionValue: Hash
 // MARK: - Extension
 
 private extension View {
-
-    @ViewBuilder
-    func scrollBounceBehavior() -> some View {
-        if #available(iOS 16.4, *) {
-            self.scrollBounceBehavior(.basedOnSize, axes: .horizontal)
-        } else {
-            self
-        }
-    }
-
-    @ViewBuilder
-    func presentationCompactAdaptation() -> some View {
-        if #available(iOS 16.4, *) {
-            self.presentationCompactAdaptation(.popover)
-        } else {
-            self
-        }
-    }
 
     @ViewBuilder
     func accessibilityItemButtonColors(isSelected: Bool, colors: XXXAccessibilityColors) -> some View {

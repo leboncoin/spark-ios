@@ -226,6 +226,9 @@ public final class SparkUIBadge: UIView {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup publisher subcriptions
         self.setupSubscriptions()
 
@@ -484,24 +487,28 @@ public final class SparkUIBadge: UIView {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeTraitCollection()
+    }
 
-        // **
-        // Update sizes
-        self._height.update(traitCollection: self.traitCollection)
-        self._width.update(traitCollection: self.traitCollection)
-        self.updateContentSize()
+    private func setupContentSizeTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            // **
+            // Update sizes
+            self._height.update(traitCollection: self.traitCollection)
+            self._width.update(traitCollection: self.traitCollection)
+            self.updateContentSize()
 
-        self._borderWidth.update(traitCollection: self.traitCollection)
-        self._cornerRadius.update(traitCollection: self.traitCollection)
-        self.updateBorderRadius()
+            self._borderWidth.update(traitCollection: self.traitCollection)
+            self._cornerRadius.update(traitCollection: self.traitCollection)
+            self.updateBorderRadius()
 
-        self._horizontalSpacing.update(traitCollection: self.traitCollection)
-        self.updateLayout()
+            self._horizontalSpacing.update(traitCollection: self.traitCollection)
+            self.updateLayout()
 
-        self._attachHorizontalSpacing.update(traitCollection: self.traitCollection)
-        self.updateAttachLayout()
-        // **
+            self._attachHorizontalSpacing.update(traitCollection: self.traitCollection)
+            self.updateAttachLayout()
+            // **
+        }
     }
 }

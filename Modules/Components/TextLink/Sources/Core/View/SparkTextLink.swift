@@ -217,23 +217,23 @@ public struct SparkTextLink: View {
                 variant: self.variant
             )
         }
-        .onChange(of: self.theme) { theme in
+        .onChange(of: self.theme) {
             self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
-        .onChange(of: self.text) { text in
-            self.viewModel.text = text
+        .onChange(of: self.text) {
+            self.viewModel.text = self.text
         }
-        .onChange(of: self.highlightRange) { highlightRange in
-            self.viewModel.textHighlightRange = highlightRange.value
+        .onChange(of: self.highlightRange) {
+            self.viewModel.textHighlightRange = self.highlightRange.value
         }
-        .onChange(of: self.typography) { typography in
-            self.viewModel.typography = typography
+        .onChange(of: self.typography) {
+            self.viewModel.typography = self.typography
         }
-        .onChange(of: self.variant) { variant in
-            self.viewModel.variant = variant
+        .onChange(of: self.variant) {
+            self.viewModel.variant = self.variant
         }
     }
 
@@ -279,7 +279,7 @@ public struct SparkTextLink: View {
     private func textView() -> some View {
         Text(self.viewModel.attributedString)
         .accessibilityIdentifier(TextLinkAccessibilityIdentifier.text)
-        .onChange(of: self.sizeCategory) { _ in
+        .onChange(of: self.sizeCategory) {
             self.viewModel.contentSizeCategoryDidUpdate()
         }
     }

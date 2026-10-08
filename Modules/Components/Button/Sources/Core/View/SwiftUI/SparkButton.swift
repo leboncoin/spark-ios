@@ -314,38 +314,38 @@ public struct SparkButton<Label, ImageLabel, Content>: View where Label: View, I
                 isLoading: self.isLoading
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.appearance) { appearance in
-            self.viewModel.appearance = appearance
+        .onChange(of: self.appearance) {
+            self.viewModel.appearance = self.appearance
         }
-        .onChange(of: self.intent) { intent in
-            self.viewModel.intent = intent
+        .onChange(of: self.intent) {
+            self.viewModel.intent = self.intent
         }
-        .onChange(of: self.variant) { variant in
-            self.viewModel.variant = variant
+        .onChange(of: self.variant) {
+            self.viewModel.variant = self.variant
         }
-        .onChange(of: self.shape) { shape in
-            self.viewModel.shape = shape
+        .onChange(of: self.shape) {
+            self.viewModel.shape = self.shape
         }
-        .onChange(of: self.size) { size in
-            self.viewModel.size = size
+        .onChange(of: self.size) {
+            self.viewModel.size = self.size
         }
-        .onChange(of: self.contentVisibility) { contentVisibility in
-            self.viewModel.contentVisibility = contentVisibility
+        .onChange(of: self.contentVisibility) {
+            self.viewModel.contentVisibility = self.contentVisibility
         }
-        .onChange(of: self.removeStyles) { removeStyles in
-            self.viewModel.removeStyles = removeStyles
+        .onChange(of: self.removeStyles) {
+            self.viewModel.removeStyles = self.removeStyles
         }
-        .onChange(of: self.type) { type in
-            self.viewModel.type = type
+        .onChange(of: self.type) {
+            self.viewModel.type = self.type
         }
-        .onChange(of: self.isEnabled) { isEnabled in
-            self.viewModel.isEnabled = isEnabled
+        .onChange(of: self.isEnabled) {
+            self.viewModel.isEnabled = self.isEnabled
         }
-        .onChange(of: self.isLoading) { isLoading in
-            self.viewModel.isLoading = isLoading
+        .onChange(of: self.isLoading) {
+            self.viewModel.isLoading = self.isLoading
         }
     }
 

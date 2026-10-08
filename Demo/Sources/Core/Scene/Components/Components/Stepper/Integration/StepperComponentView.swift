@@ -53,9 +53,9 @@ struct StepperImplementationView: ComponentImplementationViewable {
                 self.floatValue = Float(self.configurationWrapped.valueString) ?? 0
                 self.intValue = Int(self.configurationWrapped.valueString) ?? 0
             }
-            .onChange(of: self.configurationWrapped.valueString) { newValue in
-                self.floatValue = Float(newValue) ?? 0
-                self.intValue = Int(newValue) ?? 0
+            .onChange(of: self.configurationWrapped.valueString) {
+                self.floatValue = Float(self.configurationWrapped.valueString) ?? 0
+                self.intValue = Int(self.configurationWrapped.valueString) ?? 0
             }
     }
 

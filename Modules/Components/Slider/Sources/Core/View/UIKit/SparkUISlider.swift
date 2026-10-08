@@ -479,6 +479,9 @@ public final class SparkUISlider: UIControl {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup subscriptions
         self.setupSubscriptions()
 
@@ -716,11 +719,15 @@ public final class SparkUISlider: UIControl {
     /// Called when the trait collection of the slider changes.
     /// This updates the spacing to adapt to the new trait collection (e.g., Dynamic Type changes).
     /// - Parameter previousTraitCollection: The previous trait collection.
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        self._spacing.update(traitCollection: self.traitCollection)
-        self.updateSpacing()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            self._spacing.update(traitCollection: self.traitCollection)
+            self.updateSpacing()
+        }
     }
 }
 

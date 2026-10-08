@@ -57,7 +57,7 @@ internal struct BellAnimationModifier: ViewModifier {
                     self.ringBell.toggle()
                 }
             }
-            .onChange(of: self.ringBell) { _ in
+            .onChange(of: self.ringBell) {
                 Task { @MainActor in
                     let nanoseconds = UInt64(3 * 1_000_000_000)
                     try await Task.sleep(nanoseconds: nanoseconds)

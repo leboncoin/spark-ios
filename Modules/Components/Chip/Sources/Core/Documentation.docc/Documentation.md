@@ -4,7 +4,7 @@ The Chips help users quickly recognize an important information that has been en
 
 ## Overview
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 It is composed by an optional text, optional icon and optionel extra content. 
 At least one of the three is required.

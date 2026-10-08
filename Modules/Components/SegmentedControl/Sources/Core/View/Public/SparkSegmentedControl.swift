@@ -338,11 +338,11 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
                 isEnabled: self.isEnabled
             )
         }
-        .onChange(of: self.theme) { theme in
-            self.viewModel.theme = theme.value
+        .onChange(of: self.theme) {
+            self.viewModel.theme = self.theme.value
         }
-        .onChange(of: self.isEnabled) { isEnabled in
-            self.viewModel.isEnabled = isEnabled
+        .onChange(of: self.isEnabled) {
+            self.viewModel.isEnabled = self.isEnabled
         }
     }
 
@@ -432,9 +432,9 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
             .padding(.vertical, self.viewModel.layout.accessibilityVerticalPadding)
         }
         .padding(.horizontal, self.viewModel.layout.accessibilityHorizontalPadding)
-        .scrollBounceBehavior()
+        .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
         .scrollIndicators(.hidden)
-        .presentationCompactAdaptation()
+        .presentationCompactAdaptation(.popover)
     }
 }
 
@@ -449,24 +449,6 @@ private extension View {
                 .background(colors.accessibilitySelectedBackgroundColorToken)
         } else {
             self.tint(.primary)
-        }
-    }
-
-    @ViewBuilder
-    func scrollBounceBehavior() -> some View {
-        if #available(iOS 16.4, *) {
-            self.scrollBounceBehavior(.basedOnSize, axes: .horizontal)
-        } else {
-            self
-        }
-    }
-
-    @ViewBuilder
-    func presentationCompactAdaptation() -> some View {
-        if #available(iOS 16.4, *) {
-            self.presentationCompactAdaptation(.popover)
-        } else {
-            self
         }
     }
 }

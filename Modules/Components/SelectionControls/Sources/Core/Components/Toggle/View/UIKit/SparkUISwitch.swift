@@ -319,6 +319,9 @@ public final class SparkUISwitch: UIControl {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup publisher subcriptions
         self.setupSubscriptions()
 
@@ -607,9 +610,7 @@ public final class SparkUISwitch: UIControl {
 
     private func setupAccessibility() {
         self.toggleView.accessibilityTraits.insert(.button)
-        if #available(iOS 17.0, *) {
-            self.toggleView.accessibilityTraits.insert(.toggleButton)
-        }
+        self.toggleView.accessibilityTraits.insert(.toggleButton)
 
         self.updateAccessibility()
     }
@@ -764,11 +765,15 @@ public final class SparkUISwitch: UIControl {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupAccessibilityContrastTraitCollection()
+    }
 
-        if previousTraitCollection?.accessibilityContrast != self.traitCollection.accessibilityContrast {
-            self.viewModel.contrast = self.traitCollection.accessibilityContrast
+    private func setupAccessibilityContrastTraitCollection() {
+        self.registerForTraitChanges([UITraitAccessibilityContrast.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            if previousTraitCollection.accessibilityContrast != self.traitCollection.accessibilityContrast {
+                self.viewModel.contrast = self.traitCollection.accessibilityContrast
+            }
         }
     }
 }

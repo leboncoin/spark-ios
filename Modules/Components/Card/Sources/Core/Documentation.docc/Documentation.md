@@ -6,7 +6,7 @@ The Spark Cards display content and actions about a single subject.
 
 A card is a block that groups related info (text, image, button). It helps show content clearly, compactly, and in a scannable way.
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 16**.
+The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
 
 ### Implementation
 

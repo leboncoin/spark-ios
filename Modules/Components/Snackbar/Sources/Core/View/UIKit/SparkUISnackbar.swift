@@ -371,17 +371,20 @@ public final class SparkUISnackbar: UIView {
             // Add subviews
         self.addSubview(self.contentStackView)
 
+        // Setup constraints
+        self.setupConstraints()
+
+        // Setup trait collection
+        self.setupTraitCollection()
+
+        // Setup subscriptions
+        self.setupSubscriptions()
+
         // Update UI
         self.updateAlignment()
         self.updateButton()
         self.updateLayout()
         self.updateSize()
-
-        // Setup constraints
-        self.setupConstraints()
-
-        // Setup subscriptions
-        self.setupSubscriptions()
 
         // Setup view model
         self.viewModel.setup(
@@ -612,25 +615,29 @@ public final class SparkUISnackbar: UIView {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        // Sizes
-        self._iconSize.update(traitCollection: self.traitCollection)
-        self.updateSize()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            // Sizes
+            self._iconSize.update(traitCollection: self.traitCollection)
+            self.updateSize()
 
-        // Corner
-        self._borderRadius.update(traitCollection: self.traitCollection)
-        self._borderWidth.update(traitCollection: self.traitCollection)
-        self.updateLayer()
+            // Corner
+            self._borderRadius.update(traitCollection: self.traitCollection)
+            self._borderWidth.update(traitCollection: self.traitCollection)
+            self.updateLayer()
 
-        // Layout
-        self._leadingPadding.update(traitCollection: self.traitCollection)
-        self._trailingPadding.update(traitCollection: self.traitCollection)
-        self._horizontalSpacing.update(traitCollection: self.traitCollection)
-        self._verticalPadding.update(traitCollection: self.traitCollection)
-        self._verticalSpacing.update(traitCollection: self.traitCollection)
-        self._verticalSubSpacing.update(traitCollection: self.traitCollection)
-        self.updateLayout()
+            // Layout
+            self._leadingPadding.update(traitCollection: self.traitCollection)
+            self._trailingPadding.update(traitCollection: self.traitCollection)
+            self._horizontalSpacing.update(traitCollection: self.traitCollection)
+            self._verticalPadding.update(traitCollection: self.traitCollection)
+            self._verticalSpacing.update(traitCollection: self.traitCollection)
+            self._verticalSubSpacing.update(traitCollection: self.traitCollection)
+            self.updateLayout()
+        }
     }
 }

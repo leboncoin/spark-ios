@@ -12,12 +12,10 @@ public extension UIView {
 
     /// Apply a shadow to the view
     /// Note: This will need to be reapplied when switching from dark to light theme as CGColors do not refresh automatically
-    /// Note: You could watch changes in traitCollectionDidChange using traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection)
+    /// Note: You could watch changes using registerForTraitChanges([UITraitUserInterfaceStyle.self])
     /// - Parameter shadow: An ElevationShadow
     func applyShadow(_ shadow: any ElevationShadow) {
-        if #available(iOS 17.0, *) {
-            self.updateTraitsIfNeeded()
-        }
+        self.updateTraitsIfNeeded()
 
         self.layer.masksToBounds = false
         self.layer.shadowColor = shadow.colorToken.uiColor.cgColor

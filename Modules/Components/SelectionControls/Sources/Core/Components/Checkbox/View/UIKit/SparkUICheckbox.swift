@@ -338,6 +338,9 @@ public final class SparkUICheckbox: UIControl {
         // Setup constraints
         self.setupConstraints()
 
+        // Setup trait collection
+        self.setupTraitCollection()
+
         // Setup publisher subcriptions
         self.setupSubscriptions()
 
@@ -558,9 +561,7 @@ public final class SparkUICheckbox: UIControl {
         self.accessibilityIdentifier = AccessibilityIdentifier.view
 
         self.toggleView.accessibilityTraits.insert(.button)
-        if #available(iOS 17.0, *) {
-            self.toggleView.accessibilityTraits.insert(.toggleButton)
-        }
+        self.toggleView.accessibilityTraits.insert(.toggleButton)
 
         self.updateAccessibility()
     }
@@ -683,20 +684,24 @@ public final class SparkUICheckbox: UIControl {
 
     // MARK: - Trait Collection
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    private func setupTraitCollection() {
+        self.setupContentSizeCategoryTraitCollection()
+    }
 
-        // **
-        // Update sizes
-        self._toggleWidth.update(traitCollection: self.traitCollection)
-        self.updateToggleViewSize()
+    private func setupContentSizeCategoryTraitCollection() {
+        self.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { (self: Self, _: UITraitCollection) in
+            // **
+            // Update sizes
+            self._toggleWidth.update(traitCollection: self.traitCollection)
+            self.updateToggleViewSize()
 
-        self._toggleCornerRadius.update(traitCollection: self.traitCollection)
-        self._toggleBorderWidth.update(traitCollection: self.traitCollection)
-        self.updateToggleBorderRadius()
+            self._toggleCornerRadius.update(traitCollection: self.traitCollection)
+            self._toggleBorderWidth.update(traitCollection: self.traitCollection)
+            self.updateToggleBorderRadius()
 
-        self._toggleIconPadding.update(traitCollection: self.traitCollection)
-        self.updateToggleImageViewPadding()
-        // **
+            self._toggleIconPadding.update(traitCollection: self.traitCollection)
+            self.updateToggleImageViewPadding()
+            // **
+        }
     }
 }
