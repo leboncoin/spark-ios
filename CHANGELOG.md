@@ -2,6 +2,27 @@
 
 ## [Unreleased]
 
+## [2.2.0]
+
+_08/10/2026_
+
+### 💥 Breaking Changes
+
+- Removed iOS 16 support, iOS 17 is now the minimum deployment target ([#1125](https://github.com/leboncoin/spark-ios/pull/1125))
+
+### 🐛 Bug Fixes
+
+- Fixed the SparkCommon documentation URL
+
+### 📚 Documentation
+
+- Added a direct download link to the latest nightly demo app
+- Added the simulator installation steps for the nightly demo app
+
+### 🔧 Infrastructure & CI/CD
+
+- Updated the nightly component listing workflows to run only on schedule
+
 ## [2.1.0]
 
 _05/10/2026_
@@ -117,8 +138,9 @@ _27/03/2025_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-ios/compare/2.1.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-ios/compare/2.2.0...HEAD
 
+[2.2.0]: https://github.com/leboncoin/spark-ios/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/leboncoin/spark-ios/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/leboncoin/spark-ios/compare/1.0.0...2.0.0
 [1.0.0]: https://github.com/leboncoin/spark-ios/compare/0.21.0...1.0.0
