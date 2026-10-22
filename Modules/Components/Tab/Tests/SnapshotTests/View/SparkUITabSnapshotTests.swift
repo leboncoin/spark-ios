@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import UIKit
 import SnapshotTesting
 @_spi(SI_SPI) import SparkCommon
@@ -16,7 +16,9 @@ import SnapshotTesting
 import SparkTheming
 import SparkTheme
 
-final class SparkUITabSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkUITabSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -24,7 +26,7 @@ final class SparkUITabSnapshotTests: UIKitComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = TabScenarioSnapshotTests.allCases.filter {
             $0 != .documentation
         }
@@ -48,7 +50,7 @@ final class SparkUITabSnapshotTests: UIKitComponentSnapshotTestCase {
         }
     }
 
-    func testOther() {
+    @Test func testOther() {
         let scenarios = TabScenarioOtherSnapshotTests.allCases
 
         for scenario in scenarios {

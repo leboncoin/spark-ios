@@ -6,7 +6,7 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import SnapshotTesting
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
@@ -15,7 +15,9 @@ import SparkTheme
 
 @testable import SparkComponentProgressTracker
 
-final class ProgressTrackerUIViewSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct ProgressTrackerUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -23,7 +25,7 @@ final class ProgressTrackerUIViewSnapshotTests: UIKitComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = ProgressTrackerScenarioSnapshotTests.allCases
 
         for scenario in scenarios {

@@ -6,17 +6,20 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
+import Testing
 import UIKit
 @testable import SparkCommon
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkCommonTesting
 
-final class AdaptiveUIStackViewSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct AdaptiveUIStackViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test_with_default_properties() {
+    @Test func test_with_default_properties() {
         let view = SparkAdaptiveUIStackView(arrangedSubviews: [
             UILabel.label1,
             UILabel.label2
@@ -30,7 +33,7 @@ final class AdaptiveUIStackViewSnapshotTests: UIKitComponentSnapshotTestCase {
         )
     }
 
-    func test_with_override_default_properties() {
+    @Test func test_with_override_default_properties() {
         let view = SparkAdaptiveUIStackView(arrangedSubviews: [
             UILabel.label1,
             UILabel.label2
@@ -49,7 +52,7 @@ final class AdaptiveUIStackViewSnapshotTests: UIKitComponentSnapshotTestCase {
         )
     }
 
-    func test_with_regular_and_accessibilities_properties() {
+    @Test func test_with_regular_and_accessibilities_properties() {
         let view = SparkAdaptiveUIStackView(arrangedSubviews: [
             UILabel.label1,
             UILabel.label2

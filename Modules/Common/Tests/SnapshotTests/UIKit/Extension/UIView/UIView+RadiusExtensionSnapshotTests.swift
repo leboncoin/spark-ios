@@ -6,6 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
+import Testing
 import UIKit
 @testable import SparkCommon
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
@@ -13,11 +14,13 @@ import UIKit
 @_spi(SI_SPI) import SparkCommonTesting
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test_sparkBorderRadius() {
+    @Test func test_sparkBorderRadius() {
         let widths: [Int] = [0, 4]
         let isHighlighteds = [true, false]
 
@@ -41,7 +44,7 @@ final class UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTestCase {
         }
     }
 
-    func test_sparkBorderRadius_with_dash() {
+    @Test func test_sparkBorderRadius_with_dash() {
         let widths: [Int] = [0, 4]
         let dashes: [Int] = [0, 10]
 
@@ -65,7 +68,7 @@ final class UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTestCase {
         }
     }
 
-    func test_sparkCornerRadius() {
+    @Test func test_sparkCornerRadius() {
         let values: [Bool?] = [true, false, nil]
 
         for value in values {

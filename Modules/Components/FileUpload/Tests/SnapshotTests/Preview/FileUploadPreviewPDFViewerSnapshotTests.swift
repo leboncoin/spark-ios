@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import SnapshotTesting
 @_spi(SI_SPI) import SparkCommon
@@ -17,7 +17,9 @@ import SnapshotTesting
 import SparkTheming
 import SparkTheme
 
-final class FileUploadPreviewPDFViewerSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct FileUploadPreviewPDFViewerSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -25,7 +27,7 @@ final class FileUploadPreviewPDFViewerSnapshotTests: SwiftUIComponentSnapshotTes
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         let pdfURL = try URL.pdfMock
 
         let view = FileUploadPreviewPDFViewer(url: pdfURL)
@@ -37,7 +39,8 @@ final class FileUploadPreviewPDFViewerSnapshotTests: SwiftUIComponentSnapshotTes
             matching: view,
             named: "pdf_viewer",
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.default
+            sizes: ComponentSnapshotTestConstants.Sizes.default,
+            addPadding: false
         )
     }
 }

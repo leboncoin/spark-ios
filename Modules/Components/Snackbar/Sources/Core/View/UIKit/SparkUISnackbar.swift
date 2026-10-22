@@ -368,7 +368,7 @@ public final class SparkUISnackbar: UIView {
         // View Properties
         self.accessibilityIdentifier = SnackbarAccessibilityIdentifier.view
 
-            // Add subviews
+        // Add subviews
         self.addSubview(self.contentStackView)
 
         // Setup constraints
@@ -449,7 +449,7 @@ public final class SparkUISnackbar: UIView {
         }
     }
 
-    private func updateButton() {
+    private func updateButton(_ intents: SnackbarIntents? = nil) {
         // Remove old button if exists
         let views = self.buttonContentStackView.subviews.filter { $0 is SparkUIButton }
         self.buttonContentStackView.removeArrangedSubviews(views)
@@ -460,6 +460,10 @@ public final class SparkUISnackbar: UIView {
         }
 
         self.buttonContentStackView.isHidden = self.button == nil
+
+        // Intent
+        let intents = intents ?? self.viewModel.intents
+        self.button?.intent = intents.button
     }
 
     private func updateLayer(colors: SnackbarColors? = nil) {
@@ -520,97 +524,77 @@ public final class SparkUISnackbar: UIView {
 
     private func setupSubscriptions() {
         // Border changes
-        self.viewModel.$border
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] border in
-                guard let self else {
-                    return
-                }
-
-                self._borderWidth = .init(
-                    wrappedValue: border.width,
-                    traitCollection: self.traitCollection
-                )
-                self._borderRadius = .init(
-                    wrappedValue: border.radius,
-                    traitCollection: self.traitCollection
-                )
-
-                self.updateLayer()
+        self.viewModel.$border.subscribe(in: &self.subscriptions) { [weak self] border in
+            guard let self else {
+                return
             }
-            .store(in: &self.subscriptions)
+
+            self._borderWidth = .init(
+                wrappedValue: border.width,
+                traitCollection: self.traitCollection
+            )
+            self._borderRadius = .init(
+                wrappedValue: border.radius,
+                traitCollection: self.traitCollection
+            )
+
+            self.updateLayer()
+        }
 
         // Colors changes
-        self.viewModel.$colors
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] colors in
-                self?.updateColors(colors)
-                self?.updateLayer(colors: colors)
-            }
-            .store(in: &self.subscriptions)
+        self.viewModel.$colors.subscribe(in: &self.subscriptions) { [weak self] colors in
+            self?.updateColors(colors)
+            self?.updateLayer(colors: colors)
+        }
 
         // Intents changes
-        self.viewModel.$intents
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] intents in
-                self?.button?.intent = intents.button
-            }
-            .store(in: &self.subscriptions)
+        self.viewModel.$intents.subscribe(in: &self.subscriptions) { [weak self] intents in
+            self?.updateButton(intents)
+        }
 
         // Layout changes
-        self.viewModel.$layout
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] layout in
-                guard let self else {
-                    return
-                }
-
-                self._leadingPadding = .init(
-                    wrappedValue: layout.leadingPadding,
-                    traitCollection: self.traitCollection
-                )
-                self._trailingPadding = .init(
-                    wrappedValue: layout.trailingPadding,
-                    traitCollection: self.traitCollection
-                )
-                self._horizontalSpacing = .init(
-                    wrappedValue: layout.horizontalSpacing,
-                    traitCollection: self.traitCollection
-                )
-                self._verticalPadding = .init(
-                    wrappedValue: layout.verticalPadding,
-                    traitCollection: self.traitCollection
-                )
-                self._verticalSpacing = .init(
-                    wrappedValue: layout.verticalSpacing,
-                    traitCollection: self.traitCollection
-                )
-                self._verticalSubSpacing = .init(
-                    wrappedValue: layout.verticalSubSpacing,
-                    traitCollection: self.traitCollection
-                )
-
-                self.updateLayout()
+        self.viewModel.$layout.subscribe(in: &self.subscriptions) { [weak self] layout in
+            guard let self else {
+                return
             }
-            .store(in: &self.subscriptions)
+
+            self._leadingPadding = .init(
+                wrappedValue: layout.leadingPadding,
+                traitCollection: self.traitCollection
+            )
+            self._trailingPadding = .init(
+                wrappedValue: layout.trailingPadding,
+                traitCollection: self.traitCollection
+            )
+            self._horizontalSpacing = .init(
+                wrappedValue: layout.horizontalSpacing,
+                traitCollection: self.traitCollection
+            )
+            self._verticalPadding = .init(
+                wrappedValue: layout.verticalPadding,
+                traitCollection: self.traitCollection
+            )
+            self._verticalSpacing = .init(
+                wrappedValue: layout.verticalSpacing,
+                traitCollection: self.traitCollection
+            )
+            self._verticalSubSpacing = .init(
+                wrappedValue: layout.verticalSubSpacing,
+                traitCollection: self.traitCollection
+            )
+
+            self.updateLayout()
+        }
 
         // Typographies changes
-        self.viewModel.$typographies
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] typographies in
-                guard let self else {
-                    return
-                }
-
-                self.titleLabel.font(typographies.titleFontToken)
-                self.messageLabel.font(typographies.descriptionFontToken)
+        self.viewModel.$typographies.subscribe(in: &self.subscriptions) { [weak self] typographies in
+            guard let self else {
+                return
             }
-            .store(in: &self.subscriptions)
+
+            self.titleLabel.font(typographies.titleFontToken)
+            self.messageLabel.font(typographies.descriptionFontToken)
+        }
     }
 
     // MARK: - Trait Collection

@@ -7,21 +7,24 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkCommon
 @_spi(SI_SPI) @testable import SparkCommonSnapshotTesting
 import SparkTheme
 import SparkTheming
 
-final class SparkHStackSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkHStackSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         self.assertSnapshot(
             matching: SnapshotView(),
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.all
+            sizes: ComponentSnapshotTestConstants.Sizes.all,
+            addPadding: false
         )
     }
 }

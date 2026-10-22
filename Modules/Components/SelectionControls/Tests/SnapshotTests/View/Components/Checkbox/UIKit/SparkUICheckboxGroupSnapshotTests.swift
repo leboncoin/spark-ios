@@ -6,7 +6,8 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import UIKit
 import SnapshotTesting
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
@@ -16,7 +17,9 @@ import SnapshotTesting
 import SparkTheming
 import SparkTheme
 
-final class SparkUICheckboxGroupSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkUICheckboxGroupSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Type Alias
 
@@ -28,7 +31,7 @@ final class SparkUICheckboxGroupSnapshotTests: UIKitComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         let scenarios = CommonGroupScenarioSnapshotTests.allCases()
 
         for scenario in scenarios {

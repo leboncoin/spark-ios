@@ -6,7 +6,7 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SnapshotTesting
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) import SparkCommon
@@ -17,7 +17,9 @@ import SparkTheming
 import SparkTheme
 import SwiftUI
 
-final class TextEditorViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct TextEditorViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Type Alias
 
@@ -29,7 +31,7 @@ final class TextEditorViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         let scenarios = TextEditorScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -54,7 +56,8 @@ final class TextEditorViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,
-                    testName: configuration.testName()
+                    testName: configuration.testName(),
+                    addPadding: false
                 )
             }
         }
@@ -64,15 +67,6 @@ final class TextEditorViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
 // MARK: - Extension
 
 private extension View {
-
-//    @ViewBuilder
-//    func height(_ configuration: TextEditorConfigurationSnapshotTests) -> some View {
-//        if configuration.height.isFixed {
-//            self.frame(height: configuration.height.value)
-//        } else {
-//            
-//        }
-//    }
 
     @ViewBuilder
     func style(forDocumentation: Bool) -> some View {

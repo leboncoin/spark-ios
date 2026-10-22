@@ -7,29 +7,33 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkCommon
 @_spi(SI_SPI) @testable import SparkCommonSnapshotTesting
 import SparkTheme
 import SparkTheming
 
-final class ScaledBorderViewModifierSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct ScaledBorderViewModifierSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test_default() throws {
+    @Test func test_default() throws {
         self.assertSnapshot(
             matching: SnapshotView(state: .default),
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.all
+            sizes: ComponentSnapshotTestConstants.Sizes.all,
+            addPadding: false
         )
     }
 
-    func test_dashed() throws {
+    @Test func test_dashed() throws {
         self.assertSnapshot(
             matching: SnapshotView(state: .dashed),
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.all
+            sizes: ComponentSnapshotTestConstants.Sizes.all,
+            addPadding: false
         )
     }
 }

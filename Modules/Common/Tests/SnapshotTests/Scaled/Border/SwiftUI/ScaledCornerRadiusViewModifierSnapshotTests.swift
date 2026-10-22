@@ -7,17 +7,19 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkCommon
 @_spi(SI_SPI) @testable import SparkCommonSnapshotTesting
 import SparkTheme
 import SparkTheming
 
-final class ScaledCornerRadiusViewModifierSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct ScaledCornerRadiusViewModifierSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test_default() throws {
+    @Test func test_default() throws {
         let theme: any Theme = SparkTheme.shared
 
         for radius in BorderRadius.allCases {
@@ -28,12 +30,13 @@ final class ScaledCornerRadiusViewModifierSnapshotTests: SwiftUIComponentSnapsho
                 ),
                 modes: ComponentSnapshotTestConstants.Modes.default,
                 sizes: ComponentSnapshotTestConstants.Sizes.all,
-                testName: #function + "\(radius)Radius"
+                testName: #function + "\(radius)Radius",
+                addPadding: false
             )
         }
     }
 
-    func test_highlighted() throws {
+    @Test func test_highlighted() throws {
         let theme: any Theme = SparkTheme.shared
 
         for radius in BorderRadius.allCases {
@@ -44,7 +47,8 @@ final class ScaledCornerRadiusViewModifierSnapshotTests: SwiftUIComponentSnapsho
                 ),
                 modes: ComponentSnapshotTestConstants.Modes.default,
                 sizes: ComponentSnapshotTestConstants.Sizes.all,
-                testName: #function + "\(radius)Radius"
+                testName: #function + "\(radius)Radius",
+                addPadding: false
             )
         }
     }

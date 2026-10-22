@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import SnapshotTesting
 @_spi(SI_SPI) import SparkCommon
@@ -18,7 +18,9 @@ import SparkResources
 import SparkTheming
 import SparkTheme
 
-final class SparkFileUploadButtonStyleSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkFileUploadButtonStyleSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -26,11 +28,11 @@ final class SparkFileUploadButtonStyleSnapshotTests: SwiftUIComponentSnapshotTes
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         self.testView()
     }
 
-    func test_documentation() {
+    @Test func test_documentation() {
         self.testView(forDocumentation: true)
     }
 
@@ -52,6 +54,7 @@ final class SparkFileUploadButtonStyleSnapshotTests: SwiftUIComponentSnapshotTes
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.default,
             testName: forDocumentation ? "fileupload_button" : "test",
+            addPadding: false,
             forDocumentation: forDocumentation
         )
     }
