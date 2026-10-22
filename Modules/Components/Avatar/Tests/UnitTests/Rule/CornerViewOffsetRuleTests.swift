@@ -1,5 +1,5 @@
 //
-//  AvatarGetCornerViewOffsetUseCaseTests.swift
+//  CornerViewOffsetRuleTests.swift
 //  SparkComponentAvatarTests
 //
 //  Created by robin.lemaire on 22/07/2026.
@@ -12,11 +12,7 @@ import Foundation
 
 // MARK: - Tests
 
-struct AvatarGetCornerViewOffsetUseCaseTests {
-
-    // MARK: - Properties
-
-    private let sut = AvatarGetCornerViewOffsetUseCase()
+struct CornerViewOffsetRuleTests {
 
     // MARK: - Tests
 
@@ -32,13 +28,12 @@ struct AvatarGetCornerViewOffsetUseCaseTests {
             (128.0, 45.25)
         ]
     )
-    func executeWithUserContentType(
+    func valueWithUserContentType(
         avatarSize: CGFloat,
         expectedSize: CGFloat
     ) {
         // WHEN
-        let result = self.sut.execute(
-            contentType: .user,
+        let result = AvatarContentType.user.cornerViewOffset(
             avatarSize: avatarSize,
             cornerViewSize: nil
         )
@@ -60,7 +55,7 @@ struct AvatarGetCornerViewOffsetUseCaseTests {
             (128.0, 64.0, 48.0)
         ]
     )
-    func executeWithCompanyContentTypeAndCornerViewSize(
+    func valueWithCompanyContentTypeAndCornerViewSize(
         avatarSize: CGFloat,
         cornerViewWidth: CGFloat,
         expectedSize: CGFloat
@@ -69,8 +64,7 @@ struct AvatarGetCornerViewOffsetUseCaseTests {
         let cornerViewSize = CGSize(width: cornerViewWidth, height: cornerViewWidth)
 
         // WHEN
-        let result = self.sut.execute(
-            contentType: .company,
+        let result = AvatarContentType.company.cornerViewOffset(
             avatarSize: avatarSize,
             cornerViewSize: cornerViewSize
         )
@@ -86,12 +80,11 @@ struct AvatarGetCornerViewOffsetUseCaseTests {
             24.0, 32.0, 40.0, 56.0, 64.0, 96.0, 128.0
         ]
     )
-    func executeWithCompanyContentTypeAndNilCornerViewSize(
+    func valueWithCompanyContentTypeAndNilCornerViewSize(
         avatarSize: CGFloat
     ) {
         // WHEN
-        let result = self.sut.execute(
-            contentType: .company,
+        let result = AvatarContentType.company.cornerViewOffset(
             avatarSize: avatarSize,
             cornerViewSize: nil
         )

@@ -16,20 +16,16 @@ struct Avatar<Placeholder, CornerView>: View where Placeholder: View, CornerView
     // MARK: - Properties
 
     private let source: AvatarSource
-    private var placeholder: () -> Placeholder
-    private var cornerView: () -> CornerView
+    private var placeholder: Placeholder
+    private var cornerView: CornerView
     private let action: (() -> Void)?
     private let contentType: AvatarContentType
 
-    @Environment(\.theme) private var theme
     @Environment(\.avatarActionType) private var actionType
-    @Environment(\.avatarIsBorder) private var isBorder
     @Environment(\.avatarSize) private var size
-    @Environment(\.isEnabled) private var isEnabled
 
-    @State private var viewModel = AvatarViewModel()
+    @State private var isPressed = false
 
-    @State var cornerViewSize: CGSize?
     @State private var showImage = false
     @State private var feedbackID = UUID()
 
@@ -45,8 +41,8 @@ struct Avatar<Placeholder, CornerView>: View where Placeholder: View, CornerView
         self.source = source
         self.contentType = contentType
         self.action = action
-        self.placeholder = placeholder
-        self.cornerView = cornerView
+        self.placeholder = placeholder()
+        self.cornerView = cornerView()
     }
 
     // MARK: - View
@@ -57,7 +53,7 @@ struct Avatar<Placeholder, CornerView>: View where Placeholder: View, CornerView
                 action()
                 self.feedbackID = .init()
             }, label: self.content)
-                .buttonStyle(PressedButtonStyle(isPressed: self.$viewModel.isPressed))
+                .buttonStyle(PressedButtonStyle(isPressed: self.$isPressed))
         } else {
             self.content()
         }
@@ -65,80 +61,34 @@ struct Avatar<Placeholder, CornerView>: View where Placeholder: View, CornerView
 
     private func content() -> some View {
         self.imageView()
-        .sparkFrame(size: self.viewModel.sizes.size)
-        .background(self.viewModel.colors.backgroundColorToken)
-        .sparkBorder(
-            width: self.viewModel.border.width,
-            radius: self.viewModel.border.radius,
-            colorToken: self.viewModel.colors.borderColorToken
-        )
+        .avatarFrame()
+        .avatarBackground(contentType: self.contentType)
+        .avatarBorder(contentType: self.contentType)
         .overlay {
             // Corner View
-            if !self.cornerView().isEmptyView {
-                self.cornerView()
-                    .sparkBadgeSize(self.viewModel.sizes.badgeSize)
-                    .sparkBadgeIsBorder(true)
-                    .offset(self.viewModel.getCornerViewOffset(cornerViewSize: self.cornerViewSize))
-                    .onGeometryChange(for: CGSize.self) { proxy in
-                        proxy.size
-                    } action: { newValue in
-                        self.cornerViewSize = newValue
-                    }
+            if !self.cornerView.isEmptyView {
+                self.cornerView
+                    .avatarCornerBadge()
+                    .avatarCornerViewOffset(contentType: self.contentType)
             } else if self.action != nil, self.size.isIconButton {
                 self.actionType?.icon
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundStyle(self.viewModel.colors.actionTintColorToken)
-                    .padding(self.viewModel.layout.actionPadding)
-                    .sparkFrame(size: self.viewModel.sizes.actionSize)
-                    .background(
-                        Circle()
-                            .fill(self.viewModel.colors.actionBackgroundColorToken)
-                            .shadow(self.theme.value.elevation.dropShadow)
-                    )
-                    .offset(self.viewModel.getCornerViewOffset(cornerViewSize: self.cornerViewSize))
-                    .onGeometryChange(for: CGSize.self) { proxy in
-                        proxy.size
-                    } action: { newValue in
-                        self.cornerViewSize = newValue
-                    }
+                    .scaledToFit()
+                    .avatarAction(isPressed: self.isPressed)
+                    .avatarCornerViewOffset(contentType: self.contentType)
             }
         }
-        .opacity(self.viewModel.dim)
-        .scaleEffect(self.viewModel.scaleEffect)
+        .avatarOpacity()
+        .avatarScaleEffect(isPressed: self.isPressed)
         .optionalAnimation(
             .easeInOut(duration: AvatarConstants.animationDuration),
-            value: self.viewModel.isPressed
+            value: self.isPressed
         )
         .sparkSensoryFeedback(.selection, trigger: self.feedbackID)
         .accessibilityIdentifier(AvatarAccessibilityIdentifier.view)
         .accessibilityElement(children: .ignore)
         .dynamicTypeSize(.large)
         .sparkVisualIdentification()
-        .onAppear {
-            self.viewModel.setup(
-                theme: self.theme.value,
-                contentType: self.contentType,
-                size: self.size,
-                isBorder: self.isBorder,
-                isEnabled: self.isEnabled
-            )
-        }
-        .onChange(of: self.theme) {
-            self.viewModel.theme = self.theme.value
-        }
-        .onChange(of: self.contentType) {
-            self.viewModel.contentType = self.contentType
-        }
-        .onChange(of: self.size) {
-            self.viewModel.size = self.size
-        }
-        .onChange(of: self.isBorder) {
-            self.viewModel.isBorder = self.isBorder
-        }
-        .onChange(of: self.isEnabled) {
-            self.viewModel.isEnabled = self.isEnabled
-        }
     }
 
     @ViewBuilder
@@ -155,10 +105,8 @@ struct Avatar<Placeholder, CornerView>: View where Placeholder: View, CornerView
                         }
                     }
             } placeholder: {
-                self.placeholder()
-                    .foregroundStyle(self.viewModel.colors.placeholderTintColorToken)
-                    .font(self.viewModel.typographies.placeholderFontToken)
-                    .sparkFrame(size: self.viewModel.sizes.placeholderSize)
+                self.placeholder
+                    .avatarPlaceholder(contentType: self.contentType)
             }
         case .image(let value):
             value.stylized()
@@ -172,6 +120,6 @@ private extension Image {
 
     func stylized() -> some View {
         self.resizable()
-            .aspectRatio(contentMode: .fill)
+            .scaledToFill()
     }
 }

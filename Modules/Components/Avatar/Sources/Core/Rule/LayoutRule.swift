@@ -1,5 +1,5 @@
 //
-//  AvatarBorder.swift
+//  LayoutRule.swift
 //  SparkComponentAvatar
 //
 //  Created by robin.lemaire on 02/07/2026.
@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import SparkTheming
 
-struct AvatarBorder: Equatable {
+extension Theme {
 
     // MARK: - Properties
 
-    var radius: CGFloat = .zero
-    var width: CGFloat = .zero
+    var actionPadding: CGFloat {
+        return self.layout.spacing.medium
+    }
 }
