@@ -572,12 +572,15 @@ public final class SparkUIButton: UIControl {
 
         // Update content insets
         self.contentStackViewLeadingConstraint?.constant = layout.horizontalPadding
+
+        self.invalidateIntrinsicContentSize()
     }
 
     private func updateTitleFontToken(_ fontToken: (any TypographyFontToken)? = nil) {
         let fontToken = fontToken ?? self.viewModel.titleFontToken
 
         self.titleLabel.font = fontToken.uiFont
+        self.invalidateIntrinsicContentSize()
     }
 
     private func updateLoadingState() {
@@ -826,14 +829,18 @@ public final class SparkUIButton: UIControl {
     // MARK: - Instrinsic Content Size
 
     public override var intrinsicContentSize: CGSize {
-        var width: CGFloat = .zero
+        let width: CGFloat
 
         if self.widthConstraint?.isActive == true {
             width = self.width
 
         } else {
-            self.subContentStackView.layoutIfNeeded()
-            width = self.subContentStackView.frame.width
+            let contentWidth = self.subContentStackView.systemLayoutSizeFitting(
+                UIView.layoutFittingCompressedSize
+            ).width
+            let horizontalPadding = (self.contentStackViewLeadingConstraint?.constant ?? .zero) * 2
+
+            width = max(contentWidth + horizontalPadding, self.width)
         }
 
         return CGSize(
