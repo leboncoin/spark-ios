@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import SnapshotTesting
 @testable import SparkComponentDivider
@@ -17,7 +17,9 @@ import SnapshotTesting
 import SparkTheming
 import SparkTheme
 
-final class SparkUIDividerSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkUIDividerSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -25,7 +27,7 @@ final class SparkUIDividerSnapshotTests: UIKitComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = DividerScenarioSnapshotTests.allCases.filter {
             $0 != .documentation
         }

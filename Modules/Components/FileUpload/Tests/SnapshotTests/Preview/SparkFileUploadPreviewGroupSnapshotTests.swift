@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import SnapshotTesting
 @_spi(SI_SPI) import SparkCommon
@@ -17,7 +17,9 @@ import SnapshotTesting
 import SparkTheming
 import SparkTheme
 
-final class SparkFileUploadPreviewGroupSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkFileUploadPreviewGroupSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -25,11 +27,11 @@ final class SparkFileUploadPreviewGroupSnapshotTests: SwiftUIComponentSnapshotTe
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         try self.testView()
     }
 
-    func test_documentation() throws {
+    @Test func test_documentation() throws {
         try self.testView(forDocumentation: true)
     }
 
@@ -92,6 +94,7 @@ final class SparkFileUploadPreviewGroupSnapshotTests: SwiftUIComponentSnapshotTe
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.default,
             testName: forDocumentation ? "fileupload_preview_group" : "test",
+            addPadding: false,
             forDocumentation: forDocumentation
         )
     }

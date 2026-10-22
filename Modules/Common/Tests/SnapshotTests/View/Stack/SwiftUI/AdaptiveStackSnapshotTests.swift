@@ -7,15 +7,17 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkCommon
 @_spi(SI_SPI) @testable import SparkCommonSnapshotTesting
 
-final class AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test_with_accessibilitySizeClass_at_nil() throws {
+    @Test func test_with_accessibilitySizeClass_at_nil() throws {
         // GIVEN / WHEN
         let view = SparkAdaptiveStack(
             axis: .horizontal,
@@ -32,11 +34,12 @@ final class AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTestCase {
         self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.all
+            sizes: ComponentSnapshotTestConstants.Sizes.all,
+            addPadding: false
         )
     }
 
-    func test_with_showAccessibilityStack_at_true() throws {
+    @Test func test_with_showAccessibilityStack_at_true() throws {
         // GIVEN / WHEN
         let view = SparkAdaptiveStack(
             axis: .horizontal,
@@ -53,11 +56,12 @@ final class AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTestCase {
         self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.all
+            sizes: ComponentSnapshotTestConstants.Sizes.all,
+            addPadding: false
         )
     }
 
-    func test_with_showAccessibilityStack_at_false() throws {
+    @Test func test_with_showAccessibilityStack_at_false() throws {
         // GIVEN / WHEN
         let view = SparkAdaptiveStack(
             axis: .horizontal,
@@ -75,7 +79,8 @@ final class AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTestCase {
         self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.all
+            sizes: ComponentSnapshotTestConstants.Sizes.all,
+            addPadding: false
         )
     }
 }

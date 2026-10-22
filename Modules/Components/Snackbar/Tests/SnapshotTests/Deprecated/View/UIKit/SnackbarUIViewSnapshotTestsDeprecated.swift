@@ -6,7 +6,7 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import UIKit
 import SparkComponentButton
 @testable import SparkTheme
@@ -17,8 +17,8 @@ import SparkComponentButton
 
 @testable import SparkComponentSnackbar
 
-@available(*, deprecated, message: "This test is deprecated and will be removed in a future version.")
-final class SnackbarUIViewSnapshotTestsDeprecated: UIKitComponentSnapshotTestCase {
+@Suite(.sparkConfiguration)
+struct SnackbarUIViewSnapshotTestsDeprecated: UIKitComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -26,15 +26,15 @@ final class SnackbarUIViewSnapshotTestsDeprecated: UIKitComponentSnapshotTestCas
 
     // MARK: - Tests
 
-    func test1() {
+    @Test func test1() {
         self._test(.test1)
     }
 
-    func test2() {
+    @Test func test2() {
         self._test(.test2)
     }
 
-    func test3() {
+    @Test func test3() {
         self._test(.test3)
     }
 

@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import SnapshotTesting
 @_spi(SI_SPI) import SparkCommon
@@ -19,7 +19,9 @@ import SparkResources
 import SparkTheming
 import SparkTheme
 
-final class SparkFileUploadDropzoneSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkFileUploadDropzoneSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -28,7 +30,7 @@ final class SparkFileUploadDropzoneSnapshotTests: SwiftUIComponentSnapshotTestCa
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = FileUploadDropzoneScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -49,6 +51,7 @@ final class SparkFileUploadDropzoneSnapshotTests: SwiftUIComponentSnapshotTestCa
                     modes: configuration.modes,
                     sizes: configuration.sizes,
                     testName: configuration.testName,
+                    addPadding: false,
                     forDocumentation: scenario.isDocumentation
                 )
             }

@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SnapshotTesting
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) import SparkCommon
@@ -17,7 +17,9 @@ import SparkTheming
 import SparkTheme
 import SwiftUI
 
-final class TextFieldViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct TextFieldViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -25,7 +27,7 @@ final class TextFieldViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         let scenarios = TextFieldScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -64,7 +66,8 @@ final class TextFieldViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,
-                    testName: configuration.testName()
+                    testName: configuration.testName(),
+                    addPadding: false
                 )
             }
         }

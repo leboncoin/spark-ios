@@ -10,7 +10,7 @@
 
 /// This file is deprecated and should not be used for new tests.
 
-import XCTest
+import Testing
 import SnapshotTesting
 @testable import SparkComponentButton
 @_spi(SI_SPI) import SparkCommon
@@ -21,7 +21,8 @@ import SparkTheming
 import SparkTheme
 import SwiftUI
 
-final class IconButtonViewSnapshotTestsDeprecated: SwiftUIComponentSnapshotTestCase {
+@Suite(.sparkConfiguration)
+struct IconButtonViewSnapshotTestsDeprecated: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -29,7 +30,7 @@ final class IconButtonViewSnapshotTestsDeprecated: SwiftUIComponentSnapshotTestC
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         let scenarios = IconButtonScenarioSnapshotTestsDeprecated.allCases
 
         for scenario in scenarios {

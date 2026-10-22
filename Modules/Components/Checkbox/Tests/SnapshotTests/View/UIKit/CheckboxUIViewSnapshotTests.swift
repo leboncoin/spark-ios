@@ -6,6 +6,7 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
+import Testing
 import UIKit
 
 @testable import SparkComponentCheckbox
@@ -14,7 +15,9 @@ import UIKit
 import SparkTheming
 import SparkTheme
 
-final class CheckboxUIViewSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct CheckboxUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -22,7 +25,7 @@ final class CheckboxUIViewSnapshotTests: UIKitComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = CheckboxScenarioSnapshotTests.allCases
 
         for scenario in scenarios {

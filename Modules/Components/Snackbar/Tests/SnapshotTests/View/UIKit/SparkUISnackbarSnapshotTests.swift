@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import UIKit
 import SnapshotTesting
 @_spi(SI_SPI) import SparkCommon
@@ -17,7 +17,9 @@ import SparkComponentButton
 import SparkTheming
 import SparkTheme
 
-final class SparkUISnackbarSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkUISnackbarSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -25,7 +27,7 @@ final class SparkUISnackbarSnapshotTests: UIKitComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = SnackbarScenario.allCases.filter {
             $0 != .documentation
         }

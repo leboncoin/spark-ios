@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import SnapshotTesting
 @testable import SparkComponentTextLink
@@ -17,7 +17,9 @@ import SnapshotTesting
 import SparkTheming
 import SparkTheme
 
-final class SparkUITextLinkSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkUITextLinkSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -25,7 +27,7 @@ final class SparkUITextLinkSnapshotTests: UIKitComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = TextLinkScenarioSnapshotTests.allCases.filter {
             $0 != .documentation
         }

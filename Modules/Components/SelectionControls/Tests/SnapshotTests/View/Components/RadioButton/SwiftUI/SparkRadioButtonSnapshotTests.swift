@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SnapshotTesting
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkCommon
@@ -17,7 +17,9 @@ import SparkTheming
 import SparkTheme
 import SwiftUI
 
-final class SparkRadioButtonSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkRadioButtonSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -25,7 +27,7 @@ final class SparkRadioButtonSnapshotTests: SwiftUIComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         let forDocumentation = false
 
         let scenarios = RadioButtonScenarioSnapshotTests.allCases(forDocumentation: forDocumentation)
@@ -44,7 +46,8 @@ final class SparkRadioButtonSnapshotTests: SwiftUIComponentSnapshotTestCase {
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,
-                    testName: configuration.testName()
+                    testName: configuration.testName(),
+                    addPadding: false
                 )
             }
         }

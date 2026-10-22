@@ -6,7 +6,8 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import UIKit
 import SnapshotTesting
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
@@ -16,7 +17,9 @@ import SnapshotTesting
 import SparkTheming
 import SparkTheme
 
-final class TextEditorUIViewSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct TextEditorUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Type Alias
 
@@ -28,7 +31,7 @@ final class TextEditorUIViewSnapshotTests: UIKitComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         let scenarios = TextEditorScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
