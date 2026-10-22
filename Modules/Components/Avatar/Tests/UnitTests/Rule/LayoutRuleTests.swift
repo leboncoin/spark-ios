@@ -1,5 +1,5 @@
 //
-//  AvatarGetLayoutUseCaseTests.swift
+//  LayoutRuleTests.swift
 //  SparkComponentAvatarTests
 //
 //  Created by robin.lemaire on 03/07/2026.
@@ -13,25 +13,20 @@ import Testing
 
 // MARK: - Tests
 
-struct AvatarGetLayoutUseCaseTests {
+struct LayoutRuleTests {
 
     // MARK: - Properties
 
-    private let sut = AvatarGetLayoutUseCase()
     private let theme = ThemeGeneratedMock.mocked()
 
     // MARK: - Tests
 
     @Test
-    func executeShouldReturnExpectedLayout() {
-        // WHEN
-        let result = self.sut.execute(theme: self.theme)
-
-        let expectedLayout = AvatarLayout(
-            actionPadding: self.theme.layout.spacing.medium
-        )
+    func actionPaddingShouldReturnMediumSpacing() {
+        // GIVEN / WHEN
+        let result = self.theme.actionPadding
 
         // THEN
-        #expect(result == expectedLayout)
+        #expect(result == self.theme.layout.spacing.medium)
     }
 }

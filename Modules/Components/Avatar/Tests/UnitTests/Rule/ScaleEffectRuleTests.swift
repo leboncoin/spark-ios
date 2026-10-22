@@ -1,5 +1,5 @@
 //
-//  AvatarGetScaleEffectUseCaseTests.swift
+//  ScaleEffectRuleTests.swift
 //  SparkComponentAvatarTests
 //
 //  Created by robin.lemaire on 22/07/2026.
@@ -12,11 +12,7 @@ import Foundation
 
 // MARK: - Tests
 
-struct AvatarGetScaleEffectUseCaseTests {
-
-    // MARK: - Properties
-
-    private let sut = AvatarGetScaleEffectUseCase()
+struct ScaleEffectRuleTests {
 
     // MARK: - Tests
 
@@ -31,13 +27,13 @@ struct AvatarGetScaleEffectUseCaseTests {
             (.xxxl, true, 1.05)
         ]
     )
-    func executeShouldReturnExpectedScaleEffectWhenPressed(
+    func valueShouldReturnExpectedScaleEffectWhenPressed(
         size: AvatarSize,
         isPressed: Bool,
         expectedScaleEffect: CGFloat
     ) {
         // WHEN
-        let result = self.sut.execute(size: size, isPressed: isPressed)
+        let result = size.scaleEffect(isPressed: isPressed)
 
         // THEN
         #expect(result == expectedScaleEffect)
@@ -46,9 +42,9 @@ struct AvatarGetScaleEffectUseCaseTests {
     @Test(
         arguments: AvatarSize.allCases
     )
-    func executeShouldReturnOneWhenNotPressed(size: AvatarSize) {
+    func valueShouldReturnOneWhenNotPressed(size: AvatarSize) {
         // WHEN
-        let result = self.sut.execute(size: size, isPressed: false)
+        let result = size.scaleEffect(isPressed: false)
 
         // THEN
         #expect(result == 1.0)

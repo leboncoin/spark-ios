@@ -1,8 +1,8 @@
 //
-//  AvatarGetSizesUseCaseTests.swift
+//  SizeRuleTests.swift
 //  SparkComponentAvatarTests
 //
-//  Created by robin.lemaire on 02/07/2026.
+//  Created by robin.lemaire on 09/10/2026.
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
@@ -11,13 +11,8 @@ import Foundation
 import SparkComponentBadge
 @testable import SparkComponentAvatar
 
-// MARK: - Tests
-
-struct AvatarGetSizesUseCaseTests {
-
-    // MARK: - Properties
-
-    private let sut = AvatarGetSizesUseCase()
+@Suite("Avatar Size Rule Tests")
+struct SizeRuleTests {
 
     // MARK: - Tests
 
@@ -32,24 +27,17 @@ struct AvatarGetSizesUseCaseTests {
             (.xxxl, 128.0, 120.0, 32.0, .medium)
         ]
     )
-    func executeShouldReturnExpectedSizes(
+    func sizesShouldReturnExpectedValues(
         size: AvatarSize,
-        expectedSize: CGFloat,
+        expectedValue: CGFloat,
         expectedPlaceholderSize: CGFloat,
         expectedActionSize: CGFloat,
         expectedBadgeSize: BadgeSize
     ) {
-        // WHEN
-        let result = self.sut.execute(size: size)
-
-        let expectedSizes = AvatarSizes(
-            size: expectedSize,
-            placeholderSize: expectedPlaceholderSize,
-            actionSize: expectedActionSize,
-            badgeSize: expectedBadgeSize
-        )
-
-        // THEN
-        #expect(result == expectedSizes)
+        // GIVEN / WHEN / THEN
+        #expect(size.value == expectedValue)
+        #expect(size.placeholderSize == expectedPlaceholderSize)
+        #expect(size.actionSize == expectedActionSize)
+        #expect(size.badgeSize == expectedBadgeSize)
     }
 }
