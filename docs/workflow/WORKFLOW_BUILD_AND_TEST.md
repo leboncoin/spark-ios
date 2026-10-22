@@ -27,7 +27,7 @@ This workflow runs automatically and manually:
 ## Environment Variables
 
 - `swift_version`: `6.2` - Swift version used for all jobs
-- `xcode_path`: `/Applications/Xcode_26.6.app` - Xcode installation path
+- `xcode_path`: `/Applications/Xcode_27.app` - Xcode installation path
 - `demo_app_name`: `SparkDemoApp` - Name of the demo app scheme, used to build it and to name the uploaded xcresult artifact
 
 ## Jobs
@@ -54,13 +54,13 @@ To check locally: `CHANGED_FILES="Modules/Components/Badge/Sources/Core/A.swift"
 ### 1. Build Job
 
 **Name**: Build
-**Runner**: macos-26
+**Runner**: macos-27
 
 **Steps**:
 1. **Package name** - Logs the workspace path
 2. **Set Swift Version** - Uses `swift-actions/setup-swift@v2.4.0` to configure Swift 6.2
 3. **Get swift version** - Verifies Swift installation
-4. **Select Xcode** - Configures Xcode 26.6
+4. **Select Xcode** - Configures Xcode 27
 5. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
 6. **Get sourcery** - Installs Sourcery via `brew install sourcery` (required to generate code before building)
 7. **Build** - Executes `make build` to build all packages
@@ -68,13 +68,13 @@ To check locally: `CHANGED_FILES="Modules/Components/Badge/Sources/Core/A.swift"
 ### 2. Tests Job
 
 **Name**: Tests
-**Runner**: macos-26
+**Runner**: macos-27
 
 **Steps**:
 1. **Package name** - Logs the workspace path
 2. **Set Swift Version** - Uses `swift-actions/setup-swift@v2.4.0` to configure Swift 6.2
 3. **Get swift version** - Verifies Swift installation
-4. **Select Xcode** - Configures Xcode 26.6
+4. **Select Xcode** - Configures Xcode 27
 5. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
 6. **Get sourcery** - Installs Sourcery via `brew install sourcery` (required to generate code before testing)
 7. **Test** - Executes `make test TEST_TARGETS=...` with a 30-minute timeout (empty `TEST_TARGETS` runs all tests)
@@ -83,10 +83,10 @@ To check locally: `CHANGED_FILES="Modules/Components/Badge/Sources/Core/A.swift"
 ### 4. Build Demo App Job
 
 **Name**: Build Demo App
-**Runner**: macos-26
+**Runner**: macos-27
 
 **Steps**:
-1. **Select Xcode** - Configures Xcode 26.6
+1. **Select Xcode** - Configures Xcode 27
 2. **Checkout Action** - Checks out the repository using `actions/checkout@v6`
 3. **Run xcodegen** - Uses `xavierLowmiller/xcodegen-action@1.2.2` to generate the Xcode project from `project.yml`
 4. **Build** - Executes `make build-demo-app` to build the demo app scheme for the iOS Simulator (`iPhone 17`, `OS=26.2`)
@@ -94,7 +94,7 @@ To check locally: `CHANGED_FILES="Modules/Components/Badge/Sources/Core/A.swift"
 
 ## Notes
 
-- All jobs run in parallel on macOS 26 runners
+- All jobs run in parallel on macOS 27 runners
 - Each job independently sets up Xcode; the Build, Unit Test, and Snapshot Test jobs also set up Swift
 - Test jobs have a 15-minute timeout to prevent hanging
 - The Build Demo App job uploads the xcresult bundle as an artifact only when the build fails, to help diagnose the failure

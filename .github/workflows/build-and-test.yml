@@ -12,7 +12,7 @@ on:
 
 env:
   swift_version: "6.2"
-  xcode_path: "/Applications/Xcode_26.6.app"
+  xcode_path: "/Applications/Xcode_27.app"
   demo_app_name: SparkDemoApp
 
 jobs:
@@ -46,7 +46,7 @@ jobs:
     name: Build
     needs: changes
     if: needs.changes.outputs.run_build == 'true'
-    runs-on: macos-26
+    runs-on: macos-27
     steps:
       - name: "Package name"
         run: echo "Build all packages at ${{ github.workspace }}"
@@ -70,7 +70,7 @@ jobs:
     name: Tests
     needs: changes
     if: needs.changes.outputs.run_tests == 'true'
-    runs-on: macos-26
+    runs-on: macos-27
     steps:
       - name: "Package name"
         run: echo "Test all packages at ${{ github.workspace }}"
@@ -102,7 +102,7 @@ jobs:
     name: Build Demo App
     needs: changes
     if: needs.changes.outputs.run_demo == 'true'
-    runs-on: macos-26
+    runs-on: macos-27
     steps:
       - name: Select Xcode
         run: sudo xcode-select -s ${{ env.xcode_path }}

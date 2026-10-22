@@ -22,7 +22,7 @@ jobs:
     name: PR Icon Updates
     # Detect recursive calls based on last commit message
     if: ${{ github.event.head_commit.message != '🤖 Update iconography' }}
-    runs-on: macos-26
+    runs-on: macos-27
     steps:
       - name: Set Swift Version
         uses: swift-actions/setup-swift@v2.4.0

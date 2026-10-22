@@ -45,7 +45,7 @@ The workflow requires specific GitHub token permissions:
 ### Deploy Job
 
 **Name**: deploy
-**Runner**: macos-26
+**Runner**: macos-27
 **Environment**: github-pages
 
 **Steps**:
