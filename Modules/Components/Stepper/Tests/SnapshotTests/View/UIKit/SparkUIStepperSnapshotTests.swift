@@ -6,7 +6,8 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import UIKit
 import SnapshotTesting
 @testable import SparkComponentStepper
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
@@ -15,7 +16,9 @@ import SnapshotTesting
 import SparkTheming
 import SparkTheme
 
-final class SparkUIStepperSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkUIStepperSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -23,7 +26,7 @@ final class SparkUIStepperSnapshotTests: UIKitComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         let scenarios = StepperScenarioSnapshotTests.allCases
 
         for scenario in scenarios {

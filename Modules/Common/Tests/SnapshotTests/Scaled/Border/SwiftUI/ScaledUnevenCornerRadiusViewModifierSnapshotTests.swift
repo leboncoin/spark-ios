@@ -7,17 +7,19 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkCommon
 @_spi(SI_SPI) @testable import SparkCommonSnapshotTesting
 import SparkTheme
 import SparkTheming
 
-final class ScaledUnevenCornerRadiusViewModifierSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct ScaledUnevenCornerRadiusViewModifierSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test_default() throws {
+    @Test func test_default() throws {
         for type in UnevenBorderType.allCases {
             self.assertSnapshot(
                 matching: SnapshotView(
@@ -26,12 +28,13 @@ final class ScaledUnevenCornerRadiusViewModifierSnapshotTests: SwiftUIComponentS
                 ),
                 modes: ComponentSnapshotTestConstants.Modes.default,
                 sizes: ComponentSnapshotTestConstants.Sizes.all,
-                testName: #function + "\(type)Type"
+                testName: #function + "\(type)Type",
+                addPadding: false
             )
         }
     }
 
-    func test_highlighted() throws {
+    @Test func test_highlighted() throws {
         for type in UnevenBorderType.allCases {
             self.assertSnapshot(
                 matching: SnapshotView(
@@ -40,7 +43,8 @@ final class ScaledUnevenCornerRadiusViewModifierSnapshotTests: SwiftUIComponentS
                 ),
                 modes: ComponentSnapshotTestConstants.Modes.default,
                 sizes: ComponentSnapshotTestConstants.Sizes.all,
-                testName: #function + "\(type)Type"
+                testName: #function + "\(type)Type",
+                addPadding: false
             )
         }
     }

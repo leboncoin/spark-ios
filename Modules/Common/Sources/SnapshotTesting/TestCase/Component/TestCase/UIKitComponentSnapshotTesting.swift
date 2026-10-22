@@ -1,20 +1,26 @@
 //
-//  UIKitComponentSnapshotTestCase.swift
+//  UIKitComponentSnapshotTesting.swift
 //  SparkCoreSnapshotTests
 //
-//  Created by robin.lemaire on 06/10/2023.
-//  Copyright © 2023 Leboncoin. All rights reserved.
+//  Created by robin.lemaire on 20/10/2026.
+//  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
 import SwiftUI
 import UIKit
+import Testing
+import SparkTheme
 @_implementationOnly import SnapshotTesting
 
-@_spi(SI_SPI) open class UIKitComponentSnapshotTestCase: SnapshotTestCase {
+/// The suite must be in a file named like the suite (the snapshots folder uses the file name).
+@_spi(SI_SPI) @MainActor public protocol UIKitComponentSnapshotTesting {
+}
 
-    // MARK: - Snapshot Testing
+// MARK: - Snapshot Testing
 
-    public func assertSnapshot(
+@_spi(SI_SPI) public extension UIKitComponentSnapshotTesting {
+
+    func assertSnapshot(
         matching view: @autoclosure () -> some UIView,
         named name: String? = nil,
         modes: [ComponentSnapshotTestMode],
@@ -22,35 +28,35 @@ import UIKit
         record recording: Bool = ComponentSnapshotTestConstants.record,
         delay: TimeInterval = 0,
         timeout: TimeInterval = ComponentSnapshotTestConstants.timeout,
-        file: StaticString = #file,
+        filePath: StaticString = #filePath,
         testName: String = #function,
-        line: UInt = #line
+        sourceLocation: SourceLocation = #_sourceLocation
     ) {
         for mode in modes {
             for size in sizes {
-                sparkAssertSnapshot(
+                sparkExpectSnapshot(
                     matching: view(),
                     as: .wait(
                         for: delay,
                         on: .image(
                             precision: ComponentSnapshotTestConstants.imagePrecision,
                             perceptualPrecision: ComponentSnapshotTestConstants.imagePerceptualPrecision,
-                            traits: ComponentSnapshotTestHelpers.traitCollection(
+                            traits: SnapshotTraitsBuilder.make(
                                 mode: mode,
                                 size: size
                             )
                         )
                     ),
-                    named: ComponentSnapshotTestHelpers.name(
+                    named: SnapshotNameBuilder.make(
                         name,
                         mode: mode,
                         size: size
                     ),
                     record: recording,
                     timeout: timeout,
-                    file: file,
+                    filePath: filePath,
                     testName: testName,
-                    line: line
+                    sourceLocation: sourceLocation
                 )
             }
         }

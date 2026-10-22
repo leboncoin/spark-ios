@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import UIKit
 import SnapshotTesting
 import Combine
@@ -17,7 +17,9 @@ import Combine
 import SparkTheming
 import SparkTheme
 
-final class SparkUISliderSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkUISliderSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -25,7 +27,7 @@ final class SparkUISliderSnapshotTests: UIKitComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = SliderScenarioSnapshotTests.allCases.filter {
             $0 != .documentation
         }

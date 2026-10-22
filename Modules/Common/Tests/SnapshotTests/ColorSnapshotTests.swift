@@ -7,36 +7,38 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @_spi(SI_SPI) @testable import SparkCommon
 @_spi(SI_SPI) @testable import SparkCommonSnapshotTesting
 @testable import SparkTheme
 @testable import SparkTheming
 
-final class ColorSnapshotTests: SnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct ColorSnapshotTests {
     let colors = SparkTheme.shared.colors
 
-    func test_base_colors() throws {
+    @Test func test_base_colors() throws {
         let mirror = Mirror(reflecting: self.colors.base)
         self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    func test_feedback_colors() throws {
+    @Test func test_feedback_colors() throws {
         let mirror = Mirror(reflecting: self.colors.feedback)
         self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    func test_main_colors() throws {
+    @Test func test_main_colors() throws {
         let mirror = Mirror(reflecting: self.colors.main)
         self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    func test_support_colors() throws {
+    @Test func test_support_colors() throws {
         let mirror = Mirror(reflecting: self.colors.support)
         self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    func test_state_colors() throws {
+    @Test func test_state_colors() throws {
         let mirror = Mirror(reflecting: self.colors.states)
         self.testAllColors(colors: self.getColors(for: mirror))
     }
@@ -47,7 +49,7 @@ final class ColorSnapshotTests: SnapshotTestCase {
             let vc = UIHostingController(rootView: view)
             vc.view.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
             vc.overrideUserInterfaceStyle = .light
-            sparkAssertSnapshot(
+            sparkExpectSnapshot(
                 matching: vc.view,
                 as: .image,
                 named: value.key,
@@ -55,7 +57,7 @@ final class ColorSnapshotTests: SnapshotTestCase {
             )
 
             vc.overrideUserInterfaceStyle = .dark
-            sparkAssertSnapshot(
+            sparkExpectSnapshot(
                 matching: vc.view,
                 as: .image,
                 named: value.key + "-dark",

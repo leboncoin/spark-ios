@@ -6,6 +6,7 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
+import Testing
 import SwiftUI
 
 @testable import SparkComponentCheckbox
@@ -15,34 +16,23 @@ import SwiftUI
 import SparkTheming
 import SparkTheme
 
-final class CheckboxViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct CheckboxViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
     private let theme: any Theme = SparkTheme.shared
 
-    private var selectionState: CheckboxSelectionState = .selected
-
-    private lazy var _selectionState: Binding<CheckboxSelectionState> = {
-        return Binding<CheckboxSelectionState>(
-            get: { return self.selectionState },
-            set: { newValue, transaction in
-                self.selectionState = newValue
-            }
-        )
-    }()
-
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = CheckboxScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
             let configurations = scenario.configuration(isSwiftUIComponent: true)
 
             for configuration in configurations {
-                self.selectionState = configuration.selectionState
-
                 let checkboxView = CheckboxView(
                     text: configuration.textType.value,
                     checkedImage: Image(uiImage: configuration.image),
@@ -50,7 +40,7 @@ final class CheckboxViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
                     theme: self.theme,
                     intent: configuration.intent,
                     isEnabled: configuration.state == .disabled ? false : true,
-                    selectionState: self._selectionState
+                    selectionState: .constant(configuration.selectionState)
                 )
                 .background(Color(UIColor.systemBackground))
 
@@ -60,7 +50,8 @@ final class CheckboxViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,
-                    testName: configuration.testName()
+                    testName: configuration.testName(),
+                    addPadding: false
                 )
             }
         }

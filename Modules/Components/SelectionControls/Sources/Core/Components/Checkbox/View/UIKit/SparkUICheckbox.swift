@@ -352,6 +352,7 @@ public final class SparkUICheckbox: UIControl {
 
         // Updates
         self.updateToggleViewSize()
+        self.updateToggleImageViewPadding()
 
         // Load view model
         self.viewModel.load(

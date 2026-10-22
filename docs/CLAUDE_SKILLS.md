@@ -421,7 +421,6 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 - Tests must be written in **Swift Testing** framework
 - Exceptions using XCTest:
-  - Snapshot tests
   - View model tests
   - Use cases containing other use cases
 - Proper imports:

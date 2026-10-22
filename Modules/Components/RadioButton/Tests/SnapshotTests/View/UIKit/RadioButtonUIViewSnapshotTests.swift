@@ -6,7 +6,7 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import UIKit
 @testable import SparkComponentRadioButton
 @testable import SparkTheme
@@ -15,27 +15,28 @@ import UIKit
 @_spi(SI_SPI) @testable import SparkCommonTesting
 @_spi(SI_SPI) @testable import SparkCommonSnapshotTesting
 
-final class RadioButtonUIViewSnapshotTests: UIKitComponentSnapshotTestCase  {
+@Suite(.sparkConfiguration)
+struct RadioButtonUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     private let theme: any Theme = SparkTheme.shared
 
-    func test1() {
+    @Test func test1() {
         self._test(.test1)
     }
 
-    func test2() {
+    @Test func test2() {
         self._test(.test2)
     }
 
-    func test3() {
+    @Test func test3() {
         self._test(.test3)
     }
 
-    func test4() {
+    @Test func test4() {
         self._test(.test4)
     }
 
-    func test5() {
+    @Test func test5() {
         self._test(.test5)
     }
 

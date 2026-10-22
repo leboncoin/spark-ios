@@ -7,17 +7,19 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkCommon
 @_spi(SI_SPI) @testable import SparkCommonSnapshotTesting
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkCommonTesting
 
-final class VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test_sparkVisualIdentification_when_toggle_is_true() throws {
+    @Test func test_sparkVisualIdentification_when_toggle_is_true() throws {
         // GIVEN
         let featureTogglesService = SparkFeatureToggleServicingGeneratedMock()
         featureTogglesService.visualIdentification = true
@@ -30,11 +32,12 @@ final class VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnaps
         self.assertSnapshot(
             matching: view,
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.default
+            sizes: ComponentSnapshotTestConstants.Sizes.default,
+            addPadding: false
         )
     }
 
-    func test_sparkVisualIdentification_when_toggle_is_false() throws {
+    @Test func test_sparkVisualIdentification_when_toggle_is_false() throws {
         // GIVEN
         let featureTogglesService = SparkFeatureToggleServicingGeneratedMock()
         featureTogglesService.visualIdentification = false
@@ -47,11 +50,12 @@ final class VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnaps
         self.assertSnapshot(
             matching: view,
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.default
+            sizes: ComponentSnapshotTestConstants.Sizes.default,
+            addPadding: false
         )
     }
 
-    func test_sparkVisualIdentification_with_default_toggle_service() throws {
+    @Test func test_sparkVisualIdentification_with_default_toggle_service() throws {
         // GIVEN
         let view = Text("Hello World")
             .sparkVisualIdentification()
@@ -61,7 +65,8 @@ final class VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnaps
         self.assertSnapshot(
             matching: view,
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.default
+            sizes: ComponentSnapshotTestConstants.Sizes.default,
+            addPadding: false
         )
     }
 }
