@@ -16,7 +16,7 @@ env:
 jobs:
   update-changelog:
     name: Update Changelog
-    runs-on: macos-26
+    runs-on: macos-27
     steps:
       - name: Set Swift Version
         uses: swift-actions/setup-swift@v2.4.0
