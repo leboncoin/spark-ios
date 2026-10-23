@@ -22,9 +22,9 @@ private struct AvatarPlaceholderViewModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .foregroundStyle(self.theme.value.placeholderTintColorToken(contentType: self.contentType))
-            .font(self.theme.value.placeholderFontToken(size: self.size))
-            .sparkFrame(size: self.size.placeholderSize)
+            .foregroundStyle(self.theme.colors.placeholderTint(contentType: self.contentType))
+            .font(self.theme.typography.placeholderFontToken(size: self.size))
+            .sparkFrame(size: self.theme.size.placeholder(for: self.size))
     }
 }
 

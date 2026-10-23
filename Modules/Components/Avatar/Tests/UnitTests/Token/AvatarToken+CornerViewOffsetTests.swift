@@ -1,5 +1,5 @@
 //
-//  CornerViewOffsetRuleTests.swift
+//  AvatarToken+CornerViewOffsetTests.swift
 //  SparkComponentAvatarTests
 //
 //  Created by robin.lemaire on 22/07/2026.
@@ -12,7 +12,11 @@ import Foundation
 
 // MARK: - Tests
 
-struct CornerViewOffsetRuleTests {
+struct AvatarTokenCornerViewOffsetTests {
+
+    // MARK: - Properties
+
+    private let token = AvatarToken.CornerViewOffset()
 
     // MARK: - Tests
 
@@ -33,7 +37,8 @@ struct CornerViewOffsetRuleTests {
         expectedSize: CGFloat
     ) {
         // WHEN
-        let result = AvatarContentType.user.cornerViewOffset(
+        let result = self.token.value(
+            for: .user,
             avatarSize: avatarSize,
             cornerViewSize: nil
         )
@@ -64,7 +69,8 @@ struct CornerViewOffsetRuleTests {
         let cornerViewSize = CGSize(width: cornerViewWidth, height: cornerViewWidth)
 
         // WHEN
-        let result = AvatarContentType.company.cornerViewOffset(
+        let result = self.token.value(
+            for: .company,
             avatarSize: avatarSize,
             cornerViewSize: cornerViewSize
         )
@@ -84,7 +90,8 @@ struct CornerViewOffsetRuleTests {
         avatarSize: CGFloat
     ) {
         // WHEN
-        let result = AvatarContentType.company.cornerViewOffset(
+        let result = self.token.value(
+            for: .company,
             avatarSize: avatarSize,
             cornerViewSize: nil
         )
@@ -93,5 +100,12 @@ struct CornerViewOffsetRuleTests {
         let expectedOffset = avatarSize / 2
         #expect(result.width == expectedOffset)
         #expect(result.height == expectedOffset)
+    }
+
+    // MARK: - Equatable Tests
+
+    @Test
+    func equatableShouldReturnTrue() {
+        #expect(AvatarToken.CornerViewOffset() == AvatarToken.CornerViewOffset())
     }
 }

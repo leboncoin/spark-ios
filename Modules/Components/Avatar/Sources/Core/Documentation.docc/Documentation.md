@@ -63,6 +63,22 @@ Both avatar types support seven different sizes:
 
 The avatar view is accessible via ``AvatarAccessibilityIdentifier/view``.
 
+## Custom Avatar
+
+If you need to create a custom avatar component, you can use the ``AvatarToken`` struct, available from the theme with `theme.component.avatar`, to access theme-based style values.
+
+The ``AvatarToken`` provides:
+- **Border properties** (``AvatarToken/Border``): width depending on the size
+- **Colors** (``AvatarToken/Colors``): border and action (background and tint) color tokens
+- **Corner view offset** (``AvatarToken/CornerViewOffset``): offset of the corner view (badge, button, ...)
+- **Dims** (``AvatarToken/Dims``): opacity for enabled and disabled states
+- **Layout properties** (``AvatarToken/Layout``): action padding
+- **Typography** (``AvatarToken/Typography``): font token for the placeholder
+- **Size constants** (``AvatarToken/Size``): avatar, placeholder, action and badge sizes
+- **Scale effect constants** (``AvatarToken/ScaleEffect``): scale effect when pressed
+
+> Tip: If you only need specific tokens, you can use the individual categories directly. For example, use `theme.component.avatar.size` if you only need size constants, or `theme.component.avatar.border` for border properties.
+
 ### Resources
 
 - Specification on [ZeroHeight](https://zeroheight.com/1186e1705/p/8342f3-avatar)

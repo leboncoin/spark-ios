@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+@_spi(SI_SPI) import SparkCommon
 
 private struct AvatarCornerViewOffsetViewModifier: ViewModifier {
 
@@ -14,6 +15,7 @@ private struct AvatarCornerViewOffsetViewModifier: ViewModifier {
 
     let contentType: AvatarContentType
 
+    @Environment(\.theme) private var theme
     @Environment(\.avatarSize) private var size
     @State private var cornerViewSize: CGSize?
 
@@ -22,8 +24,9 @@ private struct AvatarCornerViewOffsetViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .offset(
-                self.contentType.cornerViewOffset(
-                    avatarSize: self.size.value,
+                self.theme.cornerViewOffset.value(
+                    for: self.contentType,
+                    avatarSize: self.theme.size.value(for: self.size),
                     cornerViewSize: self.cornerViewSize
                 )
             )

@@ -22,12 +22,12 @@ private struct AvatarActionViewModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .foregroundStyle(self.theme.value.actionTintColorToken(isPressed: self.isPressed))
-            .padding(self.theme.value.actionPadding)
-            .sparkFrame(size: self.size.actionSize)
+            .foregroundStyle(self.theme.colors.actionTint(isPressed: self.isPressed))
+            .padding(self.theme.layout.actionPadding)
+            .sparkFrame(size: self.theme.size.action(for: self.size))
             .background(
                 Circle()
-                    .fill(self.theme.value.actionBackgroundColorToken(isPressed: self.isPressed))
+                    .fill(self.theme.colors.actionBackground(isPressed: self.isPressed))
                     .shadow(self.theme.value.elevation.dropShadow)
             )
     }

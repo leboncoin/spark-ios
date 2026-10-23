@@ -20,7 +20,7 @@ private struct AvatarBackgroundViewModifier: ViewModifier {
     // MARK: - View
 
     func body(content: Content) -> some View {
-        content.background(self.theme.value.backgroundColorToken(contentType: self.contentType))
+        content.background(self.theme.colors.background(contentType: self.contentType))
     }
 }
 

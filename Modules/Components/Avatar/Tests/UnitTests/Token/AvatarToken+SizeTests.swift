@@ -1,8 +1,8 @@
 //
-//  SizeRuleTests.swift
+//  AvatarToken+SizeTests.swift
 //  SparkComponentAvatarTests
 //
-//  Created by robin.lemaire on 09/10/2026.
+//  Created by Robin Lemaire on 23/10/2026.
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
@@ -11,8 +11,13 @@ import Foundation
 import SparkComponentBadge
 @testable import SparkComponentAvatar
 
-@Suite("Avatar Size Rule Tests")
-struct SizeRuleTests {
+// MARK: - Tests
+
+struct AvatarTokenSizeTests {
+
+    // MARK: - Properties
+
+    private let token = AvatarToken.Size()
 
     // MARK: - Tests
 
@@ -30,14 +35,21 @@ struct SizeRuleTests {
     func sizesShouldReturnExpectedValues(
         size: AvatarSize,
         expectedValue: CGFloat,
-        expectedPlaceholderSize: CGFloat,
-        expectedActionSize: CGFloat,
-        expectedBadgeSize: BadgeSize
+        expectedPlaceholder: CGFloat,
+        expectedAction: CGFloat,
+        expectedBadge: BadgeSize
     ) {
         // GIVEN / WHEN / THEN
-        #expect(size.value == expectedValue)
-        #expect(size.placeholderSize == expectedPlaceholderSize)
-        #expect(size.actionSize == expectedActionSize)
-        #expect(size.badgeSize == expectedBadgeSize)
+        #expect(self.token.value(for: size) == expectedValue)
+        #expect(self.token.placeholder(for: size) == expectedPlaceholder)
+        #expect(self.token.action(for: size) == expectedAction)
+        #expect(self.token.badge(for: size) == expectedBadge)
+    }
+
+    // MARK: - Equatable Tests
+
+    @Test
+    func equatableShouldReturnTrue() {
+        #expect(AvatarToken.Size() == AvatarToken.Size())
     }
 }

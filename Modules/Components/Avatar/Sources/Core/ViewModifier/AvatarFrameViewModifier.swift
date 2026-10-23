@@ -13,12 +13,13 @@ private struct AvatarFrameViewModifier: ViewModifier {
 
     // MARK: - Properties
 
+    @Environment(\.theme) private var theme
     @Environment(\.avatarSize) private var size
 
     // MARK: - View
 
     func body(content: Content) -> some View {
-        content.sparkFrame(size: self.size.value)
+        content.sparkFrame(size: self.theme.size.value(for: self.size))
     }
 }
 
