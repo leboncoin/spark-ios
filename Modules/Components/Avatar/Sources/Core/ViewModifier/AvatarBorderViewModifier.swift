@@ -23,9 +23,9 @@ private struct AvatarBorderViewModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content.sparkBorder(
-            width: self.theme.value.borderWidth(isBorder: self.isBorder, size: self.size),
-            radius: self.theme.value.borderRadius(contentType: self.contentType),
-            colorToken: self.theme.value.borderColorToken
+            width: self.theme.border.width(isBorder: self.isBorder, size: self.size),
+            radius: self.theme.border.radius(contentType: self.contentType),
+            colorToken: self.theme.colors.border
         )
     }
 }

@@ -7,19 +7,21 @@
 //
 
 import SwiftUI
+@_spi(SI_SPI) import SparkCommon
 import SparkComponentBadge
 
 private struct AvatarCornerBadgeViewModifier: ViewModifier {
 
     // MARK: - Properties
 
+    @Environment(\.theme) private var theme
     @Environment(\.avatarSize) private var size
 
     // MARK: - View
 
     func body(content: Content) -> some View {
         content
-            .sparkBadgeSize(self.size.badgeSize)
+            .sparkBadgeSize(self.theme.size.badge(for: self.size))
             .sparkBadgeIsBorder(true)
     }
 }

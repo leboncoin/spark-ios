@@ -19,7 +19,7 @@ private struct AvatarOpacityViewModifier: ViewModifier {
     // MARK: - View
 
     func body(content: Content) -> some View {
-        content.opacity(self.theme.value.opacity(isEnabled: self.isEnabled))
+        content.opacity(self.theme.opacity.value(isEnabled: self.isEnabled))
     }
 }
 

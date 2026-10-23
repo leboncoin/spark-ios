@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+@_spi(SI_SPI) import SparkCommon
 
 private struct AvatarScaleEffectViewModifier: ViewModifier {
 
@@ -14,12 +15,13 @@ private struct AvatarScaleEffectViewModifier: ViewModifier {
 
     let isPressed: Bool
 
+    @Environment(\.theme) private var theme
     @Environment(\.avatarSize) private var size
 
     // MARK: - View
 
     func body(content: Content) -> some View {
-        content.scaleEffect(self.size.scaleEffect(isPressed: self.isPressed))
+        content.scaleEffect(self.theme.scaleEffect.value(for: self.size, isPressed: self.isPressed))
     }
 }
 
