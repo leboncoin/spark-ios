@@ -2,26 +2,30 @@
 
 ## Overview
 
-This Bash script finds the files changed by a pull request and decides which jobs of the [Build and Test workflow](../workflow/WORKFLOW_BUILD_AND_TEST.md) must run: the package build, the tests (all of them or only some test targets), and the demo app build.
+This Swift script finds the files changed by a pull request and decides which jobs of the [Build and Test workflow](../workflow/WORKFLOW_BUILD_AND_TEST.md) must run: the package build, the tests (all of them or only some test targets), and the demo app build.
 
 ## Script File
 
-`.script/github-action-detect-changes.sh`
+`.script/github-action-detect-changes.swift`
+
+The file is executable and runs through its `#!/usr/bin/env swift` shebang, so no compilation step is needed.
 
 ## Usage
 
 ### Direct Execution
 
 ```bash
-./.script/github-action-detect-changes.sh origin/main
+./.script/github-action-detect-changes.swift origin/main
 ```
+
+> The base ref must differ from the current commit. Comparing the branch with its own remote (e.g. `origin/<current-branch>` when it is up to date) gives no changed files, and uncommitted changes are never included.
 
 ### Simulate Changed Files (local check)
 
 Set the `CHANGED_FILES` environment variable (one path per line) to skip `git diff`:
 
 ```bash
-CHANGED_FILES="Modules/Components/Badge/Sources/Core/A.swift" ./.script/github-action-detect-changes.sh
+CHANGED_FILES="Modules/Components/Badge/Sources/Core/A.swift" ./.script/github-action-detect-changes.swift
 ```
 
 ### In GitHub Actions
@@ -31,7 +35,7 @@ Called by the `Detect changes` job of `.github/workflows/build-and-test.yml`. Th
 ```yaml
 - name: Detect changes
   id: detect
-  run: .script/github-action-detect-changes.sh "origin/${{ github.base_ref }}"
+  run: .script/github-action-detect-changes.swift "origin/${{ github.base_ref }}"
 ```
 
 If the script fails, the workflow falls back to running everything.
@@ -62,7 +66,7 @@ When several files are changed, the rules are combined.
 
 ### Impacted Components
 
-When a component is changed, the script reads `Package.swift` with `swift package dump-package` and:
+When a component is changed, the script reads `Package.swift` with `swift package dump-package`, decodes the JSON with `Decodable` and:
 
 1. Maps the component folder to its Core target (`Modules/Components/Badge/Sources/Core` → `SparkComponentBadge`)
 2. Adds, transitively, every component target that depends on it (e.g. `Badge` → `Avatar`, `Tab`)
@@ -93,7 +97,6 @@ test_targets=SparkComponentAvatarSnapshotTests SparkComponentAvatarUnitTests Spa
 ## Requirements
 
 - `git`
-- `swift` (for `swift package dump-package`)
-- `jq`
+- `swift` (to run the script and for `swift package dump-package`)
 
-All are available on the GitHub `ubuntu-latest` runner.
+Both are available on the GitHub `ubuntu-latest` runner. The script only uses `Foundation`, so `jq` is no longer needed.

@@ -1,6 +1,6 @@
 # Runner info : https://github.com/actions/runner-images
 # Macos runner info : https://github.com/actions/runner-images/tree/main/images/macos
-# Local Documentation : https://github.com/leboncoin/spark-ios/blob/main/docs/WORKFLOW_BUILD_AND_TEST.md
+# Local Documentation : https://github.com/leboncoin/spark-ios/blob/main/docs/workflow/WORKFLOW_BUILD_AND_TEST.md
 
 name: ⚒️ Build and test
 
@@ -29,11 +29,15 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+      - name: Set Swift Version
+        uses: swift-actions/setup-swift@v2.4.0
+        with:
+          swift-version: ${{ env.swift_version }}
       - name: Detect changes
         id: detect
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            if ! .script/github-action-detect-changes.sh "origin/${{ github.base_ref }}"; then
+            if ! .script/github-action-detect-changes.swift "origin/${{ github.base_ref }}"; then
               echo "::warning::Change detection failed: everything is executed"
               { echo "run_build=true"; echo "run_tests=true"; echo "run_demo=true"; echo "test_targets="; } >> "$GITHUB_OUTPUT"
             fi

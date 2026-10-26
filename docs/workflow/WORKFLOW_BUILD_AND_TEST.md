@@ -37,11 +37,16 @@ This workflow runs automatically and manually:
 **Name**: Detect changes
 **Runner**: ubuntu-latest
 
-Runs `.script/github-action-detect-changes.sh` on the files changed by the pull request (manual runs execute everything):
+**Steps**:
+1. **Checkout Action** - Checks out the repository using `actions/checkout@v6` with `fetch-depth: 0` (the base branch is needed for `git diff`)
+2. **Set Swift Version** - Uses `swift-actions/setup-swift@v2.4.0` to configure Swift 6.2 (required to run the Swift script and `swift package dump-package`)
+3. **Detect changes** - Runs the Swift script `.script/github-action-detect-changes.swift` on the files changed by the pull request. Manual runs execute everything, and if the script fails, everything is executed with a warning
+
+See [GitHub Action Detect Changes Script](../script/SCRIPT_GITHUB_ACTION_DETECT_CHANGES.md) for details.
 
 | Changed files | Build | Tests | Build Demo App |
 |---|---|---|---|
-| `Modules/Theming`, `Modules/Common`, `.tools`, `Package.swift`, `Package.resolved`, `Makefile`, this workflow | ✅ | ✅ all | ✅ |
+| `Modules/Theming`, `Modules/Common`, `.tools`, `Package.swift`, `Package.resolved`, `Makefile`, the detect changes script, this workflow | ✅ | ✅ all | ✅ |
 | `Modules/Components/<X>` | ✅ | ✅ `<X>` + components depending on `<X>` (transitively) | ✅ |
 | `Spark`, `Resources` | ✅ | ❌ | ✅ |
 | `Demo`, `.demo`, `project.yml` | ❌ | ❌ | ✅ |
@@ -49,7 +54,7 @@ Runs `.script/github-action-detect-changes.sh` on the files changed by the pull 
 
 Skipped jobs are reported as successful, so they don't block required status checks.
 
-To check locally: `CHANGED_FILES="Modules/Components/Badge/Sources/Core/A.swift" .script/github-action-detect-changes.sh`
+To check locally: `CHANGED_FILES="Modules/Components/Badge/Sources/Core/A.swift" .script/github-action-detect-changes.swift`
 
 ### 1. Build Job
 
@@ -120,4 +125,5 @@ This workflow automatically runs on all pull requests to ensure code quality. It
 
 ## Related Files
 
+- `.script/github-action-detect-changes.swift` - Decides which jobs must run
 - `Makefile` - Contains the `build`, `test-unit`, `test-snapshots`, and `build-demo-app` targets
