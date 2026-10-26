@@ -35,7 +35,7 @@ This workflow runs automatically and manually:
 ### 0. Detect changes Job
 
 **Name**: Detect changes
-**Runner**: ubuntu-latest
+**Runner**: macos-27
 
 **Steps**:
 1. **Checkout Action** - Checks out the repository using `actions/checkout@v6` with `fetch-depth: 0` (the base branch is needed for `git diff`)
