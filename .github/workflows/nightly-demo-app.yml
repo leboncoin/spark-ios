@@ -8,13 +8,13 @@ on:
 env:
   app_name: SparkDemoApp
   swift_version: "6.2"
-  xcode_path: "/Applications/Xcode_27.app"
+  xcode_path: "/Applications/Xcode_26.6.app"
   derived_data_path: ".derivedData/"
 
 jobs:
   build-demo-app:
     name: Generate the SparkDemo.app from the main branch
-    runs-on: macos-27
+    runs-on: macos-26
     steps:
       - name: Set Swift Version
         uses: swift-actions/setup-swift@v2.4.0

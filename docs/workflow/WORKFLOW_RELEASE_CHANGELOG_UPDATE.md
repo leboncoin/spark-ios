@@ -26,7 +26,7 @@ This GitHub Actions workflow automatically updates the CHANGELOG.md file when a 
 ### Update Changelog Job
 
 **Name**: update-changelog
-**Runner**: macos-27
+**Runner**: macos-26
 
 **Steps**:
 

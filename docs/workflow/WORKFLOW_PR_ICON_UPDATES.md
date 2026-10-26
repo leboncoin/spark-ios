@@ -31,7 +31,7 @@ This GitHub Actions workflow automatically manages iconography updates by proces
 ### PR Icon Updates Job
 
 **Name**: pr-icon-updates
-**Runner**: macos-27
+**Runner**: macos-26
 
 **Condition**: Only runs if the last commit message is NOT `🤖 Update iconography` (prevents recursive workflow triggers)
 
