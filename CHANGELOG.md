@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+## [2.2.1]
+
+_27/10/2026_
+
+### 🐛 Bug Fixes
+
+#### Button Component
+- Fixed the UIKit button intrinsic content size to include the padding ([#1128](https://github.com/leboncoin/spark-ios/pull/1128))
+
+### 🔧 Infrastructure & CI/CD
+
+- Updated the CI to run only the jobs impacted by the pull request changes
+- Rewrote the detect changes script in Swift
+- Updated the runners to macos-26 and Xcode 26.6
+
 ## [2.2.0]
 
 _08/10/2026_
@@ -138,8 +153,9 @@ _27/03/2025_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-ios/compare/2.2.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-ios/compare/2.2.1...HEAD
 
+[2.2.1]: https://github.com/leboncoin/spark-ios/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/leboncoin/spark-ios/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/leboncoin/spark-ios/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/leboncoin/spark-ios/compare/1.0.0...2.0.0
