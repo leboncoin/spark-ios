@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@available(*, deprecated, message: "Remove ASAP. Should not be used anymore.")
 @_spi(SI_SPI) public struct IsEnabledModifier: ViewModifier {
     public let isEnabled: Bool
     public let action: (Bool) -> Void
@@ -21,6 +22,7 @@ import SwiftUI
     }
 }
 
+@available(*, deprecated, message: "Remove ASAP. Should not be used anymore.")
 @_spi(SI_SPI) public struct IsEnabledEnvironmentModifier: EnvironmentalModifier {
     public let action: (Bool) -> Void
 
@@ -30,6 +32,7 @@ import SwiftUI
 }
 
 @_spi(SI_SPI) public extension View {
+    @available(*, deprecated, message: "Remove ASAP. Should not be used anymore.")
     func isEnabledChanged(_ action: @escaping (Bool) -> Void) -> some View {
         self.modifier(IsEnabledEnvironmentModifier(action: action))
     }

@@ -98,7 +98,7 @@ Run `sourcery` (from the relevant package folder, or `make sourcery` from the re
 ### Conventions that apply everywhere
 
 - **`@_spi(SI_SPI)`**: any public declaration meant only for use across Spark's own repositories (not by consumers of the design system) must carry this attribute.
-- **Testing framework**: use **Swift Testing** by default. The exceptions that still use **XCTest** are snapshot tests, view models, and use cases that call other use cases.
+- **Testing framework**: use **Swift Testing** by default. The exceptions that still use **XCTest** are view models and use cases that call other use cases.
 - **Deprecated code**: never edit a `XXXDeprecated.swift` file or anything under a `Deprecated/` folder unless explicitly asked to deprecate something.
 - **Switch-returning functions**: prefer `return switch x { case .a: "..." }` over a `return` inside every case.
 - Use the matching skill (`spark-component-enum`, `spark-component-model`, `spark-component-token`, `spark-component-environment`, `spark-component-use-case`, `spark-component-view-model`, `spark-component-view`, `spark-component-accessibility-identifier`, `spark-component-constants`, `spark-component-documentation`, `spark-component-snapshots-testing`) when creating or updating any of the folders above — each one encodes the exact rules and templates. See `docs/CLAUDE_SKILLS.md` for the full list.
@@ -124,25 +124,25 @@ Every component has two Tests/ subfolders: `UnitTests/` and `SnapshotTests/`.
 
 ### Snapshot Tests
 
-`Tests/SnapshotTests/` uses **XCTest** with [swift-snapshot-testing](https://github.com/pointfreeco/swift-snapshot-testing) — an explicit exception to the Swift Testing default. For a component `XXX`, the folder looks like:
+`Tests/SnapshotTests/` uses **Swift Testing** with [swift-snapshot-testing](https://github.com/pointfreeco/swift-snapshot-testing). For a component `XXX`, the folder looks like:
 
 ```
 Tests/SnapshotTests/
 ├── .__snapshots__/                       — recorded reference images (hidden folder)
-│   ├── SparkXXXSnapshotTests/            — one subfolder per XCTestCase class
+│   ├── SparkXXXSnapshotTests/            — one subfolder per suite
 │   └── SparkUIXXXSnapshotTests/
 └── Strategy/                             — "scenarios": a `CaseIterable` enum, each case producing one or more configurations
     │   ├── XXXConfigurationSnapshotTests.swift  — "configuration": every customizable variable (intent, size, variant, ...)
     │   └── XXXScenarioSnapshotTests.swift 
 └── View/ 
-    ├── SparkXXXSnapshotTests.swift        — SwiftUI XCTestCase, iterates every scenario × configuration
+    ├── SparkXXXSnapshotTests.swift        — SwiftUI suite, iterates every scenario × configuration
     └── SparkUIXXXSnapshotTests.swift      — the UIKit equivalent
 ```
 
 - **Configuration**: a `struct` holding every property the component can be configured with, plus the display/content size modes to snapshot (`ComponentSnapshotTestConstants.Modes`/`.Sizes`).
 - **Scenarios**: a `CaseIterable` enum where each case returns the configurations that exercise it. One case is always `.documentation` (`isDocumentation`) — its rendered images are copied into `Sources/Core/Documentation.docc/Resources` and referenced from `Documentation.md`'s "Rendering" section, so the DocC reference and the snapshot suite stay in sync.
-- **Test cases**: `SparkXXXSnapshotTests`/`SparkUIXXXSnapshotTests` are `final class`es (inheriting `SwiftUIComponentSnapshotTestCase`/its UIKit equivalent from `SparkCommonSnapshotTesting`) that loop over every scenario's configurations and assert a snapshot for each.
-- **Mocks/helpers**: `SparkCommonSnapshotTesting` (shared base test cases, constants) and, for theme values, `SparkTheme`/`SparkTheming`.
+- **Test cases**: `SparkXXXSnapshotTests`/`SparkUIXXXSnapshotTests` are `@Suite(.sparkConfiguration)` `struct`s (conforming to `SwiftUIComponentSnapshotTesting`/`UIKitComponentSnapshotTesting` from `SparkCommonSnapshotTesting`) that loop over every scenario's configurations and assert a snapshot for each.
+- **Mocks/helpers**: `SparkCommonSnapshotTesting` (shared snapshot testing protocols, constants) and, for theme values, `SparkTheme`/`SparkTheming`.
 - **Regenerating baselines**: `make clear-snapshots` wipes every `.__snapshots__` folder's contents; re-running the tests re-records them. Always review the diff before committing new baselines — a passing re-record isn't the same as an intentional visual change.
 
 ---

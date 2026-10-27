@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import SnapshotTesting
 @_spi(SI_SPI) import SparkCommon
@@ -19,7 +19,9 @@ import SparkTheme
 import SparkComponentButton
 import SparkComponentTextLink
 
-final class SparkAwarenessCardSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkAwarenessCardSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -27,7 +29,7 @@ final class SparkAwarenessCardSnapshotTests: SwiftUIComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = AwarenessCardScenarioSnapshotTests.allCases
         self.loadScenarios(scenarios)
     }
@@ -56,6 +58,7 @@ final class SparkAwarenessCardSnapshotTests: SwiftUIComponentSnapshotTestCase {
                     modes: configuration.modes,
                     sizes: configuration.sizes,
                     testName: configuration.testName,
+                    addPadding: false,
                     forDocumentation: scenario.isDocumentation
                 )
             }

@@ -1,27 +1,64 @@
 //
-//  SparkCoreSnapshotTestsUtils.swift
-//  SparkCoreTests
+//  SparkExpectSnapshot.swift
+//  SparkSnapshotTesting
 //
 //  Created by luis.figueiredo-ext on 08/02/2023.
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
+import UIKit
 @_implementationOnly import SnapshotTesting
 
-@_spi(SI_SPI) public func sparkAssertSnapshot<Value, Format>(
+/// Expects the value to match its recorded snapshot, or records it for the documentation.
+/// The snapshots folder is named with the test file name (without the extension).
+@_spi(SI_SPI) public func sparkExpectSnapshot<Value, Format>(
     matching value: @autoclosure () throws -> Value,
     as snapshotting: Snapshotting<Value, Format>,
     named name: String? = nil,
     record recording: Bool = false,
     timeout: TimeInterval = 5,
-    file: StaticString = #file,
+    filePath: StaticString = #filePath,
     testName: String = #function,
-    line: UInt = #line,
+    sourceLocation: SourceLocation = #_sourceLocation,
     forDocumentation: Bool = false
 ) {
-    let tracker = SnapshotTestCaseTracker.shared
-    let directory = forDocumentation ? tracker.snapshotDocumentationDirectory(for: file) : tracker.snapshotDirectory(for: file)
+    let suiteName = URL(fileURLWithPath: "\(filePath)").deletingPathExtension().lastPathComponent
+    let directory = forDocumentation
+        ? SnapshotDirectoryResolver.snapshotDocumentationDirectory(for: filePath, suiteName: suiteName)
+        : SnapshotDirectoryResolver.snapshotDirectory(for: filePath, suiteName: suiteName)
+
+    if let message = verifySparkSnapshot(
+        matching: try value(),
+        as: snapshotting,
+        named: name,
+        directory: directory,
+        record: recording,
+        timeout: timeout,
+        file: filePath,
+        testName: testName,
+        forDocumentation: forDocumentation
+    ) {
+        Issue.record("\(message): \(testName)", sourceLocation: sourceLocation)
+    }
+}
+
+// MARK: - Private Methods
+
+/// Returns the failure message, always nil when the snapshot is for the documentation.
+// swiftlint:disable:next function_parameter_count
+private func verifySparkSnapshot<Value, Format>(
+    matching value: @autoclosure () throws -> Value,
+    as snapshotting: Snapshotting<Value, Format>,
+    named name: String?,
+    directory: String,
+    record recording: Bool,
+    timeout: TimeInterval,
+    file: StaticString,
+    testName: String,
+    forDocumentation: Bool
+) -> String? {
 
     let failure = verifySnapshot(
         of: try value(),
@@ -35,16 +72,16 @@ import XCTest
     )
 
     // No failure if the snapshots is for documentation
-    if forDocumentation {
-        renameDocumentationSnapshot(
-            directoryPath: directory,
-            named: name,
-            testName: testName
-        )
-    } else {
-        guard let message = failure else { return }
-        XCTFail("\(message): \(testName)", file: file, line: line)
+    guard forDocumentation else {
+        return failure
     }
+
+    renameDocumentationSnapshot(
+        directoryPath: directory,
+        named: name,
+        testName: testName
+    )
+    return nil
 }
 
 // swiftlint:disable no_debugging_method

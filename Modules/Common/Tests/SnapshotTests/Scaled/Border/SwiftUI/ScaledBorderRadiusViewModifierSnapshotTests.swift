@@ -7,17 +7,19 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkCommon
 @_spi(SI_SPI) @testable import SparkCommonSnapshotTesting
 import SparkTheme
 import SparkTheming
 
-final class ScaledBorderRadiusViewModifierSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct ScaledBorderRadiusViewModifierSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test_default() throws {
+    @Test func test_default() throws {
         let theme: any Theme = SparkTheme.shared
         for radius in BorderRadius.allCases {
             self.assertSnapshot(
@@ -27,12 +29,13 @@ final class ScaledBorderRadiusViewModifierSnapshotTests: SwiftUIComponentSnapsho
                 ),
                 modes: ComponentSnapshotTestConstants.Modes.default,
                 sizes: ComponentSnapshotTestConstants.Sizes.all,
-                testName: #function + "\(radius)Radius"
+                testName: #function + "\(radius)Radius",
+                addPadding: false
             )
         }
     }
 
-    func test_dashed() throws {
+    @Test func test_dashed() throws {
         let theme: any Theme = SparkTheme.shared
         self.assertSnapshot(
             matching: SnapshotView(
@@ -40,11 +43,12 @@ final class ScaledBorderRadiusViewModifierSnapshotTests: SwiftUIComponentSnapsho
                 cornerRadius: BorderRadius.medium.value(from: theme)
             ),
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.all
+            sizes: ComponentSnapshotTestConstants.Sizes.all,
+            addPadding: false
         )
     }
 
-    func test_highlighted() throws {
+    @Test func test_highlighted() throws {
         let theme: any Theme = SparkTheme.shared
 
         for radius in BorderRadius.allCases {
@@ -55,7 +59,8 @@ final class ScaledBorderRadiusViewModifierSnapshotTests: SwiftUIComponentSnapsho
                 ),
                 modes: ComponentSnapshotTestConstants.Modes.default,
                 sizes: ComponentSnapshotTestConstants.Sizes.all,
-                testName: #function + "\(radius)Radius"
+                testName: #function + "\(radius)Radius",
+                addPadding: false
             )
         }
     }

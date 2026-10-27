@@ -7,15 +7,17 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @_spi(SI_SPI) @testable import SparkCommon
 @_spi(SI_SPI) @testable import SparkCommonSnapshotTesting
 
-final class ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test_with_default_isReversed() throws {
+    @Test func test_with_default_isReversed() throws {
         // GIVEN / WHEN
         let view = ReversibleHStack(
             alignment: .center,
@@ -31,11 +33,12 @@ final class ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTestCase {
         self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.all
+            sizes: ComponentSnapshotTestConstants.Sizes.all,
+            addPadding: false
         )
     }
 
-    func test_when_isReversed_is_true() throws {
+    @Test func test_when_isReversed_is_true() throws {
         // GIVEN / WHEN
         let view = ReversibleHStack(
             alignment: .top,
@@ -52,11 +55,12 @@ final class ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTestCase {
         self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.all
+            sizes: ComponentSnapshotTestConstants.Sizes.all,
+            addPadding: false
         )
     }
 
-    func test_when_isReversed_is_false() throws {
+    @Test func test_when_isReversed_is_false() throws {
         // GIVEN / WHEN
         let view = ReversibleHStack(
             alignment: .bottom,
@@ -73,7 +77,8 @@ final class ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTestCase {
         self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.all
+            sizes: ComponentSnapshotTestConstants.Sizes.all,
+            addPadding: false
         )
     }
 }

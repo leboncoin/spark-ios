@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import SnapshotTesting
 @_spi(SI_SPI) import SparkCommon
@@ -17,7 +17,9 @@ import SparkComponentBadge
 import SparkTheming
 import SparkTheme
 
-final class SparkAvatarSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkAvatarSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -25,7 +27,7 @@ final class SparkAvatarSnapshotTests: SwiftUIComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = AvatarScenarioSnapshotTests.allCases
         self.loadScenarios(scenarios)
     }
@@ -54,6 +56,7 @@ final class SparkAvatarSnapshotTests: SwiftUIComponentSnapshotTestCase {
                     modes: configuration.modes,
                     sizes: configuration.sizes,
                     testName: configuration.testName,
+                    addPadding: false,
                     forDocumentation: scenario.isDocumentation
                 )
             }

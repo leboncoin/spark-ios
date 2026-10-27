@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import SnapshotTesting
 @_spi(SI_SPI) import SparkCommon
@@ -16,7 +16,9 @@ import SnapshotTesting
 import SparkTheming
 import SparkTheme
 
-final class SparkChipSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkChipSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -24,7 +26,7 @@ final class SparkChipSnapshotTests: SwiftUIComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = ChipScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -50,6 +52,7 @@ final class SparkChipSnapshotTests: SwiftUIComponentSnapshotTestCase {
                     modes: configuration.modes,
                     sizes: configuration.sizes,
                     testName: configuration.testName,
+                    addPadding: false,
                     forDocumentation: scenario.isDocumentation
                 )
             }

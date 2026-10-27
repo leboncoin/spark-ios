@@ -6,6 +6,7 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
+import Testing
 import SwiftUI
 @testable import SparkComponentFormField
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
@@ -13,7 +14,9 @@ import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 import SparkTheme
 
-final class FormFieldViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct FormFieldViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Type Alias
 
@@ -25,7 +28,7 @@ final class FormFieldViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = FormFieldScenarioSnapshotTests.allCases
 
         var _isOn: Bool = true
@@ -68,7 +71,8 @@ final class FormFieldViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,
-                    testName: configuration.testName()
+                    testName: configuration.testName(),
+                    addPadding: false
                 )
             }
         }

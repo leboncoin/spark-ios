@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import SnapshotTesting
 @_spi(SI_SPI) import SparkCommon
@@ -17,7 +17,9 @@ import SparkResources
 import SparkTheming
 import SparkTheme
 
-final class SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -25,7 +27,7 @@ final class SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTestCase
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         // Remove animation
         let scenarios = SegmentedControlScenarioSnapshotTests.allCases
 
@@ -48,6 +50,7 @@ final class SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTestCase
                     modes: configuration.modes,
                     sizes: configuration.sizes,
                     testName: configuration.testName,
+                    addPadding: false,
                     forDocumentation: scenario.isDocumentation
                 )
             }

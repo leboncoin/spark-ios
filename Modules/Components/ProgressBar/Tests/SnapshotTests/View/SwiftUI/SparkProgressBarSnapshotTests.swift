@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SnapshotTesting
 @testable import SparkComponentProgressBar
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
@@ -14,7 +14,9 @@ import SparkTheming
 import SparkTheme
 import SwiftUI
 
-final class SparkProgressBarSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkProgressBarSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -22,7 +24,7 @@ final class SparkProgressBarSnapshotTests: SwiftUIComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         let scenarios = ProgressBarScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -47,6 +49,7 @@ final class SparkProgressBarSnapshotTests: SwiftUIComponentSnapshotTestCase {
                     modes: configuration.modes,
                     sizes: configuration.sizes,
                     testName: configuration.testName,
+                    addPadding: false,
                     forDocumentation: scenario.isDocumentation
                 )
             }

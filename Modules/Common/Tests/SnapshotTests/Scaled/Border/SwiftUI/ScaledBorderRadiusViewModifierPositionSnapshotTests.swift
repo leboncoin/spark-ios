@@ -7,24 +7,27 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkCommon
 @_spi(SI_SPI) @testable import SparkCommonSnapshotTesting
 import SparkTheme
 import SparkTheming
 
-final class ScaledBorderRadiusViewModifierPositionSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct ScaledBorderRadiusViewModifierPositionSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         let theme: any Theme = SparkTheme.shared
         for width in BorderWidth.allCases {
             self.assertSnapshot(
                 matching: SnapshotView(borderWidth: width.value(from: theme)),
                 modes: ComponentSnapshotTestConstants.Modes.default,
                 sizes: ComponentSnapshotTestConstants.Sizes.all,
-                testName: #function + "\(width)Width"
+                testName: #function + "\(width)Width",
+                addPadding: false
             )
         }
     }

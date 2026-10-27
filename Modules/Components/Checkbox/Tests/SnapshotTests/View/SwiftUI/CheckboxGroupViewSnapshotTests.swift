@@ -6,6 +6,7 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
+import Testing
 import SwiftUI
 
 @testable import SparkComponentCheckbox
@@ -15,11 +16,13 @@ import SwiftUI
 import SparkTheming
 import SparkTheme
 
-final class CheckboxGroupViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct CheckboxGroupViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test() {
+    @Test func test() {
         let scenarios = CheckboxGroupScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -34,7 +37,8 @@ final class CheckboxGroupViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,
-                    testName: configuration.testName()
+                    testName: configuration.testName(),
+                    addPadding: false
                 )
             }
         }

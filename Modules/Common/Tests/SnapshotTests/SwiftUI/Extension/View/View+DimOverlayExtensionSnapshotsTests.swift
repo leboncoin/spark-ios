@@ -7,29 +7,33 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @_spi(SI_SPI) @testable import SparkCommon
 @_spi(SI_SPI) @testable import SparkCommonSnapshotTesting
 import SparkTheme
 import SparkTheming
 
-final class ViewDimOverlayExtensionSnapshotsTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct ViewDimOverlayExtensionSnapshotsTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test_with_dim() throws {
+    @Test func test_with_dim() throws {
         self.assertSnapshot(
             matching: SnapshotView(dim: 0.5),
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.default
+            sizes: ComponentSnapshotTestConstants.Sizes.default,
+            addPadding: false
         )
     }
 
-    func test_without_dim() throws {
+    @Test func test_without_dim() throws {
         self.assertSnapshot(
             matching: SnapshotView(dim: 1),
             modes: ComponentSnapshotTestConstants.Modes.default,
-            sizes: ComponentSnapshotTestConstants.Sizes.default
+            sizes: ComponentSnapshotTestConstants.Sizes.default,
+            addPadding: false
         )
     }
 }

@@ -6,7 +6,8 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import UIKit
 import SnapshotTesting
 @testable import SparkComponentSwitch
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
@@ -16,7 +17,9 @@ import SnapshotTesting
 import SparkTheming
 import SparkTheme
 
-final class SwitchUIViewSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SwitchUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Type Alias
 
@@ -28,7 +31,7 @@ final class SwitchUIViewSnapshotTests: UIKitComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         let scenarios = SwitchScenarioSnapshotTests.allCases
 
         for scenario in scenarios {

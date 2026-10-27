@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SnapshotTesting
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkCommon
@@ -17,7 +17,9 @@ import SparkTheming
 import SparkTheme
 import SwiftUI
 
-final class SparkToggleSnapshotTests: SwiftUIComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct SparkToggleSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Properties
 
@@ -25,7 +27,7 @@ final class SparkToggleSnapshotTests: SwiftUIComponentSnapshotTestCase {
 
     // MARK: - Tests
 
-    func test() throws {
+    @Test func test() throws {
         let forDocumentation = false
 
         let scenarios = ToggleScenarioSnapshotTests.allCases(forDocumentation: forDocumentation)
@@ -43,7 +45,8 @@ final class SparkToggleSnapshotTests: SwiftUIComponentSnapshotTestCase {
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,
-                    testName: configuration.testName()
+                    testName: configuration.testName(),
+                    addPadding: false
                 )
             }
         }

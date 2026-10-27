@@ -6,17 +6,20 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
+import Testing
 import UIKit
 @testable import SparkCommon
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkCommonTesting
 
-final class UIViewVisualIdentificationExtensionSnapshotTests: UIKitComponentSnapshotTestCase {
+@MainActor
+@Suite(.sparkConfiguration)
+struct UIViewVisualIdentificationExtensionSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    func test_sparkVisualIdentification_when_toggle_is_true() {
+    @Test func test_sparkVisualIdentification_when_toggle_is_true() {
         // GIVEN
         let featureTogglesService = SparkFeatureToggleServicingGeneratedMock()
         featureTogglesService.visualIdentification = true
@@ -36,7 +39,7 @@ final class UIViewVisualIdentificationExtensionSnapshotTests: UIKitComponentSnap
         )
     }
 
-    func test_sparkVisualIdentification_when_toggle_is_false() {
+    @Test func test_sparkVisualIdentification_when_toggle_is_false() {
         // GIVEN
         let featureTogglesService = SparkFeatureToggleServicingGeneratedMock()
         featureTogglesService.visualIdentification = false
