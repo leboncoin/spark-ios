@@ -7,9 +7,12 @@
 //
 
 import Testing
+import Foundation
 @testable import SparkComponentChip
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
+
+// MARK: - Tests
 
 struct ChipTokenOpacityTests {
 
@@ -17,66 +20,41 @@ struct ChipTokenOpacityTests {
 
     private let theme = ThemeGeneratedMock.mocked()
 
+    private var token: ChipToken.Opacity {
+        return .init(theme: self.theme)
+    }
+
     // MARK: - Tests
 
     @Test
-    func initialization_sets_whenEnabled_from_theme() {
-        // GIVEN / WHEN
-        let opacity = ChipToken.Opacity(theme: self.theme)
-
-        // THEN
-        #expect(opacity.whenEnabled == self.theme.dims.none)
+    func opacityWhenEnabledShouldReturnDimNone() {
+        #expect(self.token.value(isEnabled: true) == self.theme.dims.none)
     }
 
     @Test
-    func initialization_sets_whenDisabled_from_theme() {
-        // GIVEN / WHEN
-        let opacity = ChipToken.Opacity(theme: self.theme)
-
-        // THEN
-        #expect(opacity.whenDisabled == self.theme.dims.dim3)
+    func opacityWhenDisabledShouldReturnDim3() {
+        #expect(self.token.value(isEnabled: false) == self.theme.dims.dim3)
     }
 
+    // MARK: - Equatable Tests
+
     @Test
-    func initialization_with_different_theme_values() {
+    func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
-        let customTheme = ThemeGeneratedMock.mocked2()
-
-        // WHEN
-        let opacity = ChipToken.Opacity(theme: customTheme)
-
-        // THEN
-        #expect(opacity.whenEnabled == customTheme.dims.none)
-        #expect(opacity.whenDisabled == customTheme.dims.dim3)
-    }
-
-    @Test
-    func whenEnabled_and_whenDisabled_are_different() {
-        // GIVEN / WHEN
-        let opacity = ChipToken.Opacity(theme: self.theme)
-
-        // THEN
-        #expect(opacity.whenEnabled != opacity.whenDisabled)
-    }
-
-    @Test
-    func equatable_returns_true_when_opacities_are_equal() {
-        // GIVEN
-        let opacity1 = ChipToken.Opacity(theme: self.theme)
-        let opacity2 = ChipToken.Opacity(theme: self.theme)
+        let lhs = ChipToken.Opacity(theme: self.theme)
+        let rhs = ChipToken.Opacity(theme: self.theme)
 
         // WHEN / THEN
-        #expect(opacity1 == opacity2)
+        #expect(lhs == rhs)
     }
 
     @Test
-    func equatable_returns_false_when_opacities_are_different() {
+    func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
-        let theme2 = ThemeGeneratedMock.mocked2()
-        let opacity1 = ChipToken.Opacity(theme: self.theme)
-        let opacity2 = ChipToken.Opacity(theme: theme2)
+        let lhs = ChipToken.Opacity(theme: self.theme)
+        let rhs = ChipToken.Opacity(theme: ThemeGeneratedMock.mocked2())
 
         // WHEN / THEN
-        #expect(opacity1 != opacity2)
+        #expect(lhs != rhs)
     }
 }

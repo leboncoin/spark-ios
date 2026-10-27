@@ -29,7 +29,7 @@ final class ChipGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, token.whenEnabled)
+        XCTAssertEqual(result, token.value(isEnabled: true))
     }
 
     func test_execute_when_isDisabled() {
@@ -45,6 +45,6 @@ final class ChipGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, token.whenDisabled)
+        XCTAssertEqual(result, token.value(isEnabled: false))
     }
 }

@@ -6,34 +6,28 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import Foundation
 import SparkTheming
 
 // MARK: - Typography
 
 public extension ChipToken {
 
-    /// Contains typography token for the Chip component.
+    /// Contains the typography token values of the Chip.
     struct Typography: Equatable {
 
         // MARK: - Properties
 
-        /// The font token for the chip title.
-        public let titleFont: any TypographyFontToken
+        let theme: any Theme
 
-        // MARK: - Initialization
-
-        /// Creates a Typography token with the given theme.
-        ///
-        /// - Parameter theme: The theme to use for typography values.
-        public init(theme: any Theme) {
-            self.titleFont = theme.typography.body1
+        /// The font token of the title.
+        public var title: any TypographyFontToken {
+            return self.theme.typography.body1
         }
 
         // MARK: - Equatable
 
         public static func == (lhs: Typography, rhs: Typography) -> Bool {
-            return lhs.titleFont.equals(rhs.titleFont)
+            return lhs.theme.equals(rhs.theme)
         }
     }
 }

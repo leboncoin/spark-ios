@@ -43,7 +43,7 @@ final class ChipGetLayoutUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.spacing, token.spacingWhenLeadingIcon)
+        XCTAssertEqual(result.spacing, token.spacing(alignment: .leadingIcon))
         XCTAssertEqual(result.extraContentSpacing, token.extraContentSpacing)
         XCTAssertEqual(result.padding, token.horizontalPadding)
     }
@@ -59,7 +59,7 @@ final class ChipGetLayoutUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.spacing, token.spacingWhenTrailingIcon)
+        XCTAssertEqual(result.spacing, token.spacing(alignment: .trailingIcon))
         XCTAssertEqual(result.extraContentSpacing, token.extraContentSpacing)
         XCTAssertEqual(result.padding, token.horizontalPadding)
     }

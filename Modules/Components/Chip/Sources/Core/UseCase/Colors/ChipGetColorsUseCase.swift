@@ -23,21 +23,6 @@ protocol ChipGetColorsUseCaseable {
 
 final class ChipGetColorsUseCase: ChipGetColorsUseCaseable {
 
-    // MARK: - Properties
-
-    private let getStateOutlinedColorsUseCase: ChipGetStateColorsUseCaseable
-    private let getStateTintedColorsUseCase: ChipGetStateColorsUseCaseable
-
-    // MARK: - Initialization
-
-    init(
-        getStateOutlinedColorsUseCase: ChipGetStateColorsUseCaseable = ChipGetStateOutlinedColorsUseCase(),
-        getStateTintedColorsUseCase: ChipGetStateColorsUseCaseable = ChipGetStateTintedColorsUseCase()
-    ) {
-        self.getStateOutlinedColorsUseCase = getStateOutlinedColorsUseCase
-        self.getStateTintedColorsUseCase = getStateTintedColorsUseCase
-    }
-
     // MARK: - Methods
 
     func execute(
@@ -47,40 +32,27 @@ final class ChipGetColorsUseCase: ChipGetColorsUseCaseable {
         isSelected: Bool,
         isPressed: Bool
     ) -> ChipColors {
-        let stateColors = switch variant {
-        case .dashed, .outlined:
-            self.getStateOutlinedColorsUseCase.execute(
-                theme: theme,
-                intent: intent
+        let token = ChipToken.Colors(theme: theme)
+
+        return .init(
+            background: token.background(
+                intent: intent,
+                variant: variant,
+                isSelected: isSelected,
+                isPressed: isPressed
+            ),
+            border: token.border(
+                intent: intent,
+                variant: variant,
+                isSelected: isSelected,
+                isPressed: isPressed
+            ),
+            content: token.content(
+                intent: intent,
+                variant: variant,
+                isSelected: isSelected,
+                isPressed: isPressed
             )
-        case .tinted:
-            self.getStateTintedColorsUseCase.execute(
-                theme: theme,
-                intent: intent
-            )
-        }
-
-        return switch (isSelected, isPressed) {
-            // Pressed
-        case (_, true): .init(
-            background: stateColors.pressedBackground,
-            border: stateColors.pressedBorder,
-            content: stateColors.content
         )
-
-            // Selected
-        case (true, false): .init(
-            background: stateColors.selectedBackground,
-            border: stateColors.selectedBorder,
-            content: stateColors.selectedContent
-        )
-
-            // Other
-        case (false, false): .init(
-            background: stateColors.background,
-            border: stateColors.border,
-            content: stateColors.content
-        )
-        }
     }
 }
