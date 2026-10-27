@@ -194,10 +194,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
     private var content: () -> Content
 
     @Environment(\.theme) private var theme
-    @Environment(\.isEnabled) private var isEnabled
     @Environment(\.segmentedControlRowLength) private var rowLength
-
-    @StateObject private var viewModel = SegmentedControlViewModel()
 
     @State private var tags: [[AnyHashable]] = []
     @State private var flattedTags: [AnyHashable] = []
@@ -253,7 +250,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
         VStack(spacing: .zero) {
 
             ForEach(Array(self.tags.enumerated()), id: \.offset) { rowIndex, tags in
-                HStack(spacing: self.viewModel.layout.spacing) {
+                HStack(spacing: self.theme.layout.spacing) {
 
                     ForEach(Array(tags.enumerated()), id: \.offset) { columnIndex, tag in
 
@@ -263,12 +260,8 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
                             // Background indicator for selected item
                             if isSelected {
                                 Rectangle()
-                                    .fill(self.viewModel.colors.selectedItemBackgroundColorToken)
-                                    .sparkBorder(
-                                        width: self.viewModel.border.selectedItemWidth,
-                                        radius: self.viewModel.border.selectedItemRadius,
-                                        colorToken: self.viewModel.colors.selectedItemBorderColorToken
-                                    )
+                                    .fill(self.theme.colors.selectedItemBackground)
+                                    .segmentedControlSelectedItemBorder()
                                     .matchedGeometryEffect(id: "indicator", in: self.animation)
                             }
 
@@ -278,51 +271,50 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
                                 isSelected: isSelected
                             )
                         }
-                        .padding(.vertical, self.viewModel.layout.padding)
+                        .padding(.vertical, self.theme.layout.padding)
                         .id(tag)
 
                         // Vertical Separator
-                        if self.viewModel.getIsVerticalSeparator(
+                        if SegmentedControlGrid.isVerticalSeparator(
                             tags: self.tags.count,
                             horizontalTags: tags.count,
                             columnIndex: columnIndex
                         ) {
                             Rectangle()
-                                .fill(self.viewModel.colors.separatorColorToken)
+                                .fill(self.theme.colors.separator)
                                 .frame(
-                                    width: SegmentedControlConstants.Separator.width,
-                                    height: SegmentedControlConstants.Separator.height
+                                    width: self.theme.size.separatorWidth,
+                                    height: self.theme.size.separatorHeight
                                 )
                         }
                     }
                 }
-                .padding(.horizontal, self.viewModel.layout.padding)
+                .padding(.horizontal, self.theme.layout.padding)
 
                 // Horizontal Separator
-                if self.tags.count > 1, rowIndex < self.tags.count - 1 {
+                if SegmentedControlGrid.isHorizontalSeparator(
+                    rows: self.tags.count,
+                    rowIndex: rowIndex
+                ) {
                     Rectangle()
-                        .fill(self.viewModel.colors.separatorColorToken)
-                        .frame(height: SegmentedControlConstants.Separator.width)
+                        .fill(self.theme.colors.separator)
+                        .frame(height: self.theme.size.separatorWidth)
                         .frame(maxWidth: .infinity)
                 }
             }
         }
-        .background(self.viewModel.colors.backgroundColorToken)
-        .sparkBorder(
-            width: self.viewModel.border.width,
-            radius: self.viewModel.border.radius,
-            colorToken: self.viewModel.colors.borderColorToken
-        )
-        .frame(minHeight: SegmentedControlConstants.minHeight)
+        .segmentedControlBackground()
+        .segmentedControlBorder()
+        .segmentedControlFrame()
         .sparkSensoryFeedback(.selection, trigger: self.selection)
-        .opacity(self.viewModel.dim)
+        .segmentedControlOpacity()
         .background(
             self.content()
                 .hidden()
                 .segmentedControlContext(.collecting)
                 .onPreferenceChange(SegmentedControlTagsPreferenceKey.self) { value in
                     self.flattedTags = value
-                    self.tags = self.viewModel.getDisplayTags(from: value, rowLength: self.rowLength)
+                    self.tags = SegmentedControlGrid.rows(from: value, rowLength: self.rowLength)
                 }
         )
         .popover(isPresented: self.$showAccessibilityList, content: {
@@ -332,18 +324,6 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
         .dynamicTypeSize(.large)
         .sparkVisualIdentification()
         .id("spark-segmented-control-\(self.rowLength)")
-        .onAppear() {
-            self.viewModel.setup(
-                theme: self.theme.value,
-                isEnabled: self.isEnabled
-            )
-        }
-        .onChange(of: self.theme) {
-            self.viewModel.theme = self.theme.value
-        }
-        .onChange(of: self.isEnabled) {
-            self.viewModel.isEnabled = self.isEnabled
-        }
     }
 
     private func itemButton(
@@ -362,7 +342,6 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
             }
         } label: {
             self.content()
-                .segmentedControlLayout(self.viewModel.layout)
                 .segmentedControlItemIsSelected(isSelected)
                 .segmentedControlItemIsPressed(self.pressedId == tag)
                 .segmentedControlContext(.renderer)
@@ -385,7 +364,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
                 },
             isEnabled: self.dynamicTypeSize.isAccessibilitySize
         )
-        .sparkCornerRadius(self.viewModel.border.selectedItemRadius)
+        .segmentedControlItemCornerRadius()
         .accessibilityIdentifier(SegmentedControlAccessibilityIdentifier.item(at: index))
         .accessibilityValue(String.accessibilityLabel(
             index: index,
@@ -411,16 +390,10 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
                         self.showAccessibilityList = false
                     } label: {
                         self.content()
-                            .segmentedControlLayout(self.viewModel.layout)
                             .segmentedControlContext(.accessibilityRenderer)
                             .segmentedControlItemTag(tag)
                     }
-                    .padding(.horizontal, self.viewModel.layout.accessibilityHorizontalPadding)
-                    .padding(.vertical, self.viewModel.layout.accessibilityVerticalPadding)
-                    .accessibilityItemButtonColors(
-                        isSelected: isSelected,
-                        colors: self.viewModel.colors
-                    )
+                    .segmentedControlAccessibilityItem(isSelected: isSelected)
                     .clipShape(Capsule())
                     .accessibilityValue(String.accessibilityLabel(
                         index: index,
@@ -429,26 +402,11 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
                     .accessibilityAddTraits(isSelected ? .isSelected : [])
                 }
             }
-            .padding(.vertical, self.viewModel.layout.accessibilityVerticalPadding)
+            .padding(.vertical, self.theme.layout.accessibilityVerticalPadding)
         }
-        .padding(.horizontal, self.viewModel.layout.accessibilityHorizontalPadding)
+        .padding(.horizontal, self.theme.layout.accessibilityHorizontalPadding)
         .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
         .scrollIndicators(.hidden)
         .presentationCompactAdaptation(.popover)
-    }
-}
-
-// MARK: - Extension
-
-private extension View {
-
-    @ViewBuilder
-    func accessibilityItemButtonColors(isSelected: Bool, colors: SegmentedControlColors) -> some View {
-        if isSelected {
-            self.tint(colors.accessibilitySelectedTintColorToken)
-                .background(colors.accessibilitySelectedBackgroundColorToken)
-        } else {
-            self.tint(.primary)
-        }
     }
 }
