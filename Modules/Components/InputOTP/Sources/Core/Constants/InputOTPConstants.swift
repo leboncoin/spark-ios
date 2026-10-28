@@ -10,23 +10,8 @@ import Foundation
 
 enum InputOTPConstants {
 
-    // MARK: - Size
-
-    enum Size {
-        /// Slot width is 40px
-        static let width: CGFloat = 40
-        /// Slot height is 50px
-        static let height: CGFloat = 50
-    }
-
-    // MARK: - Separator Size
-
-    enum SeparatorSize {
-        /// Separator width is 40px
-        static let width: CGFloat = 8
-        /// Separator height is 50px
-        static let height: CGFloat = 4
-    }
+    /// Animation duration is 500ms
+    static let slotAnimationDuration = 0.5
 
     // MARK: - Content
 

@@ -34,6 +34,20 @@ The Input OTP component allows users to enter a **one-time security code**, typi
 |:---:|:---:|:---:|
 | ![InputOTP rendering with 6 digits.](inputOTP_digits_six.png) | ![InputOTP rendering with error state.](inputOTP_onError.png) | ![InputOTP rendering with disabled state.](inputOTP_isDisabled.png) | 
 
+## Custom InputOTP
+
+If you need to create a custom input OTP component, you can use the ``InputOTPToken`` struct, available from the theme with `theme.component.inputOTP`, to access theme-based style values.
+
+The ``InputOTPToken`` provides:
+- **Border properties** (``InputOTPToken/Border``): slot width and radius
+- **Colors** (``InputOTPToken/Colors``): separator and slot (content, border, background) color tokens
+- **Layout properties** (``InputOTPToken/Layout``): spacing and padding
+- **Opacity** (``InputOTPToken/Opacity``): opacity for enabled and disabled states
+- **Typography** (``InputOTPToken/Typography``): font token for the slot content
+- **Size constants** (``InputOTPToken/Size``): slot and separator sizes
+
+> Tip: If you only need specific tokens, you can use the individual categories directly. For example, use `theme.component.inputOTP.size` if you only need size constants, or `theme.component.inputOTP.colors` for color tokens.
+
 ### Resources
 
 - Specification on [ZeroHeight](https://zeroheight.com/1186e1705/p/843453-input-otp)

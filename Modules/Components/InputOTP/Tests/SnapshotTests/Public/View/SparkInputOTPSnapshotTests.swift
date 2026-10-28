@@ -43,10 +43,9 @@ struct SparkInputOTPSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .sparkInputOTPDigits(configuration.digits)
                     .sparkInputOTPOnError(configuration.onError)
                     .disabled(!configuration.isEnabled)
-                    .padding(.vertical, 22)
-                    .padding(.horizontal, configuration.digits.horizontalPadding)
                     .background(.background)
                     .fixedSize()
+                    .sparkIsSnapshot(true)
 
                 await self.assertSnapshot(
                     matching: view,
@@ -54,27 +53,9 @@ struct SparkInputOTPSnapshotTests: SwiftUIComponentSnapshotTesting {
                     modes: configuration.modes,
                     sizes: configuration.sizes,
                     testName: configuration.testName,
-                    addPadding: false,
                     forDocumentation: scenario.isDocumentation
                 )
             }
         }
     }
 }
-
-// MARK: - Extension
-
-private extension InputOTPDigits {
-
-    var horizontalPadding: CGFloat {
-        switch self {
-        case .four:
-            25
-        case .six:
-            60
-        case .eight:
-            80
-        }
-    }
-}
-

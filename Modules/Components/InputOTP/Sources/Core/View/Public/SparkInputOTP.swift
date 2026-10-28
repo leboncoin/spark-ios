@@ -100,19 +100,19 @@ import SparkResources
 ///
 /// | Default (6 digits) | 4 digits | 8 digits |
 /// |:---:|:---:|:---:|
-/// | ![InputOTP rendering with 6 digits.](inputOTP_digits_six.png) | ![InputOTP rendering with 4 digits.](inputOTP_digits_four.png) | ![InputOTP rendering with 8 digits.](inputOTP_digits_eight.png) |
+/// | ![6 digits.](inputOTP_digits_six.png) | ![4 digits.](inputOTP_digits_four.png) | ![8 digits.](inputOTP_digits_eight.png) |
 ///
 /// ### Code Types
 ///
 /// | Default (number) | Letter | Alphanumeric |
 /// |:---:|:---:|:---:|
-/// | ![InputOTP rendering with number code types](inputOTP_codetypes_number.png) | ![InputOTP rendering with letter code types](inputOTP_codetypes_letter.png) | ![InputOTP rendering with alphanumeric code types](inputOTP_codetypes_alphanumeric.png) |
+/// | ![Number code type.](inputOTP_codetypes_number.png) | ![Letter code type.](inputOTP_codetypes_letter.png) | ![Alphanumeric code type.](inputOTP_codetypes_alphanumeric.png) |
 ///
 /// ### States
 ///
 /// | Default | On error | Disabled |
 /// |:---:|:---:|:---:|
-/// | ![InputOTP rendering with 6 digits.](inputOTP_digits_six.png) | ![InputOTP rendering with error state.](inputOTP_onError.png) | ![InputOTP rendering with disabled state.](inputOTP_isDisabled.png) |
+/// | ![Default state.](inputOTP_digits_six.png) | ![Error state.](inputOTP_onError.png) | ![Disabled state.](inputOTP_isDisabled.png) |
 ///
 public struct SparkInputOTP: View {
 
@@ -128,7 +128,6 @@ public struct SparkInputOTP: View {
 
     private var onComplete: ((String) -> Void)?
 
-    @StateObject private var viewModel = InputOTPViewModel()
     @FocusState private var isFocused: Bool
     @State private var lastCharacterIsFiltered: Bool = false
 
@@ -183,15 +182,15 @@ public struct SparkInputOTP: View {
                 .disabled(!self.isEnabled)
 
             // Visual representation
-            SparkHStack(spacing: self.viewModel.layout.spacing) {
+            SparkHStack(spacing: self.theme.layout.spacing) {
                 ForEach(0..<self.digits.rawValue, id: \.self) { index in
-                    if self.viewModel.getShowSeparator(at: index) {
+                    if self.digits.showSeparator(at: index) {
                         self.separatorView
                     }
                     self.slotView(at: index)
                 }
             }
-            .sparkPadding(self.viewModel.layout.padding)
+            .inputOTPPadding()
             .contextMenu {
                 Button(action: self.handlePaste) {
                     Label {
@@ -209,7 +208,7 @@ public struct SparkInputOTP: View {
                 self.isFocused = true
             }
         }
-        .opacity(Double(self.viewModel.dim))
+        .inputOTPOpacity()
         .sparkSensoryFeedback(
             .error,
             trigger: self.onError,
@@ -267,21 +266,6 @@ public struct SparkInputOTP: View {
         .sparkVisualIdentification()
         .onAppear {
             self.isFocused = true
-
-            self.viewModel.setup(
-                theme: self.theme.value,
-                digits: self.digits,
-                isEnabled: self.isEnabled
-            )
-        }
-        .onChange(of: self.theme) {
-            self.viewModel.theme = self.theme.value
-        }
-        .onChange(of: self.digits) {
-            self.viewModel.digits = self.digits
-        }
-        .onChange(of: self.isEnabled) {
-            self.viewModel.isEnabled = self.isEnabled
         }
         .onChange(of: self.value) { _, newValue in
             self.validateAndTruncateValue(newValue)
@@ -297,21 +281,14 @@ public struct SparkInputOTP: View {
 
     private var separatorView: some View {
         Capsule()
-            .fill(self.viewModel.colors.separatorColorToken)
-            .sparkFrame(
-                width: InputOTPConstants.SeparatorSize.width,
-                height: InputOTPConstants.SeparatorSize.height
-            )
+            .inputOTPSeparator()
     }
 
     private func slotView(at index: Int) -> some View {
-        let value = self.viewModel.getSlotValue(value: self.value, at: index)
-
-        return InputOTPSlot(
-            value: value,
+        InputOTPSlot(
+            value: self.value.slotValue(at: index),
             onError: self.onError,
-            isFocus: self.isFocused && index == self.value.count,
-            typographies: self.viewModel.typographies
+            isFocus: self.isFocused && index == self.value.count
         )
     }
 
@@ -329,9 +306,9 @@ public struct SparkInputOTP: View {
     }
 
     private func validateAndTruncateValue(_ newValue: String) {
-        let validatedResult = self.viewModel.getValidatedValue(
-            value: newValue,
-            codeType: self.codeType
+        let validatedResult = newValue.validated(
+            codeType: self.codeType,
+            digits: self.digits
         )
 
         self.lastCharacterIsFiltered = validatedResult.hadInvalidCharacters

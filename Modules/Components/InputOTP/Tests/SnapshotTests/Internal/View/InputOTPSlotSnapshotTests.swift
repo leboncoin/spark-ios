@@ -38,15 +38,10 @@ struct InputOTPSlotSnapshotTests: SwiftUIComponentSnapshotTesting {
             let configurations = scenario.configuration()
 
             for configuration in configurations {
-                let typographies = InputOTPTypographies(
-                    contentFontToken: self.theme.typography.display3
-                )
-
                 let view = InputOTPSlot(
                     value: configuration.content.valueMocked.isEmpty ? nil : configuration.content.valueMocked,
                     onError: false,
-                    isFocus: configuration.isFocus,
-                    typographies: typographies
+                    isFocus: configuration.isFocus
                 )
                 .sparkTheme(self.theme)
                 .padding(20)
