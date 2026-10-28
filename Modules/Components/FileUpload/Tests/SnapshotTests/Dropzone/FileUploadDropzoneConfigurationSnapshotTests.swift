@@ -68,4 +68,3 @@ enum FileUploadDropzoneContentType: String, CaseIterable {
         }
     }
 }
-

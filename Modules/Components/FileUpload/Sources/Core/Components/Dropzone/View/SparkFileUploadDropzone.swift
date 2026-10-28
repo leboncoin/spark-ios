@@ -88,8 +88,7 @@ public struct SparkFileUploadDropzone<DescriptionLabel, UploadButton, Additional
 
     @Environment(\.theme) private var theme
 
-    @StateObject private var viewModel = FileUploadDropzoneViewModel()
-    @StateObject private var services = FileUploadDropzoneServices()
+    @State private var services = FileUploadDropzoneServices()
 
     @State private var isTargeted = false
     @State private var targetFeedbackID: UUID = UUID()
@@ -155,42 +154,30 @@ public struct SparkFileUploadDropzone<DescriptionLabel, UploadButton, Additional
     // MARK: - View
 
     public var body: some View {
-        SparkVStack(spacing: self.viewModel.layout.verticalSpacing) {
+        let layout = self.theme.fileUpload.dropzone.layout
+
+        SparkVStack(spacing: layout.verticalSpacing) {
             // Icon
             self.icon?
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .sparkFrame(size: FileUploadDropzoneConstants.imageSize)
-                .foregroundStyle(self.viewModel.colors.imageTintColorToken)
+                .scaledToFit()
+                .fileUploadDropzoneImage()
                 .accessibilityHidden(true)
 
-            SparkVStack(spacing: self.viewModel.layout.subVerticalSpacing) {
+            SparkVStack(spacing: layout.subVerticalSpacing) {
                 // Description text
                 self.descriptionLabel()
-                    .font(self.viewModel.fonts.descriptionFontToken)
-                    .foregroundStyle(self.viewModel.colors.descriptionTextColorToken)
-                    .multilineTextAlignment(.center)
+                    .fileUploadDropzoneDescription()
 
                 // Upload button
                 self.uploadButton()
 
                 // Additional text
                 self.additionalLabel()
-                    .font(self.viewModel.fonts.additionalTextFontToken)
-                    .foregroundStyle(self.viewModel.colors.additionalTextColorToken)
-                    .multilineTextAlignment(.center)
+                    .fileUploadDropzoneAdditionalText()
             }
         }
-        .sparkPadding(self.viewModel.layout.padding)
-        .frame(maxWidth: .infinity)
-        .background(self.viewModel.colors.backgroundColorToken.color)
-        .sparkBorder(
-            width: self.viewModel.border.width,
-            radius: self.viewModel.border.radius,
-            dash: FileUploadDropzoneConstants.borderDashed,
-            colorToken: self.viewModel.colors.borderColorToken,
-            position: .inner
-        )
+        .fileUploadDropzoneContainer(isTargeted: self.isTargeted)
         .onDrop(of: self.fileTypes, isTargeted: self.$isTargeted) { providers in
             self.handleDrop(providers: providers)
             return true
@@ -199,16 +186,7 @@ public struct SparkFileUploadDropzone<DescriptionLabel, UploadButton, Additional
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier(FileUploadDropzoneAccessibilityIdentifier.view)
         .sparkVisualIdentification()
-        .onAppear {
-            self.viewModel.setup(
-                theme: self.theme.value
-            )
-        }
-        .onChange(of: self.theme) {
-            self.viewModel.theme = self.theme.value
-        }
         .onChange(of: self.isTargeted) {
-            self.viewModel.isTargeted = self.isTargeted
             self.targetFeedbackID = .init()
         }
     }

@@ -60,7 +60,7 @@ enum FileUploadDropzoneScenarioSnapshotTests: String, CaseIterable {
         let hasIconValues: [Bool] = [false, true]
         let contentTypes = FileUploadDropzoneContentType.allCases
 
-        return hasIconValues.flatMap { hasIcon in
+        return hasIconValues.flatMap { _ in
             contentTypes.map { type in
                     .init(
                         scenario: self,
