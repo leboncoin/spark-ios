@@ -12,7 +12,7 @@ on:
 
 env:
   swift_version: "6.2"
-  xcode_path: "/Applications/Xcode_26.6.app"
+  xcode_path: "/Applications/Xcode_27.0.app"
   demo_app_name: SparkDemoApp
 
 jobs:
