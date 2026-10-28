@@ -65,7 +65,7 @@ public struct SparkFileUploadPreview<ProgressContent>: View where ProgressConten
 
     @Environment(\.theme) private var theme
 
-    @StateObject private var viewModel = FileUploadPreviewViewModel()
+    @State private var isPressed = false
     @State private var showViewer = false
     @State private var showDeleteAlert = false
 
@@ -155,50 +155,48 @@ public struct SparkFileUploadPreview<ProgressContent>: View where ProgressConten
                 }
             })
         } label: {
-            SparkHStack(spacing: self.viewModel.layout.spacing) {
+            let spacing = self.theme.fileUpload.preview.layout.spacing
+            let isSucceed = self.file.isSucceed
+            let content = FileUploadPreviewContent(file: self.file)
+
+            SparkHStack(spacing: spacing) {
                 // Icon with background
                 ZStack {
                     Rectangle()
-                        .fill(self.viewModel.colors.imageBackgroundColorToken)
-                        .frame(size: FileUploadPreviewConstants.Image.containerSize)
-                        .sparkCornerRadius(self.viewModel.border.imageRadius)
+                        .fileUploadPreviewImageBackground(isSucceed: isSucceed)
 
-                    self.viewModel.image.swiftUIImage
+                    FileUploadPreviewImage(file: self.file).swiftUIImage
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(size: FileUploadPreviewConstants.Image.size, alignment: .center)
-                        .foregroundStyle(self.viewModel.colors.imageTintColorToken)
+                        .scaledToFit()
+                        .fileUploadPreviewImage(isSucceed: isSucceed)
                 }
 
                 // Vertical stack for labels and progress
-                SparkVStack(alignment: .leading, spacing: self.viewModel.layout.spacing) {
+                SparkVStack(alignment: .leading, spacing: spacing) {
 
                     // Vertical stack for name and error
                     SparkVStack(alignment: .leading, spacing: .zero) {
 
                         // Horizontal stack for name and size
-                        SparkHStack(spacing: self.viewModel.layout.spacing) {
+                        SparkHStack(spacing: spacing) {
                             Text(self.file.name)
-                                .font(self.viewModel.fonts.nameFontToken)
-                                .foregroundStyle(self.viewModel.colors.nameTextColorToken)
+                                .fileUploadPreviewName()
                                 .lineLimit(1)
                                 .truncationMode(.middle)
 
                             Spacer()
 
                             // File size message
-                            if let fileSize = self.viewModel.content.fileSize {
+                            if let fileSize = content.fileSize {
                                 Text(fileSize)
-                                    .font(self.viewModel.fonts.sizeFontToken)
-                                    .foregroundStyle(self.viewModel.colors.sizeTextColorToken)
+                                    .fileUploadPreviewSize()
                             }
                         }
 
                         // Error message
-                        if let error = self.viewModel.content.error {
+                        if let error = content.error {
                             Text(error)
-                                .font(self.viewModel.fonts.errorFontToken)
-                                .foregroundStyle(self.viewModel.colors.errorTextColorToken)
+                                .fileUploadPreviewError()
                         }
                     }
 
@@ -219,26 +217,13 @@ public struct SparkFileUploadPreview<ProgressContent>: View where ProgressConten
                 .sparkButtonVariant(FileUploadPreviewConstants.Button.variant)
                 .sparkButtonSize(FileUploadPreviewConstants.Button.size)
             }
-            .sparkPadding(.horizontal, self.viewModel.layout.horizontalPadding)
-            .sparkPadding(.vertical, self.viewModel.layout.verticalPadding)
-            .background(self.viewModel.colors.backgroundColorToken.color)
-            .sparkBorder(
-                width: self.viewModel.border.width,
-                radius: self.viewModel.border.radius,
-                colorToken: self.viewModel.colors.borderColorToken,
-                position: .inner
-            )
-            .scaleEffect(self.viewModel.isPressed ? FileUploadPreviewConstants.pressedScaled : 1.0)
-            .optionalAnimation(
-                .easeInOut(duration: FileUploadPreviewConstants.animationDuration),
-                value: self.viewModel.isPressed
-            )
+            .fileUploadPreviewContainer(isSucceed: isSucceed, isPressed: self.isPressed)
         }
         .buttonStyle(PressedButtonStyle(
             isPressed: Binding(get: {
-                self.viewModel.isPressed
+                self.isPressed
             }, set: { value in
-                self.viewModel.isPressed = self.file.isSucceed ? value : false
+                self.isPressed = self.file.isSucceed ? value : false
             })
         ))
         .sparkSensoryFeedback(.success, trigger: self.removeFeedbackID)
@@ -265,22 +250,10 @@ public struct SparkFileUploadPreview<ProgressContent>: View where ProgressConten
                 }
             },
             message: {
-                Text(String.previewAlertMessage(fileName: file.name))
+                Text(String.previewAlertMessage(fileName: self.file.name))
             }
         )
         .sparkVisualIdentification()
-        .onAppear() {
-            self.viewModel.setup(
-                theme: self.theme.value,
-                file: self.file
-            )
-        }
-        .onChange(of: self.theme) {
-            self.viewModel.theme = self.theme.value
-        }
-        .onChange(of: self.file) {
-            self.viewModel.file = self.file
-        }
     }
 }
 

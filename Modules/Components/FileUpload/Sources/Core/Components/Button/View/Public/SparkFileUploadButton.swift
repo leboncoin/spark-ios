@@ -108,8 +108,7 @@ public struct SparkFileUploadButton<Label>: View where Label: View {
     @State private var showFiles = false
     @State private var showCamera = false
 
-    @StateObject private var viewModel = FileUploadButtonViewModel()
-    @StateObject private var services = FileUploadButtonServices()
+    @State private var services = FileUploadButtonServices()
 
     // MARK: - Initialization
 
@@ -194,23 +193,17 @@ public struct SparkFileUploadButton<Label>: View where Label: View {
                 self.files.appendIfUnique(newFiles)
             }
         }
-        .onAppear() {
-            self.viewModel.setup(
-                photoTypes: self.photoTypes,
-                fileTypes: self.fileTypes
-            )
-        }
-        .onChange(of: self.photoTypes) {
-            self.viewModel.photoTypes = self.photoTypes
-        }
-        .onChange(of: self.fileTypes) {
-            self.viewModel.fileTypes = self.fileTypes
-        }
+    }
+
+    // MARK: - Private Properties
+
+    private var contentType: FileUploadButtonContentType {
+        .init(photoTypes: self.photoTypes, fileTypes: self.fileTypes)
     }
 
     @ViewBuilder
     private func button() -> some View {
-        switch self.viewModel.contentType {
+        switch self.contentType {
 
         case .photos:
             self.photosButton()
@@ -295,7 +288,7 @@ public struct SparkFileUploadButton<Label>: View where Label: View {
     @ViewBuilder
     private func menuContent() -> some View {
         // Photos
-        if self.viewModel.contentType.showPhotos {
+        if self.contentType.showPhotos {
 
             // Camera
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -312,7 +305,7 @@ public struct SparkFileUploadButton<Label>: View where Label: View {
         }
 
         // Files
-        if self.viewModel.contentType.showFiles {
+        if self.contentType.showFiles {
             Button(.buttonFromFilesApp, image: Image(spark: \.fileOutline)) {
                 self.showFiles = true
             }

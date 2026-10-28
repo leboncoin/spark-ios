@@ -31,4 +31,15 @@ struct FileUploadPreviewContent: Equatable {
         self.fileSize = nil
         self.error = error
     }
+
+    init(file: FileUpload) {
+        switch file.result {
+        case .success(let details):
+            let value = Measurement(value: details.size, unit: UnitInformationStorage.bytes)
+            self.init(fileSize: value.formatted(.byteCount(style: .memory)))
+
+        case .failure(let error):
+            self.init(error: error.localizedDescription)
+        }
+    }
 }
