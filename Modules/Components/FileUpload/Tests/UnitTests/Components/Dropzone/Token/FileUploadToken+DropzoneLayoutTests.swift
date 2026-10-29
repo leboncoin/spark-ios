@@ -26,7 +26,7 @@ struct FileUploadTokenDropzoneLayoutTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Vertical spacing should return large spacing")
     func verticalSpacingShouldReturnLargeSpacing() {
         // GIVEN / WHEN
         let result = self.token.verticalSpacing
@@ -35,7 +35,7 @@ struct FileUploadTokenDropzoneLayoutTests {
         #expect(result == self.theme.layout.spacing.large)
     }
 
-    @Test
+    @Test("Sub vertical spacing should return medium spacing")
     func subVerticalSpacingShouldReturnMediumSpacing() {
         // GIVEN / WHEN
         let result = self.token.subVerticalSpacing
@@ -44,7 +44,7 @@ struct FileUploadTokenDropzoneLayoutTests {
         #expect(result == self.theme.layout.spacing.medium)
     }
 
-    @Test
+    @Test("Padding should return large spacing")
     func paddingShouldReturnLargeSpacing() {
         // GIVEN / WHEN
         let result = self.token.padding
@@ -55,7 +55,7 @@ struct FileUploadTokenDropzoneLayoutTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = FileUploadToken.Dropzone.Layout(theme: self.theme)
@@ -65,7 +65,7 @@ struct FileUploadTokenDropzoneLayoutTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = FileUploadToken.Dropzone.Layout(theme: self.theme)

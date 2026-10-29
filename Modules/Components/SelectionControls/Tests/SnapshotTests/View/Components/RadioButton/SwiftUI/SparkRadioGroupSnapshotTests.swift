@@ -27,7 +27,7 @@ struct SparkRadioGroupSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: CommonGroupScenarioSnapshotTests.allCases(forDocumentation: false))
+    @Test("Spark radio group snapshot", arguments: CommonGroupScenarioSnapshotTests.allCases(forDocumentation: false))
     func test(scenario: CommonGroupScenarioSnapshotTests) async throws {
         let forDocumentation = false
 

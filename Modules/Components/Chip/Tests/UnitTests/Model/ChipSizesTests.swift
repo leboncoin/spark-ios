@@ -13,7 +13,7 @@ struct ChipSizesTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Initialization with default values")
     func initialization_with_default_values() {
         // GIVEN / WHEN
         let sizes = ChipSizes()
@@ -23,7 +23,7 @@ struct ChipSizesTests {
         #expect(sizes.iconSize == 0)
     }
 
-    @Test
+    @Test("Initialization with custom values")
     func initialization_with_custom_values() {
         // GIVEN / WHEN
         let sizes = ChipSizes(
@@ -36,7 +36,7 @@ struct ChipSizesTests {
         #expect(sizes.iconSize == 16)
     }
 
-    @Test
+    @Test("Equatable returns true when sizes are equal")
     func equatable_returns_true_when_sizes_are_equal() {
         // GIVEN
         let sizes1 = ChipSizes(height: 32, iconSize: 16)
@@ -46,7 +46,7 @@ struct ChipSizesTests {
         #expect(sizes1 == sizes2)
     }
 
-    @Test
+    @Test("Equatable returns false when heights are different")
     func equatable_returns_false_when_heights_are_different() {
         // GIVEN
         let sizes1 = ChipSizes(height: 32, iconSize: 16)
@@ -56,7 +56,7 @@ struct ChipSizesTests {
         #expect(sizes1 != sizes2)
     }
 
-    @Test
+    @Test("Equatable returns false when icon sizes are different")
     func equatable_returns_false_when_iconSizes_are_different() {
         // GIVEN
         let sizes1 = ChipSizes(height: 32, iconSize: 16)

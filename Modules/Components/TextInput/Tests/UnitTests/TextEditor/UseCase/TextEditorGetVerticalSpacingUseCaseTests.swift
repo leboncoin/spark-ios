@@ -6,13 +6,16 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import UIKit
+import Testing
 
 @testable import SparkComponentTextInput
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class TextEditorGetVerticalSpacingUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Text Editor Get Vertical Spacing UseCase Tests")
+struct TextEditorGetVerticalSpacingUseCaseTests {
 
     // MARK: - Properties
 
@@ -20,7 +23,8 @@ final class TextEditorGetVerticalSpacingUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute() {
+    @Test("Execute")
+    func execute() {
         // GIVEN
         let useCase = TextEditorGetVerticalSpacingUseCase()
 
@@ -37,6 +41,6 @@ final class TextEditorGetVerticalSpacingUseCaseTests: XCTestCase {
 
         // THEN
         let expectedSpacing = (height - font.uiFont.lineHeight) / 2
-        XCTAssertEqual(spacing, expectedSpacing)
+        #expect(spacing == expectedSpacing)
     }
 }

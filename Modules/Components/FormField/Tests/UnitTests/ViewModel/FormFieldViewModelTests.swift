@@ -7,29 +7,31 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentFormField
 @_spi(SI_SPI) import SparkComponentFormFieldTesting
 @_spi(SI_SPI) import SparkCommonTesting
 @_spi(SI_SPI) import SparkThemingTesting
 @_spi(SI_SPI) import SparkCommon
 
-final class FormFieldViewModelTests: XCTestCase {
+@MainActor
+@Suite("FormField ViewModel Tests")
+final class FormFieldViewModelTests {
 
     var theme: ThemeGeneratedMock!
     var checkedImage = IconographyTests.shared.checkmark
 
     // MARK: - Setup
 
-    override func setUpWithError() throws {
-        try super.setUpWithError()
+    init() {
 
         self.theme = ThemeGeneratedMock.mocked()
     }
 
     // MARK: - Tests
 
-    func test_init() throws {
+    @Test("Init")
+    func initialization() throws {
         // GIVEN
         let titleColorMock = ColorTokenGeneratedMock()
         let clearButtonColorMock = ColorTokenGeneratedMock()
@@ -84,24 +86,25 @@ final class FormFieldViewModelTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotNil(viewModel.theme, "No theme set")
-        XCTAssertNotNil(viewModel.feedbackState, "No feedback state set")
-        XCTAssertNotNil(viewModel.isRequired, "No title required set")
-        XCTAssertEqual(viewModel.title, "Title")
-        XCTAssertEqual(viewModel.formattedTitle?.leftValue.string, expectedFormattedTitle)
-        XCTAssertEqual(viewModel.titleAccessibilityLabel, titleAccessibilityLabel)
-        XCTAssertEqual(viewModel.helper, "Helper")
-        XCTAssertEqual(viewModel.spacing, self.theme.layout.spacing.small)
+        #expect(viewModel.theme != nil, "No theme set")
+        #expect(viewModel.feedbackState != nil, "No feedback state set")
+        #expect(viewModel.isRequired != nil, "No title required set")
+        #expect(viewModel.title == "Title")
+        #expect(viewModel.formattedTitle?.leftValue.string == expectedFormattedTitle)
+        #expect(viewModel.titleAccessibilityLabel == titleAccessibilityLabel)
+        #expect(viewModel.helper == "Helper")
+        #expect(viewModel.spacing == self.theme.layout.spacing.small)
 
-        XCTAssertIdentical(viewModel.clearButtonColor as? ColorTokenGeneratedMock, clearButtonColorMock)
-        XCTAssertIdentical(viewModel.clearButtonFont as? TypographyFontTokenGeneratedMock, clearButtonFontMock)
-        XCTAssertIdentical(viewModel.helperColor as? ColorTokenGeneratedMock, helperColorMock)
-        XCTAssertIdentical(viewModel.helperFont as? TypographyFontTokenGeneratedMock, helperFontMock)
-        XCTAssertIdentical(viewModel.secondaryHelperColor as? ColorTokenGeneratedMock, secondaryHelperColorMock)
-        XCTAssertIdentical(viewModel.secondaryHelperFont as? TypographyFontTokenGeneratedMock, secondaryHelperFontMock)
+        #expect(viewModel.clearButtonColor as? ColorTokenGeneratedMock === clearButtonColorMock)
+        #expect(viewModel.clearButtonFont as? TypographyFontTokenGeneratedMock === clearButtonFontMock)
+        #expect(viewModel.helperColor as? ColorTokenGeneratedMock === helperColorMock)
+        #expect(viewModel.helperFont as? TypographyFontTokenGeneratedMock === helperFontMock)
+        #expect(viewModel.secondaryHelperColor as? ColorTokenGeneratedMock === secondaryHelperColorMock)
+        #expect(viewModel.secondaryHelperFont as? TypographyFontTokenGeneratedMock === secondaryHelperFontMock)
     }
 
-    func test_title() {
+    @Test("Title")
+    func title() {
         // GIVEN
         let newTitle = "Hello again"
 
@@ -128,56 +131,51 @@ final class FormFieldViewModelTests: XCTestCase {
         viewModel.title = newTitle
 
         // THEN
-        XCTAssertEqual(viewModel.title, newTitle)
-        XCTAssertEqual(viewModel.formattedTitle?.leftValue.string, expectedFormattedTitle)
-        XCTAssertEqual(viewModel.titleAccessibilityLabel, titleAccessibilityLabel)
+        #expect(viewModel.title == newTitle)
+        #expect(viewModel.formattedTitle?.leftValue.string == expectedFormattedTitle)
+        #expect(viewModel.titleAccessibilityLabel == titleAccessibilityLabel)
 
         // **
-        XCTAssertEqual(
-            getFormattedTitleUseCaseMocked.executeWithFrameworkTypeAndTitleAndIsRequiredAndColorsAndFontsCallsCount,
-            2,
+        #expect(
+            getFormattedTitleUseCaseMocked.executeWithFrameworkTypeAndTitleAndIsRequiredAndColorsAndFontsCallsCount == 2,
             "Wrong number of call on getFormattedTitleUseCase"
         )
 
         let formattedTitleArgs = getFormattedTitleUseCaseMocked.executeWithFrameworkTypeAndTitleAndIsRequiredAndColorsAndFontsReceivedArguments
-        XCTAssertEqual(
-            formattedTitleArgs?.title,
-            newTitle,
+        #expect(
+            formattedTitleArgs?.title == newTitle,
             "Wrong title parameter on getFormattedTitleUseCase"
         )
-        XCTAssertEqual(
-            formattedTitleArgs?.isRequired,
-            false,
+        #expect(
+            formattedTitleArgs?.isRequired == false,
             "Wrong isRequired parameter on getFormattedTitleUseCase"
         )
         // **
 
         // **
-        XCTAssertEqual(
-            getTitleAccessibilityLabelUseCaseMocked.executeWithTitleAndCustomValueAndIsRequiredCallsCount,
-            2,
+        #expect(
+            getTitleAccessibilityLabelUseCaseMocked.executeWithTitleAndCustomValueAndIsRequiredCallsCount == 2,
             "Wrong number of call on getTitleAccessibilityLabelUseCase"
         )
 
         let titleA11yLabelArgs = getTitleAccessibilityLabelUseCaseMocked.executeWithTitleAndCustomValueAndIsRequiredReceivedArguments
-        XCTAssertEqual(
-            titleA11yLabelArgs?.title,
-            newTitle,
+        #expect(
+            titleA11yLabelArgs?.title == newTitle,
             "Wrong title parameter on getTitleAccessibilityLabelUseCase"
         )
-        XCTAssertNil(
-            titleA11yLabelArgs?.customValue,
+        #expect(
+            titleA11yLabelArgs?.customValue == nil,
             "Wrong customValue parameter on getTitleAccessibilityLabelUseCase"
         )
-        XCTAssertEqual(
-            titleA11yLabelArgs?.isRequired,
-            false,
+        #expect(
+            titleA11yLabelArgs?.isRequired == false,
             "Wrong isRequired parameter on getTitleAccessibilityLabelUseCase"
         )
         // **
     }
 
-    func test_isRequired() {
+    @Test("Is required")
+    func isRequired() {
         // GIVEN
         let expectedFormattedTitle = "hello"
         let getFormattedTitleUseCaseMocked = FormFieldGetFormattedTitleUseCaseableGeneratedMock()
@@ -202,56 +200,51 @@ final class FormFieldViewModelTests: XCTestCase {
         viewModel.isRequired = true
 
         // THEN
-        XCTAssertEqual(viewModel.title, "Title")
-        XCTAssertEqual(viewModel.formattedTitle?.leftValue.string, expectedFormattedTitle)
-        XCTAssertEqual(viewModel.titleAccessibilityLabel, titleAccessibilityLabel)
+        #expect(viewModel.title == "Title")
+        #expect(viewModel.formattedTitle?.leftValue.string == expectedFormattedTitle)
+        #expect(viewModel.titleAccessibilityLabel == titleAccessibilityLabel)
 
         // **
-        XCTAssertEqual(
-            getFormattedTitleUseCaseMocked.executeWithFrameworkTypeAndTitleAndIsRequiredAndColorsAndFontsCallsCount,
-            2,
+        #expect(
+            getFormattedTitleUseCaseMocked.executeWithFrameworkTypeAndTitleAndIsRequiredAndColorsAndFontsCallsCount == 2,
             "Wrong number of call on getFormattedTitleUseCase"
         )
 
         let formattedTitleArgs = getFormattedTitleUseCaseMocked.executeWithFrameworkTypeAndTitleAndIsRequiredAndColorsAndFontsReceivedArguments
-        XCTAssertEqual(
-            formattedTitleArgs?.title,
-            "Title",
+        #expect(
+            formattedTitleArgs?.title == "Title",
             "Wrong title parameter on getFormattedTitleUseCase"
         )
-        XCTAssertEqual(
-            formattedTitleArgs?.isRequired,
-            true,
+        #expect(
+            formattedTitleArgs?.isRequired == true,
             "Wrong isRequired parameter on getFormattedTitleUseCase"
         )
         // **
 
         // **
-        XCTAssertEqual(
-            getTitleAccessibilityLabelUseCaseMocked.executeWithTitleAndCustomValueAndIsRequiredCallsCount,
-            2,
+        #expect(
+            getTitleAccessibilityLabelUseCaseMocked.executeWithTitleAndCustomValueAndIsRequiredCallsCount == 2,
             "Wrong number of call on getTitleAccessibilityLabelUseCase"
         )
 
         let titleA11yLabelArgs = getTitleAccessibilityLabelUseCaseMocked.executeWithTitleAndCustomValueAndIsRequiredReceivedArguments
-        XCTAssertEqual(
-            titleA11yLabelArgs?.title,
-            "Title",
+        #expect(
+            titleA11yLabelArgs?.title == "Title",
             "Wrong title parameter on getTitleAccessibilityLabelUseCase"
         )
-        XCTAssertNil(
-            titleA11yLabelArgs?.customValue,
+        #expect(
+            titleA11yLabelArgs?.customValue == nil,
             "Wrong customValue parameter on getTitleAccessibilityLabelUseCase"
         )
-        XCTAssertEqual(
-            titleA11yLabelArgs?.isRequired,
-            true,
+        #expect(
+            titleA11yLabelArgs?.isRequired == true,
             "Wrong isRequired parameter on getTitleAccessibilityLabelUseCase"
         )
         // **
     }
 
-    func test_setCounter_with_text() {
+    @Test("Set counter with text")
+    func setCounterWithText() {
         // GIVEN
         let viewModel = FormFieldViewModel(
             frameworkType: .uiKit,
@@ -266,10 +259,11 @@ final class FormFieldViewModelTests: XCTestCase {
         viewModel.setCounter(text: "text", limit: 100)
 
         // THEN
-        XCTAssertEqual(viewModel.secondaryHelper, "4/100")
+        #expect(viewModel.secondaryHelper == "4/100")
     }
 
-    func test_setCounter_without_text() {
+    @Test("Set counter without text")
+    func setCounterWithoutText() {
         // GIVEN
         let viewModel = FormFieldViewModel(
             frameworkType: .uiKit,
@@ -284,10 +278,11 @@ final class FormFieldViewModelTests: XCTestCase {
         viewModel.setCounter(text: nil, limit: 100)
 
         // THEN
-        XCTAssertEqual(viewModel.secondaryHelper, "0/100")
+        #expect(viewModel.secondaryHelper == "0/100")
     }
 
-    func test_setCounter_with_textLength() {
+    @Test("Set counter with text length")
+    func setCounterWithTextLength() {
         // GIVEN
         let viewModel = FormFieldViewModel(
             frameworkType: .uiKit,
@@ -302,10 +297,11 @@ final class FormFieldViewModelTests: XCTestCase {
         viewModel.setCounter(textLength: 4, limit: 100)
 
         // THEN
-        XCTAssertEqual(viewModel.secondaryHelper, "4/100")
+        #expect(viewModel.secondaryHelper == "4/100")
     }
 
-    func test_setCounter_without_textLength() {
+    @Test("Set counter without text length")
+    func setCounterWithoutTextLength() {
         // GIVEN
         let viewModel = FormFieldViewModel(
             frameworkType: .uiKit,
@@ -320,10 +316,11 @@ final class FormFieldViewModelTests: XCTestCase {
         viewModel.setCounter(textLength: nil, limit: 100)
 
         // THEN
-        XCTAssertEqual(viewModel.secondaryHelper, "0/100")
+        #expect(viewModel.secondaryHelper == "0/100")
     }
 
-    func test_setCounter_without_limit() {
+    @Test("Set counter without limit")
+    func setCounterWithoutLimit() {
         // GIVEN
         let viewModel = FormFieldViewModel(
             frameworkType: .uiKit,
@@ -338,10 +335,11 @@ final class FormFieldViewModelTests: XCTestCase {
         viewModel.setCounter(text: "azazd", limit: nil)
 
         // THEN
-        XCTAssertNil(viewModel.secondaryHelper)
+        #expect(viewModel.secondaryHelper == nil)
     }
 
-    func test_set_feedback_state() {
+    @Test("Set feedback state")
+    func setFeedbackState() {
         // GIVEN
         let viewModel = FormFieldViewModel(
             frameworkType: .uiKit,
@@ -356,6 +354,6 @@ final class FormFieldViewModelTests: XCTestCase {
         viewModel.feedbackState = .error
 
         // THEN
-        XCTAssertEqual(viewModel.feedbackState, .error)
+        #expect(viewModel.feedbackState == .error)
     }
 }

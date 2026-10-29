@@ -6,18 +6,20 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 
 @testable import SparkComponentProgressTracker
 
-final class ProgressTrackerIntentTests: XCTestCase {
+@Suite("Progress Tracker Intent Tests")
+struct ProgressTrackerIntentTests {
 
     // MARK: - Tests
-    func test_allCases() {
+    @Test("All cases")
+    func allCases() {
         // GIVEN
         let sut = ProgressTrackerIntent.allCases
 
         // THEN
-        XCTAssertEqual(sut, [.neutral, .success, .support])
+        #expect(sut == [.neutral, .success, .support])
     }
 }

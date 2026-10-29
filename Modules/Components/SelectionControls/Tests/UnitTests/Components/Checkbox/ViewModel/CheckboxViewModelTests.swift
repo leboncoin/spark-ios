@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) @testable import SparkComponentSelectionControlsTesting
 @_spi(SI_SPI) import SparkCommon
@@ -14,16 +14,19 @@ import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 import SwiftUI
 
-final class CheckboxViewModelTests: XCTestCase {
+@MainActor
+@Suite("Checkbox ViewModel Tests")
+struct CheckboxViewModelTests {
 
     // MARK: - Initialization Test
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherDynamicColors: CheckboxDynamicColors(),
             otherStaticColors: CheckboxStaticColors(),
@@ -32,7 +35,7 @@ final class CheckboxViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCaseDynamic: true,
             getColorsUseCaseStatic: true,
@@ -43,7 +46,8 @@ final class CheckboxViewModelTests: XCTestCase {
 
     // MARK: - Setup Tests
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -52,10 +56,10 @@ final class CheckboxViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        CheckboxGetColorsUseCaseableMockTest.XCTAssert(
+        CheckboxGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -64,7 +68,7 @@ final class CheckboxViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        CheckboxGetColorsUseCaseableMockTest.XCTAssert(
+        CheckboxGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -72,14 +76,14 @@ final class CheckboxViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedStaticColors
         )
 
-        CheckboxGetIsIconUseCaseableMockTest.XCTAssert(
+        CheckboxGetIsIconUseCaseableMockTest.expect(
             stub.getIsIconUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSelectionState: stub.givenSelectionState,
             expectedReturnValue: stub.expectedIsIcon
         )
 
-        CheckboxGetToggleOpacitiesUseCaseableMockTest.XCTAssert(
+        CheckboxGetToggleOpacitiesUseCaseableMockTest.expect(
             stub.getToggleOpacitiesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSelectionState: stub.givenSelectionState,
@@ -89,7 +93,8 @@ final class CheckboxViewModelTests: XCTestCase {
 
     // MARK: - Property Change Tests
 
-    func test_themeChanged_shouldUpdateColors() {
+    @Test("Theme changed should update colors")
+    func themeChangedShouldUpdateColors() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -103,9 +108,9 @@ final class CheckboxViewModelTests: XCTestCase {
         viewModel.theme = givenTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        CheckboxGetColorsUseCaseableMockTest.XCTAssert(
+        CheckboxGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -114,7 +119,7 @@ final class CheckboxViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        CheckboxGetColorsUseCaseableMockTest.XCTAssert(
+        CheckboxGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -122,14 +127,15 @@ final class CheckboxViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedStaticColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getIsIconUseCase: true,
             getToggleOpacitiesUseCase: true
         )
     }
 
-    func test_intentChanged_shouldUpdateColors() {
+    @Test("Intent changed should update colors")
+    func intentChangedShouldUpdateColors() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -143,9 +149,9 @@ final class CheckboxViewModelTests: XCTestCase {
         viewModel.intent = givenIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        CheckboxGetColorsUseCaseableMockTest.XCTAssert(
+        CheckboxGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -154,7 +160,7 @@ final class CheckboxViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        CheckboxGetColorsUseCaseableMockTest.XCTAssert(
+        CheckboxGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -162,14 +168,15 @@ final class CheckboxViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedStaticColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getIsIconUseCase: true,
             getToggleOpacitiesUseCase: true
         )
     }
 
-    func test_selectionStateChanged_shouldUpdateDynamicColorsAndIsIcon() {
+    @Test("Selection state changed should update dynamic colors and is icon")
+    func selectionStateChangedShouldUpdateDynamicColorsAndIsIcon() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -183,9 +190,9 @@ final class CheckboxViewModelTests: XCTestCase {
         viewModel.selectionState = givenSelectionState
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        CheckboxGetColorsUseCaseableMockTest.XCTAssert(
+        CheckboxGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -194,24 +201,25 @@ final class CheckboxViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        CheckboxGetIsIconUseCaseableMockTest.XCTAssert(
+        CheckboxGetIsIconUseCaseableMockTest.expect(
             stub.getIsIconUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSelectionState: givenSelectionState,
             expectedReturnValue: stub.expectedIsIcon
         )
 
-        CheckboxGetToggleOpacitiesUseCaseableMockTest.XCTAssert(
+        CheckboxGetToggleOpacitiesUseCaseableMockTest.expect(
             stub.getToggleOpacitiesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSelectionState: givenSelectionState,
             expectedReturnValue: stub.expectedToggleOpacities
         )
 
-        XCTAssertNotCalled(on: stub, getColorsUseCaseStatic: true)
+        expectNotCalled(on: stub, getColorsUseCaseStatic: true)
     }
 
-    func test_propertiesChanged_withoutSetupBefore_shouldNotCallUseCases() {
+    @Test("Properties changed without setup before should not call use cases")
+    func propertiesChangedWithoutSetupBeforeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -221,7 +229,7 @@ final class CheckboxViewModelTests: XCTestCase {
         viewModel.selectionState = CheckboxSelectionState.selected
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherDynamicColors: CheckboxDynamicColors(),
             otherStaticColors: CheckboxStaticColors(),
@@ -229,7 +237,7 @@ final class CheckboxViewModelTests: XCTestCase {
             otherToggleOpacities: CheckboxToggleOpacities()
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCaseDynamic: true,
             getColorsUseCaseStatic: true,
@@ -238,7 +246,8 @@ final class CheckboxViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withoutChange_shouldNotCallUseCases() {
+    @Test("Properties changed without change should not call use cases")
+    func propertiesChangedWithoutChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -251,9 +260,9 @@ final class CheckboxViewModelTests: XCTestCase {
         viewModel.selectionState = stub.givenSelectionState
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCaseDynamic: true,
             getColorsUseCaseStatic: true,
@@ -325,63 +334,69 @@ private extension CheckboxViewModel {
     }
 }
 
-// MARK: - XCT Helpers
+// MARK: - Expectations
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getColorsUseCaseDynamic getColorsUseCaseDynamicNotCalled: Bool = false,
     getColorsUseCaseStatic getColorsUseCaseStaticNotCalled: Bool = false,
     getIsIconUseCase getIsIconUseCaseNotCalled: Bool = false,
-    getToggleOpacitiesUseCase getToggleOpacitiesUseCaeNotCalled: Bool = false
+    getToggleOpacitiesUseCase getToggleOpacitiesUseCaeNotCalled: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    CheckboxGetColorsUseCaseableMockTest.XCTCalled(
+    CheckboxGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeDynamicWithThemeAndIntentAndSelectionStateCalled: !getColorsUseCaseDynamicNotCalled
+        executeDynamicWithThemeAndIntentAndSelectionStateCalled: !getColorsUseCaseDynamicNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    CheckboxGetColorsUseCaseableMockTest.XCTCalled(
+    CheckboxGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeStaticWithThemeAndIntentCalled: !getColorsUseCaseStaticNotCalled
+        executeStaticWithThemeAndIntentCalled: !getColorsUseCaseStaticNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    CheckboxGetIsIconUseCaseableMockTest.XCTCalled(
+    CheckboxGetIsIconUseCaseableMockTest.expectCalled(
         stub.getIsIconUseCaseMock,
-        executeWithSelectionStateCalled: !getIsIconUseCaseNotCalled
+        executeWithSelectionStateCalled: !getIsIconUseCaseNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    CheckboxGetToggleOpacitiesUseCaseableMockTest.XCTCalled(
+    CheckboxGetToggleOpacitiesUseCaseableMockTest.expectCalled(
         stub.getToggleOpacitiesUseCaseMock,
-        executeWithSelectionStateCalled: !getToggleOpacitiesUseCaeNotCalled
+        executeWithSelectionStateCalled: !getToggleOpacitiesUseCaeNotCalled,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherDynamicColors: CheckboxDynamicColors? = nil,
     otherStaticColors: CheckboxStaticColors? = nil,
     otherIsIcon: Bool? = nil,
-    otherToggleOpacities: CheckboxToggleOpacities? = nil
+    otherToggleOpacities: CheckboxToggleOpacities? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.dynamicColors,
-        otherDynamicColors ?? stub.expectedDynamicColors,
-        "Wrong dynamicColors value"
+    #expect(
+        viewModel.dynamicColors == (otherDynamicColors ?? stub.expectedDynamicColors),
+        "Wrong dynamicColors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.staticColors,
-        otherStaticColors ?? stub.expectedStaticColors,
-        "Wrong staticColors value"
+    #expect(
+        viewModel.staticColors == (otherStaticColors ?? stub.expectedStaticColors),
+        "Wrong staticColors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.isIcon,
-        otherIsIcon ?? stub.expectedIsIcon,
-        "Wrong isIcon value"
+    #expect(
+        viewModel.isIcon == (otherIsIcon ?? stub.expectedIsIcon),
+        "Wrong isIcon value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.toggleOpacities,
-        otherToggleOpacities ?? stub.expectedToggleOpacities,
-        "Wrong toggleOpacities value"
+    #expect(
+        viewModel.toggleOpacities == (otherToggleOpacities ?? stub.expectedToggleOpacities),
+        "Wrong toggleOpacities value",
+        sourceLocation: sourceLocation
     )
 }

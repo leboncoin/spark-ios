@@ -22,7 +22,7 @@ struct ChipTokenSizeTests {
 
     // MARK: - Tests
 
-    @Test(arguments: [
+    @Test("Height should return expected value", arguments: [
         (ChipSize.medium, CGFloat(32)),
         (ChipSize.large, CGFloat(40))
     ])
@@ -30,14 +30,14 @@ struct ChipTokenSizeTests {
         #expect(self.token.height(for: size) == expectedHeight)
     }
 
-    @Test
+    @Test("Icon should return 16")
     func iconShouldReturn16() {
         #expect(self.token.icon == 16)
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable should return true")
     func equatableShouldReturnTrue() {
         #expect(ChipToken.Size() == ChipToken.Size())
     }

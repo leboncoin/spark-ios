@@ -9,17 +9,20 @@
 import CoreGraphics
 import Foundation
 @_spi(SI_SPI) @testable import SparkCommon
-import XCTest
+import Testing
 
-final class BorderPositionTests: XCTestCase {
+@Suite("Border Position Tests")
+struct BorderPositionTests {
 
     // MARK: - Tests
 
-    func test_default_value_is_overlay() {
-        XCTAssertEqual(BorderPosition.default, .overlay)
+    @Test("Default value is overlay")
+    func defaultValueIsOverlay() {
+        #expect(BorderPosition.default == .overlay)
     }
 
-    func test_inset_when_inner_returns_zero() {
+    @Test("Inset when inner returns zero")
+    func insetWhenInnerReturnsZero() {
         // GIVEN
         let width: CGFloat = 10
 
@@ -27,10 +30,11 @@ final class BorderPositionTests: XCTestCase {
         let inset = BorderPosition.inner.inset(width: width)
 
         // THEN
-        XCTAssertEqual(inset, .zero)
+        #expect(inset == .zero)
     }
 
-    func test_inset_when_outer_returns_negative_half_width() {
+    @Test("Inset when outer returns negative half width")
+    func insetWhenOuterReturnsNegativeHalfWidth() {
         // GIVEN
         let width: CGFloat = 10
 
@@ -38,6 +42,6 @@ final class BorderPositionTests: XCTestCase {
         let inset = BorderPosition.outer.inset(width: width)
 
         // THEN
-        XCTAssertEqual(inset, -width / 2)
+        #expect(inset == -width / 2)
     }
 }

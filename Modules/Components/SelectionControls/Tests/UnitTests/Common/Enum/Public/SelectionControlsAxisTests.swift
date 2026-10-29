@@ -6,18 +6,20 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class SelectionControlsAxisTests: XCTestCase {
+@Suite("Selection Controls Axis Tests")
+struct SelectionControlsAxisTests {
 
     // MARK: - Properties Tests
 
-    func test_default_shouldReturnVertical() {
+    @Test("Default should return vertical")
+    func defaultShouldReturnVertical() {
         // GIVEN / WHEN
         let result = SelectionControlsAxis.default
 
         // THEN
-        XCTAssertEqual(result, .vertical)
+        #expect(result == .vertical)
     }
 }

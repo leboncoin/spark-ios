@@ -6,15 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentChip
 
-final class ChipVariantTests: XCTestCase {
+@Suite("Chip Variant Tests")
+struct ChipVariantTests {
 
     // MARK: - Tests
 
-    func test_default_variant_is_tinted() {
+    @Test("Default variant is tinted")
+    func defaultVariantIsTinted() {
         // Then
-        XCTAssertEqual(ChipVariant.default, .tinted)
+        #expect(ChipVariant.default == .tinted)
     }
 }

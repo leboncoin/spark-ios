@@ -7,26 +7,30 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentChip
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ChipColorsTests: XCTestCase {
+@MainActor
+@Suite("Chip Colors Tests")
+struct ChipColorsTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let colors = ChipColors()
 
         // Then
-        XCTAssertTrue(colors.background.equals(ColorTokenClear()))
-        XCTAssertTrue(colors.border.equals(ColorTokenClear()))
-        XCTAssertTrue(colors.content.equals(ColorTokenClear()))
+        #expect(colors.background.equals(ColorTokenClear()))
+        #expect(colors.border.equals(ColorTokenClear()))
+        #expect(colors.content.equals(ColorTokenClear()))
     }
 
-    func test_equality_when_same_colors() {
+    @Test("Equality when same colors")
+    func equalityWhenSameColors() {
         // GIVEN / WHEN
         let backgroundToken = ColorTokenGeneratedMock.random()
         let borderToken = ColorTokenGeneratedMock.random()
@@ -45,6 +49,6 @@ final class ChipColorsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(colors1, colors2)
+        #expect(colors1 == colors2)
     }
 }

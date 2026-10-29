@@ -6,10 +6,11 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @_spi(SI_SPI) @testable import SparkCommonTesting
 
-final class CaseIterableRandomExtensionTests: XCTestCase {
+@Suite("Case Iterable Random Extension Tests")
+struct CaseIterableRandomExtensionTests {
 
     // MARK: - Enum
 
@@ -22,7 +23,8 @@ final class CaseIterableRandomExtensionTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_otherRandom_returns_different_value() {
+    @Test("Other random returns different value")
+    func otherRandomReturnsDifferentValue() {
         // GIVEN
         let originalValue = TestEnum.first
 
@@ -30,28 +32,30 @@ final class CaseIterableRandomExtensionTests: XCTestCase {
         let otherValue = originalValue.otherRandom
 
         // THEN
-        XCTAssertNotEqual(originalValue, otherValue)
-        XCTAssertTrue(TestEnum.allCases.contains(otherValue))
+        #expect(originalValue != otherValue)
+        #expect(TestEnum.allCases.contains(otherValue))
     }
 
-    func test_otherRandom_multiple_calls_return_valid_values() {
+    @Test("Other random multiple calls return valid values")
+    func otherRandomMultipleCallsReturnValidValues() {
         // GIVEN
         let originalValue = TestEnum.second
 
         // WHEN & THEN
         for _ in 0..<100 {
             let otherValue = originalValue.otherRandom
-            XCTAssertNotEqual(originalValue, otherValue)
-            XCTAssertTrue(TestEnum.allCases.contains(otherValue))
+            #expect(originalValue != otherValue)
+            #expect(TestEnum.allCases.contains(otherValue))
         }
     }
 
-    func test_otherRandom_with_all_enum_cases() {
+    @Test("Other random with all enum cases")
+    func otherRandomWithAllEnumCases() {
         // GIVEN & WHEN & THEN
         for enumCase in TestEnum.allCases {
             let otherValue = enumCase.otherRandom
-            XCTAssertNotEqual(enumCase, otherValue)
-            XCTAssertTrue(TestEnum.allCases.contains(otherValue))
+            #expect(enumCase != otherValue)
+            #expect(TestEnum.allCases.contains(otherValue))
         }
     }
 }

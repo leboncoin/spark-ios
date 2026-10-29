@@ -7,24 +7,28 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentChip
 
-final class ChipBorderTests: XCTestCase {
+@MainActor
+@Suite("Chip Border Tests")
+struct ChipBorderTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let border = ChipBorder()
 
         // THEN
-        XCTAssertEqual(border.width, 0)
-        XCTAssertEqual(border.radius, 0)
-        XCTAssertEqual(border.dash, 0)
+        #expect(border.width == 0)
+        #expect(border.radius == 0)
+        #expect(border.dash == 0)
     }
 
-    func test_equality_when_same_properties() {
+    @Test("Equality when same properties")
+    func equalityWhenSameProperties() {
         // GIVEN
         let border1 = ChipBorder(
             width: 1.5,
@@ -39,6 +43,6 @@ final class ChipBorderTests: XCTestCase {
         )
 
         // THEN
-         XCTAssertEqual(border1, border2)
+         #expect(border1 == border2)
     }
 }

@@ -31,7 +31,7 @@ struct SparkUIRadioButtonSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: RadioButtonScenarioSnapshotTests.allCases())
+    @Test("Spark UIRadio button snapshot", arguments: RadioButtonScenarioSnapshotTests.allCases())
     func test(scenario: RadioButtonScenarioSnapshotTests) async throws {
         let configurations: [RadioButtonConfigurationSnapshotTests] = try scenario.configuration()
         for configuration in configurations {

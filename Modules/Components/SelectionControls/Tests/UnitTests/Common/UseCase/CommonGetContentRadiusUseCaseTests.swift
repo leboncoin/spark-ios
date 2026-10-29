@@ -6,15 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class CommonGetContentRadiusUseCaseTests: XCTestCase {
+@Suite("Common Get Content Radius UseCase Tests")
+struct CommonGetContentRadiusUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_for_checkboxType_returnsFullRadius() {
+    @Test("Execute for checkbox type returns full radius")
+    func executeForCheckboxTypeReturnsFullRadius() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let useCase = CommonGetContentRadiusUseCase()
@@ -26,10 +28,11 @@ final class CommonGetContentRadiusUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.border.radius.small)
+        #expect(result == theme.border.radius.small)
     }
 
-    func test_execute_for_radioButtonType_returnsFullRadius() {
+    @Test("Execute for radio button type returns full radius")
+    func executeForRadioButtonTypeReturnsFullRadius() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let useCase = CommonGetContentRadiusUseCase()
@@ -41,10 +44,11 @@ final class CommonGetContentRadiusUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.border.radius.full)
+        #expect(result == theme.border.radius.full)
     }
 
-    func test_execute_for_toggleType_returnsFullRadius() {
+    @Test("Execute for toggle type returns full radius")
+    func executeForToggleTypeReturnsFullRadius() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let useCase = CommonGetContentRadiusUseCase()
@@ -56,6 +60,6 @@ final class CommonGetContentRadiusUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.border.radius.full)
+        #expect(result == theme.border.radius.full)
     }
 }

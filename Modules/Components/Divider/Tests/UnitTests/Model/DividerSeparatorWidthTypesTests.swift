@@ -6,32 +6,33 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 
 @testable import SparkComponentDivider
 
-final class DividerSeparatorWidthTypesTests: XCTestCase {
+@Suite("Divider Separator Width Types Tests")
+struct DividerSeparatorWidthTypesTests {
 
     // MARK: - Default Values Tests
 
-    func test_init_default_values() {
+    @Test("Init default values")
+    func initDefaultValues() {
         // GIVEN & WHEN
         let widthTypes = DividerSeparatorWidthTypes()
 
         // THEN
-        XCTAssertEqual(
-            widthTypes.first,
-            .default,
+        #expect(
+            widthTypes.first == .default,
             "Default first should be .default"
         )
-        XCTAssertEqual(
-            widthTypes.last,
-            .default,
+        #expect(
+            widthTypes.last == .default,
             "Default last should be .default"
         )
     }
 
-    func test_init_with_custom_values() {
+    @Test("Init with custom values")
+    func initWithCustomValues() {
         // GIVEN & WHEN
         let widthTypes = DividerSeparatorWidthTypes(
             first: .fixed,
@@ -39,21 +40,20 @@ final class DividerSeparatorWidthTypesTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            widthTypes.first,
-            .fixed,
+        #expect(
+            widthTypes.first == .fixed,
             "First should be .fixed"
         )
-        XCTAssertEqual(
-            widthTypes.last,
-            .dynamic,
+        #expect(
+            widthTypes.last == .dynamic,
             "Last should be .dynamic"
         )
     }
 
     // MARK: - Value Method Tests
 
-    func test_value_for_first_position() {
+    @Test("Value for first position")
+    func valueForFirstPosition() {
         // GIVEN
         let widthTypes = DividerSeparatorWidthTypes(
             first: .fixed,
@@ -64,14 +64,14 @@ final class DividerSeparatorWidthTypesTests: XCTestCase {
         let value = widthTypes.value(for: .first)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            .fixed,
+        #expect(
+            value == .fixed,
             "Value for .first position should return first property"
         )
     }
 
-    func test_value_for_last_position() {
+    @Test("Value for last position")
+    func valueForLastPosition() {
         // GIVEN
         let widthTypes = DividerSeparatorWidthTypes(
             first: .fixed,
@@ -82,63 +82,62 @@ final class DividerSeparatorWidthTypesTests: XCTestCase {
         let value = widthTypes.value(for: .last)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            .dynamic,
+        #expect(
+            value == .dynamic,
             "Value for .last position should return last property"
         )
     }
 
     // MARK: - Equatable Tests
 
-    func test_equatable_same_instances() {
+    @Test("Equatable same instances")
+    func equatableSameInstances() {
         // GIVEN
         let widthTypes1 = DividerSeparatorWidthTypes()
         let widthTypes2 = DividerSeparatorWidthTypes()
 
         // WHEN & THEN
-        XCTAssertEqual(
-            widthTypes1,
-            widthTypes2,
+        #expect(
+            widthTypes1 == widthTypes2,
             "Two DividerSeparatorWidthTypes instances with same values should be equal"
         )
     }
 
-    func test_equatable_same_custom_values() {
+    @Test("Equatable same custom values")
+    func equatableSameCustomValues() {
         // GIVEN
         let widthTypes1 = DividerSeparatorWidthTypes(first: .fixed, last: .dynamic)
         let widthTypes2 = DividerSeparatorWidthTypes(first: .fixed, last: .dynamic)
 
         // WHEN & THEN
-        XCTAssertEqual(
-            widthTypes1,
-            widthTypes2,
+        #expect(
+            widthTypes1 == widthTypes2,
             "Two DividerSeparatorWidthTypes instances with same custom values should be equal"
         )
     }
 
-    func test_equatable_different_first_values() {
+    @Test("Equatable different first values")
+    func equatableDifferentFirstValues() {
         // GIVEN
         let widthTypes1 = DividerSeparatorWidthTypes(first: .fixed, last: .dynamic)
         let widthTypes2 = DividerSeparatorWidthTypes(first: .equal, last: .dynamic)
 
         // WHEN & THEN
-        XCTAssertNotEqual(
-            widthTypes1,
-            widthTypes2,
+        #expect(
+            widthTypes1 != widthTypes2,
             "DividerSeparatorWidthTypes with different first values should not be equal"
         )
     }
 
-    func test_equatable_different_last_values() {
+    @Test("Equatable different last values")
+    func equatableDifferentLastValues() {
         // GIVEN
         let widthTypes1 = DividerSeparatorWidthTypes(first: .fixed, last: .dynamic)
         let widthTypes2 = DividerSeparatorWidthTypes(first: .fixed, last: .equal)
 
         // WHEN & THEN
-        XCTAssertNotEqual(
-            widthTypes1,
-            widthTypes2,
+        #expect(
+            widthTypes1 != widthTypes2,
             "DividerSeparatorWidthTypes with different last values should not be equal"
         )
     }

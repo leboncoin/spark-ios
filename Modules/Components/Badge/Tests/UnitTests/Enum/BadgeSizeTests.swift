@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentBadge
 
-final class BadgeSizeTests: XCTestCase {
+@Suite("Badge Size Tests")
+struct BadgeSizeTests {
 
     // MARK: - Tests
 
-    func test_default_intent_is_medium() {
-        XCTAssertEqual(BadgeSize.default, .medium)
+    @Test("Default intent is medium")
+    func defaultIntentIsMedium() {
+        #expect(BadgeSize.default == .medium)
     }
 }

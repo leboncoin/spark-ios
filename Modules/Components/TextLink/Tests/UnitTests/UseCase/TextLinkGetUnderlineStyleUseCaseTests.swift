@@ -6,11 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import UIKit
 @testable import SparkComponentTextLink
 
-final class TextLinkGetUnderlineStyleUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Text Link Get Underline Style UseCase Tests")
+struct TextLinkGetUnderlineStyleUseCaseTests {
 
     // MARK: - Properties
 
@@ -18,7 +20,8 @@ final class TextLinkGetUnderlineStyleUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_underline_variant_not_highlighted() {
+    @Test("Execute underline variant not highlighted")
+    func executeUnderlineVariantNotHighlighted() {
         // GIVEN
         let variant = TextLinkVariant.underline
         let isHighlighted = false
@@ -30,10 +33,11 @@ final class TextLinkGetUnderlineStyleUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, .single)
+        #expect(result == .single)
     }
 
-    func test_execute_underline_variant_highlighted() {
+    @Test("Execute underline variant highlighted")
+    func executeUnderlineVariantHighlighted() {
         // GIVEN
         let variant = TextLinkVariant.underline
         let isHighlighted = true
@@ -45,10 +49,11 @@ final class TextLinkGetUnderlineStyleUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, .single)
+        #expect(result == .single)
     }
 
-    func test_execute_none_variant_not_highlighted() {
+    @Test("Execute none variant not highlighted")
+    func executeNoneVariantNotHighlighted() {
         // GIVEN
         let variant = TextLinkVariant.none
         let isHighlighted = false
@@ -60,10 +65,11 @@ final class TextLinkGetUnderlineStyleUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_execute_none_variant_highlighted() {
+    @Test("Execute none variant highlighted")
+    func executeNoneVariantHighlighted() {
         // GIVEN
         let variant = TextLinkVariant.none
         let isHighlighted = true
@@ -75,6 +81,6 @@ final class TextLinkGetUnderlineStyleUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, .single)
+        #expect(result == .single)
     }
 }

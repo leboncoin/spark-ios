@@ -27,7 +27,7 @@ struct TextFieldViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: TextFieldScenarioSnapshotTests.allCases)
+    @Test("Text field view snapshot", arguments: TextFieldScenarioSnapshotTests.allCases)
     func test(scenario: TextFieldScenarioSnapshotTests) async throws {
         let configurations: [TextFieldConfigurationSnapshotTests] = try scenario.configuration(
             isSwiftUIComponent: true

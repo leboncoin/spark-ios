@@ -6,13 +6,14 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import Foundation
 @testable import SparkComponentSegmentedGauge
 @_spi(SI_SPI) import SparkThemingTesting
 import SparkTheming
 
-final class SegmentedGaugeGetColorsUseCaseTests: XCTestCase {
+@Suite("SegmentedGauge Get Colors UseCase Tests")
+struct SegmentedGaugeGetColorsUseCaseTests {
 
     // MARK: - Properties
 
@@ -21,7 +22,8 @@ final class SegmentedGaugeGetColorsUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_withVeryHighOrHighType_returnsSuccessColors() {
+    @Test("Execute with very high or high type returns success colors")
+    func executeWithVeryHighOrHighTypeReturnsSuccessColors() {
         // GIVEN
         let types: [SegmentedGaugeType] = [.veryHigh, .high]
         let expectedColors = self.expectedColors(
@@ -42,7 +44,8 @@ final class SegmentedGaugeGetColorsUseCaseTests: XCTestCase {
         }
     }
 
-    func test_execute_withMediumThreeSegments_returnsSuccessColors() {
+    @Test("Execute with medium three segments returns success colors")
+    func executeWithMediumThreeSegmentsReturnsSuccessColors() {
         // GIVEN
         let expectedColors = self.expectedColors(
             plainColor: self.theme.colors.feedback.success
@@ -59,7 +62,8 @@ final class SegmentedGaugeGetColorsUseCaseTests: XCTestCase {
         self.assert(result, equals: expectedColors, expectedOpacity: 1)
     }
 
-    func test_execute_withMediumFiveSegments_returnsNeutralColors() {
+    @Test("Execute with medium five segments returns neutral colors")
+    func executeWithMediumFiveSegmentsReturnsNeutralColors() {
         // GIVEN
         let expectedColors = self.expectedColors(
             plainColor: self.theme.colors.feedback.neutral
@@ -76,7 +80,8 @@ final class SegmentedGaugeGetColorsUseCaseTests: XCTestCase {
         self.assert(result, equals: expectedColors, expectedOpacity: 1)
     }
 
-    func test_execute_withLowType_returnsAlertColors() {
+    @Test("Execute with low type returns alert colors")
+    func executeWithLowTypeReturnsAlertColors() {
         // GIVEN
         let expectedColors = self.expectedColors(
             plainColor: self.theme.colors.feedback.alert
@@ -94,7 +99,8 @@ final class SegmentedGaugeGetColorsUseCaseTests: XCTestCase {
         }
     }
 
-    func test_execute_withVeryLowType_returnsErrorColors() {
+    @Test("Execute with very low type returns error colors")
+    func executeWithVeryLowTypeReturnsErrorColors() {
         // GIVEN
         let expectedColors = self.expectedColors(
             plainColor: self.theme.colors.feedback.error
@@ -112,7 +118,8 @@ final class SegmentedGaugeGetColorsUseCaseTests: XCTestCase {
         }
     }
 
-    func test_execute_withNoDataType_returnsSurfaceColors() {
+    @Test("Execute with no data type returns surface colors")
+    func executeWithNoDataTypeReturnsSurfaceColors() {
         // GIVEN
         let expectedColors = self.expectedColors(
             plainColor: self.theme.colors.base.surface
@@ -130,7 +137,8 @@ final class SegmentedGaugeGetColorsUseCaseTests: XCTestCase {
         }
     }
 
-    func test_execute_withCustomType_returnsProvidedColor() {
+    @Test("Execute with custom type returns provided color")
+    func executeWithCustomTypeReturnsProvidedColor() {
         // GIVEN
         let customColor = ColorTokenGeneratedMock.blue()
         let expectedColors = self.expectedColors(plainColor: customColor)
@@ -151,7 +159,8 @@ final class SegmentedGaugeGetColorsUseCaseTests: XCTestCase {
         self.assert(result, equals: expectedColors, expectedOpacity: 1)
     }
 
-    func test_execute_withCustomTypeAndPositiveDim_returnsProvidedOpacity() {
+    @Test("Execute with custom type and positive dim returns provided opacity")
+    func executeWithCustomTypeAndPositiveDimReturnsProvidedOpacity() {
         // GIVEN
         let customColor = ColorTokenGeneratedMock.orange()
         let dim: CGFloat = 0.4
@@ -197,10 +206,9 @@ final class SegmentedGaugeGetColorsUseCaseTests: XCTestCase {
         _ result: SegmentedGaugeColors,
         equals expectedColors: SegmentedGaugeColors,
         expectedOpacity: CGFloat,
-        file: StaticString = #file,
-        line: UInt = #line
+        sourceLocation: Testing.SourceLocation = #_sourceLocation
     ) {
-        XCTAssertEqual(result, expectedColors, file: file, line: line)
-        XCTAssertEqual(result.plainSegmentOpacity, expectedOpacity, file: file, line: line)
+        #expect(result == expectedColors, sourceLocation: sourceLocation)
+        #expect(result.plainSegmentOpacity == expectedOpacity, sourceLocation: sourceLocation)
     }
 }

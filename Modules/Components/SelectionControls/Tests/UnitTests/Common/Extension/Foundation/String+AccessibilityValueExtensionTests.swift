@@ -6,37 +6,41 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class StringAccessibilityValueExtensionTests: XCTestCase {
+@Suite("String Accessibility Value Extension Tests")
+struct StringAccessibilityValueExtensionTests {
 
     // MARK: - Tests
 
-    func test_accessibilityValue_whenIsSelectedTrue() {
+    @Test("Accessibility value when is selected true")
+    func accessibilityValueWhenIsSelectedTrue() {
         // GIVEN / WHEN
         let result = String.accessibilityValue(isSelected: true)
 
         // THEN
-        XCTAssertNotEqual(result, "accessibility_value_selected")
-        XCTAssertNotEqual(result, "accessibility_value_not_selected")
+        #expect(result != "accessibility_value_selected")
+        #expect(result != "accessibility_value_not_selected")
     }
 
-    func test_accessibilityValue_whenIsSelectedFalse() {
+    @Test("Accessibility value when is selected false")
+    func accessibilityValueWhenIsSelectedFalse() {
         // GIVEN / WHEN
         let result = String.accessibilityValue(isSelected: false)
 
         // THEN
-        XCTAssertNotEqual(result, "accessibility_value_selected")
-        XCTAssertNotEqual(result, "accessibility_value_not_selected")
+        #expect(result != "accessibility_value_selected")
+        #expect(result != "accessibility_value_not_selected")
     }
 
-    func test_accessibilityValue_mustBeDifferent() {
+    @Test("Accessibility value must be different")
+    func accessibilityValueMustBeDifferent() {
         // GIVEN / WHEN
         let result1 = String.accessibilityValue(isSelected: true)
         let result2 = String.accessibilityValue(isSelected: false)
 
         // THEN
-        XCTAssertNotEqual(result1, result2)
+        #expect(result1 != result2)
     }
 }

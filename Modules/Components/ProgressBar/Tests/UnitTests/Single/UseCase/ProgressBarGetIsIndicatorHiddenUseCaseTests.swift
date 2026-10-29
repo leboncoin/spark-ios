@@ -6,14 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentProgressBar
 
-final class ProgressBarGetIsIndicatorHiddenUseCaseTests: XCTestCase {
+@Suite("Progress Bar Get Is Indicator Hidden Use Case Tests")
+struct ProgressBarGetIsIndicatorHiddenUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_returns_true_when_value_is_zero() {
+    @Test("Execute returns true when value is zero")
+    func executeReturnsTrueWhenValueIsZero() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenValue: 0.0,
@@ -21,7 +24,8 @@ final class ProgressBarGetIsIndicatorHiddenUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_returns_false_when_value_is_one() {
+    @Test("Execute returns false when value is one")
+    func executeReturnsFalseWhenValueIsOne() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenValue: 1.0,
@@ -29,7 +33,8 @@ final class ProgressBarGetIsIndicatorHiddenUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_returns_false_when_value_is_in_positive_range() {
+    @Test("Execute returns false when value is in positive range")
+    func executeReturnsFalseWhenValueIsInPositiveRange() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenValue: 0.5,
@@ -37,7 +42,8 @@ final class ProgressBarGetIsIndicatorHiddenUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_returns_true_when_value_is_negative() {
+    @Test("Execute returns true when value is negative")
+    func executeReturnsTrueWhenValueIsNegative() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenValue: -0.1,
@@ -45,7 +51,8 @@ final class ProgressBarGetIsIndicatorHiddenUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_returns_false_when_value_is_greater_than_one() {
+    @Test("Execute returns false when value is greater than one")
+    func executeReturnsFalseWhenValueIsGreaterThanOne() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenValue: 1.1,
@@ -53,7 +60,8 @@ final class ProgressBarGetIsIndicatorHiddenUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_returns_false_when_value_is_small_positive() {
+    @Test("Execute returns false when value is small positive")
+    func executeReturnsFalseWhenValueIsSmallPositive() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenValue: 0.001,
@@ -77,10 +85,6 @@ private extension ProgressBarGetIsIndicatorHiddenUseCaseTests {
         let result = useCase.execute(value: givenValue)
 
         // THEN
-        XCTAssertEqual(
-            result,
-            expectedResult,
-            "Wrong hidden result for value \(givenValue)"
-        )
+        #expect(result == expectedResult, "Wrong hidden result for value \(givenValue)")
     }
 }

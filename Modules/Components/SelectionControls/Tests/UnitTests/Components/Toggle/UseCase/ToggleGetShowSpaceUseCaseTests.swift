@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class ToggleGetShowSpaceUseCaseTests: XCTestCase {
+@Suite("Toggle Get Show Space UseCase Tests")
+struct ToggleGetShowSpaceUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_whenIsOn_returnsLeft() {
+    @Test("Execute when is on returns left")
+    func executeWhenIsOnReturnsLeft() {
         // GIVEN
         let useCase = ToggleGetShowSpaceUseCase()
 
@@ -21,10 +23,11 @@ final class ToggleGetShowSpaceUseCaseTests: XCTestCase {
         let result = useCase.execute(isOn: true)
 
         // THEN
-        XCTAssertEqual(result, .left)
+        #expect(result == .left)
     }
 
-    func test_execute_whenIsOff_returnsRight() {
+    @Test("Execute when is off returns right")
+    func executeWhenIsOffReturnsRight() {
         // GIVEN
         let useCase = ToggleGetShowSpaceUseCase()
 
@@ -32,6 +35,6 @@ final class ToggleGetShowSpaceUseCaseTests: XCTestCase {
         let result = useCase.execute(isOn: false)
 
         // THEN
-        XCTAssertEqual(result, .right)
+        #expect(result == .right)
     }
 }

@@ -8,31 +8,31 @@
 
 @testable import SparkComponentSlider
 @_spi(SI_SPI) import SparkThemingTesting
-import XCTest
+import Testing
 
-final class SliderGetSpacingUseCaseTests: XCTestCase {
+@Suite("Slider Get Spacing UseCase Tests")
+struct SliderGetSpacingUseCaseTests {
 
     // MARK: - Private properties
 
-    private var sut: SliderGetSpacingUseCase!
-    private var theme: ThemeGeneratedMock!
+    private let sut: SliderGetSpacingUseCase
+    private let theme: ThemeGeneratedMock
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = SliderGetSpacingUseCase()
         self.theme = ThemeGeneratedMock.mocked()
     }
 
     // MARK: - Tests
 
-    func test_execute_returns_correct_spacing() {
+    @Test("Execute returns correct spacing")
+    func executeReturnsCorrectSpacing() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme)
 
         // THEN
-        XCTAssertEqual(result, self.theme.layout.spacing.small)
+        #expect(result == self.theme.layout.spacing.small)
     }
 }

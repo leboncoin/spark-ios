@@ -21,7 +21,7 @@ struct ComponentTokenCircularMeterTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Circular meter should return token from theme")
     func circularMeterShouldReturnTokenFromTheme() {
         // GIVEN
         let componentToken = ComponentToken(theme: self.theme)
@@ -33,7 +33,7 @@ struct ComponentTokenCircularMeterTests {
         #expect(token == CircularMeterToken(theme: self.theme))
     }
 
-    @Test
+    @Test("Circular meter from theme component should return token from theme")
     func circularMeterFromThemeComponentShouldReturnTokenFromTheme() {
         // GIVEN / WHEN
         let token = self.theme.component.circularMeter
@@ -42,7 +42,7 @@ struct ComponentTokenCircularMeterTests {
         #expect(token == CircularMeterToken(theme: self.theme))
     }
 
-    @Test
+    @Test("Circular meter with different theme should not return token from theme")
     func circularMeterWithDifferentThemeShouldNotReturnTokenFromTheme() {
         // GIVEN
         let componentToken = ComponentToken(theme: ThemeGeneratedMock.mocked2())

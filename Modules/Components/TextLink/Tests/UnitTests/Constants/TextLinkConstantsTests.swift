@@ -6,18 +6,20 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextLink
 
-final class TextLinkConstantsTests: XCTestCase {
+@Suite("Text Link Constants Tests")
+struct TextLinkConstantsTests {
 
     // MARK: - Tests
 
-    func test_animationDuration_value() {
+    @Test("Animation duration value")
+    func animationDurationValue() {
         // GIVEN / WHEN
         let animationDuration = TextLinkConstants.animationDuration
 
         // THEN
-        XCTAssertEqual(animationDuration, 0.2, "Animation duration should be 0.2 seconds (200ms)")
+        #expect(animationDuration == 0.2, "Animation duration should be 0.2 seconds (200ms)")
     }
 }

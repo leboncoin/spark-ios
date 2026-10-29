@@ -6,33 +6,37 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class EdgeInsetsExtensionsTests: XCTestCase {
+@MainActor
+@Suite("Edge Insets Extensions Tests")
+struct EdgeInsetsExtensionsTests {
 
     // MARK: - Tests
 
-    func test_init_all() {
+    @Test("Init all")
+    func initAll() {
         // GIVEN/WHEN
         let edgetInsets = EdgeInsets(all: 99)
 
         // THEN
-        XCTAssertEqual(edgetInsets.top, 99, "Wrong top value")
-        XCTAssertEqual(edgetInsets.leading, 99, "Wrong leading value")
-        XCTAssertEqual(edgetInsets.bottom, 99, "Wrong bottom value")
-        XCTAssertEqual(edgetInsets.trailing, 99, "Wrong trailing value")
+        #expect(edgetInsets.top == 99, "Wrong top value")
+        #expect(edgetInsets.leading == 99, "Wrong leading value")
+        #expect(edgetInsets.bottom == 99, "Wrong bottom value")
+        #expect(edgetInsets.trailing == 99, "Wrong trailing value")
     }
 
-    func test_init_vertical_and_horizontal() {
+    @Test("Init vertical and horizontal")
+    func initVerticalAndHorizontal() {
         // GIVEN/WHEN
         let edgetInsets = EdgeInsets(vertical: 13, horizontal: 44)
 
         // THEN
-        XCTAssertEqual(edgetInsets.top, 13, "Wrong top value")
-        XCTAssertEqual(edgetInsets.leading, 44, "Wrong leading value")
-        XCTAssertEqual(edgetInsets.bottom, 13, "Wrong bottom value")
-        XCTAssertEqual(edgetInsets.trailing, 44, "Wrong trailing value")
+        #expect(edgetInsets.top == 13, "Wrong top value")
+        #expect(edgetInsets.leading == 44, "Wrong leading value")
+        #expect(edgetInsets.bottom == 13, "Wrong bottom value")
+        #expect(edgetInsets.trailing == 44, "Wrong trailing value")
     }
 }

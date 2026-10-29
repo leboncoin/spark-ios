@@ -6,22 +6,25 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextLink
 
-final class TextLinkAlignmentTests: XCTestCase {
+@Suite("Text Link Alignment Tests")
+struct TextLinkAlignmentTests {
 
     // MARK: - Tests
 
-    func test_default_case() {
+    @Test("Default case")
+    func defaultCase() {
         // GIVEN / WHEN
         let defaultAlignment = TextLinkAlignment.default
 
         // THEN
-        XCTAssertEqual(defaultAlignment, .leadingImage, "Default case should be .leadingImage")
+        #expect(defaultAlignment == .leadingImage, "Default case should be .leadingImage")
     }
 
-    func test_case_iterable_contains_all_cases() {
+    @Test("Case iterable contains all cases")
+    func caseIterableContainsAllCases() {
         // GIVEN
         let expectedCases: [TextLinkAlignment] = [
             .leadingImage,
@@ -32,13 +35,14 @@ final class TextLinkAlignmentTests: XCTestCase {
         let allCases = TextLinkAlignment.allCases
 
         // THEN
-        XCTAssertEqual(allCases.count, 2, "Should have exactly 2 cases")
-        XCTAssertEqual(Set(allCases), Set(expectedCases), "All cases should match expected cases")
+        #expect(allCases.count == 2, "Should have exactly 2 cases")
+        #expect(Set(allCases) == Set(expectedCases), "All cases should match expected cases")
     }
 
-    func test_isTrailingImage_property() {
+    @Test("Is trailing image property")
+    func isTrailingImageProperty() {
         // GIVEN / WHEN / THEN
-        XCTAssertTrue(TextLinkAlignment.trailingImage.isTrailingImage, "trailingImage should have isTrailingImage true")
-        XCTAssertFalse(TextLinkAlignment.leadingImage.isTrailingImage, "leadingImage should have isTrailingImage false")
+        #expect(TextLinkAlignment.trailingImage.isTrailingImage, "trailingImage should have isTrailingImage true")
+        #expect(!TextLinkAlignment.leadingImage.isTrailingImage, "leadingImage should have isTrailingImage false")
     }
 }

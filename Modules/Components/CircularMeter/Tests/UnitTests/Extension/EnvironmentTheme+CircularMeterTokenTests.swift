@@ -26,27 +26,27 @@ struct EnvironmentThemeCircularMeterTokenTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Colors should return circular meter colors")
     func colorsShouldReturnCircularMeterColors() {
         #expect(self.environmentTheme.colors == self.theme.component.circularMeter.colors)
     }
 
-    @Test
+    @Test("Layout should return circular meter layout")
     func layoutShouldReturnCircularMeterLayout() {
         #expect(self.environmentTheme.layout == self.theme.component.circularMeter.layout)
     }
 
-    @Test
+    @Test("Typography should return circular meter typography")
     func typographyShouldReturnCircularMeterTypography() {
         #expect(self.environmentTheme.typography == self.theme.component.circularMeter.typography)
     }
 
-    @Test
+    @Test("Content should return circular meter content")
     func contentShouldReturnCircularMeterContent() {
         #expect(self.environmentTheme.content == self.theme.component.circularMeter.content)
     }
 
-    @Test
+    @Test("Size should return circular meter size")
     func sizeShouldReturnCircularMeterSize() {
         #expect(self.environmentTheme.size == self.theme.component.circularMeter.size)
     }

@@ -6,58 +6,64 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ColorsEquatableTests: XCTestCase {
+@Suite("Colors Equatable Tests")
+struct ColorsEquatableTests {
 
     // MARK: - Tests
 
-    func testEquatable_SameParameters_ShouldBeEqual() {
+    @Test("Equatable same parameters should be equal")
+    func equatableSameParametersShouldBeEqual() {
         // GIVEN
         let colors1 = ColorsMock.createMock1()
         let colors2 = ColorsMock.createMock2()
 
         // WHEN / THEN
-        XCTAssertTrue(colors1.equals(colors2), "Two colors with identical properties should be equal")
-        XCTAssertEqual(colors1, colors2, "Two colors with identical properties should be equal using == operator")
+        #expect(colors1.equals(colors2), "Two colors with identical properties should be equal")
+        #expect(colors1 == colors2, "Two colors with identical properties should be equal using == operator")
     }
 
-    func testEquatable_DifferentParameters_ShouldNotBeEqual() {
+    @Test("Equatable different parameters should not be equal")
+    func equatableDifferentParametersShouldNotBeEqual() {
         // GIVEN
         let colors1 = ColorsMock.createMock1()
         let differentColors = ColorsMock.createDifferentMock()
 
         // WHEN / THEN
-        XCTAssertFalse(colors1.equals(differentColors), "Two colors with different properties should not be equal")
-        XCTAssertNotEqual(colors1, differentColors, "Two colors with different properties should not be equal using == operator")
+        #expect(!(colors1.equals(differentColors)), "Two colors with different properties should not be equal")
+        #expect(colors1 != differentColors, "Two colors with different properties should not be equal using == operator")
     }
 
-    func testEquatable_SelfComparison_ShouldBeEqual() {
+    @Test("Equatable self comparison should be equal")
+    func equatableSelfComparisonShouldBeEqual() {
         // GIVEN
         let colors = ColorsMock.createMock1()
 
         // WHEN / THEN
-        XCTAssertTrue(colors.equals(colors), "Colors should be equal to itself")
-        XCTAssertEqual(colors, colors, "Colors should be equal to itself using == operator")
+        #expect(colors.equals(colors), "Colors should be equal to itself")
+        #expect(colors == colors, "Colors should be equal to itself using == operator")
     }
 
-    func testHashable_SameParameters_ShouldHaveSameHashValue() {
+    @Test("Hashable same parameters should have same hash value")
+    func hashableSameParametersShouldHaveSameHashValue() {
         // GIVEN
         let colors1 = ColorsMock.createMock1()
         let colors2 = ColorsMock.createMock2()
 
         // WHEN / THEN
-        XCTAssertEqual(colors1.hashValue, colors2.hashValue, "Colorss with identical properties should have the same hash value")
+        #expect(colors1.hashValue == colors2.hashValue, "Colorss with identical properties should have the same hash value")
     }
 
-    func testHashable_DifferentParameters_ShouldHaveDifferentHashValue() {
+    @Test("Hashable different parameters should have different hash value")
+    func hashableDifferentParametersShouldHaveDifferentHashValue() {
         // GIVEN
         let colors1 = ColorsMock.createMock1()
         let differentColors = ColorsMock.createDifferentMock()
 
         // WHEN / THEN
-        XCTAssertNotEqual(colors1.hashValue, differentColors.hashValue, "ColorsWidths with different properties should have different hash values")
+        #expect(colors1.hashValue != differentColors.hashValue, "ColorsWidths with different properties should have different hash values")
     }
 }

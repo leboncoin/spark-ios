@@ -6,31 +6,32 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentProgressTracker
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ProgressTrackerGetTrackColorUseCaseTests: XCTestCase {
+@Suite("Progress Tracker Get Track Color Use Case Tests")
+struct ProgressTrackerGetTrackColorUseCaseTests {
 
     // MARK: - Properties
     var sut: ProgressTrackerGetTrackColorUseCase!
     var colors: ColorsGeneratedMock!
 
     // MARK: - Setup
-    override func setUp() {
-        super.setUp()
+    init() {
 
         self.colors = ColorsGeneratedMock.mocked()
         self.sut = ProgressTrackerGetTrackColorUseCase()
     }
 
     // MARK: - Tests
-    func test_all_intents() {
+    @Test("All intents")
+    func allIntents() {
         for intent in ProgressTrackerIntent.allCases {
             let expectedColor = intent.expectedColors(on: self.colors)
             let givenColor = self.sut.execute(colors: self.colors, intent: intent)
-            XCTAssertTrue(expectedColor.equals(givenColor) == true, "Enabled color for \(intent) is not as expected")
+            #expect(expectedColor.equals(givenColor) == true, "Enabled color for \(intent) is not as expected")
         }
     }
 }

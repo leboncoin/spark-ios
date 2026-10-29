@@ -6,22 +6,24 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) import SparkTheming
 
-final class TextInputColorsTests: XCTestCase {
+@Suite("Text Input Colors Tests")
+struct TextInputColorsTests {
 
     // MARK: - Tests
 
-    func test_default_values() {
+    @Test("Default values")
+    func defaultValues() {
         // GIVEN / WHEN
         let object = TextInputColors()
 
         // THEN
-        XCTAssertTrue(object.text is ColorTokenClear, "Wrong text value")
-        XCTAssertTrue(object.placeholder is ColorTokenClear, "Wrong placeholder value")
-        XCTAssertTrue(object.border is ColorTokenClear, "Wrong border value")
-        XCTAssertTrue(object.background is ColorTokenClear, "Wrong background value")
+        #expect(object.text is ColorTokenClear, "Wrong text value")
+        #expect(object.placeholder is ColorTokenClear, "Wrong placeholder value")
+        #expect(object.border is ColorTokenClear, "Wrong border value")
+        #expect(object.background is ColorTokenClear, "Wrong background value")
     }
 }

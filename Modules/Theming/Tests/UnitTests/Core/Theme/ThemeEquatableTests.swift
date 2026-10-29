@@ -6,10 +6,12 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 import SparkTheming
 
-final class ThemeEquatableTests: XCTestCase {
+@Suite("Theme Equatable Tests")
+struct ThemeEquatableTests {
 
     // MARK: - Test Data
 
@@ -48,89 +50,98 @@ final class ThemeEquatableTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testEquatable_SameProperties_ShouldBeEqual() {
+    @Test("Equatable same properties should be equal")
+    func equatableSamePropertiesShouldBeEqual() {
         // GIVEN
         let theme1 = Self.createMock1()
         let theme2 = Self.createMock2()
 
         // WHEN / THEN
-        XCTAssertTrue(theme1.equals(theme2), "Two themes with identical properties should be equal")
-        XCTAssertEqual(theme1, theme2, "Two themes with identical properties should be equal using == operator")
+        #expect(theme1.equals(theme2), "Two themes with identical properties should be equal")
+        #expect(theme1 == theme2, "Two themes with identical properties should be equal using == operator")
     }
 
-    func testEquatable_DifferentProperties_ShouldNotBeEqual() {
+    @Test("Equatable different properties should not be equal")
+    func equatableDifferentPropertiesShouldNotBeEqual() {
         // GIVEN
         let theme1 = Self.createMock1()
         let differentTheme = Self.createDifferentMock()
 
         // WHEN / THEN
-        XCTAssertFalse(theme1.equals(differentTheme), "Two themes with different properties should not be equal")
-        XCTAssertNotEqual(theme1, differentTheme, "Two themes with different properties should not be equal using == operator")
+        #expect(!(theme1.equals(differentTheme)), "Two themes with different properties should not be equal")
+        #expect(theme1 != differentTheme, "Two themes with different properties should not be equal using == operator")
     }
 
-    func testEquatable_SelfComparison_ShouldBeEqual() {
+    @Test("Equatable self comparison should be equal")
+    func equatableSelfComparisonShouldBeEqual() {
         // GIVEN
         let theme = Self.createMock1()
 
         // WHEN / THEN
-        XCTAssertTrue(theme.equals(theme), "A theme should be equal to itself")
-        XCTAssertEqual(theme, theme, "A theme should be equal to itself using == operator")
+        #expect(theme.equals(theme), "A theme should be equal to itself")
+        #expect(theme == theme, "A theme should be equal to itself using == operator")
     }
 
-    func testHashable_SameProperties_ShouldHaveSameHashValue() {
+    @Test("Hashable same properties should have same hash value")
+    func hashableSamePropertiesShouldHaveSameHashValue() {
         // GIVEN
         let theme1 = Self.createMock1()
         let theme2 = Self.createMock2()
 
         // WHEN / THEN
-        XCTAssertEqual(theme1.hashValue, theme2.hashValue, "Themes with identical properties should have the same hash value")
+        #expect(theme1.hashValue == theme2.hashValue, "Themes with identical properties should have the same hash value")
     }
 
-    func testHashable_DifferentProperties_ShouldHaveDifferentHashValue() {
+    @Test("Hashable different properties should have different hash value")
+    func hashableDifferentPropertiesShouldHaveDifferentHashValue() {
         // GIVEN
         let theme1 = Self.createMock1()
         let differentTheme = Self.createDifferentMock()
 
         // WHEN / THEN
-        XCTAssertNotEqual(theme1.hashValue, differentTheme.hashValue, "Themes with different properties should have different hash values")
+        #expect(theme1.hashValue != differentTheme.hashValue, "Themes with different properties should have different hash values")
     }
 
     // MARK: - Optional Tests
 
-    func testOptionalThemeEquatable_BothNil_ShouldBeEqual() {
+    @Test("Optional theme equatable both nil should be equal")
+    func optionalThemeEquatableBothNilShouldBeEqual() {
         // GIVEN
         let theme1: (any Theme)? = nil
         let theme2: (any Theme)? = nil
 
         // WHEN / THEN
-        XCTAssertTrue(theme1.equals(theme2), "Two nil themes should be equal")
+        #expect(theme1.equals(theme2), "Two nil themes should be equal")
     }
 
-    func testOptionalThemeEquatable_OneNilOneNotNil_ShouldNotBeEqual() {
+    @Test("Optional theme equatable one nil one not nil should not be equal")
+    func optionalThemeEquatableOneNilOneNotNilShouldNotBeEqual() {
         // GIVEN
         let theme1: (any Theme)? = nil
         let theme2: (any Theme)? = Self.createMock1()
 
         // WHEN / THEN
-        XCTAssertFalse(theme1.equals(theme2), "A nil theme and a non-nil theme should not be equal")
-        XCTAssertFalse(theme2.equals(theme1), "A non-nil theme and a nil theme should not be equal")
+        #expect(!(theme1.equals(theme2)), "A nil theme and a non-nil theme should not be equal")
+        #expect(!(theme2.equals(theme1)), "A non-nil theme and a nil theme should not be equal")
     }
 
-    func testOptionalThemeEquatable_BothNotNilAndSame_ShouldBeEqual() {
+    @Test("Optional theme equatable both not nil and same should be equal")
+    func optionalThemeEquatableBothNotNilAndSameShouldBeEqual() {
         // GIVEN
         let theme1: (any Theme)? = Self.createMock1()
         let theme2: (any Theme)? = Self.createMock2()
 
         // WHEN / THEN
-        XCTAssertTrue(theme1.equals(theme2), "Two non-nil themes with identical properties should be equal")
+        #expect(theme1.equals(theme2), "Two non-nil themes with identical properties should be equal")
     }
 
-    func testOptionalThemeEquatable_BothNotNilAndDifferent_ShouldNotBeEqual() {
+    @Test("Optional theme equatable both not nil and different should not be equal")
+    func optionalThemeEquatableBothNotNilAndDifferentShouldNotBeEqual() {
         // GIVEN
         let theme1: (any Theme)? = Self.createMock1()
         let theme2: (any Theme)? = Self.createDifferentMock()
 
         // WHEN / THEN
-        XCTAssertFalse(theme1.equals(theme2), "Two non-nil themes with different properties should not be equal")
+        #expect(!(theme1.equals(theme2)), "Two non-nil themes with different properties should not be equal")
     }
 }

@@ -7,32 +7,33 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentChip
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkCommonTesting
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ChipGetLayoutUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Chip Get Layout UseCase Tests")
+struct ChipGetLayoutUseCaseTests {
 
     // MARK: - Properties
 
-    private var sut: ChipGetLayoutUseCase!
-    private var theme: ThemeGeneratedMock!
+    private let sut: ChipGetLayoutUseCase
+    private let theme: ThemeGeneratedMock
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = ChipGetLayoutUseCase()
         self.theme = ThemeGeneratedMock.mocked()
     }
 
     // MARK: - Tests
 
-    func test_execute_with_leading_icon_alignment() {
+    @Test("Execute with leading icon alignment")
+    func executeWithLeadingIconAlignment() {
         // GIVEN
         let token = ChipToken.Layout(theme: self.theme)
 
@@ -43,12 +44,13 @@ final class ChipGetLayoutUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.spacing, token.spacing(alignment: .leadingIcon))
-        XCTAssertEqual(result.extraContentSpacing, token.extraContentSpacing)
-        XCTAssertEqual(result.padding, token.horizontalPadding)
+        #expect(result.spacing == token.spacing(alignment: .leadingIcon))
+        #expect(result.extraContentSpacing == token.extraContentSpacing)
+        #expect(result.padding == token.horizontalPadding)
     }
 
-    func test_execute_with_trailing_icon_alignment() {
+    @Test("Execute with trailing icon alignment")
+    func executeWithTrailingIconAlignment() {
         // GIVEN
         let token = ChipToken.Layout(theme: self.theme)
 
@@ -59,8 +61,8 @@ final class ChipGetLayoutUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.spacing, token.spacing(alignment: .trailingIcon))
-        XCTAssertEqual(result.extraContentSpacing, token.extraContentSpacing)
-        XCTAssertEqual(result.padding, token.horizontalPadding)
+        #expect(result.spacing == token.spacing(alignment: .trailingIcon))
+        #expect(result.extraContentSpacing == token.extraContentSpacing)
+        #expect(result.padding == token.horizontalPadding)
     }
 }

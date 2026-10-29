@@ -19,7 +19,7 @@ struct ComponentTokenTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Init should set theme")
     func initShouldSetTheme() {
         // GIVEN / WHEN
         let token = ComponentToken(theme: self.theme)
@@ -28,7 +28,7 @@ struct ComponentTokenTests {
         #expect(token.theme.equals(self.theme))
     }
 
-    @Test
+    @Test("Theme component should return token with same theme")
     func themeComponentShouldReturnTokenWithSameTheme() {
         // GIVEN / WHEN
         let token = self.theme.component

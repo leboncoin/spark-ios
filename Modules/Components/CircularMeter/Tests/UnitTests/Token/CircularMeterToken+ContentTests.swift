@@ -19,7 +19,7 @@ struct CircularMeterTokenContentTests {
 
     // MARK: - Tests
 
-    @Test(arguments: [
+    @Test("Is inside should return expected value", arguments: [
         (CircularMeterSize.small, false),
         (CircularMeterSize.medium, true),
         (CircularMeterSize.large, true),
@@ -31,7 +31,7 @@ struct CircularMeterTokenContentTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable should return true")
     func equatableShouldReturnTrue() {
         #expect(CircularMeterToken.Content() == CircularMeterToken.Content())
     }

@@ -6,40 +6,44 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 
-final class SegmentedGaugeLayoutTests: XCTestCase {
+@Suite("SegmentedGauge Layout Tests")
+struct SegmentedGaugeLayoutTests {
 
     // MARK: - Default Values Tests
 
-    func test_defaultInitializer_setsZeroValues() {
+    @Test("Default initializer sets zero values")
+    func defaultInitializerSetsZeroValues() {
         // GIVEN / WHEN
         let layout = SegmentedGaugeLayout()
 
         // THEN
-        XCTAssertEqual(layout.contentSpacing, 0)
-        XCTAssertEqual(layout.subContentSpacing, 0)
-        XCTAssertEqual(layout.segmentsSpacing, 0)
+        #expect(layout.contentSpacing == 0)
+        #expect(layout.subContentSpacing == 0)
+        #expect(layout.segmentsSpacing == 0)
     }
 
     // MARK: - Equatable Tests
 
-    func test_equality_whenValuesMatch() {
+    @Test("Equality when values match")
+    func equalityWhenValuesMatch() {
         // GIVEN / WHEN
         let lhs = SegmentedGaugeLayout(contentSpacing: 2, subContentSpacing: 3, segmentsSpacing: 4)
         let rhs = SegmentedGaugeLayout(contentSpacing: 2, subContentSpacing: 3, segmentsSpacing: 4)
 
         // THEN
-        XCTAssertEqual(lhs, rhs)
+        #expect(lhs == rhs)
     }
 
-    func test_inequality_whenValuesDiffer() {
+    @Test("Inequality when values differ")
+    func inequalityWhenValuesDiffer() {
         // GIVEN / WHEN
         let lhs = SegmentedGaugeLayout(contentSpacing: 2, subContentSpacing: 3, segmentsSpacing: 4)
         let rhs = SegmentedGaugeLayout(contentSpacing: 5, subContentSpacing: 6, segmentsSpacing: 7)
 
         // THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 }

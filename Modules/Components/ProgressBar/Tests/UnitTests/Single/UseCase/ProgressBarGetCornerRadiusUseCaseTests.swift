@@ -6,12 +6,14 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkComponentProgressBar
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ProgressBarGetCornerRadiusUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Progress Bar Get Corner Radius Use Case Tests")
+struct ProgressBarGetCornerRadiusUseCaseTests {
 
     // MARK: - Properties
 
@@ -19,7 +21,8 @@ final class ProgressBarGetCornerRadiusUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_cornerRadius_when_shape_is_rounded_case() {
+    @Test("Execute corner radius when shape is rounded case")
+    func executeCornerRadiusWhenShapeIsRoundedCase() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenShape: .rounded,
@@ -27,7 +30,8 @@ final class ProgressBarGetCornerRadiusUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_cornerRadius_when_shape_is_square_case() {
+    @Test("Execute corner radius when shape is square case")
+    func executeCornerRadiusWhenShapeIsSquareCase() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenShape: .square,
@@ -54,10 +58,6 @@ private extension ProgressBarGetCornerRadiusUseCaseTests {
         )
 
         // THEN
-        XCTAssertEqual(
-            cornerRadius,
-            expectedRadius,
-            "Wrong corner radius for .\(givenShape) shape case"
-        )
+        #expect(cornerRadius == expectedRadius, "Wrong corner radius for .\(givenShape) shape case")
     }
 }

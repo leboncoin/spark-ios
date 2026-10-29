@@ -27,11 +27,11 @@ struct SparkFileUploadPreviewGroupSnapshotTests: SwiftUIComponentSnapshotTesting
 
     // MARK: - Tests
 
-    @Test func test() async throws {
+    @Test("Spark file upload preview group snapshot") func test() async throws {
         try await self.testView()
     }
 
-    @Test func test_documentation() async throws {
+    @Test("Documentation") func test_documentation() async throws {
         try await self.testView(forDocumentation: true)
     }
 

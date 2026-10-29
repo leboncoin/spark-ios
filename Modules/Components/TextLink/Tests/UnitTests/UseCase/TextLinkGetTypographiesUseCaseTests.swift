@@ -6,12 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 @testable import SparkComponentTextLink
 
-final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
+@Suite("Text Link Get Typographies UseCase Tests")
+struct TextLinkGetTypographiesUseCaseTests {
 
     // MARK: - Properties
 
@@ -20,7 +21,8 @@ final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_display1() {
+    @Test("Execute display 1")
+    func executeDisplay1() {
         // GIVEN
         let typography = TextLinkTypography.display1
 
@@ -31,11 +33,12 @@ final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.normal.equals(self.theme.typography.display1))
-        XCTAssertTrue(result.highlight.equals(self.theme.typography.display1))
+        #expect(result.normal.equals(self.theme.typography.display1))
+        #expect(result.highlight.equals(self.theme.typography.display1))
     }
 
-    func test_execute_display2() {
+    @Test("Execute display 2")
+    func executeDisplay2() {
         // GIVEN
         let typography = TextLinkTypography.display2
 
@@ -46,11 +49,12 @@ final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.normal.equals(self.theme.typography.display2))
-        XCTAssertTrue(result.highlight.equals(self.theme.typography.display2))
+        #expect(result.normal.equals(self.theme.typography.display2))
+        #expect(result.highlight.equals(self.theme.typography.display2))
     }
 
-    func test_execute_display3() {
+    @Test("Execute display 3")
+    func executeDisplay3() {
         // GIVEN
         let typography = TextLinkTypography.display3
 
@@ -61,11 +65,12 @@ final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.normal.equals(self.theme.typography.display3))
-        XCTAssertTrue(result.highlight.equals(self.theme.typography.display3))
+        #expect(result.normal.equals(self.theme.typography.display3))
+        #expect(result.highlight.equals(self.theme.typography.display3))
     }
 
-    func test_execute_headline1() {
+    @Test("Execute headline 1")
+    func executeHeadline1() {
         // GIVEN
         let typography = TextLinkTypography.headline1
 
@@ -76,11 +81,12 @@ final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.normal.equals(self.theme.typography.headline1))
-        XCTAssertTrue(result.highlight.equals(self.theme.typography.headline1))
+        #expect(result.normal.equals(self.theme.typography.headline1))
+        #expect(result.highlight.equals(self.theme.typography.headline1))
     }
 
-    func test_execute_headline2() {
+    @Test("Execute headline 2")
+    func executeHeadline2() {
         // GIVEN
         let typography = TextLinkTypography.headline2
 
@@ -91,11 +97,12 @@ final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.normal.equals(self.theme.typography.headline2))
-        XCTAssertTrue(result.highlight.equals(self.theme.typography.headline2))
+        #expect(result.normal.equals(self.theme.typography.headline2))
+        #expect(result.highlight.equals(self.theme.typography.headline2))
     }
 
-    func test_execute_subhead() {
+    @Test("Execute subhead")
+    func executeSubhead() {
         // GIVEN
         let typography = TextLinkTypography.subhead
 
@@ -106,11 +113,12 @@ final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.normal.equals(self.theme.typography.subhead))
-        XCTAssertTrue(result.highlight.equals(self.theme.typography.subhead))
+        #expect(result.normal.equals(self.theme.typography.subhead))
+        #expect(result.highlight.equals(self.theme.typography.subhead))
     }
 
-    func test_execute_body1() {
+    @Test("Execute body 1")
+    func executeBody1() {
         // GIVEN
         let typography = TextLinkTypography.body1
 
@@ -121,11 +129,12 @@ final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.normal.equals(self.theme.typography.body1))
-        XCTAssertTrue(result.highlight.equals(self.theme.typography.body1Highlight))
+        #expect(result.normal.equals(self.theme.typography.body1))
+        #expect(result.highlight.equals(self.theme.typography.body1Highlight))
     }
 
-    func test_execute_body2() {
+    @Test("Execute body 2")
+    func executeBody2() {
         // GIVEN
         let typography = TextLinkTypography.body2
 
@@ -136,11 +145,12 @@ final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.normal.equals(self.theme.typography.body2))
-        XCTAssertTrue(result.highlight.equals(self.theme.typography.body2Highlight))
+        #expect(result.normal.equals(self.theme.typography.body2))
+        #expect(result.highlight.equals(self.theme.typography.body2Highlight))
     }
 
-    func test_execute_caption() {
+    @Test("Execute caption")
+    func executeCaption() {
         // GIVEN
         let typography = TextLinkTypography.caption
 
@@ -151,11 +161,12 @@ final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.normal.equals(self.theme.typography.caption))
-        XCTAssertTrue(result.highlight.equals(self.theme.typography.captionHighlight))
+        #expect(result.normal.equals(self.theme.typography.caption))
+        #expect(result.highlight.equals(self.theme.typography.captionHighlight))
     }
 
-    func test_execute_small() {
+    @Test("Execute small")
+    func executeSmall() {
         // GIVEN
         let typography = TextLinkTypography.small
 
@@ -166,11 +177,12 @@ final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.normal.equals(self.theme.typography.small))
-        XCTAssertTrue(result.highlight.equals(self.theme.typography.smallHighlight))
+        #expect(result.normal.equals(self.theme.typography.small))
+        #expect(result.highlight.equals(self.theme.typography.smallHighlight))
     }
 
-    func test_execute_callout() {
+    @Test("Execute callout")
+    func executeCallout() {
         // GIVEN
         let typography = TextLinkTypography.callout
 
@@ -181,7 +193,7 @@ final class TextLinkGetTypographiesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.normal.equals(self.theme.typography.callout))
-        XCTAssertTrue(result.highlight.equals(self.theme.typography.callout))
+        #expect(result.normal.equals(self.theme.typography.callout))
+        #expect(result.highlight.equals(self.theme.typography.callout))
     }
 }

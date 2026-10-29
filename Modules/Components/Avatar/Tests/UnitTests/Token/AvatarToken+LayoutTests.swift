@@ -22,7 +22,7 @@ struct AvatarTokenLayoutTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Action padding should return medium spacing")
     func actionPaddingShouldReturnMediumSpacing() {
         // GIVEN / WHEN
         let result = AvatarToken.Layout(theme: self.theme).actionPadding
@@ -33,7 +33,7 @@ struct AvatarTokenLayoutTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = AvatarToken.Layout(theme: self.theme)
@@ -43,7 +43,7 @@ struct AvatarTokenLayoutTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = AvatarToken.Layout(theme: self.theme)

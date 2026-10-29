@@ -6,12 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SparkTheming
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class TextInputGetDimUseCaseTests: XCTestCase {
+@Suite("Text Input Get Dim UseCase Tests")
+struct TextInputGetDimUseCaseTests {
 
     // MARK: - Properties
 
@@ -19,7 +20,8 @@ final class TextInputGetDimUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_whenIsEnabledIsTrue_shouldReturnNoneDim() {
+    @Test("Execute when is enabled is true should return none dim")
+    func executeWhenIsEnabledIsTrueShouldReturnNoneDim() {
         // GIVEN
         let useCase = TextInputGetDimUseCase()
 
@@ -30,10 +32,11 @@ final class TextInputGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, self.themeMock.dims.none)
+        #expect(result == self.themeMock.dims.none)
     }
 
-    func test_execute_whenIsEnabledIsFalse_shouldReturnDim3() {
+    @Test("Execute when is enabled is false should return dim 3")
+    func executeWhenIsEnabledIsFalseShouldReturnDim3() {
         // GIVEN
         let useCase = TextInputGetDimUseCase()
 
@@ -44,6 +47,6 @@ final class TextInputGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, self.themeMock.dims.dim3)
+        #expect(result == self.themeMock.dims.dim3)
     }
 }

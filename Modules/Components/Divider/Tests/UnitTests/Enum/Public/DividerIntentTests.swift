@@ -6,15 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 
 @testable import SparkComponentDivider
 
-final class DividerIntentTests: XCTestCase {
+@Suite("Divider Intent Tests")
+struct DividerIntentTests {
 
     // MARK: - Tests
 
-    func test_allCases() {
+    @Test("All cases")
+    func allCases() {
         // GIVEN
         let expectedCases: [DividerIntent] = [
             .outline, .outlineHigh
@@ -24,15 +26,16 @@ final class DividerIntentTests: XCTestCase {
         let allCases = DividerIntent.allCases
 
         // THEN
-        XCTAssertEqual(allCases.count, 2, "DividerIntent should have 2 active cases")
-        XCTAssertEqual(allCases, expectedCases, "DividerIntent allCases should match expected cases")
+        #expect(allCases.count == 2, "DividerIntent should have 2 active cases")
+        #expect(allCases == expectedCases, "DividerIntent allCases should match expected cases")
     }
 
-    func test_default() {
+    @Test("Default")
+    func defaultValue() {
         // GIVEN & WHEN
         let defaultIntent = DividerIntent.default
 
         // THEN
-        XCTAssertEqual(defaultIntent, .outline, "DividerIntent.default should be .outline")
+        #expect(defaultIntent == .outline, "DividerIntent.default should be .outline")
     }
 }

@@ -19,7 +19,7 @@ struct AdaptiveUIStackViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test_with_default_properties() async {
+    @Test("With default properties") func test_with_default_properties() async {
         let view = SparkAdaptiveUIStackView(arrangedSubviews: [
             UILabel.label1,
             UILabel.label2
@@ -33,7 +33,7 @@ struct AdaptiveUIStackViewSnapshotTests: UIKitComponentSnapshotTesting {
         )
     }
 
-    @Test func test_with_override_default_properties() async {
+    @Test("With override default properties") func test_with_override_default_properties() async {
         let view = SparkAdaptiveUIStackView(arrangedSubviews: [
             UILabel.label1,
             UILabel.label2
@@ -52,7 +52,7 @@ struct AdaptiveUIStackViewSnapshotTests: UIKitComponentSnapshotTesting {
         )
     }
 
-    @Test func test_with_regular_and_accessibilities_properties() async {
+    @Test("With regular and accessibilities properties") func test_with_regular_and_accessibilities_properties() async {
         let view = SparkAdaptiveUIStackView(arrangedSubviews: [
             UILabel.label1,
             UILabel.label2

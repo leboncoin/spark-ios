@@ -7,14 +7,16 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentRating
 
-final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
+@Suite("String Accessibility Label Display Count Extension Tests")
+struct StringAccessibilityLabelDisplayCountExtensionTests {
 
     // MARK: - Tests
 
-    func test_accessibilityLabelDisplayCount_with_valid_text() {
+    @Test("Accessibility label display count with valid text")
+    func accessibilityLabelDisplayCountWithValidText() {
         // GIVEN
         let text = "100"
 
@@ -22,12 +24,13 @@ final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
         let result = String.accessibilityLabelDisplayCount(text: text)
 
         // THEN
-        XCTAssertNotNil(result)
-        XCTAssertTrue(result?.contains("100") ?? false)
-        XCTAssertFalse(result?.isEmpty ?? true)
+        #expect(result != nil)
+        #expect(result?.contains("100") ?? false)
+        #expect(!(result?.isEmpty ?? true))
     }
 
-    func test_accessibilityLabelDisplayCount_with_numeric_string() {
+    @Test("Accessibility label display count with numeric string")
+    func accessibilityLabelDisplayCountWithNumericString() {
         // GIVEN
         let text = "42"
 
@@ -35,11 +38,12 @@ final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
         let result = String.accessibilityLabelDisplayCount(text: text)
 
         // THEN
-        XCTAssertNotNil(result)
-        XCTAssertTrue(result?.contains("42") ?? false)
+        #expect(result != nil)
+        #expect(result?.contains("42") ?? false)
     }
 
-    func test_accessibilityLabelDisplayCount_with_formatted_number() {
+    @Test("Accessibility label display count with formatted number")
+    func accessibilityLabelDisplayCountWithFormattedNumber() {
         // GIVEN
         let text = "1,234"
 
@@ -47,11 +51,12 @@ final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
         let result = String.accessibilityLabelDisplayCount(text: text)
 
         // THEN
-        XCTAssertNotNil(result)
-        XCTAssertTrue(result?.contains("1,234") ?? false)
+        #expect(result != nil)
+        #expect(result?.contains("1,234") ?? false)
     }
 
-    func test_accessibilityLabelDisplayCount_with_single_digit() {
+    @Test("Accessibility label display count with single digit")
+    func accessibilityLabelDisplayCountWithSingleDigit() {
         // GIVEN
         let text = "1"
 
@@ -59,11 +64,12 @@ final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
         let result = String.accessibilityLabelDisplayCount(text: text)
 
         // THEN
-        XCTAssertNotNil(result)
-        XCTAssertTrue(result?.contains("1") ?? false)
+        #expect(result != nil)
+        #expect(result?.contains("1") ?? false)
     }
 
-    func test_accessibilityLabelDisplayCount_with_large_number() {
+    @Test("Accessibility label display count with large number")
+    func accessibilityLabelDisplayCountWithLargeNumber() {
         // GIVEN
         let text = "999999"
 
@@ -71,11 +77,12 @@ final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
         let result = String.accessibilityLabelDisplayCount(text: text)
 
         // THEN
-        XCTAssertNotNil(result)
-        XCTAssertTrue(result?.contains("999999") ?? false)
+        #expect(result != nil)
+        #expect(result?.contains("999999") ?? false)
     }
 
-    func test_accessibilityLabelDisplayCount_with_zero() {
+    @Test("Accessibility label display count with zero")
+    func accessibilityLabelDisplayCountWithZero() {
         // GIVEN
         let text = "0"
 
@@ -83,11 +90,12 @@ final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
         let result = String.accessibilityLabelDisplayCount(text: text)
 
         // THEN
-        XCTAssertNotNil(result)
-        XCTAssertTrue(result?.contains("0") ?? false)
+        #expect(result != nil)
+        #expect(result?.contains("0") ?? false)
     }
 
-    func test_accessibilityLabelDisplayCount_with_empty_string() {
+    @Test("Accessibility label display count with empty string")
+    func accessibilityLabelDisplayCountWithEmptyString() {
         // GIVEN
         let text = ""
 
@@ -95,11 +103,12 @@ final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
         let result = String.accessibilityLabelDisplayCount(text: text)
 
         // THEN
-        XCTAssertNotNil(result)
-        XCTAssertFalse(result?.isEmpty ?? true)
+        #expect(result != nil)
+        #expect(!(result?.isEmpty ?? true))
     }
 
-    func test_accessibilityLabelDisplayCount_with_nil_text() {
+    @Test("Accessibility label display count with nil text")
+    func accessibilityLabelDisplayCountWithNilText() {
         // GIVEN
         let text: String? = nil
 
@@ -107,10 +116,11 @@ final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
         let result = String.accessibilityLabelDisplayCount(text: text)
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_accessibilityLabelDisplayCount_with_whitespace() {
+    @Test("Accessibility label display count with whitespace")
+    func accessibilityLabelDisplayCountWithWhitespace() {
         // GIVEN
         let text = "   "
 
@@ -118,11 +128,12 @@ final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
         let result = String.accessibilityLabelDisplayCount(text: text)
 
         // THEN
-        XCTAssertNotNil(result)
-        XCTAssertTrue(result?.contains("   ") ?? false)
+        #expect(result != nil)
+        #expect(result?.contains("   ") ?? false)
     }
 
-    func test_accessibilityLabelDisplayCount_with_text_containing_special_characters() {
+    @Test("Accessibility label display count with text containing special characters")
+    func accessibilityLabelDisplayCountWithTextContainingSpecialCharacters() {
         // GIVEN
         let text = "1.5k"
 
@@ -130,11 +141,12 @@ final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
         let result = String.accessibilityLabelDisplayCount(text: text)
 
         // THEN
-        XCTAssertNotNil(result)
-        XCTAssertTrue(result?.contains("1.5k") ?? false)
+        #expect(result != nil)
+        #expect(result?.contains("1.5k") ?? false)
     }
 
-    func test_accessibilityLabelDisplayCount_returns_non_empty_for_valid_input() {
+    @Test("Accessibility label display count returns non empty for valid input")
+    func accessibilityLabelDisplayCountReturnsNonEmptyForValidInput() {
         // GIVEN
         let text = "50"
 
@@ -142,11 +154,12 @@ final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
         let result = String.accessibilityLabelDisplayCount(text: text)
 
         // THEN
-        XCTAssertNotNil(result)
-        XCTAssertGreaterThan(result?.count ?? 0, text.count)
+        #expect(result != nil)
+        #expect(result?.count ?? 0 > text.count)
     }
 
-    func test_accessibilityLabelDisplayCount_with_alphanumeric_text() {
+    @Test("Accessibility label display count with alphanumeric text")
+    func accessibilityLabelDisplayCountWithAlphanumericText() {
         // GIVEN
         let text = "2.5k+"
 
@@ -154,7 +167,7 @@ final class StringAccessibilityLabelDisplayCountExtensionTests: XCTestCase {
         let result = String.accessibilityLabelDisplayCount(text: text)
 
         // THEN
-        XCTAssertNotNil(result)
-        XCTAssertTrue(result?.contains("2.5k+") ?? false)
+        #expect(result != nil)
+        #expect(result?.contains("2.5k+") ?? false)
     }
 }

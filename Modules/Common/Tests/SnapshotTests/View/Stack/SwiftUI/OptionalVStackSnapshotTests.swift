@@ -17,7 +17,7 @@ struct OptionalVStackSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test_with_onStack_at_true() async throws {
+    @Test("With on stack at true") func test_with_onStack_at_true() async throws {
         // GIVEN / WHEN
         let view = SparkOptionalVStack(
             alignment: .center,
@@ -36,7 +36,7 @@ struct OptionalVStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
     }
 
-    @Test func test_with_onStack_at_false() async throws {
+    @Test("With on stack at false") func test_with_onStack_at_false() async throws {
         // GIVEN / WHEN
         let view = SparkOptionalVStack(
             alignment: .center,

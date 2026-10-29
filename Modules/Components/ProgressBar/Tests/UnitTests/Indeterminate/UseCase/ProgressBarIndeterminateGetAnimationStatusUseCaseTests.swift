@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentProgressBar
 
-final class ProgressBarIndeterminateGetAnimationStatusUseCaseTests: XCTestCase {
+@Suite("Progress Bar Indeterminate Get Animation Status Use Case Tests")
+struct ProgressBarIndeterminateGetAnimationStatusUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_returns_start_when_isAnimated_is_true() {
+    @Test("Execute returns start when is animated is true")
+    func executeReturnsStartWhenIsAnimatedIsTrue() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenIsAnimated: true,
@@ -21,7 +23,8 @@ final class ProgressBarIndeterminateGetAnimationStatusUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_returns_stop_when_isAnimated_is_false() {
+    @Test("Execute returns stop when is animated is false")
+    func executeReturnsStopWhenIsAnimatedIsFalse() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenIsAnimated: false,
@@ -45,10 +48,6 @@ private extension ProgressBarIndeterminateGetAnimationStatusUseCaseTests {
         let status = useCase.execute(isAnimated: givenIsAnimated)
 
         // THEN
-        XCTAssertEqual(
-            status,
-            expectedStatus,
-            "Wrong status for isAnimated \(givenIsAnimated)"
-        )
+        #expect(status == expectedStatus, "Wrong status for isAnimated \(givenIsAnimated)")
     }
 }

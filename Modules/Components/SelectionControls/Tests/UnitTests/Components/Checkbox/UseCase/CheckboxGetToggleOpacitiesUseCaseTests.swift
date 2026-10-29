@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class CheckboxGetToggleOpacitiesUseCaseTests: XCTestCase {
+@Suite("Checkbox Get Toggle Opacities UseCase Tests")
+struct CheckboxGetToggleOpacitiesUseCaseTests {
 
     // MARK: - Execute Tests
 
-    func test_execute_withUnselectedState() {
+    @Test("Execute with unselected state")
+    func executeWithUnselectedState() {
         // GIVEN
         let selectionState = CheckboxSelectionState.unselected
 
@@ -23,11 +25,12 @@ final class CheckboxGetToggleOpacitiesUseCaseTests: XCTestCase {
         let result = useCase.execute(selectionState: selectionState)
 
         // THEN
-        XCTAssertEqual(result.background, 0)
-        XCTAssertEqual(result.border, 1)
+        #expect(result.background == 0)
+        #expect(result.border == 1)
     }
 
-    func test_execute_withSelectedState() {
+    @Test("Execute with selected state")
+    func executeWithSelectedState() {
         // GIVEN
         let selectionState = CheckboxSelectionState.selected
 
@@ -37,11 +40,12 @@ final class CheckboxGetToggleOpacitiesUseCaseTests: XCTestCase {
         let result = useCase.execute(selectionState: selectionState)
 
         // THEN
-        XCTAssertEqual(result.background, 1)
-        XCTAssertEqual(result.border, 0)
+        #expect(result.background == 1)
+        #expect(result.border == 0)
     }
 
-    func test_execute_withIndeterminateState() {
+    @Test("Execute with indeterminate state")
+    func executeWithIndeterminateState() {
         // GIVEN
         let selectionState = CheckboxSelectionState.indeterminate
 
@@ -51,7 +55,7 @@ final class CheckboxGetToggleOpacitiesUseCaseTests: XCTestCase {
         let result = useCase.execute(selectionState: selectionState)
 
         // THEN
-        XCTAssertEqual(result.background, 1)
-        XCTAssertEqual(result.border, 0)
+        #expect(result.background == 1)
+        #expect(result.border == 0)
     }
 }

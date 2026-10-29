@@ -6,10 +6,12 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentStepper
 
-class StepperGetFormattedValueUseCaseTests: XCTestCase {
+@Suite("Stepper Get Formatted Value UseCase Tests")
+struct StepperGetFormattedValueUseCaseTests {
 
     // MARK: - Properties
 
@@ -17,7 +19,8 @@ class StepperGetFormattedValueUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testExecuteWithInteger() {
+    @Test("Execute with integer")
+    func executeWithInteger() {
         // GIVEN
         let value = 42
 
@@ -28,10 +31,11 @@ class StepperGetFormattedValueUseCaseTests: XCTestCase {
         let result = self.useCase.execute(value: value, formatter: formatter)
 
         // THEN
-        XCTAssertEqual(result, "42")
+        #expect(result == "42")
     }
 
-    func testExecuteWithDouble() {
+    @Test("Execute with double")
+    func executeWithDouble() {
         // GIVEN
         let value = 3.14
 
@@ -44,10 +48,11 @@ class StepperGetFormattedValueUseCaseTests: XCTestCase {
         let result = self.useCase.execute(value: value, formatter: formatter)
 
         // THEN
-        XCTAssertEqual(result, "3.14")
+        #expect(result == "3.14")
     }
 
-    func testExecuteWithCurrency() {
+    @Test("Execute with currency")
+    func executeWithCurrency() {
         // GIVEN
         let value = 0.99
 
@@ -61,10 +66,11 @@ class StepperGetFormattedValueUseCaseTests: XCTestCase {
         let result = self.useCase.execute(value: value, formatter: formatter)
 
         // THEN
-        XCTAssertEqual(result, "0,99 €")
+        #expect(result == "0,99 €")
     }
 
-    func testExecuteWithNil() {
+    @Test("Execute with nil")
+    func executeWithNil() {
         // GIVEN
         let value: Int? = nil
 
@@ -74,6 +80,6 @@ class StepperGetFormattedValueUseCaseTests: XCTestCase {
         let result = self.useCase.execute(value: value, formatter: formatter)
 
         // THEN
-        XCTAssertEqual(result, "nil")
+        #expect(result == "nil")
     }
 }

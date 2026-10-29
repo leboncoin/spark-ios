@@ -25,32 +25,32 @@ struct SegmentedControlTokenColorsTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Accessibility selected background should return support")
     func accessibilitySelectedBackgroundShouldReturnSupport() {
         #expect(self.token.accessibilitySelectedBackground.equals(self.theme.colors.support.support))
     }
 
-    @Test
+    @Test("Accessibility selected tint should return on support")
     func accessibilitySelectedTintShouldReturnOnSupport() {
         #expect(self.token.accessibilitySelectedTint.equals(self.theme.colors.support.onSupport))
     }
 
-    @Test
+    @Test("Background should return surface")
     func backgroundShouldReturnSurface() {
         #expect(self.token.background.equals(self.theme.colors.base.surface))
     }
 
-    @Test
+    @Test("Border should return outline")
     func borderShouldReturnOutline() {
         #expect(self.token.border.equals(self.theme.colors.base.outline))
     }
 
-    @Test
+    @Test("Item content should return on support container")
     func itemContentShouldReturnOnSupportContainer() {
         #expect(self.token.itemContent.equals(self.theme.colors.support.onSupportContainer))
     }
 
-    @Test
+    @Test("Separator should return outline with dim 3")
     func separatorShouldReturnOutlineWithDim3() {
         // GIVEN
         let expectedColorToken = self.theme.colors.base.outline.opacity(self.theme.dims.dim3)
@@ -59,17 +59,17 @@ struct SegmentedControlTokenColorsTests {
         #expect(self.token.separator.equals(expectedColorToken))
     }
 
-    @Test
+    @Test("Selected item background should return support container")
     func selectedItemBackgroundShouldReturnSupportContainer() {
         #expect(self.token.selectedItemBackground.equals(self.theme.colors.support.supportContainer))
     }
 
-    @Test
+    @Test("Selected item border should return support")
     func selectedItemBorderShouldReturnSupport() {
         #expect(self.token.selectedItemBorder.equals(self.theme.colors.support.support))
     }
 
-    @Test
+    @Test("Item background when pressed and not selected should return support container pressed")
     func itemBackgroundWhenPressedAndNotSelectedShouldReturnSupportContainerPressed() {
         // GIVEN / WHEN
         let result = self.token.itemBackground(isSelected: false, isPressed: true)
@@ -78,7 +78,7 @@ struct SegmentedControlTokenColorsTests {
         #expect(result.equals(self.theme.colors.states.supportContainerPressed))
     }
 
-    @Test(
+    @Test("Item background should return clear",
         arguments: [
             (false, false),
             (true, false),
@@ -95,7 +95,7 @@ struct SegmentedControlTokenColorsTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = SegmentedControlToken.Colors(theme: self.theme)
@@ -105,7 +105,7 @@ struct SegmentedControlTokenColorsTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = SegmentedControlToken.Colors(theme: self.theme)

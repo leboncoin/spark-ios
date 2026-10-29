@@ -6,25 +6,29 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class CheckboxToggleOpacitiesTests: XCTestCase {
+@Suite("Checkbox Toggle Opacities Tests")
+struct CheckboxToggleOpacitiesTests {
 
     // MARK: - Initialization Tests
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let opacities = CheckboxToggleOpacities()
 
         // THEN
-        XCTAssertEqual(opacities.background, 0)
-        XCTAssertEqual(opacities.border, 0)
+        #expect(opacities.background == 0)
+        #expect(opacities.border == 0)
     }
 
-    func test_initialization_withCustomValues_shouldUseProvidedValues() {
+    @Test("Initialization with custom values should use provided values")
+    func initializationWithCustomValuesShouldUseProvidedValues() {
         // GIVEN
         let customBackground: CGFloat = 3
         let customBorder: CGFloat = 4
@@ -36,7 +40,7 @@ final class CheckboxToggleOpacitiesTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(opacities.background, customBackground)
-        XCTAssertEqual(opacities.border, customBorder)
+        #expect(opacities.background == customBackground)
+        #expect(opacities.border == customBorder)
     }
 }

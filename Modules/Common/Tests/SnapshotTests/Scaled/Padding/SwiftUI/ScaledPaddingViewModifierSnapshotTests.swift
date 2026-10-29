@@ -19,7 +19,7 @@ struct ScaledPaddingViewModifierSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async throws {
+    @Test("Scaled padding view modifier snapshot") func test() async throws {
         await self.assertSnapshot(
             matching: SnapshotView(),
             modes: ComponentSnapshotTestConstants.Modes.default,

@@ -26,19 +26,19 @@ struct InputOTPTokenTypographyTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Content should return display 3")
     func contentShouldReturnDisplay3() {
         #expect(self.token.content.font == self.theme.typography.display3.font)
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         #expect(InputOTPToken.Typography(theme: self.theme) == InputOTPToken.Typography(theme: self.theme))
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         let other = InputOTPToken.Typography(theme: ThemeGeneratedMock.mocked2())
         #expect(InputOTPToken.Typography(theme: self.theme) != other)

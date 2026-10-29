@@ -6,15 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class CommonGetTitleStyleUseCaseTests: XCTestCase {
+@Suite("Common Get Title Style UseCase Tests")
+struct CommonGetTitleStyleUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute() {
+    @Test("Execute")
+    func execute() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let useCase = CommonGetTitleStyleUseCase()
@@ -23,7 +25,7 @@ final class CommonGetTitleStyleUseCaseTests: XCTestCase {
         let result = useCase.execute(theme: theme)
 
         // THEN
-        XCTAssertTrue(result.typography.equals(theme.typography.body1))
-        XCTAssertTrue(result.color.equals(theme.colors.base.onSurface))
+        #expect(result.typography.equals(theme.typography.body1))
+        #expect(result.color.equals(theme.colors.base.onSurface))
     }
 }

@@ -6,17 +6,21 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import Foundation
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) @testable import SparkComponentTextInputTesting
 @_spi(SI_SPI) import SparkCommon
 import SparkTheming
 
-final class TextEditorViewModelTests: XCTestCase {
+@MainActor
+@Suite("TextEditor ViewModel Tests")
+struct TextEditorViewModelTests {
 
     // MARK: - Tests
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN
         let expectedPadding: CGFloat = 16.0
 
@@ -27,19 +31,19 @@ final class TextEditorViewModelTests: XCTestCase {
         let viewModel = TextEditorViewModel(getHorizontalPaddingUseCase: getHorizontalPaddingUseCase)
 
         // THEN
-        XCTAssertEqual(
-            viewModel.horizontalPadding,
-            0,
+        #expect(
+            viewModel.horizontalPadding == 0,
             "Wrong horizontalPadding value"
         )
 
-        XCTAssertFalse(
-            getHorizontalPaddingUseCase.executeWithSpacingsCalled,
+        #expect(
+            !getHorizontalPaddingUseCase.executeWithSpacingsCalled,
             "Wrong number of call on getHorizontalPaddingUseCase"
         )
     }
 
-    func test_spacingDidUpdate_shouldUpdateHorizontalPadding() {
+    @Test("Spacing did update should update horizontal padding")
+    func spacingDidUpdateShouldUpdateHorizontalPadding() {
         // GIVEN
         let initialPadding: CGFloat = 16.0
         let updatedPadding: CGFloat = 24.0
@@ -57,13 +61,12 @@ final class TextEditorViewModelTests: XCTestCase {
         viewModel.spacingDidUpdate()
 
         // THEN
-        XCTAssertEqual(
-            viewModel.horizontalPadding,
-            updatedPadding,
+        #expect(
+            viewModel.horizontalPadding == updatedPadding,
             "Wrong horizontalPadding value"
         )
 
-        XCTAssertTrue(
+        #expect(
             getHorizontalPaddingUseCase.executeWithSpacingsCalled,
             "Wrong number of call on getHorizontalPaddingUseCase"
         )

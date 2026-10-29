@@ -7,24 +7,28 @@
 //
 
 @testable import SparkComponentSlider
-import XCTest
+import Testing
 
-final class SliderAccessibilityIdentifierTests: XCTestCase {
+@Suite("Slider AccessibilityIdentifier Tests")
+struct SliderAccessibilityIdentifierTests {
 
     // MARK: - Tests
 
-    func test_view_hasExpectedValue() {
+    @Test("View has expected value")
+    func viewHasExpectedValue() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(SliderAccessibilityIdentifier.view, "spark-slider")
+        #expect(SliderAccessibilityIdentifier.view == "spark-slider")
     }
 
-    func test_slider_hasExpectedValue() {
+    @Test("Slider has expected value")
+    func sliderHasExpectedValue() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(SliderAccessibilityIdentifier.slider, "spark-slider")
+        #expect(SliderAccessibilityIdentifier.slider == "spark-slider")
     }
 
-    func test_sliderContent_hasExpectedValue() {
+    @Test("Slider content has expected value")
+    func sliderContentHasExpectedValue() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(SliderAccessibilityIdentifier.sliderContent, "spark-slider-content")
+        #expect(SliderAccessibilityIdentifier.sliderContent == "spark-slider-content")
     }
 }

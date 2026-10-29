@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import UIKit
 
@@ -16,30 +16,33 @@ import UIKit
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkCommonTesting
 
-final class TabSegmentViewModelTests: XCTestCase {
+@MainActor
+@Suite("Tab Segment ViewModel Tests")
+struct TabSegmentViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
         let viewModel = stub.viewModel
 
         // THEN
-        XCTAssertNil(viewModel.theme)
-        XCTAssertNil(viewModel.intent)
-        XCTAssertNil(viewModel.size)
-        XCTAssertNil(viewModel.isSelected)
-        XCTAssertFalse(viewModel.isPressed)
+        #expect(viewModel.theme == nil)
+        #expect(viewModel.intent == nil)
+        #expect(viewModel.size == nil)
+        #expect(viewModel.isSelected == nil)
+        #expect(!viewModel.isPressed)
 
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherContentColors: TabContentColors(),
             otherFonts: TabFonts(),
             otherDim: 0
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getContentColorsUseCase: true,
             getFontsUseCase: true
@@ -48,7 +51,8 @@ final class TabSegmentViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -57,9 +61,9 @@ final class TabSegmentViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TabGetContentColorsUseCaseableMockTest.XCTAssert(
+        TabGetContentColorsUseCaseableMockTest.expect(
             stub.getContentColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -69,7 +73,7 @@ final class TabSegmentViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentColors
         )
 
-        TabGetFontsUseCaseableMockTest.XCTAssert(
+        TabGetFontsUseCaseableMockTest.expect(
             stub.getFontsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -81,7 +85,8 @@ final class TabSegmentViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateAllProperties() {
+    @Test("Theme changed should update all properties")
+    func themeChangedShouldUpdateAllProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -95,9 +100,9 @@ final class TabSegmentViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TabGetContentColorsUseCaseableMockTest.XCTAssert(
+        TabGetContentColorsUseCaseableMockTest.expect(
             stub.getContentColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -107,7 +112,7 @@ final class TabSegmentViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentColors
         )
 
-        TabGetFontsUseCaseableMockTest.XCTAssert(
+        TabGetFontsUseCaseableMockTest.expect(
             stub.getFontsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -117,7 +122,8 @@ final class TabSegmentViewModelTests: XCTestCase {
         )
     }
 
-    func test_intentChanged_shouldUpdateContentColorsOnly() {
+    @Test("Intent changed should update content colors only")
+    func intentChangedShouldUpdateContentColorsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -131,9 +137,9 @@ final class TabSegmentViewModelTests: XCTestCase {
         viewModel.intent = newIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TabGetContentColorsUseCaseableMockTest.XCTAssert(
+        TabGetContentColorsUseCaseableMockTest.expect(
             stub.getContentColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -143,13 +149,14 @@ final class TabSegmentViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getFontsUseCase: true
         )
     }
 
-    func test_sizeChanged_shouldUpdateFontsOnly() {
+    @Test("Size changed should update fonts only")
+    func sizeChangedShouldUpdateFontsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -163,9 +170,9 @@ final class TabSegmentViewModelTests: XCTestCase {
         viewModel.size = newSize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TabGetFontsUseCaseableMockTest.XCTAssert(
+        TabGetFontsUseCaseableMockTest.expect(
             stub.getFontsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -174,13 +181,14 @@ final class TabSegmentViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedFonts
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getContentColorsUseCase: true
         )
     }
 
-    func test_isSelectedChanged_shouldUpdateContentColorsAndFontsOnly() {
+    @Test("Is selected changed should update content colors and fonts only")
+    func isSelectedChangedShouldUpdateContentColorsAndFontsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -194,9 +202,9 @@ final class TabSegmentViewModelTests: XCTestCase {
         viewModel.isSelected = newIsSelected
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TabGetContentColorsUseCaseableMockTest.XCTAssert(
+        TabGetContentColorsUseCaseableMockTest.expect(
             stub.getContentColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -206,7 +214,7 @@ final class TabSegmentViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentColors
         )
 
-        TabGetFontsUseCaseableMockTest.XCTAssert(
+        TabGetFontsUseCaseableMockTest.expect(
             stub.getFontsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -215,12 +223,13 @@ final class TabSegmentViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedFonts
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub
         )
     }
 
-    func test_isPressedChanged_shouldUpdateContentColorsOnly() {
+    @Test("Is pressed changed should update content colors only")
+    func isPressedChangedShouldUpdateContentColorsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -234,9 +243,9 @@ final class TabSegmentViewModelTests: XCTestCase {
         viewModel.isPressed = newIsPressed
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TabGetContentColorsUseCaseableMockTest.XCTAssert(
+        TabGetContentColorsUseCaseableMockTest.expect(
             stub.getContentColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -246,13 +255,14 @@ final class TabSegmentViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getFontsUseCase: true
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -265,21 +275,22 @@ final class TabSegmentViewModelTests: XCTestCase {
         viewModel.isPressed = true
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherContentColors: TabContentColors(),
             otherFonts: TabFonts(),
             otherDim: 0
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getContentColorsUseCase: true,
             getFontsUseCase: true
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -295,16 +306,17 @@ final class TabSegmentViewModelTests: XCTestCase {
         viewModel.isPressed = stub.givenIsPressed
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getContentColorsUseCase: true,
             getFontsUseCase: true
         )
     }
 
-    func test_propertiesChanged_withNilValues_shouldNotCallUseCases() {
+    @Test("Properties changed with nil values should not call use cases")
+    func propertiesChangedWithNilValuesShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -319,9 +331,9 @@ final class TabSegmentViewModelTests: XCTestCase {
         viewModel.isSelected = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getContentColorsUseCase: true,
             getFontsUseCase: true
@@ -401,38 +413,42 @@ private extension TabSegmentViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getContentColorsUseCase: Bool = false,
-    getFontsUseCase: Bool = false
+    getFontsUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    TabGetContentColorsUseCaseableMockTest.XCTCalled(
+    TabGetContentColorsUseCaseableMockTest.expectCalled(
         stub.getContentColorsUseCaseMock,
-        executeWithThemeAndIntentAndIsSelectedAndIsPressedCalled: !getContentColorsUseCase
+        executeWithThemeAndIntentAndIsSelectedAndIsPressedCalled: !getContentColorsUseCase,
+        sourceLocation: sourceLocation
     )
 
-    TabGetFontsUseCaseableMockTest.XCTCalled(
+    TabGetFontsUseCaseableMockTest.expectCalled(
         stub.getFontsUseCaseMock,
-        executeWithThemeAndSizeAndIsSelectedCalled: !getFontsUseCase
+        executeWithThemeAndSizeAndIsSelectedCalled: !getFontsUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherContentColors: TabContentColors? = nil,
     otherFonts: TabFonts? = nil,
-    otherDim: CGFloat? = nil
+    otherDim: CGFloat? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.contentColors,
-        otherContentColors ?? stub.expectedContentColors,
-        "Wrong contentColors value"
+    #expect(
+        viewModel.contentColors == (otherContentColors ?? stub.expectedContentColors),
+        "Wrong contentColors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.fonts,
-        otherFonts ?? stub.expectedFonts,
-        "Wrong fonts value"
+    #expect(
+        viewModel.fonts == (otherFonts ?? stub.expectedFonts),
+        "Wrong fonts value",
+        sourceLocation: sourceLocation
     )
 }

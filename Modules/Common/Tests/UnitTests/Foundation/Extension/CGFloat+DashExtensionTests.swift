@@ -6,50 +6,57 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkCommon
 
-class CGFloatDashExtensionTests: XCTestCase {
+@Suite("CG Float Dash Extension Tests")
+struct CGFloatDashExtensionTests {
 
     // MARK: - Tests
 
-    func test_toDashArray_with_positiveValue() {
+    @Test("To dash array with positive value")
+    func toDashArrayWithPositiveValue() {
         let value: CGFloat = 5.0
 
         let result = value.toDashArray
 
-        XCTAssertEqual(result, [5.0])
+        #expect(result == [5.0])
     }
 
-    func test_toDashArray_with_smallPositiveValue() {
+    @Test("To dash array with small positive value")
+    func toDashArrayWithSmallPositiveValue() {
         let value: CGFloat = 0.1
 
         let result = value.toDashArray
 
-        XCTAssertEqual(result, [0.1])
+        #expect(result == [0.1])
     }
 
-    func test_toDashArray_with_zeroValue() {
+    @Test("To dash array with zero value")
+    func toDashArrayWithZeroValue() {
         let value: CGFloat = 0.0
 
         let result = value.toDashArray
 
-        XCTAssertEqual(result, [])
+        #expect(result == [])
     }
 
-    func test_toDashArray_with_negativeValue() {
+    @Test("To dash array with negative value")
+    func toDashArrayWithNegativeValue() {
         let value: CGFloat = -5.0
 
         let result = value.toDashArray
 
-        XCTAssertEqual(result, [])
+        #expect(result == [])
     }
 
-    func test_toDashArray_with_largeValue() {
+    @Test("To dash array with large value")
+    func toDashArrayWithLargeValue() {
         let value: CGFloat = 1000.0
 
         let result = value.toDashArray
 
-        XCTAssertEqual(result, [1000.0])
+        #expect(result == [1000.0])
     }
 }

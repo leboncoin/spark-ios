@@ -26,7 +26,7 @@ struct SparkUIStepperSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: StepperScenarioSnapshotTests.allCases)
+    @Test("Spark UIStepper snapshot", arguments: StepperScenarioSnapshotTests.allCases)
     func test(scenario: StepperScenarioSnapshotTests) async throws {
         let configurations: [StepperConfigurationSnapshotTests] = try scenario.configuration()
         for configuration in configurations {

@@ -9,76 +9,80 @@
 import Combine
 @_spi(SI_SPI) @testable import SparkCommon
 import SwiftUI
-import XCTest
+import Testing
 
-final class EventPublisherTests: XCTestCase {
+@Suite("Event Publisher Tests")
+@MainActor
+final class EventPublisherTests {
 
     // MARK: - Properties
-    private var button: UIButton!
+    private let button: UIButton
     private var cancellables = Set<AnyCancellable>()
 
-    // MARK: - Setup
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-
+    // MARK: - Initialization
+    init() {
         self.button = UIButton(type: .system)
     }
 
     // MARK: - Tests
-    func test_create() throws {
+    @Test("Create should set the control and the event")
+    func create() throws {
         // Given
         let sut = self.button.publisher(for: .touchUpOutside)
 
         // Then
-        XCTAssertNotNil(sut)
-        XCTAssertNotNil(sut.control)
-        XCTAssertEqual(sut.event, .touchUpOutside)
-        XCTAssertEqual(self.button.allControlEvents, [])
+        #expect(sut != nil)
+        #expect(sut.control != nil)
+        #expect(sut.event == .touchUpOutside)
+        #expect(self.button.allControlEvents == [])
     }
 
-    func test_control_event() throws {
+    @Test("Control event should be registered on subscription")
+    func controlEvent() throws {
         // Given
         let sut = self.button.publisher(for: .touchDragExit)
 
         // Then
-        XCTAssertEqual(self.button.allControlEvents, [])
+        #expect(self.button.allControlEvents == [])
 
         // Given
         self.register(publisher: sut)
 
         // Then
-        XCTAssertEqual(self.button.allControlEvents, .touchDragExit)
+        #expect(self.button.allControlEvents == .touchDragExit)
     }
 
-    func test_multiple_publishers() throws {
+    @Test("Multiple publishers should register all events")
+    func multiplePublishers() throws {
         // Given
         let publisherTouchUpInside = self.button.publisher(for: .touchUpInside)
         let publisherTouchCancel = self.button.publisher(for: .touchCancel)
 
         // Then
-        XCTAssertEqual(self.button.allControlEvents, [])
+        #expect(self.button.allControlEvents == [])
 
         // Given
         self.register(publisher: publisherTouchUpInside)
         self.register(publisher: publisherTouchCancel)
 
         // Then
-        XCTAssertEqual(self.button.allControlEvents, [.touchUpInside, .touchCancel])
+        #expect(self.button.allControlEvents == [.touchUpInside, .touchCancel])
     }
 
-    func test_cancel() throws {
+    @Test("Cancel should remove the control event")
+    func cancel() throws {
         // Given
         let sut = self.button.publisher(for: .touchDragExit)
         self.register(publisher: sut)
 
         // Then
-        XCTAssertEqual(self.button.allControlEvents, .touchDragExit)
+        #expect(self.button.allControlEvents == .touchDragExit)
 
         // Given
         self.cancellables.removeAll()
 
         // Then
-        XCTAssertEqual(self.button.allControlEvents, [])
+        #expect(self.button.allControlEvents == [])
     }
 
     // MARK: - Helper

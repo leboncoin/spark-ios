@@ -27,7 +27,7 @@ struct SparkCheckboxSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: CheckboxScenarioSnapshotTests.allCases(forDocumentation: false))
+    @Test("Spark checkbox snapshot", arguments: CheckboxScenarioSnapshotTests.allCases(forDocumentation: false))
     func test(scenario: CheckboxScenarioSnapshotTests) async throws {
         let forDocumentation = false
 

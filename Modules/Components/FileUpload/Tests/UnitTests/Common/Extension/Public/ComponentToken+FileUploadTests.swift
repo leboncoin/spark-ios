@@ -22,17 +22,17 @@ struct ComponentTokenFileUploadTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("File upload should return token from theme")
     func fileUploadShouldReturnTokenFromTheme() {
         #expect(ComponentToken(theme: self.theme).fileUpload == FileUploadToken(theme: self.theme))
     }
 
-    @Test
+    @Test("File upload from theme component should return token from theme")
     func fileUploadFromThemeComponentShouldReturnTokenFromTheme() {
         #expect(self.theme.component.fileUpload == FileUploadToken(theme: self.theme))
     }
 
-    @Test
+    @Test("File upload with different theme should not return token from theme")
     func fileUploadWithDifferentThemeShouldNotReturnTokenFromTheme() {
         // GIVEN
         let componentToken = ComponentToken(theme: ThemeGeneratedMock.mocked2())

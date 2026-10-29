@@ -13,7 +13,7 @@ struct TagIntentTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Default")
     func test_default() {
         #expect(TagIntent.default == .main)
     }

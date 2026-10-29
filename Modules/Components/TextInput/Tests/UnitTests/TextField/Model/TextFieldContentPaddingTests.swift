@@ -6,22 +6,24 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 
-final class TextFieldContentPaddingTests: XCTestCase {
+@Suite("Text Field Content Padding Tests")
+struct TextFieldContentPaddingTests {
 
     // MARK: - Tests
 
-    func test_default_values() {
+    @Test("Default values")
+    func defaultValues() {
         // GIVEN / WHEN
         let object = TextFieldContentPadding()
 
         // THEN
-        XCTAssertEqual(object.top, 0, "Wrong top value")
-        XCTAssertEqual(object.leading, 0, "Wrong leading value")
-        XCTAssertEqual(object.bottom, 0, "Wrong bottom value")
-        XCTAssertEqual(object.trailing, 0, "Wrong trailing value")
-        XCTAssertEqual(object.inputTrailing, 0, "Wrong inputTrailing value")
+        #expect(object.top == 0, "Wrong top value")
+        #expect(object.leading == 0, "Wrong leading value")
+        #expect(object.bottom == 0, "Wrong bottom value")
+        #expect(object.trailing == 0, "Wrong trailing value")
+        #expect(object.inputTrailing == 0, "Wrong inputTrailing value")
     }
 }

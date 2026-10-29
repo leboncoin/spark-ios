@@ -26,7 +26,7 @@ struct AvatarTokenColorsTests {
 
     // MARK: - Border Tests
 
-    @Test
+    @Test("Border should return outline")
     func borderShouldReturnOutline() {
         // GIVEN / WHEN
         let result = self.token.border
@@ -37,7 +37,7 @@ struct AvatarTokenColorsTests {
 
     // MARK: - Background Tests
 
-    @Test
+    @Test("Background with user should return surface inverse")
     func backgroundWithUserShouldReturnSurfaceInverse() {
         // GIVEN / WHEN
         let result = self.token.background(contentType: .user)
@@ -46,7 +46,7 @@ struct AvatarTokenColorsTests {
         #expect(result.equals(self.theme.colors.base.surfaceInverse))
     }
 
-    @Test
+    @Test("Background with company should return neutral container")
     func backgroundWithCompanyShouldReturnNeutralContainer() {
         // GIVEN / WHEN
         let result = self.token.background(contentType: .company)
@@ -57,7 +57,7 @@ struct AvatarTokenColorsTests {
 
     // MARK: - Placeholder Tint Tests
 
-    @Test
+    @Test("Placeholder tint with user should return on surface inverse")
     func placeholderTintWithUserShouldReturnOnSurfaceInverse() {
         // GIVEN / WHEN
         let result = self.token.placeholderTint(contentType: .user)
@@ -66,7 +66,7 @@ struct AvatarTokenColorsTests {
         #expect(result.equals(self.theme.colors.base.onSurfaceInverse))
     }
 
-    @Test
+    @Test("Placeholder tint with company should return on neutral container")
     func placeholderTintWithCompanyShouldReturnOnNeutralContainer() {
         // GIVEN / WHEN
         let result = self.token.placeholderTint(contentType: .company)
@@ -77,7 +77,7 @@ struct AvatarTokenColorsTests {
 
     // MARK: - Action Background Tests
 
-    @Test
+    @Test("Action background when not pressed should return surface")
     func actionBackgroundWhenNotPressedShouldReturnSurface() {
         // GIVEN / WHEN
         let result = self.token.actionBackground(isPressed: false)
@@ -86,7 +86,7 @@ struct AvatarTokenColorsTests {
         #expect(result.equals(self.theme.colors.base.surface))
     }
 
-    @Test
+    @Test("Action background when pressed should return surface pressed")
     func actionBackgroundWhenPressedShouldReturnSurfacePressed() {
         // GIVEN / WHEN
         let result = self.token.actionBackground(isPressed: true)
@@ -97,7 +97,7 @@ struct AvatarTokenColorsTests {
 
     // MARK: - Action Tint Tests
 
-    @Test
+    @Test("Action tint when not pressed should return neutral")
     func actionTintWhenNotPressedShouldReturnNeutral() {
         // GIVEN / WHEN
         let result = self.token.actionTint(isPressed: false)
@@ -106,7 +106,7 @@ struct AvatarTokenColorsTests {
         #expect(result.equals(self.theme.colors.feedback.neutral))
     }
 
-    @Test
+    @Test("Action tint when pressed should return neutral pressed")
     func actionTintWhenPressedShouldReturnNeutralPressed() {
         // GIVEN / WHEN
         let result = self.token.actionTint(isPressed: true)
@@ -117,7 +117,7 @@ struct AvatarTokenColorsTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = AvatarToken.Colors(theme: self.theme)
@@ -127,7 +127,7 @@ struct AvatarTokenColorsTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = AvatarToken.Colors(theme: self.theme)

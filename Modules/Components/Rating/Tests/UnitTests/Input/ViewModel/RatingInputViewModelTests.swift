@@ -6,32 +6,36 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import Foundation
 import SwiftUI
 @testable import SparkComponentRating
 @_spi(SI_SPI) @testable import SparkComponentRatingTesting
 @_spi(SI_SPI) import SparkThemingTesting
 @_spi(SI_SPI) import SparkTheming
 
-final class RatingInputViewModelTests: XCTestCase {
+@MainActor
+@Suite("Rating Input ViewModel Tests")
+struct RatingInputViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertNil(stub.viewModel.theme)
-        XCTAssertNil(stub.viewModel.isEnabled)
+        #expect(stub.viewModel.theme == nil)
+        #expect(stub.viewModel.isEnabled == nil)
 
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherDim: 0,
             otherSpacing: 0
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDimUseCase: true,
             getNewValueUseCase: true,
@@ -43,7 +47,8 @@ final class RatingInputViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -52,9 +57,9 @@ final class RatingInputViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        RatingInputGetDimUseCaseableMockTest.XCTAssert(
+        RatingInputGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -62,14 +67,14 @@ final class RatingInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        RatingInputGetSpacingUseCaseableMockTest.XCTAssert(
+        RatingInputGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedSpacing
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getNewValueUseCase: true,
             getIncrementValueUseCase: true,
@@ -79,7 +84,8 @@ final class RatingInputViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateColorsAndDimAndSpacing() {
+    @Test("Theme changed should update colors and dim and spacing")
+    func themeChangedShouldUpdateColorsAndDimAndSpacing() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -93,9 +99,9 @@ final class RatingInputViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        RatingInputGetDimUseCaseableMockTest.XCTAssert(
+        RatingInputGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -103,14 +109,14 @@ final class RatingInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        RatingInputGetSpacingUseCaseableMockTest.XCTAssert(
+        RatingInputGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             expectedReturnValue: stub.expectedSpacing
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getNewValueUseCase: true,
             getIncrementValueUseCase: true,
@@ -118,7 +124,8 @@ final class RatingInputViewModelTests: XCTestCase {
         )
     }
 
-    func test_isEnabledChanged_shouldUpdateDimOnly() {
+    @Test("Is enabled changed should update dim only")
+    func isEnabledChangedShouldUpdateDimOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -132,9 +139,9 @@ final class RatingInputViewModelTests: XCTestCase {
         viewModel.isEnabled = newIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        RatingInputGetDimUseCaseableMockTest.XCTAssert(
+        RatingInputGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -142,7 +149,7 @@ final class RatingInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getNewValueUseCase: true,
             getIncrementValueUseCase: true,
@@ -151,7 +158,8 @@ final class RatingInputViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -161,13 +169,13 @@ final class RatingInputViewModelTests: XCTestCase {
         viewModel.isEnabled = !stub.givenIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherDim: 0,
             otherSpacing: 0
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDimUseCase: true,
             getNewValueUseCase: true,
@@ -177,7 +185,8 @@ final class RatingInputViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -190,9 +199,9 @@ final class RatingInputViewModelTests: XCTestCase {
         viewModel.isEnabled = stub.givenIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDimUseCase: true,
             getNewValueUseCase: true,
@@ -202,7 +211,8 @@ final class RatingInputViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withNilValues_shouldNotCallUseCases() {
+    @Test("Properties changed with nil values should not call use cases")
+    func propertiesChangedWithNilValuesShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -215,9 +225,9 @@ final class RatingInputViewModelTests: XCTestCase {
         viewModel.isEnabled = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDimUseCase: true,
             getNewValueUseCase: true,
@@ -229,7 +239,8 @@ final class RatingInputViewModelTests: XCTestCase {
 
     // MARK: - GetNewValue
 
-    func test_getNewValue_shouldCallUseCase() {
+    @Test("Get new value should call use case")
+    func getNewValueShouldCallUseCase() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -243,16 +254,16 @@ final class RatingInputViewModelTests: XCTestCase {
         let result = viewModel.getNewValue(from: givenRatio)
 
         // THEN
-        XCTAssertEqual(result, stub.expectedNewValue)
+        #expect(result == stub.expectedNewValue)
 
-        RatingInputGetNewValueUseCaseableMockTest.XCTAssert(
+        RatingInputGetNewValueUseCaseableMockTest.expect(
             stub.getNewValueUseCaseMock,
             expectedNumberOfCalls: 1,
             givenRatio: givenRatio,
             expectedReturnValue: stub.expectedNewValue
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDimUseCase: true,
             getIncrementValueUseCase: true,
@@ -261,7 +272,8 @@ final class RatingInputViewModelTests: XCTestCase {
         )
     }
 
-    func test_getIncrementValue_shouldCallUseCase() {
+    @Test("Get increment value should call use case")
+    func getIncrementValueShouldCallUseCase() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -275,9 +287,9 @@ final class RatingInputViewModelTests: XCTestCase {
         let result = viewModel.getIncrementedValue(from: givenValue)
 
         // THEN
-        XCTAssertEqual(result, stub.expectedIncrementedValue)
+        #expect(result == stub.expectedIncrementedValue)
 
-        RatingInputGetNewValueUseCaseableMockTest.XCTAssert(
+        RatingInputGetNewValueUseCaseableMockTest.expect(
             stub.getNewValueUseCaseMock,
             expectedNumberOfCalls: 1,
             givenValueToIncrement: givenValue,
@@ -285,7 +297,7 @@ final class RatingInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedIncrementedValue
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDimUseCase: true,
             getNewValueUseCase: true,
@@ -294,7 +306,8 @@ final class RatingInputViewModelTests: XCTestCase {
         )
     }
 
-    func test_getDecrementValue_shouldCallUseCase() {
+    @Test("Get decrement value should call use case")
+    func getDecrementValueShouldCallUseCase() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -308,9 +321,9 @@ final class RatingInputViewModelTests: XCTestCase {
         let result = viewModel.getDecrementedValue(from: givenValue)
 
         // THEN
-        XCTAssertEqual(result, stub.expectedDecrementedValue)
+        #expect(result == stub.expectedDecrementedValue)
 
-        RatingInputGetNewValueUseCaseableMockTest.XCTAssert(
+        RatingInputGetNewValueUseCaseableMockTest.expect(
             stub.getNewValueUseCaseMock,
             expectedNumberOfCalls: 1,
             givenValueToDecrement: givenValue,
@@ -318,7 +331,7 @@ final class RatingInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDecrementedValue
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDimUseCase: true,
             getNewValueUseCase: true,
@@ -403,55 +416,62 @@ private extension RatingInputViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getDimUseCase: Bool = false,
     getNewValueUseCase: Bool = false,
     getIncrementValueUseCase: Bool = false,
     getDecrementValueUseCase: Bool = false,
-    getSpacingUseCase: Bool = false
+    getSpacingUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    RatingInputGetDimUseCaseableMockTest.XCTCalled(
+    RatingInputGetDimUseCaseableMockTest.expectCalled(
         stub.getDimUseCaseMock,
-        executeWithThemeAndIsEnabledCalled: !getDimUseCase
+        executeWithThemeAndIsEnabledCalled: !getDimUseCase,
+        sourceLocation: sourceLocation
     )
 
-    RatingInputGetNewValueUseCaseableMockTest.XCTCalled(
+    RatingInputGetNewValueUseCaseableMockTest.expectCalled(
         stub.getNewValueUseCaseMock,
-        executeWithRatioCalled: !getNewValueUseCase
+        executeWithRatioCalled: !getNewValueUseCase,
+        sourceLocation: sourceLocation
     )
 
-    RatingInputGetNewValueUseCaseableMockTest.XCTCalled(
+    RatingInputGetNewValueUseCaseableMockTest.expectCalled(
         stub.getNewValueUseCaseMock,
-        executeIncrementWithValueToIncrementAndIsEnabledCalled: !getIncrementValueUseCase
+        executeIncrementWithValueToIncrementAndIsEnabledCalled: !getIncrementValueUseCase,
+        sourceLocation: sourceLocation
     )
 
-    RatingInputGetNewValueUseCaseableMockTest.XCTCalled(
+    RatingInputGetNewValueUseCaseableMockTest.expectCalled(
         stub.getNewValueUseCaseMock,
-        executeDecrementWithValueToDecrementAndIsEnabledCalled: !getDecrementValueUseCase
+        executeDecrementWithValueToDecrementAndIsEnabledCalled: !getDecrementValueUseCase,
+        sourceLocation: sourceLocation
     )
 
-    RatingInputGetSpacingUseCaseableMockTest.XCTCalled(
+    RatingInputGetSpacingUseCaseableMockTest.expectCalled(
         stub.getSpacingUseCaseMock,
-        executeWithThemeCalled: !getSpacingUseCase
+        executeWithThemeCalled: !getSpacingUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherDim: CGFloat? = nil,
-    otherSpacing: CGFloat? = nil
+    otherSpacing: CGFloat? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.dim,
-        otherDim ?? stub.expectedDim,
-        "Wrong dim value"
+    #expect(
+        viewModel.dim == otherDim ?? stub.expectedDim,
+        "Wrong dim value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.spacing,
-        otherSpacing ?? stub.expectedSpacing,
-        "Wrong spacing value"
+    #expect(
+        viewModel.spacing == otherSpacing ?? stub.expectedSpacing,
+        "Wrong spacing value",
+        sourceLocation: sourceLocation
     )
 }

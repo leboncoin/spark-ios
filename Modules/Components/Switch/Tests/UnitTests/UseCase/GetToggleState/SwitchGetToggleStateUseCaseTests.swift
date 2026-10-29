@@ -6,12 +6,14 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkComponentSwitch
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SwitchGetToggleStateUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Switch Get Toggle State UseCase Tests")
+struct SwitchGetToggleStateUseCaseTests {
 
     // MARK: - Properties
 
@@ -19,14 +21,16 @@ final class SwitchGetToggleStateUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_when_isEnabled_is_true() throws {
+    @Test("Execute when is enabled is true")
+    func executeWhenIsEnabledIsTrue() throws {
         try self.testExecute(
             givenIsEnabled: true,
             expectedInteractionState: .init(interactionEnabled: true, opacity: self.dimsMock.none)
         )
     }
 
-    func test_execute_when_isEnabled_is_false() throws {
+    @Test("Execute when is enabled is false")
+    func executeWhenIsEnabledIsFalse() throws {
         try self.testExecute(
             givenIsEnabled: false,
             expectedInteractionState: .init(interactionEnabled: false, opacity: self.dimsMock.dim3)
@@ -54,11 +58,13 @@ private extension SwitchGetToggleStateUseCaseTests {
         )
 
         // THEN
-        XCTAssertEqual(interactionState.interactionEnabled,
-                       expectedInteractionState.interactionEnabled,
-                       "Wrong interactionEnabled" + errorPrefixMessage)
-        XCTAssertEqual(interactionState.opacity,
-                       expectedInteractionState.opacity,
-                       "Wrong opacity" + errorPrefixMessage)
+        #expect(
+            interactionState.interactionEnabled == expectedInteractionState.interactionEnabled,
+            "Wrong interactionEnabled\(errorPrefixMessage)"
+        )
+        #expect(
+            interactionState.opacity == expectedInteractionState.opacity,
+            "Wrong opacity\(errorPrefixMessage)"
+        )
     }
 }

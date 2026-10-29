@@ -6,15 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class CommonGetSpacingUseCaseTests: XCTestCase {
+@Suite("Common Get Spacing UseCase Tests")
+struct CommonGetSpacingUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_returnsMediumSpacing() {
+    @Test("Execute returns medium spacing")
+    func executeReturnsMediumSpacing() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let useCase = CommonGetSpacingUseCase()
@@ -23,6 +25,6 @@ final class CommonGetSpacingUseCaseTests: XCTestCase {
         let result = useCase.execute(theme: theme)
 
         // THEN
-        XCTAssertEqual(result, theme.layout.spacing.medium)
+        #expect(result == theme.layout.spacing.medium)
     }
 }

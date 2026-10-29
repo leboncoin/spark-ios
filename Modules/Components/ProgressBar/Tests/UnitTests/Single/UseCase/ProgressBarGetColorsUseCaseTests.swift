@@ -6,12 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentProgressBar
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ProgressBarGetColorsUseCaseTests: XCTestCase {
+@Suite("Progress Bar Get Colors Use Case Tests")
+struct ProgressBarGetColorsUseCaseTests {
 
     // MARK: - Properties
 
@@ -19,7 +20,8 @@ final class ProgressBarGetColorsUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_colors_when_intent_is_accent() {
+    @Test("Execute colors when intent is accent")
+    func executeColorsWhenIntentIsAccent() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenIntent: .accent,
@@ -27,7 +29,8 @@ final class ProgressBarGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_colors_when_intent_is_alert() {
+    @Test("Execute colors when intent is alert")
+    func executeColorsWhenIntentIsAlert() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenIntent: .alert,
@@ -35,7 +38,8 @@ final class ProgressBarGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_colors_when_intent_is_support() {
+    @Test("Execute colors when intent is support")
+    func executeColorsWhenIntentIsSupport() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenIntent: .support,
@@ -43,7 +47,8 @@ final class ProgressBarGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_colors_when_intent_is_danger() {
+    @Test("Execute colors when intent is danger")
+    func executeColorsWhenIntentIsDanger() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenIntent: .danger,
@@ -51,7 +56,8 @@ final class ProgressBarGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_colors_when_intent_is_info() {
+    @Test("Execute colors when intent is info")
+    func executeColorsWhenIntentIsInfo() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenIntent: .info,
@@ -59,7 +65,8 @@ final class ProgressBarGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_colors_when_intent_is_main() {
+    @Test("Execute colors when intent is main")
+    func executeColorsWhenIntentIsMain() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenIntent: .main,
@@ -67,7 +74,8 @@ final class ProgressBarGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_colors_when_intent_is_neutral() {
+    @Test("Execute colors when intent is neutral")
+    func executeColorsWhenIntentIsNeutral() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenIntent: .neutral,
@@ -75,7 +83,8 @@ final class ProgressBarGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_colors_when_intent_is_success() {
+    @Test("Execute colors when intent is success")
+    func executeColorsWhenIntentIsSuccess() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenIntent: .success,
@@ -103,13 +112,7 @@ private extension ProgressBarGetColorsUseCaseTests {
         )
 
         // THEN
-        XCTAssertTrue(
-            colors.trackBackgroundColorToken.equals(expectedTrackBackgroundColorToken),
-            "Wrong track background color token for .\(givenIntent) intent case"
-        )
-        XCTAssertTrue(
-            colors.indicatorBackgroundColorToken.equals(expectedIndicatorColorToken),
-            "Wrong indicator background color token for .\(givenIntent) intent case"
-        )
+        #expect(colors.trackBackgroundColorToken.equals(expectedTrackBackgroundColorToken), "Wrong track background color token for .\(givenIntent) intent case")
+        #expect(colors.indicatorBackgroundColorToken.equals(expectedIndicatorColorToken), "Wrong indicator background color token for .\(givenIntent) intent case")
     }
 }

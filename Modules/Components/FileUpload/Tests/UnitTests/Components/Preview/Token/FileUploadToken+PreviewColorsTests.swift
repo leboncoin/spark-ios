@@ -26,7 +26,7 @@ struct FileUploadTokenPreviewColorsTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Name text should return on surface")
     func nameTextShouldReturnOnSurface() {
         // GIVEN / WHEN
         let result = self.token.nameText
@@ -35,7 +35,7 @@ struct FileUploadTokenPreviewColorsTests {
         #expect(result.equals(self.theme.colors.base.onSurface))
     }
 
-    @Test
+    @Test("Size text should return on surface dim 1")
     func sizeTextShouldReturnOnSurfaceDim1() {
         // GIVEN / WHEN
         let result = self.token.sizeText
@@ -44,7 +44,7 @@ struct FileUploadTokenPreviewColorsTests {
         #expect(result.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
     }
 
-    @Test
+    @Test("Error text should return error")
     func errorTextShouldReturnError() {
         // GIVEN / WHEN
         let result = self.token.errorText
@@ -53,7 +53,7 @@ struct FileUploadTokenPreviewColorsTests {
         #expect(result.equals(self.theme.colors.feedback.error))
     }
 
-    @Test
+    @Test("Background when pressed should return surface pressed")
     func backgroundWhenPressedShouldReturnSurfacePressed() {
         // GIVEN / WHEN
         let result = self.token.background(isPressed: true)
@@ -62,7 +62,7 @@ struct FileUploadTokenPreviewColorsTests {
         #expect(result.equals(self.theme.colors.states.surfacePressed))
     }
 
-    @Test
+    @Test("Background when not pressed should return surface")
     func backgroundWhenNotPressedShouldReturnSurface() {
         // GIVEN / WHEN
         let result = self.token.background(isPressed: false)
@@ -71,7 +71,7 @@ struct FileUploadTokenPreviewColorsTests {
         #expect(result.equals(self.theme.colors.base.surface))
     }
 
-    @Test
+    @Test("Border when succeed should return outline")
     func borderWhenSucceedShouldReturnOutline() {
         // GIVEN / WHEN
         let result = self.token.border(isSucceed: true)
@@ -80,7 +80,7 @@ struct FileUploadTokenPreviewColorsTests {
         #expect(result.equals(self.theme.colors.base.outline))
     }
 
-    @Test
+    @Test("Border when failed should return error")
     func borderWhenFailedShouldReturnError() {
         // GIVEN / WHEN
         let result = self.token.border(isSucceed: false)
@@ -89,7 +89,7 @@ struct FileUploadTokenPreviewColorsTests {
         #expect(result.equals(self.theme.colors.feedback.error))
     }
 
-    @Test
+    @Test("Image tint when succeed should return on neutral container")
     func imageTintWhenSucceedShouldReturnOnNeutralContainer() {
         // GIVEN / WHEN
         let result = self.token.imageTint(isSucceed: true)
@@ -98,7 +98,7 @@ struct FileUploadTokenPreviewColorsTests {
         #expect(result.equals(self.theme.colors.feedback.onNeutralContainer))
     }
 
-    @Test
+    @Test("Image tint when failed should return on error container")
     func imageTintWhenFailedShouldReturnOnErrorContainer() {
         // GIVEN / WHEN
         let result = self.token.imageTint(isSucceed: false)
@@ -107,7 +107,7 @@ struct FileUploadTokenPreviewColorsTests {
         #expect(result.equals(self.theme.colors.feedback.onErrorContainer))
     }
 
-    @Test
+    @Test("Image background when succeed should return neutral container")
     func imageBackgroundWhenSucceedShouldReturnNeutralContainer() {
         // GIVEN / WHEN
         let result = self.token.imageBackground(isSucceed: true)
@@ -116,7 +116,7 @@ struct FileUploadTokenPreviewColorsTests {
         #expect(result.equals(self.theme.colors.feedback.neutralContainer))
     }
 
-    @Test
+    @Test("Image background when failed should return error container")
     func imageBackgroundWhenFailedShouldReturnErrorContainer() {
         // GIVEN / WHEN
         let result = self.token.imageBackground(isSucceed: false)
@@ -127,7 +127,7 @@ struct FileUploadTokenPreviewColorsTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = FileUploadToken.Preview.Colors(theme: self.theme)
@@ -137,7 +137,7 @@ struct FileUploadTokenPreviewColorsTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = FileUploadToken.Preview.Colors(theme: self.theme)

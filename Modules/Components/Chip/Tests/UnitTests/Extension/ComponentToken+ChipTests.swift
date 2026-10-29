@@ -21,7 +21,7 @@ struct ComponentTokenChipTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Chip should return token from theme")
     func chipShouldReturnTokenFromTheme() {
         // GIVEN
         let componentToken = ComponentToken(theme: self.theme)
@@ -33,7 +33,7 @@ struct ComponentTokenChipTests {
         #expect(token == ChipToken(theme: self.theme))
     }
 
-    @Test
+    @Test("Chip from theme component should return token from theme")
     func chipFromThemeComponentShouldReturnTokenFromTheme() {
         // GIVEN / WHEN
         let token = self.theme.component.chip
@@ -42,7 +42,7 @@ struct ComponentTokenChipTests {
         #expect(token == ChipToken(theme: self.theme))
     }
 
-    @Test
+    @Test("Chip with different theme should not return token from theme")
     func chipWithDifferentThemeShouldNotReturnTokenFromTheme() {
         // GIVEN
         let componentToken = ComponentToken(theme: ThemeGeneratedMock.mocked2())

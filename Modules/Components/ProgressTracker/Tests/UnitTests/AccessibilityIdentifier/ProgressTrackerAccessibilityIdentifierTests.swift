@@ -7,15 +7,18 @@
 //
 
 import SparkComponentProgressTracker
-import XCTest
+import Testing
 
-final class ProgressTrackerAccessibilityIdentifierTests: XCTestCase {
+@Suite("Progress Tracker Accessibility Identifier Tests")
+struct ProgressTrackerAccessibilityIdentifierTests {
 
-    func test_indicator_identifier() {
-        XCTAssertEqual(ProgressTrackerAccessibilityIdentifier.indicator(forIndex: 99), "spark-progress-tracker-indicator-99")
+    @Test("Indicator identifier")
+    func indicatorIdentifier() {
+        #expect(ProgressTrackerAccessibilityIdentifier.indicator(forIndex: 99) == "spark-progress-tracker-indicator-99")
     }
 
-    func test_label_identifier() {
-        XCTAssertEqual(ProgressTrackerAccessibilityIdentifier.label(forIndex: 99), "spark-progress-tracker-label-99")
+    @Test("Label identifier")
+    func labelIdentifier() {
+        #expect(ProgressTrackerAccessibilityIdentifier.label(forIndex: 99) == "spark-progress-tracker-label-99")
     }
 }

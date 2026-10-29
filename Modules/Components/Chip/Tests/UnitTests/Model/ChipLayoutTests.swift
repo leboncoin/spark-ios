@@ -7,24 +7,28 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentChip
 
-final class ChipLayoutTests: XCTestCase {
+@MainActor
+@Suite("Chip Layout Tests")
+struct ChipLayoutTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let layout = ChipLayout()
 
         // THEN
-        XCTAssertEqual(layout.spacing, 0)
-        XCTAssertEqual(layout.extraContentSpacing, 0)
-        XCTAssertEqual(layout.padding, 0)
+        #expect(layout.spacing == 0)
+        #expect(layout.extraContentSpacing == 0)
+        #expect(layout.padding == 0)
     }
 
-    func test_equality_when_same_values() {
+    @Test("Equality when same values")
+    func equalityWhenSameValues() {
         // GIVEN / WHEN
         let layout1 = ChipLayout(
             spacing: 6.0,
@@ -39,6 +43,6 @@ final class ChipLayoutTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(layout1, layout2)
+        #expect(layout1 == layout2)
     }
 }

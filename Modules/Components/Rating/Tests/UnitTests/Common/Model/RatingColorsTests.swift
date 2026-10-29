@@ -7,25 +7,29 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentRating
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class RatingColorsTests: XCTestCase {
+@MainActor
+@Suite("Rating Colors Tests")
+struct RatingColorsTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let colors = RatingColors()
 
         // THEN
-        XCTAssertTrue(colors.filledStarTintColorToken.equals(ColorTokenClear()))
-        XCTAssertTrue(colors.strokeStarTintColorToken.equals(ColorTokenClear()))
+        #expect(colors.filledStarTintColorToken.equals(ColorTokenClear()))
+        #expect(colors.strokeStarTintColorToken.equals(ColorTokenClear()))
     }
 
-    func test_equality_when_same_colors() {
+    @Test("Equality when same colors")
+    func equalityWhenSameColors() {
         // GIVEN / WHEN
         let filledStarToken = ColorTokenGeneratedMock.random()
         let emptyStarToken = ColorTokenGeneratedMock.random()
@@ -41,10 +45,11 @@ final class RatingColorsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(colors1, colors2)
+        #expect(colors1 == colors2)
     }
 
-    func test_inequality_when_different_filled_star_colors() {
+    @Test("Inequality when different filled star colors")
+    func inequalityWhenDifferentFilledStarColors() {
         // GIVEN / WHEN
         let filledStarToken1 = ColorTokenGeneratedMock.random()
         let filledStarToken2 = ColorTokenGeneratedMock.random()
@@ -61,10 +66,11 @@ final class RatingColorsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(colors1, colors2)
+        #expect(colors1 != colors2)
     }
 
-    func test_inequality_when_different_empty_star_colors() {
+    @Test("Inequality when different empty star colors")
+    func inequalityWhenDifferentEmptyStarColors() {
         // GIVEN / WHEN
         let filledStarToken = ColorTokenGeneratedMock.random()
         let emptyStarToken1 = ColorTokenGeneratedMock.random()
@@ -81,6 +87,6 @@ final class RatingColorsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(colors1, colors2)
+        #expect(colors1 != colors2)
     }
 }

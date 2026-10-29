@@ -6,7 +6,7 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import UIKit
 import SwiftUI
 @testable import SparkComponentCheckbox
@@ -16,16 +16,16 @@ import SwiftUI
 import SparkTheming
 import SparkTheme
 
-final class CheckboxGroupViewModelTests: XCTestCase {
+@MainActor
+@Suite("Checkbox Group ViewModel Tests")
+struct CheckboxGroupViewModelTests {
 
-    var theme: ThemeGeneratedMock!
-    var checkedImage = IconographyTests.shared.checkmark
-    var sut: CheckboxGroupViewModel!
+    let theme: ThemeGeneratedMock
+    let checkedImage = IconographyTests.shared.checkmark
+    let sut: CheckboxGroupViewModel
 
     // MARK: - Setup
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.theme = ThemeGeneratedMock.mock
         self.sut = CheckboxGroupViewModel(
             title: "Title",
@@ -35,23 +35,23 @@ final class CheckboxGroupViewModelTests: XCTestCase {
     }
 
     // MARK: - Tests
-    func test_init() throws {
+    @Test("Init should set the default values")
+    func initialization() throws {
 
             // Then
-            XCTAssertIdentical(sut.theme as? ThemeGeneratedMock,
-                               self.theme,
-                               "Wrong typography value")
+            #expect(sut.theme as? ThemeGeneratedMock === self.theme, "Wrong typography value")
 
-            XCTAssertEqual(sut.title, "Title", "text does not match")
-            XCTAssertEqual(sut.checkedImage, Image(uiImage: self.checkedImage), "Checked image does not match")
-            XCTAssertEqual(sut.alignment, .left, "Alignment does not match")
-            XCTAssertEqual(sut.layout, .vertical, "Layout does not match")
-            XCTAssertEqual(sut.intent, .main, "Intent does not match")
-            XCTAssertEqual(sut.titleFont.uiFont, self.theme.typography.subhead.uiFont, "Title font does not match" )
-            XCTAssertEqual(sut.titleColor.uiColor, self.theme.colors.base.onSurface.uiColor, "Title color does not match" )
+            #expect(sut.title == "Title", "text does not match")
+            #expect(sut.checkedImage == Image(uiImage: self.checkedImage), "Checked image does not match")
+            #expect(sut.alignment == .left, "Alignment does not match")
+            #expect(sut.layout == .vertical, "Layout does not match")
+            #expect(sut.intent == .main, "Intent does not match")
+            #expect(sut.titleFont.uiFont == self.theme.typography.subhead.uiFont, "Title font does not match" )
+            #expect(sut.titleColor.uiColor == self.theme.colors.base.onSurface.uiColor, "Title color does not match" )
     }
 
-    func test_singleCheckbox_width() throws {
+    @Test("Single checkbox width should be calculated")
+    func singleCheckboxWidth() throws {
             // Given
             let text = "This is the way"
             let width: CGFloat = self.calculateCheckboxWidth(string: text)
@@ -59,7 +59,7 @@ final class CheckboxGroupViewModelTests: XCTestCase {
             // Then
             let viewModelWidth: CGFloat = self.sut.calculateSingleCheckboxWidth(string: text)
 
-            XCTAssertEqual(width, viewModelWidth, "Single checkbox calculation is wrong for SwiftUI Side")
+            #expect(width == viewModelWidth, "Single checkbox calculation is wrong for SwiftUI Side")
     }
 
     func calculateCheckboxWidth(string: String?) -> CGFloat {

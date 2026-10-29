@@ -7,25 +7,29 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentRating
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class RatingDisplayTextStyleTests: XCTestCase {
+@MainActor
+@Suite("Rating Display Text Style Tests")
+struct RatingDisplayTextStyleTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let textStyle = RatingDisplayTextStyle()
 
         // THEN
-        XCTAssertTrue(textStyle.fontToken.equals(TypographyFontTokenClear()))
-        XCTAssertTrue(textStyle.colorToken.equals(ColorTokenClear()))
+        #expect(textStyle.fontToken.equals(TypographyFontTokenClear()))
+        #expect(textStyle.colorToken.equals(ColorTokenClear()))
     }
 
-    func test_equality_when_same_properties() {
+    @Test("Equality when same properties")
+    func equalityWhenSameProperties() {
         // GIVEN / WHEN
         let fontToken = TypographyFontTokenGeneratedMock.mocked()
         let colorToken = ColorTokenGeneratedMock.random()
@@ -41,10 +45,11 @@ final class RatingDisplayTextStyleTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(textStyle1, textStyle2)
+        #expect(textStyle1 == textStyle2)
     }
 
-    func test_inequality_when_different_font_token() {
+    @Test("Inequality when different font token")
+    func inequalityWhenDifferentFontToken() {
         // GIVEN / WHEN
         let fontToken1 = TypographyFontTokenGeneratedMock.mocked()
         let fontToken2 = TypographyFontTokenGeneratedMock.mocked(.title)
@@ -61,10 +66,11 @@ final class RatingDisplayTextStyleTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(textStyle1, textStyle2)
+        #expect(textStyle1 != textStyle2)
     }
 
-    func test_inequality_when_different_color_token() {
+    @Test("Inequality when different color token")
+    func inequalityWhenDifferentColorToken() {
         // GIVEN / WHEN
         let fontToken = TypographyFontTokenGeneratedMock.mocked()
         let colorToken1 = ColorTokenGeneratedMock.random()
@@ -81,10 +87,11 @@ final class RatingDisplayTextStyleTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(textStyle1, textStyle2)
+        #expect(textStyle1 != textStyle2)
     }
 
-    func test_hash_consistency() {
+    @Test("Hash consistency")
+    func hashConsistency() {
         // GIVEN
         let fontToken = TypographyFontTokenGeneratedMock.mocked()
         let colorToken = ColorTokenGeneratedMock.random()
@@ -109,6 +116,6 @@ final class RatingDisplayTextStyleTests: XCTestCase {
         let hash2 = hasher2.finalize()
 
         // THEN
-        XCTAssertEqual(hash1, hash2)
+        #expect(hash1 == hash2)
     }
 }

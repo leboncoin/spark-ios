@@ -7,10 +7,11 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentRating
 
-final class RatingInputGetNewValueUseCaseTests: XCTestCase {
+@Suite("Rating Input Get New Value Use Case Tests")
+struct RatingInputGetNewValueUseCaseTests {
 
     // MARK: - Properties
 
@@ -18,15 +19,15 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
 
         self.sut = RatingInputGetNewValueUseCase()
     }
 
     // MARK: - Tests - Negative Values
 
-    func test_execute_with_negative_ratio() {
+    @Test("Execute with negative ratio")
+    func executeWithNegativeRatio() {
         // GIVEN
         let ratio: CGFloat = -0.5
 
@@ -34,10 +35,11 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.execute(ratio: ratio)
 
         // THEN
-        XCTAssertEqual(result, 1.0)
+        #expect(result == 1.0)
     }
 
-    func test_execute_with_very_negative_ratio() {
+    @Test("Execute with very negative ratio")
+    func executeWithVeryNegativeRatio() {
         // GIVEN
         let ratio: CGFloat = -10.0
 
@@ -45,12 +47,13 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.execute(ratio: ratio)
 
         // THEN
-        XCTAssertEqual(result, 1.0)
+        #expect(result == 1.0)
     }
 
     // MARK: - Tests - Normal Range (0 to 1)
 
-    func test_execute_with_partial_ratios() {
+    @Test("Execute with partial ratios")
+    func executeWithPartialRatios() {
         // GIVEN
         let scenarios: [(CGFloat, Double)] = [
             (0.0, 1.0),
@@ -74,13 +77,14 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
             let result = self.sut.execute(ratio: ratio)
 
             // THEN
-            XCTAssertEqual(result, expectedValue, "Failed for ratio \(ratio)")
+            #expect(result == expectedValue, "Failed for ratio \(ratio)")
         }
     }
 
     // MARK: - Tests - Boundary Values
 
-    func test_execute_boundary_values() {
+    @Test("Execute boundary values")
+    func executeBoundaryValues() {
         // GIVEN
         let scenarios: [(CGFloat, Double)] = [
             (-0.001, 1.0),
@@ -93,13 +97,14 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
             let result = self.sut.execute(ratio: ratio)
 
             // THEN
-            XCTAssertEqual(result, expectedValue, "Failed for boundary ratio \(ratio)")
+            #expect(result == expectedValue, "Failed for boundary ratio \(ratio)")
         }
     }
 
     // MARK: - Tests - Increment Method
 
-    func test_executeIncrement_when_enabled_and_below_max() {
+    @Test("Execute increment when enabled and below max")
+    func executeIncrementWhenEnabledAndBelowMax() {
         // GIVEN
         let value = 3.0
         let isEnabled = true
@@ -108,10 +113,11 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.executeIncrement(value: value, isEnabled: isEnabled)
 
         // THEN
-        XCTAssertEqual(result, 4.0)
+        #expect(result == 4.0)
     }
 
-    func test_executeIncrement_when_disabled() {
+    @Test("Execute increment when disabled")
+    func executeIncrementWhenDisabled() {
         // GIVEN
         let value = 3.0
         let isEnabled = false
@@ -120,10 +126,11 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.executeIncrement(value: value, isEnabled: isEnabled)
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_executeIncrement_when_at_max_value() {
+    @Test("Execute increment when at max value")
+    func executeIncrementWhenAtMaxValue() {
         // GIVEN
         let value = 5.0 // Max stars
         let isEnabled = true
@@ -132,10 +139,11 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.executeIncrement(value: value, isEnabled: isEnabled)
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_executeIncrement_when_above_max_value() {
+    @Test("Execute increment when above max value")
+    func executeIncrementWhenAboveMaxValue() {
         // GIVEN
         let value = 6.0
         let isEnabled = true
@@ -144,10 +152,11 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.executeIncrement(value: value, isEnabled: isEnabled)
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_executeIncrement_with_decimal_value() {
+    @Test("Execute increment with decimal value")
+    func executeIncrementWithDecimalValue() {
         // GIVEN
         let value = 2.7
         let isEnabled = true
@@ -156,12 +165,13 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.executeIncrement(value: value, isEnabled: isEnabled)
 
         // THEN
-        XCTAssertEqual(result, 3.0)
+        #expect(result == 3.0)
     }
 
     // MARK: - Tests - Decrement Method
 
-    func test_executeDecrement_when_enabled_and_above_min() {
+    @Test("Execute decrement when enabled and above min")
+    func executeDecrementWhenEnabledAndAboveMin() {
         // GIVEN
         let value = 3.0
         let isEnabled = true
@@ -170,10 +180,11 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.executeDecrement(value: value, isEnabled: isEnabled)
 
         // THEN
-        XCTAssertEqual(result, 2.0)
+        #expect(result == 2.0)
     }
 
-    func test_executeDecrement_when_disabled() {
+    @Test("Execute decrement when disabled")
+    func executeDecrementWhenDisabled() {
         // GIVEN
         let value = 3.0
         let isEnabled = false
@@ -182,10 +193,11 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.executeDecrement(value: value, isEnabled: isEnabled)
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_executeDecrement_when_below_min_value() {
+    @Test("Execute decrement when below min value")
+    func executeDecrementWhenBelowMinValue() {
         // GIVEN
         let value = 0.5
         let isEnabled = true
@@ -194,10 +206,11 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.executeDecrement(value: value, isEnabled: isEnabled)
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_executeDecrement_when_at_min_value() {
+    @Test("Execute decrement when at min value")
+    func executeDecrementWhenAtMinValue() {
         // GIVEN
         let value = 1.0
         let isEnabled = true
@@ -206,10 +219,11 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.executeDecrement(value: value, isEnabled: isEnabled)
 
         // THEN
-        XCTAssertEqual(result, 0.0)
+        #expect(result == 0.0)
     }
 
-    func test_executeDecrement_with_decimal_value() {
+    @Test("Execute decrement with decimal value")
+    func executeDecrementWithDecimalValue() {
         // GIVEN
         let value = 3.7
         let isEnabled = true
@@ -218,6 +232,6 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.executeDecrement(value: value, isEnabled: isEnabled)
 
         // THEN
-        XCTAssertEqual(result, 2.0)
+        #expect(result == 2.0)
     }
 }

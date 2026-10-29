@@ -9,13 +9,17 @@
 @testable import SparkComponentPopover
 @_spi(SI_SPI) @testable import SparkComponentPopoverTesting
 @_spi(SI_SPI) import SparkThemingTesting
-import XCTest
+import Testing
+import Foundation
 
-final class PopoverViewModelTests: XCTestCase {
+@MainActor
+@Suite("Popover ViewModel Tests")
+struct PopoverViewModelTests {
 
     private let theme = ThemeGeneratedMock.mocked()
 
-    func test_init() throws {
+    @Test("Initialization should set the values and call the use cases")
+    func initialization() throws {
         // GIVEN
         let getColorsUseCaseMock = PopoverGetColorsUseCasableGeneratedMock()
         getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassReturnValue = .init(
@@ -39,35 +43,33 @@ final class PopoverViewModelTests: XCTestCase {
         )
 
         // THEN - Values
-        XCTAssertTrue(viewModel.colors.background.equals(self.theme.colors.feedback.alertContainer), "Wrong colors.background")
-        XCTAssertTrue(viewModel.colors.foreground.equals(self.theme.colors.support.supportContainer), "Wrong colors.foreground")
+        #expect(viewModel.colors.background.equals(self.theme.colors.feedback.alertContainer), "Wrong colors.background")
+        #expect(viewModel.colors.foreground.equals(self.theme.colors.support.supportContainer), "Wrong colors.foreground")
 
-        XCTAssertEqual(viewModel.spaces.horizontal, 4.0, "Wrong spaces.horizontal")
-        XCTAssertEqual(viewModel.spaces.vertical, 2.0, "Wrong spaces.vertical")
+        #expect(viewModel.spaces.horizontal == 4.0, "Wrong spaces.horizontal")
+        #expect(viewModel.spaces.vertical == 2.0, "Wrong spaces.vertical")
 
-        XCTAssertTrue(viewModel.showArrow, "showArrow should be true")
+        #expect(viewModel.showArrow, "showArrow should be true")
 
-        XCTAssertEqual(viewModel.arrowSize, self.theme.layout.spacing.medium, "Wrong arrowSize")
+        #expect(viewModel.arrowSize == self.theme.layout.spacing.medium, "Wrong arrowSize")
 
         // THEN - GetColorsUseCase
-        XCTAssertEqual(getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassCallsCount, 1, "getColorsUseCaseMock.executeWithColorsAndIntent should have been called once")
-        let getColorsUseCaseReceivedArguments = try XCTUnwrap(getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassReceivedArguments, "Couldn't unwrap getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassReceivedArguments")
-        XCTAssertIdentical(
-            getColorsUseCaseReceivedArguments.colors as? ColorsGeneratedMock,
-            self.theme.colors as? ColorsGeneratedMock,
+        #expect(getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassCallsCount == 1, "getColorsUseCaseMock.executeWithColorsAndIntent should have been called once")
+        let getColorsUseCaseReceivedArguments = try #require(getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassReceivedArguments, "Couldn't unwrap getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassReceivedArguments")
+        #expect(
+            (getColorsUseCaseReceivedArguments.colors as? ColorsGeneratedMock) === (self.theme.colors as? ColorsGeneratedMock),
             "Wrong getColorsUseCaseReceivedArguments.colors"
         )
-        XCTAssertEqual(getColorsUseCaseReceivedArguments.intent, .support, "Wrong getColorsUseCaseReceivedArguments.intent")
-        XCTAssertEqual(getColorsUseCaseReceivedArguments.isLiquidGlass, PopoverConstants.isLiquidGlass, "Wrong getColorsUseCaseReceivedArguments.isLiquidGlass")
+        #expect(getColorsUseCaseReceivedArguments.intent == .support, "Wrong getColorsUseCaseReceivedArguments.intent")
+        #expect(getColorsUseCaseReceivedArguments.isLiquidGlass == PopoverConstants.isLiquidGlass, "Wrong getColorsUseCaseReceivedArguments.isLiquidGlass")
 
         // THEN - GetSpacesUseCase
-        XCTAssertEqual(getSpacesUseCaseMock.executeWithLayoutSpacingAndIsLiquidGlassCallsCount, 1, "getSpacesUseCaseMock.executeWithLayoutSpacing should have been called once")
-        let getSpacesUseCaseReceivedArguments = try XCTUnwrap(getSpacesUseCaseMock.executeWithLayoutSpacingAndIsLiquidGlassReceivedArguments, "Couldn't unwrap getSpacesUseCaseMock.executeWithLayoutSpacingAndIsLiquidGlassReceivedArguments")
-        XCTAssertIdentical(
-            getSpacesUseCaseReceivedArguments.layoutSpacing as? LayoutSpacingGeneratedMock,
-            self.theme.layout.spacing as? LayoutSpacingGeneratedMock,
+        #expect(getSpacesUseCaseMock.executeWithLayoutSpacingAndIsLiquidGlassCallsCount == 1, "getSpacesUseCaseMock.executeWithLayoutSpacing should have been called once")
+        let getSpacesUseCaseReceivedArguments = try #require(getSpacesUseCaseMock.executeWithLayoutSpacingAndIsLiquidGlassReceivedArguments, "Couldn't unwrap getSpacesUseCaseMock.executeWithLayoutSpacingAndIsLiquidGlassReceivedArguments")
+        #expect(
+            (getSpacesUseCaseReceivedArguments.layoutSpacing as? LayoutSpacingGeneratedMock) === (self.theme.layout.spacing as? LayoutSpacingGeneratedMock),
             "Wrong getSpacesUseCaseReceivedLayoutSpacing"
         )
-        XCTAssertEqual(getSpacesUseCaseReceivedArguments.isLiquidGlass, PopoverConstants.isLiquidGlass, "Wrong getSpacesUseCaseMock.isLiquidGlass")
+        #expect(getSpacesUseCaseReceivedArguments.isLiquidGlass == PopoverConstants.isLiquidGlass, "Wrong getSpacesUseCaseMock.isLiquidGlass")
     }
 }

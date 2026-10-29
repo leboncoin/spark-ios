@@ -6,20 +6,22 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) @testable import SparkTheming
 
-final class ToggleDynamicColorsTests: XCTestCase {
+@Suite("Toggle Dynamic Colors Tests")
+struct ToggleDynamicColorsTests {
 
     // MARK: - Tests
 
-    func test_defaultValues() {
+    @Test("Default values")
+    func defaultValues() {
         // GIVEN / WHEN
         let colors = ToggleStaticColors()
 
         // THEN
-        XCTAssertTrue(colors.dotBackground.equals(ColorTokenClear()))
-        XCTAssertTrue(colors.hover.equals(ColorTokenClear()))
+        #expect(colors.dotBackground.equals(ColorTokenClear()))
+        #expect(colors.hover.equals(ColorTokenClear()))
     }
 }

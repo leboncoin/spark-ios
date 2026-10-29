@@ -6,13 +6,15 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkComponentSwitch
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkCommonTesting
 
-final class SwitchGetImagesStateUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Switch Get Images State UseCase Tests")
+final class SwitchGetImagesStateUseCaseTests {
 
     // MARK: - SwiftUI Properties
 
@@ -44,7 +46,8 @@ final class SwitchGetImagesStateUseCaseTests: XCTestCase {
 
     // MARK: - UIKit Images Tests
 
-    func test_execute_when_isOn_is_true_and_is_UIKit_images() throws {
+    @Test("Execute when is on is true and is UI kit images")
+    func executeWhenIsOnIsTrueAndIsUIKitImages() throws {
         try self.testExecute(
             givenIsOn: true,
             givenImages: self.uiImagesMock,
@@ -53,7 +56,8 @@ final class SwitchGetImagesStateUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_when_isOn_is_false_and_is_UIKit_images() throws {
+    @Test("Execute when is on is false and is UI kit images")
+    func executeWhenIsOnIsFalseAndIsUIKitImages() throws {
         try self.testExecute(
             givenIsOn: false,
             givenImages: self.uiImagesMock,
@@ -64,7 +68,8 @@ final class SwitchGetImagesStateUseCaseTests: XCTestCase {
 
     // MARK: - Swift Images Tests
 
-    func test_execute_when_isOn_is_true_and_is_SwiftUI_images() throws {
+    @Test("Execute when is on is true and is swift UI images")
+    func executeWhenIsOnIsTrueAndIsSwiftUIImages() throws {
         try self.testExecute(
             givenIsOn: true,
             givenImages: self.imagesMock,
@@ -73,7 +78,8 @@ final class SwitchGetImagesStateUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_when_isOn_is_false_and_is_SwiftUI_images() throws {
+    @Test("Execute when is on is false and is swift UI images")
+    func executeWhenIsOnIsFalseAndIsSwiftUIImages() throws {
         try self.testExecute(
             givenIsOn: false,
             givenImages: self.imagesMock,
@@ -107,49 +113,42 @@ private extension SwitchGetImagesStateUseCaseTests {
         // THEN
         if givenIsSwiftUIVersion {
             if givenIsOn {
-                XCTAssertEqual(
-                    imageState.currentImage.rightValue,
-                    givenImages.rightValue.on,
-                    "Wrong on image" + errorPrefixMessage
+                #expect(
+                    imageState.currentImage.rightValue == givenImages.rightValue.on,
+                    "Wrong on image\(errorPrefixMessage)"
                 )
             } else {
-                XCTAssertEqual(
-                    imageState.currentImage.rightValue,
-                    givenImages.rightValue.off,
-                    "Wrong off image" + errorPrefixMessage
+                #expect(
+                    imageState.currentImage.rightValue == givenImages.rightValue.off,
+                    "Wrong off image\(errorPrefixMessage)"
                 )
             }
         } else {
             if givenIsOn {
-                XCTAssertEqual(
-                    imageState.currentImage.leftValue,
-                    givenImages.leftValue.on,
-                    "Wrong on UIImage" + errorPrefixMessage
+                #expect(
+                    imageState.currentImage.leftValue == givenImages.leftValue.on,
+                    "Wrong on UIImage\(errorPrefixMessage)"
                 )
             } else {
-                XCTAssertEqual(
-                    imageState.currentImage.leftValue,
-                    givenImages.leftValue.off,
-                    "Wrong off UIImage" + errorPrefixMessage
+                #expect(
+                    imageState.currentImage.leftValue == givenImages.leftValue.off,
+                    "Wrong off UIImage\(errorPrefixMessage)"
                 )
             }
         }
 
-        XCTAssertEqual(
-            imageState.images,
-            givenImages,
-            "Wrong on images" + errorPrefixMessage
+        #expect(
+            imageState.images == givenImages,
+            "Wrong on images\(errorPrefixMessage)"
         )
 
-        XCTAssertEqual(
-            imageState.onImageOpacity,
-            givenIsOn ? 1 : 0,
-            "Wrong on onImageOpacity" + errorPrefixMessage
+        #expect(
+            imageState.onImageOpacity == (givenIsOn ? 1 : 0),
+            "Wrong on onImageOpacity\(errorPrefixMessage)"
         )
-        XCTAssertEqual(
-            imageState.offImageOpacity,
-            givenIsOn ? 0 : 1,
-            "Wrong on images" + errorPrefixMessage
+        #expect(
+            imageState.offImageOpacity == (givenIsOn ? 0 : 1),
+            "Wrong on images\(errorPrefixMessage)"
         )
     }
 }

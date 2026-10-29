@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) @testable import SparkComponentSelectionControlsTesting
 @_spi(SI_SPI) import SparkCommon
@@ -14,16 +14,19 @@ import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 import SwiftUI
 
-final class ToggleUIViewModelTests: XCTestCase {
+@MainActor
+@Suite("Toggle UI ViewModel Tests")
+struct ToggleUIViewModelTests {
 
     // MARK: - Initialization Tests
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherDynamicColors: .init(),
             otherStaticColors: .init(),
@@ -32,7 +35,7 @@ final class ToggleUIViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDynamicColors: true,
             getStaticColors: true,
@@ -43,7 +46,8 @@ final class ToggleUIViewModelTests: XCTestCase {
 
     // MARK: - Load Tests
 
-    func test_load_shouldCallAllUseCases_exceptAnimationType() {
+    @Test("Load should call all use cases except animation type")
+    func loadShouldCallAllUseCasesExceptAnimationType() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -52,11 +56,11 @@ final class ToggleUIViewModelTests: XCTestCase {
         viewModel.load(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        ToggleGetColorsUseCaseableMockTest.XCTAssert(
+        ToggleGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -64,14 +68,14 @@ final class ToggleUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        ToggleGetColorsUseCaseableMockTest.XCTAssert(
+        ToggleGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedStaticColors
         )
 
-        ToggleGetIsIconUseCaseableMockTest.XCTAssert(
+        ToggleGetIsIconUseCaseableMockTest.expect(
             stub.getIsIconUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsOnOffSwitchLabelsEnabled: stub.givenIsOnOffSwitchLabelsEnabled,
@@ -79,7 +83,7 @@ final class ToggleUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedIsIcon
         )
 
-        ToggleGetShowSpaceUseCaseableMockTest.XCTAssert(
+        ToggleGetShowSpaceUseCaseableMockTest.expect(
             stub.getShowSpaceUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsOn: false,
@@ -90,7 +94,8 @@ final class ToggleUIViewModelTests: XCTestCase {
 
     // MARK: - Setter Tests
 
-    func test_themeChanged_shouldUpdateSomeProperties() {
+    @Test("Theme changed should update some properties")
+    func themeChangedShouldUpdateSomeProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -104,17 +109,17 @@ final class ToggleUIViewModelTests: XCTestCase {
         viewModel.theme = givenTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getIsIcon: true,
             getShowSpace: true
         )
 
-        ToggleGetColorsUseCaseableMockTest.XCTAssert(
+        ToggleGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -122,7 +127,7 @@ final class ToggleUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        ToggleGetColorsUseCaseableMockTest.XCTAssert(
+        ToggleGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -131,7 +136,8 @@ final class ToggleUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_isOnOffSwitchLabelsEnabledChanged_shouldUpdateIsIcon() {
+    @Test("Is on off switch labels enabled changed should update is icon")
+    func isOnOffSwitchLabelsEnabledChangedShouldUpdateIsIcon() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -145,18 +151,18 @@ final class ToggleUIViewModelTests: XCTestCase {
         viewModel.isOnOffSwitchLabelsEnabled = givenIsOnOffSwitchLabelsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDynamicColors: true,
             getStaticColors: true,
             getShowSpace: true
         )
 
-        ToggleGetIsIconUseCaseableMockTest.XCTAssert(
+        ToggleGetIsIconUseCaseableMockTest.expect(
             stub.getIsIconUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsOnOffSwitchLabelsEnabled: givenIsOnOffSwitchLabelsEnabled,
@@ -166,7 +172,8 @@ final class ToggleUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_contrastChanged_shouldUpdateIsIcon() {
+    @Test("Contrast changed should update is icon")
+    func contrastChangedShouldUpdateIsIcon() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -180,18 +187,18 @@ final class ToggleUIViewModelTests: XCTestCase {
         viewModel.contrast = givenContrast
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDynamicColors: true,
             getStaticColors: true,
             getShowSpace: true
         )
 
-        ToggleGetIsIconUseCaseableMockTest.XCTAssert(
+        ToggleGetIsIconUseCaseableMockTest.expect(
             stub.getIsIconUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsOnOffSwitchLabelsEnabled: stub.givenIsOnOffSwitchLabelsEnabled,
@@ -201,7 +208,8 @@ final class ToggleUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_allSetter_withoutChange() {
+    @Test("All setter without change")
+    func allSetterWithoutChange() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -216,10 +224,10 @@ final class ToggleUIViewModelTests: XCTestCase {
         viewModel.contrast = stub.givenContrast
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDynamicColors: true,
             getStaticColors: true,
@@ -228,7 +236,8 @@ final class ToggleUIViewModelTests: XCTestCase {
         )
     }
 
-    func test_allSetter_withoutLoadBefore() {
+    @Test("All setter without load before")
+    func allSetterWithoutLoadBefore() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -239,7 +248,7 @@ final class ToggleUIViewModelTests: XCTestCase {
         viewModel.contrast = .high
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherDynamicColors: .init(),
             otherStaticColors: .init(),
@@ -248,7 +257,7 @@ final class ToggleUIViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDynamicColors: true,
             getStaticColors: true,
@@ -259,7 +268,8 @@ final class ToggleUIViewModelTests: XCTestCase {
 
     // MARK: - Action
 
-    func test_toggle() {
+    @Test("Toggle")
+    func toggle() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -271,16 +281,16 @@ final class ToggleUIViewModelTests: XCTestCase {
         viewModel.toggle()
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticColors: true
         )
 
-        ToggleGetColorsUseCaseableMockTest.XCTAssert(
+        ToggleGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -288,7 +298,7 @@ final class ToggleUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        ToggleGetIsIconUseCaseableMockTest.XCTAssert(
+        ToggleGetIsIconUseCaseableMockTest.expect(
             stub.getIsIconUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsOnOffSwitchLabelsEnabled: stub.givenIsOnOffSwitchLabelsEnabled,
@@ -296,7 +306,7 @@ final class ToggleUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedIsIcon
         )
 
-        ToggleGetShowSpaceUseCaseableMockTest.XCTAssert(
+        ToggleGetShowSpaceUseCaseableMockTest.expect(
             stub.getShowSpaceUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsOn: true,
@@ -305,7 +315,8 @@ final class ToggleUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_toggle_when_isEnabledIsFalse() {
+    @Test("Toggle when is enabled is false")
+    func toggleWhenIsEnabledIsFalse() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -319,11 +330,11 @@ final class ToggleUIViewModelTests: XCTestCase {
         viewModel.toggle()
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDynamicColors: true,
             getStaticColors: true,
@@ -333,7 +344,8 @@ final class ToggleUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_selectedValueChanged() {
+    @Test("Selected value changed")
+    func selectedValueChanged() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -345,16 +357,16 @@ final class ToggleUIViewModelTests: XCTestCase {
         viewModel.selectedValueChanged(oldValue: true)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticColors: true
         )
 
-        ToggleGetColorsUseCaseableMockTest.XCTAssert(
+        ToggleGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -362,7 +374,7 @@ final class ToggleUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        ToggleGetIsIconUseCaseableMockTest.XCTAssert(
+        ToggleGetIsIconUseCaseableMockTest.expect(
             stub.getIsIconUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsOnOffSwitchLabelsEnabled: stub.givenIsOnOffSwitchLabelsEnabled,
@@ -370,7 +382,7 @@ final class ToggleUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedIsIcon
         )
 
-        ToggleGetShowSpaceUseCaseableMockTest.XCTAssert(
+        ToggleGetShowSpaceUseCaseableMockTest.expect(
             stub.getShowSpaceUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsOn: false,
@@ -440,69 +452,76 @@ private extension ToggleUIViewModel {
     }
 }
 
-// MARK: - XCT
+// MARK: - Expectations
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getDynamicColors getDynamicColorsNotCalled: Bool = false,
     getStaticColors getStaticColorsNotCalled: Bool = false,
     getIsIcon getIsIconNotCalled: Bool = false,
-    getShowSpace getShowSpaceNotCalled: Bool = false
+    getShowSpace getShowSpaceNotCalled: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    ToggleGetColorsUseCaseableMockTest.XCTCalled(
+    ToggleGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeDynamicWithThemeAndIsOnCalled: !getDynamicColorsNotCalled
+        executeDynamicWithThemeAndIsOnCalled: !getDynamicColorsNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    ToggleGetColorsUseCaseableMockTest.XCTCalled(
+    ToggleGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeStaticWithThemeCalled: !getStaticColorsNotCalled
+        executeStaticWithThemeCalled: !getStaticColorsNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    ToggleGetIsIconUseCaseableMockTest.XCTCalled(
+    ToggleGetIsIconUseCaseableMockTest.expectCalled(
         stub.getIsIconUseCaseMock,
-        executeUIWithIsOnOffSwitchLabelsEnabledAndContrastCalled: !getIsIconNotCalled
+        executeUIWithIsOnOffSwitchLabelsEnabledAndContrastCalled: !getIsIconNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    ToggleGetShowSpaceUseCaseableMockTest.XCTCalled(
+    ToggleGetShowSpaceUseCaseableMockTest.expectCalled(
         stub.getShowSpaceUseCaseMock,
-        executeWithIsOnCalled: !getShowSpaceNotCalled
+        executeWithIsOnCalled: !getShowSpaceNotCalled,
+        sourceLocation: sourceLocation
     )
 
     // Never called
-    ToggleGetIsIconUseCaseableMockTest.XCTCalled(
+    ToggleGetIsIconUseCaseableMockTest.expectCalled(
         stub.getIsIconUseCaseMock,
-        executeWithIsOnOffSwitchLabelsEnabledAndContrastCalled: false
+        executeWithIsOnOffSwitchLabelsEnabledAndContrastCalled: false,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherDynamicColors: ToggleDynamicColors? = nil,
     otherStaticColors: ToggleStaticColors? = nil,
     otherIsIcon: Bool? = nil,
-    otherShowSpace: ToggleSpace? = nil
+    otherShowSpace: ToggleSpace? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.dynamicColors,
-        otherDynamicColors ?? stub.expectedDynamicColors,
-        "Wrong dynamicColors value"
+    #expect(
+        viewModel.dynamicColors == (otherDynamicColors ?? stub.expectedDynamicColors),
+        "Wrong dynamicColors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.staticColors,
-        otherStaticColors ?? stub.expectedStaticColors,
-        "Wrong staticColors value"
+    #expect(
+        viewModel.staticColors == (otherStaticColors ?? stub.expectedStaticColors),
+        "Wrong staticColors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.isIcon,
-        otherIsIcon ?? stub.expectedIsIcon,
-        "Wrong isIcon value"
+    #expect(
+        viewModel.isIcon == (otherIsIcon ?? stub.expectedIsIcon),
+        "Wrong isIcon value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.showSpace,
-        otherShowSpace ?? stub.expectedShowSpace,
-        "Wrong showSpace value"
+    #expect(
+        viewModel.showSpace == (otherShowSpace ?? stub.expectedShowSpace),
+        "Wrong showSpace value",
+        sourceLocation: sourceLocation
     )
 }

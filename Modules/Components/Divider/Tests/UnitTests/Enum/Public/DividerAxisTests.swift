@@ -6,15 +6,19 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import UIKit
 
 @testable import SparkComponentDivider
 
-final class DividerAxisTests: XCTestCase {
+@MainActor
+@Suite("Divider Axis Tests")
+struct DividerAxisTests {
 
     // MARK: - Tests
 
-    func test_allCases() {
+    @Test("All cases")
+    func allCases() {
         // GIVEN
         let expectedCases: [DividerAxis] = [.horizontal, .vertical]
 
@@ -22,19 +26,21 @@ final class DividerAxisTests: XCTestCase {
         let allCases = DividerAxis.allCases
 
         // THEN
-        XCTAssertEqual(allCases.count, 2, "DividerAxis should have 2 cases")
-        XCTAssertEqual(allCases, expectedCases, "DividerAxis allCases should match expected cases")
+        #expect(allCases.count == 2, "DividerAxis should have 2 cases")
+        #expect(allCases == expectedCases, "DividerAxis allCases should match expected cases")
     }
 
-    func test_default() {
+    @Test("Default")
+    func defaultValue() {
         // GIVEN & WHEN
         let defaultAxis = DividerAxis.default
 
         // THEN
-        XCTAssertEqual(defaultAxis, .horizontal, "DividerAxis.default should be .horizontal")
+        #expect(defaultAxis == .horizontal, "DividerAxis.default should be .horizontal")
     }
 
-    func test_uikit() {
+    @Test("Uikit")
+    func uikit() {
         // GIVEN
         let axis1 = DividerAxis.horizontal
         let axis2 = DividerAxis.vertical
@@ -44,7 +50,7 @@ final class DividerAxisTests: XCTestCase {
         let uikitAxis2 = axis2.uikit
 
         // THEN
-        XCTAssertEqual(uikitAxis1, .horizontal, "Wrong UIKit for uikitAxis1")
-        XCTAssertEqual(uikitAxis2, .vertical, "Wrong UIKit for uikitAxis2")
+        #expect(uikitAxis1 == .horizontal, "Wrong UIKit for uikitAxis1")
+        #expect(uikitAxis2 == .vertical, "Wrong UIKit for uikitAxis2")
     }
 }

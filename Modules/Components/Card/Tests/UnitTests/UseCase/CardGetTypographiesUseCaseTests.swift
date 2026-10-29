@@ -19,7 +19,7 @@ struct CardGetTypographiesUseCaseTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Execute with banner position")
     func executeWithBannerPosition() {
         // GIVEN
         let headerPosition = CardHeaderPosition.banner
@@ -35,7 +35,7 @@ struct CardGetTypographiesUseCaseTests {
         #expect(typographies.headerFontToken.uiFont == self.theme.typography.body2Highlight.uiFont)
     }
 
-    @Test
+    @Test("Execute with border position")
     func executeWithBorderPosition() {
         // GIVEN
         let headerPosition = CardHeaderPosition.border

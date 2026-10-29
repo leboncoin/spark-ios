@@ -8,10 +8,12 @@
 
 import Combine
 import SwiftUI
-import XCTest
+import Testing
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class ScaledUIMetricTests: XCTestCase {
+@Suite("Scaled UI Metric Tests")
+@MainActor
+final class ScaledUIMetricTests {
 
     // MARK: - Properties
 
@@ -23,100 +25,114 @@ final class ScaledUIMetricTests: XCTestCase {
     @ScaledUIMetric var comparisonMetricExtraLarge: CGFloat = 10
 
     // MARK: - Tests
-    func test_property_wrapper_basic() throws {
+    @Test("Property wrapper basic")
+    func propertyWrapperBasic() throws {
         // Then
-        XCTAssertEqual(self.basicMetric, 10.666, accuracy: 0.1, "wrong scaled value")
+        #expect(abs(self.basicMetric - 10.666) <= 0.1, "wrong scaled value")
 
         // Given
         self.basicMetric = 110
 
         // Then
-        XCTAssertEqual(self.basicMetric, 105, accuracy: 0.1, "wrong scaled value")
+        #expect(abs(self.basicMetric - 105) <= 0.1, "wrong scaled value")
     }
 
-    func test_property_wrapper_body() throws {
+    @Test("Property wrapper body")
+    func propertyWrapperBody() throws {
         // Given
         self._bodyMetric.update(traitCollection: UITraitCollection(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge))
 
         // Then
-        XCTAssertEqual(self.bodyMetric, 62.0, accuracy: 0.1, "wrong scaled value")
+        #expect(abs(self.bodyMetric - 62.0) <= 0.1, "wrong scaled value")
 
         // Given
         self._bodyMetric.update(traitCollection: UITraitCollection(preferredContentSizeCategory: .extraSmall))
 
         // Then
-        XCTAssertEqual(self.bodyMetric, 19.0, accuracy: 0.1, "wrong scaled value")
+        #expect(abs(self.bodyMetric - 19.0) <= 0.1, "wrong scaled value")
     }
 
-    func test_property_wrapper_large_title() throws {
+    @Test("Property wrapper large title")
+    func propertyWrapperLargeTitle() throws {
         // Given
         titleMetric = 22
         self._titleMetric.update(traitCollection: UITraitCollection(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge))
 
         // Then
-        XCTAssertEqual(self.titleMetric, 37.66, accuracy: 0.1, "wrong scaled value")
+        #expect(abs(self.titleMetric - 37.66) <= 0.1, "wrong scaled value")
 
         // Given
         self._titleMetric.update(traitCollection: UITraitCollection(preferredContentSizeCategory: .extraSmall))
 
         // Then
-        XCTAssertEqual(self.titleMetric, 20.333, accuracy: 0.1, "wrong scaled value")
+        #expect(abs(self.titleMetric - 20.333) <= 0.1, "wrong scaled value")
     }
 
-    func test_property_wrapper_zero() throws {
+    @Test("Property wrapper zero")
+    func propertyWrapperZero() throws {
         // Given
         self._zeroMetric.update(traitCollection: UITraitCollection(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge))
 
         // Then
-        XCTAssertEqual(self.zeroMetric, 0, "wrong scaled value")
+        #expect(self.zeroMetric == 0, "wrong scaled value")
 
         // Given
         self._zeroMetric.update(traitCollection: UITraitCollection(preferredContentSizeCategory: .extraSmall))
 
         // Then
-        XCTAssertEqual(self.zeroMetric, 0, "wrong scaled value")
+        #expect(self.zeroMetric == 0, "wrong scaled value")
     }
 
     /// Compares the result of SwiftUI `ScaledMetric` with the result of `ScaledUIMetric`.
-    func test_property_wrapper_behaves_like_swiftui_scaled_metric() throws {
+    @Test("Property wrapper behaves like SwiftUI scaled metric")
+    func propertyWrapperBehavesLikeSwiftUIScaledMetric() async throws {
         // Given
         let size = UIContentSizeCategory.extraLarge
         self._comparisonMetric.update(traitCollection: UITraitCollection(preferredContentSizeCategory: size))
 
         // Then
-        let expectation = expectation(description: "swiftui view did appear")
-
-        try self.givenSwiftUIView(size: size, didAppearHandler: { swiftUISize in
-            XCTAssertEqual(self.comparisonMetric, swiftUISize, accuracy: 0.1, "ScaledMetric and ScaledUIMetric produce different values")
-
-            expectation.fulfill()
-        })
-        // Wait for the async request to complete
-        waitForExpectations(timeout: 5, handler: nil)
+        let swiftUISize: CGFloat = try await withCheckedThrowingContinuation { continuation in
+            var isResumed = false
+            do {
+                try self.givenSwiftUIView(size: size, didAppearHandler: { swiftUISize in
+                    guard !isResumed else { return }
+                    isResumed = true
+                    continuation.resume(returning: swiftUISize)
+                })
+            } catch {
+                continuation.resume(throwing: error)
+            }
+        }
+        #expect(abs(self.comparisonMetric - swiftUISize) <= 0.1, "ScaledMetric and ScaledUIMetric produce different values")
     }
 
     /// Compares the result of SwiftUI `ScaledMetric` with the result of `ScaledUIMetric`.
-    func test_property_wrapper_behaves_like_swiftui_scaled_metric_extra_large() throws {
+    @Test("Property wrapper behaves like SwiftUI scaled metric extra large")
+    func propertyWrapperBehavesLikeSwiftUIScaledMetricExtraLarge() async throws {
         // Given
         let size = UIContentSizeCategory.accessibilityExtraExtraExtraLarge
         self._comparisonMetricExtraLarge.update(traitCollection: UITraitCollection(preferredContentSizeCategory: size))
 
         // Then
-        let expectation = expectation(description: "swiftui view did appear")
-
-        try self.givenSwiftUIView(size: size, didAppearHandler: { swiftUISize in
-            XCTAssertEqual(self.comparisonMetricExtraLarge, swiftUISize, accuracy: 0.1, "ScaledMetric and ScaledUIMetric produce different values")
-
-            expectation.fulfill()
-        })
-        // Wait for the async request to complete
-        waitForExpectations(timeout: 5, handler: nil)
+        let swiftUISize: CGFloat = try await withCheckedThrowingContinuation { continuation in
+            var isResumed = false
+            do {
+                try self.givenSwiftUIView(size: size, didAppearHandler: { swiftUISize in
+                    guard !isResumed else { return }
+                    isResumed = true
+                    continuation.resume(returning: swiftUISize)
+                })
+            } catch {
+                continuation.resume(throwing: error)
+            }
+        }
+        #expect(abs(self.comparisonMetricExtraLarge - swiftUISize) <= 0.1, "ScaledMetric and ScaledUIMetric produce different values")
     }
 
     // MARK: - Helper
 
     private func givenSwiftUIView(size: UIContentSizeCategory, didAppearHandler: @escaping ((_ value: CGFloat) -> Void)) throws {
-        let size = try XCTUnwrap(ContentSizeCategory(size))
+        let size = try #require(ContentSizeCategory(size))
 
         let window = UIWindow()
 

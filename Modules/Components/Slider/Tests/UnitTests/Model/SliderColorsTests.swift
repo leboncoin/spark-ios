@@ -7,27 +7,31 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentSlider
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SliderColorsTests: XCTestCase {
+@MainActor
+@Suite("Slider Colors Tests")
+struct SliderColorsTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let colors = SliderColors()
 
         // THEN
-        XCTAssertTrue(colors.tintColorToken.equals(ColorTokenClear()))
-        XCTAssertTrue(colors.titleColorToken.equals(ColorTokenClear()))
-        XCTAssertTrue(colors.valueColorToken.equals(ColorTokenClear()))
-        XCTAssertTrue(colors.rangeValuesColorToken.equals(ColorTokenClear()))
+        #expect(colors.tintColorToken.equals(ColorTokenClear()))
+        #expect(colors.titleColorToken.equals(ColorTokenClear()))
+        #expect(colors.valueColorToken.equals(ColorTokenClear()))
+        #expect(colors.rangeValuesColorToken.equals(ColorTokenClear()))
     }
 
-    func test_equality_when_same_colors() {
+    @Test("Equality when same colors")
+    func equalityWhenSameColors() {
         // GIVEN / WHEN
         let tintToken = ColorTokenGeneratedMock.random()
         let titleToken = ColorTokenGeneratedMock.random()
@@ -49,10 +53,11 @@ final class SliderColorsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(colors1, colors2)
+        #expect(colors1 == colors2)
     }
 
-    func test_inequality_when_different_tint_colors() {
+    @Test("Inequality when different tint colors")
+    func inequalityWhenDifferentTintColors() {
         // GIVEN / WHEN
         let tintToken1 = ColorTokenGeneratedMock.random()
         let tintToken2 = ColorTokenGeneratedMock.random()
@@ -75,10 +80,11 @@ final class SliderColorsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(colors1, colors2)
+        #expect(colors1 != colors2)
     }
 
-    func test_inequality_when_different_title_colors() {
+    @Test("Inequality when different title colors")
+    func inequalityWhenDifferentTitleColors() {
         // GIVEN / WHEN
         let tintToken = ColorTokenGeneratedMock.random()
         let titleToken1 = ColorTokenGeneratedMock.random()
@@ -101,10 +107,11 @@ final class SliderColorsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(colors1, colors2)
+        #expect(colors1 != colors2)
     }
 
-    func test_inequality_when_different_value_colors() {
+    @Test("Inequality when different value colors")
+    func inequalityWhenDifferentValueColors() {
         // GIVEN / WHEN
         let tintToken = ColorTokenGeneratedMock.random()
         let titleToken = ColorTokenGeneratedMock.random()
@@ -127,10 +134,11 @@ final class SliderColorsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(colors1, colors2)
+        #expect(colors1 != colors2)
     }
 
-    func test_inequality_when_different_rangeValues_colors() {
+    @Test("Inequality when different range values colors")
+    func inequalityWhenDifferentRangeValuesColors() {
         // GIVEN / WHEN
         let tintToken = ColorTokenGeneratedMock.random()
         let titleToken = ColorTokenGeneratedMock.random()
@@ -153,10 +161,11 @@ final class SliderColorsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(colors1, colors2)
+        #expect(colors1 != colors2)
     }
 
-    func test_hash_consistency() {
+    @Test("Hash consistency")
+    func hashConsistency() {
         // GIVEN / WHEN
         let tintToken = ColorTokenGeneratedMock.random()
         let titleToken = ColorTokenGeneratedMock.random()
@@ -179,6 +188,6 @@ final class SliderColorsTests: XCTestCase {
         let hash2 = hasher2.finalize()
 
         // THEN
-        XCTAssertEqual(hash1, hash2)
+        #expect(hash1 == hash2)
     }
 }

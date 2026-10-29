@@ -6,34 +6,38 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class RadioButtonConstantsTests: XCTestCase {
+@Suite("Radio Button Constants Tests")
+struct RadioButtonConstantsTests {
 
     // MARK: - Constants Tests
 
-    func test_size_shouldReturnExpectedValue() {
+    @Test("Size should return expected value")
+    func sizeShouldReturnExpectedValue() {
         // GIVEN / WHEN
         let result = RadioButtonConstants.size
 
         // THEN
-        XCTAssertEqual(result, 24.0)
+        #expect(result == 24.0)
     }
 
-    func test_dotSize_shouldReturnExpectedValue() {
+    @Test("Dot size should return expected value")
+    func dotSizeShouldReturnExpectedValue() {
         // GIVEN / WHEN
         let result = RadioButtonConstants.dotSize
 
         // THEN
-        XCTAssertEqual(result, 12.0)
+        #expect(result == 12.0)
     }
 
-    func test_lineWidth_shouldReturnExpectedValue() {
+    @Test("Line width should return expected value")
+    func lineWidthShouldReturnExpectedValue() {
         // GIVEN / WHEN
         let result = RadioButtonConstants.lineWidth
 
         // THEN
-        XCTAssertEqual(result, 2.0)
+        #expect(result == 2.0)
     }
 }

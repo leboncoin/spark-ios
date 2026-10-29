@@ -6,30 +6,35 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentChip
 
-final class ChipConstantsTests: XCTestCase {
+@Suite("Chip Constants Tests")
+struct ChipConstantsTests {
 
     // MARK: - Tests
 
-    func test_iconSize_constant() {
+    @Test("Icon size constant")
+    func iconSizeConstant() {
         // Then
-        XCTAssertEqual(ChipConstants.iconSize, 16)
+        #expect(ChipConstants.iconSize == 16)
     }
 
-    func test_height_constant() {
+    @Test("Height constant")
+    func heightConstant() {
         // Then
-        XCTAssertEqual(ChipConstants.height, 32)
+        #expect(ChipConstants.height == 32)
     }
 
-    func test_borderWidth_constant() {
+    @Test("Border width constant")
+    func borderWidthConstant() {
         // Then
-        XCTAssertEqual(ChipConstants.borderWidth, 1)
+        #expect(ChipConstants.borderWidth == 1)
     }
 
-    func test_dashLength_constant() {
+    @Test("Dash length constant")
+    func dashLengthConstant() {
         // Then
-        XCTAssertEqual(ChipConstants.dashLength, 2)
+        #expect(ChipConstants.dashLength == 2)
     }
 }

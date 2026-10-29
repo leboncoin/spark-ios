@@ -19,7 +19,7 @@ struct ScaledBorderRadiusViewModifierPositionSnapshotTests: SwiftUIComponentSnap
 
     // MARK: - Tests
 
-    @Test func test() async throws {
+    @Test("Scaled border radius view modifier position snapshot") func test() async throws {
         let theme: any Theme = SparkTheme.shared
         for width in BorderWidth.allCases {
             await self.assertSnapshot(

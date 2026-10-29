@@ -23,7 +23,7 @@ struct EnvironmentThemeFileUploadTokenTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("File upload should return file upload token")
     func fileUploadShouldReturnFileUploadToken() {
         #expect(EnvironmentTheme(value: self.theme).fileUpload == self.theme.component.fileUpload)
     }

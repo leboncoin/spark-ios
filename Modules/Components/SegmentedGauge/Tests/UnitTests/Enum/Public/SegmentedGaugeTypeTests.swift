@@ -6,104 +6,116 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SegmentedGaugeTypeTests: XCTestCase {
+@Suite("SegmentedGauge Type Tests")
+struct SegmentedGaugeTypeTests {
 
     // MARK: - Tests
 
-    func test_default_isMedium() {
-        XCTAssertEqual(
-            SegmentedGaugeType.default,
-            .noData
+    @Test("Default is medium")
+    func defaultIsMedium() {
+        #expect(
+            SegmentedGaugeType.default == .noData
         )
     }
 
     // MARK: - Initialization Tests
 
-    func test_init_rawValue_veryLow() {
+    @Test("Init raw value very low")
+    func initRawValueVeryLow() {
         // WHEN
         let result = SegmentedGaugeType(rawValue: 1)
 
         // THEN
-        XCTAssertEqual(result, .veryLow)
+        #expect(result == .veryLow)
     }
 
-    func test_init_rawValue_low() {
+    @Test("Init raw value low")
+    func initRawValueLow() {
         // WHEN
         let result = SegmentedGaugeType(rawValue: 2)
 
         // THEN
-        XCTAssertEqual(result, .low)
+        #expect(result == .low)
     }
 
-    func test_init_rawValue_medium() {
+    @Test("Init raw value medium")
+    func initRawValueMedium() {
         // WHEN
         let result = SegmentedGaugeType(rawValue: 3)
 
         // THEN
-        XCTAssertEqual(result, .medium)
+        #expect(result == .medium)
     }
 
-    func test_init_rawValue_high() {
+    @Test("Init raw value high")
+    func initRawValueHigh() {
         // WHEN
         let result = SegmentedGaugeType(rawValue: 4)
 
         // THEN
-        XCTAssertEqual(result, .high)
+        #expect(result == .high)
     }
 
-    func test_init_rawValue_veryHigh() {
+    @Test("Init raw value very high")
+    func initRawValueVeryHigh() {
         // WHEN
         let result = SegmentedGaugeType(rawValue: 5)
 
         // THEN
-        XCTAssertEqual(result, .veryHigh)
+        #expect(result == .veryHigh)
     }
 
-    func test_init_rawValue_veryHigh_largeValue() {
+    @Test("Init raw value very high large value")
+    func initRawValueVeryHighLargeValue() {
         // WHEN
         let result = SegmentedGaugeType(rawValue: 10)
 
         // THEN
-        XCTAssertEqual(result, .veryHigh)
+        #expect(result == .veryHigh)
     }
 
-    func test_init_rawValue_noData_zero() {
+    @Test("Init raw value no data zero")
+    func initRawValueNoDataZero() {
         // WHEN
         let result = SegmentedGaugeType(rawValue: 0)
 
         // THEN
-        XCTAssertEqual(result, .noData)
+        #expect(result == .noData)
     }
 
-    func test_init_rawValue_noData_negativeValue() {
+    @Test("Init raw value no data negative value")
+    func initRawValueNoDataNegativeValue() {
         // WHEN
         let result = SegmentedGaugeType(rawValue: -1)
 
         // THEN
-        XCTAssertEqual(result, .noData)
+        #expect(result == .noData)
     }
 
     // MARK: - Equatable Tests
 
-    func test_standardCases_equality() {
-        XCTAssertEqual(SegmentedGaugeType.veryHigh, .veryHigh)
-        XCTAssertEqual(SegmentedGaugeType.high, .high)
-        XCTAssertEqual(SegmentedGaugeType.medium, .medium)
-        XCTAssertEqual(SegmentedGaugeType.low, .low)
-        XCTAssertEqual(SegmentedGaugeType.veryLow, .veryLow)
-        XCTAssertEqual(SegmentedGaugeType.noData, .noData)
+    @Test("Standard cases equality")
+    func standardCasesEquality() {
+        #expect(SegmentedGaugeType.veryHigh == .veryHigh)
+        #expect(SegmentedGaugeType.high == .high)
+        #expect(SegmentedGaugeType.medium == .medium)
+        #expect(SegmentedGaugeType.low == .low)
+        #expect(SegmentedGaugeType.veryLow == .veryLow)
+        #expect(SegmentedGaugeType.noData == .noData)
     }
 
-    func test_standardCases_inequality() {
-        XCTAssertNotEqual(SegmentedGaugeType.high, .low)
-        XCTAssertNotEqual(SegmentedGaugeType.veryHigh, .noData)
+    @Test("Standard cases inequality")
+    func standardCasesInequality() {
+        #expect(SegmentedGaugeType.high != .low)
+        #expect(SegmentedGaugeType.veryHigh != .noData)
     }
 
-    func test_custom_equality_whenValuesMatch() {
+    @Test("Custom equality when values match")
+    func customEqualityWhenValuesMatch() {
         // GIVEN
         let color = ColorTokenGeneratedMock.blue()
 
@@ -120,10 +132,11 @@ final class SegmentedGaugeTypeTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(lhs, rhs)
+        #expect(lhs == rhs)
     }
 
-    func test_custom_inequality_whenColorDiffers() {
+    @Test("Custom inequality when color differs")
+    func customInequalityWhenColorDiffers() {
         // GIVEN / WHEN
         let lhs = SegmentedGaugeType.custom(
             level: 2,
@@ -137,10 +150,11 @@ final class SegmentedGaugeTypeTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 
-    func test_custom_inequality_whenLevelDiffers() {
+    @Test("Custom inequality when level differs")
+    func customInequalityWhenLevelDiffers() {
         // GIVEN / WHEN
         let color = ColorTokenGeneratedMock.blue()
 
@@ -156,10 +170,11 @@ final class SegmentedGaugeTypeTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 
-    func test_custom_inequality_whenDimDiffers() {
+    @Test("Custom inequality when dim differs")
+    func customInequalityWhenDimDiffers() {
         // GIVEN / WHEN
         let color = ColorTokenGeneratedMock.blue()
 
@@ -175,6 +190,6 @@ final class SegmentedGaugeTypeTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 }

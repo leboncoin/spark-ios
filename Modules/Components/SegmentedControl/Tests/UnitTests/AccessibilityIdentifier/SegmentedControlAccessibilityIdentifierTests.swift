@@ -13,13 +13,13 @@ import Testing
 
 struct SegmentedControlAccessibilityIdentifierTests {
 
-    @Test
+    @Test("View has expected value")
     func view_hasExpectedValue() {
         // GIVEN / WHEN / THEN
         #expect(SegmentedControlAccessibilityIdentifier.view == "spark-segmentedcontrol-view")
     }
 
-    @Test
+    @Test("Item has expected value")
     func item_hasExpectedValue() {
         // GIVEN
         let index = 2

@@ -6,10 +6,12 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentTextInput
 
-final class CGFloatTextEditorCornerRadiusExtensionTests: XCTestCase {
+@Suite("CG Float Text Editor Corner Radius Extension Tests")
+struct CGFloatTextEditorCornerRadiusExtensionTests {
 
     // MARK: - Properties
 
@@ -17,7 +19,8 @@ final class CGFloatTextEditorCornerRadiusExtensionTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testTextEditorRadius_whenRadiusIsLessThanMax() {
+    @Test("Text editor radius when radius is less than max")
+    func textEditorRadiusWhenRadiusIsLessThanMax() {
         // GIVEN
         let inputRadius: CGFloat = 8
 
@@ -25,10 +28,11 @@ final class CGFloatTextEditorCornerRadiusExtensionTests: XCTestCase {
         let result = CGFloat.textEditorRadius(inputRadius)
 
         // THEN
-        XCTAssertEqual(result, 8, "Should return the input radius when it's less than max")
+        #expect(result == 8, "Should return the input radius when it's less than max")
     }
 
-    func testTextEditorRadius_whenRadiusIsEqualToMax() {
+    @Test("Text editor radius when radius is equal to max")
+    func textEditorRadiusWhenRadiusIsEqualToMax() {
         // GIVEN
         let inputRadius: CGFloat = 22
 
@@ -36,10 +40,11 @@ final class CGFloatTextEditorCornerRadiusExtensionTests: XCTestCase {
         let result = CGFloat.textEditorRadius(inputRadius)
 
         // THEN
-        XCTAssertEqual(result, 22, "Should return the max radius when input equals max")
+        #expect(result == 22, "Should return the max radius when input equals max")
     }
 
-    func testTextEditorRadius_whenRadiusIsGreaterThanMax() {
+    @Test("Text editor radius when radius is greater than max")
+    func textEditorRadiusWhenRadiusIsGreaterThanMax() {
         // GIVEN
         let inputRadius: CGFloat = 50
 
@@ -47,10 +52,11 @@ final class CGFloatTextEditorCornerRadiusExtensionTests: XCTestCase {
         let result = CGFloat.textEditorRadius(inputRadius)
 
         // THEN
-        XCTAssertEqual(result, maxRadius, "Should return the max radius when input exceeds max")
+        #expect(result == maxRadius, "Should return the max radius when input exceeds max")
     }
 
-    func testTextEditorRadius_whenRadiusIsZero() {
+    @Test("Text editor radius when radius is zero")
+    func textEditorRadiusWhenRadiusIsZero() {
         // GIVEN
         let inputRadius: CGFloat = 0
 
@@ -58,10 +64,11 @@ final class CGFloatTextEditorCornerRadiusExtensionTests: XCTestCase {
         let result = CGFloat.textEditorRadius(inputRadius)
 
         // THEN
-        XCTAssertEqual(result, 0, "Should return 0 when input radius is 0")
+        #expect(result == 0, "Should return 0 when input radius is 0")
     }
 
-    func testTextEditorRadius_whenRadiusIsNegative() {
+    @Test("Text editor radius when radius is negative")
+    func textEditorRadiusWhenRadiusIsNegative() {
         // GIVEN
         let inputRadius: CGFloat = -5
 
@@ -69,10 +76,11 @@ final class CGFloatTextEditorCornerRadiusExtensionTests: XCTestCase {
         let result = CGFloat.textEditorRadius(inputRadius)
 
         // THEN
-        XCTAssertEqual(result, -5, "Should return the negative value when input is negative")
+        #expect(result == -5, "Should return the negative value when input is negative")
     }
 
-    func testTextEditorRadius_withEdgeCaseValues() {
+    @Test("Text editor radius with edge case values")
+    func textEditorRadiusWithEdgeCaseValues() {
         // GIVEN
         let inputRadius: CGFloat = 21.9
 
@@ -80,10 +88,11 @@ final class CGFloatTextEditorCornerRadiusExtensionTests: XCTestCase {
         let result = CGFloat.textEditorRadius(inputRadius)
 
         // THEN
-        XCTAssertEqual(result, 21.9, "Should return input when it's just below max")
+        #expect(result == 21.9, "Should return input when it's just below max")
     }
 
-    func testTextEditorRadius_withEdgeCaseAboveMax() {
+    @Test("Text editor radius with edge case above max")
+    func textEditorRadiusWithEdgeCaseAboveMax() {
         // GIVEN
         let inputRadius: CGFloat = 22.1
 
@@ -91,6 +100,6 @@ final class CGFloatTextEditorCornerRadiusExtensionTests: XCTestCase {
         let result = CGFloat.textEditorRadius(inputRadius)
 
         // THEN
-        XCTAssertEqual(result, maxRadius, "Should return max when input is just above max")
+        #expect(result == maxRadius, "Should return max when input is just above max")
     }
 }

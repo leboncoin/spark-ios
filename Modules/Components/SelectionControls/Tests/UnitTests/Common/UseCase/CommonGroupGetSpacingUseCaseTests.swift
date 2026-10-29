@@ -6,28 +6,28 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class CommonGroupGetSpacingUseCaseTests: XCTestCase {
+@Suite("Common Group Get Spacing UseCase Tests")
+struct CommonGroupGetSpacingUseCaseTests {
 
     // MARK: - Properties
 
-    private var useCase: CommonGroupGetSpacingUseCaseable!
+    private let useCase: CommonGroupGetSpacingUseCaseable
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.useCase = CommonGroupGetSpacingUseCase()
     }
 
     // MARK: - Tests
 
-    func test_execute_withVerticalAxis_and_isAccessibilitySizeAtTrue_shouldReturnLargeSpacing() {
+    @Test("Execute with vertical axis and is accessibility size at true should return large spacing")
+    func executeWithVerticalAxisAndIsAccessibilitySizeAtTrueShouldReturnLargeSpacing() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let axis = SelectionControlsAxis.vertical
@@ -41,10 +41,11 @@ final class CommonGroupGetSpacingUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedSpacing)
+        #expect(result == expectedSpacing)
     }
 
-    func test_execute_withVerticalAxis_and_isAccessibilitySizeAtFalse_shouldReturnLargeSpacing() {
+    @Test("Execute with vertical axis and is accessibility size at false should return large spacing")
+    func executeWithVerticalAxisAndIsAccessibilitySizeAtFalseShouldReturnLargeSpacing() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let axis = SelectionControlsAxis.vertical
@@ -58,10 +59,11 @@ final class CommonGroupGetSpacingUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedSpacing)
+        #expect(result == expectedSpacing)
     }
 
-    func test_execute_withHorizontalAxis_and_isAccessibilitySizeAtTrue_shouldReturnXLargeSpacing() {
+    @Test("Execute with horizontal axis and is accessibility size at true should return x large spacing")
+    func executeWithHorizontalAxisAndIsAccessibilitySizeAtTrueShouldReturnXLargeSpacing() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let axis = SelectionControlsAxis.horizontal
@@ -75,10 +77,11 @@ final class CommonGroupGetSpacingUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedSpacing)
+        #expect(result == expectedSpacing)
     }
 
-    func test_execute_withHorizontalAxis_and_isAccessibilitySizeAtFalse_shouldReturnXLargeSpacing() {
+    @Test("Execute with horizontal axis and is accessibility size at false should return x large spacing")
+    func executeWithHorizontalAxisAndIsAccessibilitySizeAtFalseShouldReturnXLargeSpacing() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let axis = SelectionControlsAxis.horizontal
@@ -92,6 +95,6 @@ final class CommonGroupGetSpacingUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedSpacing)
+        #expect(result == expectedSpacing)
     }
 }

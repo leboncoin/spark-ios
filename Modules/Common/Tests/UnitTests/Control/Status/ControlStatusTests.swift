@@ -6,25 +6,29 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class ControlStatusTests: XCTestCase {
+@MainActor
+@Suite("Control Status Tests")
+struct ControlStatusTests {
 
     // MARK: - Tests
 
-    func test_init_with_default_values() {
+    @Test("Init with default values")
+    func initWithDefaultValues() {
         // GIVEN / WHEN
         let status = ControlStatus()
 
         // THEN
-        XCTAssertFalse(status.isHighlighted, "Wrong isHighlighted value")
-        XCTAssertTrue(status.isEnabled, "Wrong isSelected value")
-        XCTAssertFalse(status.isSelected, "Wrong isSelected value")
+        #expect(!status.isHighlighted, "Wrong isHighlighted value")
+        #expect(status.isEnabled, "Wrong isSelected value")
+        #expect(!status.isSelected, "Wrong isSelected value")
     }
 
-    func test_init() {
+    @Test("Init")
+    func initialization() {
         // GIVEN
         let givenIsHighlighted = true
         let givenIsEnabled = true
@@ -38,22 +42,10 @@ final class ControlStatusTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            status.isHighlighted,
-            givenIsHighlighted,
-            "Wrong isHighlighted"
-        )
+        #expect(status.isHighlighted == givenIsHighlighted, "Wrong isHighlighted")
 
-        XCTAssertEqual(
-            status.isEnabled,
-            givenIsEnabled,
-            "Wrong isEnabled"
-        )
+        #expect(status.isEnabled == givenIsEnabled, "Wrong isEnabled")
 
-        XCTAssertEqual(
-            status.isSelected,
-            givenIsSelected,
-            "Wrong isSelected"
-        )
+        #expect(status.isSelected == givenIsSelected, "Wrong isSelected")
     }
 }

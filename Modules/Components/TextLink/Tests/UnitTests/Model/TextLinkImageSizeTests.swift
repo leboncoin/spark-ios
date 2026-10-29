@@ -6,43 +6,48 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextLink
 
-final class TextLinkImageSizeTests: XCTestCase {
+@Suite("Text Link Image Size Tests")
+struct TextLinkImageSizeTests {
 
     // MARK: - Tests
 
-    func test_init_default_values() {
+    @Test("Init default values")
+    func initDefaultValues() {
         // GIVEN / WHEN
         let imageSize = TextLinkImageSize()
 
         // THEN
-        XCTAssertEqual(imageSize.size, 0, "Size should be 0")
-        XCTAssertEqual(imageSize.padding, 0, "Padding should be 0")
+        #expect(imageSize.size == 0, "Size should be 0")
+        #expect(imageSize.padding == 0, "Padding should be 0")
     }
 
-    func test_init_with_custom_values() {
+    @Test("Init with custom values")
+    func initWithCustomValues() {
         // GIVEN / WHEN
         var imageSize = TextLinkImageSize()
         imageSize.size = 16.0
         imageSize.padding = 4.0
 
         // THEN
-        XCTAssertEqual(imageSize.size, 16.0, "Size should match set value")
-        XCTAssertEqual(imageSize.padding, 4.0, "Padding should match set value")
+        #expect(imageSize.size == 16.0, "Size should match set value")
+        #expect(imageSize.padding == 4.0, "Padding should match set value")
     }
 
-    func test_equatable_same_default_instances() {
+    @Test("Equatable same default instances")
+    func equatableSameDefaultInstances() {
         // GIVEN
         let imageSize1 = TextLinkImageSize()
         let imageSize2 = TextLinkImageSize()
 
         // WHEN / THEN
-        XCTAssertEqual(imageSize1, imageSize2, "Two default instances should be equal")
+        #expect(imageSize1 == imageSize2, "Two default instances should be equal")
     }
 
-    func test_equatable_same_custom_values() {
+    @Test("Equatable same custom values")
+    func equatableSameCustomValues() {
         // GIVEN
         var imageSize1 = TextLinkImageSize()
         var imageSize2 = TextLinkImageSize()
@@ -54,10 +59,11 @@ final class TextLinkImageSizeTests: XCTestCase {
         imageSize2.padding = 7.0
 
         // WHEN / THEN
-        XCTAssertEqual(imageSize1, imageSize2, "Instances with same values should be equal")
+        #expect(imageSize1 == imageSize2, "Instances with same values should be equal")
     }
 
-    func test_different_size_only() {
+    @Test("Different size only")
+    func differentSizeOnly() {
         // GIVEN
         var imageSize1 = TextLinkImageSize()
         var imageSize2 = TextLinkImageSize()
@@ -66,10 +72,11 @@ final class TextLinkImageSizeTests: XCTestCase {
         imageSize2.size = 20.0
 
         // WHEN / THEN
-        XCTAssertNotEqual(imageSize1, imageSize2, "Instances with different size only should not be equal")
+        #expect(imageSize1 != imageSize2, "Instances with different size only should not be equal")
     }
 
-    func test_different_padding_only() {
+    @Test("Different padding only")
+    func differentPaddingOnly() {
         // GIVEN
         var imageSize1 = TextLinkImageSize()
         var imageSize2 = TextLinkImageSize()
@@ -78,6 +85,6 @@ final class TextLinkImageSizeTests: XCTestCase {
         imageSize2.padding = 8.0
 
         // WHEN / THEN
-        XCTAssertNotEqual(imageSize1, imageSize2, "Instances with different padding only should not be equal")
+        #expect(imageSize1 != imageSize2, "Instances with different padding only should not be equal")
     }
 }

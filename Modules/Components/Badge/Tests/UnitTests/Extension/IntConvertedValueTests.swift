@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentBadge
 
-final class IntConvertedValueTests: XCTestCase {
+@Suite("Int Converted Value Tests")
+struct IntConvertedValueTests {
 
     // MARK: - Tests
 
-    func test_converted_when_value_is_nil() {
+    @Test("Converted when value is nil")
+    func convertedWhenValueIsNil() {
         // GIVEN
         let sut: Int? = nil
 
@@ -21,10 +23,11 @@ final class IntConvertedValueTests: XCTestCase {
         let converted = sut.converted("kg")
 
         // THEN
-        XCTAssertNil(converted)
+        #expect(converted == nil)
     }
 
-    func test_converted_when_unit_is_nil() {
+    @Test("Converted when unit is nil")
+    func convertedWhenUnitIsNil() {
         // GIVEN
         let sut: Int? = 42
 
@@ -32,10 +35,11 @@ final class IntConvertedValueTests: XCTestCase {
         let converted = sut.converted(nil)
 
         // THEN
-        XCTAssertEqual(converted, "42")
+        #expect(converted == "42")
     }
 
-    func test_converted_when_unit_is_not_nil() {
+    @Test("Converted when unit is not nil")
+    func convertedWhenUnitIsNotNil() {
         // GIVEN
         let sut: Int? = 42
 
@@ -43,10 +47,11 @@ final class IntConvertedValueTests: XCTestCase {
         let converted = sut.converted("kg")
 
         // THEN
-        XCTAssertEqual(converted, "42kg")
+        #expect(converted == "42kg")
     }
 
-    func test_converted_when_value_is_greater_than_max() {
+    @Test("Converted when value is greater than max")
+    func convertedWhenValueIsGreaterThanMax() {
         // GIVEN
         let sut: Int? = 150
 
@@ -54,6 +59,6 @@ final class IntConvertedValueTests: XCTestCase {
         let converted = sut.converted("kg")
 
         // THEN
-        XCTAssertEqual(converted, "99kg")
+        #expect(converted == "99kg")
     }
 }

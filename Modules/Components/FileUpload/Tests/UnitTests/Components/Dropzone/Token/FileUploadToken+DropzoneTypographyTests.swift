@@ -26,7 +26,7 @@ struct FileUploadTokenDropzoneTypographyTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Description text should return body 1 highlight")
     func descriptionTextShouldReturnBody1Highlight() {
         // GIVEN / WHEN
         let result = self.token.descriptionText
@@ -35,7 +35,7 @@ struct FileUploadTokenDropzoneTypographyTests {
         #expect(result.equals(self.theme.typography.body1Highlight))
     }
 
-    @Test
+    @Test("Additional text should return caption")
     func additionalTextShouldReturnCaption() {
         // GIVEN / WHEN
         let result = self.token.additionalText
@@ -46,7 +46,7 @@ struct FileUploadTokenDropzoneTypographyTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = FileUploadToken.Dropzone.Typography(theme: self.theme)
@@ -56,7 +56,7 @@ struct FileUploadTokenDropzoneTypographyTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = FileUploadToken.Dropzone.Typography(theme: self.theme)

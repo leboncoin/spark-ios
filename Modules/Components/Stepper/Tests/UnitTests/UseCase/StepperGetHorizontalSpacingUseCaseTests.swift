@@ -6,15 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentStepper
 @_spi(SI_SPI) import SparkThemingTesting
 
-class StepperGetHorizontalSpacingUseCaseTests: XCTestCase {
+@Suite("Stepper Get Horizontal Spacing UseCase Tests")
+struct StepperGetHorizontalSpacingUseCaseTests {
 
     // MARK: - Tests
 
-    func testExecute() {
+    @Test("Execute")
+    func execute() {
         // GIVEN
         let useCase = StepperGetHorizontalSpacingUseCase()
 
@@ -24,6 +26,6 @@ class StepperGetHorizontalSpacingUseCaseTests: XCTestCase {
         let result = useCase.execute(spacing: spacingMock)
 
         // THEN
-        XCTAssertEqual(result, spacingMock.medium)
+        #expect(result == spacingMock.medium)
     }
 }

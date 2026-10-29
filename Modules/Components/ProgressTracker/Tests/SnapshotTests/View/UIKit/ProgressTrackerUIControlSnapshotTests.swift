@@ -25,7 +25,7 @@ struct ProgressTrackerUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: ProgressTrackerScenarioSnapshotTests.allCases)
+    @Test("Progress tracker UIControl snapshot", arguments: ProgressTrackerScenarioSnapshotTests.allCases)
     func test(scenario: ProgressTrackerScenarioSnapshotTests) async {
         let configurations = scenario.configuration(isSwiftUIComponent: false)
         for configuration in configurations {

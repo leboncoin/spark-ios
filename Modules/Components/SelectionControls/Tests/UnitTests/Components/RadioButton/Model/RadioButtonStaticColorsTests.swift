@@ -6,25 +6,28 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class RadioButtonStaticColorsTests: XCTestCase {
+@Suite("Radio Button Static Colors Tests")
+struct RadioButtonStaticColorsTests {
 
     // MARK: - Initialization Tests
 
-    func test_init_shouldUseDefaultValues() {
+    @Test("Init should use default values")
+    func initShouldUseDefaultValues() {
         // GIVEN / WHEN
         let colors = RadioButtonStaticColors()
 
         // THEN
-        XCTAssertTrue(colors.dot.equals(ColorTokenClear()))
-        XCTAssertTrue(colors.hover.equals(ColorTokenClear()))
+        #expect(colors.dot.equals(ColorTokenClear()))
+        #expect(colors.hover.equals(ColorTokenClear()))
     }
 
-    func test_init_withCustomValues_shouldSetProperties() {
+    @Test("Init with custom values should set properties")
+    func initWithCustomValuesShouldSetProperties() {
         // GIVEN
         let customDot = ColorTokenGeneratedMock.random()
         let customHover = ColorTokenGeneratedMock.random()
@@ -35,7 +38,7 @@ final class RadioButtonStaticColorsTests: XCTestCase {
         colors.hover = customHover
 
         // THEN
-        XCTAssertTrue(colors.dot.equals(customDot))
-        XCTAssertTrue(colors.hover.equals(customHover))
+        #expect(colors.dot.equals(customDot))
+        #expect(colors.hover.equals(customHover))
     }
 }

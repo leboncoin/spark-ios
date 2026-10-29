@@ -6,26 +6,27 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkComponentCheckbox
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class CheckboxColorsUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Checkbox Colors UseCase Tests")
+struct CheckboxColorsUseCaseTests {
 
     var sut: CheckboxColorsUseCase!
     var theme: ThemeGeneratedMock!
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = .init()
         self.theme = .mocked()
     }
 
     // MARK: - Tests
 
-    func test_execute_for_all_intent_cases() {
+    @Test("Execute for all intent cases")
+    func executeForAllIntentCases() {
         let intents = CheckboxIntent.allCases
 
         intents.forEach {
@@ -101,11 +102,11 @@ final class CheckboxColorsUseCaseTests: XCTestCase {
                 )
             }
 
-            XCTAssertEqual(checkboxColors.textColor.uiColor, expectedColors.textColor.uiColor)
-            XCTAssertEqual(checkboxColors.borderColor.uiColor, expectedColors.borderColor.uiColor)
-            XCTAssertEqual(checkboxColors.tintColor.uiColor, expectedColors.tintColor.uiColor)
-            XCTAssertEqual(checkboxColors.iconColor.uiColor, expectedColors.iconColor.uiColor)
-            XCTAssertEqual(checkboxColors.pressedBorderColor.uiColor, expectedColors.pressedBorderColor.uiColor)
+            #expect(checkboxColors.textColor.uiColor == expectedColors.textColor.uiColor)
+            #expect(checkboxColors.borderColor.uiColor == expectedColors.borderColor.uiColor)
+            #expect(checkboxColors.tintColor.uiColor == expectedColors.tintColor.uiColor)
+            #expect(checkboxColors.iconColor.uiColor == expectedColors.iconColor.uiColor)
+            #expect(checkboxColors.pressedBorderColor.uiColor == expectedColors.pressedBorderColor.uiColor)
         }
     }
 }

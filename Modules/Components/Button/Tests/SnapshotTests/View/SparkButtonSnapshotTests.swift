@@ -26,7 +26,7 @@ struct SparkButtonSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: ButtonScenarioSnapshotTests.allCases)
+    @Test("Spark button snapshot", arguments: ButtonScenarioSnapshotTests.allCases)
     func test(scenario: ButtonScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
 

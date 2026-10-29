@@ -26,12 +26,12 @@ struct InputOTPTokenBorderTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Slot radius should return radius medium")
     func slotRadiusShouldReturnRadiusMedium() {
         #expect(self.token.slotRadius == self.theme.border.radius.medium)
     }
 
-    @Test(arguments: [(false, false), (true, false), (false, true), (true, true)])
+    @Test("Slot width should return expected value", arguments: [(false, false), (true, false), (false, true), (true, true)])
     func slotWidthShouldReturnExpectedValue(onError: Bool, isFocus: Bool) {
         // GIVEN
         let expected = onError || isFocus ? self.theme.border.width.medium : self.theme.border.width.small
@@ -45,12 +45,12 @@ struct InputOTPTokenBorderTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         #expect(InputOTPToken.Border(theme: self.theme) == InputOTPToken.Border(theme: self.theme))
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         #expect(InputOTPToken.Border(theme: self.theme) != InputOTPToken.Border(theme: ThemeGeneratedMock.mocked2()))
     }

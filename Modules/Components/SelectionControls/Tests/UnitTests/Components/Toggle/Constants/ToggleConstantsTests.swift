@@ -6,66 +6,68 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class ToggleConstantsTests: XCTestCase {
+@Suite("Toggle Constants Tests")
+struct ToggleConstantsTests {
 
     // MARK: - Tests
 
-    func test_toggleDotImagePadding() {
-        XCTAssertEqual(
-            ToggleConstants.toggleDotImagePadding,
-            5
+    @Test("Toggle dot image padding")
+    func toggleDotImagePadding() {
+        #expect(
+            ToggleConstants.toggleDotImagePadding == 5
         )
     }
 
-    func test_toggleSizes_width() {
-        XCTAssertEqual(
-            ToggleConstants.width,
-            56
+    @Test("Toggle sizes width")
+    func toggleSizesWidth() {
+        #expect(
+            ToggleConstants.width == 56
         )
     }
 
-    func test_toggleSizes_height() {
-        XCTAssertEqual(
-            ToggleConstants.height,
-            32
+    @Test("Toggle sizes height")
+    func toggleSizesHeight() {
+        #expect(
+            ToggleConstants.height == 32
         )
     }
 
-    func test_toggleSizes_dotSize() {
-        XCTAssertEqual(
-            ToggleConstants.dotSize,
-            ToggleConstants.height
+    @Test("Toggle sizes dot size")
+    func toggleSizesDotSize() {
+        #expect(
+            ToggleConstants.dotSize == ToggleConstants.height
         )
     }
 
-    func test_toggleSizes_dotPressedSize() {
-        XCTAssertEqual(
-            ToggleConstants.dotPressedSize,
-            ToggleConstants.width * 0.75
+    @Test("Toggle sizes dot pressed size")
+    func toggleSizesDotPressedSize() {
+        #expect(
+            ToggleConstants.dotPressedSize == (ToggleConstants.width * 0.75)
         )
     }
 
-    func test_toggleSizes_dotIncreasePressedSize() {
-        XCTAssertEqual(
-            ToggleConstants.dotIncreasePressedSize,
-            10
+    @Test("Toggle sizes dot increase pressed size")
+    func toggleSizesDotIncreasePressedSize() {
+        #expect(
+            ToggleConstants.dotIncreasePressedSize == 10
         )
     }
 
-    func test_toggleSizes_padding() {
-        XCTAssertEqual(
-            ToggleConstants.padding,
-            4
+    @Test("Toggle sizes padding")
+    func toggleSizesPadding() {
+        #expect(
+            ToggleConstants.padding == 4
         )
     }
 
-    func test_toggleSizes_dotIconSize() {
-        XCTAssertEqual(
-            ToggleConstants.dotIconSize,
-            14
+    @Test("Toggle sizes dot icon size")
+    func toggleSizesDotIconSize() {
+        #expect(
+            ToggleConstants.dotIconSize == 14
         )
     }
 }

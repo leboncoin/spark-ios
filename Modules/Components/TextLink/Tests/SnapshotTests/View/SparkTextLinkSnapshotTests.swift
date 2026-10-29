@@ -27,7 +27,7 @@ struct SparkTextLinkSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: TextLinkScenarioSnapshotTests.allCases)
+    @Test("Spark text link snapshot", arguments: TextLinkScenarioSnapshotTests.allCases)
     func test(scenario: TextLinkScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
 

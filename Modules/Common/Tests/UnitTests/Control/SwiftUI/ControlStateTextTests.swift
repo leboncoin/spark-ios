@@ -6,31 +6,29 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class ControlStateTextTests: XCTestCase {
+@MainActor
+@Suite("Control State Text Tests")
+struct ControlStateTextTests {
 
     // MARK: - Tests
 
-    func test_default_values() {
+    @Test("Default values")
+    func defaultValues() {
         // GIVEN / WHEN
         let controlStateText = ControlStateText()
 
         // THEN
-        XCTAssertNil(
-            controlStateText.text,
-            "Wrong text value"
-        )
-        XCTAssertNil(
-            controlStateText.attributedText,
-            "Wrong attributedText value"
-        )
+        #expect(controlStateText.text == nil, "Wrong text value")
+        #expect(controlStateText.attributedText == nil, "Wrong attributedText value")
     }
 
-    func test_setText() {
+    @Test("Set text")
+    func setText() {
         // GIVEN
         let givenText = "My Text"
 
@@ -52,15 +50,8 @@ final class ControlStateTextTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            controlStateText.text,
-            statesMock.value(for: .normal),
-            "Wrong text value"
-        )
-        XCTAssertNil(
-            controlStateText.attributedText,
-            "Wrong attributedText value"
-        )
+        #expect(controlStateText.text == statesMock.value(for: .normal), "Wrong text value")
+        #expect(controlStateText.attributedText == nil, "Wrong attributedText value")
 
         // WHEN
 
@@ -76,14 +67,11 @@ final class ControlStateTextTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            controlStateText.text,
-            statesMock.value(for: .normal),
-            "Wrong text value when control isPressed"
-        )
+        #expect(controlStateText.text == statesMock.value(for: .normal), "Wrong text value when control isPressed")
     }
 
-    func test_setAttributedText() {
+    @Test("Set attributed text")
+    func setAttributedText() {
         // GIVEN
         let givenAttributedText = AttributedString("My AT Text")
 
@@ -105,15 +93,8 @@ final class ControlStateTextTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNil(
-            controlStateText.text,
-            "Wrong text value"
-        )
-        XCTAssertEqual(
-            controlStateText.attributedText,
-            statesMock.value(for: .normal),
-            "Wrong attributedText value"
-        )
+        #expect(controlStateText.text == nil, "Wrong text value")
+        #expect(controlStateText.attributedText == statesMock.value(for: .normal), "Wrong attributedText value")
 
         // WHEN
 
@@ -129,14 +110,11 @@ final class ControlStateTextTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            controlStateText.attributedText,
-            statesMock.value(for: .normal),
-            "Wrong attributedText value when control isPressed"
-        )
+        #expect(controlStateText.attributedText == statesMock.value(for: .normal), "Wrong attributedText value when control isPressed")
     }
 
-    func test_updateContent() {
+    @Test("Update content")
+    func updateContent() {
         // GIVEN
         let givenDisabledText = "My Disabled Text"
 
@@ -160,9 +138,6 @@ final class ControlStateTextTests: XCTestCase {
         controlStateText.updateContent(from: control)
 
         // THEN
-        XCTAssertEqual(
-            controlStateText.text,
-            statesMock.value(for: .disabled)
-        )
+        #expect(controlStateText.text == statesMock.value(for: .disabled))
     }
 }

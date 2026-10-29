@@ -6,34 +6,34 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentBadge
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class BadgeGetCornerRadiusUseCaseTests: XCTestCase {
+@Suite("Badge Get Corner Radius UseCase Tests")
+struct BadgeGetCornerRadiusUseCaseTests {
 
     // MARK: - Properties
 
-    private var sut: BadgeGetCornerRadiusUseCase!
-    private var theme: ThemeGeneratedMock!
+    private let sut: BadgeGetCornerRadiusUseCase
+    private let theme: ThemeGeneratedMock
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = BadgeGetCornerRadiusUseCase()
         self.theme = ThemeGeneratedMock.mocked()
     }
 
     // MARK: - Tests
 
-    func test_execute() {
+    @Test("Execute")
+    func execute() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme)
 
         // THEN
-        XCTAssertEqual(result, self.theme.border.radius.full)
+        #expect(result == self.theme.border.radius.full)
     }
 }

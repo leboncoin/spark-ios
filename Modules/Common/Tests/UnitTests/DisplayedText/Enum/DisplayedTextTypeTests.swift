@@ -6,14 +6,16 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class DisplayedTextTypeTests: XCTestCase {
+@Suite("Displayed Text Type Tests")
+struct DisplayedTextTypeTests {
 
     // MARK: - Tests
 
-    func test_containsText_when_type_is_none() {
+    @Test("Contains text when type is none")
+    func containsTextWhenTypeIsNone() {
         // GIVEN
         let type: DisplayedTextType = .none
 
@@ -21,10 +23,11 @@ final class DisplayedTextTypeTests: XCTestCase {
         let containsText = type.containsText
 
         // THEN
-        XCTAssertFalse(containsText)
+        #expect(!containsText)
     }
 
-    func test_containsText_when_type_is_text() {
+    @Test("Contains text when type is text")
+    func containsTextWhenTypeIsText() {
         // GIVEN
         let type: DisplayedTextType = .text
 
@@ -32,10 +35,11 @@ final class DisplayedTextTypeTests: XCTestCase {
         let containsText = type.containsText
 
         // THEN
-        XCTAssertTrue(containsText)
+        #expect(containsText)
     }
 
-    func test_containsText_when_type_is_attributedText() {
+    @Test("Contains text when type is attributed text")
+    func containsTextWhenTypeIsAttributedText() {
         // GIVEN
         let type: DisplayedTextType = .attributedText
 
@@ -43,6 +47,6 @@ final class DisplayedTextTypeTests: XCTestCase {
         let containsText = type.containsText
 
         // THEN
-        XCTAssertTrue(containsText)
+        #expect(containsText)
     }
 }

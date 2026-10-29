@@ -31,7 +31,7 @@ struct TextEditorViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: TextEditorScenarioSnapshotTests.allCases)
+    @Test("Text editor view snapshot", arguments: TextEditorScenarioSnapshotTests.allCases)
     func test(scenario: TextEditorScenarioSnapshotTests) async throws {
         let configurations: [TextEditorConfigurationSnapshotTests] = try scenario.configuration(
             isSwiftUIComponent: true

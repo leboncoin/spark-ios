@@ -6,19 +6,21 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 
-final class TextFieldClearModeValueTests: XCTestCase {
+@Suite("Text Field Clear Mode Value Tests")
+struct TextFieldClearModeValueTests {
 
     // MARK: - Tests
 
-    func test_default_values() {
+    @Test("Default values")
+    func defaultValues() {
         // GIVEN / WHEN
         let object = TextFieldClearModeValue()
 
         // THEN
-        XCTAssertEqual(object.mode, .default, "Wrong mode value")
-        XCTAssertNil(object.action, "Wrong action value")
+        #expect(object.mode == .default, "Wrong mode value")
+        #expect(object.action == nil, "Wrong action value")
     }
 }

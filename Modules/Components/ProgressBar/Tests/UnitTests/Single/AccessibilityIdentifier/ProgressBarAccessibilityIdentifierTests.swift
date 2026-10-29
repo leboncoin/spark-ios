@@ -7,49 +7,55 @@
 //
 
 @testable import SparkComponentProgressBar
-import XCTest
+import Testing
 
-final class ProgressBarAccessibilityIdentifierTests: XCTestCase {
+@Suite("Progress Bar Accessibility Identifier Tests")
+struct ProgressBarAccessibilityIdentifierTests {
 
     // MARK: - Tests
 
-    func test_view_identifier() {
+    @Test("View identifier")
+    func viewIdentifier() {
         // GIVEN / WHEN
         let identifier = ProgressBarAccessibilityIdentifier.view
 
         // THEN
-        XCTAssertEqual(identifier, "spark-progress-bar")
+        #expect(identifier == "spark-progress-bar")
     }
 
-    func test_contentView_identifier() {
+    @Test("Content view identifier")
+    func contentViewIdentifier() {
         // GIVEN / WHEN
         let identifier = ProgressBarAccessibilityIdentifier.contentView
 
         // THEN
-        XCTAssertEqual(identifier, "spark-progressBar-contentView")
+        #expect(identifier == "spark-progressBar-contentView")
     }
 
-    func test_progressBar_identifier() {
+    @Test("Progress bar identifier")
+    func progressBarIdentifier() {
         // GIVEN / WHEN
         let identifier = ProgressBarAccessibilityIdentifier.progressBar
 
         // THEN
-        XCTAssertEqual(identifier, "spark-progress-bar")
+        #expect(identifier == "spark-progress-bar")
     }
 
-    func test_indicatorView_identifier() {
+    @Test("Indicator view identifier")
+    func indicatorViewIdentifier() {
         // GIVEN / WHEN
         let identifier = ProgressBarAccessibilityIdentifier.indicatorView
 
         // THEN
-        XCTAssertEqual(identifier, "spark-progressBar-indicatorView")
+        #expect(identifier == "spark-progressBar-indicatorView")
     }
 
-    func test_bottomIndicatorView_identifier() {
+    @Test("Bottom indicator view identifier")
+    func bottomIndicatorViewIdentifier() {
         // GIVEN / WHEN
         let identifier = ProgressBarAccessibilityIdentifier.bottomIndicatorView
 
         // THEN
-        XCTAssertEqual(identifier, "spark-progressBar-bottomIndicatorView")
+        #expect(identifier == "spark-progressBar-bottomIndicatorView")
     }
 }

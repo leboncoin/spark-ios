@@ -6,23 +6,27 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class CommonBorderStyleTests: XCTestCase {
+@Suite("Common Border Style Tests")
+struct CommonBorderStyleTests {
 
     // MARK: - Initialization Tests
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let borderStyle = CommonBorderStyle()
 
         // THEN
-        XCTAssertEqual(borderStyle.width, 0)
-        XCTAssertEqual(borderStyle.cornerRadius, 0)
+        #expect(borderStyle.width == 0)
+        #expect(borderStyle.cornerRadius == 0)
     }
 
-    func test_initialization_withCustomValues_shouldUseProvidedValues() {
+    @Test("Initialization with custom values should use provided values")
+    func initializationWithCustomValuesShouldUseProvidedValues() {
         // GIVEN
         let customWidth: CGFloat = 2.0
         let customCornerRadius: CGFloat = 8.0
@@ -34,7 +38,7 @@ final class CommonBorderStyleTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(borderStyle.width, customWidth)
-        XCTAssertEqual(borderStyle.cornerRadius, customCornerRadius)
+        #expect(borderStyle.width == customWidth)
+        #expect(borderStyle.cornerRadius == customCornerRadius)
     }
 }

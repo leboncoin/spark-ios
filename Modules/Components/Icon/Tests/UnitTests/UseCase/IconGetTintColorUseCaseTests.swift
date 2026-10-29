@@ -6,12 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentIcon
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class IconGetTintColorUseCaseTests: XCTestCase {
+@Suite("Icon Get Tint Color Use Case Tests")
+struct IconGetTintColorUseCaseTests {
 
     // MARK: - Properties
 
@@ -20,8 +21,7 @@ final class IconGetTintColorUseCaseTests: XCTestCase {
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
 
         self.sut = IconGetTintColorUseCase()
         self.theme = ThemeGeneratedMock.mocked()
@@ -29,7 +29,8 @@ final class IconGetTintColorUseCaseTests: XCTestCase {
 
     // MARK: - Predefined Intents Tests
 
-    func test_execute_all_predefined_intents() {
+    @Test("Execute all predefined intents")
+    func executeAllPredefinedIntents() {
         // GIVEN
         let colors = theme.colors
 
@@ -49,16 +50,14 @@ final class IconGetTintColorUseCaseTests: XCTestCase {
             let result = self.sut.execute(theme: self.theme, intent: intent)
 
             // THEN
-            XCTAssertTrue(
-                result.equals(expectedColorToken),
-                "Expected intent \(intent) to return the correct color token"
-            )
+            #expect(result.equals(expectedColorToken), "Expected intent \(intent) to return the correct color token")
         }
     }
 
     // MARK: - Custom Intent Tests
 
-    func test_execute_with_custom_intent() {
+    @Test("Execute with custom intent")
+    func executeWithCustomIntent() {
         // GIVEN
         let customColorToken = ColorTokenGeneratedMock.blue()
         let intent = IconIntent.custom(ColorTokenGeneratedMock.blue())
@@ -67,6 +66,6 @@ final class IconGetTintColorUseCaseTests: XCTestCase {
         let result = self.sut.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertTrue(result.equals(customColorToken))
+        #expect(result.equals(customColorToken))
     }
 }

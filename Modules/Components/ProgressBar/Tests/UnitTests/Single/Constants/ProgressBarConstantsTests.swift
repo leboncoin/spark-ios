@@ -7,17 +7,19 @@
 //
 
 @testable import SparkComponentProgressBar
-import XCTest
+import Testing
 
-final class ProgressBarConstantsTests: XCTestCase {
+@Suite("Progress Bar Constants Tests")
+struct ProgressBarConstantsTests {
 
     // MARK: - Tests
 
-    func test_height_value() {
+    @Test("Height value")
+    func heightValue() {
         // GIVEN / WHEN
         let height = ProgressBarConstants.height
 
         // THEN
-        XCTAssertEqual(height, 4.0)
+        #expect(height == 4.0)
     }
 }

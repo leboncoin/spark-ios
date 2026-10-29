@@ -6,22 +6,22 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class ControlPropertyStateTests: XCTestCase {
+@MainActor
+@Suite("Control Property State Tests")
+struct ControlPropertyStateTests {
 
     // MARK: - Tests
 
-    func test_default_value() {
+    @Test("Default value")
+    func defaultValue() {
         // GIVEN / WHEN
         let state = ControlPropertyState<String>(for: .normal)
 
         // THEN
-        XCTAssertNil(
-            state.value,
-            "Wrong value. Should be nil"
-        )
+        #expect(state.value == nil, "Wrong value. Should be nil")
     }
 }

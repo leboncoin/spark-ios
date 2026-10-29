@@ -6,15 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 
 @testable import SparkComponentDivider
 
-final class DividerAlignmentTests: XCTestCase {
+@Suite("Divider Alignment Tests")
+struct DividerAlignmentTests {
 
     // MARK: - Tests
 
-    func test_allCases() {
+    @Test("All cases")
+    func allCases() {
         // GIVEN
         let expectedCases: [DividerAlignment] = [.top, .trailing, .bottom, .leading, .center]
 
@@ -22,15 +24,16 @@ final class DividerAlignmentTests: XCTestCase {
         let allCases = DividerAlignment.allCases
 
         // THEN
-        XCTAssertEqual(allCases.count, 5, "DividerAlignment should have 5 cases")
-        XCTAssertEqual(allCases, expectedCases, "DividerAlignment allCases should match expected cases")
+        #expect(allCases.count == 5, "DividerAlignment should have 5 cases")
+        #expect(allCases == expectedCases, "DividerAlignment allCases should match expected cases")
     }
 
-    func test_default() {
+    @Test("Default")
+    func defaultValue() {
         // GIVEN & WHEN
         let defaultAlignment = DividerAlignment.default
 
         // THEN
-        XCTAssertEqual(defaultAlignment, .center, "DividerAlignment.default should be .center")
+        #expect(defaultAlignment == .center, "DividerAlignment.default should be .center")
     }
 }

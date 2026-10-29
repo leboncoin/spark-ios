@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import SparkTheming
 
@@ -15,22 +15,25 @@ import SparkTheming
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class DividerViewModelTests: XCTestCase {
+@MainActor
+@Suite("Divider ViewModel Tests")
+struct DividerViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
         let viewModel = stub.viewModel
 
         // THEN
-        XCTAssertEqual(viewModel.colors, DividerColors(), "Wrong colors value")
-        XCTAssertEqual(viewModel.separatorWidthTypes, DividerSeparatorWidthTypes(), "Wrong separator widths value")
-        XCTAssertEqual(viewModel.spacing, 0, "Wrong spacing value")
-        XCTAssertTrue(viewModel.textFont is TypographyFontTokenClear, "Wrong textFont value")
+        #expect(viewModel.colors == DividerColors(), "Wrong colors value")
+        #expect(viewModel.separatorWidthTypes == DividerSeparatorWidthTypes(), "Wrong separator widths value")
+        #expect(viewModel.spacing == 0, "Wrong spacing value")
+        #expect(viewModel.textFont is TypographyFontTokenClear, "Wrong textFont value")
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getSeparatorWidthTypesUseCase: true,
@@ -41,7 +44,8 @@ final class DividerViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -50,9 +54,9 @@ final class DividerViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        DividerGetColorsUseCaseableMockTest.XCTAssert(
+        DividerGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -60,7 +64,7 @@ final class DividerViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        DividerGetSeparatorWidthTypesUseCaseableMockTest.XCTAssert(
+        DividerGetSeparatorWidthTypesUseCaseableMockTest.expect(
             stub.getSeparatorWidthTypesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenAlignment: stub.givenAlignment,
@@ -68,14 +72,14 @@ final class DividerViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSeparatorWidthTypes
         )
 
-        DividerGetSpacingUseCaseableMockTest.XCTAssert(
+        DividerGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedSpacing
         )
 
-        DividerGetTextFontUseCaseableMockTest.XCTAssert(
+        DividerGetTextFontUseCaseableMockTest.expect(
             stub.getTextFontUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -85,7 +89,8 @@ final class DividerViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateDependentProperties() {
+    @Test("Theme changed should update dependent properties")
+    func themeChangedShouldUpdateDependentProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -99,9 +104,9 @@ final class DividerViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        DividerGetColorsUseCaseableMockTest.XCTAssert(
+        DividerGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -109,27 +114,28 @@ final class DividerViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        DividerGetSpacingUseCaseableMockTest.XCTAssert(
+        DividerGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             expectedReturnValue: stub.expectedSpacing
         )
 
-        DividerGetTextFontUseCaseableMockTest.XCTAssert(
+        DividerGetTextFontUseCaseableMockTest.expect(
             stub.getTextFontUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             expectedReturnValue: stub.expectedTextFont
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSeparatorWidthTypesUseCase: true
         )
     }
 
-    func test_alignmentChanged_shouldUpdateSeparatorWidthTypesOnly() {
+    @Test("Alignment changed should update separator width types only")
+    func alignmentChangedShouldUpdateSeparatorWidthTypesOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -143,9 +149,9 @@ final class DividerViewModelTests: XCTestCase {
         viewModel.alignment = newAlignment
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        DividerGetSeparatorWidthTypesUseCaseableMockTest.XCTAssert(
+        DividerGetSeparatorWidthTypesUseCaseableMockTest.expect(
             stub.getSeparatorWidthTypesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenAlignment: newAlignment,
@@ -153,7 +159,7 @@ final class DividerViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSeparatorWidthTypes
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getSpacingUseCase: true,
@@ -161,7 +167,8 @@ final class DividerViewModelTests: XCTestCase {
         )
     }
 
-    func test_axisChanged_shouldUpdateSeparatorWidthTypesOnly() {
+    @Test("Axis changed should update separator width types only")
+    func axisChangedShouldUpdateSeparatorWidthTypesOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -175,9 +182,9 @@ final class DividerViewModelTests: XCTestCase {
         viewModel.axis = newAxis
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        DividerGetSeparatorWidthTypesUseCaseableMockTest.XCTAssert(
+        DividerGetSeparatorWidthTypesUseCaseableMockTest.expect(
             stub.getSeparatorWidthTypesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenAlignment: stub.givenAlignment,
@@ -185,7 +192,7 @@ final class DividerViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSeparatorWidthTypes
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getSpacingUseCase: true,
@@ -193,7 +200,8 @@ final class DividerViewModelTests: XCTestCase {
         )
     }
 
-    func test_intentChanged_shouldUpdateColorsOnly() {
+    @Test("Intent changed should update colors only")
+    func intentChangedShouldUpdateColorsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -207,9 +215,9 @@ final class DividerViewModelTests: XCTestCase {
         viewModel.intent = newIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        DividerGetColorsUseCaseableMockTest.XCTAssert(
+        DividerGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -217,7 +225,7 @@ final class DividerViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSeparatorWidthTypesUseCase: true,
             getSpacingUseCase: true,
@@ -225,7 +233,8 @@ final class DividerViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -237,7 +246,7 @@ final class DividerViewModelTests: XCTestCase {
         viewModel.intent = .outlineHigh
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherColors: DividerColors(),
             otherSeparatorWidthTypes: DividerSeparatorWidthTypes(),
@@ -245,7 +254,7 @@ final class DividerViewModelTests: XCTestCase {
             otherTextFont: TypographyFontTokenClear()
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getSeparatorWidthTypesUseCase: true,
@@ -254,7 +263,8 @@ final class DividerViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -269,9 +279,9 @@ final class DividerViewModelTests: XCTestCase {
         viewModel.intent = stub.givenIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getSeparatorWidthTypesUseCase: true,
@@ -280,7 +290,8 @@ final class DividerViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withNilValues_shouldNotCallUseCases() {
+    @Test("Properties changed with nil values should not call use cases")
+    func propertiesChangedWithNilValuesShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -295,9 +306,9 @@ final class DividerViewModelTests: XCTestCase {
         viewModel.intent = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getSeparatorWidthTypesUseCase: true,
@@ -394,63 +405,70 @@ private extension DividerViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getColorsUseCase: Bool = false,
     getSeparatorWidthTypesUseCase: Bool = false,
     getSpacingUseCase: Bool = false,
-    getTextFontUseCase: Bool = false
+    getTextFontUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    DividerGetColorsUseCaseableMockTest.XCTCalled(
+    DividerGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeWithThemeAndIntentCalled: !getColorsUseCase
+        executeWithThemeAndIntentCalled: !getColorsUseCase,
+        sourceLocation: sourceLocation
     )
 
-    DividerGetSeparatorWidthTypesUseCaseableMockTest.XCTCalled(
+    DividerGetSeparatorWidthTypesUseCaseableMockTest.expectCalled(
         stub.getSeparatorWidthTypesUseCaseMock,
-        executeWithAlignmentAndAxisCalled: !getSeparatorWidthTypesUseCase
+        executeWithAlignmentAndAxisCalled: !getSeparatorWidthTypesUseCase,
+        sourceLocation: sourceLocation
     )
 
-    DividerGetSpacingUseCaseableMockTest.XCTCalled(
+    DividerGetSpacingUseCaseableMockTest.expectCalled(
         stub.getSpacingUseCaseMock,
-        executeWithThemeCalled: !getSpacingUseCase
+        executeWithThemeCalled: !getSpacingUseCase,
+        sourceLocation: sourceLocation
     )
 
-    DividerGetTextFontUseCaseableMockTest.XCTCalled(
+    DividerGetTextFontUseCaseableMockTest.expectCalled(
         stub.getTextFontUseCaseMock,
-        executeWithThemeCalled: !getTextFontUseCase
+        executeWithThemeCalled: !getTextFontUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherColors: DividerColors? = nil,
     otherSeparatorWidthTypes: DividerSeparatorWidthTypes? = nil,
     otherSpacing: CGFloat? = nil,
-    otherTextFont: (any TypographyFontToken)? = nil
+    otherTextFont: (any TypographyFontToken)? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.colors,
-        otherColors ?? stub.expectedColors,
-        "Wrong colors value"
+    #expect(
+        viewModel.colors == (otherColors ?? stub.expectedColors),
+        "Wrong colors value",
+        sourceLocation: sourceLocation
     )
 
-    XCTAssertEqual(
-        viewModel.separatorWidthTypes,
-        otherSeparatorWidthTypes ?? stub.expectedSeparatorWidthTypes,
-        "Wrong separatorWidthTypes value"
+    #expect(
+        viewModel.separatorWidthTypes == (otherSeparatorWidthTypes ?? stub.expectedSeparatorWidthTypes),
+        "Wrong separatorWidthTypes value",
+        sourceLocation: sourceLocation
     )
 
-    XCTAssertEqual(
-        viewModel.spacing,
-        otherSpacing ?? stub.expectedSpacing,
-        "Wrong spacing value"
+    #expect(
+        viewModel.spacing == (otherSpacing ?? stub.expectedSpacing),
+        "Wrong spacing value",
+        sourceLocation: sourceLocation
     )
 
-    XCTAssertTrue(
+    #expect(
         viewModel.textFont.equals(otherTextFont ?? stub.expectedTextFont),
-        "Wrong textFont value"
+        "Wrong textFont value",
+        sourceLocation: sourceLocation
     )
 }

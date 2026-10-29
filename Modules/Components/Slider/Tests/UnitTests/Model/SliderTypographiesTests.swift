@@ -7,26 +7,30 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentSlider
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SliderTypographiesTests: XCTestCase {
+@MainActor
+@Suite("Slider Typographies Tests")
+struct SliderTypographiesTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let typographies = SliderTypographies()
 
         // THEN
-        XCTAssertTrue(typographies.titleFontToken.equals(TypographyFontTokenClear()))
-        XCTAssertTrue(typographies.valueFontToken.equals(TypographyFontTokenClear()))
-        XCTAssertTrue(typographies.rangeValuesFontToken.equals(TypographyFontTokenClear()))
+        #expect(typographies.titleFontToken.equals(TypographyFontTokenClear()))
+        #expect(typographies.valueFontToken.equals(TypographyFontTokenClear()))
+        #expect(typographies.rangeValuesFontToken.equals(TypographyFontTokenClear()))
     }
 
-    func test_equality_when_same_typographies() {
+    @Test("Equality when same typographies")
+    func equalityWhenSameTypographies() {
         // GIVEN / WHEN
         let titleFontToken = TypographyFontTokenGeneratedMock.title()
         let valueFontToken = TypographyFontTokenGeneratedMock.body()
@@ -45,10 +49,11 @@ final class SliderTypographiesTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(typographies1, typographies2)
+        #expect(typographies1 == typographies2)
     }
 
-    func test_inequality_when_different_title_font() {
+    @Test("Inequality when different title font")
+    func inequalityWhenDifferentTitleFont() {
         // GIVEN / WHEN
         let titleFontToken1 = TypographyFontTokenGeneratedMock.title()
         let titleFontToken2 = TypographyFontTokenGeneratedMock.headline()
@@ -68,10 +73,11 @@ final class SliderTypographiesTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(typographies1, typographies2)
+        #expect(typographies1 != typographies2)
     }
 
-    func test_inequality_when_different_value_font() {
+    @Test("Inequality when different value font")
+    func inequalityWhenDifferentValueFont() {
         // GIVEN / WHEN
         let titleFontToken = TypographyFontTokenGeneratedMock.title()
         let valueFontToken1 = TypographyFontTokenGeneratedMock.body()
@@ -91,10 +97,11 @@ final class SliderTypographiesTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(typographies1, typographies2)
+        #expect(typographies1 != typographies2)
     }
 
-    func test_inequality_when_different_rangeValues_font() {
+    @Test("Inequality when different range values font")
+    func inequalityWhenDifferentRangeValuesFont() {
         // GIVEN / WHEN
         let titleFontToken = TypographyFontTokenGeneratedMock.title()
         let valueFontToken = TypographyFontTokenGeneratedMock.body()
@@ -114,10 +121,11 @@ final class SliderTypographiesTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(typographies1, typographies2)
+        #expect(typographies1 != typographies2)
     }
 
-    func test_hash_consistency() {
+    @Test("Hash consistency")
+    func hashConsistency() {
         // GIVEN / WHEN
         let titleFontToken = TypographyFontTokenGeneratedMock.title()
         let valueFontToken = TypographyFontTokenGeneratedMock.body()
@@ -138,6 +146,6 @@ final class SliderTypographiesTests: XCTestCase {
         let hash2 = hasher2.finalize()
 
         // THEN
-        XCTAssertEqual(hash1, hash2)
+        #expect(hash1 == hash2)
     }
 }

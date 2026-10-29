@@ -6,15 +6,18 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkComponentSelectionControls
 
-final class ToggleGetIsIconUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Toggle Get Is Icon UseCase Tests")
+struct ToggleGetIsIconUseCaseTests {
 
     // MARK: - Execute Tests
 
-    func test_execute_whenOnOffLabelsEnabled_returnsTrue() {
+    @Test("Execute when on off labels enabled returns true")
+    func executeWhenOnOffLabelsEnabledReturnsTrue() {
         // GIVEN
         let useCase = ToggleGetIsIconUseCase()
 
@@ -29,11 +32,12 @@ final class ToggleGetIsIconUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isIcon1, "Wrong value when contrast is equals to .standard")
-        XCTAssertTrue(isIcon2, "Wrong value when contrast is equals to .increased")
+        #expect(isIcon1, "Wrong value when contrast is equals to .standard")
+        #expect(isIcon2, "Wrong value when contrast is equals to .increased")
     }
 
-    func test_execute_whenHighContrast_returnsTrue() {
+    @Test("Execute when high contrast returns true")
+    func executeWhenHighContrastReturnsTrue() {
         // GIVEN
         let useCase = ToggleGetIsIconUseCase()
 
@@ -44,10 +48,11 @@ final class ToggleGetIsIconUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isIcon)
+        #expect(isIcon)
     }
 
-    func test_execute_whenNeither_returnsFalse() {
+    @Test("Execute when neither returns false")
+    func executeWhenNeitherReturnsFalse() {
         // GIVEN
         let useCase = ToggleGetIsIconUseCase()
 
@@ -58,12 +63,13 @@ final class ToggleGetIsIconUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(isIcon)
+        #expect(!isIcon)
     }
 
     // MARK: - Execute UITests
 
-    func test_executeUI_whenOnOffLabelsEnabled_returnsTrue() {
+    @Test("Execute UI when on off labels enabled returns true")
+    func executeUIWhenOnOffLabelsEnabledReturnsTrue() {
         // GIVEN
         let useCase = ToggleGetIsIconUseCase()
 
@@ -78,11 +84,12 @@ final class ToggleGetIsIconUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isIcon1, "Wrong value when contrast is equals to .normal")
-        XCTAssertTrue(isIcon2, "Wrong value when contrast is equals to .high")
+        #expect(isIcon1, "Wrong value when contrast is equals to .normal")
+        #expect(isIcon2, "Wrong value when contrast is equals to .high")
     }
 
-    func test_executeUI_whenHighContrast_returnsTrue() {
+    @Test("Execute UI when high contrast returns true")
+    func executeUIWhenHighContrastReturnsTrue() {
         // GIVEN
         let useCase = ToggleGetIsIconUseCase()
 
@@ -93,10 +100,11 @@ final class ToggleGetIsIconUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isIcon)
+        #expect(isIcon)
     }
 
-    func test_executeUI_whenNeither_returnsFalse() {
+    @Test("Execute UI when neither returns false")
+    func executeUIWhenNeitherReturnsFalse() {
         // GIVEN
         let useCase = ToggleGetIsIconUseCase()
 
@@ -107,6 +115,6 @@ final class ToggleGetIsIconUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(isIcon)
+        #expect(!isIcon)
     }
 }

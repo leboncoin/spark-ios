@@ -7,14 +7,16 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentRating
 
-final class StringAccessibilityValueExtensionTests: XCTestCase {
+@Suite("String Accessibility Value Extension Tests")
+struct StringAccessibilityValueExtensionTests {
 
     // MARK: - Tests
 
-    func test_accessibilityValue_with_integer_rating() {
+    @Test("Accessibility value with integer rating")
+    func accessibilityValueWithIntegerRating() {
         // GIVEN
         let rating: Double = 4.0
         let formattedRating = NumberFormatter.shared.string(for: rating) ?? "unknow"
@@ -27,11 +29,12 @@ final class StringAccessibilityValueExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.contains(formattedRating))
-        XCTAssertTrue(result.contains("5"))
+        #expect(result.contains(formattedRating))
+        #expect(result.contains("5"))
     }
 
-    func test_accessibilityValue_with_decimal_rating() {
+    @Test("Accessibility value with decimal rating")
+    func accessibilityValueWithDecimalRating() {
         // GIVEN
         let rating: Double = 3.75
         let formattedRating = NumberFormatter.shared.string(for: rating) ?? "unknow"
@@ -44,11 +47,12 @@ final class StringAccessibilityValueExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.contains(formattedRating))
-        XCTAssertTrue(result.contains("5"))
+        #expect(result.contains(formattedRating))
+        #expect(result.contains("5"))
     }
 
-    func test_accessibilityValue_with_zero_rating() {
+    @Test("Accessibility value with zero rating")
+    func accessibilityValueWithZeroRating() {
         // GIVEN
         let rating: Double = 0.0
         let formattedRating = NumberFormatter.shared.string(for: rating) ?? "unknow"
@@ -61,11 +65,12 @@ final class StringAccessibilityValueExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.contains(formattedRating))
-        XCTAssertTrue(result.contains("5"))
+        #expect(result.contains(formattedRating))
+        #expect(result.contains("5"))
     }
 
-    func test_accessibilityValue_with_maximum_rating() {
+    @Test("Accessibility value with maximum rating")
+    func accessibilityValueWithMaximumRating() {
         // GIVEN
         let rating: Double = 5.0
         let formattedRating = NumberFormatter.shared.string(for: rating) ?? "unknow"
@@ -78,11 +83,12 @@ final class StringAccessibilityValueExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.contains(formattedRating))
-        XCTAssertTrue(result.contains("5"))
+        #expect(result.contains(formattedRating))
+        #expect(result.contains("5"))
     }
 
-    func test_accessibilityValue_with_single_star() {
+    @Test("Accessibility value with single star")
+    func accessibilityValueWithSingleStar() {
         // GIVEN
         let rating: Double = 1.0
         let formattedRating = NumberFormatter.shared.string(for: rating) ?? "unknow"
@@ -95,11 +101,12 @@ final class StringAccessibilityValueExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.contains(formattedRating))
-        XCTAssertTrue(result.contains("1"))
+        #expect(result.contains(formattedRating))
+        #expect(result.contains("1"))
     }
 
-    func test_accessibilityValue_with_high_precision_decimal() {
+    @Test("Accessibility value with high precision decimal")
+    func accessibilityValueWithHighPrecisionDecimal() {
         // GIVEN
         let rating: Double = 2.123456789
         let formattedRating = NumberFormatter.shared.string(for: rating) ?? "unknow"
@@ -112,11 +119,12 @@ final class StringAccessibilityValueExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.contains(formattedRating))
-        XCTAssertTrue(result.contains("5"))
+        #expect(result.contains(formattedRating))
+        #expect(result.contains("5"))
     }
 
-    func test_accessibilityValue_formatting_uses_number_formatter() {
+    @Test("Accessibility value formatting uses number formatter")
+    func accessibilityValueFormattingUsesNumberFormatter() {
         // GIVEN
         let rating: Double = 1.5
         let formattedRating = NumberFormatter.shared.string(for: rating) ?? "unknow"
@@ -129,12 +137,13 @@ final class StringAccessibilityValueExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.contains(formattedRating))
-        XCTAssertTrue(result.contains("5"))
-        XCTAssertFalse(result.isEmpty)
+        #expect(result.contains(formattedRating))
+        #expect(result.contains("5"))
+        #expect(!result.isEmpty)
     }
 
-    func test_accessibilityValue_returns_non_empty_string() {
+    @Test("Accessibility value returns non empty string")
+    func accessibilityValueReturnsNonEmptyString() {
         // GIVEN
         let rating: Double = 3.0
         let numberOfStars = 5
@@ -146,7 +155,7 @@ final class StringAccessibilityValueExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(result.isEmpty)
-        XCTAssertGreaterThan(result.count, 0)
+        #expect(!result.isEmpty)
+        #expect(result.count > 0)
     }
 }

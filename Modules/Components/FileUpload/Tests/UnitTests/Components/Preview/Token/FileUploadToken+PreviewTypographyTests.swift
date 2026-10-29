@@ -26,7 +26,7 @@ struct FileUploadTokenPreviewTypographyTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Name should return caption")
     func nameShouldReturnCaption() {
         // GIVEN / WHEN
         let result = self.token.name
@@ -35,7 +35,7 @@ struct FileUploadTokenPreviewTypographyTests {
         #expect(result.equals(self.theme.typography.caption))
     }
 
-    @Test
+    @Test("Size should return caption")
     func sizeShouldReturnCaption() {
         // GIVEN / WHEN
         let result = self.token.size
@@ -44,7 +44,7 @@ struct FileUploadTokenPreviewTypographyTests {
         #expect(result.equals(self.theme.typography.caption))
     }
 
-    @Test
+    @Test("Error should return caption")
     func errorShouldReturnCaption() {
         // GIVEN / WHEN
         let result = self.token.error
@@ -55,7 +55,7 @@ struct FileUploadTokenPreviewTypographyTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = FileUploadToken.Preview.Typography(theme: self.theme)
@@ -65,7 +65,7 @@ struct FileUploadTokenPreviewTypographyTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = FileUploadToken.Preview.Typography(theme: self.theme)

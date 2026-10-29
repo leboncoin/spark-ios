@@ -19,7 +19,7 @@ struct SparkLazyVStackSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async throws {
+    @Test("Spark lazy VStack snapshot") func test() async throws {
         await self.assertSnapshot(
             matching: SnapshotView(),
             modes: ComponentSnapshotTestConstants.Modes.default,

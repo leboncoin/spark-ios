@@ -15,7 +15,7 @@ struct StringInitialExtensionTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Initial with non empty string should return first character")
     func initialWithNonEmptyStringShouldReturnFirstCharacter() {
         // GIVEN
         let string = "Hello"
@@ -27,7 +27,7 @@ struct StringInitialExtensionTests {
         #expect(result == "H")
     }
 
-    @Test
+    @Test("Initial with single character should return that character")
     func initialWithSingleCharacterShouldReturnThatCharacter() {
         // GIVEN
         let string = "A"
@@ -39,7 +39,7 @@ struct StringInitialExtensionTests {
         #expect(result == "A")
     }
 
-    @Test
+    @Test("Initial with empty string should return empty string")
     func initialWithEmptyStringShouldReturnEmptyString() {
         // GIVEN
         let string = ""

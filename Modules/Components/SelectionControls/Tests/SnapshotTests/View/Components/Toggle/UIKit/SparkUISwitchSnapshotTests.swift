@@ -31,7 +31,7 @@ struct SparkUISwitchSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: ToggleScenarioSnapshotTests.allCases())
+    @Test("Spark UISwitch snapshot", arguments: ToggleScenarioSnapshotTests.allCases())
     func test(scenario: ToggleScenarioSnapshotTests) async throws {
         let configurations: [ToggleConfigurationSnapshotTests] = try scenario.configuration()
         for configuration in configurations {

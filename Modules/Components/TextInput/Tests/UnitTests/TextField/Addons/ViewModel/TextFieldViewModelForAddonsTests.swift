@@ -6,7 +6,7 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import Combine
 import UIKit
 import SwiftUI
@@ -17,7 +17,9 @@ import SwiftUI
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class TextFieldViewModelForAddonsTests: XCTestCase {
+@MainActor
+@Suite("TextField ViewModel For Addons Tests")
+final class TextFieldViewModelForAddonsTests {
 
     // MARK: - Properties
 
@@ -26,9 +28,7 @@ final class TextFieldViewModelForAddonsTests: XCTestCase {
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
-        self.superTests.setUp()
+    init() {
 
         self.viewModel = .init(
             theme: self.superTests.theme,
@@ -41,43 +41,47 @@ final class TextFieldViewModelForAddonsTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_init_borderStyle() {
-        XCTAssertEqual(self.viewModel.borderStyle, .none, "Wrong borderStyle")
-        XCTAssertTrue(self.viewModel.backgroundColor.equals(ColorTokenDefault.clear), "Wrong backgroundColor")
-        XCTAssertEqual(self.viewModel.dim, 1, "Wrong dim")
+    @Test("Init border style")
+    func initBorderStyle() {
+        #expect(self.viewModel.borderStyle == .none, "Wrong borderStyle")
+        #expect(self.viewModel.backgroundColor.equals(ColorTokenDefault.clear), "Wrong backgroundColor")
+        #expect(self.viewModel.dim == 1, "Wrong dim")
     }
 
-    func test_backgroundColor() {
+    @Test("Background color")
+    func backgroundColor() {
         self.superTests.publishers.reset()
         self.superTests.resetUseCases()
 
-        XCTAssertTrue(self.viewModel.backgroundColor.equals(ColorTokenDefault.clear), "Wrong viewModel.backgroundColor before set")
+        #expect(self.viewModel.backgroundColor.equals(ColorTokenDefault.clear), "Wrong viewModel.backgroundColor before set")
 
         let newColor = ColorTokenGeneratedMock(uiColor: .brown)
         self.viewModel.backgroundColor = newColor
 
-        XCTAssertTrue(self.viewModel.backgroundColor.equals(ColorTokenDefault.clear), "Wrong viewModel.backgroundColor after set")
-        XCTAssertTrue(self.viewModel.addonsBackgroundColor.equals(newColor), "Wrong delegate.backgroundColor")
+        #expect(self.viewModel.backgroundColor.equals(ColorTokenDefault.clear), "Wrong viewModel.backgroundColor after set")
+        #expect(self.viewModel.addonsBackgroundColor.equals(newColor), "Wrong delegate.backgroundColor")
 
-        XCTAssertFalse(self.superTests.publishers.backgroundColor.sinkCalled, "backgroundColor should not have sinked")
+        #expect(!self.superTests.publishers.backgroundColor.sinkCalled, "backgroundColor should not have sinked")
     }
 
-    func test_dim() {
+    @Test("Dim")
+    func dim() {
         self.superTests.publishers.reset()
         self.superTests.resetUseCases()
 
-        XCTAssertEqual(self.viewModel.dim, 1.0, "Wrong viewModel.dim before set")
+        #expect(self.viewModel.dim == 1.0, "Wrong viewModel.dim before set")
 
-        let newDim = 0.2
+        let newDim: CGFloat = 0.2
         self.viewModel.dim = newDim
 
-        XCTAssertEqual(self.viewModel.dim, 1.0, "Wrong viewModel.dim after set")
-        XCTAssertEqual(self.viewModel.addonsDim, newDim, "Wrong delegate.dim")
+        #expect(self.viewModel.dim == 1.0, "Wrong viewModel.dim after set")
+        #expect(self.viewModel.addonsDim == newDim, "Wrong delegate.dim")
 
-        XCTAssertFalse(self.superTests.publishers.dim.sinkCalled, "dim should not have sinked")
+        #expect(!self.superTests.publishers.dim.sinkCalled, "dim should not have sinked")
     }
 
-    func test_setBorderLayout() throws {
+    @Test("Set border layout")
+    func setBorderLayout() throws {
         self.superTests.publishers.reset()
         self.superTests.resetUseCases()
 
@@ -88,23 +92,24 @@ final class TextFieldViewModelForAddonsTests: XCTestCase {
         self.viewModel.setBorderLayout()
 
         // THEN
-        XCTAssertEqual(self.viewModel.addonsBorderWidth, newExpectedBorderLayout.width, "Wrong delegate.boderWidth")
-        XCTAssertEqual(self.viewModel.addonsBorderRadius, newExpectedBorderLayout.radius, "Wrong delegate.boderRadius")
+        #expect(self.viewModel.addonsBorderWidth == newExpectedBorderLayout.width, "Wrong delegate.boderWidth")
+        #expect(self.viewModel.addonsBorderRadius == newExpectedBorderLayout.radius, "Wrong delegate.boderRadius")
         // Border with & Radius shouldn't change, the delegate takes charge
-        XCTAssertEqual(self.viewModel.borderWidth, self.superTests.expectedBorderLayout.width, "Wrong viewModel.borderRadius")
-        XCTAssertEqual(self.viewModel.borderRadius, self.superTests.expectedBorderLayout.radius, "Wrong viewModel.borderWidth")
+        #expect(self.viewModel.borderWidth == self.superTests.expectedBorderLayout.width, "Wrong viewModel.borderRadius")
+        #expect(self.viewModel.borderRadius == self.superTests.expectedBorderLayout.radius, "Wrong viewModel.borderWidth")
 
-        XCTAssertEqual(self.superTests.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCallsCount, 1, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should have been called once")
-        let getBorderLayoutReceivedArguments = try XCTUnwrap(self.superTests.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedReceivedArguments, "Couldn't unwrap getBorderLayoutReceivedArguments")
-        XCTAssertIdentical(getBorderLayoutReceivedArguments.theme as? ThemeGeneratedMock, self.superTests.theme, "Wrong getBorderLayoutReceivedArguments.theme")
-        XCTAssertEqual(getBorderLayoutReceivedArguments.borderStyle, .roundedRect, "Wrong getBorderLayoutReceivedArguments.borderStyle")
-        XCTAssertFalse(getBorderLayoutReceivedArguments.isFocused, "Wrong getBorderLayoutReceivedArguments.isFocused")
+        #expect(self.superTests.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCallsCount == 1, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should have been called once")
+        let getBorderLayoutReceivedArguments = try #require(self.superTests.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedReceivedArguments, "Couldn't unwrap getBorderLayoutReceivedArguments")
+        #expect(getBorderLayoutReceivedArguments.theme as? ThemeGeneratedMock === self.superTests.theme, "Wrong getBorderLayoutReceivedArguments.theme")
+        #expect(getBorderLayoutReceivedArguments.borderStyle == .roundedRect, "Wrong getBorderLayoutReceivedArguments.borderStyle")
+        #expect(!getBorderLayoutReceivedArguments.isFocused, "Wrong getBorderLayoutReceivedArguments.isFocused")
 
-        XCTAssertFalse(self.superTests.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
-        XCTAssertFalse(self.superTests.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
+        #expect(!self.superTests.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
+        #expect(!self.superTests.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
     }
 
-    func test_setSpacings() throws {
+    @Test("Set spacings")
+    func setSpacings() throws {
         self.superTests.publishers.reset()
         self.superTests.resetUseCases()
 
@@ -115,22 +120,22 @@ final class TextFieldViewModelForAddonsTests: XCTestCase {
         self.viewModel.setSpacings()
 
         // THEN
-        XCTAssertEqual(self.viewModel.addonsLeftSpacing, newExpectedSpacings.horizontal)
-        XCTAssertEqual(self.viewModel.addonsContentSpacing, newExpectedSpacings.content)
-        XCTAssertEqual(self.viewModel.addonsRightSpacing, newExpectedSpacings.horizontal)
+        #expect(self.viewModel.addonsLeftSpacing == newExpectedSpacings.horizontal)
+        #expect(self.viewModel.addonsContentSpacing == newExpectedSpacings.content)
+        #expect(self.viewModel.addonsRightSpacing == newExpectedSpacings.horizontal)
 
         // Spacings shouldn't change, the delegate takes charge
-        XCTAssertEqual(self.viewModel.leftSpacing, self.superTests.expectedSpacings.horizontal)
-        XCTAssertEqual(self.viewModel.contentSpacing, self.superTests.expectedSpacings.content)
-        XCTAssertEqual(self.viewModel.rightSpacing, self.superTests.expectedSpacings.horizontal)
+        #expect(self.viewModel.leftSpacing == self.superTests.expectedSpacings.horizontal)
+        #expect(self.viewModel.contentSpacing == self.superTests.expectedSpacings.content)
+        #expect(self.viewModel.rightSpacing == self.superTests.expectedSpacings.horizontal)
 
-        XCTAssertEqual(self.superTests.getSpacingsUseCase.executeWithThemeAndBorderStyleCallsCount, 1, "getSpacingsUseCase.executeWithThemeAndBorderStyle should have been called once")
-        let getSpacingsUseCaseReceivedArguments = try XCTUnwrap(self.superTests.getSpacingsUseCase.executeWithThemeAndBorderStyleReceivedArguments, "Couldn't unwrap getSpacingsUseCaseReceivedArguments")
-        XCTAssertIdentical(getSpacingsUseCaseReceivedArguments.theme as? ThemeGeneratedMock, self.superTests.theme, "Wrong getSpacingsUseCaseReceivedArguments.theme")
-        XCTAssertEqual(getSpacingsUseCaseReceivedArguments.borderStyle, .roundedRect, "Wrong getSpacingsUseCaseReceivedArguments.borderStyle")
+        #expect(self.superTests.getSpacingsUseCase.executeWithThemeAndBorderStyleCallsCount == 1, "getSpacingsUseCase.executeWithThemeAndBorderStyle should have been called once")
+        let getSpacingsUseCaseReceivedArguments = try #require(self.superTests.getSpacingsUseCase.executeWithThemeAndBorderStyleReceivedArguments, "Couldn't unwrap getSpacingsUseCaseReceivedArguments")
+        #expect(getSpacingsUseCaseReceivedArguments.theme as? ThemeGeneratedMock === self.superTests.theme, "Wrong getSpacingsUseCaseReceivedArguments.theme")
+        #expect(getSpacingsUseCaseReceivedArguments.borderStyle == .roundedRect, "Wrong getSpacingsUseCaseReceivedArguments.borderStyle")
 
-        XCTAssertFalse(self.superTests.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
-        XCTAssertFalse(self.superTests.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
-        XCTAssertFalse(self.superTests.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
+        #expect(!self.superTests.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
+        #expect(!self.superTests.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
+        #expect(!self.superTests.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
     }
 }

@@ -8,32 +8,36 @@
 
 @testable import SparkComponentSpinner
 @_spi(SI_SPI) import SparkThemingTesting
-import XCTest
+import Testing
 
-final class SpinnerIntentTests: XCTestCase {
+@Suite("Spinner Intent Tests")
+struct SpinnerIntentTests {
 
     // MARK: - Tests
 
-    func test_defaultValue_isSupport() {
+    @Test("Default value is support")
+    func defaultValueIsSupport() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(SpinnerIntent.default, .support)
+        #expect(SpinnerIntent.default == .support)
     }
 
     // MARK: - Equality Tests
 
-    func test_equality_standardCases() {
+    @Test("Equality standard cases")
+    func equalityStandardCases() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(SpinnerIntent.accent, .accent)
-        XCTAssertEqual(SpinnerIntent.alert, .alert)
-        XCTAssertEqual(SpinnerIntent.error, .error)
-        XCTAssertEqual(SpinnerIntent.info, .info)
-        XCTAssertEqual(SpinnerIntent.main, .main)
-        XCTAssertEqual(SpinnerIntent.neutral, .neutral)
-        XCTAssertEqual(SpinnerIntent.success, .success)
-        XCTAssertEqual(SpinnerIntent.support, .support)
+        #expect(SpinnerIntent.accent == .accent)
+        #expect(SpinnerIntent.alert == .alert)
+        #expect(SpinnerIntent.error == .error)
+        #expect(SpinnerIntent.info == .info)
+        #expect(SpinnerIntent.main == .main)
+        #expect(SpinnerIntent.neutral == .neutral)
+        #expect(SpinnerIntent.success == .success)
+        #expect(SpinnerIntent.support == .support)
     }
 
-    func test_equality_customCases() {
+    @Test("Equality custom cases")
+    func equalityCustomCases() {
         // GIVEN
         let colorToken = ColorTokenGeneratedMock.blue()
         let customIntent1 = SpinnerIntent.custom(colorToken)
@@ -42,8 +46,8 @@ final class SpinnerIntentTests: XCTestCase {
         let customIntent3 = SpinnerIntent.custom(differentColorToken)
 
         // WHEN / THEN
-        XCTAssertEqual(customIntent1, customIntent2)
-        XCTAssertNotEqual(customIntent1, customIntent3)
-        XCTAssertNotEqual(customIntent1, .support)
+        #expect(customIntent1 == customIntent2)
+        #expect(customIntent1 != customIntent3)
+        #expect(customIntent1 != .support)
     }
 }

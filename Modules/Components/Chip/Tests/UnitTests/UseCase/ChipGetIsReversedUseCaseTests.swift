@@ -6,38 +6,39 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentChip
 
-final class ChipGetIsReversedUseCaseTests: XCTestCase {
+@Suite("Chip Get Is Reversed UseCase Tests")
+struct ChipGetIsReversedUseCaseTests {
 
     // MARK: - Properties
 
-    private var sut: ChipGetIsReversedUseCase!
+    private let sut: ChipGetIsReversedUseCase
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = ChipGetIsReversedUseCase()
     }
 
     // MARK: - Tests
 
-    func test_execute_with_leadingIcon_alignment() {
+    @Test("Execute with leading icon alignment")
+    func executeWithLeadingIconAlignment() {
         // GIVEN / WHEN
         let result = self.sut.execute(alignment: .leadingIcon)
 
         // THEN
-        XCTAssertTrue(result)
+        #expect(result)
     }
 
-    func test_execute_with_trailingIcon_alignment() {
+    @Test("Execute with trailing icon alignment")
+    func executeWithTrailingIconAlignment() {
         // GIVEN / WHEN
         let result = self.sut.execute(alignment: .trailingIcon)
 
         // THEN
-        XCTAssertFalse(result)
+        #expect(!result)
     }
 }

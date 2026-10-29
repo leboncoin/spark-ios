@@ -26,7 +26,7 @@ struct CheckboxGroupUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: CheckboxGroupScenarioSnapshotTests.allCases)
+    @Test("Checkbox group UIView snapshot", arguments: CheckboxGroupScenarioSnapshotTests.allCases)
     func test(scenario: CheckboxGroupScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
 

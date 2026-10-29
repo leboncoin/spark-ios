@@ -10,20 +10,20 @@
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 import SwiftUI
-import XCTest
+import Testing
 
-final class RadioButtonGetColorsUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Radio Button Get Colors UseCase Tests")
+struct RadioButtonGetColorsUseCaseTests {
 
     // MARK: - Properties
 
     var sut: RadioButtonGetColorsUseCase!
     var theme: ThemeGeneratedMock!
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         // Given
         let theme = ThemeGeneratedMock.mocked()
         self.theme = theme
@@ -31,7 +31,8 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
     }
 
     // MARK: - Tests
-    func test_danger_colors_when_button_is_not_selected() throws {
+    @Test("Danger colors when button is not selected")
+    func dangerColorsWhenButtonIsNotSelected() throws {
         // Given
         let colors = self.theme.colors
         let expectedColors = RadioButtonColors(
@@ -49,10 +50,11 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
             isSelected: false)
 
         // Then
-        XCTAssertEqual(givenColors, expectedColors)
+        #expect(givenColors == expectedColors)
     }
 
-    func test_info_colors_when_button_is_not_selected() throws {
+    @Test("Info colors when button is not selected")
+    func infoColorsWhenButtonIsNotSelected() throws {
         // Given
         let colors = self.theme.colors
         let expectedColors = RadioButtonColors(
@@ -70,10 +72,11 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
             isSelected: false)
 
         // Then
-        XCTAssertEqual(givenColors, expectedColors)
+        #expect(givenColors == expectedColors)
     }
 
-    func test_alert_colors_when_button_is_not_selected() throws {
+    @Test("Alert colors when button is not selected")
+    func alertColorsWhenButtonIsNotSelected() throws {
         // Given
         let colors = self.theme.colors
         let expectedColors = RadioButtonColors(
@@ -91,10 +94,11 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
             isSelected: false)
 
         // Then
-        XCTAssertEqual(givenColors, expectedColors)
+        #expect(givenColors == expectedColors)
     }
 
-    func test_success_colors_when_button_is_not_selected() throws {
+    @Test("Success colors when button is not selected")
+    func successColorsWhenButtonIsNotSelected() throws {
         // Given
         let colors = self.theme.colors
         let expectedColors = RadioButtonColors(
@@ -112,10 +116,11 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
             isSelected: false)
 
         // Then
-        XCTAssertEqual(givenColors, expectedColors)
+        #expect(givenColors == expectedColors)
     }
 
-    func test_accent_colors_when_button_is_not_selected() throws {
+    @Test("Accent colors when button is not selected")
+    func accentColorsWhenButtonIsNotSelected() throws {
         // Given
         let colors = self.theme.colors
         let expectedColors = RadioButtonColors(
@@ -133,10 +138,11 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
             isSelected: false)
 
         // Then
-        XCTAssertEqual(givenColors, expectedColors)
+        #expect(givenColors == expectedColors)
     }
 
-    func test_danger_colors_when_button_is_selected() throws {
+    @Test("Danger colors when button is selected")
+    func dangerColorsWhenButtonIsSelected() throws {
         // Given
         let colors = self.theme.colors
         let expectedColors = RadioButtonColors(
@@ -154,10 +160,11 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
             isSelected: true)
 
         // Then
-        XCTAssertEqual(givenColors, expectedColors)
+        #expect(givenColors == expectedColors)
     }
 
-    func test_alert_colors_when_button_is_selected() throws {
+    @Test("Alert colors when button is selected")
+    func alertColorsWhenButtonIsSelected() throws {
         // Given
         let colors = self.theme.colors
         let expectedColors = RadioButtonColors(
@@ -175,10 +182,11 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
             isSelected: true)
 
         // Then
-        XCTAssertEqual(givenColors, expectedColors)
+        #expect(givenColors == expectedColors)
     }
 
-    func test_success_colors_when_button_is_selected() throws {
+    @Test("Success colors when button is selected")
+    func successColorsWhenButtonIsSelected() throws {
         // Given
         let colors = self.theme.colors
         let expectedColors = RadioButtonColors(
@@ -196,10 +204,11 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
             isSelected: true)
 
         // Then
-        XCTAssertEqual(givenColors, expectedColors)
+        #expect(givenColors == expectedColors)
     }
 
-    func test_accent_colors_when_button_is_selected() throws {
+    @Test("Accent colors when button is selected")
+    func accentColorsWhenButtonIsSelected() throws {
         // Given
         let colors = self.theme.colors
         let expectedColors = RadioButtonColors(
@@ -217,7 +226,7 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
             isSelected: true)
 
         // Then
-        XCTAssertEqual(givenColors, expectedColors)
+        #expect(givenColors == expectedColors)
     }
 
 }

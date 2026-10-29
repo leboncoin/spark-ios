@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentProgressBar
 
-final class ProgressBarIndeterminateGetAnimationTypeUseCaseTests: XCTestCase {
+@Suite("Progress Bar Indeterminate Get Animation Type Use Case Tests")
+struct ProgressBarIndeterminateGetAnimationTypeUseCaseTests {
 
     // MARK: - Execute Tests
 
-    func test_execute_returns_easeIn_when_isAnimated_is_true() {
+    @Test("Execute returns ease in when is animated is true")
+    func executeReturnsEaseInWhenIsAnimatedIsTrue() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenIsAnimated: true,
@@ -21,7 +23,8 @@ final class ProgressBarIndeterminateGetAnimationTypeUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_returns_none_when_isAnimated_is_false() {
+    @Test("Execute returns none when is animated is false")
+    func executeReturnsNoneWhenIsAnimatedIsFalse() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenIsAnimated: false,
@@ -31,7 +34,8 @@ final class ProgressBarIndeterminateGetAnimationTypeUseCaseTests: XCTestCase {
 
     // MARK: - Execute Next Tests
 
-    func test_executeNext_returns_easeOut_when_type_is_easeIn() {
+    @Test("Execute next returns ease out when type is ease in")
+    func executeNextReturnsEaseOutWhenTypeIsEaseIn() {
         // GIVEN / WHEN / THEN
         self.testExecuteNext(
             givenType: .easeIn,
@@ -39,7 +43,8 @@ final class ProgressBarIndeterminateGetAnimationTypeUseCaseTests: XCTestCase {
         )
     }
 
-    func test_executeNext_returns_reset_when_type_is_easeOut() {
+    @Test("Execute next returns reset when type is ease out")
+    func executeNextReturnsResetWhenTypeIsEaseOut() {
         // GIVEN / WHEN / THEN
         self.testExecuteNext(
             givenType: .easeOut,
@@ -47,7 +52,8 @@ final class ProgressBarIndeterminateGetAnimationTypeUseCaseTests: XCTestCase {
         )
     }
 
-    func test_executeNext_returns_easeIn_when_type_is_reset() {
+    @Test("Execute next returns ease in when type is reset")
+    func executeNextReturnsEaseInWhenTypeIsReset() {
         // GIVEN / WHEN / THEN
         self.testExecuteNext(
             givenType: .reset,
@@ -55,7 +61,8 @@ final class ProgressBarIndeterminateGetAnimationTypeUseCaseTests: XCTestCase {
         )
     }
 
-    func test_executeNext_returns_nil_when_type_is_none() {
+    @Test("Execute next returns nil when type is none")
+    func executeNextReturnsNilWhenTypeIsNone() {
         // GIVEN / WHEN / THEN
         self.testExecuteNext(
             givenType: .none,
@@ -63,7 +70,8 @@ final class ProgressBarIndeterminateGetAnimationTypeUseCaseTests: XCTestCase {
         )
     }
 
-    func test_executeNext_returns_nil_when_type_is_nil() {
+    @Test("Execute next returns nil when type is nil")
+    func executeNextReturnsNilWhenTypeIsNil() {
         // GIVEN / WHEN / THEN
         self.testExecuteNext(
             givenType: nil,
@@ -87,11 +95,7 @@ private extension ProgressBarIndeterminateGetAnimationTypeUseCaseTests {
         let type = useCase.execute(isAnimated: givenIsAnimated)
 
         // THEN
-        XCTAssertEqual(
-            type,
-            expectedType,
-            "Wrong type for isAnimated \(givenIsAnimated)"
-        )
+        #expect(type == expectedType, "Wrong type for isAnimated \(givenIsAnimated)")
     }
 
     func testExecuteNext(
@@ -105,10 +109,6 @@ private extension ProgressBarIndeterminateGetAnimationTypeUseCaseTests {
         let nextType = useCase.executeNext(type: givenType)
 
         // THEN
-        XCTAssertEqual(
-            nextType,
-            expectedNextType,
-            "Wrong next type for type \(String(describing: givenType))"
-        )
+        #expect(nextType == expectedNextType, "Wrong next type for type \(String(describing: givenType))")
     }
 }

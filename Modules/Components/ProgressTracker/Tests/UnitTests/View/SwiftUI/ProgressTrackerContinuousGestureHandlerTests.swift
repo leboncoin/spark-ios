@@ -9,11 +9,13 @@
 import Foundation
 
 import SwiftUI
-import XCTest
+import Testing
 
 @testable import SparkComponentProgressTracker
 
-final class ProgressTrackerContinuousGestureHandlerTests: XCTestCase {
+@MainActor
+@Suite("Progress Tracker Continuous Gesture Handler Tests")
+final class ProgressTrackerContinuousGestureHandlerTests {
 
     var _currentPageIndex: Int = 0
 
@@ -34,7 +36,8 @@ final class ProgressTrackerContinuousGestureHandlerTests: XCTestCase {
     private var disabledIndices = Set<Int>()
 
     // MARK: - Tests
-    func test_index_0_is_current_1_may_be_selected() {
+    @Test("Index 0 is current 1 may be selected")
+    func index0IsCurrent1MayBeSelected() {
         // Given
         self._currentPageIndex = 0
         let sut = self.sut()
@@ -43,18 +46,19 @@ final class ProgressTrackerContinuousGestureHandlerTests: XCTestCase {
         sut.onChanged(location: CGPoint(x: 81, y: 0))
 
         // Then
-        XCTAssertEqual(self._currentTouchedPageIndex, 1, "Next select page is 1")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == 1, "Next select page is 1")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
 
         // When
         sut.onEnded(location: CGPoint(x: 81, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Next select page is nil")
-        XCTAssertEqual(self._currentPageIndex, 1, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Next select page is nil")
+        #expect(self._currentPageIndex == 1, "Current page is not updated")
     }
 
-    func test_drag_along_view() {
+    @Test("Drag along view")
+    func dragAlongView() {
         // Given
         self._currentPageIndex = 0
         let sut = self.sut()
@@ -62,24 +66,25 @@ final class ProgressTrackerContinuousGestureHandlerTests: XCTestCase {
         // When
         sut.onChanged(location: CGPoint(x: 81, y: 0))
         // Then
-        XCTAssertEqual(self._currentTouchedPageIndex, 1, "Next select page is 1")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == 1, "Next select page is 1")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
 
         // When
         sut.onChanged(location: CGPoint(x: 121, y: 0))
         // Then
-        XCTAssertEqual(self._currentTouchedPageIndex, 2, "Next select page is 1")
-        XCTAssertEqual(self._currentPageIndex, 1, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == 2, "Next select page is 1")
+        #expect(self._currentPageIndex == 1, "Current page is not updated")
 
         // When
         sut.onEnded(location: CGPoint(x: 159, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Next select page is nil")
-        XCTAssertEqual(self._currentPageIndex, 2, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Next select page is nil")
+        #expect(self._currentPageIndex == 2, "Current page is not updated")
     }
 
-    func test_index_2_is_current_0_may_be_selected() {
+    @Test("Index 2 is current 0 may be selected")
+    func index2IsCurrent0MayBeSelected() {
         // Given
         self._currentPageIndex = 2
         let sut = self.sut()
@@ -88,18 +93,19 @@ final class ProgressTrackerContinuousGestureHandlerTests: XCTestCase {
         sut.onChanged(location: CGPoint(x: 0, y: 0))
 
         // Then
-        XCTAssertEqual(self._currentTouchedPageIndex, 1, "Next select page is 1")
-        XCTAssertEqual(self._currentPageIndex, 2, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == 1, "Next select page is 1")
+        #expect(self._currentPageIndex == 2, "Current page is not updated")
 
         // When
         sut.onEnded(location: CGPoint(x: 81, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Next select page is nil")
-        XCTAssertEqual(self._currentPageIndex, 1, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Next select page is nil")
+        #expect(self._currentPageIndex == 1, "Current page is not updated")
     }
 
-    func test_cant_skip_disabled() {
+    @Test("Cant skip disabled")
+    func cantSkipDisabled() {
         // Given
         self._currentPageIndex = 0
         self.disabledIndices.insert(1)
@@ -109,18 +115,19 @@ final class ProgressTrackerContinuousGestureHandlerTests: XCTestCase {
         sut.onChanged(location: CGPoint(x: 81, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Next select page is nil")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Next select page is nil")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
 
         // When
         sut.onEnded(location: CGPoint(x: 81, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Next select page is nil")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Next select page is nil")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
     }
 
-    func test_touch_outside_frame_ignored() {
+    @Test("Touch outside frame ignored")
+    func touchOutsideFrameIgnored() {
         // Given
         self._currentPageIndex = 0
         self.disabledIndices.insert(1)
@@ -130,15 +137,15 @@ final class ProgressTrackerContinuousGestureHandlerTests: XCTestCase {
         sut.onChanged(location: CGPoint(x: 161, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Current touched page is nil")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Current touched page is nil")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
 
         // When
         sut.onEnded(location: CGPoint(x: 161, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Next select page is nil")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Next select page is nil")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
     }
 
     // MARK: Private helpers

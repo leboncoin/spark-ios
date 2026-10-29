@@ -6,25 +6,28 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class CheckboxStaticColorsTests: XCTestCase {
+@Suite("Checkbox Static Colors Tests")
+struct CheckboxStaticColorsTests {
 
     // MARK: - Initialization Tests
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let staticColors = CheckboxStaticColors()
 
         // THEN
-        XCTAssertTrue(staticColors.iconForeground.equals(ColorTokenClear()))
-        XCTAssertTrue(staticColors.hover.equals(ColorTokenClear()))
+        #expect(staticColors.iconForeground.equals(ColorTokenClear()))
+        #expect(staticColors.hover.equals(ColorTokenClear()))
     }
 
-    func test_initialization_withCustomValues_shouldUseProvidedValues() {
+    @Test("Initialization with custom values should use provided values")
+    func initializationWithCustomValuesShouldUseProvidedValues() {
         // GIVEN
         let customIconForeground = ColorTokenGeneratedMock.random()
         let customHover = ColorTokenGeneratedMock.random()
@@ -36,7 +39,7 @@ final class CheckboxStaticColorsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(staticColors.iconForeground.equals(customIconForeground))
-        XCTAssertTrue(staticColors.hover.equals(customHover))
+        #expect(staticColors.iconForeground.equals(customIconForeground))
+        #expect(staticColors.hover.equals(customHover))
     }
 }

@@ -6,15 +6,18 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 import SparkTheming
 @testable import SparkComponentTextInput
 
-final class TextEditorGetHorizontalPaddingUseCaseTests: XCTestCase {
+@Suite("Text Editor Get Horizontal Padding UseCase Tests")
+struct TextEditorGetHorizontalPaddingUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_shouldReturnHorizontalSpacingMinus4() {
+    @Test("Execute should return horizontal spacing minus 4")
+    func executeShouldReturnHorizontalSpacingMinus4() {
         // GIVEN
         let viewModel = TextEditorGetHorizontalPaddingUseCase()
 
@@ -26,10 +29,11 @@ final class TextEditorGetHorizontalPaddingUseCaseTests: XCTestCase {
         let result = viewModel.execute(spacings: spacings)
 
         // THEN
-        XCTAssertEqual(result, expectedPadding)
+        #expect(result == expectedPadding)
     }
 
-    func test_execute_withDifferentHorizontalSpacing_shouldReturnCorrectPadding() {
+    @Test("Execute with different horizontal spacing should return correct padding")
+    func executeWithDifferentHorizontalSpacingShouldReturnCorrectPadding() {
         // GIVEN
         let viewModel = TextEditorGetHorizontalPaddingUseCase()
 
@@ -41,6 +45,6 @@ final class TextEditorGetHorizontalPaddingUseCaseTests: XCTestCase {
         let result = viewModel.execute(spacings: spacings)
 
         // THEN
-        XCTAssertEqual(result, expectedPadding)
+        #expect(result == expectedPadding)
     }
 }

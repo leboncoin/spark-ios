@@ -6,10 +6,12 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentIcon
 
-final class IconGetSizeUseCaseTests: XCTestCase {
+@Suite("Icon Get Size Use Case Tests")
+struct IconGetSizeUseCaseTests {
 
     // MARK: - Properties
 
@@ -17,15 +19,15 @@ final class IconGetSizeUseCaseTests: XCTestCase {
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
 
         self.sut = IconGetSizeUseCase()
     }
 
     // MARK: - Predefined Sizes Tests
 
-    func test_execute_all_predefined_sizes() {
+    @Test("Execute all predefined sizes")
+    func executeAllPredefinedSizes() {
         // GIVEN
         let testCases: [(IconSize, CGFloat)] = [
             (.small, 16.0),
@@ -37,13 +39,14 @@ final class IconGetSizeUseCaseTests: XCTestCase {
         // WHEN / THEN
         for (size, expectedValue) in testCases {
             let result = self.sut.execute(size: size)
-            XCTAssertEqual(result, expectedValue, "Expected size \(size) to return \(expectedValue)")
+            #expect(result == expectedValue, "Expected size \(size) to return \(expectedValue)")
         }
     }
 
     // MARK: - Custom Sizes Tests
 
-    func test_execute_with_custom_size() {
+    @Test("Execute with custom size")
+    func executeWithCustomSize() {
         // GIVEN
         let customValue: CGFloat = 50.0
         let size = IconSize.custom(customValue)
@@ -52,10 +55,11 @@ final class IconGetSizeUseCaseTests: XCTestCase {
         let result = self.sut.execute(size: size)
 
         // THEN
-        XCTAssertEqual(result, customValue)
+        #expect(result == customValue)
     }
 
-    func test_execute_with_custom_zero_size() {
+    @Test("Execute with custom zero size")
+    func executeWithCustomZeroSize() {
         // GIVEN
         let size = IconSize.custom(0.0)
 
@@ -63,10 +67,11 @@ final class IconGetSizeUseCaseTests: XCTestCase {
         let result = self.sut.execute(size: size)
 
         // THEN
-        XCTAssertEqual(result, 0.0)
+        #expect(result == 0.0)
     }
 
-    func test_execute_with_custom_negative_size() {
+    @Test("Execute with custom negative size")
+    func executeWithCustomNegativeSize() {
         // GIVEN
         let size = IconSize.custom(-10.0)
 
@@ -74,10 +79,11 @@ final class IconGetSizeUseCaseTests: XCTestCase {
         let result = self.sut.execute(size: size)
 
         // THEN
-        XCTAssertEqual(result, -10.0)
+        #expect(result == -10.0)
     }
 
-    func test_execute_with_custom_fractional_size() {
+    @Test("Execute with custom fractional size")
+    func executeWithCustomFractionalSize() {
         // GIVEN
         let size = IconSize.custom(24.5)
 
@@ -85,6 +91,6 @@ final class IconGetSizeUseCaseTests: XCTestCase {
         let result = self.sut.execute(size: size)
 
         // THEN
-        XCTAssertEqual(result, 24.5)
+        #expect(result == 24.5)
     }
 }

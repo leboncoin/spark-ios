@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) @testable import SparkComponentSelectionControlsTesting
 @_spi(SI_SPI) import SparkCommon
@@ -14,16 +14,19 @@ import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 import SwiftUI
 
-final class RadioButtonUIViewModelTests: XCTestCase {
+@MainActor
+@Suite("Radio Button UI ViewModel Tests")
+struct RadioButtonUIViewModelTests {
 
     // MARK: - Initialization Tests
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherDynamicColors: .init(),
             otherStaticColors: .init(),
@@ -31,7 +34,7 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDynamicColors: true,
             getStaticColors: true,
@@ -41,7 +44,8 @@ final class RadioButtonUIViewModelTests: XCTestCase {
 
     // MARK: - Load Tests
 
-    func test_load_shouldCallAllUseCases_exceptAnimationType() {
+    @Test("Load should call all use cases except animation type")
+    func loadShouldCallAllUseCasesExceptAnimationType() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -50,11 +54,11 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         viewModel.load(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        RadioButtonGetColorsUseCaseableMockTest.XCTAssert(
+        RadioButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -63,7 +67,7 @@ final class RadioButtonUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        RadioButtonGetColorsUseCaseableMockTest.XCTAssert(
+        RadioButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -75,7 +79,8 @@ final class RadioButtonUIViewModelTests: XCTestCase {
 
     // MARK: - Setter Tests
 
-    func test_themeChanged_shouldUpdateSomeProperties() {
+    @Test("Theme changed should update some properties")
+    func themeChangedShouldUpdateSomeProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -89,16 +94,16 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         viewModel.theme = givenTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getShowSelectedDot: true
         )
 
-        RadioButtonGetColorsUseCaseableMockTest.XCTAssert(
+        RadioButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -107,7 +112,7 @@ final class RadioButtonUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        RadioButtonGetColorsUseCaseableMockTest.XCTAssert(
+        RadioButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -117,7 +122,8 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_intentChanged_shouldUpdateSomeProperties() {
+    @Test("Intent changed should update some properties")
+    func intentChangedShouldUpdateSomeProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -131,16 +137,16 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         viewModel.intent = givenIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getShowSelectedDot: true
         )
 
-        RadioButtonGetColorsUseCaseableMockTest.XCTAssert(
+        RadioButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -149,7 +155,7 @@ final class RadioButtonUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        RadioButtonGetColorsUseCaseableMockTest.XCTAssert(
+        RadioButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -159,7 +165,8 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_allSetter_withoutChange() {
+    @Test("All setter without change")
+    func allSetterWithoutChange() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -173,10 +180,10 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         viewModel.selectedValueChanged(oldValue: false)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDynamicColors: true,
             getStaticColors: true,
@@ -184,7 +191,8 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         )
     }
 
-    func test_allSetter_withoutLoadBefore() {
+    @Test("All setter without load before")
+    func allSetterWithoutLoadBefore() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -195,7 +203,7 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         viewModel.selectedValueChanged(oldValue: true)
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherDynamicColors: .init(),
             otherStaticColors: .init(),
@@ -203,7 +211,7 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDynamicColors: true,
             getStaticColors: true,
@@ -213,7 +221,8 @@ final class RadioButtonUIViewModelTests: XCTestCase {
 
     // MARK: - Action
 
-    func test_toggleIfPossible() {
+    @Test("Toggle if possible")
+    func toggleIfPossible() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -225,18 +234,18 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         let toggled = viewModel.toggleIfPossible()
 
         // THEN
-        XCTAssertTrue(toggled)
+        #expect(toggled)
 
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticColors: true
         )
 
-        RadioButtonGetColorsUseCaseableMockTest.XCTAssert(
+        RadioButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -245,7 +254,7 @@ final class RadioButtonUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        RadioButtonGetShowSelectedDotUseCaseableMockTest.XCTAssert(
+        RadioButtonGetShowSelectedDotUseCaseableMockTest.expect(
             stub.getShowSelectedDotUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsSelected: true,
@@ -263,12 +272,12 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         let toggled2 = viewModel.toggleIfPossible()
 
         // THEN
-        XCTAssertFalse(toggled2)
+        #expect(!toggled2)
 
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDynamicColors: true,
             getStaticColors: true,
@@ -277,7 +286,8 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         // ***
     }
 
-    func test_selectedValueChanged() {
+    @Test("Selected value changed")
+    func selectedValueChanged() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -289,16 +299,16 @@ final class RadioButtonUIViewModelTests: XCTestCase {
         viewModel.selectedValueChanged(oldValue: true)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticColors: true
         )
 
-        RadioButtonGetColorsUseCaseableMockTest.XCTAssert(
+        RadioButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -307,7 +317,7 @@ final class RadioButtonUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicColors
         )
 
-        RadioButtonGetShowSelectedDotUseCaseableMockTest.XCTAssert(
+        RadioButtonGetShowSelectedDotUseCaseableMockTest.expect(
             stub.getShowSelectedDotUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsSelected: false,
@@ -370,51 +380,56 @@ private extension RadioButtonUIViewModel {
     }
 }
 
-// MARK: - XCT
+// MARK: - Expectations
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getDynamicColors getDynamicColorsNotCalled: Bool = false,
     getStaticColors getStaticColorsNotCalled: Bool = false,
-    getShowSelectedDot getShowSelectedDotNotCalled: Bool = false
+    getShowSelectedDot getShowSelectedDotNotCalled: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    RadioButtonGetColorsUseCaseableMockTest.XCTCalled(
+    RadioButtonGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeDynamicWithThemeAndIntentAndIsOnCalled: !getDynamicColorsNotCalled
+        executeDynamicWithThemeAndIntentAndIsOnCalled: !getDynamicColorsNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    RadioButtonGetColorsUseCaseableMockTest.XCTCalled(
+    RadioButtonGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeStaticWithThemeAndIntentCalled: !getStaticColorsNotCalled
+        executeStaticWithThemeAndIntentCalled: !getStaticColorsNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    RadioButtonGetShowSelectedDotUseCaseableMockTest.XCTCalled(
+    RadioButtonGetShowSelectedDotUseCaseableMockTest.expectCalled(
         stub.getShowSelectedDotUseCaseMock,
-        executeWithIsSelectedCalled: !getShowSelectedDotNotCalled
+        executeWithIsSelectedCalled: !getShowSelectedDotNotCalled,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherDynamicColors: RadioButtonDynamicColors? = nil,
     otherStaticColors: RadioButtonStaticColors? = nil,
-    otherShowSelectedDot: Bool? = nil
+    otherShowSelectedDot: Bool? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.dynamicColors,
-        otherDynamicColors ?? stub.expectedDynamicColors,
-        "Wrong dynamicColors value"
+    #expect(
+        viewModel.dynamicColors == (otherDynamicColors ?? stub.expectedDynamicColors),
+        "Wrong dynamicColors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.staticColors,
-        otherStaticColors ?? stub.expectedStaticColors,
-        "Wrong staticColors value"
+    #expect(
+        viewModel.staticColors == (otherStaticColors ?? stub.expectedStaticColors),
+        "Wrong staticColors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.showSelectedDot,
-        otherShowSelectedDot ?? stub.expectedShowSelectedDot,
-        "Wrong showSelectedDot value"
+    #expect(
+        viewModel.showSelectedDot == (otherShowSelectedDot ?? stub.expectedShowSelectedDot),
+        "Wrong showSelectedDot value",
+        sourceLocation: sourceLocation
     )
 }

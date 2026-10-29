@@ -6,24 +6,25 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentStepper
 
-class StepperButtonTypeTests: XCTestCase {
+@Suite("Stepper Button Type Tests")
+struct StepperButtonTypeTests {
 
     // MARK: - Tests
 
-    func testAccessibilityIdentifierForDecrementCase() {
-        XCTAssertEqual(
-            StepperButtonType.decrement.accessibilityIdentifer,
-            StepperAccessibilityIdentifier.decrementButton
+    @Test("Accessibility identifier for decrement case")
+    func accessibilityIdentifierForDecrementCase() {
+        #expect(
+            StepperButtonType.decrement.accessibilityIdentifer == StepperAccessibilityIdentifier.decrementButton
         )
     }
 
-    func testAccessibilityIdentifierForIncrementCase() {
-        XCTAssertEqual(
-            StepperButtonType.increment.accessibilityIdentifer,
-            StepperAccessibilityIdentifier.incrementButton
+    @Test("Accessibility identifier for increment case")
+    func accessibilityIdentifierForIncrementCase() {
+        #expect(
+            StepperButtonType.increment.accessibilityIdentifer == StepperAccessibilityIdentifier.incrementButton
         )
     }
 }

@@ -6,8 +6,9 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import Combine
+import UIKit
 @testable import SparkComponentSwitch
 @_spi(SI_SPI) @testable import SparkComponentSwitchTesting
 @_spi(SI_SPI) import SparkCommon
@@ -15,30 +16,21 @@ import Combine
 @_spi(SI_SPI) import SparkThemingTesting
 import SparkTheming
 
-final class SwitchViewModelTests: XCTestCase {
-
-    // MARK: - Properties
-
-    private var subscriptions = Set<AnyCancellable>()
-
-    // MARK: - Setup
-
-    override func tearDown() {
-        super.tearDown()
-
-        // Clear publishers
-        self.subscriptions.removeAll()
-    }
+@MainActor
+@Suite("Switch ViewModel Tests")
+struct SwitchViewModelTests {
 
     // MARK: - Init Tests
 
-    func test_properties_on_init_when_frameworkType_is_UIKit() throws {
+    @Test("Properties on init when framework type is UIKit")
+    func propertiesOnInitWhenFrameworkTypeIsUIKit() throws {
         try self.testPropertiesOnInit(
             givenFrameworkType: .uiKit
         )
     }
 
-    func test_properties_on_init_when_frameworkType_is_SwiftUI() throws {
+    @Test("Properties on init when framework type is SwiftUI")
+    func propertiesOnInitWhenFrameworkTypeIsSwiftUI() throws {
         try self.testPropertiesOnInit(
             givenFrameworkType: .swiftUI
         )
@@ -66,30 +58,18 @@ final class SwitchViewModelTests: XCTestCase {
         )
         let viewModel = stub.viewModel
 
-        stub.subscribePublishers(on: &self.subscriptions)
+        var subscriptions = Set<AnyCancellable>()
+        stub.subscribePublishers(on: &subscriptions)
 
         // THEN
-        XCTAssertEqual(viewModel.isOn,
-                       isOnMock,
-                       "Wrong isOn value")
-        XCTAssertIdentical(viewModel.theme as? ThemeGeneratedMock,
-                           stub.themeMock,
-                           "Wrong theme value")
-        XCTAssertEqual(viewModel.alignment,
-                       alignmentMock,
-                       "Wrong alignment value")
-        XCTAssertEqual(viewModel.intent,
-                       intentMock,
-                       "Wrong intent value")
-        XCTAssertEqual(viewModel.isEnabled,
-                       isEnabledMock,
-                       "Wrong isEnabled value")
-        XCTAssertEqual(viewModel.images?.leftValue,
-                       stub.imagesMock,
-                       "Wrong images value")
+        #expect(viewModel.isOn == isOnMock, "Wrong isOn value")
+        #expect((viewModel.theme as? ThemeGeneratedMock) === stub.themeMock, "Wrong theme value")
+        #expect(viewModel.alignment == alignmentMock, "Wrong alignment value")
+        #expect(viewModel.intent == intentMock, "Wrong intent value")
+        #expect(viewModel.isEnabled == isEnabledMock, "Wrong isEnabled value")
+        #expect(viewModel.images?.leftValue == stub.imagesMock, "Wrong images value")
 
-        XCTAssertNil(viewModel.isOnChanged,
-                     "Wrong isOnChanged value")
+        #expect(viewModel.isOnChanged == nil, "Wrong isOnChanged value")
 
         // **
         // Published properties
@@ -150,13 +130,15 @@ final class SwitchViewModelTests: XCTestCase {
 
     // MARK: - Load Tests
 
-    func test_published_properties_on_load_when_frameworkType_is_UIKit() throws {
+    @Test("Published properties on load when framework type is UIKit")
+    func publishedPropertiesOnLoadWhenFrameworkTypeIsUIKit() throws {
         try self.testPublishedPropertiesOnLoad(
             givenFrameworkType: .uiKit
         )
     }
 
-    func test_published_properties_on_load_when_frameworkType_is_SwiftUI() throws {
+    @Test("Published properties on load when framework type is SwiftUI")
+    func publishedPropertiesOnLoadWhenFrameworkTypeIsSwiftUI() throws {
         try self.testPublishedPropertiesOnLoad(
             givenFrameworkType: .swiftUI
         )
@@ -184,7 +166,8 @@ final class SwitchViewModelTests: XCTestCase {
         )
         let viewModel = stub.viewModel
 
-        stub.subscribePublishers(on: &self.subscriptions)
+        var subscriptions = Set<AnyCancellable>()
+        stub.subscribePublishers(on: &subscriptions)
 
         // Reset all UseCase mock
         stub.resetMockedData()
@@ -259,7 +242,8 @@ final class SwitchViewModelTests: XCTestCase {
 
     // MARK: - Toggle Tests
 
-    func test_toggle_when_isToggleInteractionEnabled_is_true_should_update_switch() {
+    @Test("Toggle when isToggleInteractionEnabled is true should update switch")
+    func toggleWhenIsToggleInteractionEnabledIsTrueShouldUpdateSwitch() {
         // GIVEN
         let expectedIsOn = true
 
@@ -275,7 +259,8 @@ final class SwitchViewModelTests: XCTestCase {
         )
         let viewModel = stub.viewModel
 
-        stub.subscribePublishers(on: &self.subscriptions)
+        var subscriptions = Set<AnyCancellable>()
+        stub.subscribePublishers(on: &subscriptions)
 
         viewModel.load()
 
@@ -286,9 +271,7 @@ final class SwitchViewModelTests: XCTestCase {
         viewModel.toggle()
 
         // THEN
-        XCTAssertEqual(viewModel.isOn,
-                       expectedIsOn,
-                       "Wrong isOn value")
+        #expect(viewModel.isOn == expectedIsOn, "Wrong isOn value")
 
         // **
         // Published properties
@@ -340,7 +323,8 @@ final class SwitchViewModelTests: XCTestCase {
         // **
     }
 
-    func test_toggle_when_isToggleInteractionEnabled_is_false_should_do_nothing() {
+    @Test("Toggle when isToggleInteractionEnabled is false should do nothing")
+    func toggleWhenIsToggleInteractionEnabledIsFalseShouldDoNothing() {
         // GIVEN
         let isOnMock = false
         let alignmentMock: SwitchAlignment = .right
@@ -357,7 +341,8 @@ final class SwitchViewModelTests: XCTestCase {
         )
         let viewModel = stub.viewModel
 
-        stub.subscribePublishers(on: &self.subscriptions)
+        var subscriptions = Set<AnyCancellable>()
+        stub.subscribePublishers(on: &subscriptions)
 
         viewModel.load()
 
@@ -368,9 +353,7 @@ final class SwitchViewModelTests: XCTestCase {
         viewModel.toggle()
 
         // THEN
-        XCTAssertEqual(viewModel.isOn,
-                       isOnMock,
-                       "Wrong isOn value")
+        #expect(viewModel.isOn == isOnMock, "Wrong isOn value")
 
         // **
         // Published properties
@@ -409,13 +392,15 @@ final class SwitchViewModelTests: XCTestCase {
 
     // MARK: - Setter Tests
 
-    func test_set_isOn_with_different_new_value() {
+    @Test("Set isOn with different new value")
+    func setIsOnWithDifferentNewValue() {
         self.testSetIsOn(
             givenIsDifferentNewValue: true
         )
     }
 
-    func test_set_isOn_with_same_new_value() {
+    @Test("Set isOn with same new value")
+    func setIsOnWithSameNewValue() {
         self.testSetIsOn(
             givenIsDifferentNewValue: false
         )
@@ -434,7 +419,8 @@ final class SwitchViewModelTests: XCTestCase {
         )
         let viewModel = stub.viewModel
 
-        stub.subscribePublishers(on: &self.subscriptions)
+        var subscriptions = Set<AnyCancellable>()
+        stub.subscribePublishers(on: &subscriptions)
 
         viewModel.load() // Needed to get colors from usecase one time
 
@@ -445,9 +431,7 @@ final class SwitchViewModelTests: XCTestCase {
         viewModel.set(isOn: newValue)
 
         // THEN
-        XCTAssertEqual(viewModel.isOn,
-                       newValue,
-                       "Wrong isOn value")
+        #expect(viewModel.isOn == newValue, "Wrong isOn value")
 
         // **
         // Published properties
@@ -491,7 +475,8 @@ final class SwitchViewModelTests: XCTestCase {
         // **
     }
 
-    func test_set_theme() {
+    @Test("Set theme")
+    func setTheme() {
         // GIVEN
         let newTheme = ThemeGeneratedMock.mocked()
 
@@ -509,7 +494,8 @@ final class SwitchViewModelTests: XCTestCase {
         )
         let viewModel = stub.viewModel
 
-        stub.subscribePublishers(on: &self.subscriptions)
+        var subscriptions = Set<AnyCancellable>()
+        stub.subscribePublishers(on: &subscriptions)
 
         viewModel.load() // Needed to get colors from usecase one time
 
@@ -520,9 +506,7 @@ final class SwitchViewModelTests: XCTestCase {
         viewModel.set(theme: newTheme)
 
         // THEN
-        XCTAssertIdentical(viewModel.theme as? ThemeGeneratedMock,
-                           newTheme,
-                           "Wrong theme value")
+        #expect((viewModel.theme as? ThemeGeneratedMock) === newTheme, "Wrong theme value")
 
         // **
         // Published properties
@@ -584,13 +568,15 @@ final class SwitchViewModelTests: XCTestCase {
         // **
     }
 
-    func test_set_alignment_with_different_new_value() {
+    @Test("Set alignment with different new value")
+    func setAlignmentWithDifferentNewValue() {
         self.testSetAlignment(
             givenIsDifferentNewValue: true
         )
     }
 
-    func test_set_alignment_with_same_new_value() {
+    @Test("Set alignment with same new value")
+    func setAlignmentWithSameNewValue() {
         self.testSetAlignment(
             givenIsDifferentNewValue: false
         )
@@ -608,7 +594,8 @@ final class SwitchViewModelTests: XCTestCase {
         )
         let viewModel = stub.viewModel
 
-        stub.subscribePublishers(on: &self.subscriptions)
+        var subscriptions = Set<AnyCancellable>()
+        stub.subscribePublishers(on: &subscriptions)
 
         viewModel.load() // Needed to get colors from usecase one time
 
@@ -619,9 +606,7 @@ final class SwitchViewModelTests: XCTestCase {
         viewModel.set(alignment: newValue)
 
         // THEN
-        XCTAssertEqual(viewModel.alignment,
-                       newValue,
-                       "Wrong alignment value")
+        #expect(viewModel.alignment == newValue, "Wrong alignment value")
 
         // **
         // Published properties
@@ -651,13 +636,15 @@ final class SwitchViewModelTests: XCTestCase {
         )
     }
 
-    func test_set_intent_with_different_new_value() {
+    @Test("Set intent with different new value")
+    func setIntentWithDifferentNewValue() {
         self.testSetIntent(
             givenIsDifferentNewValue: true
         )
     }
 
-    func test_set_intent_with_same_new_value() {
+    @Test("Set intent with same new value")
+    func setIntentWithSameNewValue() {
         self.testSetIntent(
             givenIsDifferentNewValue: false
         )
@@ -678,7 +665,8 @@ final class SwitchViewModelTests: XCTestCase {
         )
         let viewModel = stub.viewModel
 
-        stub.subscribePublishers(on: &self.subscriptions)
+        var subscriptions = Set<AnyCancellable>()
+        stub.subscribePublishers(on: &subscriptions)
 
         viewModel.load() // Needed to get colors from usecase one time
 
@@ -689,9 +677,7 @@ final class SwitchViewModelTests: XCTestCase {
         viewModel.set(intent: newValue)
 
         // THEN
-        XCTAssertEqual(viewModel.intent,
-                       newValue,
-                       "Wrong intent value")
+        #expect(viewModel.intent == newValue, "Wrong intent value")
 
         // **
         // Published properties
@@ -730,13 +716,15 @@ final class SwitchViewModelTests: XCTestCase {
         // **
     }
 
-    func test_set_isEnabled_with_different_new_value() {
+    @Test("Set isEnabled with different new value")
+    func setIsEnabledWithDifferentNewValue() {
         self.testSetIsEnabled(
             givenIsDifferentNewValue: true
         )
     }
 
-    func test_set_isEnabled_with_same_new_value() {
+    @Test("Set isEnabled with same new value")
+    func setIsEnabledWithSameNewValue() {
         self.testSetIsEnabled(
             givenIsDifferentNewValue: false
         )
@@ -759,7 +747,8 @@ final class SwitchViewModelTests: XCTestCase {
         )
         let viewModel = stub.viewModel
 
-        stub.subscribePublishers(on: &self.subscriptions)
+        var subscriptions = Set<AnyCancellable>()
+        stub.subscribePublishers(on: &subscriptions)
 
         viewModel.load() // Needed to get colors from usecase one time
 
@@ -770,9 +759,7 @@ final class SwitchViewModelTests: XCTestCase {
         viewModel.set(isEnabled: newValue)
 
         // THEN
-        XCTAssertEqual(viewModel.isEnabled,
-                       newValue,
-                       "Wrong isEnabled value")
+        #expect(viewModel.isEnabled == newValue, "Wrong isEnabled value")
 
         // **
         // Published properties
@@ -817,13 +804,15 @@ final class SwitchViewModelTests: XCTestCase {
         // **
     }
 
-    func test_set_images_with_different_new_value() {
+    @Test("Set images with different new value")
+    func setImagesWithDifferentNewValue() {
         self.testSetImages(
             givenIsDifferentNewValue: true
         )
     }
 
-    func test_set_images_with_same_new_value() {
+    @Test("Set images with same new value")
+    func setImagesWithSameNewValue() {
         self.testSetImages(
             givenIsDifferentNewValue: false
         )
@@ -843,7 +832,8 @@ final class SwitchViewModelTests: XCTestCase {
         )
         let viewModel = stub.viewModel
 
-        stub.subscribePublishers(on: &self.subscriptions)
+        var subscriptions = Set<AnyCancellable>()
+        stub.subscribePublishers(on: &subscriptions)
 
         viewModel.load() // Needed to get colors from usecase one time
 
@@ -855,12 +845,9 @@ final class SwitchViewModelTests: XCTestCase {
 
         // THEN
         if givenIsDifferentNewValue {
-            XCTAssertEqual(viewModel.images?.leftValue,
-                           newValue,
-                           "Wrong images value")
+            #expect(viewModel.images?.leftValue == newValue, "Wrong images value")
         } else {
-            XCTAssertNil(viewModel.images?.leftValue,
-                         "Wrong images value")
+            #expect(viewModel.images?.leftValue == nil, "Wrong images value")
         }
 
         // **
@@ -889,21 +876,24 @@ final class SwitchViewModelTests: XCTestCase {
         )
     }
 
-    func test_set_text_when_displayedTextViewModel_textChanged_return_true_and_new_value_is_NOT_nil() {
+    @Test("Set text when displayedTextViewModel textChanged return true and new value is NOT nil")
+    func setTextWhenDisplayedTextViewModelTextChangedReturnTrueAndNewValueIsNOTNil() {
         self.testSetText(
             newValueIsNil: false,
             givenIsDifferentNewValue: true
         )
     }
 
-    func test_set_text_when_displayedTextViewModel_textChanged_return_true_and_new_value_is_nil() {
+    @Test("Set text when displayedTextViewModel textChanged return true and new value is nil")
+    func setTextWhenDisplayedTextViewModelTextChangedReturnTrueAndNewValueIsNil() {
         self.testSetText(
             newValueIsNil: true,
             givenIsDifferentNewValue: true
         )
     }
 
-    func test_set_text_when_displayedTextViewModel_textChanged_return_false() {
+    @Test("Set text when displayedTextViewModel textChanged return false")
+    func setTextWhenDisplayedTextViewModelTextChangedReturnFalse() {
         self.testSetText(
             givenIsDifferentNewValue: false
         )
@@ -921,7 +911,8 @@ final class SwitchViewModelTests: XCTestCase {
         )
         let viewModel = stub.viewModel
 
-        stub.subscribePublishers(on: &self.subscriptions)
+        var subscriptions = Set<AnyCancellable>()
+        stub.subscribePublishers(on: &subscriptions)
 
         viewModel.load() // Needed to get colors from usecase one time
 
@@ -963,16 +954,8 @@ final class SwitchViewModelTests: XCTestCase {
 
         // **
         // DisplayedText ViewModel
-        XCTAssertEqual(
-            stub.displayedTextViewModelMock.textChangedWithTextCallsCount,
-            1,
-            "Wrong call number on textChanged on displayedTextViewModel"
-        )
-        XCTAssertEqual(
-            stub.displayedTextViewModelMock.textChangedWithTextReceivedText,
-            newValue,
-            "Wrong textChanged parameter on displayedTextViewModel"
-        )
+        #expect(stub.displayedTextViewModelMock.textChangedWithTextCallsCount == 1, "Wrong call number on textChanged on displayedTextViewModel")
+        #expect(stub.displayedTextViewModelMock.textChangedWithTextReceivedText == newValue, "Wrong textChanged parameter on displayedTextViewModel")
         // **
 
         // Use Cases
@@ -982,13 +965,15 @@ final class SwitchViewModelTests: XCTestCase {
         )
     }
 
-    func test_set_attributedText_when_displayedTextViewModel_attributedTextChanged_return_true() {
+    @Test("Set attributedText when displayedTextViewModel attributedTextChanged return true")
+    func setAttributedTextWhenDisplayedTextViewModelAttributedTextChangedReturnTrue() {
         self.testSetAttributedText(
             givenIsDifferentNewValue: true
         )
     }
 
-    func test_set_attributedText_when_displayedTextViewModel_attributedTextChanged_return_false() {
+    @Test("Set attributedText when displayedTextViewModel attributedTextChanged return false")
+    func setAttributedTextWhenDisplayedTextViewModelAttributedTextChangedReturnFalse() {
         self.testSetAttributedText(
             givenIsDifferentNewValue: false
         )
@@ -1005,7 +990,8 @@ final class SwitchViewModelTests: XCTestCase {
         )
         let viewModel = stub.viewModel
 
-        stub.subscribePublishers(on: &self.subscriptions)
+        var subscriptions = Set<AnyCancellable>()
+        stub.subscribePublishers(on: &subscriptions)
 
         viewModel.load() // Needed to get colors from usecase one time
 
@@ -1040,16 +1026,8 @@ final class SwitchViewModelTests: XCTestCase {
 
         // **
         // DisplayedText ViewModel
-        XCTAssertEqual(
-            stub.displayedTextViewModelMock.attributedTextChangedWithAttributedTextCallsCount,
-            1,
-            "Wrong call number on attributedText on displayedTextViewModel"
-        )
-        XCTAssertEqual(
-            stub.displayedTextViewModelMock.attributedTextChangedWithAttributedTextReceivedAttributedText?.leftValue,
-            newValue,
-            "Wrong attributedText parameter on displayedTextViewModel"
-        )
+        #expect(stub.displayedTextViewModelMock.attributedTextChangedWithAttributedTextCallsCount == 1, "Wrong call number on attributedText on displayedTextViewModel")
+        #expect(stub.displayedTextViewModelMock.attributedTextChangedWithAttributedTextReceivedAttributedText?.leftValue == newValue, "Wrong attributedText parameter on displayedTextViewModel")
         // **
     }
 }
@@ -1064,21 +1042,13 @@ private extension SwitchViewModelTests {
         givenTheme: (any Theme)? = nil,
         givenIntent: SwitchIntent? = nil
     ) {
-        XCTAssertEqual(stub.getColorsUseCaseMock.executeWithIntentAndColorsAndDimsCallsCount,
-                       numberOfCalls,
-                       "Wrong call number on execute on getColorsUseCase")
+        #expect(stub.getColorsUseCaseMock.executeWithIntentAndColorsAndDimsCallsCount == numberOfCalls, "Wrong call number on execute on getColorsUseCase")
 
         if numberOfCalls > 0, let givenTheme, let givenIntent {
             let getColorsUseCaseArgs = stub.getColorsUseCaseMock.executeWithIntentAndColorsAndDimsReceivedArguments
-            XCTAssertEqual(getColorsUseCaseArgs?.intent,
-                           givenIntent,
-                           "Wrong intent parameter on execute on getColorsUseCase")
-            XCTAssertIdentical(try XCTUnwrap(getColorsUseCaseArgs?.colors as? ColorsGeneratedMock),
-                               givenTheme.colors as? ColorsGeneratedMock,
-                               "Wrong colors parameter on execute on getColorsUseCase")
-            XCTAssertIdentical(try XCTUnwrap(getColorsUseCaseArgs?.dims as? DimsGeneratedMock),
-                               givenTheme.dims as? DimsGeneratedMock,
-                               "Wrong dims parameter on execute on getColorsUseCase")
+            #expect(getColorsUseCaseArgs?.intent == givenIntent, "Wrong intent parameter on execute on getColorsUseCase")
+            #expect((getColorsUseCaseArgs?.colors as? ColorsGeneratedMock) === (givenTheme.colors as? ColorsGeneratedMock), "Wrong colors parameter on execute on getColorsUseCase")
+            #expect((getColorsUseCaseArgs?.dims as? DimsGeneratedMock) === (givenTheme.dims as? DimsGeneratedMock), "Wrong dims parameter on execute on getColorsUseCase")
         }
     }
 
@@ -1088,23 +1058,16 @@ private extension SwitchViewModelTests {
         givenIsOn: Bool? = nil,
         givenImages: SwitchUIImages? = nil
     ) {
-        XCTAssertEqual(stub.getImagesStateUseCaseMock.executeWithIsOnAndImagesCallsCount,
-                       numberOfCalls,
-                       "Wrong call number on execute on getImageUseCase")
+        #expect(stub.getImagesStateUseCaseMock.executeWithIsOnAndImagesCallsCount == numberOfCalls, "Wrong call number on execute on getImageUseCase")
 
         if numberOfCalls > 0, let givenIsOn {
             let getImageUseCaseArgs = stub.getImagesStateUseCaseMock.executeWithIsOnAndImagesReceivedArguments
-            XCTAssertEqual(getImageUseCaseArgs?.isOn,
-                           givenIsOn,
-                           "Wrong isOn parameter on execute on getImageUseCase")
+            #expect(getImageUseCaseArgs?.isOn == givenIsOn, "Wrong isOn parameter on execute on getImageUseCase")
 
             if let givenImages {
-                XCTAssertEqual(getImageUseCaseArgs?.images.leftValue,
-                               givenImages,
-                               "Wrong images parameter on execute on getImageUseCase")
+                #expect(getImageUseCaseArgs?.images.leftValue == givenImages, "Wrong images parameter on execute on getImageUseCase")
             } else {
-                XCTAssertNil(getImageUseCaseArgs?.images,
-                             "images parameter should be nil on execute on getImageUseCase")
+                #expect(getImageUseCaseArgs?.images == nil, "images parameter should be nil on execute on getImageUseCase")
             }
         }
     }
@@ -1119,32 +1082,26 @@ private extension SwitchViewModelTests {
             stub.colorsMock.toggleDotForegroundColors
         ]
 
-        XCTAssertEqual(stub.getToggleColorUseCaseMock.executeWithIsOnAndStatusAndStateColorCallsCount,
-                       numberOfCalls,
-                       "Wrong call number on execute on getToggleColorUseCase")
+        #expect(stub.getToggleColorUseCaseMock.executeWithIsOnAndStatusAndStateColorCallsCount == numberOfCalls, "Wrong call number on execute on getToggleColorUseCase")
 
         if numberOfCalls > 0, let givenIsOn {
             let getToggleColorUseCaseInvocations = stub.getToggleColorUseCaseMock.executeWithIsOnAndStatusAndStateColorReceivedInvocations
 
             guard getToggleColorUseCaseInvocations.count == numberOfCalls else {
-                XCTFail("Wrong invocation number on execute on getToggleColorUseCase")
+                Issue.record("Wrong invocation number on execute on getToggleColorUseCase")
                 return
             }
 
             guard givenStatusAndStateColors.count == 2 else {
-                XCTFail("Wrong number of item into givenStatusAndStateColors")
+                Issue.record("Wrong number of item into givenStatusAndStateColors")
                 return
             }
 
             for (index, args) in getToggleColorUseCaseInvocations.enumerated() {
                 let givenStatusAndStateColorsIndex = (index % 2 == 0) ? 0 : 1
 
-                XCTAssertEqual(args.isOn,
-                               givenIsOn,
-                               "Wrong isOn parameter on \(index) execute on getToggleColorUseCase")
-                XCTAssertEqual(try XCTUnwrap(args.statusAndStateColor),
-                               givenStatusAndStateColors[givenStatusAndStateColorsIndex],
-                               "Wrong statusAndStateColor parameter on \(index) execute on getToggleColorUseCase")
+                #expect(args.isOn == givenIsOn, "Wrong isOn parameter on \(index) execute on getToggleColorUseCase")
+                #expect(args.statusAndStateColor == givenStatusAndStateColors[givenStatusAndStateColorsIndex], "Wrong statusAndStateColor parameter on \(index) execute on getToggleColorUseCase")
             }
         }
     }
@@ -1155,21 +1112,13 @@ private extension SwitchViewModelTests {
         givenTheme: (any Theme)? = nil,
         givenAlignment: SwitchAlignment? = nil
     ) {
-        XCTAssertEqual(stub.getPositionUseCaseMock.executeWithAlignmentAndSpacingAndContainsTextCallsCount,
-                       numberOfCalls,
-                       "Wrong call number on execute on getPositionUseCase")
+        #expect(stub.getPositionUseCaseMock.executeWithAlignmentAndSpacingAndContainsTextCallsCount == numberOfCalls, "Wrong call number on execute on getPositionUseCase")
 
         if numberOfCalls > 0, let givenTheme, let givenAlignment {
             let getPositionUseCaseArgs = stub.getPositionUseCaseMock.executeWithAlignmentAndSpacingAndContainsTextReceivedArguments
-            XCTAssertEqual(getPositionUseCaseArgs?.alignment,
-                           givenAlignment,
-                           "Wrong alignment parameter on execute on getPositionUseCase")
-            XCTAssertIdentical(try XCTUnwrap(getPositionUseCaseArgs?.spacing as? LayoutSpacingGeneratedMock),
-                               givenTheme.layout.spacing as? LayoutSpacingGeneratedMock,
-                               "Wrong spacing parameter on execute on getPositionUseCase")
-            XCTAssertEqual(getPositionUseCaseArgs?.containsText,
-                           stub.displayedTextViewModelMock.containsText,
-                           "Wrong containsText parameter on execute on getContentUseCase")
+            #expect(getPositionUseCaseArgs?.alignment == givenAlignment, "Wrong alignment parameter on execute on getPositionUseCase")
+            #expect((getPositionUseCaseArgs?.spacing as? LayoutSpacingGeneratedMock) === (givenTheme.layout.spacing as? LayoutSpacingGeneratedMock), "Wrong spacing parameter on execute on getPositionUseCase")
+            #expect(getPositionUseCaseArgs?.containsText == stub.displayedTextViewModelMock.containsText, "Wrong containsText parameter on execute on getContentUseCase")
         }
     }
 
@@ -1179,18 +1128,12 @@ private extension SwitchViewModelTests {
         givenTheme: (any Theme)? = nil,
         givenIsEnabled: Bool? = nil
     ) {
-        XCTAssertEqual(stub.getToggleStateUseCaseMock.executeWithIsEnabledAndDimsCallsCount,
-                       numberOfCalls,
-                       "Wrong call number on execute on getToggleStateUseCase")
+        #expect(stub.getToggleStateUseCaseMock.executeWithIsEnabledAndDimsCallsCount == numberOfCalls, "Wrong call number on execute on getToggleStateUseCase")
 
         if numberOfCalls > 0, let givenTheme, let givenIsEnabled {
             let getToggleStateUseCaseArgs = stub.getToggleStateUseCaseMock.executeWithIsEnabledAndDimsReceivedArguments
-            XCTAssertEqual(getToggleStateUseCaseArgs?.isEnabled,
-                           givenIsEnabled,
-                           "Wrong isEnabled parameter on execute on getToggleStateUseCase")
-            XCTAssertIdentical(try XCTUnwrap(getToggleStateUseCaseArgs?.dims as? DimsGeneratedMock),
-                               givenTheme.dims as? DimsGeneratedMock,
-                               "Wrong dims parameter on execute on getToggleStateUseCase")
+            #expect(getToggleStateUseCaseArgs?.isEnabled == givenIsEnabled, "Wrong isEnabled parameter on execute on getToggleStateUseCase")
+            #expect((getToggleStateUseCaseArgs?.dims as? DimsGeneratedMock) === (givenTheme.dims as? DimsGeneratedMock), "Wrong dims parameter on execute on getToggleStateUseCase")
         }
     }
 }
@@ -1215,57 +1158,57 @@ private extension SwitchViewModelTests {
         expectedDisplayedTextPublishedSinkCount: Int = 0,
         expectedTextFontTokenPublishedSinkCount: Int = 0
     ) {
-        XCTAssertPublisherSinkCountEqual(
+        expectPublisherSinkCountEqual(
             on: stub.isOnChangedPublisherMock,
             expectedIsOnChangedPublishedSinkCount
         )
 
-        XCTAssertPublisherSinkCountEqual(
+        expectPublisherSinkCountEqual(
             on: stub.isToggleInteractionEnabledPublisherMock,
             expectedIsToggleInteractionEnabledPublishedSinkCount
         )
-        XCTAssertPublisherSinkCountEqual(
+        expectPublisherSinkCountEqual(
             on: stub.toggleOpacityPublisherMock,
             expectedToggleOpacityPublishedSinkCount
         )
 
-        XCTAssertPublisherSinkCountEqual(
+        expectPublisherSinkCountEqual(
             on: stub.toggleBackgroundColorTokenPublisherMock,
             expectedToggleBackgroundColorTokenPublishedSinkCount
         )
-        XCTAssertPublisherSinkCountEqual(
+        expectPublisherSinkCountEqual(
             on: stub.toggleDotBackgroundColorTokenPublisherMock,
             expectedToggleDotBackgroundColorTokenPublishedSinkCount
         )
-        XCTAssertPublisherSinkCountEqual(
+        expectPublisherSinkCountEqual(
             on: stub.toggleDotForegroundColorTokenPublisherMock,
             expectedToggleDotForegroundColorTokenPublishedSinkCount
         )
-        XCTAssertPublisherSinkCountEqual(
+        expectPublisherSinkCountEqual(
             on: stub.textForegroundColorTokenPublisherMock,
             expectedTextForegroundColorTokenPublishedSinkCount
         )
 
-        XCTAssertPublisherSinkCountEqual(
+        expectPublisherSinkCountEqual(
             on: stub.horizontalSpacingPublisherMock,
             expectedHorizontalSpacingPublishedSinkCount
         )
-        XCTAssertPublisherSinkCountEqual(
+        expectPublisherSinkCountEqual(
             on: stub.showToggleLeftSpacePublisherMock,
             expectedShowToggleLeftSpacePublishedSinkCount
         )
 
-        XCTAssertPublisherSinkCountEqual(
+        expectPublisherSinkCountEqual(
             on: stub.toggleDotImagesStatePublisherMock,
             expectedToggleDotImagePublishedSinkCount
         )
 
-        XCTAssertPublisherSinkCountEqual(
+        expectPublisherSinkCountEqual(
             on: stub.displayedTextPublisherMock,
             expectedDisplayedTextPublishedSinkCount
         )
 
-        XCTAssertPublisherSinkCountEqual(
+        expectPublisherSinkCountEqual(
             on: stub.textFontTokenPublisherMock,
             expectedTextFontTokenPublishedSinkCount
         )
@@ -1276,12 +1219,12 @@ private extension SwitchViewModelTests {
         expectedValue: Bool? = true
     ) {
         if let expectedValue {
-            XCTAssertPublisherSinkValueEqual(
+            expectPublisherSinkValueEqual(
                 on: stub.isOnChangedPublisherMock,
                 expectedValue
             )
         } else {
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.isOnChangedPublisherMock
             )
         }
@@ -1292,19 +1235,19 @@ private extension SwitchViewModelTests {
         expectedContainsValue: Bool = true
     ) {
         if expectedContainsValue {
-            XCTAssertPublisherSinkValueEqual(
+            expectPublisherSinkValueEqual(
                 on: stub.isToggleOnLeftPublisherMock,
                 stub.positionMock.isToggleOnLeft
             )
-            XCTAssertPublisherSinkValueEqual(
+            expectPublisherSinkValueEqual(
                 on: stub.horizontalSpacingPublisherMock,
                 stub.positionMock.horizontalSpacing
             )
         } else {
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.isToggleOnLeftPublisherMock
             )
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.horizontalSpacingPublisherMock
             )
         }
@@ -1316,37 +1259,37 @@ private extension SwitchViewModelTests {
         expectedTextForegroundColorContainsValue: Bool = false
     ) {
         if expectedContainsValue {
-            XCTAssertPublisherSinkValueIdentical(
+            expectPublisherSinkValueIdentical(
                 on: stub.toggleBackgroundColorTokenPublisherMock,
                 stub.colorTokenMock
             )
-            XCTAssertPublisherSinkValueIdentical(
+            expectPublisherSinkValueIdentical(
                 on: stub.toggleDotBackgroundColorTokenPublisherMock,
                 stub.colorsMock.toggleDotBackgroundColor as? ColorTokenGeneratedMock
             )
-            XCTAssertPublisherSinkValueIdentical(
+            expectPublisherSinkValueIdentical(
                 on: stub.toggleDotForegroundColorTokenPublisherMock,
                 stub.colorTokenMock
             )
         } else {
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.toggleBackgroundColorTokenPublisherMock
             )
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.toggleDotBackgroundColorTokenPublisherMock
             )
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.toggleDotForegroundColorTokenPublisherMock
             )
         }
 
         if expectedContainsValue || expectedTextForegroundColorContainsValue {
-            XCTAssertPublisherSinkValueIdentical(
+            expectPublisherSinkValueIdentical(
                 on: stub.textForegroundColorTokenPublisherMock,
                 stub.colorsMock.textForegroundColor as? ColorTokenGeneratedMock
             )
         } else {
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.textForegroundColorTokenPublisherMock
             )
         }
@@ -1357,19 +1300,19 @@ private extension SwitchViewModelTests {
         expectedContainsValue: Bool = true
     ) {
         if expectedContainsValue {
-            XCTAssertPublisherSinkValueEqual(
+            expectPublisherSinkValueEqual(
                 on: stub.isToggleInteractionEnabledPublisherMock,
                 stub.toggleStateMock.interactionEnabled
             )
-            XCTAssertPublisherSinkValueEqual(
+            expectPublisherSinkValueEqual(
                 on: stub.toggleOpacityPublisherMock,
                 stub.toggleStateMock.opacity
             )
         } else {
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.isToggleInteractionEnabledPublisherMock
             )
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.toggleOpacityPublisherMock
             )
         }
@@ -1380,12 +1323,12 @@ private extension SwitchViewModelTests {
         expectedContainsValue: Bool = true
     ) {
         if expectedContainsValue {
-            XCTAssertPublisherSinkValueEqual(
+            expectPublisherSinkValueEqual(
                 on: stub.toggleDotImagesStatePublisherMock,
                 .mocked()
             )
         } else {
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.toggleDotImagesStatePublisherMock
             )
         }
@@ -1397,12 +1340,12 @@ private extension SwitchViewModelTests {
         expectedContainsValue: Bool = true
     ) {
         if expectedContainsValue {
-            XCTAssertPublisherSinkValueEqual(
+            expectPublisherSinkValueEqual(
                 on: stub.displayedTextPublisherMock,
                 .mocked()
             )
         } else {
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.displayedTextPublisherMock
             )
         }
@@ -1415,12 +1358,12 @@ private extension SwitchViewModelTests {
     ) {
         if expectedContainsValue {
             let themeMock = givenNewTheme ?? stub.themeMock
-            XCTAssertPublisherSinkValueIdentical(
+            expectPublisherSinkValueIdentical(
                 on: stub.textFontTokenPublisherMock,
                 themeMock.typography.body1 as? TypographyFontTokenGeneratedMock
             )
         } else {
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.textFontTokenPublisherMock
             )
         }
@@ -1431,12 +1374,12 @@ private extension SwitchViewModelTests {
         expectedValue: Bool? = nil
     ) {
         if let expectedValue {
-            XCTAssertPublisherSinkValueEqual(
+            expectPublisherSinkValueEqual(
                 on: stub.showToggleLeftSpacePublisherMock,
                 expectedValue
             )
         } else {
-            XCTAssertPublisherSinkValueNil(
+            expectPublisherSinkValueNil(
                 on: stub.showToggleLeftSpacePublisherMock
             )
         }
@@ -1646,4 +1589,38 @@ private final class Stub {
         self.displayedTextPublisherMock.reset()
         self.textFontTokenPublisherMock.reset()
     }
+}
+
+// MARK: - Publisher Expectations
+
+private func expectPublisherSinkCountEqual<T: Publisher>(
+    on mock: PublisherMock<T>,
+    _ expression: Int,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
+) {
+    #expect(mock.sinkCount == expression, "Wrong \(mock.name) sink count value", sourceLocation: sourceLocation)
+}
+
+private func expectPublisherSinkValueEqual<T: Publisher>(
+    on mock: PublisherMock<T>,
+    _ expression: T.Output,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
+) where T.Output: Equatable {
+    #expect(mock.sinkValue == expression, "Wrong \(mock.name) sink value", sourceLocation: sourceLocation)
+}
+
+private func expectPublisherSinkValueIdentical<T: Publisher, Z: AnyObject>(
+    on mock: PublisherMock<T>,
+    _ expression: Z?,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
+) {
+    #expect(expression != nil, "\(Z.self) expression should be set", sourceLocation: sourceLocation)
+    #expect((mock.sinkValue as? Z) === expression, "Wrong \(mock.name) sink value", sourceLocation: sourceLocation)
+}
+
+private func expectPublisherSinkValueNil<T: Publisher>(
+    on mock: PublisherMock<T>,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
+) {
+    #expect(mock.sinkValue == nil, "Wrong \(mock.name) sink value nil", sourceLocation: sourceLocation)
 }

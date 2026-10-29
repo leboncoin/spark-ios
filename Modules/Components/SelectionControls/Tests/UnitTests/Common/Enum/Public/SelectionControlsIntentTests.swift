@@ -6,18 +6,20 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class SelectionControlsIntentTests: XCTestCase {
+@Suite("Selection Controls Intent Tests")
+struct SelectionControlsIntentTests {
 
     // MARK: - Properties Tests
 
-    func test_default_shouldReturnSupport() {
+    @Test("Default should return support")
+    func defaultShouldReturnSupport() {
         // GIVEN / WHEN
         let result = SelectionControlsIntent.default
 
         // THEN
-        XCTAssertEqual(result, .support)
+        #expect(result == .support)
     }
 }

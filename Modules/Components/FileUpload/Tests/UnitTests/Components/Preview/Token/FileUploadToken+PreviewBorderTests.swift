@@ -26,7 +26,7 @@ struct FileUploadTokenPreviewBorderTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Radius should return medium radius")
     func radiusShouldReturnMediumRadius() {
         // GIVEN / WHEN
         let result = self.token.radius
@@ -35,7 +35,7 @@ struct FileUploadTokenPreviewBorderTests {
         #expect(result == self.theme.border.radius.medium)
     }
 
-    @Test
+    @Test("Image radius should return medium width")
     func imageRadiusShouldReturnMediumWidth() {
         // GIVEN / WHEN
         let result = self.token.imageRadius
@@ -44,7 +44,7 @@ struct FileUploadTokenPreviewBorderTests {
         #expect(result == self.theme.border.width.medium)
     }
 
-    @Test
+    @Test("Width when succeed should return small width")
     func widthWhenSucceedShouldReturnSmallWidth() {
         // GIVEN / WHEN
         let result = self.token.width(isSucceed: true)
@@ -53,7 +53,7 @@ struct FileUploadTokenPreviewBorderTests {
         #expect(result == self.theme.border.width.small)
     }
 
-    @Test
+    @Test("Width when failed should return medium width")
     func widthWhenFailedShouldReturnMediumWidth() {
         // GIVEN / WHEN
         let result = self.token.width(isSucceed: false)
@@ -64,7 +64,7 @@ struct FileUploadTokenPreviewBorderTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = FileUploadToken.Preview.Border(theme: self.theme)
@@ -74,7 +74,7 @@ struct FileUploadTokenPreviewBorderTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = FileUploadToken.Preview.Border(theme: self.theme)

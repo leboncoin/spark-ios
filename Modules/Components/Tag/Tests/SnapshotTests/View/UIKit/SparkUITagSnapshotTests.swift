@@ -26,7 +26,7 @@ struct SparkUITagSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: TagScenarioSnapshotTests.allCases)
+    @Test("Spark UITag snapshot", arguments: TagScenarioSnapshotTests.allCases)
     func test(scenario: TagScenarioSnapshotTests) async {
         let configurations = scenario.configuration(isSwiftUIComponent: false)
         for configuration in configurations {

@@ -7,22 +7,26 @@
 //
 
 @testable import SparkComponentProgressBar
-import XCTest
+import Foundation
+import Testing
 
-final class ProgressBarIndeterminateAnimatedDataTests: XCTestCase {
+@Suite("Progress Bar Indeterminate Animated Data Tests")
+struct ProgressBarIndeterminateAnimatedDataTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let animatedData = ProgressBarIndeterminateAnimatedData()
 
         // THEN
-        XCTAssertEqual(animatedData.leadingSpaceWidth, .zero)
-        XCTAssertEqual(animatedData.indicatorWidth, .zero)
+        #expect(animatedData.leadingSpaceWidth == .zero)
+        #expect(animatedData.indicatorWidth == .zero)
     }
 
-    func test_property_modification() {
+    @Test("Property modification")
+    func propertyModification() {
         // GIVEN
         var animatedData = ProgressBarIndeterminateAnimatedData()
 
@@ -31,11 +35,12 @@ final class ProgressBarIndeterminateAnimatedDataTests: XCTestCase {
         animatedData.indicatorWidth = 50.0
 
         // THEN
-        XCTAssertEqual(animatedData.leadingSpaceWidth, 100.0)
-        XCTAssertEqual(animatedData.indicatorWidth, 50.0)
+        #expect(animatedData.leadingSpaceWidth == 100.0)
+        #expect(animatedData.indicatorWidth == 50.0)
     }
 
-    func test_custom_initialization() {
+    @Test("Custom initialization")
+    func customInitialization() {
         // GIVEN / WHEN
         let animatedData = ProgressBarIndeterminateAnimatedData(
             leadingSpaceWidth: 75.5,
@@ -43,11 +48,12 @@ final class ProgressBarIndeterminateAnimatedDataTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(animatedData.leadingSpaceWidth, 75.5)
-        XCTAssertEqual(animatedData.indicatorWidth, 25.2)
+        #expect(animatedData.leadingSpaceWidth == 75.5)
+        #expect(animatedData.indicatorWidth == 25.2)
     }
 
-    func test_equatable_conformance_when_equal() {
+    @Test("Equatable conformance when equal")
+    func equatableConformanceWhenEqual() {
         // GIVEN
         let animatedData1 = ProgressBarIndeterminateAnimatedData(
             leadingSpaceWidth: 100.0,
@@ -59,10 +65,11 @@ final class ProgressBarIndeterminateAnimatedDataTests: XCTestCase {
         )
 
         // WHEN / THEN
-        XCTAssertEqual(animatedData1, animatedData2)
+        #expect(animatedData1 == animatedData2)
     }
 
-    func test_equatable_conformance_when_not_equal_leadingSpaceWidth() {
+    @Test("Equatable conformance when not equal leading space width")
+    func equatableConformanceWhenNotEqualLeadingSpaceWidth() {
         // GIVEN
         let animatedData1 = ProgressBarIndeterminateAnimatedData(
             leadingSpaceWidth: 100.0,
@@ -74,10 +81,11 @@ final class ProgressBarIndeterminateAnimatedDataTests: XCTestCase {
         )
 
         // WHEN / THEN
-        XCTAssertNotEqual(animatedData1, animatedData2)
+        #expect(animatedData1 != animatedData2)
     }
 
-    func test_equatable_conformance_when_not_equal_indicatorWidth() {
+    @Test("Equatable conformance when not equal indicator width")
+    func equatableConformanceWhenNotEqualIndicatorWidth() {
         // GIVEN
         let animatedData1 = ProgressBarIndeterminateAnimatedData(
             leadingSpaceWidth: 100.0,
@@ -89,6 +97,6 @@ final class ProgressBarIndeterminateAnimatedDataTests: XCTestCase {
         )
 
         // WHEN / THEN
-        XCTAssertNotEqual(animatedData1, animatedData2)
+        #expect(animatedData1 != animatedData2)
     }
 }

@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentBadge
 
-final class BadgeIntentTests: XCTestCase {
+@Suite("Badge Intent Tests")
+struct BadgeIntentTests {
 
     // MARK: - Tests
 
-    func test_default_intent_is_danger() {
-        XCTAssertEqual(BadgeIntent.default, .danger)
+    @Test("Default intent is danger")
+    func defaultIntentIsDanger() {
+        #expect(BadgeIntent.default == .danger)
     }
 }

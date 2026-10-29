@@ -26,42 +26,42 @@ struct EnvironmentThemeAvatarTokenTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Border should return avatar border")
     func borderShouldReturnAvatarBorder() {
         #expect(self.environmentTheme.border == self.theme.component.avatar.border)
     }
 
-    @Test
+    @Test("Colors should return avatar colors")
     func colorsShouldReturnAvatarColors() {
         #expect(self.environmentTheme.colors == self.theme.component.avatar.colors)
     }
 
-    @Test
+    @Test("Layout should return avatar layout")
     func layoutShouldReturnAvatarLayout() {
         #expect(self.environmentTheme.layout == self.theme.component.avatar.layout)
     }
 
-    @Test
+    @Test("Opacity should return avatar opacity")
     func opacityShouldReturnAvatarOpacity() {
         #expect(self.environmentTheme.opacity == self.theme.component.avatar.opacity)
     }
 
-    @Test
+    @Test("Typography should return avatar typography")
     func typographyShouldReturnAvatarTypography() {
         #expect(self.environmentTheme.typography == self.theme.component.avatar.typography)
     }
 
-    @Test
+    @Test("Size should return avatar size")
     func sizeShouldReturnAvatarSize() {
         #expect(self.environmentTheme.size == self.theme.component.avatar.size)
     }
 
-    @Test
+    @Test("Scale effect should return avatar scale effect")
     func scaleEffectShouldReturnAvatarScaleEffect() {
         #expect(self.environmentTheme.scaleEffect == self.theme.component.avatar.scaleEffect)
     }
 
-    @Test
+    @Test("Corner view offset should return avatar corner view offset")
     func cornerViewOffsetShouldReturnAvatarCornerViewOffset() {
         #expect(self.environmentTheme.cornerViewOffset == self.theme.component.avatar.cornerViewOffset)
     }

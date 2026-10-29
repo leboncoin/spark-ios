@@ -6,32 +6,37 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import UIKit
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class UIEdgeInsetsExtensionTests: XCTestCase {
+@MainActor
+@Suite("UI Edge Insets Extension Tests")
+struct UIEdgeInsetsExtensionTests {
 
     // MARK: - Tests
 
-    func test_init_all() {
+    @Test("Init all")
+    func initAll() {
         // GIVEN/WHEN
         let edgetInsets = UIEdgeInsets(all: 99)
 
         // THEN
-        XCTAssertEqual(edgetInsets.top, 99, "Wrong top value")
-        XCTAssertEqual(edgetInsets.left, 99, "Wrong left value")
-        XCTAssertEqual(edgetInsets.bottom, 99, "Wrong bottom value")
-        XCTAssertEqual(edgetInsets.right, 99, "Wrong right value")
+        #expect(edgetInsets.top == 99, "Wrong top value")
+        #expect(edgetInsets.left == 99, "Wrong left value")
+        #expect(edgetInsets.bottom == 99, "Wrong bottom value")
+        #expect(edgetInsets.right == 99, "Wrong right value")
     }
 
-    func test_init_vertical_and_horizontal() {
+    @Test("Init vertical and horizontal")
+    func initVerticalAndHorizontal() {
         // GIVEN/WHEN
         let edgetInsets = UIEdgeInsets(vertical: 13, horizontal: 44)
 
         // THEN
-        XCTAssertEqual(edgetInsets.top, 13, "Wrong top value")
-        XCTAssertEqual(edgetInsets.left, 44, "Wrong left value")
-        XCTAssertEqual(edgetInsets.bottom, 13, "Wrong bottom value")
-        XCTAssertEqual(edgetInsets.right, 44, "Wrong right value")
+        #expect(edgetInsets.top == 13, "Wrong top value")
+        #expect(edgetInsets.left == 44, "Wrong left value")
+        #expect(edgetInsets.bottom == 13, "Wrong bottom value")
+        #expect(edgetInsets.right == 44, "Wrong right value")
     }
 }

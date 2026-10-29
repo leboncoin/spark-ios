@@ -6,10 +6,11 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentStepper
 
-class StepperSetValueUseCaseTests: XCTestCase {
+@Suite("Stepper Set Value UseCase Tests")
+struct StepperSetValueUseCaseTests {
 
     // MARK: - Properties
 
@@ -17,7 +18,8 @@ class StepperSetValueUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testExecuteDecrement() {
+    @Test("Execute decrement")
+    func executeDecrement() {
         // GIVEN
         let type: StepperButtonType = .decrement
         let value = 5
@@ -28,10 +30,11 @@ class StepperSetValueUseCaseTests: XCTestCase {
         let result = self.useCase.execute(for: type, value: value, step: step, bounds: bounds)
 
         // THEN
-        XCTAssertEqual(result, 4)
+        #expect(result == 4)
     }
 
-    func testExecuteIncrement() {
+    @Test("Execute increment")
+    func executeIncrement() {
         // GIVEN
         let type: StepperButtonType = .increment
         let value = 5
@@ -42,10 +45,11 @@ class StepperSetValueUseCaseTests: XCTestCase {
         let result = self.useCase.execute(for: type, value: value, step: step, bounds: bounds)
 
         // THEN
-        XCTAssertEqual(result, 6)
+        #expect(result == 6)
     }
 
-    func testExecuteDecrementAtLowerBound() {
+    @Test("Execute decrement at lower bound")
+    func executeDecrementAtLowerBound() {
         // GIVEN
         let type: StepperButtonType = .decrement
         let value = 0
@@ -56,10 +60,11 @@ class StepperSetValueUseCaseTests: XCTestCase {
         let result = self.useCase.execute(for: type, value: value, step: step, bounds: bounds)
 
         // THEN
-        XCTAssertEqual(result, 0)
+        #expect(result == 0)
     }
 
-    func testExecuteIncrementAtUpperBound() {
+    @Test("Execute increment at upper bound")
+    func executeIncrementAtUpperBound() {
         // GIVEN
         let type: StepperButtonType = .increment
         let value = 10
@@ -70,10 +75,11 @@ class StepperSetValueUseCaseTests: XCTestCase {
         let result = self.useCase.execute(for: type, value: value, step: step, bounds: bounds)
 
         // THEN
-        XCTAssertEqual(result, 10)
+        #expect(result == 10)
     }
 
-    func testExecuteWithLargerStep() {
+    @Test("Execute with larger step")
+    func executeWithLargerStep() {
         // GIVEN
         let type: StepperButtonType = .increment
         let value = 5
@@ -84,6 +90,6 @@ class StepperSetValueUseCaseTests: XCTestCase {
         let result = self.useCase.execute(for: type, value: value, step: step, bounds: bounds)
 
         // THEN
-        XCTAssertEqual(result, 8)
+        #expect(result == 8)
     }
 }

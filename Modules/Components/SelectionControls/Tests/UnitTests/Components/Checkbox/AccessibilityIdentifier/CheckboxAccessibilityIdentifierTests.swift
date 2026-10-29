@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class CheckboxAccessibilityIdentifierTests: XCTestCase {
+@Suite("Checkbox Accessibility Identifier Tests")
+struct CheckboxAccessibilityIdentifierTests {
 
     // MARK: - Method Tests
 
-    func test_checkboxItem_withIntId_shouldReturnExpectedValue() {
+    @Test("Checkbox item with int id should return expected value")
+    func checkboxItemWithIntIdShouldReturnExpectedValue() {
         // GIVEN
         let givenId = 123
 
@@ -21,10 +23,11 @@ final class CheckboxAccessibilityIdentifierTests: XCTestCase {
         let result = CheckboxAccessibilityIdentifier.checkboxItem(id: givenId)
 
         // THEN
-        XCTAssertEqual(result, "spark-checkbox-123")
+        #expect(result == "spark-checkbox-123")
     }
 
-    func test_checkboxItem_withStringId_shouldReturnExpectedValue() {
+    @Test("Checkbox item with string id should return expected value")
+    func checkboxItemWithStringIdShouldReturnExpectedValue() {
         // GIVEN
         let givenId = "test-item"
 
@@ -32,10 +35,11 @@ final class CheckboxAccessibilityIdentifierTests: XCTestCase {
         let result = CheckboxAccessibilityIdentifier.checkboxItem(id: givenId)
 
         // THEN
-        XCTAssertEqual(result, "spark-checkbox-test-item")
+        #expect(result == "spark-checkbox-test-item")
     }
 
-    func test_checkboxItem_withComplexId_shouldReturnExpectedValue() {
+    @Test("Checkbox item with complex id should return expected value")
+    func checkboxItemWithComplexIdShouldReturnExpectedValue() {
         // GIVEN
         let givenId = "complex.id-with_symbols"
 
@@ -43,6 +47,6 @@ final class CheckboxAccessibilityIdentifierTests: XCTestCase {
         let result = CheckboxAccessibilityIdentifier.checkboxItem(id: givenId)
 
         // THEN
-        XCTAssertEqual(result, "spark-checkbox-complex.id-with_symbols")
+        #expect(result == "spark-checkbox-complex.id-with_symbols")
     }
 }

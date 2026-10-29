@@ -19,7 +19,7 @@ struct ViewDimOverlayExtensionSnapshotsTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test_with_dim() async throws {
+    @Test("With dim") func test_with_dim() async throws {
         await self.assertSnapshot(
             matching: SnapshotView(dim: 0.5),
             modes: ComponentSnapshotTestConstants.Modes.default,
@@ -28,7 +28,7 @@ struct ViewDimOverlayExtensionSnapshotsTests: SwiftUIComponentSnapshotTesting {
         )
     }
 
-    @Test func test_without_dim() async throws {
+    @Test("Without dim") func test_without_dim() async throws {
         await self.assertSnapshot(
             matching: SnapshotView(dim: 1),
             modes: ComponentSnapshotTestConstants.Modes.default,

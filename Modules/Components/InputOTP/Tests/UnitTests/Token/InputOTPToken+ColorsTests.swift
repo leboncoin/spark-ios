@@ -26,64 +26,64 @@ struct InputOTPTokenColorsTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Separator should return outline")
     func separatorShouldReturnOutline() {
         #expect(self.token.separator.equals(self.theme.colors.base.outline))
     }
 
-    @Test
+    @Test("Slot content when error should return on surface")
     func slotContentWhenErrorShouldReturnOnSurface() {
         let result = self.token.slotContent(value: nil, onError: true, isFocus: false)
         #expect(result.equals(self.theme.colors.base.onSurface))
     }
 
-    @Test
+    @Test("Slot content when focus should return on surface")
     func slotContentWhenFocusShouldReturnOnSurface() {
         let result = self.token.slotContent(value: nil, onError: false, isFocus: true)
         #expect(result.equals(self.theme.colors.base.onSurface))
     }
 
-    @Test
+    @Test("Slot content with value should return on surface")
     func slotContentWithValueShouldReturnOnSurface() {
         let result = self.token.slotContent(value: "1", onError: false, isFocus: false)
         #expect(result.equals(self.theme.colors.base.onSurface))
     }
 
-    @Test(arguments: [nil, ""] as [String?])
+    @Test("Slot content when empty should return dimmed on surface", arguments: [nil, ""] as [String?])
     func slotContentWhenEmptyShouldReturnDimmedOnSurface(value: String?) {
         let result = self.token.slotContent(value: value, onError: false, isFocus: false)
         #expect(result.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim3)))
     }
 
-    @Test
+    @Test("Slot border when error should return error")
     func slotBorderWhenErrorShouldReturnError() {
         #expect(self.token.slotBorder(onError: true).equals(self.theme.colors.feedback.error))
     }
 
-    @Test
+    @Test("Slot border when no error should return outline")
     func slotBorderWhenNoErrorShouldReturnOutline() {
         #expect(self.token.slotBorder(onError: false).equals(self.theme.colors.base.outline))
     }
 
-    @Test
+    @Test("Slot background when error should return error container")
     func slotBackgroundWhenErrorShouldReturnErrorContainer() {
         let result = self.token.slotBackground(value: "1", onError: true, isFocus: true)
         #expect(result.equals(self.theme.colors.feedback.errorContainer))
     }
 
-    @Test
+    @Test("Slot background when focus should return surface")
     func slotBackgroundWhenFocusShouldReturnSurface() {
         let result = self.token.slotBackground(value: "1", onError: false, isFocus: true)
         #expect(result.equals(self.theme.colors.base.surface))
     }
 
-    @Test
+    @Test("Slot background with value should return neutral container")
     func slotBackgroundWithValueShouldReturnNeutralContainer() {
         let result = self.token.slotBackground(value: "1", onError: false, isFocus: false)
         #expect(result.equals(self.theme.colors.feedback.neutralContainer))
     }
 
-    @Test(arguments: [nil, ""] as [String?])
+    @Test("Slot background when empty should return surface", arguments: [nil, ""] as [String?])
     func slotBackgroundWhenEmptyShouldReturnSurface(value: String?) {
         let result = self.token.slotBackground(value: value, onError: false, isFocus: false)
         #expect(result.equals(self.theme.colors.base.surface))
@@ -91,12 +91,12 @@ struct InputOTPTokenColorsTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         #expect(InputOTPToken.Colors(theme: self.theme) == InputOTPToken.Colors(theme: self.theme))
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         #expect(InputOTPToken.Colors(theme: self.theme) != InputOTPToken.Colors(theme: ThemeGeneratedMock.mocked2()))
     }

@@ -7,30 +7,31 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentBadge
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class BadgeGetSizesUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Badge Get Sizes UseCase Tests")
+struct BadgeGetSizesUseCaseTests {
 
     // MARK: - Properties
 
-    private var sut: BadgeGetSizesUseCase!
-    private var theme: ThemeGeneratedMock!
+    private let sut: BadgeGetSizesUseCase
+    private let theme: ThemeGeneratedMock
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = BadgeGetSizesUseCase()
         self.theme = ThemeGeneratedMock.mocked()
     }
 
     // MARK: - Small Size Tests
 
-    func test_execute_when_small_without_border_without_value() {
+    @Test("Execute when small without border without value")
+    func executeWhenSmallWithoutBorderWithoutValue() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             theme: self.theme,
@@ -40,13 +41,14 @@ final class BadgeGetSizesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.content, 8)
-        XCTAssertEqual(result.border, .zero)
-        XCTAssertEqual(result.horizontalSpacing, self.theme.layout.spacing.small)
-        XCTAssertEqual(result.attachHorizontalSpacing, self.theme.layout.spacing.small)
+        #expect(result.content == 8)
+        #expect(result.border == .zero)
+        #expect(result.horizontalSpacing == self.theme.layout.spacing.small)
+        #expect(result.attachHorizontalSpacing == self.theme.layout.spacing.small)
     }
 
-    func test_execute_when_small_with_border_without_value() {
+    @Test("Execute when small with border without value")
+    func executeWhenSmallWithBorderWithoutValue() {
         // GIVEN
         let expectedBorder = self.theme.border.width.medium
 
@@ -59,13 +61,14 @@ final class BadgeGetSizesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.content, 8 + expectedBorder * 2)
-        XCTAssertEqual(result.border, expectedBorder)
-        XCTAssertEqual(result.horizontalSpacing, self.theme.layout.spacing.small + expectedBorder)
-        XCTAssertEqual(result.attachHorizontalSpacing, self.theme.layout.spacing.small)
+        #expect(result.content == (8 + expectedBorder * 2))
+        #expect(result.border == expectedBorder)
+        #expect(result.horizontalSpacing == (self.theme.layout.spacing.small + expectedBorder))
+        #expect(result.attachHorizontalSpacing == self.theme.layout.spacing.small)
     }
 
-    func test_execute_when_small_with_border_with_value() {
+    @Test("Execute when small with border with value")
+    func executeWhenSmallWithBorderWithValue() {
         // GIVEN
         let expectedBorder = self.theme.border.width.medium
 
@@ -78,15 +81,16 @@ final class BadgeGetSizesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.content, 16 + expectedBorder * 2)
-        XCTAssertEqual(result.border, expectedBorder)
-        XCTAssertEqual(result.horizontalSpacing, self.theme.layout.spacing.small + expectedBorder)
-        XCTAssertEqual(result.attachHorizontalSpacing, self.theme.layout.spacing.small)
+        #expect(result.content == (16 + expectedBorder * 2))
+        #expect(result.border == expectedBorder)
+        #expect(result.horizontalSpacing == (self.theme.layout.spacing.small + expectedBorder))
+        #expect(result.attachHorizontalSpacing == self.theme.layout.spacing.small)
     }
 
     // MARK: - Small Size Tests
 
-    func test_execute_when_medium_without_border_without_value() {
+    @Test("Execute when medium without border without value")
+    func executeWhenMediumWithoutBorderWithoutValue() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             theme: self.theme,
@@ -96,13 +100,14 @@ final class BadgeGetSizesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.content, 16)
-        XCTAssertEqual(result.border, .zero)
-        XCTAssertEqual(result.horizontalSpacing, self.theme.layout.spacing.medium)
-        XCTAssertEqual(result.attachHorizontalSpacing, self.theme.layout.spacing.small)
+        #expect(result.content == 16)
+        #expect(result.border == .zero)
+        #expect(result.horizontalSpacing == self.theme.layout.spacing.medium)
+        #expect(result.attachHorizontalSpacing == self.theme.layout.spacing.small)
     }
 
-    func test_execute_when_medium_with_border_without_value() {
+    @Test("Execute when medium with border without value")
+    func executeWhenMediumWithBorderWithoutValue() {
         // GIVEN
         let expectedBorder = self.theme.border.width.medium
 
@@ -115,13 +120,14 @@ final class BadgeGetSizesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.content, 16 + expectedBorder * 2)
-        XCTAssertEqual(result.border, expectedBorder)
-        XCTAssertEqual(result.horizontalSpacing, self.theme.layout.spacing.medium + expectedBorder)
-        XCTAssertEqual(result.attachHorizontalSpacing, self.theme.layout.spacing.small)
+        #expect(result.content == (16 + expectedBorder * 2))
+        #expect(result.border == expectedBorder)
+        #expect(result.horizontalSpacing == (self.theme.layout.spacing.medium + expectedBorder))
+        #expect(result.attachHorizontalSpacing == self.theme.layout.spacing.small)
     }
 
-    func test_execute_when_medium_with_border_with_value() {
+    @Test("Execute when medium with border with value")
+    func executeWhenMediumWithBorderWithValue() {
         // GIVEN
         let expectedBorder = self.theme.border.width.medium
 
@@ -134,8 +140,8 @@ final class BadgeGetSizesUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.content, 24 + expectedBorder * 2)
-        XCTAssertEqual(result.border, expectedBorder)
-        XCTAssertEqual(result.horizontalSpacing, self.theme.layout.spacing.medium + expectedBorder)
+        #expect(result.content == (24 + expectedBorder * 2))
+        #expect(result.border == expectedBorder)
+        #expect(result.horizontalSpacing == (self.theme.layout.spacing.medium + expectedBorder))
     }
 }

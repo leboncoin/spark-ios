@@ -6,26 +6,28 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
 @testable import SparkComponentDivider
 
-final class DividerColorsTests: XCTestCase {
+@Suite("Divider Colors Tests")
+struct DividerColorsTests {
 
     // MARK: - Default Values Tests
 
-    func test_init_default_values() {
+    @Test("Init default values")
+    func initDefaultValues() {
         // GIVEN & WHEN
         let dividerColors = DividerColors()
 
         // THEN
-        XCTAssertTrue(
+        #expect(
             dividerColors.text is ColorTokenClear,
             "Default text should be ColorTokenClear"
         )
-        XCTAssertTrue(
+        #expect(
             dividerColors.separator is ColorTokenClear,
             "Default separator should be ColorTokenClear"
         )
@@ -33,20 +35,21 @@ final class DividerColorsTests: XCTestCase {
 
     // MARK: - Equatable Tests
 
-    func test_equatable_same_instances() {
+    @Test("Equatable same instances")
+    func equatableSameInstances() {
         // GIVEN
         let dividerColors1 = DividerColors()
         let dividerColors2 = DividerColors()
 
         // WHEN & THEN
-        XCTAssertEqual(
-            dividerColors1,
-            dividerColors2,
+        #expect(
+            dividerColors1 == dividerColors2,
             "Two DividerColors instances with same values should be equal"
         )
     }
 
-    func test_equatable_different_text_colors() {
+    @Test("Equatable different text colors")
+    func equatableDifferentTextColors() {
         // GIVEN
         let colors = ColorsGeneratedMock.mocked()
         var dividerColors1 = DividerColors()
@@ -57,14 +60,14 @@ final class DividerColorsTests: XCTestCase {
         dividerColors2.text = colors.accent.onAccentContainer
 
         // THEN
-        XCTAssertNotEqual(
-            dividerColors1,
-            dividerColors2,
+        #expect(
+            dividerColors1 != dividerColors2,
             "DividerColors with different text colors should not be equal"
         )
     }
 
-    func test_equatable_different_separator_colors() {
+    @Test("Equatable different separator colors")
+    func equatableDifferentSeparatorColors() {
         // GIVEN
         let colors = ColorsGeneratedMock.mocked()
         var dividerColors1 = DividerColors()
@@ -75,9 +78,8 @@ final class DividerColorsTests: XCTestCase {
         dividerColors2.separator = colors.base.outlineHigh
 
         // THEN
-        XCTAssertNotEqual(
-            dividerColors1,
-            dividerColors2,
+        #expect(
+            dividerColors1 != dividerColors2,
             "DividerColors with different separator colors should not be equal"
         )
     }

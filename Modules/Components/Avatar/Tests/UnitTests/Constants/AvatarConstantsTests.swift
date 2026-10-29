@@ -15,7 +15,7 @@ struct AvatarConstantsTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Animation duration should return expected value")
     func animationDurationShouldReturnExpectedValue() {
         // GIVEN / WHEN
         let result = AvatarConstants.animationDuration

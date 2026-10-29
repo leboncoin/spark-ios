@@ -20,7 +20,7 @@ struct SegmentedControlTokenScaleEffectTests {
 
     // MARK: - Tests
 
-    @Test(
+    @Test("Item should return expected scale effect",
         arguments: [
             (true, 1.05),
             (false, 1.0)
@@ -32,7 +32,7 @@ struct SegmentedControlTokenScaleEffectTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable should return true")
     func equatableShouldReturnTrue() {
         #expect(SegmentedControlToken.ScaleEffect() == SegmentedControlToken.ScaleEffect())
     }

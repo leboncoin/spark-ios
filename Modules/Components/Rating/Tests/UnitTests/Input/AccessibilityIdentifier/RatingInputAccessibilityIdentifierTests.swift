@@ -7,26 +7,29 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentRating
 
-final class RatingInputAccessibilityIdentifierTests: XCTestCase {
+@Suite("Rating Input Accessibility Identifier Tests")
+struct RatingInputAccessibilityIdentifierTests {
 
     // MARK: - Tests
 
-    func test_identifier_deprecated_property() {
+    @Test("Identifier deprecated property")
+    func identifierDeprecatedProperty() {
         // GIVEN / WHEN
         let identifier = RatingInputAccessibilityIdentifier.identifier
 
         // THEN
-        XCTAssertEqual(identifier, "spark-rating-input")
+        #expect(identifier == "spark-rating-input")
     }
 
-    func test_view_property() {
+    @Test("View property")
+    func viewProperty() {
         // GIVEN / WHEN
         let viewIdentifier = RatingInputAccessibilityIdentifier.view
 
         // THEN
-        XCTAssertEqual(viewIdentifier, "spark-rating-input")
+        #expect(viewIdentifier == "spark-rating-input")
     }
 }

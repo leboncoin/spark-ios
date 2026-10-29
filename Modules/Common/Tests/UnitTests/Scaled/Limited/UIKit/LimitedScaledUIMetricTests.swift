@@ -5,14 +5,18 @@
 //  Created on 23/04/2025.
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
-import XCTest
+import UIKit
+import Testing
 @testable import SparkCommon
 
-class LimitedScaledUIMetricTests: XCTestCase {
+@MainActor
+@Suite("Limited Scaled UI Metric Tests")
+struct LimitedScaledUIMetricTests {
 
     // MARK: - Tests Inits with Values
 
-    func test_init_with_baseValueMinMax_and_metrics() {
+    @Test("Init with base value min max and metrics")
+    func initWithBaseValueMinMaxAndMetrics() {
         // GIVEN
         let baseValue: CGFloat = 10
 
@@ -25,10 +29,11 @@ class LimitedScaledUIMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue)
+        #expect(metric.wrappedValue == baseValue)
     }
 
-    func test_init_with_baseValueMinMax_and_metrics_when_value_below_min() {
+    @Test("Init with base value min max and metrics when value below min")
+    func initWithBaseValueMinMaxAndMetricsWhenValueBelowMin() {
         // GIVEN
         let baseValue: CGFloat = 1
         let minValue: CGFloat = 8
@@ -42,10 +47,11 @@ class LimitedScaledUIMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, minValue)
+        #expect(metric.wrappedValue == minValue)
     }
 
-    func test_init_with_baseValueMinMax_and_metrics_when_value_above_max() {
+    @Test("Init with base value min max and metrics when value above max")
+    func initWithBaseValueMinMaxAndMetricsWhenValueAboveMax() {
         // GIVEN
         let baseValue: CGFloat = 20
         let maxValue: CGFloat = 11
@@ -59,10 +65,11 @@ class LimitedScaledUIMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, maxValue)
+        #expect(metric.wrappedValue == maxValue)
     }
 
-    func test_init_with_baseValueMinMax_and_textStyle() {
+    @Test("Init with base value min max and text style")
+    func initWithBaseValueMinMaxAndTextStyle() {
         // GIVEN
         let baseValue: CGFloat = 10
 
@@ -75,10 +82,11 @@ class LimitedScaledUIMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue)
+        #expect(metric.wrappedValue == baseValue)
     }
 
-    func test_init_with_baseValueMinMax_and_textStyle_when_value_below_min() {
+    @Test("Init with base value min max and text style when value below min")
+    func initWithBaseValueMinMaxAndTextStyleWhenValueBelowMin() {
         // GIVEN
         let baseValue: CGFloat = 1
         let minValue: CGFloat = 8
@@ -92,10 +100,11 @@ class LimitedScaledUIMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, minValue)
+        #expect(metric.wrappedValue == minValue)
     }
 
-    func test_init_with_baseValueMinMax_and_textStyle_when_value_above_max() {
+    @Test("Init with base value min max and text style when value above max")
+    func initWithBaseValueMinMaxAndTextStyleWhenValueAboveMax() {
         // GIVEN
         let baseValue: CGFloat = 20
         let maxValue: CGFloat = 11
@@ -109,12 +118,13 @@ class LimitedScaledUIMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, maxValue)
+        #expect(metric.wrappedValue == maxValue)
     }
 
     // MARK: - Tests Inits with Factors
 
-    func test_init_with_baseValue_and_minMaxFactors_and_metrics() {
+    @Test("Init with base value and min max factors and metrics")
+    func initWithBaseValueAndMinMaxFactorsAndMetrics() {
         // GIVEN
         let baseValue: CGFloat = 10
 
@@ -127,10 +137,11 @@ class LimitedScaledUIMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue)
+        #expect(metric.wrappedValue == baseValue)
     }
 
-    func test_init_with_baseValue_and_minMaxFactors_and_textStyle() {
+    @Test("Init with base value and min max factors and text style")
+    func initWithBaseValueAndMinMaxFactorsAndTextStyle() {
         // GIVEN
         let baseValue: CGFloat = 10
 
@@ -143,12 +154,13 @@ class LimitedScaledUIMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue)
+        #expect(metric.wrappedValue == baseValue)
     }
 
     // MARK: - Tests Inits with Default Factors
 
-    func test_init_with_baseValue_and_defaultFactors_and_metrics() {
+    @Test("Init with base value and default factors and metrics")
+    func initWithBaseValueAndDefaultFactorsAndMetrics() {
         // GIVEN
         let baseValue: CGFloat = 10
 
@@ -159,10 +171,11 @@ class LimitedScaledUIMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue)
+        #expect(metric.wrappedValue == baseValue)
     }
 
-    func test_init_with_baseValue_and_defaultFactors_and_textStyle() {
+    @Test("Init with base value and default factors and text style")
+    func initWithBaseValueAndDefaultFactorsAndTextStyle() {
         // GIVEN
         let baseValue: CGFloat = 10
 
@@ -173,12 +186,13 @@ class LimitedScaledUIMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue)
+        #expect(metric.wrappedValue == baseValue)
     }
 
     // MARK: - Test Wrapped Value
 
-    func test_wrappedValue_setter() {
+    @Test("Wrapped value setter")
+    func wrappedValueSetter() {
         // GIVEN
         var metric = LimitedScaledUIMetric(wrappedValue: 16.0)
 
@@ -187,12 +201,13 @@ class LimitedScaledUIMetricTests: XCTestCase {
         metric.wrappedValue = newBaseValue
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, newBaseValue)
+        #expect(metric.wrappedValue == newBaseValue)
     }
 
     // MARK: - Tests Scale Value
 
-    func test_scaledValue_within_range() {
+    @Test("Scaled value within range")
+    func scaledValueWithinRange() {
         // GIVEN
         let baseValue: CGFloat = 16.0
         let minValue: CGFloat = 12.0
@@ -210,11 +225,12 @@ class LimitedScaledUIMetricTests: XCTestCase {
         let scaledValue = metric.scaledValue(for: mockTraitCollection)
 
         // THEN
-        XCTAssertGreaterThanOrEqual(scaledValue, minValue)
-        XCTAssertLessThanOrEqual(scaledValue, maxValue)
+        #expect(scaledValue >= minValue)
+        #expect(scaledValue <= maxValue)
     }
 
-    func test_scaledValue_below_minimum() {
+    @Test("Scaled value below minimum")
+    func scaledValueBelowMinimum() {
         // GIVEN
         let baseValue: CGFloat = 16.0
         let minValue: CGFloat = 15.0
@@ -231,10 +247,11 @@ class LimitedScaledUIMetricTests: XCTestCase {
         let scaledValue = metric.scaledValue(for: mockTraitCollection)
 
         // THEN
-        XCTAssertEqual(scaledValue, minValue)
+        #expect(scaledValue == minValue)
     }
 
-    func test_scaledValue_above_maximum() {
+    @Test("Scaled value above maximum")
+    func scaledValueAboveMaximum() {
         // GIVEN
         let baseValue: CGFloat = 16.0
         let minValue: CGFloat = 12.0
@@ -252,12 +269,13 @@ class LimitedScaledUIMetricTests: XCTestCase {
         let scaledValue = metric.scaledValue(for: mockTraitCollection)
 
         // THEN
-        XCTAssertEqual(scaledValue, maxValue)
+        #expect(scaledValue == maxValue)
     }
 
     // MARK: - Test Update Range
 
-    func test_update_range_values_within_range() {
+    @Test("Update range values within range")
+    func updateRangeValuesWithinRange() {
         // GIVEN
         let baseValue: CGFloat = 16.0
         var metric = LimitedScaledUIMetric(
@@ -272,10 +290,11 @@ class LimitedScaledUIMetricTests: XCTestCase {
         metric.updateRangeValues(minValueFactor: newMinFactor, maxValueFactor: newMaxFactor)
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue)
+        #expect(metric.wrappedValue == baseValue)
     }
 
-    func test_update_range_values_below_minimum() {
+    @Test("Update range values below minimum")
+    func updateRangeValuesBelowMinimum() {
         // GIVEN
         let baseValue: CGFloat = 16.0
         var metric = LimitedScaledUIMetric(
@@ -291,10 +310,11 @@ class LimitedScaledUIMetricTests: XCTestCase {
         metric.updateRangeValues(minValueFactor: newMinFactor, maxValueFactor: 2.0)
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue * newMinFactor)
+        #expect(metric.wrappedValue == baseValue * newMinFactor)
     }
 
-    func test_update_range_values_above_maximum() {
+    @Test("Update range values above maximum")
+    func updateRangeValuesAboveMaximum() {
         // GIVEN
         let baseValue: CGFloat = 16.0
         var metric = LimitedScaledUIMetric(
@@ -310,6 +330,6 @@ class LimitedScaledUIMetricTests: XCTestCase {
         metric.updateRangeValues(minValueFactor: 0.5, maxValueFactor: newMaxFactor)
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue * newMaxFactor)
+        #expect(metric.wrappedValue == baseValue * newMaxFactor)
     }
 }

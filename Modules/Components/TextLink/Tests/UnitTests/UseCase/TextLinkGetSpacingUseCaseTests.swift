@@ -6,12 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 @testable import SparkComponentTextLink
 
-final class TextLinkGetSpacingUseCaseTests: XCTestCase {
+@Suite("Text Link Get Spacing UseCase Tests")
+struct TextLinkGetSpacingUseCaseTests {
 
     // MARK: - Properties
 
@@ -20,15 +21,17 @@ final class TextLinkGetSpacingUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_returns_medium_spacing() {
+    @Test("Execute returns medium spacing")
+    func executeReturnsMediumSpacing() {
         // GIVEN / WHEN
         let result = self.useCase.execute(theme: self.theme)
 
         // THEN
-        XCTAssertEqual(result, theme.layout.spacing.medium)
+        #expect(result == theme.layout.spacing.medium)
     }
 
-    func test_execute_with_different_theme() {
+    @Test("Execute with different theme")
+    func executeWithDifferentTheme() {
         // GIVEN
         let differentTheme = ThemeGeneratedMock.mocked()
 
@@ -36,6 +39,6 @@ final class TextLinkGetSpacingUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: differentTheme)
 
         // THEN
-        XCTAssertEqual(result, differentTheme.layout.spacing.medium)
+        #expect(result == differentTheme.layout.spacing.medium)
     }
 }

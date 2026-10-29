@@ -14,7 +14,7 @@ struct TagGetHeightUseCaseTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Execute with medium size")
     func test_execute_with_medium_size() {
         // GIVEN
         let useCase = TagGetHeightUseCase()
@@ -26,7 +26,7 @@ struct TagGetHeightUseCaseTests {
         #expect(height == 20)
     }
 
-    @Test
+    @Test("Execute with large size")
     func test_execute_with_large_size() {
         // GIVEN
         let useCase = TagGetHeightUseCase()

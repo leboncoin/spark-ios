@@ -13,7 +13,7 @@ import Testing
 
 struct SegmentedControlConstantsTests {
 
-    @Test
+    @Test("Animation duration has expected value")
     func animationDuration_hasExpectedValue() {
         // GIVEN / WHEN
         let animationDuration = SegmentedControlConstants.animationDuration

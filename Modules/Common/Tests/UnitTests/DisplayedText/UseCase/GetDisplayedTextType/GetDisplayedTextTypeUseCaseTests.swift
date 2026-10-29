@@ -6,14 +6,16 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class GetDisplayedTextTypeUseCaseTests: XCTestCase {
+@Suite("Get Displayed Text Type Use Case Tests")
+struct GetDisplayedTextTypeUseCaseTests {
 
     // MARK: - Tests Execute with text and attributedText
 
-    func test_execute_with_text_and_attributedText_parameters() {
+    @Test("Execute with text and attributed text parameters")
+    func executeWithTextAndAttributedTextParameters() {
         // GIVEN
         let useCase = GetDisplayedTextTypeUseCase()
 
@@ -24,10 +26,11 @@ final class GetDisplayedTextTypeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(displayedTextType, .attributedText)
+        #expect(displayedTextType == .attributedText)
     }
 
-    func test_execute_with_text_and_nil_attributedText_parameters() {
+    @Test("Execute with text and nil attributed text parameters")
+    func executeWithTextAndNilAttributedTextParameters() {
         // GIVEN
         let useCase = GetDisplayedTextTypeUseCase()
 
@@ -38,10 +41,11 @@ final class GetDisplayedTextTypeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(displayedTextType, .text)
+        #expect(displayedTextType == .text)
     }
 
-    func test_execute_with_nil_text_and_attributedText_parameters() {
+    @Test("Execute with nil text and attributed text parameters")
+    func executeWithNilTextAndAttributedTextParameters() {
         // GIVEN
         let useCase = GetDisplayedTextTypeUseCase()
 
@@ -52,10 +56,11 @@ final class GetDisplayedTextTypeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(displayedTextType, .attributedText)
+        #expect(displayedTextType == .attributedText)
     }
 
-    func test_execute_with_nil_text_and_nil_attributedText_parameters() {
+    @Test("Execute with nil text and nil attributed text parameters")
+    func executeWithNilTextAndNilAttributedTextParameters() {
         // GIVEN
         let useCase = GetDisplayedTextTypeUseCase()
 
@@ -66,12 +71,13 @@ final class GetDisplayedTextTypeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(displayedTextType, .none)
+        #expect(displayedTextType == .none)
     }
 
     // MARK: - Tests Execute with only text
 
-    func test_execute_with_text_parameter() {
+    @Test("Execute with text parameter")
+    func executeWithTextParameter() {
         // GIVEN
         let useCase = GetDisplayedTextTypeUseCase()
 
@@ -81,10 +87,11 @@ final class GetDisplayedTextTypeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(displayedTextType, .text)
+        #expect(displayedTextType == .text)
     }
 
-    func test_execute_with_nil_text_parameter() {
+    @Test("Execute with nil text parameter")
+    func executeWithNilTextParameter() {
         // GIVEN
         let useCase = GetDisplayedTextTypeUseCase()
 
@@ -94,12 +101,13 @@ final class GetDisplayedTextTypeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(displayedTextType, .none)
+        #expect(displayedTextType == .none)
     }
 
     // MARK: - Tests Execute with only attributed text
 
-    func test_execute_with_attributedText_parameter() {
+    @Test("Execute with attributed text parameter")
+    func executeWithAttributedTextParameter() {
         // GIVEN
         let useCase = GetDisplayedTextTypeUseCase()
 
@@ -109,10 +117,11 @@ final class GetDisplayedTextTypeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(displayedTextType, .attributedText)
+        #expect(displayedTextType == .attributedText)
     }
 
-    func test_execute_with_nil_attributedText_parameter() {
+    @Test("Execute with nil attributed text parameter")
+    func executeWithNilAttributedTextParameter() {
         // GIVEN
         let useCase = GetDisplayedTextTypeUseCase()
 
@@ -122,6 +131,6 @@ final class GetDisplayedTextTypeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(displayedTextType, .none)
+        #expect(displayedTextType == .none)
     }
 }

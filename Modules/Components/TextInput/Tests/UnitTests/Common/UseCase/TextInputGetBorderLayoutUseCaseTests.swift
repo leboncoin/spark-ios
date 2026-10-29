@@ -6,14 +6,15 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SparkTheming
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkCommonTesting
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class TextInputGetBorderLayoutUseCaseTests: XCTestCase {
+@Suite("Text Input Get Border Layout UseCase Tests")
+struct TextInputGetBorderLayoutUseCaseTests {
 
     // MARK: - Properties
 
@@ -21,7 +22,8 @@ final class TextInputGetBorderLayoutUseCaseTests: XCTestCase {
 
     // MARK: - Tests for execute with borderStyle
 
-    func test_execute_withNoneBorderStyle_shouldReturnCorrectLayout() {
+    @Test("Execute with none border style should return correct layout")
+    func executeWithNoneBorderStyleShouldReturnCorrectLayout() {
         // GIVEN
         let useCase = TextInputGetBorderLayoutUseCase()
 
@@ -36,11 +38,12 @@ final class TextInputGetBorderLayoutUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.radius, self.themeMock.border.radius.none)
-        XCTAssertEqual(result.width, self.themeMock.border.width.none)
+        #expect(result.radius == self.themeMock.border.radius.none)
+        #expect(result.width == self.themeMock.border.width.none)
     }
 
-    func test_execute_withRoundedRectBorderStyle_whenFocused_shouldReturnCorrectLayout() {
+    @Test("Execute with rounded rect border style when focused should return correct layout")
+    func executeWithRoundedRectBorderStyleWhenFocusedShouldReturnCorrectLayout() {
         // GIVEN
         let useCase = TextInputGetBorderLayoutUseCase()
 
@@ -55,11 +58,12 @@ final class TextInputGetBorderLayoutUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.radius, self.themeMock.border.radius.full)
-        XCTAssertEqual(result.width, self.themeMock.border.width.medium)
+        #expect(result.radius == self.themeMock.border.radius.full)
+        #expect(result.width == self.themeMock.border.width.medium)
     }
 
-    func test_execute_withRoundedRectBorderStyle_whenNotFocused_shouldReturnCorrectLayout() {
+    @Test("Execute with rounded rect border style when not focused should return correct layout")
+    func executeWithRoundedRectBorderStyleWhenNotFocusedShouldReturnCorrectLayout() {
         // GIVEN
         let useCase = TextInputGetBorderLayoutUseCase()
 
@@ -74,13 +78,14 @@ final class TextInputGetBorderLayoutUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.radius, self.themeMock.border.radius.full)
-        XCTAssertEqual(result.width, self.themeMock.border.width.small)
+        #expect(result.radius == self.themeMock.border.radius.full)
+        #expect(result.width == self.themeMock.border.width.small)
     }
 
     // MARK: - Tests for execute without borderStyle
 
-    func test_execute_withoutBorderStyle_whenFocused_shouldReturnCorrectLayout() {
+    @Test("Execute without border style when focused should return correct layout")
+    func executeWithoutBorderStyleWhenFocusedShouldReturnCorrectLayout() {
         // GIVEN
         let useCase = TextInputGetBorderLayoutUseCase()
 
@@ -93,11 +98,12 @@ final class TextInputGetBorderLayoutUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.radius, self.themeMock.border.radius.full)
-        XCTAssertEqual(result.width, self.themeMock.border.width.medium)
+        #expect(result.radius == self.themeMock.border.radius.full)
+        #expect(result.width == self.themeMock.border.width.medium)
     }
 
-    func test_execute_withoutBorderStyle_whenNotFocused_shouldReturnCorrectLayout() {
+    @Test("Execute without border style when not focused should return correct layout")
+    func executeWithoutBorderStyleWhenNotFocusedShouldReturnCorrectLayout() {
         // GIVEN
         let useCase = TextInputGetBorderLayoutUseCase()
 
@@ -110,11 +116,12 @@ final class TextInputGetBorderLayoutUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.radius, self.themeMock.border.radius.full)
-        XCTAssertEqual(result.width, self.themeMock.border.width.small)
+        #expect(result.radius == self.themeMock.border.radius.full)
+        #expect(result.width == self.themeMock.border.width.small)
     }
 
-    func test_execute_withNoneBorderStyle_shouldReturnNone() {
+    @Test("Execute with none border style should return none")
+    func executeWithNoneBorderStyleShouldReturnNone() {
         // GIVEN
         let useCase = TextInputGetBorderLayoutUseCase()
 
@@ -129,7 +136,7 @@ final class TextInputGetBorderLayoutUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.radius, self.themeMock.border.radius.none)
-        XCTAssertEqual(result.width, self.themeMock.border.width.none)
+        #expect(result.radius == self.themeMock.border.radius.none)
+        #expect(result.width == self.themeMock.border.width.none)
     }
 }

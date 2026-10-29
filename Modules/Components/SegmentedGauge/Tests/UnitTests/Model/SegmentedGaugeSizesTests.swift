@@ -6,27 +6,30 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import Foundation
 @testable import SparkComponentSegmentedGauge
 
-final class SegmentedGaugeSizesTests: XCTestCase {
+@Suite("SegmentedGauge Sizes Tests")
+struct SegmentedGaugeSizesTests {
 
     // MARK: - Default Values Tests
 
-    func test_defaultInitializer_setsZeroValues() {
+    @Test("Default initializer sets zero values")
+    func defaultInitializerSetsZeroValues() {
         // GIVEN / WHEN
         let sizes = SegmentedGaugeSizes()
 
         // THEN
-        XCTAssertEqual(sizes.segmentSize, .zero)
-        XCTAssertEqual(sizes.markerInnerSize, .zero)
-        XCTAssertEqual(sizes.markerOuterSize, .zero)
+        #expect(sizes.segmentSize == .zero)
+        #expect(sizes.markerInnerSize == .zero)
+        #expect(sizes.markerOuterSize == .zero)
     }
 
     // MARK: - Initialization Tests
 
-    func test_initWithValues_setsCorrectValues() {
+    @Test("Init with values sets correct values")
+    func initWithValuesSetsCorrectValues() {
         // GIVEN
         let segmentSize = CGSize(width: 24, height: 8)
         let markerInnerSize: CGFloat = 12.0
@@ -40,14 +43,15 @@ final class SegmentedGaugeSizesTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(sizes.segmentSize, segmentSize)
-        XCTAssertEqual(sizes.markerInnerSize, markerInnerSize)
-        XCTAssertEqual(sizes.markerOuterSize, markerOuterSize)
+        #expect(sizes.segmentSize == segmentSize)
+        #expect(sizes.markerInnerSize == markerInnerSize)
+        #expect(sizes.markerOuterSize == markerOuterSize)
     }
 
     // MARK: - Equatable Tests
 
-    func test_equality_whenValuesMatch() {
+    @Test("Equality when values match")
+    func equalityWhenValuesMatch() {
         // GIVEN
         let segmentSize = CGSize(width: 34, height: 12)
         let markerInnerSize: CGFloat = 8.0
@@ -65,10 +69,11 @@ final class SegmentedGaugeSizesTests: XCTestCase {
         )
 
         // WHEN / THEN
-        XCTAssertEqual(lhs, rhs)
+        #expect(lhs == rhs)
     }
 
-    func test_inequality_whenSegmentSizeDiffers() {
+    @Test("Inequality when segment size differs")
+    func inequalityWhenSegmentSizeDiffers() {
         // GIVEN
         let lhs = SegmentedGaugeSizes(
             segmentSize: CGSize(width: 24, height: 8),
@@ -82,10 +87,11 @@ final class SegmentedGaugeSizesTests: XCTestCase {
         )
 
         // WHEN / THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 
-    func test_inequality_whenMarkerInnerSizeDiffers() {
+    @Test("Inequality when marker inner size differs")
+    func inequalityWhenMarkerInnerSizeDiffers() {
         // GIVEN
         let segmentSize = CGSize(width: 24, height: 8)
         let lhs = SegmentedGaugeSizes(
@@ -100,10 +106,11 @@ final class SegmentedGaugeSizesTests: XCTestCase {
         )
 
         // WHEN / THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 
-    func test_inequality_whenMarkerOuterSizeWidthDiffers() {
+    @Test("Inequality when marker outer size width differs")
+    func inequalityWhenMarkerOuterSizeWidthDiffers() {
         // GIVEN
         let segmentSize = CGSize(width: 24, height: 8)
         let markerInnerSize: CGFloat = 8.0
@@ -119,10 +126,11 @@ final class SegmentedGaugeSizesTests: XCTestCase {
         )
 
         // WHEN / THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 
-    func test_inequality_whenAllValuesDiffer() {
+    @Test("Inequality when all values differ")
+    func inequalityWhenAllValuesDiffer() {
         // GIVEN
         let lhs = SegmentedGaugeSizes(
             segmentSize: CGSize(width: 24, height: 8),
@@ -136,6 +144,6 @@ final class SegmentedGaugeSizesTests: XCTestCase {
         )
 
         // WHEN / THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 }

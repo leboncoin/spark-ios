@@ -26,7 +26,7 @@ struct FileUploadTokenDropzoneBorderTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Width should return small width")
     func widthShouldReturnSmallWidth() {
         // GIVEN / WHEN
         let result = self.token.width
@@ -35,7 +35,7 @@ struct FileUploadTokenDropzoneBorderTests {
         #expect(result == self.theme.border.width.small)
     }
 
-    @Test
+    @Test("Radius should return large radius")
     func radiusShouldReturnLargeRadius() {
         // GIVEN / WHEN
         let result = self.token.radius
@@ -46,7 +46,7 @@ struct FileUploadTokenDropzoneBorderTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = FileUploadToken.Dropzone.Border(theme: self.theme)
@@ -56,7 +56,7 @@ struct FileUploadTokenDropzoneBorderTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = FileUploadToken.Dropzone.Border(theme: self.theme)

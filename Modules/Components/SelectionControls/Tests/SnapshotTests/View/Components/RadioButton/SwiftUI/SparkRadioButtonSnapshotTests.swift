@@ -27,7 +27,7 @@ struct SparkRadioButtonSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: RadioButtonScenarioSnapshotTests.allCases(forDocumentation: false))
+    @Test("Spark radio button snapshot", arguments: RadioButtonScenarioSnapshotTests.allCases(forDocumentation: false))
     func test(scenario: RadioButtonScenarioSnapshotTests) async throws {
         let forDocumentation = false
 

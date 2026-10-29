@@ -26,7 +26,7 @@ struct SparkUIBadgeSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: BadgeScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    @Test("Spark UIBadge snapshot", arguments: BadgeScenarioSnapshotTests.allCases.filter { $0 != .documentation })
     func test(scenario: BadgeScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
         for configuration in configurations {

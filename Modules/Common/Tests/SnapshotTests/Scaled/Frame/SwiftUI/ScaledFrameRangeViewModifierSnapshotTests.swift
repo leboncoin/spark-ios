@@ -19,7 +19,7 @@ struct ScaledFrameRangeViewModifierSnapshotTests: SwiftUIComponentSnapshotTestin
 
     // MARK: - Tests
 
-    @Test func test() async throws {
+    @Test("Scaled frame range view modifier snapshot") func test() async throws {
         await self.assertSnapshot(
             matching: SnapshotView(),
             modes: ComponentSnapshotTestConstants.Modes.default,

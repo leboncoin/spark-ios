@@ -6,7 +6,8 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import Foundation
 import SwiftUI
 import UIKit
 
@@ -15,19 +16,22 @@ import UIKit
 @_spi(SI_SPI) import SparkThemingTesting
 @_spi(SI_SPI) import SparkTheming
 
-final class ProgressBarIndeterminateViewModelTests: XCTestCase {
+@MainActor
+@Suite("ProgressBar Indeterminate ViewModel Tests")
+struct ProgressBarIndeterminateViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
         let viewModel = stub.viewModel
 
         // THEN
-        XCTAssertFalse(viewModel.isAnimated)
+        #expect(!viewModel.isAnimated)
 
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherAnimationData: ProgressBarIndeterminateAnimatedData(),
             otherIsNoAnimationType: true,
@@ -35,7 +39,7 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
             otherIndicatorOpacity: .zero
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getAnimationDataUseCase: true,
             getAnimationStatusUseCase: true,
@@ -47,7 +51,8 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCasesExceptData() {
+    @Test("Setup should call all use cases except data")
+    func setupShouldCallAllUseCasesExceptData() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -56,33 +61,33 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherAnimationData: ProgressBarIndeterminateAnimatedData()
         )
 
-        ProgressBarIndeterminateGetAnimationStatusUseCaseableMockTest.XCTAssert(
+        ProgressBarIndeterminateGetAnimationStatusUseCaseableMockTest.expect(
             stub.getAnimationStatusUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsAnimated: stub.givenIsAnimated,
             expectedReturnValue: stub.expectedAnimationStatus
         )
 
-        ProgressBarIndeterminateGetAnimationTypeUseCaseableMockTest.XCTAssert(
+        ProgressBarIndeterminateGetAnimationTypeUseCaseableMockTest.expect(
             stub.getAnimationTypeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsAnimated: stub.givenIsAnimated,
             expectedReturnValue: stub.expectedAnimationType
         )
 
-        ProgressBarIndeterminateGetIndicatorOpacityUseCaseableMockTest.XCTAssert(
+        ProgressBarIndeterminateGetIndicatorOpacityUseCaseableMockTest.expect(
             stub.getIndicatorOpacityUseCaseMock,
             expectedNumberOfCalls: 1,
             givenType: stub.expectedAnimationType,
             expectedReturnValue: stub.expectedIndicatorOpacity
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getAnimationDataUseCase: true,
             getAnimationTypeExecuteNextUseCase: true
@@ -91,7 +96,8 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_isAnimatedChanged_shouldUpdateAnimationState() {
+    @Test("Is animated changed should update animation state")
+    func isAnimatedChangedShouldUpdateAnimationState() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -105,40 +111,41 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
         viewModel.isAnimated = givenIsAnimated
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherAnimationData: ProgressBarIndeterminateAnimatedData()
         )
 
-        ProgressBarIndeterminateGetAnimationStatusUseCaseableMockTest.XCTAssert(
+        ProgressBarIndeterminateGetAnimationStatusUseCaseableMockTest.expect(
             stub.getAnimationStatusUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsAnimated: givenIsAnimated,
             expectedReturnValue: stub.expectedAnimationStatus
         )
 
-        ProgressBarIndeterminateGetAnimationTypeUseCaseableMockTest.XCTAssert(
+        ProgressBarIndeterminateGetAnimationTypeUseCaseableMockTest.expect(
             stub.getAnimationTypeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsAnimated: givenIsAnimated,
             expectedReturnValue: stub.expectedAnimationType
         )
 
-        ProgressBarIndeterminateGetIndicatorOpacityUseCaseableMockTest.XCTAssert(
+        ProgressBarIndeterminateGetIndicatorOpacityUseCaseableMockTest.expect(
             stub.getIndicatorOpacityUseCaseMock,
             expectedNumberOfCalls: 1,
             givenType: stub.expectedAnimationType,
             expectedReturnValue: stub.expectedIndicatorOpacity
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getAnimationDataUseCase: true,
             getAnimationTypeExecuteNextUseCase: true
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -147,7 +154,7 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
         viewModel.isAnimated = !stub.givenIsAnimated
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherAnimationData: ProgressBarIndeterminateAnimatedData(),
             otherIsNoAnimationType: true,
@@ -155,7 +162,7 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
             otherIndicatorOpacity: .zero
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getAnimationDataUseCase: true,
             getAnimationStatusUseCase: true,
@@ -165,7 +172,8 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -177,12 +185,12 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
         viewModel.isAnimated = stub.givenIsAnimated
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherAnimationData: ProgressBarIndeterminateAnimatedData()
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getAnimationDataUseCase: true,
             getAnimationStatusUseCase: true,
@@ -194,7 +202,8 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
 
     // MARK: - Animation Data
 
-    func test_updateAnimatedData_shouldCallUseCase() {
+    @Test("Update animated data should call use case")
+    func updateAnimatedDataShouldCallUseCase() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -207,9 +216,9 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
         viewModel.updateAnimatedData(from: trackWidth)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ProgressBarIndeterminateGetAnimationDataUseCaseableMockTest.XCTAssert(
+        ProgressBarIndeterminateGetAnimationDataUseCaseableMockTest.expect(
             stub.getAnimationDataUseCaseMock,
             expectedNumberOfCalls: 1,
             givenType: stub.expectedAnimationType,
@@ -217,7 +226,7 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedAnimationData
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getAnimationStatusUseCase: true,
             getAnimationTypeExecuteUseCase: true,
@@ -228,7 +237,8 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
 
     // MARK: - Animation Step
 
-    func test_animationStepIsDone_whenAnimated_shouldUseNextType() {
+    @Test("Animation step is done when animated should use next type")
+    func animationStepIsDoneWhenAnimatedShouldUseNextType() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -241,19 +251,19 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
         viewModel.animationStepIsDone()
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherAnimationData: ProgressBarIndeterminateAnimatedData()
         )
 
-        ProgressBarIndeterminateGetAnimationTypeUseCaseableMockTest.XCTAssert(
+        ProgressBarIndeterminateGetAnimationTypeUseCaseableMockTest.expect(
             stub.getAnimationTypeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenType: stub.expectedAnimationType,
             expectedReturnValue: stub.expectedAnimationType
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getAnimationDataUseCase: true,
             getAnimationStatusUseCase: true,
@@ -262,7 +272,8 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
         )
     }
 
-    func test_animationStepIsDone_whenNotAnimated_shouldRefreshStatus() {
+    @Test("Animation step is done when not animated should refresh status")
+    func animationStepIsDoneWhenNotAnimatedShouldRefreshStatus() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -274,19 +285,19 @@ final class ProgressBarIndeterminateViewModelTests: XCTestCase {
         viewModel.animationStepIsDone()
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherAnimationData: ProgressBarIndeterminateAnimatedData()
         )
 
-        ProgressBarIndeterminateGetAnimationStatusUseCaseableMockTest.XCTAssert(
+        ProgressBarIndeterminateGetAnimationStatusUseCaseableMockTest.expect(
             stub.getAnimationStatusUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsAnimated: stub.givenIsAnimated,
             expectedReturnValue: stub.expectedAnimationStatus
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getAnimationDataUseCase: true,
             getAnimationTypeExecuteUseCase: true,
@@ -386,66 +397,73 @@ private extension ProgressBarIndeterminateViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getAnimationDataUseCase: Bool = false,
     getAnimationStatusUseCase: Bool = false,
     getAnimationTypeExecuteUseCase: Bool = false,
     getAnimationTypeExecuteNextUseCase: Bool = false,
-    getIndicatorOpacityUseCase: Bool = false
+    getIndicatorOpacityUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    ProgressBarIndeterminateGetAnimationDataUseCaseableMockTest.XCTCalled(
+    ProgressBarIndeterminateGetAnimationDataUseCaseableMockTest.expectCalled(
         stub.getAnimationDataUseCaseMock,
-        executeWithTypeAndTrackWidthCalled: !getAnimationDataUseCase
+        executeWithTypeAndTrackWidthCalled: !getAnimationDataUseCase,
+        sourceLocation: sourceLocation
     )
 
-    ProgressBarIndeterminateGetAnimationStatusUseCaseableMockTest.XCTCalled(
+    ProgressBarIndeterminateGetAnimationStatusUseCaseableMockTest.expectCalled(
         stub.getAnimationStatusUseCaseMock,
-        executeWithIsAnimatedCalled: !getAnimationStatusUseCase
+        executeWithIsAnimatedCalled: !getAnimationStatusUseCase,
+        sourceLocation: sourceLocation
     )
 
-    ProgressBarIndeterminateGetAnimationTypeUseCaseableMockTest.XCTCalled(
+    ProgressBarIndeterminateGetAnimationTypeUseCaseableMockTest.expectCalled(
         stub.getAnimationTypeUseCaseMock,
-        executeWithIsAnimatedCalled: !getAnimationTypeExecuteUseCase
+        executeWithIsAnimatedCalled: !getAnimationTypeExecuteUseCase,
+        sourceLocation: sourceLocation
     )
-    ProgressBarIndeterminateGetAnimationTypeUseCaseableMockTest.XCTCalled(
+    ProgressBarIndeterminateGetAnimationTypeUseCaseableMockTest.expectCalled(
         stub.getAnimationTypeUseCaseMock,
-        executeNextWithTypeCalled: !getAnimationTypeExecuteNextUseCase
+        executeNextWithTypeCalled: !getAnimationTypeExecuteNextUseCase,
+        sourceLocation: sourceLocation
     )
 
-    ProgressBarIndeterminateGetIndicatorOpacityUseCaseableMockTest.XCTCalled(
+    ProgressBarIndeterminateGetIndicatorOpacityUseCaseableMockTest.expectCalled(
         stub.getIndicatorOpacityUseCaseMock,
-        executeWithTypeCalled: !getIndicatorOpacityUseCase
+        executeWithTypeCalled: !getIndicatorOpacityUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherAnimationData: ProgressBarIndeterminateAnimatedData? = nil,
     otherIsNoAnimationType: Bool? = nil,
     otherAnimationStatus: ProgressBarIndeterminateStatus? = nil,
-    otherIndicatorOpacity: Double? = nil
+    otherIndicatorOpacity: Double? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.animationData,
-        otherAnimationData ?? stub.expectedAnimationData,
-        "Wrong animationData value"
+    #expect(
+        viewModel.animationData == otherAnimationData ?? stub.expectedAnimationData,
+        "Wrong animationData value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.animationType,
-        otherIsNoAnimationType == true ? nil : stub.expectedAnimationType,
-        "Wrong animationType value"
+    #expect(
+        viewModel.animationType == (otherIsNoAnimationType == true ? nil : stub.expectedAnimationType),
+        "Wrong animationType value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.animationStatus,
-        otherAnimationStatus ?? stub.expectedAnimationStatus,
-        "Wrong animationStatus value"
+    #expect(
+        viewModel.animationStatus == otherAnimationStatus ?? stub.expectedAnimationStatus,
+        "Wrong animationStatus value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.indicatorOpacity,
-        otherIndicatorOpacity ?? stub.expectedIndicatorOpacity,
-        "Wrong indicatorOpacity value"
+    #expect(
+        viewModel.indicatorOpacity == otherIndicatorOpacity ?? stub.expectedIndicatorOpacity,
+        "Wrong indicatorOpacity value",
+        sourceLocation: sourceLocation
     )
 }

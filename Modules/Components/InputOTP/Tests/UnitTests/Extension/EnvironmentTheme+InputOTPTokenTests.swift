@@ -31,32 +31,32 @@ struct EnvironmentThemeInputOTPTokenTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Border should return input OTP border")
     func borderShouldReturnInputOTPBorder() {
         #expect(self.environmentTheme.border == self.token.border)
     }
 
-    @Test
+    @Test("Colors should return input OTP colors")
     func colorsShouldReturnInputOTPColors() {
         #expect(self.environmentTheme.colors == self.token.colors)
     }
 
-    @Test
+    @Test("Layout should return input OTP layout")
     func layoutShouldReturnInputOTPLayout() {
         #expect(self.environmentTheme.layout == self.token.layout)
     }
 
-    @Test
+    @Test("Opacity should return input OTP opacity")
     func opacityShouldReturnInputOTPOpacity() {
         #expect(self.environmentTheme.opacity == self.token.opacity)
     }
 
-    @Test
+    @Test("Typography should return input OTP typography")
     func typographyShouldReturnInputOTPTypography() {
         #expect(self.environmentTheme.typography == self.token.typography)
     }
 
-    @Test
+    @Test("Size should return input OTP size")
     func sizeShouldReturnInputOTPSize() {
         #expect(self.environmentTheme.size == self.token.size)
     }

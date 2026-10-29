@@ -18,27 +18,27 @@ import Testing
 struct ColorSnapshotTests {
     let colors = SparkTheme.shared.colors
 
-    @Test func test_base_colors() async throws {
+    @Test("Base colors") func test_base_colors() async throws {
         let mirror = Mirror(reflecting: self.colors.base)
         await self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    @Test func test_feedback_colors() async throws {
+    @Test("Feedback colors") func test_feedback_colors() async throws {
         let mirror = Mirror(reflecting: self.colors.feedback)
         await self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    @Test func test_main_colors() async throws {
+    @Test("Main colors") func test_main_colors() async throws {
         let mirror = Mirror(reflecting: self.colors.main)
         await self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    @Test func test_support_colors() async throws {
+    @Test("Support colors") func test_support_colors() async throws {
         let mirror = Mirror(reflecting: self.colors.support)
         await self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    @Test func test_state_colors() async throws {
+    @Test("State colors") func test_state_colors() async throws {
         let mirror = Mirror(reflecting: self.colors.states)
         await self.testAllColors(colors: self.getColors(for: mirror))
     }

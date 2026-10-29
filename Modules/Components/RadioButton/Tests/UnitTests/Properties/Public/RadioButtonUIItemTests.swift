@@ -7,32 +7,38 @@
 //
 
 @testable import SparkComponentRadioButton
-import XCTest
+import Foundation
+import Testing
 
-final class RadioButtonUIItemTests: XCTestCase {
+@Suite("Radio Button UI Item Tests")
+struct RadioButtonUIItemTests {
 
     // MARK: - Tests
-    func test_equal() {
+    @Test("Equal")
+    func equal() {
         let sut = RadioButtonUIItem(id: 1, label: "Label")
 
-        XCTAssertEqual(sut, RadioButtonUIItem(id: 1, label: "Label"))
+        #expect(sut == RadioButtonUIItem(id: 1, label: "Label"))
     }
 
-    func test_equal_attributed() {
+    @Test("Equal attributed")
+    func equalAttributed() {
         let sut = RadioButtonUIItem(id: 1, label: NSAttributedString(string: "Label"))
 
-        XCTAssertEqual(sut, RadioButtonUIItem(id: 1, label: "Label"))
+        #expect(sut == RadioButtonUIItem(id: 1, label: "Label"))
     }
 
-    func test_not_equal_different_ids() {
+    @Test("Not equal different ids")
+    func notEqualDifferentIds() {
         let sut = RadioButtonUIItem(id: 1, label: "Label")
 
-        XCTAssertNotEqual(sut, RadioButtonUIItem(id: 2, label: "Label"))
+        #expect(sut != RadioButtonUIItem(id: 2, label: "Label"))
     }
 
-    func test_not_equal_different_labels() {
+    @Test("Not equal different labels")
+    func notEqualDifferentLabels() {
         let sut = RadioButtonUIItem(id: 1, label: "Label")
 
-        XCTAssertNotEqual(sut, RadioButtonUIItem(id: 2, label: ""))
+        #expect(sut != RadioButtonUIItem(id: 2, label: ""))
     }
 }

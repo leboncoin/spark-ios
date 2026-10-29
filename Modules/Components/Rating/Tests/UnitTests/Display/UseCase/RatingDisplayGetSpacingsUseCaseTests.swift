@@ -7,12 +7,13 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentRating
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class RatingDisplayGetSpacingsUseCaseTests: XCTestCase {
+@Suite("Rating Display Get Spacings Use Case Tests")
+struct RatingDisplayGetSpacingsUseCaseTests {
 
     // MARK: - Properties
 
@@ -21,8 +22,7 @@ final class RatingDisplayGetSpacingsUseCaseTests: XCTestCase {
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
 
         self.theme = ThemeGeneratedMock.mocked()
         self.sut = RatingDisplayGetSpacingsUseCase()
@@ -30,7 +30,8 @@ final class RatingDisplayGetSpacingsUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute() {
+    @Test("Execute")
+    func execute() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme)
 
@@ -40,22 +41,24 @@ final class RatingDisplayGetSpacingsUseCaseTests: XCTestCase {
             stars: self.theme.layout.spacing.small
         )
 
-        XCTAssertEqual(result, expectedSpacings)
+        #expect(result == expectedSpacings)
     }
 
-    func test_execute_returns_correct_content_spacing() {
+    @Test("Execute returns correct content spacing")
+    func executeReturnsCorrectContentSpacing() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme)
 
         // THEN
-        XCTAssertEqual(result.content, self.theme.layout.spacing.medium)
+        #expect(result.content == self.theme.layout.spacing.medium)
     }
 
-    func test_execute_returns_correct_stars_spacing() {
+    @Test("Execute returns correct stars spacing")
+    func executeReturnsCorrectStarsSpacing() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme)
 
         // THEN
-        XCTAssertEqual(result.stars, self.theme.layout.spacing.small)
+        #expect(result.stars == self.theme.layout.spacing.small)
     }
 }

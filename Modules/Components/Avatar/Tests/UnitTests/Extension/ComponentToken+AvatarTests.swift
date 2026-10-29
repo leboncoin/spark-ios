@@ -21,7 +21,7 @@ struct ComponentTokenAvatarTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Avatar should return token from theme")
     func avatarShouldReturnTokenFromTheme() {
         // GIVEN
         let componentToken = ComponentToken(theme: self.theme)
@@ -33,7 +33,7 @@ struct ComponentTokenAvatarTests {
         #expect(token == AvatarToken(theme: self.theme))
     }
 
-    @Test
+    @Test("Avatar from theme component should return token from theme")
     func avatarFromThemeComponentShouldReturnTokenFromTheme() {
         // GIVEN / WHEN
         let token = self.theme.component.avatar
@@ -42,7 +42,7 @@ struct ComponentTokenAvatarTests {
         #expect(token == AvatarToken(theme: self.theme))
     }
 
-    @Test
+    @Test("Avatar with different theme should not return token from theme")
     func avatarWithDifferentThemeShouldNotReturnTokenFromTheme() {
         // GIVEN
         let componentToken = ComponentToken(theme: ThemeGeneratedMock.mocked2())

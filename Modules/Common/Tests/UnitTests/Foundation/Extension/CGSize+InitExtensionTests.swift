@@ -6,57 +6,64 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class CGSizeInitExtensionTests: XCTestCase {
+@Suite("CG Size Init Extension Tests")
+struct CGSizeInitExtensionTests {
 
     // MARK: - Tests
 
-    func testInitWithSingleValue() throws {
+    @Test("Init with single value")
+    func initWithSingleValue() throws {
         // GIVEN
         let size = CGSize(value: 10.0)
 
         // WHEN / THEN
-        XCTAssertEqual(size.width, 10.0, "Width should equal the provided value")
-        XCTAssertEqual(size.height, 10.0, "Height should equal the provided value")
+        #expect(size.width == 10.0, "Width should equal the provided value")
+        #expect(size.height == 10.0, "Height should equal the provided value")
     }
 
-    func testInitWithZero() throws {
+    @Test("Init with zero")
+    func initWithZero() throws {
         // GIVEN
         let size = CGSize(value: 0.0)
 
         // WHEN / THEN
-        XCTAssertEqual(size.width, 0.0, "Width should be zero")
-        XCTAssertEqual(size.height, 0.0, "Height should be zero")
+        #expect(size.width == 0.0, "Width should be zero")
+        #expect(size.height == 0.0, "Height should be zero")
     }
 
-    func testInitWithNegativeValue() throws {
+    @Test("Init with negative value")
+    func initWithNegativeValue() throws {
         // GIVEN
         let size = CGSize(value: -5.5)
 
         // WHEN / THEN
-        XCTAssertEqual(size.width, -5.5, "Width should equal the negative value")
-        XCTAssertEqual(size.height, -5.5, "Height should equal the negative value")
+        #expect(size.width == -5.5, "Width should equal the negative value")
+        #expect(size.height == -5.5, "Height should equal the negative value")
     }
 
-    func testInitWithLargeValue() throws {
+    @Test("Init with large value")
+    func initWithLargeValue() throws {
         // GIVEN
         let size = CGSize(value: 1000.0)
 
         // WHEN / THEN
-        XCTAssertEqual(size.width, 1000.0, "Width should equal the large value")
-        XCTAssertEqual(size.height, 1000.0, "Height should equal the large value")
+        #expect(size.width == 1000.0, "Width should equal the large value")
+        #expect(size.height == 1000.0, "Height should equal the large value")
     }
 
-    func testInitWithDecimalValue() throws {
+    @Test("Init with decimal value")
+    func initWithDecimalValue() throws {
         // GIVEN
         let size = CGSize(value: 3.14)
 
         // WHEN / THEN
-        XCTAssertEqual(size.width, 3.14, accuracy: 0.001, "Width should equal the decimal value")
-        XCTAssertEqual(size.height, 3.14, accuracy: 0.001, "Height should equal the decimal value")
+        #expect(abs(size.width - (3.14)) <= 0.001, "Width should equal the decimal value")
+        #expect(abs(size.height - (3.14)) <= 0.001, "Height should equal the decimal value")
     }
 
 }

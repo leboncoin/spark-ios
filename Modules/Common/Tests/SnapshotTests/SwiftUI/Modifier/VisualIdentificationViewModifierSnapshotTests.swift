@@ -19,7 +19,7 @@ struct VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnapshotTe
 
     // MARK: - Tests
 
-    @Test func test_sparkVisualIdentification_when_toggle_is_true() async throws {
+    @Test("Spark visual identification when toggle is true") func test_sparkVisualIdentification_when_toggle_is_true() async throws {
         // GIVEN
         let featureTogglesService = SparkFeatureToggleServicingGeneratedMock()
         featureTogglesService.visualIdentification = true
@@ -37,7 +37,7 @@ struct VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnapshotTe
         )
     }
 
-    @Test func test_sparkVisualIdentification_when_toggle_is_false() async throws {
+    @Test("Spark visual identification when toggle is false") func test_sparkVisualIdentification_when_toggle_is_false() async throws {
         // GIVEN
         let featureTogglesService = SparkFeatureToggleServicingGeneratedMock()
         featureTogglesService.visualIdentification = false
@@ -55,7 +55,7 @@ struct VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnapshotTe
         )
     }
 
-    @Test func test_sparkVisualIdentification_with_default_toggle_service() async throws {
+    @Test("Spark visual identification with default toggle service") func test_sparkVisualIdentification_with_default_toggle_service() async throws {
         // GIVEN
         let view = Text("Hello World")
             .sparkVisualIdentification()

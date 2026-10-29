@@ -13,7 +13,7 @@ struct TagBorderTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Default values")
     func test_default_values() {
         // GIVEN / WHEN
         let border = TagBorder()

@@ -30,7 +30,7 @@ struct FormFieldUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: FormFieldScenarioSnapshotTests.allCases)
+    @Test("Form field UIView snapshot", arguments: FormFieldScenarioSnapshotTests.allCases)
     func test(scenario: FormFieldScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
 

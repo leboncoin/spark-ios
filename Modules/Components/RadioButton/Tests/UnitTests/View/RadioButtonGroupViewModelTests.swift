@@ -10,45 +10,41 @@ import Combine
 @testable import SparkComponentRadioButton
 @_spi(SI_SPI) @testable import SparkComponentRadioButtonTesting
 @_spi(SI_SPI) import SparkThemingTesting
-import XCTest
+import Testing
 
-final class RadioButtonGroupViewModelTests: XCTestCase {
-
-    var subscriptions = Set<AnyCancellable>()
+@MainActor
+@Suite("RadioButton Group ViewModel Tests")
+struct RadioButtonGroupViewModelTests {
 
     // MARK: - Tests
-    func test_expect_all_values_published_on_setup() {
+    @Test("All values should be published on setup")
+    func expectAllValuesPublishedOnSetup() async {
         // Given
         let sut = sut(intent: .support)
-        let expectation = expectation(description: "Wait for subscriptions to be published")
-        expectation.expectedFulfillmentCount = 1
+        var subscriptions = Set<AnyCancellable>()
 
-        let publisher = sut.$spacing
-
-        publisher.sink { _ in
-            expectation.fulfill()
+        await confirmation("Wait for subscriptions to be published", expectedCount: 1) { confirm in
+            sut.$spacing.sink { _ in
+                confirm()
+            }
+            .store(in: &subscriptions)
         }
-        .store(in: &self.subscriptions)
-
-        wait(for: [expectation], timeout: 0.1)
     }
 
-    func test_theme_change() {
+    @Test("Theme change should publish the spacing")
+    func themeChange() async {
         // Given
         let sut = sut(intent: .support)
-        let expectation = expectation(description: "Wait for subscriptions to be published")
-        expectation.expectedFulfillmentCount = 2
+        var subscriptions = Set<AnyCancellable>()
 
-        let publisher = sut.$spacing
+        await confirmation("Wait for subscriptions to be published", expectedCount: 2) { confirm in
+            sut.$spacing.sink { _ in
+                confirm()
+            }
+            .store(in: &subscriptions)
 
-        publisher.sink { _ in
-            expectation.fulfill()
+            sut.theme = ThemeGeneratedMock.mocked()
         }
-        .store(in: &self.subscriptions)
-
-        sut.theme = ThemeGeneratedMock.mocked()
-
-        wait(for: [expectation], timeout: 0.1)
     }
 
     // MARK: - Private helpers

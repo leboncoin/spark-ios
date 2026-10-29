@@ -27,7 +27,7 @@ struct SparkSegmentedGaugeSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: SegmentedGaugeScenarioSnapshotTests.allCases)
+    @Test("Spark segmented gauge snapshot", arguments: SegmentedGaugeScenarioSnapshotTests.allCases)
     func test(scenario: SegmentedGaugeScenarioSnapshotTests) async {
         await self.loadScenarios([scenario])
     }

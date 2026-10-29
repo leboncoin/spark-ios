@@ -29,7 +29,7 @@ struct SparkAwarenessCardSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: AwarenessCardScenarioSnapshotTests.allCases)
+    @Test("Spark awareness card snapshot", arguments: AwarenessCardScenarioSnapshotTests.allCases)
     func test(scenario: AwarenessCardScenarioSnapshotTests) async {
         await self.loadScenarios([scenario])
     }

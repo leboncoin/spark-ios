@@ -5,14 +5,18 @@
 //  Created on 23/04/2025.
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
-import XCTest
+import UIKit
+import Testing
 @testable import SparkCommon
 
-class ScaledUIFrameTests: XCTestCase {
+@MainActor
+@Suite("Scaled UI Frame Tests")
+struct ScaledUIFrameTests {
 
     // MARK: - Tests Init
 
-    func test_init() {
+    @Test("Init")
+    func initialization() {
         // GIVEN
         let baseValue: CGFloat = 10
 
@@ -20,12 +24,13 @@ class ScaledUIFrameTests: XCTestCase {
         let metric = ScaledUIFrame(wrappedValue: baseValue)
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue)
+        #expect(metric.wrappedValue == baseValue)
     }
 
     // MARK: - Test Wrapped Value
 
-    func test_wrappedValue_setter() {
+    @Test("Wrapped value setter")
+    func wrappedValueSetter() {
         // GIVEN
         var metric = ScaledUIFrame(wrappedValue: 16.0)
 
@@ -34,12 +39,13 @@ class ScaledUIFrameTests: XCTestCase {
         metric.wrappedValue = newBaseValue
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, newBaseValue)
+        #expect(metric.wrappedValue == newBaseValue)
     }
 
     // MARK: - Tests Scale Value
 
-    func test_scaledValue() {
+    @Test("Scaled value")
+    func scaledValue() {
         // GIVEN
         let baseValue: CGFloat = 16.0
         var metric = ScaledUIFrame(wrappedValue: baseValue)
@@ -51,6 +57,6 @@ class ScaledUIFrameTests: XCTestCase {
         let scaledValue = metric.scaledValue(for: mockTraitCollection)
 
         // THEN
-        XCTAssertLessThan(scaledValue, 16)
+        #expect(scaledValue < 16)
     }
 }

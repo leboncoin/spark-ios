@@ -6,11 +6,12 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
+@Suite("SegmentedGauge Get Levels UseCase Tests")
+struct SegmentedGaugeGetLevelsUseCaseTests {
 
     // MARK: - Properties
 
@@ -18,7 +19,8 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
 
     // MARK: - Three Segment Tests
 
-    func test_execute_threeSegment_veryHighType_returnsLevel3() {
+    @Test("Execute three segment very high type returns level3")
+    func executeThreeSegmentVeryHighTypeReturnsLevel3() {
         // GIVEN
         let segments = SegmentedGaugeSegments.three
         let type = SegmentedGaugeType.veryHigh
@@ -29,10 +31,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_threeSegment_highType_returnsLevel3() {
+    @Test("Execute three segment high type returns level3")
+    func executeThreeSegmentHighTypeReturnsLevel3() {
         // GIVEN
         let segments = SegmentedGaugeSegments.three
         let type = SegmentedGaugeType.high
@@ -43,10 +46,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_threeSegment_mediumType_returnsLevel3() {
+    @Test("Execute three segment medium type returns level3")
+    func executeThreeSegmentMediumTypeReturnsLevel3() {
         // GIVEN
         let segments = SegmentedGaugeSegments.three
         let type = SegmentedGaugeType.medium
@@ -57,10 +61,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_threeSegment_lowType_returnsLevel2() {
+    @Test("Execute three segment low type returns level2")
+    func executeThreeSegmentLowTypeReturnsLevel2() {
         // GIVEN
         let segments = SegmentedGaugeSegments.three
         let type = SegmentedGaugeType.low
@@ -71,10 +76,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_threeSegment_veryLowType_returnsLevel1() {
+    @Test("Execute three segment very low type returns level1")
+    func executeThreeSegmentVeryLowTypeReturnsLevel1() {
         // GIVEN
         let segments = SegmentedGaugeSegments.three
         let type = SegmentedGaugeType.veryLow
@@ -85,10 +91,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_threeSegment_noDataType_returnsLevel0() {
+    @Test("Execute three segment no data type returns level0")
+    func executeThreeSegmentNoDataTypeReturnsLevel0() {
         // GIVEN
         let segments = SegmentedGaugeSegments.three
         let type = SegmentedGaugeType.noData
@@ -99,10 +106,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_threeSegment_customType_validLevel_returnsCustomLevel() {
+    @Test("Execute three segment custom type valid level returns custom level")
+    func executeThreeSegmentCustomTypeValidLevelReturnsCustomLevel() {
         // GIVEN
         let segments = SegmentedGaugeSegments.three
         let colorToken = ColorTokenGeneratedMock.blue()
@@ -114,10 +122,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_threeSegment_customType_levelTooHigh_returnsMaxLevel() {
+    @Test("Execute three segment custom type level too high returns max level")
+    func executeThreeSegmentCustomTypeLevelTooHighReturnsMaxLevel() {
         // GIVEN
         let segments = SegmentedGaugeSegments.three
         let colorToken = ColorTokenGeneratedMock.blue()
@@ -129,10 +138,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_threeSegment_customType_levelTooLow_returnsZero() {
+    @Test("Execute three segment custom type level too low returns zero")
+    func executeThreeSegmentCustomTypeLevelTooLowReturnsZero() {
         // GIVEN
         let segments = SegmentedGaugeSegments.three
         let colorToken = ColorTokenGeneratedMock.blue()
@@ -144,12 +154,13 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
     // MARK: - Five Segment Tests
 
-    func test_execute_fiveSegment_veryHighType_returnsLevel5() {
+    @Test("Execute five segment very high type returns level5")
+    func executeFiveSegmentVeryHighTypeReturnsLevel5() {
         // GIVEN
         let segments = SegmentedGaugeSegments.five
         let type = SegmentedGaugeType.veryHigh
@@ -160,10 +171,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_fiveSegment_highType_returnsLevel4() {
+    @Test("Execute five segment high type returns level4")
+    func executeFiveSegmentHighTypeReturnsLevel4() {
         // GIVEN
         let segments = SegmentedGaugeSegments.five
         let type = SegmentedGaugeType.high
@@ -174,10 +186,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_fiveSegment_mediumType_returnsLevel3() {
+    @Test("Execute five segment medium type returns level3")
+    func executeFiveSegmentMediumTypeReturnsLevel3() {
         // GIVEN
         let segments = SegmentedGaugeSegments.five
         let type = SegmentedGaugeType.medium
@@ -188,10 +201,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_fiveSegment_lowType_returnsLevel2() {
+    @Test("Execute five segment low type returns level2")
+    func executeFiveSegmentLowTypeReturnsLevel2() {
         // GIVEN
         let segments = SegmentedGaugeSegments.five
         let type = SegmentedGaugeType.low
@@ -202,10 +216,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_fiveSegment_veryLowType_returnsLevel1() {
+    @Test("Execute five segment very low type returns level1")
+    func executeFiveSegmentVeryLowTypeReturnsLevel1() {
         // GIVEN
         let segments = SegmentedGaugeSegments.five
         let type = SegmentedGaugeType.veryLow
@@ -216,10 +231,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_fiveSegment_noDataType_returnsLevel0() {
+    @Test("Execute five segment no data type returns level0")
+    func executeFiveSegmentNoDataTypeReturnsLevel0() {
         // GIVEN
         let segments = SegmentedGaugeSegments.five
         let type = SegmentedGaugeType.noData
@@ -230,10 +246,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_fiveSegment_customType_validLevel_returnsCustomLevel() {
+    @Test("Execute five segment custom type valid level returns custom level")
+    func executeFiveSegmentCustomTypeValidLevelReturnsCustomLevel() {
         // GIVEN
         let segments = SegmentedGaugeSegments.five
         let colorToken = ColorTokenGeneratedMock.blue()
@@ -245,10 +262,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_fiveSegment_customType_levelTooHigh_returnsMaxLevel() {
+    @Test("Execute five segment custom type level too high returns max level")
+    func executeFiveSegmentCustomTypeLevelTooHighReturnsMaxLevel() {
         // GIVEN
         let segments = SegmentedGaugeSegments.five
         let colorToken = ColorTokenGeneratedMock.blue()
@@ -260,10 +278,11 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 
-    func test_execute_fiveSegment_customType_levelTooLow_returnsZero() {
+    @Test("Execute five segment custom type level too low returns zero")
+    func executeFiveSegmentCustomTypeLevelTooLowReturnsZero() {
         // GIVEN
         let segments = SegmentedGaugeSegments.five
         let colorToken = ColorTokenGeneratedMock.blue()
@@ -275,6 +294,6 @@ final class SegmentedGaugeGetLevelsUseCaseTests: XCTestCase {
         let result = self.useCase.execute(segments: segments, type: type)
 
         // THEN
-        XCTAssertEqual(result, expectedLevels)
+        #expect(result == expectedLevels)
     }
 }

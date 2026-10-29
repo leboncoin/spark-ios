@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentChip
 
-final class ChipAlignmentTests: XCTestCase {
+@Suite("Chip Alignment Tests")
+struct ChipAlignmentTests {
 
     // MARK: - Tests
 
-    func test_default_alignment_is_leading_icon() {
-        XCTAssertEqual(ChipAlignment.default, .leadingIcon)
+    @Test("Default alignment is leading icon")
+    func defaultAlignmentIsLeadingIcon() {
+        #expect(ChipAlignment.default == .leadingIcon)
     }
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SparkTheming
 
 @_spi(SI_SPI) import SparkComponentDividerTesting
@@ -14,11 +14,13 @@ import SparkTheming
 
 @testable import SparkComponentDivider
 
-final class DividerGetSpacingUseCaseTests: XCTestCase {
+@Suite("Divider Get Spacing UseCase Tests")
+struct DividerGetSpacingUseCaseTests {
 
     // MARK: - Execute Tests
 
-    func test_execute_returns_large_spacing() {
+    @Test("Execute returns large spacing")
+    func executeReturnsLargeSpacing() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let useCase = DividerGetSpacingUseCase()
@@ -27,9 +29,8 @@ final class DividerGetSpacingUseCaseTests: XCTestCase {
         let spacing = useCase.execute(theme: theme)
 
         // THEN
-        XCTAssertEqual(
-            spacing,
-            theme.layout.spacing.large,
+        #expect(
+            spacing == theme.layout.spacing.large,
             "Execute should return theme.layout.spacing.large"
         )
     }

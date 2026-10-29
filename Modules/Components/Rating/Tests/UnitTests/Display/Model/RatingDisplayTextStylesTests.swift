@@ -7,26 +7,30 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentRating
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class RatingDisplayTextStylesTests: XCTestCase {
+@MainActor
+@Suite("Rating Display Text Styles Tests")
+struct RatingDisplayTextStylesTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let textStyles = RatingDisplayTextStyles()
 
         // THEN
-        XCTAssertEqual(textStyles.value, RatingDisplayTextStyle())
-        XCTAssertEqual(textStyles.count, RatingDisplayTextStyle())
-        XCTAssertEqual(textStyles.additional, RatingDisplayTextStyle())
+        #expect(textStyles.value == RatingDisplayTextStyle())
+        #expect(textStyles.count == RatingDisplayTextStyle())
+        #expect(textStyles.additional == RatingDisplayTextStyle())
     }
 
-    func test_equality_when_same_properties() {
+    @Test("Equality when same properties")
+    func equalityWhenSameProperties() {
         // GIVEN / WHEN
         let valueStyle = RatingDisplayTextStyle(
             fontToken: TypographyFontTokenGeneratedMock.mocked(),
@@ -54,10 +58,11 @@ final class RatingDisplayTextStylesTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(textStyles1, textStyles2)
+        #expect(textStyles1 == textStyles2)
     }
 
-    func test_inequality_when_different_value_style() {
+    @Test("Inequality when different value style")
+    func inequalityWhenDifferentValueStyle() {
         // GIVEN / WHEN
         let valueStyle1 = RatingDisplayTextStyle(
             fontToken: TypographyFontTokenGeneratedMock.mocked(),
@@ -89,10 +94,11 @@ final class RatingDisplayTextStylesTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(textStyles1, textStyles2)
+        #expect(textStyles1 != textStyles2)
     }
 
-    func test_inequality_when_different_count_style() {
+    @Test("Inequality when different count style")
+    func inequalityWhenDifferentCountStyle() {
         // GIVEN / WHEN
         let valueStyle = RatingDisplayTextStyle(
             fontToken: TypographyFontTokenGeneratedMock.mocked(),
@@ -124,10 +130,11 @@ final class RatingDisplayTextStylesTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(textStyles1, textStyles2)
+        #expect(textStyles1 != textStyles2)
     }
 
-    func test_inequality_when_different_additional_style() {
+    @Test("Inequality when different additional style")
+    func inequalityWhenDifferentAdditionalStyle() {
         // GIVEN / WHEN
         let valueStyle = RatingDisplayTextStyle(
             fontToken: TypographyFontTokenGeneratedMock.mocked(),
@@ -159,6 +166,6 @@ final class RatingDisplayTextStylesTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(textStyles1, textStyles2)
+        #expect(textStyles1 != textStyles2)
     }
 }

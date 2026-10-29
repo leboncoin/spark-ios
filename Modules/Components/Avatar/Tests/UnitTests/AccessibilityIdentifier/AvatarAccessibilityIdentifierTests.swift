@@ -15,7 +15,7 @@ struct AvatarAccessibilityIdentifierTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("View should return expected value")
     func viewShouldReturnExpectedValue() {
         // GIVEN / WHEN
         let result = AvatarAccessibilityIdentifier.view

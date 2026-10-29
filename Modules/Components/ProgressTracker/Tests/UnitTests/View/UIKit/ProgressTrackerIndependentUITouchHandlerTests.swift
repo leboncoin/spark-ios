@@ -7,20 +7,21 @@
 //
 
 import Combine
-import XCTest
+import Testing
+import UIKit
 @testable import SparkComponentProgressTracker
 @_spi(SI_SPI) import SparkCommon
 
-final class ProgressTrackerIndependentUITouchHandlerTests: XCTestCase {
+@MainActor
+@Suite("Progress Tracker Independent UI Touch Handler Tests")
+struct ProgressTrackerIndependentUITouchHandlerTests {
 
     var controls: [UIControl]!
 
     var sut: ProgressTrackerIndependentUITouchHandler!
-    var cancellables = Set<AnyCancellable>()
 
     // MARK: - Setup
-    override func setUp() {
-        super.setUp()
+    init() {
         self.controls = (0...4)
             .map { index in
                 return CGRect(x: index * 50, y: 0, width: 50, height: 50)
@@ -29,36 +30,40 @@ final class ProgressTrackerIndependentUITouchHandlerTests: XCTestCase {
 
         let sut = ProgressTrackerInteractionState.independent.touchHandler(currentPageIndex: 0, indicatorViews: self.controls) as? ProgressTrackerIndependentUITouchHandler
 
-        XCTAssertNotNil(sut)
+        #expect(sut != nil)
 
         self.sut = sut
     }
 
-    func test_touch_on_current_page_nothing_happens() {
+    @Test("Touch on current page nothing happens")
+    func touchOnCurrentPageNothingHappens() {
         // WHEN
         self.sut.beginTracking(location: .zero)
 
         // THEN
-        XCTAssertNil(self.sut.trackingPageIndex)
+        #expect(self.sut.trackingPageIndex == nil)
     }
 
-    func test_touch_on_first_step() {
+    @Test("Touch on first step")
+    func touchOnFirstStep() {
         // WHEN
         self.sut.beginTracking(location: CGPoint(x: 51, y: 10))
 
         // THEN
-        XCTAssertEqual(self.sut.trackingPageIndex, 1)
+        #expect(self.sut.trackingPageIndex == 1)
     }
 
-    func test_touch_on_second_step() {
+    @Test("Touch on second step")
+    func touchOnSecondStep() {
         // WHEN
         self.sut.beginTracking(location: CGPoint(x: 101, y: 10))
 
         // THEN
-        XCTAssertEqual(self.sut.trackingPageIndex, 2)
+        #expect(self.sut.trackingPageIndex == 2)
     }
 
-    func test_touch_left_of_current_index() {
+    @Test("Touch left of current index")
+    func touchLeftOfCurrentIndex() {
         // GIVEN
         self.sut.currentPageIndex = 3
 
@@ -66,10 +71,11 @@ final class ProgressTrackerIndependentUITouchHandlerTests: XCTestCase {
         self.sut.beginTracking(location: CGPoint(x: 51, y: 10))
 
         // THEN
-        XCTAssertEqual(self.sut.trackingPageIndex, 1)
+        #expect(self.sut.trackingPageIndex == 1)
     }
 
-    func test_touch_right_of_current_index() {
+    @Test("Touch right of current index")
+    func touchRightOfCurrentIndex() {
         // GIVEN
         self.sut.currentPageIndex = 3
 
@@ -77,10 +83,11 @@ final class ProgressTrackerIndependentUITouchHandlerTests: XCTestCase {
         self.sut.beginTracking(location: CGPoint(x: 251, y: 10))
 
         // THEN
-        XCTAssertEqual(self.sut.trackingPageIndex, 4)
+        #expect(self.sut.trackingPageIndex == 4)
     }
 
-    func test_touch_and_move() {
+    @Test("Touch and move")
+    func touchAndMove() {
         // GIVEN
         self.sut.beginTracking(location: CGPoint(x: 51, y: 10))
 
@@ -88,10 +95,11 @@ final class ProgressTrackerIndependentUITouchHandlerTests: XCTestCase {
         self.sut.continueTracking(location: CGPoint(x: 301, y: 10))
 
         // THEN
-        XCTAssertEqual(self.sut.trackingPageIndex, 1)
+        #expect(self.sut.trackingPageIndex == 1)
     }
 
-    func test_touch_and_move_to_current_page() {
+    @Test("Touch and move to current page")
+    func touchAndMoveToCurrentPage() {
         // GIVEN
         self.sut.currentPageIndex = 2
         self.sut.beginTracking(location: CGPoint(x: 51, y: 10))
@@ -100,10 +108,11 @@ final class ProgressTrackerIndependentUITouchHandlerTests: XCTestCase {
         self.sut.continueTracking(location: CGPoint(x: 101, y: 10))
 
         // THEN
-        XCTAssertEqual(self.sut.trackingPageIndex, 1)
+        #expect(self.sut.trackingPageIndex == 1)
     }
 
-    func test_touch_and_move_over_current_page() {
+    @Test("Touch and move over current page")
+    func touchAndMoveOverCurrentPage() {
         // GIVEN
         self.sut.currentPageIndex = 2
         self.sut.beginTracking(location: CGPoint(x: 51, y: 10))
@@ -113,45 +122,48 @@ final class ProgressTrackerIndependentUITouchHandlerTests: XCTestCase {
         self.sut.continueTracking(location: CGPoint(x: 1, y: 10))
 
         // THEN
-        XCTAssertEqual(self.sut.trackingPageIndex, 1)
+        #expect(self.sut.trackingPageIndex == 1)
     }
 
-    func test_value_published_on_end_tracking() {
+    @Test("Value published on end tracking")
+    func valuePublishedOnEndTracking() {
         // GIVEN
-        let expect = expectation(description: "Expect current page to be published")
+        var cancellables = Set<AnyCancellable>()
+        var publishedCount = 0
         self.sut.beginTracking(location: CGPoint(x: 51, y: 10))
 
-        self.sut.currentPagePublisher.subscribe(in: &self.cancellables) { currentPage in
-            XCTAssertEqual(currentPage, 1)
-            expect.fulfill()
+        self.sut.currentPagePublisher.subscribe(in: &cancellables) { currentPage in
+            #expect(currentPage == 1)
+            publishedCount += 1
         }
         // WHEN
         self.sut.endTracking(location: CGPoint(x: 251, y: 10))
 
         // THEN
-        wait(for: [expect])
+        #expect(publishedCount == 1)
 
-        XCTAssertNil(self.sut.trackingPageIndex)
+        #expect(self.sut.trackingPageIndex == nil)
     }
 
-    func test_value_not_published_on_end_tracking() {
+    @Test("Value not published on end tracking")
+    func valueNotPublishedOnEndTracking() {
         // GIVEN
-        let expect = expectation(description: "Expect current page to be published")
-        expect.isInverted = true
+        var cancellables = Set<AnyCancellable>()
+        var publishedCount = 0
         self.sut.beginTracking(location: CGPoint(x: 50, y: 10))
 
-        self.sut.currentPagePublisher.subscribe(in: &self.cancellables) { currentPage in
-            XCTFail("Nothing should have been published")
-            expect.fulfill()
+        self.sut.currentPagePublisher.subscribe(in: &cancellables) { currentPage in
+            Issue.record("Nothing should have been published")
+            publishedCount += 1
         }
         // WHEN
         self.sut.endTracking(location: CGPoint(x: 251, y: 10))
 
         // THEN
-        wait(for: [expect], timeout: 0.01)
+        #expect(publishedCount == 0)
 
-        XCTAssertEqual(self.sut.currentPageIndex, 0)
-        XCTAssertNil(self.sut.trackingPageIndex)
+        #expect(self.sut.currentPageIndex == 0)
+        #expect(self.sut.trackingPageIndex == nil)
     }
 
 }

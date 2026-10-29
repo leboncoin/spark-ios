@@ -26,17 +26,17 @@ struct ChipTokenBorderTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Width should return border width small")
     func widthShouldReturnBorderWidthSmall() {
         #expect(self.token.width == self.theme.border.width.small)
     }
 
-    @Test
+    @Test("Radius should return border radius full")
     func radiusShouldReturnBorderRadiusFull() {
         #expect(self.token.radius == self.theme.border.radius.full)
     }
 
-    @Test(arguments: [
+    @Test("Dash should return expected value", arguments: [
         (ChipVariant.dashed, CGFloat(2)),
         (ChipVariant.outlined, CGFloat.zero),
         (ChipVariant.tinted, CGFloat.zero)
@@ -47,7 +47,7 @@ struct ChipTokenBorderTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = ChipToken.Border(theme: self.theme)
@@ -57,7 +57,7 @@ struct ChipTokenBorderTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = ChipToken.Border(theme: self.theme)

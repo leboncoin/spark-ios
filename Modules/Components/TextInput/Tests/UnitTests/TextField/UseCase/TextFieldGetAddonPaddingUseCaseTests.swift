@@ -6,11 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkComponentTextInput
 
-final class TextFieldGetAddonPaddingUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Text Field Get Addon Padding UseCase Tests")
+struct TextFieldGetAddonPaddingUseCaseTests {
 
     // MARK: - Properties
 
@@ -18,7 +20,8 @@ final class TextFieldGetAddonPaddingUseCaseTests: XCTestCase {
 
     // MARK: - Tests - executeLeft
 
-    func test_executeLeft_whenHasPaddingIsFalse_shouldReturnZeroInsets() {
+    @Test("Execute left when has padding is false should return zero insets")
+    func executeLeftWhenHasPaddingIsFalseShouldReturnZeroInsets() {
         // GIVEN
         let useCase = TextFieldGetAddonPaddingUseCase()
         let configuration = TextFieldAddonConfiguration(
@@ -33,10 +36,11 @@ final class TextFieldGetAddonPaddingUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, .zero)
+        #expect(result == .zero)
     }
 
-    func test_executeLeft_whenHasPaddingIsTrueAndHasSeparatorIsTrue_shouldReturnCorrectInsets() {
+    @Test("Execute left when has padding is true and has separator is true should return correct insets")
+    func executeLeftWhenHasPaddingIsTrueAndHasSeparatorIsTrueShouldReturnCorrectInsets() {
         // GIVEN
         let useCase = TextFieldGetAddonPaddingUseCase()
         let configuration = TextFieldAddonConfiguration(
@@ -51,13 +55,14 @@ final class TextFieldGetAddonPaddingUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.top, 0, "Wrong top value")
-        XCTAssertEqual(result.leading, self.spacings.horizontal, "Wrong top value")
-        XCTAssertEqual(result.bottom, 0, "Wrong top value")
-        XCTAssertEqual(result.trailing, self.spacings.horizontal, "Wrong trailing value")
+        #expect(result.top == 0, "Wrong top value")
+        #expect(result.leading == self.spacings.horizontal, "Wrong top value")
+        #expect(result.bottom == 0, "Wrong top value")
+        #expect(result.trailing == self.spacings.horizontal, "Wrong trailing value")
     }
 
-    func test_executeLeft_whenHasPaddingIsTrueAndHasSeparatorIsFalse_shouldReturnCorrectInsets() {
+    @Test("Execute left when has padding is true and has separator is false should return correct insets")
+    func executeLeftWhenHasPaddingIsTrueAndHasSeparatorIsFalseShouldReturnCorrectInsets() {
         // GIVEN
         let useCase = TextFieldGetAddonPaddingUseCase()
         let configuration = TextFieldAddonConfiguration(
@@ -72,15 +77,16 @@ final class TextFieldGetAddonPaddingUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.top, 0, "Wrong top value")
-        XCTAssertEqual(result.leading, self.spacings.horizontal, "Wrong top value")
-        XCTAssertEqual(result.bottom, 0, "Wrong top value")
-        XCTAssertEqual(result.trailing, 0, "Wrong trailing value")
+        #expect(result.top == 0, "Wrong top value")
+        #expect(result.leading == self.spacings.horizontal, "Wrong top value")
+        #expect(result.bottom == 0, "Wrong top value")
+        #expect(result.trailing == 0, "Wrong trailing value")
     }
 
     // MARK: - Tests - executeRight
 
-    func test_executeRight_whenHasPaddingIsFalse_shouldReturnZeroInsets() {
+    @Test("Execute right when has padding is false should return zero insets")
+    func executeRightWhenHasPaddingIsFalseShouldReturnZeroInsets() {
         // GIVEN
         let useCase = TextFieldGetAddonPaddingUseCase()
         let configuration = TextFieldAddonConfiguration(
@@ -95,10 +101,11 @@ final class TextFieldGetAddonPaddingUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, .zero)
+        #expect(result == .zero)
     }
 
-    func test_executeRight_whenHasPaddingIsTrueAndHasSeparatorIsTrue_shouldReturnCorrectInsets() {
+    @Test("Execute right when has padding is true and has separator is true should return correct insets")
+    func executeRightWhenHasPaddingIsTrueAndHasSeparatorIsTrueShouldReturnCorrectInsets() {
         // GIVEN
         let useCase = TextFieldGetAddonPaddingUseCase()
         let configuration = TextFieldAddonConfiguration(
@@ -113,13 +120,14 @@ final class TextFieldGetAddonPaddingUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.top, 0, "Wrong top value")
-        XCTAssertEqual(result.leading, self.spacings.horizontal, "Wrong top value")
-        XCTAssertEqual(result.bottom, 0, "Wrong top value")
-        XCTAssertEqual(result.trailing, self.spacings.horizontal, "Wrong trailing value")
+        #expect(result.top == 0, "Wrong top value")
+        #expect(result.leading == self.spacings.horizontal, "Wrong top value")
+        #expect(result.bottom == 0, "Wrong top value")
+        #expect(result.trailing == self.spacings.horizontal, "Wrong trailing value")
     }
 
-    func test_executeRight_whenHasPaddingIsTrueAndHasSeparatorIsFalse_shouldReturnCorrectInsets() {
+    @Test("Execute right when has padding is true and has separator is false should return correct insets")
+    func executeRightWhenHasPaddingIsTrueAndHasSeparatorIsFalseShouldReturnCorrectInsets() {
         // GIVEN
         let useCase = TextFieldGetAddonPaddingUseCase()
         let configuration = TextFieldAddonConfiguration(
@@ -134,10 +142,10 @@ final class TextFieldGetAddonPaddingUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.top, 0, "Wrong top value")
-        XCTAssertEqual(result.leading, 0, "Wrong top value")
-        XCTAssertEqual(result.bottom, 0, "Wrong top value")
-        XCTAssertEqual(result.trailing, self.spacings.horizontal, "Wrong trailing value")
+        #expect(result.top == 0, "Wrong top value")
+        #expect(result.leading == 0, "Wrong top value")
+        #expect(result.bottom == 0, "Wrong top value")
+        #expect(result.trailing == self.spacings.horizontal, "Wrong trailing value")
     }
 }
 

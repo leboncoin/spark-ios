@@ -6,7 +6,7 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import Combine
 import UIKit
 import SwiftUI
@@ -16,7 +16,9 @@ import SwiftUI
 @_spi(SI_SPI) import SparkThemingTesting
 import SparkTheming
 
-final class TextInputUIViewModelTests: XCTestCase {
+@MainActor
+@Suite("TextInput UI ViewModel Tests")
+final class TextInputUIViewModelTests {
 
     // MARK: - Properties
 
@@ -36,8 +38,7 @@ final class TextInputUIViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
         self.theme = ThemeGeneratedMock.mocked()
 
         self.expectedColors = .mocked(
@@ -65,68 +66,70 @@ final class TextInputUIViewModelTests: XCTestCase {
     }
 
     // MARK: - init
-    func test_init() throws {
+    @Test("Init")
+    func initialization() throws {
         // GIVEN / WHEN - Inits from setUp()
         // THEN - Simple variables
-        XCTAssertIdentical(self.viewModel.theme as? ThemeGeneratedMock, self.theme, "Wrong theme")
-        XCTAssertEqual(self.viewModel.intent, self.intent, "Wrong intent")
-        XCTAssertEqual(self.viewModel.borderStyle, self.borderStyle, "Wrong borderStyle")
-        XCTAssertTrue(self.viewModel.isEnabled, "Wrong isEnabled")
-        XCTAssertFalse(self.viewModel.isReadOnly, "Wrong isReadOnly")
-        XCTAssertFalse(self.viewModel.isFocused, "Wrong isFocused")
-        XCTAssertEqual(self.viewModel.dim, self.theme.dims.none, "Wrong dim")
-        XCTAssertIdentical(self.viewModel.font as? TypographyFontTokenGeneratedMock, self.theme.typography.body1 as? TypographyFontTokenGeneratedMock, "Wrong font")
+        #expect(self.viewModel.theme as? ThemeGeneratedMock === self.theme, "Wrong theme")
+        #expect(self.viewModel.intent == self.intent, "Wrong intent")
+        #expect(self.viewModel.borderStyle == self.borderStyle, "Wrong borderStyle")
+        #expect(self.viewModel.isEnabled, "Wrong isEnabled")
+        #expect(!self.viewModel.isReadOnly, "Wrong isReadOnly")
+        #expect(!self.viewModel.isFocused, "Wrong isFocused")
+        #expect(self.viewModel.dim == self.theme.dims.none, "Wrong dim")
+        #expect(self.viewModel.font as? TypographyFontTokenGeneratedMock === self.theme.typography.body1 as? TypographyFontTokenGeneratedMock, "Wrong font")
 
         // THEN - Colors
-        XCTAssertEqual(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCallsCount, 1, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should have been called once")
-        let getColorsReceivedArguments = try XCTUnwrap(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyReceivedArguments, "Couldn't unwrap getColorsReceivedArguments")
-        XCTAssertIdentical(getColorsReceivedArguments.theme as? ThemeGeneratedMock, self.theme, "Wrong getColorsReceivedArguments.theme")
-        XCTAssertEqual(getColorsReceivedArguments.intent, self.intent, "Wrong getColorsReceivedArguments.intent")
-        XCTAssertFalse(getColorsReceivedArguments.isFocused, "Wrong getColorsReceivedArguments.isFocused")
-        XCTAssertTrue(getColorsReceivedArguments.isEnabled, "Wrong getColorsReceivedArguments.isEnabled")
-        XCTAssertFalse(getColorsReceivedArguments.isReadOnly, "Wrong getColorsReceivedArguments.isReadOnly")
-        XCTAssertTrue(self.viewModel.textColor.equals(self.expectedColors.text), "Wrong textColor")
-        XCTAssertTrue(self.viewModel.placeholderColor.equals(self.expectedColors.placeholder), "Wrong placeholderColor")
-        XCTAssertTrue(self.viewModel.borderColor.equals(self.expectedColors.border), "Wrong borderColor")
-        XCTAssertTrue(self.viewModel.backgroundColor.equals(self.expectedColors.background), "Wrong backgroundColor")
+        #expect(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCallsCount == 1, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should have been called once")
+        let getColorsReceivedArguments = try #require(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyReceivedArguments, "Couldn't unwrap getColorsReceivedArguments")
+        #expect(getColorsReceivedArguments.theme as? ThemeGeneratedMock === self.theme, "Wrong getColorsReceivedArguments.theme")
+        #expect(getColorsReceivedArguments.intent == self.intent, "Wrong getColorsReceivedArguments.intent")
+        #expect(!getColorsReceivedArguments.isFocused, "Wrong getColorsReceivedArguments.isFocused")
+        #expect(getColorsReceivedArguments.isEnabled, "Wrong getColorsReceivedArguments.isEnabled")
+        #expect(!getColorsReceivedArguments.isReadOnly, "Wrong getColorsReceivedArguments.isReadOnly")
+        #expect(self.viewModel.textColor.equals(self.expectedColors.text), "Wrong textColor")
+        #expect(self.viewModel.placeholderColor.equals(self.expectedColors.placeholder), "Wrong placeholderColor")
+        #expect(self.viewModel.borderColor.equals(self.expectedColors.border), "Wrong borderColor")
+        #expect(self.viewModel.backgroundColor.equals(self.expectedColors.background), "Wrong backgroundColor")
 
         // THEN - Border Layout
-        XCTAssertEqual(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCallsCount, 1, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should have been called once")
-        let getBorderLayoutReceivedArguments = try XCTUnwrap(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedReceivedArguments, "Couldn't unwrap getBorderLayoutReceivedArguments")
-        XCTAssertIdentical(getBorderLayoutReceivedArguments.theme as? ThemeGeneratedMock, self.theme, "Wrong getBorderLayoutReceivedArguments.theme")
-        XCTAssertEqual(getBorderLayoutReceivedArguments.borderStyle, .roundedRect, "Wrong getBorderLayoutReceivedArguments.borderStyle")
-        XCTAssertFalse(getBorderLayoutReceivedArguments.isFocused, "Wrong getBorderLayoutReceivedArguments.isFocused")
-        XCTAssertEqual(self.viewModel.borderWidth, self.expectedBorderLayout.width, "Wrong borderWidth")
-        XCTAssertEqual(self.viewModel.borderRadius, self.expectedBorderLayout.radius, "Wrong borderRadius")
+        #expect(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCallsCount == 1, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should have been called once")
+        let getBorderLayoutReceivedArguments = try #require(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedReceivedArguments, "Couldn't unwrap getBorderLayoutReceivedArguments")
+        #expect(getBorderLayoutReceivedArguments.theme as? ThemeGeneratedMock === self.theme, "Wrong getBorderLayoutReceivedArguments.theme")
+        #expect(getBorderLayoutReceivedArguments.borderStyle == .roundedRect, "Wrong getBorderLayoutReceivedArguments.borderStyle")
+        #expect(!getBorderLayoutReceivedArguments.isFocused, "Wrong getBorderLayoutReceivedArguments.isFocused")
+        #expect(self.viewModel.borderWidth == self.expectedBorderLayout.width, "Wrong borderWidth")
+        #expect(self.viewModel.borderRadius == self.expectedBorderLayout.radius, "Wrong borderRadius")
 
         // THEN - Spacings
-        XCTAssertEqual(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCallsCount, 1, "getSpacingsUseCase.executeWithThemeAndBorderStyle should have been called once")
-        let getSpacingsUseCaseReceivedArguments = try XCTUnwrap(self.getSpacingsUseCase.executeWithThemeAndBorderStyleReceivedArguments, "Couldn't unwrap getSpacingsUseCaseReceivedArguments")
-        XCTAssertIdentical(getSpacingsUseCaseReceivedArguments.theme as? ThemeGeneratedMock, self.theme, "Wrong getSpacingsUseCaseReceivedArguments.theme")
-        XCTAssertEqual(getSpacingsUseCaseReceivedArguments.borderStyle, .roundedRect, "Wrong getSpacingsUseCaseReceivedArguments.borderStyle")
-        XCTAssertEqual(self.viewModel.leftSpacing, self.expectedSpacings.horizontal, "Wrong horizontalSpacing")
-        XCTAssertEqual(self.viewModel.contentSpacing, self.expectedSpacings.content, "Wrong contentSpacing")
-        XCTAssertEqual(self.viewModel.rightSpacing, self.expectedSpacings.horizontal, "Wrong horizontalSpacing")
+        #expect(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCallsCount == 1, "getSpacingsUseCase.executeWithThemeAndBorderStyle should have been called once")
+        let getSpacingsUseCaseReceivedArguments = try #require(self.getSpacingsUseCase.executeWithThemeAndBorderStyleReceivedArguments, "Couldn't unwrap getSpacingsUseCaseReceivedArguments")
+        #expect(getSpacingsUseCaseReceivedArguments.theme as? ThemeGeneratedMock === self.theme, "Wrong getSpacingsUseCaseReceivedArguments.theme")
+        #expect(getSpacingsUseCaseReceivedArguments.borderStyle == .roundedRect, "Wrong getSpacingsUseCaseReceivedArguments.borderStyle")
+        #expect(self.viewModel.leftSpacing == self.expectedSpacings.horizontal, "Wrong horizontalSpacing")
+        #expect(self.viewModel.contentSpacing == self.expectedSpacings.content, "Wrong contentSpacing")
+        #expect(self.viewModel.rightSpacing == self.expectedSpacings.horizontal, "Wrong horizontalSpacing")
 
         // THEN - Publishers
-        XCTAssertEqual(self.publishers.textColor.sinkCount, 1, "$textColor should have been called once")
-        XCTAssertEqual(self.publishers.borderColor.sinkCount, 1, "$borderColorIndicatorColor should have been called once")
-        XCTAssertEqual(self.publishers.backgroundColor.sinkCount, 1, "$backgroundColor should have been called once")
-        XCTAssertEqual(self.publishers.placeholderColor.sinkCount, 1, "$placeholderColor should have been called once")
+        #expect(self.publishers.textColor.sinkCount == 1, "$textColor should have been called once")
+        #expect(self.publishers.borderColor.sinkCount == 1, "$borderColorIndicatorColor should have been called once")
+        #expect(self.publishers.backgroundColor.sinkCount == 1, "$backgroundColor should have been called once")
+        #expect(self.publishers.placeholderColor.sinkCount == 1, "$placeholderColor should have been called once")
 
-        XCTAssertEqual(self.publishers.borderWidth.sinkCount, 1, "$borderWidth should have been called once")
-        XCTAssertEqual(self.publishers.borderRadius.sinkCount, 1, "$borderRadius should have been called once")
+        #expect(self.publishers.borderWidth.sinkCount == 1, "$borderWidth should have been called once")
+        #expect(self.publishers.borderRadius.sinkCount == 1, "$borderRadius should have been called once")
 
-        XCTAssertEqual(self.publishers.leftSpacing.sinkCount, 1, "$leftSpacing should have been called once")
-        XCTAssertEqual(self.publishers.contentSpacing.sinkCount, 1, "$contentSpacing should have been called once")
-        XCTAssertEqual(self.publishers.rightSpacing.sinkCount, 1, "$rightSpacing should have been called once")
+        #expect(self.publishers.leftSpacing.sinkCount == 1, "$leftSpacing should have been called once")
+        #expect(self.publishers.contentSpacing.sinkCount == 1, "$contentSpacing should have been called once")
+        #expect(self.publishers.rightSpacing.sinkCount == 1, "$rightSpacing should have been called once")
 
-        XCTAssertEqual(self.publishers.dim.sinkCount, 1, "$dim should have been called once")
-        XCTAssertEqual(self.publishers.font.sinkCount, 1, "$font should have been called once")
+        #expect(self.publishers.dim.sinkCount == 1, "$dim should have been called once")
+        #expect(self.publishers.font.sinkCount == 1, "$font should have been called once")
     }
 
     // MARK: any Theme
-    func test_theme_didSet() throws {
+    @Test("Theme did set")
+    func themeDidSet() throws {
         // GIVEN - Inits from setUp()
         let newTheme = ThemeGeneratedMock()
         newTheme.typography = TypographyGeneratedMock.mocked()
@@ -153,51 +156,52 @@ final class TextInputUIViewModelTests: XCTestCase {
         self.viewModel.theme = newTheme
 
         // THEN - Theme
-        XCTAssertIdentical(self.viewModel.theme as? ThemeGeneratedMock, newTheme, "Wrong theme")
+        #expect(self.viewModel.theme as? ThemeGeneratedMock === newTheme, "Wrong theme")
 
         // THEN - Colors
-        XCTAssertEqual(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCallsCount, 1, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should have been called once")
-        let getColorsReceivedArguments = try XCTUnwrap(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyReceivedArguments, "Couldn't unwrap getColorsReceivedArguments")
-        XCTAssertIdentical(getColorsReceivedArguments.theme as? ThemeGeneratedMock, newTheme, "Wrong getColorsReceivedArguments.theme")
-        XCTAssertTrue(self.viewModel.textColor.equals(newExpectedColors.text), "Wrong textColor")
-        XCTAssertTrue(self.viewModel.placeholderColor.equals(newExpectedColors.placeholder), "Wrong placeholderColor")
-        XCTAssertTrue(self.viewModel.borderColor.equals(newExpectedColors.border), "Wrong borderColor")
-        XCTAssertTrue(self.viewModel.backgroundColor.equals(newExpectedColors.background), "Wrong backgroundColor")
+        #expect(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCallsCount == 1, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should have been called once")
+        let getColorsReceivedArguments = try #require(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyReceivedArguments, "Couldn't unwrap getColorsReceivedArguments")
+        #expect(getColorsReceivedArguments.theme as? ThemeGeneratedMock === newTheme, "Wrong getColorsReceivedArguments.theme")
+        #expect(self.viewModel.textColor.equals(newExpectedColors.text), "Wrong textColor")
+        #expect(self.viewModel.placeholderColor.equals(newExpectedColors.placeholder), "Wrong placeholderColor")
+        #expect(self.viewModel.borderColor.equals(newExpectedColors.border), "Wrong borderColor")
+        #expect(self.viewModel.backgroundColor.equals(newExpectedColors.background), "Wrong backgroundColor")
 
         // THEN - Border Layout
-        XCTAssertEqual(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCallsCount, 1, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should have been called once")
-        let getBorderLayoutReceivedArguments = try XCTUnwrap(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedReceivedArguments, "Couldn't unwrap getBorderLayoutReceivedArguments")
-        XCTAssertIdentical(getBorderLayoutReceivedArguments.theme as? ThemeGeneratedMock, newTheme, "Wrong getBorderLayoutReceivedArguments.theme")
-        XCTAssertEqual(self.viewModel.borderWidth, newExpectedBorderLayout.width, "Wrong borderWidth")
-        XCTAssertEqual(self.viewModel.borderRadius, newExpectedBorderLayout.radius, "Wrong borderRadius")
+        #expect(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCallsCount == 1, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should have been called once")
+        let getBorderLayoutReceivedArguments = try #require(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedReceivedArguments, "Couldn't unwrap getBorderLayoutReceivedArguments")
+        #expect(getBorderLayoutReceivedArguments.theme as? ThemeGeneratedMock === newTheme, "Wrong getBorderLayoutReceivedArguments.theme")
+        #expect(self.viewModel.borderWidth == newExpectedBorderLayout.width, "Wrong borderWidth")
+        #expect(self.viewModel.borderRadius == newExpectedBorderLayout.radius, "Wrong borderRadius")
 
         // THEN - Spacings
-        XCTAssertEqual(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCallsCount, 1, "getSpacingsUseCase.executeWithThemeAndBorderStyle should have been called once")
-        let getSpacingsUseCaseReceivedArguments = try XCTUnwrap(self.getSpacingsUseCase.executeWithThemeAndBorderStyleReceivedArguments, "Couldn't unwrap getSpacingsUseCaseReceivedArguments")
-        XCTAssertIdentical(getSpacingsUseCaseReceivedArguments.theme as? ThemeGeneratedMock, newTheme, "Wrong getSpacingsUseCaseReceivedArguments.theme")
-        XCTAssertEqual(self.viewModel.leftSpacing, newExpectedSpacings.horizontal, "Wrong horizontalSpacing")
-        XCTAssertEqual(self.viewModel.contentSpacing, newExpectedSpacings.content, "Wrong contentSpacing")
-        XCTAssertEqual(self.viewModel.rightSpacing, newExpectedSpacings.horizontal, "Wrong horizontalSpacing")
+        #expect(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCallsCount == 1, "getSpacingsUseCase.executeWithThemeAndBorderStyle should have been called once")
+        let getSpacingsUseCaseReceivedArguments = try #require(self.getSpacingsUseCase.executeWithThemeAndBorderStyleReceivedArguments, "Couldn't unwrap getSpacingsUseCaseReceivedArguments")
+        #expect(getSpacingsUseCaseReceivedArguments.theme as? ThemeGeneratedMock === newTheme, "Wrong getSpacingsUseCaseReceivedArguments.theme")
+        #expect(self.viewModel.leftSpacing == newExpectedSpacings.horizontal, "Wrong horizontalSpacing")
+        #expect(self.viewModel.contentSpacing == newExpectedSpacings.content, "Wrong contentSpacing")
+        #expect(self.viewModel.rightSpacing == newExpectedSpacings.horizontal, "Wrong horizontalSpacing")
 
         // THEN - Publishers
-        XCTAssertEqual(self.publishers.textColor.sinkCount, 1, "$textColor should have been called once")
-        XCTAssertEqual(self.publishers.borderColor.sinkCount, 1, "$borderColorIndicatorColor should have been called once")
-        XCTAssertEqual(self.publishers.backgroundColor.sinkCount, 1, "$backgroundColor should have been called once")
-        XCTAssertEqual(self.publishers.placeholderColor.sinkCount, 1, "$placeholderColor should have been called once")
+        #expect(self.publishers.textColor.sinkCount == 1, "$textColor should have been called once")
+        #expect(self.publishers.borderColor.sinkCount == 1, "$borderColorIndicatorColor should have been called once")
+        #expect(self.publishers.backgroundColor.sinkCount == 1, "$backgroundColor should have been called once")
+        #expect(self.publishers.placeholderColor.sinkCount == 1, "$placeholderColor should have been called once")
 
-        XCTAssertEqual(self.publishers.borderWidth.sinkCount, 1, "$borderWidth should have been called once")
-        XCTAssertEqual(self.publishers.borderRadius.sinkCount, 1, "$borderRadius should have been called once")
+        #expect(self.publishers.borderWidth.sinkCount == 1, "$borderWidth should have been called once")
+        #expect(self.publishers.borderRadius.sinkCount == 1, "$borderRadius should have been called once")
 
-        XCTAssertEqual(self.publishers.leftSpacing.sinkCount, 1, "$leftSpacing should have been called once")
-        XCTAssertEqual(self.publishers.contentSpacing.sinkCount, 1, "$contentSpacing should have been called once")
-        XCTAssertEqual(self.publishers.rightSpacing.sinkCount, 1, "$rightSpacing should have been called once")
+        #expect(self.publishers.leftSpacing.sinkCount == 1, "$leftSpacing should have been called once")
+        #expect(self.publishers.contentSpacing.sinkCount == 1, "$contentSpacing should have been called once")
+        #expect(self.publishers.rightSpacing.sinkCount == 1, "$rightSpacing should have been called once")
 
-        XCTAssertEqual(self.publishers.dim.sinkCount, 1, "$dim should have been called once")
-        XCTAssertEqual(self.publishers.font.sinkCount, 1, "$font should have been called once")
+        #expect(self.publishers.dim.sinkCount == 1, "$dim should have been called once")
+        #expect(self.publishers.font.sinkCount == 1, "$font should have been called once")
     }
 
     // MARK: - Intent
-    func test_intent_didSet_equal() throws {
+    @Test("Intent did set equal")
+    func intentDidSetEqual() throws {
         // GIVEN - Inits from setUp()
         self.resetUseCases() // Removes execute from init
         self.publishers.reset() // Removes publishes from init
@@ -206,32 +210,33 @@ final class TextInputUIViewModelTests: XCTestCase {
         self.viewModel.intent = self.intent
 
         // THEN - Colors
-        XCTAssertFalse(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCalled, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should not have been called")
+        #expect(!self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCalled, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should not have been called")
 
         // THEN - Border Layout
-        XCTAssertFalse(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
+        #expect(!self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
 
         // THEN - Spacings
-        XCTAssertFalse(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
+        #expect(!self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
 
         // THEN - Publishers
-        XCTAssertFalse(self.publishers.textColor.sinkCalled, "$textColor should not have been called")
-        XCTAssertFalse(self.publishers.borderColor.sinkCalled, "$borderColorIndicatorColor should not have been called")
-        XCTAssertFalse(self.publishers.backgroundColor.sinkCalled, "$backgroundColor should not have been called")
-        XCTAssertFalse(self.publishers.placeholderColor.sinkCalled, "$placeholderColor should not have been called")
+        #expect(!self.publishers.textColor.sinkCalled, "$textColor should not have been called")
+        #expect(!self.publishers.borderColor.sinkCalled, "$borderColorIndicatorColor should not have been called")
+        #expect(!self.publishers.backgroundColor.sinkCalled, "$backgroundColor should not have been called")
+        #expect(!self.publishers.placeholderColor.sinkCalled, "$placeholderColor should not have been called")
 
-        XCTAssertFalse(self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
-        XCTAssertFalse(self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
+        #expect(!self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
+        #expect(!self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
 
-        XCTAssertFalse(self.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
-        XCTAssertFalse(self.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
-        XCTAssertFalse(self.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
+        #expect(!self.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
+        #expect(!self.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
+        #expect(!self.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
 
-        XCTAssertFalse(self.publishers.dim.sinkCalled, "$dim should not have been called")
-        XCTAssertFalse(self.publishers.font.sinkCalled, "$font should not have been called")
+        #expect(!self.publishers.dim.sinkCalled, "$dim should not have been called")
+        #expect(!self.publishers.font.sinkCalled, "$font should not have been called")
     }
 
-    func test_intent_didSet_notEqual() throws {
+    @Test("Intent did set not equal")
+    func intentDidSetNotEqual() throws {
         // GIVEN - Inits from setUp()
         self.viewModel.intent = .alert
         self.resetUseCases() // Removes execute from init
@@ -249,39 +254,40 @@ final class TextInputUIViewModelTests: XCTestCase {
         self.viewModel.intent = .neutral
 
         // THEN - Colors
-        XCTAssertEqual(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCallsCount, 1, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should have been called once")
-        let getColorsReceivedArguments = try XCTUnwrap(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyReceivedArguments, "Couldn't unwrap getColorsReceivedArguments")
-        XCTAssertEqual(getColorsReceivedArguments.intent, .neutral, "Wrong getColorsReceivedArguments.intent")
-        XCTAssertTrue(self.viewModel.textColor.equals(newExpectedColors.text), "Wrong textColor")
-        XCTAssertTrue(self.viewModel.placeholderColor.equals(newExpectedColors.placeholder), "Wrong placeholderColor")
-        XCTAssertTrue(self.viewModel.borderColor.equals(newExpectedColors.border), "Wrong borderColor")
-        XCTAssertTrue(self.viewModel.backgroundColor.equals(newExpectedColors.background), "Wrong backgroundColor")
+        #expect(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCallsCount == 1, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should have been called once")
+        let getColorsReceivedArguments = try #require(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyReceivedArguments, "Couldn't unwrap getColorsReceivedArguments")
+        #expect(getColorsReceivedArguments.intent == .neutral, "Wrong getColorsReceivedArguments.intent")
+        #expect(self.viewModel.textColor.equals(newExpectedColors.text), "Wrong textColor")
+        #expect(self.viewModel.placeholderColor.equals(newExpectedColors.placeholder), "Wrong placeholderColor")
+        #expect(self.viewModel.borderColor.equals(newExpectedColors.border), "Wrong borderColor")
+        #expect(self.viewModel.backgroundColor.equals(newExpectedColors.background), "Wrong backgroundColor")
 
         // THEN - Border Layout
-        XCTAssertFalse(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
+        #expect(!self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
 
         // THEN - Spacings
-        XCTAssertFalse(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
+        #expect(!self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
 
         // THEN - Publishers
-        XCTAssertEqual(self.publishers.textColor.sinkCount, 1, "$textColor should have been called once")
-        XCTAssertEqual(self.publishers.borderColor.sinkCount, 1, "$borderColorIndicatorColor should have been called once")
-        XCTAssertEqual(self.publishers.backgroundColor.sinkCount, 1, "$backgroundColor should have been called once")
-        XCTAssertEqual(self.publishers.placeholderColor.sinkCount, 1, "$placeholderColor should have been called once")
+        #expect(self.publishers.textColor.sinkCount == 1, "$textColor should have been called once")
+        #expect(self.publishers.borderColor.sinkCount == 1, "$borderColorIndicatorColor should have been called once")
+        #expect(self.publishers.backgroundColor.sinkCount == 1, "$backgroundColor should have been called once")
+        #expect(self.publishers.placeholderColor.sinkCount == 1, "$placeholderColor should have been called once")
 
-        XCTAssertFalse(self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
-        XCTAssertFalse(self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
+        #expect(!self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
+        #expect(!self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
 
-        XCTAssertFalse(self.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
-        XCTAssertFalse(self.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
-        XCTAssertFalse(self.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
+        #expect(!self.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
+        #expect(!self.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
+        #expect(!self.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
 
-        XCTAssertFalse(self.publishers.dim.sinkCalled, "$dim should not have been called")
-        XCTAssertFalse(self.publishers.font.sinkCalled, "$font should not have been called")
+        #expect(!self.publishers.dim.sinkCalled, "$dim should not have been called")
+        #expect(!self.publishers.font.sinkCalled, "$font should not have been called")
     }
 
     // MARK: - Border Style
-    func test_borderStyle_didSet_equal() throws {
+    @Test("Border style did set equal")
+    func borderStyleDidSetEqual() throws {
         // GIVEN - Inits from setUp()
         self.resetUseCases() // Removes execute from init
         self.publishers.reset() // Removes publishes from init
@@ -290,32 +296,33 @@ final class TextInputUIViewModelTests: XCTestCase {
         self.viewModel.borderStyle = self.borderStyle
 
         // THEN - Colors
-        XCTAssertFalse(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCalled, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should not have been called")
+        #expect(!self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCalled, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should not have been called")
 
         // THEN - Border Layout
-        XCTAssertFalse(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
+        #expect(!self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
 
         // THEN - Spacings
-        XCTAssertFalse(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
+        #expect(!self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
 
         // THEN - Publishers
-        XCTAssertFalse(self.publishers.textColor.sinkCalled, "$textColor should not have been called")
-        XCTAssertFalse(self.publishers.borderColor.sinkCalled, "$borderColorIndicatorColor should not have been called")
-        XCTAssertFalse(self.publishers.backgroundColor.sinkCalled, "$backgroundColor should not have been called")
-        XCTAssertFalse(self.publishers.placeholderColor.sinkCalled, "$placeholderColor should not have been called")
+        #expect(!self.publishers.textColor.sinkCalled, "$textColor should not have been called")
+        #expect(!self.publishers.borderColor.sinkCalled, "$borderColorIndicatorColor should not have been called")
+        #expect(!self.publishers.backgroundColor.sinkCalled, "$backgroundColor should not have been called")
+        #expect(!self.publishers.placeholderColor.sinkCalled, "$placeholderColor should not have been called")
 
-        XCTAssertFalse(self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
-        XCTAssertFalse(self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
+        #expect(!self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
+        #expect(!self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
 
-        XCTAssertFalse(self.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
-        XCTAssertFalse(self.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
-        XCTAssertFalse(self.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
+        #expect(!self.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
+        #expect(!self.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
+        #expect(!self.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
 
-        XCTAssertFalse(self.publishers.dim.sinkCalled, "$dim should not have been called")
-        XCTAssertFalse(self.publishers.font.sinkCalled, "$font should not have been called")
+        #expect(!self.publishers.dim.sinkCalled, "$dim should not have been called")
+        #expect(!self.publishers.font.sinkCalled, "$font should not have been called")
     }
 
-    func test_borderStyle_didSet_notEqual() throws {
+    @Test("Border style did set not equal")
+    func borderStyleDidSetNotEqual() throws {
         // GIVEN - Inits from setUp()
         self.resetUseCases() // Removes execute from init
         self.publishers.reset() // Removes publishes from init
@@ -330,42 +337,43 @@ final class TextInputUIViewModelTests: XCTestCase {
         self.viewModel.borderStyle = .none
 
         // THEN - Colors
-        XCTAssertFalse(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCalled, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should not have been called")
+        #expect(!self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCalled, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should not have been called")
 
         // THEN - Border Layout
-        XCTAssertEqual(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCallsCount, 1, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should have been called once")
-        let getBorderLayoutReceivedArguments = try XCTUnwrap(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedReceivedArguments, "Couldn't unwrap getBorderLayoutReceivedArguments")
-        XCTAssertEqual(getBorderLayoutReceivedArguments.borderStyle, .none, "Wrong getBorderLayoutReceivedArguments.borderStyle")
-        XCTAssertEqual(self.viewModel.borderWidth, newExpectedBorderLayout.width, "Wrong borderWidth")
-        XCTAssertEqual(self.viewModel.borderRadius, newExpectedBorderLayout.radius, "Wrong borderRadius")
+        #expect(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCallsCount == 1, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should have been called once")
+        let getBorderLayoutReceivedArguments = try #require(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedReceivedArguments, "Couldn't unwrap getBorderLayoutReceivedArguments")
+        #expect(getBorderLayoutReceivedArguments.borderStyle == .none, "Wrong getBorderLayoutReceivedArguments.borderStyle")
+        #expect(self.viewModel.borderWidth == newExpectedBorderLayout.width, "Wrong borderWidth")
+        #expect(self.viewModel.borderRadius == newExpectedBorderLayout.radius, "Wrong borderRadius")
 
         // THEN - Spacings
-        XCTAssertEqual(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCallsCount, 1, "getSpacingsUseCase.executeWithThemeAndBorderStyle should have been called once")
-        let getSpacingsUseCaseReceivedArguments = try XCTUnwrap(self.getSpacingsUseCase.executeWithThemeAndBorderStyleReceivedArguments, "Couldn't unwrap getSpacingsUseCaseReceivedArguments")
-        XCTAssertEqual(getSpacingsUseCaseReceivedArguments.borderStyle, .none, "Wrong getSpacingsUseCaseReceivedArguments.borderStyle")
-        XCTAssertEqual(self.viewModel.leftSpacing, newExpectedSpacings.horizontal, "Wrong horizontalSpacing")
-        XCTAssertEqual(self.viewModel.contentSpacing, newExpectedSpacings.content, "Wrong contentSpacing")
-        XCTAssertEqual(self.viewModel.rightSpacing, newExpectedSpacings.horizontal, "Wrong horizontalSpacing")
+        #expect(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCallsCount == 1, "getSpacingsUseCase.executeWithThemeAndBorderStyle should have been called once")
+        let getSpacingsUseCaseReceivedArguments = try #require(self.getSpacingsUseCase.executeWithThemeAndBorderStyleReceivedArguments, "Couldn't unwrap getSpacingsUseCaseReceivedArguments")
+        #expect(getSpacingsUseCaseReceivedArguments.borderStyle == .none, "Wrong getSpacingsUseCaseReceivedArguments.borderStyle")
+        #expect(self.viewModel.leftSpacing == newExpectedSpacings.horizontal, "Wrong horizontalSpacing")
+        #expect(self.viewModel.contentSpacing == newExpectedSpacings.content, "Wrong contentSpacing")
+        #expect(self.viewModel.rightSpacing == newExpectedSpacings.horizontal, "Wrong horizontalSpacing")
 
         // THEN - Publishers
-        XCTAssertFalse(self.publishers.textColor.sinkCalled, "$textColor should not have been called")
-        XCTAssertFalse(self.publishers.borderColor.sinkCalled, "$borderColorIndicatorColor should not have been called")
-        XCTAssertFalse(self.publishers.backgroundColor.sinkCalled, "$backgroundColor should not have been called")
-        XCTAssertFalse(self.publishers.placeholderColor.sinkCalled, "$placeholderColor should not have been called")
+        #expect(!self.publishers.textColor.sinkCalled, "$textColor should not have been called")
+        #expect(!self.publishers.borderColor.sinkCalled, "$borderColorIndicatorColor should not have been called")
+        #expect(!self.publishers.backgroundColor.sinkCalled, "$backgroundColor should not have been called")
+        #expect(!self.publishers.placeholderColor.sinkCalled, "$placeholderColor should not have been called")
 
-        XCTAssertEqual(self.publishers.borderWidth.sinkCount, 1, "$borderWidth should have been called once")
-        XCTAssertEqual(self.publishers.borderRadius.sinkCount, 1, "$borderRadius should have been called once")
+        #expect(self.publishers.borderWidth.sinkCount == 1, "$borderWidth should have been called once")
+        #expect(self.publishers.borderRadius.sinkCount == 1, "$borderRadius should have been called once")
 
-        XCTAssertEqual(self.publishers.leftSpacing.sinkCount, 1, "$leftSpacing should have been called once")
-        XCTAssertEqual(self.publishers.contentSpacing.sinkCount, 1, "$contentSpacing should have been called once")
-        XCTAssertEqual(self.publishers.rightSpacing.sinkCount, 1, "$rightSpacing should have been called once")
+        #expect(self.publishers.leftSpacing.sinkCount == 1, "$leftSpacing should have been called once")
+        #expect(self.publishers.contentSpacing.sinkCount == 1, "$contentSpacing should have been called once")
+        #expect(self.publishers.rightSpacing.sinkCount == 1, "$rightSpacing should have been called once")
 
-        XCTAssertFalse(self.publishers.dim.sinkCalled, "$dim should not have been called")
-        XCTAssertFalse(self.publishers.font.sinkCalled, "$font should not have been called")
+        #expect(!self.publishers.dim.sinkCalled, "$dim should not have been called")
+        #expect(!self.publishers.font.sinkCalled, "$font should not have been called")
     }
 
     // MARK: - Is Focused
-    func test_isFocused_didSet_equal() throws {
+    @Test("Is focused did set equal")
+    func isFocusedDidSetEqual() throws {
         // GIVEN - Inits from setUp()
         self.resetUseCases() // Removes execute from init
         self.publishers.reset() // Removes publishes from init
@@ -374,32 +382,33 @@ final class TextInputUIViewModelTests: XCTestCase {
         self.viewModel.isFocused = false
 
         // THEN - Colors
-        XCTAssertFalse(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCalled, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should not have been called")
+        #expect(!self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCalled, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should not have been called")
 
         // THEN - Border Layout
-        XCTAssertFalse(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
+        #expect(!self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
 
         // THEN - Spacings
-        XCTAssertFalse(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
+        #expect(!self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
 
         // THEN - Publishers
-        XCTAssertFalse(self.publishers.textColor.sinkCalled, "$textColor should not have been called")
-        XCTAssertFalse(self.publishers.borderColor.sinkCalled, "$borderColorIndicatorColor should not have been called")
-        XCTAssertFalse(self.publishers.backgroundColor.sinkCalled, "$backgroundColor should not have been called")
-        XCTAssertFalse(self.publishers.placeholderColor.sinkCalled, "$placeholderColor should not have been called")
+        #expect(!self.publishers.textColor.sinkCalled, "$textColor should not have been called")
+        #expect(!self.publishers.borderColor.sinkCalled, "$borderColorIndicatorColor should not have been called")
+        #expect(!self.publishers.backgroundColor.sinkCalled, "$backgroundColor should not have been called")
+        #expect(!self.publishers.placeholderColor.sinkCalled, "$placeholderColor should not have been called")
 
-        XCTAssertFalse(self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
-        XCTAssertFalse(self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
+        #expect(!self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
+        #expect(!self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
 
-        XCTAssertFalse(self.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
-        XCTAssertFalse(self.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
-        XCTAssertFalse(self.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
+        #expect(!self.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
+        #expect(!self.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
+        #expect(!self.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
 
-        XCTAssertFalse(self.publishers.dim.sinkCalled, "$dim should not have been called")
-        XCTAssertFalse(self.publishers.font.sinkCalled, "$font should not have been called")
+        #expect(!self.publishers.dim.sinkCalled, "$dim should not have been called")
+        #expect(!self.publishers.font.sinkCalled, "$font should not have been called")
     }
 
-    func test_isFocused_didSet_notEqual() throws {
+    @Test("Is focused did set not equal")
+    func isFocusedDidSetNotEqual() throws {
         // GIVEN - Inits from setUp()
         self.resetUseCases() // Removes execute from init
         self.publishers.reset() // Removes publishes from init
@@ -419,45 +428,46 @@ final class TextInputUIViewModelTests: XCTestCase {
         self.viewModel.isFocused = true
 
         // THEN - Colors
-        XCTAssertEqual(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCallsCount, 1, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should have been called once")
-        let getColorsReceivedArguments = try XCTUnwrap(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyReceivedArguments, "Couldn't unwrap getColorsReceivedArguments")
-        XCTAssertIdentical(getColorsReceivedArguments.theme as? ThemeGeneratedMock, self.theme, "Wrong getColorsReceivedArguments.theme")
-        XCTAssertEqual(getColorsReceivedArguments.intent, self.intent, "Wrong getColorsReceivedArguments.intent")
-        XCTAssertTrue(getColorsReceivedArguments.isFocused, "Wrong getColorsReceivedArguments.isFocused")
-        XCTAssertTrue(self.viewModel.textColor.equals(newExpectedColors.text), "Wrong textColor")
-        XCTAssertTrue(self.viewModel.placeholderColor.equals(newExpectedColors.placeholder), "Wrong placeholderColor")
-        XCTAssertTrue(self.viewModel.borderColor.equals(newExpectedColors.border), "Wrong borderColor")
-        XCTAssertTrue(self.viewModel.backgroundColor.equals(newExpectedColors.background), "Wrong backgroundColor")
+        #expect(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCallsCount == 1, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should have been called once")
+        let getColorsReceivedArguments = try #require(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyReceivedArguments, "Couldn't unwrap getColorsReceivedArguments")
+        #expect(getColorsReceivedArguments.theme as? ThemeGeneratedMock === self.theme, "Wrong getColorsReceivedArguments.theme")
+        #expect(getColorsReceivedArguments.intent == self.intent, "Wrong getColorsReceivedArguments.intent")
+        #expect(getColorsReceivedArguments.isFocused, "Wrong getColorsReceivedArguments.isFocused")
+        #expect(self.viewModel.textColor.equals(newExpectedColors.text), "Wrong textColor")
+        #expect(self.viewModel.placeholderColor.equals(newExpectedColors.placeholder), "Wrong placeholderColor")
+        #expect(self.viewModel.borderColor.equals(newExpectedColors.border), "Wrong borderColor")
+        #expect(self.viewModel.backgroundColor.equals(newExpectedColors.background), "Wrong backgroundColor")
 
         // THEN - Border Layout
-        XCTAssertEqual(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCallsCount, 1, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should have been called once")
-        let getBorderLayoutReceivedArguments = try XCTUnwrap(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedReceivedArguments, "Couldn't unwrap getBorderLayoutReceivedArguments")
-        XCTAssertTrue(getBorderLayoutReceivedArguments.isFocused, "Wrong getBorderLayoutReceivedArguments.isFocused")
-        XCTAssertEqual(self.viewModel.borderWidth, newExpectedBorderLayout.width, "Wrong borderWidth")
-        XCTAssertEqual(self.viewModel.borderRadius, newExpectedBorderLayout.radius, "Wrong borderRadius")
+        #expect(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCallsCount == 1, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should have been called once")
+        let getBorderLayoutReceivedArguments = try #require(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedReceivedArguments, "Couldn't unwrap getBorderLayoutReceivedArguments")
+        #expect(getBorderLayoutReceivedArguments.isFocused, "Wrong getBorderLayoutReceivedArguments.isFocused")
+        #expect(self.viewModel.borderWidth == newExpectedBorderLayout.width, "Wrong borderWidth")
+        #expect(self.viewModel.borderRadius == newExpectedBorderLayout.radius, "Wrong borderRadius")
 
         // THEN - Spacings
-        XCTAssertFalse(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
+        #expect(!self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
 
         // THEN - Publishers
-        XCTAssertEqual(self.publishers.textColor.sinkCount, 1, "$textColor should have been called once")
-        XCTAssertEqual(self.publishers.borderColor.sinkCount, 1, "$borderColorIndicatorColor should have been called once")
-        XCTAssertEqual(self.publishers.backgroundColor.sinkCount, 1, "$backgroundColor should have been called once")
-        XCTAssertEqual(self.publishers.placeholderColor.sinkCount, 1, "$placeholderColor should have been called once")
+        #expect(self.publishers.textColor.sinkCount == 1, "$textColor should have been called once")
+        #expect(self.publishers.borderColor.sinkCount == 1, "$borderColorIndicatorColor should have been called once")
+        #expect(self.publishers.backgroundColor.sinkCount == 1, "$backgroundColor should have been called once")
+        #expect(self.publishers.placeholderColor.sinkCount == 1, "$placeholderColor should have been called once")
 
-        XCTAssertEqual(self.publishers.borderWidth.sinkCount, 1, "$borderWidth should have been called once")
-        XCTAssertEqual(self.publishers.borderRadius.sinkCount, 1, "$borderRadius should have been called once")
+        #expect(self.publishers.borderWidth.sinkCount == 1, "$borderWidth should have been called once")
+        #expect(self.publishers.borderRadius.sinkCount == 1, "$borderRadius should have been called once")
 
-        XCTAssertFalse(self.publishers.leftSpacing.sinkCalled, "$leftSpacing should have not been called")
-        XCTAssertFalse(self.publishers.contentSpacing.sinkCalled, "$contentSpacing should have not been called")
-        XCTAssertFalse(self.publishers.rightSpacing.sinkCalled, "$rightSpacing should have not been called")
+        #expect(!self.publishers.leftSpacing.sinkCalled, "$leftSpacing should have not been called")
+        #expect(!self.publishers.contentSpacing.sinkCalled, "$contentSpacing should have not been called")
+        #expect(!self.publishers.rightSpacing.sinkCalled, "$rightSpacing should have not been called")
 
-        XCTAssertFalse(self.publishers.dim.sinkCalled, "$dim should not have been called")
-        XCTAssertFalse(self.publishers.font.sinkCalled, "$font should not have been called")
+        #expect(!self.publishers.dim.sinkCalled, "$dim should not have been called")
+        #expect(!self.publishers.font.sinkCalled, "$font should not have been called")
     }
 
     // MARK: - Is Enabled
-    func test_isEnabled_didSet_equal() throws {
+    @Test("Is enabled did set equal")
+    func isEnabledDidSetEqual() throws {
         // GIVEN - Inits from setUp()
         self.resetUseCases() // Removes execute from init
         self.publishers.reset() // Removes publishes from init
@@ -466,32 +476,33 @@ final class TextInputUIViewModelTests: XCTestCase {
         self.viewModel.isEnabled = true
 
         // THEN - Colors
-        XCTAssertFalse(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCalled, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should not have been called")
+        #expect(!self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCalled, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should not have been called")
 
         // THEN - Border Layout
-        XCTAssertFalse(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
+        #expect(!self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
 
         // THEN - Spacings
-        XCTAssertFalse(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
+        #expect(!self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
 
         // THEN - Publishers
-        XCTAssertFalse(self.publishers.textColor.sinkCalled, "$textColor should not have been called")
-        XCTAssertFalse(self.publishers.borderColor.sinkCalled, "$borderColorIndicatorColor should not have been called")
-        XCTAssertFalse(self.publishers.backgroundColor.sinkCalled, "$backgroundColor should not have been called")
-        XCTAssertFalse(self.publishers.placeholderColor.sinkCalled, "$placeholderColor should not have been called")
+        #expect(!self.publishers.textColor.sinkCalled, "$textColor should not have been called")
+        #expect(!self.publishers.borderColor.sinkCalled, "$borderColorIndicatorColor should not have been called")
+        #expect(!self.publishers.backgroundColor.sinkCalled, "$backgroundColor should not have been called")
+        #expect(!self.publishers.placeholderColor.sinkCalled, "$placeholderColor should not have been called")
 
-        XCTAssertFalse(self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
-        XCTAssertFalse(self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
+        #expect(!self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
+        #expect(!self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
 
-        XCTAssertFalse(self.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
-        XCTAssertFalse(self.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
-        XCTAssertFalse(self.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
+        #expect(!self.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
+        #expect(!self.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
+        #expect(!self.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
 
-        XCTAssertFalse(self.publishers.dim.sinkCalled, "$dim should not have been called")
-        XCTAssertFalse(self.publishers.font.sinkCalled, "$font should not have been called")
+        #expect(!self.publishers.dim.sinkCalled, "$dim should not have been called")
+        #expect(!self.publishers.font.sinkCalled, "$font should not have been called")
     }
 
-    func test_isEnabled_didSet_notEqual() throws {
+    @Test("Is enabled did set not equal")
+    func isEnabledDidSetNotEqual() throws {
         // GIVEN - Inits from setUp()
         self.viewModel.isEnabled = false
         self.resetUseCases() // Removes execute from init
@@ -509,41 +520,42 @@ final class TextInputUIViewModelTests: XCTestCase {
         self.viewModel.isEnabled = true
 
         // THEN - Colors
-        XCTAssertEqual(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCallsCount, 1, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should have been called once")
-        let getColorsReceivedArguments = try XCTUnwrap(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyReceivedArguments, "Couldn't unwrap getColorsReceivedArguments")
-        XCTAssertIdentical(getColorsReceivedArguments.theme as? ThemeGeneratedMock, self.theme, "Wrong getColorsReceivedArguments.theme")
-        XCTAssertEqual(getColorsReceivedArguments.intent, self.intent, "Wrong getColorsReceivedArguments.intent")
-        XCTAssertTrue(getColorsReceivedArguments.isEnabled, "Wrong getColorsReceivedArguments.isEnabledd")
-        XCTAssertTrue(self.viewModel.textColor.equals(newExpectedColors.text), "Wrong textColor")
-        XCTAssertTrue(self.viewModel.placeholderColor.equals(newExpectedColors.placeholder), "Wrong placeholderColor")
-        XCTAssertTrue(self.viewModel.borderColor.equals(newExpectedColors.border), "Wrong borderColor")
-        XCTAssertTrue(self.viewModel.backgroundColor.equals(newExpectedColors.background), "Wrong backgroundColor")
+        #expect(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCallsCount == 1, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should have been called once")
+        let getColorsReceivedArguments = try #require(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyReceivedArguments, "Couldn't unwrap getColorsReceivedArguments")
+        #expect(getColorsReceivedArguments.theme as? ThemeGeneratedMock === self.theme, "Wrong getColorsReceivedArguments.theme")
+        #expect(getColorsReceivedArguments.intent == self.intent, "Wrong getColorsReceivedArguments.intent")
+        #expect(getColorsReceivedArguments.isEnabled, "Wrong getColorsReceivedArguments.isEnabledd")
+        #expect(self.viewModel.textColor.equals(newExpectedColors.text), "Wrong textColor")
+        #expect(self.viewModel.placeholderColor.equals(newExpectedColors.placeholder), "Wrong placeholderColor")
+        #expect(self.viewModel.borderColor.equals(newExpectedColors.border), "Wrong borderColor")
+        #expect(self.viewModel.backgroundColor.equals(newExpectedColors.background), "Wrong backgroundColor")
 
         // THEN - Border Layout
-        XCTAssertFalse(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
+        #expect(!self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
 
         // THEN - Spacings
-        XCTAssertFalse(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
+        #expect(!self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
 
         // THEN - Publishers
-        XCTAssertEqual(self.publishers.textColor.sinkCount, 1, "$textColor should have been called once")
-        XCTAssertEqual(self.publishers.borderColor.sinkCount, 1, "$borderColorIndicatorColor should have been called once")
-        XCTAssertEqual(self.publishers.backgroundColor.sinkCount, 1, "$backgroundColor should have been called once")
-        XCTAssertEqual(self.publishers.placeholderColor.sinkCount, 1, "$placeholderColor should have been called once")
+        #expect(self.publishers.textColor.sinkCount == 1, "$textColor should have been called once")
+        #expect(self.publishers.borderColor.sinkCount == 1, "$borderColorIndicatorColor should have been called once")
+        #expect(self.publishers.backgroundColor.sinkCount == 1, "$backgroundColor should have been called once")
+        #expect(self.publishers.placeholderColor.sinkCount == 1, "$placeholderColor should have been called once")
 
-        XCTAssertFalse(self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
-        XCTAssertFalse(self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
+        #expect(!self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
+        #expect(!self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
 
-        XCTAssertFalse(self.publishers.leftSpacing.sinkCalled, "$leftSpacing should have not been called")
-        XCTAssertFalse(self.publishers.contentSpacing.sinkCalled, "$contentSpacing should have not been called")
-        XCTAssertFalse(self.publishers.rightSpacing.sinkCalled, "$rightSpacing should have not been called")
+        #expect(!self.publishers.leftSpacing.sinkCalled, "$leftSpacing should have not been called")
+        #expect(!self.publishers.contentSpacing.sinkCalled, "$contentSpacing should have not been called")
+        #expect(!self.publishers.rightSpacing.sinkCalled, "$rightSpacing should have not been called")
 
-        XCTAssertEqual(self.publishers.dim.sinkCount, 1, "$dim should have been called once")
-        XCTAssertFalse(self.publishers.font.sinkCalled, "$font should not have been called")
+        #expect(self.publishers.dim.sinkCount == 1, "$dim should have been called once")
+        #expect(!self.publishers.font.sinkCalled, "$font should not have been called")
     }
 
     // MARK: - Is  Read Only
-    func test_isReadOnly_didSet_equal() throws {
+    @Test("Is read only did set equal")
+    func isReadOnlyDidSetEqual() throws {
         // GIVEN - Inits from setUp()
         self.resetUseCases() // Removes execute from init
         self.publishers.reset() // Removes publishes from init
@@ -552,32 +564,33 @@ final class TextInputUIViewModelTests: XCTestCase {
         self.viewModel.isReadOnly = false
 
         // THEN - Colors
-        XCTAssertFalse(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCalled, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should not have been called")
+        #expect(!self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCalled, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should not have been called")
 
         // THEN - Border Layout
-        XCTAssertFalse(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled should not have been called")
+        #expect(!self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled should not have been called")
 
         // THEN - Spacings
-        XCTAssertFalse(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
+        #expect(!self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
 
         // THEN - Publishers
-        XCTAssertFalse(self.publishers.textColor.sinkCalled, "$textColor should not have been called")
-        XCTAssertFalse(self.publishers.borderColor.sinkCalled, "$borderColorIndicatorColor should not have been called")
-        XCTAssertFalse(self.publishers.backgroundColor.sinkCalled, "$backgroundColor should not have been called")
-        XCTAssertFalse(self.publishers.placeholderColor.sinkCalled, "$placeholderColor should not have been called")
+        #expect(!self.publishers.textColor.sinkCalled, "$textColor should not have been called")
+        #expect(!self.publishers.borderColor.sinkCalled, "$borderColorIndicatorColor should not have been called")
+        #expect(!self.publishers.backgroundColor.sinkCalled, "$backgroundColor should not have been called")
+        #expect(!self.publishers.placeholderColor.sinkCalled, "$placeholderColor should not have been called")
 
-        XCTAssertFalse(self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
-        XCTAssertFalse(self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
+        #expect(!self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
+        #expect(!self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
 
-        XCTAssertFalse(self.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
-        XCTAssertFalse(self.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
-        XCTAssertFalse(self.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
+        #expect(!self.publishers.leftSpacing.sinkCalled, "$leftSpacing should not have been called")
+        #expect(!self.publishers.contentSpacing.sinkCalled, "$contentSpacing should not have been called")
+        #expect(!self.publishers.rightSpacing.sinkCalled, "$rightSpacing should not have been called")
 
-        XCTAssertFalse(self.publishers.dim.sinkCalled, "$dim should not have been called")
-        XCTAssertFalse(self.publishers.font.sinkCalled, "$font should not have been called")
+        #expect(!self.publishers.dim.sinkCalled, "$dim should not have been called")
+        #expect(!self.publishers.font.sinkCalled, "$font should not have been called")
     }
 
-    func test_isReadOnly_didSet_notEqual() throws {
+    @Test("Is read only did set not equal")
+    func isReadOnlyDidSetNotEqual() throws {
         // GIVEN - Inits from setUp()
         self.resetUseCases() // Removes execute from init
         self.publishers.reset() // Removes publishes from init
@@ -594,37 +607,37 @@ final class TextInputUIViewModelTests: XCTestCase {
         self.viewModel.isReadOnly = true
 
         // THEN - Colors
-        XCTAssertEqual(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCallsCount, 1, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should have been called once")
-        let getColorsReceivedArguments = try XCTUnwrap(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyReceivedArguments, "Couldn't unwrap getColorsReceivedArguments")
-        XCTAssertIdentical(getColorsReceivedArguments.theme as? ThemeGeneratedMock, self.theme, "Wrong getColorsReceivedArguments.theme")
-        XCTAssertEqual(getColorsReceivedArguments.intent, self.intent, "Wrong getColorsReceivedArguments.intent")
-        XCTAssertTrue(getColorsReceivedArguments.isReadOnly, "Wrong getColorsReceivedArguments.isReadOnly")
-        XCTAssertTrue(self.viewModel.textColor.equals(newExpectedColors.text), "Wrong textColor")
-        XCTAssertTrue(self.viewModel.placeholderColor.equals(newExpectedColors.placeholder), "Wrong placeholderColor")
-        XCTAssertTrue(self.viewModel.borderColor.equals(newExpectedColors.border), "Wrong borderColor")
-        XCTAssertTrue(self.viewModel.backgroundColor.equals(newExpectedColors.background), "Wrong backgroundColor")
+        #expect(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyCallsCount == 1, "getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnly should have been called once")
+        let getColorsReceivedArguments = try #require(self.getColorsUseCase.executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyReceivedArguments, "Couldn't unwrap getColorsReceivedArguments")
+        #expect(getColorsReceivedArguments.theme as? ThemeGeneratedMock === self.theme, "Wrong getColorsReceivedArguments.theme")
+        #expect(getColorsReceivedArguments.intent == self.intent, "Wrong getColorsReceivedArguments.intent")
+        #expect(getColorsReceivedArguments.isReadOnly, "Wrong getColorsReceivedArguments.isReadOnly")
+        #expect(self.viewModel.textColor.equals(newExpectedColors.text), "Wrong textColor")
+        #expect(self.viewModel.placeholderColor.equals(newExpectedColors.placeholder), "Wrong placeholderColor")
+        #expect(self.viewModel.borderColor.equals(newExpectedColors.border), "Wrong borderColor")
+        #expect(self.viewModel.backgroundColor.equals(newExpectedColors.background), "Wrong backgroundColor")
 
         // THEN - Border Layout
-        XCTAssertFalse(self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
+        #expect(!self.getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocusedCalled, "getBorderLayoutUseCase.executeWithThemeAndBorderStyleAndIsFocused should not have been called")
 
         // THEN - Spacings
-        XCTAssertFalse(self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
+        #expect(!self.getSpacingsUseCase.executeWithThemeAndBorderStyleCalled, "getSpacingsUseCase.executeWithThemeAndBorderStyle should not have been called")
 
         // THEN - Publishers
-        XCTAssertEqual(self.publishers.textColor.sinkCount, 1, "$textColor should have been called once")
-        XCTAssertEqual(self.publishers.borderColor.sinkCount, 1, "$borderColorIndicatorColor should have been called once")
-        XCTAssertEqual(self.publishers.backgroundColor.sinkCount, 1, "$backgroundColor should have been called once")
-        XCTAssertEqual(self.publishers.placeholderColor.sinkCount, 1, "$placeholderColor should have been called once")
+        #expect(self.publishers.textColor.sinkCount == 1, "$textColor should have been called once")
+        #expect(self.publishers.borderColor.sinkCount == 1, "$borderColorIndicatorColor should have been called once")
+        #expect(self.publishers.backgroundColor.sinkCount == 1, "$backgroundColor should have been called once")
+        #expect(self.publishers.placeholderColor.sinkCount == 1, "$placeholderColor should have been called once")
 
-        XCTAssertFalse(self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
-        XCTAssertFalse(self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
+        #expect(!self.publishers.borderWidth.sinkCalled, "$borderWidth should not have been called")
+        #expect(!self.publishers.borderRadius.sinkCalled, "$borderRadius should not have been called")
 
-        XCTAssertFalse(self.publishers.leftSpacing.sinkCalled, "$leftSpacing should have not been called")
-        XCTAssertFalse(self.publishers.contentSpacing.sinkCalled, "$contentSpacing should have not been called")
-        XCTAssertFalse(self.publishers.rightSpacing.sinkCalled, "$rightSpacing should have not been called")
+        #expect(!self.publishers.leftSpacing.sinkCalled, "$leftSpacing should have not been called")
+        #expect(!self.publishers.contentSpacing.sinkCalled, "$contentSpacing should have not been called")
+        #expect(!self.publishers.rightSpacing.sinkCalled, "$rightSpacing should have not been called")
 
-        XCTAssertFalse(self.publishers.dim.sinkCalled, "$dim should not have been called")
-        XCTAssertFalse(self.publishers.font.sinkCalled, "$font should not have been called")
+        #expect(!self.publishers.dim.sinkCalled, "$dim should not have been called")
+        #expect(!self.publishers.font.sinkCalled, "$font should not have been called")
     }
 
     // MARK: - Utils

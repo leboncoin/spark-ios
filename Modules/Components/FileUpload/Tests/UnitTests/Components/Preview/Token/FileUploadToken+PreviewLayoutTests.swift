@@ -26,7 +26,7 @@ struct FileUploadTokenPreviewLayoutTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Spacing should return medium spacing")
     func spacingShouldReturnMediumSpacing() {
         // GIVEN / WHEN
         let result = self.token.spacing
@@ -35,7 +35,7 @@ struct FileUploadTokenPreviewLayoutTests {
         #expect(result == self.theme.layout.spacing.medium)
     }
 
-    @Test
+    @Test("Horizontal padding should return medium spacing")
     func horizontalPaddingShouldReturnMediumSpacing() {
         // GIVEN / WHEN
         let result = self.token.horizontalPadding
@@ -44,7 +44,7 @@ struct FileUploadTokenPreviewLayoutTests {
         #expect(result == self.theme.layout.spacing.medium)
     }
 
-    @Test
+    @Test("Vertical padding should return medium spacing")
     func verticalPaddingShouldReturnMediumSpacing() {
         // GIVEN / WHEN
         let result = self.token.verticalPadding
@@ -55,7 +55,7 @@ struct FileUploadTokenPreviewLayoutTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = FileUploadToken.Preview.Layout(theme: self.theme)
@@ -65,7 +65,7 @@ struct FileUploadTokenPreviewLayoutTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = FileUploadToken.Preview.Layout(theme: self.theme)

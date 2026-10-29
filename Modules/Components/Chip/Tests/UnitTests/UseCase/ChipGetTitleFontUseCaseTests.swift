@@ -7,16 +7,19 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentChip
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ChipGetTitleFontUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Chip Get Title Font UseCase Tests")
+struct ChipGetTitleFontUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_returns_correct_font() {
+    @Test("Execute returns correct font")
+    func executeReturnsCorrectFont() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let token = ChipToken.Typography(theme: theme)
@@ -26,6 +29,6 @@ final class ChipGetTitleFontUseCaseTests: XCTestCase {
         let result = useCase.execute(theme: theme)
 
         // THEN
-        XCTAssertTrue(result.equals(token.title))
+        #expect(result.equals(token.title))
     }
 }

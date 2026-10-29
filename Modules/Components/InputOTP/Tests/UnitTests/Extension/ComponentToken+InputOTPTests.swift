@@ -22,17 +22,17 @@ struct ComponentTokenInputOTPTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Input OTP should return token from theme")
     func inputOTPShouldReturnTokenFromTheme() {
         #expect(ComponentToken(theme: self.theme).inputOTP == InputOTPToken(theme: self.theme))
     }
 
-    @Test
+    @Test("Input OTP from theme component should return token from theme")
     func inputOTPFromThemeComponentShouldReturnTokenFromTheme() {
         #expect(self.theme.component.inputOTP == InputOTPToken(theme: self.theme))
     }
 
-    @Test
+    @Test("Input OTP with different theme should not return token from theme")
     func inputOTPWithDifferentThemeShouldNotReturnTokenFromTheme() {
         #expect(ComponentToken(theme: ThemeGeneratedMock.mocked2()).inputOTP != InputOTPToken(theme: self.theme))
     }

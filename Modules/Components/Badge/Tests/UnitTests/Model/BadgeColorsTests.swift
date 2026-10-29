@@ -7,26 +7,30 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentBadge
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class BadgeColorsTests: XCTestCase {
+@MainActor
+@Suite("Badge Colors Tests")
+struct BadgeColorsTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let colors = BadgeColors()
 
         // Then
-        XCTAssertTrue(colors.background.equals(ColorTokenClear()))
-        XCTAssertTrue(colors.border.equals(ColorTokenClear()))
-        XCTAssertTrue(colors.foreground.equals(ColorTokenClear()))
+        #expect(colors.background.equals(ColorTokenClear()))
+        #expect(colors.border.equals(ColorTokenClear()))
+        #expect(colors.foreground.equals(ColorTokenClear()))
     }
 
-    func test_equality_when_same_colors() {
+    @Test("Equality when same colors")
+    func equalityWhenSameColors() {
         // GIVEN / WHEN
         let backgroundToken = ColorTokenGeneratedMock.random()
         let borderToken = ColorTokenGeneratedMock.random()
@@ -45,6 +49,6 @@ final class BadgeColorsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(colors1, colors2)
+        #expect(colors1 == colors2)
     }
 }

@@ -7,18 +7,20 @@
 //
 
 @testable import SparkComponentSlider
-import XCTest
+import Testing
 
-final class SliderConstantsTests: XCTestCase {
+@Suite("Slider Constants Tests")
+struct SliderConstantsTests {
 
     // MARK: - Tests
 
-    func test_thumbWidth_hasExpectedValue() {
+    @Test("Thumb width has expected value")
+    func thumbWidthHasExpectedValue() {
         // GIVEN / WHEN / THEN
         if #available(iOS 26.0, *) {
-            XCTAssertEqual(SliderConstants.thumbWidth, 38.0)
+            #expect(SliderConstants.thumbWidth == 38.0)
         } else {
-            XCTAssertEqual(SliderConstants.thumbWidth, 28.0)
+            #expect(SliderConstants.thumbWidth == 28.0)
         }
     }
 }

@@ -6,15 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 
-final class TextInputBorderStyleTests: XCTestCase {
+@Suite("Text Input Border Style Tests")
+struct TextInputBorderStyleTests {
 
     // MARK: - Tests
 
-    func test_default() {
+    @Test("Default")
+    func defaultValue() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(TextInputBorderStyle.default, .roundedRect)
+        #expect(TextInputBorderStyle.default == .roundedRect)
     }
 }

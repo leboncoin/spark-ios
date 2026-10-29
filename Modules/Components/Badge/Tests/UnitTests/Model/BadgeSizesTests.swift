@@ -7,25 +7,29 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentBadge
 
-final class BadgeSizesTests: XCTestCase {
+@MainActor
+@Suite("Badge Sizes Tests")
+struct BadgeSizesTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let sizes = BadgeSizes()
 
         // THEN
-        XCTAssertEqual(sizes.content, 0)
-        XCTAssertEqual(sizes.border, 0)
-        XCTAssertEqual(sizes.horizontalSpacing, 0)
-        XCTAssertEqual(sizes.attachHorizontalSpacing, 0)
+        #expect(sizes.content == 0)
+        #expect(sizes.border == 0)
+        #expect(sizes.horizontalSpacing == 0)
+        #expect(sizes.attachHorizontalSpacing == 0)
     }
 
-    func test_equality_when_same_values() {
+    @Test("Equality when same values")
+    func equalityWhenSameValues() {
         // GIVEN / WHEN
         let sizes1 = BadgeSizes(
             content: 6.0,
@@ -42,6 +46,6 @@ final class BadgeSizesTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(sizes1, sizes2)
+        #expect(sizes1 == sizes2)
     }
 }

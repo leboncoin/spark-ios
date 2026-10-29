@@ -13,7 +13,7 @@ struct TagSizeTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Default")
     func test_default() {
         #expect(TagSize.default == .medium)
     }

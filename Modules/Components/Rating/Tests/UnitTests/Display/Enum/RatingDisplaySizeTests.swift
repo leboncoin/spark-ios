@@ -6,51 +6,57 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentRating
 
-final class RatingDisplaySizeTests: XCTestCase {
+@Suite("Rating Display Size Tests")
+struct RatingDisplaySizeTests {
 
     // MARK: - Tests
 
-    func test_default_is_medium() {
+    @Test("Default is medium")
+    func defaultIsMedium() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(RatingDisplaySize.default, .medium)
+        #expect(RatingDisplaySize.default == .medium)
     }
 
-    func test_raw_values() {
+    @Test("Raw values")
+    func rawValues() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(RatingDisplaySize.small.rawValue, 12)
-        XCTAssertEqual(RatingDisplaySize.medium.rawValue, 16)
-        XCTAssertEqual(RatingDisplaySize.large.rawValue, 24)
+        #expect(RatingDisplaySize.small.rawValue == 12)
+        #expect(RatingDisplaySize.medium.rawValue == 16)
+        #expect(RatingDisplaySize.large.rawValue == 24)
     }
 
-    func test_all_cases_only_includes_non_deprecated() {
+    @Test("All cases only includes non deprecated")
+    func allCasesOnlyIncludesNonDeprecated() {
         // GIVEN / WHEN
         let allCases = RatingDisplaySize.allCases
 
         // THEN
-        XCTAssertEqual(allCases.count, 3)
-        XCTAssertTrue(allCases.contains(.small))
-        XCTAssertTrue(allCases.contains(.medium))
-        XCTAssertTrue(allCases.contains(.large))
-        XCTAssertFalse(allCases.contains(.input))
+        #expect(allCases.count == 3)
+        #expect(allCases.contains(.small))
+        #expect(allCases.contains(.medium))
+        #expect(allCases.contains(.large))
+        #expect(!(allCases.contains(.input)))
     }
 
-    func test_initialization_from_raw_value() {
+    @Test("Initialization from raw value")
+    func initializationFromRawValue() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(RatingDisplaySize(rawValue: 12), .small)
-        XCTAssertEqual(RatingDisplaySize(rawValue: 16), .medium)
-        XCTAssertEqual(RatingDisplaySize(rawValue: 24), .large)
-        XCTAssertEqual(RatingDisplaySize(rawValue: 40), .input)
-        XCTAssertNil(RatingDisplaySize(rawValue: 999))
+        #expect(RatingDisplaySize(rawValue: 12) == .small)
+        #expect(RatingDisplaySize(rawValue: 16) == .medium)
+        #expect(RatingDisplaySize(rawValue: 24) == .large)
+        #expect(RatingDisplaySize(rawValue: 40) == .input)
+        #expect(RatingDisplaySize(rawValue: 999) == nil)
     }
 
-    func test_cgFloat_returns_correct_values() {
+    @Test("Cg float returns correct values")
+    func cgFloatReturnsCorrectValues() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(RatingDisplaySize.small.cgFloat, 12.0)
-        XCTAssertEqual(RatingDisplaySize.medium.cgFloat, 16.0)
-        XCTAssertEqual(RatingDisplaySize.large.cgFloat, 24.0)
-        XCTAssertEqual(RatingDisplaySize.input.cgFloat, 40.0)
+        #expect(RatingDisplaySize.small.cgFloat == 12.0)
+        #expect(RatingDisplaySize.medium.cgFloat == 16.0)
+        #expect(RatingDisplaySize.large.cgFloat == 24.0)
+        #expect(RatingDisplaySize.input.cgFloat == 40.0)
     }
 }

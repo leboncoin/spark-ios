@@ -6,14 +6,16 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class OptionalExtensionTests: XCTestCase {
+@Suite("Optional Extension Tests")
+struct OptionalExtensionTests {
 
     // MARK: - String Tests
 
-    func test_nil_string() {
+    @Test("Nil string")
+    func nilString() {
         // GIVEN
         let string: String? = nil
 
@@ -21,10 +23,11 @@ final class OptionalExtensionTests: XCTestCase {
         let isEmptyOrNil = string.isEmptyOrNil
 
         // THEN
-        XCTAssertTrue(isEmptyOrNil)
+        #expect(isEmptyOrNil)
     }
 
-    func test_empty_string() {
+    @Test("Empty string")
+    func emptyString() {
         // GIVEN
         let string: String? = ""
 
@@ -32,10 +35,11 @@ final class OptionalExtensionTests: XCTestCase {
         let isEmptyOrNil = string.isEmptyOrNil
 
         // THEN
-        XCTAssertTrue(isEmptyOrNil)
+        #expect(isEmptyOrNil)
     }
 
-    func test_string() {
+    @Test("String")
+    func string() {
         // GIVEN
         let string: String? = "Hello"
 
@@ -43,12 +47,13 @@ final class OptionalExtensionTests: XCTestCase {
         let isEmptyOrNil = string.isEmptyOrNil
 
         // THEN
-        XCTAssertFalse(isEmptyOrNil)
+        #expect(!isEmptyOrNil)
     }
 
     // MARK: - Array Tests
 
-    func test_nil_array() {
+    @Test("Nil array")
+    func nilArray() {
         // GIVEN
         let array: [Int]? = nil
 
@@ -56,10 +61,11 @@ final class OptionalExtensionTests: XCTestCase {
         let isEmptyOrNil = array.isEmptyOrNil
 
         // THEN
-        XCTAssertTrue(isEmptyOrNil)
+        #expect(isEmptyOrNil)
     }
 
-    func test_empty_array() {
+    @Test("Empty array")
+    func emptyArray() {
         // GIVEN
         let array: [Int]? = []
 
@@ -67,10 +73,11 @@ final class OptionalExtensionTests: XCTestCase {
         let isEmptyOrNil = array.isEmptyOrNil
 
         // THEN
-        XCTAssertTrue(isEmptyOrNil)
+        #expect(isEmptyOrNil)
     }
 
-    func test_array() {
+    @Test("Array")
+    func array() {
         // GIVEN
         let array: [Int]? = [10, 22, 3]
 
@@ -78,6 +85,6 @@ final class OptionalExtensionTests: XCTestCase {
         let isEmptyOrNil = array.isEmptyOrNil
 
         // THEN
-        XCTAssertFalse(isEmptyOrNil)
+        #expect(!isEmptyOrNil)
     }
 }

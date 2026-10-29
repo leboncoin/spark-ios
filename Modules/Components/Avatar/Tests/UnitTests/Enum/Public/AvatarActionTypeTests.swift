@@ -18,7 +18,7 @@ struct AvatarActionTypeTests {
 
     // MARK: - Tests
 
-    @Test(
+    @Test("Icon should return expected value",
         arguments: [
             (AvatarActionType.add, Image(spark: \.plus)),
             (.edit, Image(spark: \.penOutline))
@@ -32,7 +32,7 @@ struct AvatarActionTypeTests {
         #expect(result == expectedIcon)
     }
 
-    @Test
+    @Test("All cases should contain all expected values")
     func allCasesShouldContainAllExpectedValues() {
         // GIVEN / WHEN
         let result = AvatarActionType.allCases

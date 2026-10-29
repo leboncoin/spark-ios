@@ -6,52 +6,58 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SparkTheming
 
-final class DimsEquatableTests: XCTestCase {
+@Suite("Dims Equatable Tests")
+struct DimsEquatableTests {
 
     // MARK: - Tests
 
-    func testEquatable_SameProperties_ShouldBeEqual() {
+    @Test("Equatable same properties should be equal")
+    func equatableSamePropertiesShouldBeEqual() {
         // GIVEN
         let dims1 = DimsMock.createMock1()
         let dims2 = DimsMock.createMock2()
 
-        XCTAssertTrue(dims1.equals(dims2), "Two dims with identical properties should be equal")
-        XCTAssertEqual(dims1, dims2, "Two dims with identical properties should be equal using == operator")
+        #expect(dims1.equals(dims2), "Two dims with identical properties should be equal")
+        #expect(dims1 == dims2, "Two dims with identical properties should be equal using == operator")
     }
 
-    func testEquatable_DifferentProperties_ShouldNotBeEqual() {
+    @Test("Equatable different properties should not be equal")
+    func equatableDifferentPropertiesShouldNotBeEqual() {
         // GIVEN
         let dims1 = DimsMock.createMock1()
         let differentDims = DimsMock.createDifferentMock()
 
-        XCTAssertFalse(dims1.equals(differentDims), "Two dims with different properties should not be equal")
-        XCTAssertNotEqual(dims1, differentDims, "Two dims with different properties should not be equal using == operator")
+        #expect(!(dims1.equals(differentDims)), "Two dims with different properties should not be equal")
+        #expect(dims1 != differentDims, "Two dims with different properties should not be equal using == operator")
     }
 
-    func testEquatable_SelfComparison_ShouldBeEqual() {
+    @Test("Equatable self comparison should be equal")
+    func equatableSelfComparisonShouldBeEqual() {
         // GIVEN
         let dims = DimsMock.createMock1()
 
-        XCTAssertTrue(dims.equals(dims), "Dims should be equal to itself")
-        XCTAssertEqual(dims, dims, "Dims should be equal to itself using == operator")
+        #expect(dims.equals(dims), "Dims should be equal to itself")
+        #expect(dims == dims, "Dims should be equal to itself using == operator")
     }
 
-    func testHashable_SameProperties_ShouldHaveSameHashValue() {
+    @Test("Hashable same properties should have same hash value")
+    func hashableSamePropertiesShouldHaveSameHashValue() {
         // GIVEN
         let dims1 = DimsMock.createMock1()
         let dims2 = DimsMock.createMock2()
 
-        XCTAssertEqual(dims1.hashValue, dims2.hashValue, "Dims with identical properties should have the same hash value")
+        #expect(dims1.hashValue == dims2.hashValue, "Dims with identical properties should have the same hash value")
     }
 
-    func testHashable_DifferentProperties_ShouldHaveDifferentHashValue() {
+    @Test("Hashable different properties should have different hash value")
+    func hashableDifferentPropertiesShouldHaveDifferentHashValue() {
         // GIVEN
         let dims1 = DimsMock.createMock1()
         let differentDims = DimsMock.createDifferentMock()
 
-        XCTAssertNotEqual(dims1.hashValue, differentDims.hashValue, "Dims with different properties should have different hash values")
+        #expect(dims1.hashValue != differentDims.hashValue, "Dims with different properties should have different hash values")
     }
 }
