@@ -92,6 +92,10 @@ To install it on a simulator:
 
 Technical *API* documentation in _DocC_ format is available on our dedicated [website](https://leboncoin.github.io/spark-ios/).
 
+### AI assistants (MCP)
+
+[Spark MCP Documentation](docs/MCP.md) - Use the Spark iOS documentation in Claude, Cursor or VS Code through the [Context7](https://context7.com/leboncoin/spark-ios) MCP server
+
 ### Makefile
 
 Build, test, and development commands are documented in the [Makefile documentation](docs/MAKEFILE.md).
