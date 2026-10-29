@@ -8,33 +8,28 @@
 
 import SwiftUI
 @_spi(SI_SPI) import SparkCommon
-import SparkTheming
 
 struct InputOTPSlot: View {
 
     // MARK: - Properties
 
-    @Environment(\.theme) private var theme
-
     private let value: String?
     private let onError: Bool
     private let isFocus: Bool
-    private let typographies: InputOTPTypographies
 
-    @StateObject private var viewModel = InputOTPSlotViewModel()
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var isCursorHidden = false
 
     // MARK: - Initialization
 
     init(
         value: String?,
         onError: Bool,
-        isFocus: Bool,
-        typographies: InputOTPTypographies
+        isFocus: Bool
     ) {
         self.value = value
         self.onError = onError
         self.isFocus = isFocus
-        self.typographies = typographies
     }
 
     // MARK: - View
@@ -42,40 +37,41 @@ struct InputOTPSlot: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(self.viewModel.colors.backgroundColorToken)
-                .sparkBorder(
-                    width: self.viewModel.border.width,
-                    radius: self.viewModel.border.radius,
-                    colorToken: self.viewModel.colors.borderColorToken
-                )
-                .sparkFrame(
-                    width: InputOTPConstants.Size.width,
-                    height: InputOTPConstants.Size.height
+                .inputOTPSlotBackground(
+                    value: self.value,
+                    onError: self.onError,
+                    isFocus: self.isFocus
                 )
 
-            Text(self.viewModel.content)
-                .font(self.typographies.contentFontToken)
-                .foregroundStyle(self.viewModel.colors.contentColorToken)
+            Text(self.value.slotContent(isFocus: self.isFocus))
+                .inputOTPSlotContent(
+                    value: self.value,
+                    onError: self.onError,
+                    isFocus: self.isFocus
+                )
+                .opacity(self.isCursorHidden && !self.reduceMotion ? 0 : 1)
+                .optionalAnimation(
+                    self.isCursorDisplayed ? .easeInOut(duration: InputOTPConstants.slotAnimationDuration).repeatForever() : nil,
+                    value: self.isCursorHidden
+                )
         }
         .onAppear {
-            self.viewModel.setup(
-                theme: self.theme.value,
-                value: self.value,
-                onError: self.onError,
-                isFocus: self.isFocus
-            )
+            self.updateCursor()
         }
-        .onChange(of: self.theme) {
-            self.viewModel.theme = self.theme.value
+        .onChange(of: self.isCursorDisplayed) {
+            self.updateCursor()
         }
-        .onChange(of: self.value) {
-            self.viewModel.value = self.value
-        }
-        .onChange(of: self.onError) {
-            self.viewModel.onError = self.onError
-        }
-        .onChange(of: self.isFocus) {
-            self.viewModel.isFocus = self.isFocus
-        }
+    }
+
+    // MARK: - Getter
+
+    private var isCursorDisplayed: Bool {
+        self.isFocus && (self.value?.isEmpty ?? true)
+    }
+
+    // MARK: - Setter
+
+    private func updateCursor() {
+        self.isCursorHidden = self.isCursorDisplayed
     }
 }
