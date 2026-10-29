@@ -16,6 +16,7 @@ import SnapshotTesting
 import SparkTheming
 import SparkTheme
 
+@MainActor
 @Suite(.sparkConfiguration)
 struct SparkXXXSnapshotTests: SwiftUIComponentSnapshotTesting {
 
@@ -25,54 +26,43 @@ struct SparkXXXSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = XXXScenarioSnapshotTests.allCases
+    @Test("Spark XXX snapshot", arguments: XXXScenarioSnapshotTests.allCases)
+    func test(scenario: XXXScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
+                .sparkXXXIntent(configuration.intent)
+                .sparkXXXSize(configuration.size)
+                .sparkXXXApportionsSegmentWidthsByContent(configuration.apportionsSegmentWidthsByContent)
+                .sparkTheme(self.theme)
+                .frame(width: .width(apportionsSegmentWidthsByContent: configuration.apportionsSegmentWidthsByContent))
+                .padding(.vertical, 20)
+                .background(.background)
+                .sparkIsSnapshot(true)
 
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
-                    .sparkTheme(self.theme)
-                    .sparkXXXIntent(configuration.intent)
-                    .sparkXXXSize(configuration.size)
-                    .sparkXXXApportionsSegmentWidthsByContent(configuration.apportionsSegmentWidthsByContent)
-                    .frame(width: .width(apportionsSegmentWidthsByContent: configuration.apportionsSegmentWidthsByContent))
-                    .padding(.vertical, 20)
-                    .background(.background)
-
-                self.assertSnapshot(
-                    matching: view,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName,
-                    forDocumentation: scenario.isDocumentation
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName,
+                forDocumentation: scenario.isDocumentation
+            )
         }
     }
+
+    // MARK: - Component Creation
 
     @ViewBuilder
     private func component(configuration: XXXConfigurationSnapshotTests) -> some View {
         switch configuration.content {
-        case .text:
-            self.componentWithText(configuration: configuration)
-
-        case .icon:
-            self.componentWithIcon(configuration: configuration)
-
-        case .textAndIcon:
-            self.componentWithTextAndIcon(configuration: configuration)
-
-        case .textAndExtraView:
-            self.componentWithTextAndExtraView(configuration: configuration)
-
-        case .iconAndExtraView:
-            self.componentWithIconAndExtraView(configuration: configuration)
-
-        case .allValues:
-            self.componentWithAllValues(configuration: configuration)
+        case .text: self.componentWithText(configuration: configuration)
+        case .icon: self.componentWithIcon(configuration: configuration)
+        case .textAndIcon: self.componentWithTextAndIcon(configuration: configuration)
+        case .textAndExtraView: self.componentWithTextAndExtraView(configuration: configuration)
+        case .iconAndExtraView: self.componentWithIconAndExtraView(configuration: configuration)
+        case .allValues: self.componentWithAllValues(configuration: configuration)
         }
     }
 
