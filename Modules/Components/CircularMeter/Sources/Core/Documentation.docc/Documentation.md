@@ -35,6 +35,19 @@ It highlights:
 |:---:|:---:|:---:|
 | ![Text display](circularmeter_text.png) | ![Icon display](circularmeter_icon.png) | ![Image display](circularmeter_image.png) |
 
+## Custom CircularMeter
+
+If you need to create a custom circular meter component, you can use the ``CircularMeterToken`` struct, available from the theme with `theme.component.circularMeter`, to access theme-based style values.
+
+The ``CircularMeterToken`` provides:
+- **Colors** (``CircularMeterToken/Colors``): track, indicator, icon, value and content color tokens
+- **Layout properties** (``CircularMeterToken/Layout``): spacing and padding
+- **Typography** (``CircularMeterToken/Typography``): font tokens of the value and the content
+- **Content** (``CircularMeterToken/Content``): whether the content is displayed inside the gauge
+- **Size constants** (``CircularMeterToken/Size``): gauge diameter, gauge stroke and icon sizes
+
+> Tip: If you only need specific tokens, you can use the individual categories directly. For example, use `theme.component.circularMeter.size` if you only need size constants, or `theme.component.circularMeter.colors` for color tokens.
+
 ### Resources
 
 - Specification on [ZeroHeight](https://zeroheight.com/1186e1705/p/35093b-circular-meter)

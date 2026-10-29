@@ -142,7 +142,9 @@ public struct SparkCircularMeter<ValueLabel, ContentLabel>: View where ValueLabe
     @Environment(\.circularMeterIntent) private var intent
     @Environment(\.circularMeterSize) private var size
 
-    @StateObject private var viewModel = CircularMeterViewModel()
+    private var isInsideContent: Bool {
+        self.theme.content.isInside(size: self.size)
+    }
 
     // MARK: - Public Initialization
 
@@ -202,26 +204,28 @@ public struct SparkCircularMeter<ValueLabel, ContentLabel>: View where ValueLabe
     public var body: some View {
         SparkHStack(
             alignment: .center,
-            spacing: self.viewModel.layout.spacing
+            spacing: self.theme.layout.spacing
         ) {
+            let gaugeStroke = self.theme.size.gaugeStroke(for: self.size)
+
             // Circular gauge with inside content
             ZStack {
                 // Track circle
                 Circle()
-                    .inset(by: self.viewModel.sizes.gaugeStroke / 2)
+                    .inset(by: gaugeStroke / 2)
                     .stroke(
-                        self.viewModel.colors.trackColorToken.color,
-                        lineWidth: self.viewModel.sizes.gaugeStroke
+                        self.theme.colors.track(intent: self.intent).color,
+                        lineWidth: gaugeStroke
                     )
 
                 // Indicator arc
                 Circle()
-                    .inset(by: self.viewModel.sizes.gaugeStroke / 2)
+                    .inset(by: gaugeStroke / 2)
                     .trim(from: .zero, to: CGFloat(min(self.value, 1.0)))
                     .stroke(
-                        self.viewModel.colors.indicatorColorToken.color,
+                        self.theme.colors.indicator(intent: self.intent).color,
                         style: StrokeStyle(
-                            lineWidth: self.viewModel.sizes.gaugeStroke,
+                            lineWidth: gaugeStroke,
                             lineCap: .round
                         )
                     )
@@ -232,14 +236,14 @@ public struct SparkCircularMeter<ValueLabel, ContentLabel>: View where ValueLabe
                     )
 
                 // Inside content
-                if self.viewModel.isInsideContent {
+                if self.isInsideContent {
 
                     VStack(spacing: .zero) {
                         // Image
                         if let image = self.image {
                             image
                                 .resizable()
-                                .aspectRatio(contentMode: .fill)
+                                .scaledToFill()
                                 .clipShape(Circle())
                                 .accessibilityHidden(true)
 
@@ -248,31 +252,28 @@ public struct SparkCircularMeter<ValueLabel, ContentLabel>: View where ValueLabe
                             if let icon = self.icon {
                                 icon
                                     .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .foregroundStyle(self.viewModel.colors.iconColorToken)
-                                    .sparkFrame(size: self.viewModel.sizes.icon)
+                                    .scaledToFit()
+                                    .circularMeterIcon()
                                     .accessibilityHidden(true)
 
                             } else {
                                 // Value
                                 self.valueLabel()
-                                    .font(self.viewModel.typographies.valueFontToken)
-                                    .foregroundStyle(self.viewModel.colors.valueColorToken)
+                                    .circularMeterValue()
                                     .lineLimit(1)
                             }
 
                             // Content above Icon & Value
                             self.contentLabel()
-                                .font(self.viewModel.typographies.contentFontToken)
-                                .foregroundStyle(self.viewModel.colors.contentColorToken)
+                                .circularMeterContent()
                                 .dynamicTypeSize(...DynamicTypeSize.accessibility3)
                                 .lineLimit(1)
                         }
                     }
-                    .sparkPadding(self.viewModel.sizes.gaugeStroke + self.viewModel.layout.padding)
+                    .circularMeterInsidePadding()
                 }
             }
-            .sparkFrame(size: self.viewModel.sizes.gaugeDiameter)
+            .circularMeterFrame()
 
             // Outside content
             self.outsideContent()
@@ -281,30 +282,14 @@ public struct SparkCircularMeter<ValueLabel, ContentLabel>: View where ValueLabe
         .accessibilityIdentifier(CircularMeterAccessibilityIdentifier.view)
         .accessibilityValue(Text(self.value.toPercentageString()))
         .sparkVisualIdentification()
-        .onAppear {
-            self.viewModel.setup(
-                theme: self.theme.value,
-                intent: self.intent,
-                size: self.size
-            )
-        }
-        .onChange(of: self.theme) {
-            self.viewModel.theme = self.theme.value
-        }
-        .onChange(of: self.intent) {
-            self.viewModel.intent = self.intent
-        }
-        .onChange(of: self.size) {
-            self.viewModel.size = self.size
-        }
     }
 
-    // MARK: - Private Modifier
+    // MARK: - Private Views
 
     @ViewBuilder
     private func outsideContent() -> some View {
         // Inside content or value and content are empty ?
-        if self.viewModel.isInsideContent || (self.valueLabel().isEmptyView && self.contentLabel().isEmptyView) {
+        if self.isInsideContent || (self.valueLabel().isEmptyView && self.contentLabel().isEmptyView) {
             EmptyView()
 
         } else {
@@ -313,12 +298,10 @@ public struct SparkCircularMeter<ValueLabel, ContentLabel>: View where ValueLabe
                 spacing: .zero
             ) {
                 self.valueLabel()
-                    .font(self.viewModel.typographies.valueFontToken)
-                    .foregroundStyle(self.viewModel.colors.valueColorToken)
+                    .circularMeterValue()
 
                 self.contentLabel()
-                    .font(self.viewModel.typographies.contentFontToken)
-                    .foregroundStyle(self.viewModel.colors.contentColorToken)
+                    .circularMeterContent()
             }
             .lineLimit(1)
         }

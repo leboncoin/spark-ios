@@ -36,9 +36,6 @@ struct SparkCircularMeterSnapshotTests: SwiftUIComponentSnapshotTesting {
                 .sparkTheme(self.theme)
                 .sparkCircularMeterIntent(configuration.intent)
                 .sparkCircularMeterSize(configuration.size)
-                .frame(height: configuration.size.size)
-                .frame(minWidth: configuration.size.size)
-                .padding(20)
                 .background(.background)
                 .fixedSize()
 
@@ -48,7 +45,6 @@ struct SparkCircularMeterSnapshotTests: SwiftUIComponentSnapshotTesting {
                 modes: configuration.modes,
                 sizes: configuration.sizes,
                 testName: configuration.testName,
-                addPadding: false,
                 forDocumentation: scenario.isDocumentation
             )
         }
@@ -147,18 +143,6 @@ struct SparkCircularMeterSnapshotTests: SwiftUIComponentSnapshotTesting {
 }
 
 // MARK: - Extension
-
-private extension CircularMeterSize {
-
-    var size: CGFloat {
-        switch self {
-        case .small: 50
-        case .medium: 50
-        case .large: 80
-        case .xLarge: 200
-        }
-    }
-}
 
 private extension String {
 
