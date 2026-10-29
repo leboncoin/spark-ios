@@ -25,41 +25,36 @@ struct SparkUIRatingDisplaySnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async throws {
-        let scenarios = RatingDisplayScenarioSnapshotTests.allCases.filter {
-            $0 != .documentation
-        }
+    @Test(arguments: RatingDisplayScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    func test(scenario: RatingDisplayScenarioSnapshotTests) async throws {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view: SparkUIRatingDisplay = .init(
+                theme: self.theme
+            )
+            view.value = configuration.value.rawValue
+            view.size = configuration.size
+            view.stars = configuration.stars
+            view.text(configuration: configuration)
 
-            for configuration in configurations {
-                let view: SparkUIRatingDisplay = .init(
-                    theme: self.theme
-                )
-                view.value = configuration.value.rawValue
-                view.size = configuration.size
-                view.stars = configuration.stars
-                view.text(configuration: configuration)
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .systemBackground
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundView.addSubview(view)
+            NSLayoutConstraint.stickEdges(
+                from: view,
+                to: backgroundView,
+                insets: .init(all: 4)
+            )
 
-                let backgroundView = UIView()
-                backgroundView.backgroundColor = .systemBackground
-                backgroundView.translatesAutoresizingMaskIntoConstraints = false
-                backgroundView.addSubview(view)
-                NSLayoutConstraint.stickEdges(
-                    from: view,
-                    to: backgroundView,
-                    insets: .init(all: 4)
-                )
-
-                await self.assertSnapshot(
-                    matching: backgroundView,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName
-                )
-            }
+            await self.assertSnapshot(
+                matching: backgroundView,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName
+            )
         }
     }
 }

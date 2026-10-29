@@ -26,28 +26,23 @@ struct SparkUIButtonSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
-        let scenarios = ButtonScenarioSnapshotTests.allCases.filter {
-            $0 != .documentation
-        }
+    @Test(arguments: ButtonScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    func test(scenario: ButtonScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
 
-            for configuration in configurations {
+            let view = self.component(configuration: configuration)
 
-                let view = self.component(configuration: configuration)
+            let containerView = self.containerView(for: view, configuration: configuration)
 
-                let containerView = self.containerView(for: view, configuration: configuration)
-
-                await self.assertSnapshot(
-                    matching: containerView,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName
-                )
-            }
+            await self.assertSnapshot(
+                matching: containerView,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName
+            )
         }
     }
 

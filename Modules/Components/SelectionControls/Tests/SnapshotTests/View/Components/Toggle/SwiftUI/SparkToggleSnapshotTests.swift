@@ -27,28 +27,25 @@ struct SparkToggleSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async throws {
+    @Test(arguments: ToggleScenarioSnapshotTests.allCases(forDocumentation: false))
+    func test(scenario: ToggleScenarioSnapshotTests) async throws {
         let forDocumentation = false
 
-        let scenarios = ToggleScenarioSnapshotTests.allCases(forDocumentation: forDocumentation)
+        let configurations: [ToggleConfigurationSnapshotTests] = try scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations: [ToggleConfigurationSnapshotTests] = try scenario.configuration()
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
+                .sparkTheme(self.theme)
+                .disabled(!configuration.status.isEnabled)
+                .style(forDocumentation: forDocumentation)
 
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
-                    .sparkTheme(self.theme)
-                    .disabled(!configuration.status.isEnabled)
-                    .style(forDocumentation: forDocumentation)
-
-                await self.assertSnapshot(
-                    matching: view,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName(),
-                    addPadding: false
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName(),
+                addPadding: false
+            )
         }
     }
 

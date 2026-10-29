@@ -26,9 +26,9 @@ struct SparkInputOTPSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
-        let scenarios = InputOTPScenarioSnapshotTests.allCases
-        await self.loadScenarios(scenarios)
+    @Test(arguments: InputOTPScenarioSnapshotTests.allCases)
+    func test(scenario: InputOTPScenarioSnapshotTests) async {
+        await self.loadScenarios([scenario])
     }
 
     // MARK: - Scenarios

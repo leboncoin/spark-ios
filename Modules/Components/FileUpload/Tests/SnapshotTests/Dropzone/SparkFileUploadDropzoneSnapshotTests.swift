@@ -30,31 +30,28 @@ struct SparkFileUploadDropzoneSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
-        let scenarios = FileUploadDropzoneScenarioSnapshotTests.allCases
+    @Test(arguments: FileUploadDropzoneScenarioSnapshotTests.allCases)
+    func test(scenario: FileUploadDropzoneScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
+                .sparkTheme(self.theme)
+                .frame(width: 400)
+                .padding(.vertical, 100)
+                .padding(.horizontal, 30)
+                .fixedSize()
+                .background(.background)
 
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
-                    .sparkTheme(self.theme)
-                    .frame(width: 400)
-                    .padding(.vertical, 100)
-                    .padding(.horizontal, 30)
-                    .fixedSize()
-                    .background(.background)
-
-                await self.assertSnapshot(
-                    matching: view,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName,
-                    addPadding: false,
-                    forDocumentation: scenario.isDocumentation
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName,
+                addPadding: false,
+                forDocumentation: scenario.isDocumentation
+            )
         }
     }
 

@@ -25,43 +25,38 @@ struct SparkUIProgressBarSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async throws {
-        let scenarios = ProgressBarScenarioSnapshotTests.allCases.filter {
-            $0 != .documentation
-        }
+    @Test(arguments: ProgressBarScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    func test(scenario: ProgressBarScenarioSnapshotTests) async throws {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view: SparkUIProgressBar = .init(
+                theme: self.theme
+            )
+            view.value = configuration.value
+            view.intent = configuration.intent
+            view.shape = configuration.shape
 
-            for configuration in configurations {
-                let view: SparkUIProgressBar = .init(
-                    theme: self.theme
-                )
-                view.value = configuration.value
-                view.intent = configuration.intent
-                view.shape = configuration.shape
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.widthAnchor.constraint(equalToConstant: configuration.width).isActive = true
 
-                view.translatesAutoresizingMaskIntoConstraints = false
-                view.widthAnchor.constraint(equalToConstant: configuration.width).isActive = true
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .systemBackground
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundView.addSubview(view)
+            NSLayoutConstraint.stickEdges(
+                from: view,
+                to: backgroundView,
+                insets: .init(all: 4)
+            )
 
-                let backgroundView = UIView()
-                backgroundView.backgroundColor = .systemBackground
-                backgroundView.translatesAutoresizingMaskIntoConstraints = false
-                backgroundView.addSubview(view)
-                NSLayoutConstraint.stickEdges(
-                    from: view,
-                    to: backgroundView,
-                    insets: .init(all: 4)
-                )
-
-                await self.assertSnapshot(
-                    matching: backgroundView,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName
-                )
-            }
+            await self.assertSnapshot(
+                matching: backgroundView,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName
+            )
         }
     }
 }

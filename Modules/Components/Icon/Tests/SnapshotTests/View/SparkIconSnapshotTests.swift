@@ -27,32 +27,29 @@ struct SparkIconSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
-        let scenarios = IconScenarioSnapshotTests.allCases
+    @Test(arguments: IconScenarioSnapshotTests.allCases)
+    func test(scenario: IconScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = SparkIcon(.icon)
+                .sparkTheme(self.theme)
+                .sparkIconSize(configuration.size.toSize)
+                .sparkIconIntent(configuration.intent.toIntent(self.theme))
+                .padding(.horizontal, 20)
+                .padding(.vertical, 20)
+                .background(.background)
+                .fixedSize()
 
-            for configuration in configurations {
-                let view = SparkIcon(.icon)
-                    .sparkTheme(self.theme)
-                    .sparkIconSize(configuration.size.toSize)
-                    .sparkIconIntent(configuration.intent.toIntent(self.theme))
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 20)
-                    .background(.background)
-                    .fixedSize()
-
-                await self.assertSnapshot(
-                    matching: view,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName,
-                    addPadding: false,
-                    forDocumentation: scenario.isDocumentation
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName,
+                addPadding: false,
+                forDocumentation: scenario.isDocumentation
+            )
         }
     }
 }

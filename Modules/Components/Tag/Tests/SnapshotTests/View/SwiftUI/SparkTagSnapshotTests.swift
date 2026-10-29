@@ -26,34 +26,31 @@ struct SparkTagSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
-        let scenarios = TagScenarioSnapshotTests.allCases
+    @Test(arguments: TagScenarioSnapshotTests.allCases)
+    func test(scenario: TagScenarioSnapshotTests) async {
+        let configurations = scenario.configuration(isSwiftUIComponent: true)
+        for configuration in configurations {
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration(isSwiftUIComponent: true)
-            for configuration in configurations {
+            let view = self.component(configuration: configuration)
+                .sparkTheme(self.theme)
+                .sparkTagIntent(configuration.intent)
+                .sparkTagSize(configuration.size)
+                .sparkTagVariant(configuration.variant)
+                .sparkTagIsHighlighted(configuration.isHighlighted)
+                .sparkFrame(width: configuration.width)
+                .fixedSize()
+                .padding(25)
+                .background(.background)
 
-                let view = self.component(configuration: configuration)
-                    .sparkTheme(self.theme)
-                    .sparkTagIntent(configuration.intent)
-                    .sparkTagSize(configuration.size)
-                    .sparkTagVariant(configuration.variant)
-                    .sparkTagIsHighlighted(configuration.isHighlighted)
-                    .sparkFrame(width: configuration.width)
-                    .fixedSize()
-                    .padding(25)
-                    .background(.background)
-
-                await self.assertSnapshot(
-                    matching: view,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName,
-                    addPadding: false,
-                    forDocumentation: scenario.isDocumentation
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName,
+                addPadding: false,
+                forDocumentation: scenario.isDocumentation
+            )
         }
     }
 

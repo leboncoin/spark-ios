@@ -27,9 +27,9 @@ struct SparkAvatarSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
-        let scenarios = AvatarScenarioSnapshotTests.allCases
-        await self.loadScenarios(scenarios)
+    @Test(arguments: AvatarScenarioSnapshotTests.allCases)
+    func test(scenario: AvatarScenarioSnapshotTests) async {
+        await self.loadScenarios([scenario])
     }
 
     // MARK: - Scenarios

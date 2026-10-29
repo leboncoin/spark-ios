@@ -26,45 +26,42 @@ struct SparkButtonSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
-        let scenarios = ButtonScenarioSnapshotTests.allCases
+    @Test(arguments: ButtonScenarioSnapshotTests.allCases)
+    func test(scenario: ButtonScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
 
-            for configuration in configurations {
-
-                let view = self.component(configuration: configuration)
-                    .sparkTheme(self.theme)
-                    .appearance(configuration: configuration)
-                    .sparkButtonIntent(configuration.intent)
-                    .sparkButtonVariant(configuration.variant)
-                    .sparkButtonShape(configuration.shape)
-                    .sparkButtonSize(configuration.size)
-                    .sparkButtonAlignment(configuration.alignment)
-                    .sparkButtonContentVisibility(configuration.contentVisibility)
-                    .sparkButtonRemoveStyles(configuration.removeStyles)
-                    .sparkButtonMaxWidth(configuration.isInfiniteWidth ? .infinity : nil)
-                    .disabled(configuration.isDisabled)
-                    .frame(
-                        width: configuration.isInfiniteWidth ? 300 : nil,
-                        height: configuration.removeStyles ? 80 : nil
-                    )
-                    .padding(.vertical, 30)
-                    .padding(.horizontal, 50)
-                    .fixedSize()
-                    .background(.background)
-
-                await self.assertSnapshot(
-                    matching: view,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName,
-                    addPadding: false,
-                    forDocumentation: scenario.isDocumentation
+            let view = self.component(configuration: configuration)
+                .sparkTheme(self.theme)
+                .appearance(configuration: configuration)
+                .sparkButtonIntent(configuration.intent)
+                .sparkButtonVariant(configuration.variant)
+                .sparkButtonShape(configuration.shape)
+                .sparkButtonSize(configuration.size)
+                .sparkButtonAlignment(configuration.alignment)
+                .sparkButtonContentVisibility(configuration.contentVisibility)
+                .sparkButtonRemoveStyles(configuration.removeStyles)
+                .sparkButtonMaxWidth(configuration.isInfiniteWidth ? .infinity : nil)
+                .disabled(configuration.isDisabled)
+                .frame(
+                    width: configuration.isInfiniteWidth ? 300 : nil,
+                    height: configuration.removeStyles ? 80 : nil
                 )
-            }
+                .padding(.vertical, 30)
+                .padding(.horizontal, 50)
+                .fixedSize()
+                .background(.background)
+
+            await self.assertSnapshot(
+                matching: view,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName,
+                addPadding: false,
+                forDocumentation: scenario.isDocumentation
+            )
         }
     }
 

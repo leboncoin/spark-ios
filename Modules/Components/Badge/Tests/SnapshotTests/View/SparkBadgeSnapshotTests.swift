@@ -26,9 +26,9 @@ struct SparkBadgeSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
-        let scenarios = BadgeScenarioSnapshotTests.allCases
-        await self.loadScenarios(scenarios)
+    @Test(arguments: BadgeScenarioSnapshotTests.allCases)
+    func test(scenario: BadgeScenarioSnapshotTests) async {
+        await self.loadScenarios([scenario])
     }
 
     // MARK: - Scenarios

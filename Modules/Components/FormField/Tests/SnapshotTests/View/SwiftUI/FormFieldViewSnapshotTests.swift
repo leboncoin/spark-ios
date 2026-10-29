@@ -28,9 +28,8 @@ struct FormFieldViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
-        let scenarios = FormFieldScenarioSnapshotTests.allCases
-
+    @Test(arguments: FormFieldScenarioSnapshotTests.allCases)
+    func test(scenario: FormFieldScenarioSnapshotTests) async {
         var _isOn: Bool = true
         lazy var isOn: Binding<Bool> = {
             return Binding<Bool>(
@@ -41,40 +40,38 @@ struct FormFieldViewSnapshotTests: SwiftUIComponentSnapshotTesting {
             )
         }()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        let configurations = scenario.configuration()
 
-            for configuration in configurations {
+        for configuration in configurations {
 
-                let view = FormFieldView(
-                    theme: self.theme,
-                    feedbackState: configuration.feedbackState,
-                    title: configuration.titleType.value(from: .title),
-                    helper: configuration.helperType.value(from: .helper),
-                    helperImage: Image(configuration.helperImageName),
-                    isRequired: configuration.isRequired,
-                    component: {
-                        TextField("Your username", text: .constant(""))
-                            .textFieldStyle(.roundedBorder)
-                    }
-                )
-                .clearButton(on: configuration)
-                .counter(on: configuration)
-                .disabled(!configuration.isEnabled)
-                .background(.background)
-                .frame(width: Constants.maxWidth)
-                .padding(Constants.padding)
-                .fixedSize(horizontal: false, vertical: true)
-                .background(Color(uiColor: .secondarySystemBackground))
+            let view = FormFieldView(
+                theme: self.theme,
+                feedbackState: configuration.feedbackState,
+                title: configuration.titleType.value(from: .title),
+                helper: configuration.helperType.value(from: .helper),
+                helperImage: Image(configuration.helperImageName),
+                isRequired: configuration.isRequired,
+                component: {
+                    TextField("Your username", text: .constant(""))
+                        .textFieldStyle(.roundedBorder)
+                }
+            )
+            .clearButton(on: configuration)
+            .counter(on: configuration)
+            .disabled(!configuration.isEnabled)
+            .background(.background)
+            .frame(width: Constants.maxWidth)
+            .padding(Constants.padding)
+            .fixedSize(horizontal: false, vertical: true)
+            .background(Color(uiColor: .secondarySystemBackground))
 
-                await self.assertSnapshot(
-                    matching: view,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName(),
-                    addPadding: false
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName(),
+                addPadding: false
+            )
         }
     }
 }

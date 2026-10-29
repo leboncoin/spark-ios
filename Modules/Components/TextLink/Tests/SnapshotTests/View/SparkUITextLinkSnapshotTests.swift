@@ -27,45 +27,40 @@ struct SparkUITextLinkSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
-        let scenarios = TextLinkScenarioSnapshotTests.allCases.filter {
-            $0 != .documentation
-        }
+    @Test(arguments: TextLinkScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    func test(scenario: TextLinkScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = SparkUITextLink(
+                theme: self.theme
+            )
+            view.text = configuration.text.value
+            view.image = configuration.isImage ? .icon : nil
+            view.alignment = configuration.alignment
+            view.textHighlightRange = configuration.text.highlightRange(isRange: configuration.isRange)
+            view.intent = configuration.intent.toType(self.theme)
+            view.typography = configuration.typography
+            view.variant = configuration.variant
+            view.textLabel.textAlignment = configuration.textAlignment.toRealType
+            view.textLabel.numberOfLines = configuration.singleLine ? 1 : 0
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
-            for configuration in configurations {
-                let view = SparkUITextLink(
-                    theme: self.theme
-                )
-                view.text = configuration.text.value
-                view.image = configuration.isImage ? .icon : nil
-                view.alignment = configuration.alignment
-                view.textHighlightRange = configuration.text.highlightRange(isRange: configuration.isRange)
-                view.intent = configuration.intent.toType(self.theme)
-                view.typography = configuration.typography
-                view.variant = configuration.variant
-                view.textLabel.textAlignment = configuration.textAlignment.toRealType
-                view.textLabel.numberOfLines = configuration.singleLine ? 1 : 0
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .systemBackground
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundView.addSubview(view)
+            NSLayoutConstraint.stickEdges(
+                from: view,
+                to: backgroundView,
+                insets: .init(all: 4)
+            )
 
-                let backgroundView = UIView()
-                backgroundView.backgroundColor = .systemBackground
-                backgroundView.translatesAutoresizingMaskIntoConstraints = false
-                backgroundView.addSubview(view)
-                NSLayoutConstraint.stickEdges(
-                    from: view,
-                    to: backgroundView,
-                    insets: .init(all: 4)
-                )
-
-                await self.assertSnapshot(
-                    matching: backgroundView,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName
-                )
-            }
+            await self.assertSnapshot(
+                matching: backgroundView,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName
+            )
         }
     }
 }

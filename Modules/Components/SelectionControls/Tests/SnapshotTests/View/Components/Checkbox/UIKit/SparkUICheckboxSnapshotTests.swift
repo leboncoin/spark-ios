@@ -31,35 +31,32 @@ struct SparkUICheckboxSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async throws {
-        let scenarios = CheckboxScenarioSnapshotTests.allCases()
+    @Test(arguments: CheckboxScenarioSnapshotTests.allCases())
+    func test(scenario: CheckboxScenarioSnapshotTests) async throws {
+        let configurations: [CheckboxConfigurationSnapshotTests] = try scenario.configuration()
+        for configuration in configurations {
+            let view = SparkUICheckbox(
+                theme: self.theme
+            )
+            view.intent = configuration.intent
+            view.selectionState = configuration.value.selectionState
+            view.isEnabled = configuration.status.isEnabled
 
-        for scenario in scenarios {
-            let configurations: [CheckboxConfigurationSnapshotTests] = try scenario.configuration()
-            for configuration in configurations {
-                let view = SparkUICheckbox(
-                    theme: self.theme
-                )
-                view.intent = configuration.intent
-                view.selectionState = configuration.value.selectionState
-                view.isEnabled = configuration.status.isEnabled
-
-                if let text = configuration.content.text {
-                    view.text = text
-                } else if configuration.content == .other {
-                    view.attributedText = .snapshot()
-                }
-                view.addBackgroundColor()
-
-                let backgroundView = view.createBackgroundView()
-
-                await self.assertSnapshot(
-                    matching: backgroundView,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName()
-                )
+            if let text = configuration.content.text {
+                view.text = text
+            } else if configuration.content == .other {
+                view.attributedText = .snapshot()
             }
+            view.addBackgroundColor()
+
+            let backgroundView = view.createBackgroundView()
+
+            await self.assertSnapshot(
+                matching: backgroundView,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName()
+            )
         }
     }
 }

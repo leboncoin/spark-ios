@@ -26,9 +26,9 @@ struct SparkCardSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
-        let scenarios = CardScenarioSnapshotTests.allCases
-        await self.loadScenarios(scenarios)
+    @Test(arguments: CardScenarioSnapshotTests.allCases)
+    func test(scenario: CardScenarioSnapshotTests) async {
+        await self.loadScenarios([scenario])
     }
 
     // MARK: - Scenarios

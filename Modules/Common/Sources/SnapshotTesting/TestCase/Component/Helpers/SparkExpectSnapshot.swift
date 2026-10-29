@@ -62,8 +62,12 @@ import UIKit
 /// A Swift Testing main actor job runs as a main queue block, so the main queue is not drained
 /// while SnapshotTesting waits with XCTWaiter, and each rendering stalls until UIKit times out.
 /// A run loop block lets the nested wait drain the main queue, like XCTest did.
+/// Only one block runs at a time: XCTWaiter interrupts its wait when another wait is nested inside it.
 @MainActor
 private func performOnMainRunLoop(_ body: @escaping @MainActor () -> Void) async {
+    await SnapshotSerialQueue.acquire()
+    defer { SnapshotSerialQueue.release() }
+
     nonisolated(unsafe) let body = body
     await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
         RunLoop.main.perform {
@@ -71,6 +75,35 @@ private func performOnMainRunLoop(_ body: @escaping @MainActor () -> Void) async
                 body()
             }
             continuation.resume()
+        }
+    }
+}
+
+@MainActor
+private enum SnapshotSerialQueue {
+
+    // MARK: - Properties
+
+    private static var isRunning = false
+    private static var waiters: [CheckedContinuation<Void, Never>] = []
+
+    // MARK: - Methods
+
+    static func acquire() async {
+        guard isRunning else {
+            isRunning = true
+            return
+        }
+        await withCheckedContinuation { continuation in
+            waiters.append(continuation)
+        }
+    }
+
+    static func release() {
+        if waiters.isEmpty {
+            isRunning = false
+        } else {
+            waiters.removeFirst().resume()
         }
     }
 }

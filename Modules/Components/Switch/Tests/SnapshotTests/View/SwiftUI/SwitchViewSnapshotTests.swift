@@ -27,23 +27,20 @@ struct SwitchViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async throws {
-        let scenarios = SwitchScenarioSnapshotTests.allCases
+    @Test(arguments: SwitchScenarioSnapshotTests.allCases)
+    func test(scenario: SwitchScenarioSnapshotTests) async throws {
+        let configurations: [SwitchConfigurationSnapshotTests] = try scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations: [SwitchConfigurationSnapshotTests] = try scenario.configuration()
+        for configuration in configurations {
+            let view = SnapshotView(configuration: configuration)
 
-            for configuration in configurations {
-                let view = SnapshotView(configuration: configuration)
-
-                await self.assertSnapshot(
-                    matching: view,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName(),
-                    addPadding: false
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName(),
+                addPadding: false
+            )
         }
     }
 }

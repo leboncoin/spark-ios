@@ -27,39 +27,34 @@ struct SparkUIIconSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
-        let scenarios = IconScenarioSnapshotTests.allCases.filter {
-            $0 != .documentation
-        }
+    @Test(arguments: IconScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    func test(scenario: IconScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = SparkUIIcon(
+                theme: self.theme,
+                image: IconographyTests.shared.checkmark
+            )
+            view.intent = configuration.intent.toIntent(self.theme)
+            view.size = configuration.size.toSize
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
-            for configuration in configurations {
-                let view = SparkUIIcon(
-                    theme: self.theme,
-                    image: IconographyTests.shared.checkmark
-                )
-                view.intent = configuration.intent.toIntent(self.theme)
-                view.size = configuration.size.toSize
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .systemBackground
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundView.addSubview(view)
+            NSLayoutConstraint.stickEdges(
+                from: view,
+                to: backgroundView,
+                insets: .init(all: 4)
+            )
 
-                let backgroundView = UIView()
-                backgroundView.backgroundColor = .systemBackground
-                backgroundView.translatesAutoresizingMaskIntoConstraints = false
-                backgroundView.addSubview(view)
-                NSLayoutConstraint.stickEdges(
-                    from: view,
-                    to: backgroundView,
-                    insets: .init(all: 4)
-                )
-
-                await self.assertSnapshot(
-                    matching: backgroundView,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName
-                )
-            }
+            await self.assertSnapshot(
+                matching: backgroundView,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName
+            )
         }
     }
 }
