@@ -27,39 +27,36 @@ struct SparkTextLinkSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = TextLinkScenarioSnapshotTests.allCases
+    @Test(arguments: TextLinkScenarioSnapshotTests.allCases)
+    func test(scenario: TextLinkScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = SparkTextLink(
+                configuration.text.value,
+                image: configuration.isImage ? .icon : nil,
+                action: {}
+            )
+                .sparkTheme(self.theme)
+                .sparkTextLinkAlignment(configuration.alignment)
+                .sparkTextLinkHighlightRange(configuration.text.highlightRange(isRange: configuration.isRange))
+                .sparkTextLinkIntent(configuration.intent.toType(self.theme))
+                .sparkTextLinkTypography(configuration.typography)
+                .sparkTextLinkVariant(configuration.variant)
+                .multilineTextAlignment(configuration.textAlignment.toRealType)
+                .lineLimit(configuration.singleLine ? 1 : nil)
+                .background(.background)
+                .fixedSize()
 
-            for configuration in configurations {
-                let view = SparkTextLink(
-                    configuration.text.value,
-                    image: configuration.isImage ? .icon : nil,
-                    action: {}
-                )
-                    .sparkTheme(self.theme)
-                    .sparkTextLinkAlignment(configuration.alignment)
-                    .sparkTextLinkHighlightRange(configuration.text.highlightRange(isRange: configuration.isRange))
-                    .sparkTextLinkIntent(configuration.intent.toType(self.theme))
-                    .sparkTextLinkTypography(configuration.typography)
-                    .sparkTextLinkVariant(configuration.variant)
-                    .multilineTextAlignment(configuration.textAlignment.toRealType)
-                    .lineLimit(configuration.singleLine ? 1 : nil)
-                    .background(.background)
-                    .fixedSize()
-
-                self.assertSnapshot(
-                    matching: view,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName,
-                    addPadding: false,
-                    forDocumentation: scenario.isDocumentation
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName,
+                addPadding: false,
+                forDocumentation: scenario.isDocumentation
+            )
         }
     }
 }

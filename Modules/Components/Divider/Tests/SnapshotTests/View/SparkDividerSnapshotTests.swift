@@ -27,37 +27,34 @@ struct SparkDividerSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = DividerScenarioSnapshotTests.allCases
+    @Test(arguments: DividerScenarioSnapshotTests.allCases)
+    func test(scenario: DividerScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
-
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
-                    .sparkTheme(self.theme)
-                    .sparkDividerAlignment(configuration.alignment)
-                    .sparkDividerAxis(configuration.axis)
-                    .sparkDividerIntent(configuration.intent)
-                    .frame(
-                        minWidth: configuration.axis.width,
-                        minHeight: configuration.axis.height
-                    )
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 10)
-                    .background(.background)
-                    .fixedSize()
-
-                self.assertSnapshot(
-                    matching: view,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName,
-                    addPadding: false,
-                    forDocumentation: scenario.isDocumentation
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
+                .sparkTheme(self.theme)
+                .sparkDividerAlignment(configuration.alignment)
+                .sparkDividerAxis(configuration.axis)
+                .sparkDividerIntent(configuration.intent)
+                .frame(
+                    minWidth: configuration.axis.width,
+                    minHeight: configuration.axis.height
                 )
-            }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 10)
+                .background(.background)
+                .fixedSize()
+
+            await self.assertSnapshot(
+                matching: view,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName,
+                addPadding: false,
+                forDocumentation: scenario.isDocumentation
+            )
         }
     }
 

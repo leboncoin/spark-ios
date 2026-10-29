@@ -20,7 +20,7 @@ struct UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test_sparkBorderRadius() {
+    @Test func test_sparkBorderRadius() async {
         let widths: [Int] = [0, 4]
         let isHighlighteds = [true, false]
 
@@ -34,7 +34,7 @@ struct UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTesting {
                 colorToken: ColorTokenGeneratedMock.blue()
             )
 
-            self.assertSnapshot(
+            await self.assertSnapshot(
                 matching: view,
                 modes: ComponentSnapshotTestConstants.Modes.default,
                 sizes: ComponentSnapshotTestConstants.Sizes.default,
@@ -44,7 +44,7 @@ struct UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTesting {
         }
     }
 
-    @Test func test_sparkBorderRadius_with_dash() {
+    @Test func test_sparkBorderRadius_with_dash() async {
         let widths: [Int] = [0, 4]
         let dashes: [Int] = [0, 10]
 
@@ -58,7 +58,7 @@ struct UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTesting {
                     colorToken: ColorTokenGeneratedMock.blue()
                 )
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     modes: ComponentSnapshotTestConstants.Modes.default,
                     sizes: ComponentSnapshotTestConstants.Sizes.default,
@@ -68,7 +68,7 @@ struct UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTesting {
         }
     }
 
-    @Test func test_sparkCornerRadius() {
+    @Test func test_sparkCornerRadius() async {
         let values: [Bool?] = [true, false, nil]
 
         for value in values {
@@ -82,7 +82,7 @@ struct UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTesting {
                 name = "defaultHighlighted"
             }
 
-            self.assertSnapshot(
+            await self.assertSnapshot(
                 matching: view,
                 modes: ComponentSnapshotTestConstants.Modes.default,
                 sizes: ComponentSnapshotTestConstants.Sizes.default,
@@ -96,11 +96,11 @@ struct UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTesting {
 
 private extension UIView {
 
-    static let view: UIView = {
+    static var view: UIView {
         let label = UIView()
         label.backgroundColor = .yellow
         label.frame.size.width = 60
         label.frame.size.height = 30
         return label
-    }()
+    }
 }

@@ -28,17 +28,17 @@ struct SparkFileUploadButtonStyleSnapshotTests: SwiftUIComponentSnapshotTesting 
 
     // MARK: - Tests
 
-    @Test func test() {
-        self.testView()
+    @Test func test() async {
+        await self.testView()
     }
 
-    @Test func test_documentation() {
-        self.testView(forDocumentation: true)
+    @Test func test_documentation() async {
+        await self.testView(forDocumentation: true)
     }
 
     // MARK: - Private
 
-    func testView(forDocumentation: Bool = false) {
+    func testView(forDocumentation: Bool = false) async {
         let view = SparkButton("Upload file", image: Image(spark: \.export)) {
         }
             .sparkTheme(self.theme)
@@ -48,7 +48,7 @@ struct SparkFileUploadButtonStyleSnapshotTests: SwiftUIComponentSnapshotTesting 
             .fixedSize()
             .background(.background)
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view,
             named: forDocumentation ? "" : "button_with_fileupload_style",
             modes: ComponentSnapshotTestConstants.Modes.default,

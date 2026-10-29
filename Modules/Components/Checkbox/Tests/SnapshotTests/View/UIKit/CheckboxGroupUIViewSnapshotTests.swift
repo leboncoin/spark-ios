@@ -26,45 +26,42 @@ struct CheckboxGroupUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = CheckboxGroupScenarioSnapshotTests.allCases
+    @Test(arguments: CheckboxGroupScenarioSnapshotTests.allCases)
+    func test(scenario: CheckboxGroupScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for (index, configuration) in configurations.enumerated() {
 
-            for (index, configuration) in configurations.enumerated() {
+            let view = CheckboxGroupUIView(
+                checkedImage: configuration.image,
+                items: configuration.items,
+                layout: configuration.axis,
+                alignment: configuration.alignment,
+                theme: self.theme,
+                intent: configuration.intent,
+                accessibilityIdentifierPrefix: "\(index)"
+            )
+            view.translatesAutoresizingMaskIntoConstraints = false
 
-                let view = CheckboxGroupUIView(
-                    checkedImage: configuration.image,
-                    items: configuration.items,
-                    layout: configuration.axis,
-                    alignment: configuration.alignment,
-                    theme: self.theme,
-                    intent: configuration.intent,
-                    accessibilityIdentifierPrefix: "\(index)"
-                )
-                view.translatesAutoresizingMaskIntoConstraints = false
+            let containerView = UIView()
+            containerView.backgroundColor = UIColor.systemBackground
+            containerView.translatesAutoresizingMaskIntoConstraints = false
+            containerView.addSubview(view)
 
-                let containerView = UIView()
-                containerView.backgroundColor = UIColor.systemBackground
-                containerView.translatesAutoresizingMaskIntoConstraints = false
-                containerView.addSubview(view)
+            NSLayoutConstraint.stickEdges(from: view, to: containerView)
 
-                NSLayoutConstraint.stickEdges(from: view, to: containerView)
-
-                if configuration.axis == .vertical {
-                    containerView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width).isActive = true
-                } else {
-                    containerView.widthAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.size.width).isActive = true
-                }
-
-                self.assertSnapshot(
-                    matching: containerView,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName()
-                )
+            if configuration.axis == .vertical {
+                containerView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width).isActive = true
+            } else {
+                containerView.widthAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.size.width).isActive = true
             }
+
+            await self.assertSnapshot(
+                matching: containerView,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName()
+            )
         }
     }
 }

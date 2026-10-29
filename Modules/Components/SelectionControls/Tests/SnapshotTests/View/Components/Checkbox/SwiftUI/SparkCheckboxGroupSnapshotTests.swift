@@ -27,36 +27,33 @@ struct SparkCheckboxGroupSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test(arguments: CommonGroupScenarioSnapshotTests.allCases(forDocumentation: false))
+    func test(scenario: CommonGroupScenarioSnapshotTests) async throws {
         let forDocumentation = false
 
-        let scenarios = CommonGroupScenarioSnapshotTests.allCases(forDocumentation: forDocumentation)
+        let configurations: [CommonGroupConfigurationSnapshotTests] = try scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations: [CommonGroupConfigurationSnapshotTests] = try scenario.configuration()
-
-            for configuration in configurations {
-                let view = SparkCheckboxGroup(
-                    selectedIDs: .constant([1]),
-                    items: .allCases(contentResilience: configuration.content)
+        for configuration in configurations {
+            let view = SparkCheckboxGroup(
+                selectedIDs: .constant([1]),
+                items: .allCases(contentResilience: configuration.content)
+            )
+                .sparkTheme(self.theme)
+                .sparkCheckboxGroupAxis(configuration.axis)
+                .sparkCheckboxIntent(configuration.intent)
+                .disabled(!configuration.status.isEnabled)
+                .style(
+                    forDocumentation: forDocumentation,
+                    useLargePadding: true
                 )
-                    .sparkTheme(self.theme)
-                    .sparkCheckboxGroupAxis(configuration.axis)
-                    .sparkCheckboxIntent(configuration.intent)
-                    .disabled(!configuration.status.isEnabled)
-                    .style(
-                        forDocumentation: forDocumentation,
-                        useLargePadding: true
-                    )
 
-                self.assertSnapshot(
-                    matching: view,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName(),
-                    addPadding: false
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName(),
+                addPadding: false
+            )
         }
     }
 }

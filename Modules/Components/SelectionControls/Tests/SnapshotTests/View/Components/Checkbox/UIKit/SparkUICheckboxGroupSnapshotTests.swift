@@ -31,31 +31,28 @@ struct SparkUICheckboxGroupSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
-        let scenarios = CommonGroupScenarioSnapshotTests.allCases()
+    @Test(arguments: CommonGroupScenarioSnapshotTests.allCases())
+    func test(scenario: CommonGroupScenarioSnapshotTests) async throws {
+        let configurations: [CommonGroupConfigurationSnapshotTests] = try scenario.configuration()
+        for configuration in configurations {
+            let view = SparkUICheckboxGroup<Int>(
+                theme: self.theme
+            )
+            view.axis = configuration.axis
+            view.intent = configuration.intent
+            view.items = .allCases(contentResilience: configuration.content)
+            view.selectedIDs = [1]
+            view.isEnabled = configuration.status.isEnabled
+            view.addBackgroundColor()
 
-        for scenario in scenarios {
-            let configurations: [CommonGroupConfigurationSnapshotTests] = try scenario.configuration()
-            for configuration in configurations {
-                let view = SparkUICheckboxGroup<Int>(
-                    theme: self.theme
-                )
-                view.axis = configuration.axis
-                view.intent = configuration.intent
-                view.items = .allCases(contentResilience: configuration.content)
-                view.selectedIDs = [1]
-                view.isEnabled = configuration.status.isEnabled
-                view.addBackgroundColor()
+            let backgroundView = view.createBackgroundView(useMaxWidth: false)
 
-                let backgroundView = view.createBackgroundView(useMaxWidth: false)
-
-                self.assertSnapshot(
-                    matching: backgroundView,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName()
-                )
-            }
+            await self.assertSnapshot(
+                matching: backgroundView,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName()
+            )
         }
     }
 }

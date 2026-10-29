@@ -27,14 +27,14 @@ struct SparkAvatarSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = AvatarScenarioSnapshotTests.allCases
-        self.loadScenarios(scenarios)
+    @Test(arguments: AvatarScenarioSnapshotTests.allCases)
+    func test(scenario: AvatarScenarioSnapshotTests) async {
+        await self.loadScenarios([scenario])
     }
 
     // MARK: - Scenarios
 
-    private func loadScenarios(_ scenarios: [AvatarScenarioSnapshotTests]) {
+    private func loadScenarios(_ scenarios: [AvatarScenarioSnapshotTests]) async {
         for scenario in scenarios {
             let configurations = scenario.configuration()
 
@@ -50,7 +50,7 @@ struct SparkAvatarSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .fixedSize()
                     .sparkIsSnapshot(true)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

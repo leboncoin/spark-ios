@@ -27,36 +27,31 @@ struct SparkUISliderSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = SliderScenarioSnapshotTests.allCases.filter {
-            $0 != .documentation
-        }
+    @Test(arguments: SliderScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    func test(scenario: SliderScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
 
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .systemBackground
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundView.addSubview(view)
+            backgroundView.widthAnchor.constraint(equalToConstant: 300).isActive = true
+            NSLayoutConstraint.stickEdges(
+                from: view,
+                to: backgroundView,
+                insets: .init(all: 4)
+            )
 
-                let backgroundView = UIView()
-                backgroundView.backgroundColor = .systemBackground
-                backgroundView.translatesAutoresizingMaskIntoConstraints = false
-                backgroundView.addSubview(view)
-                backgroundView.widthAnchor.constraint(equalToConstant: 300).isActive = true
-                NSLayoutConstraint.stickEdges(
-                    from: view,
-                    to: backgroundView,
-                    insets: .init(all: 4)
-                )
-
-                self.assertSnapshot(
-                    matching: backgroundView,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName
-                )
-            }
+            await self.assertSnapshot(
+                matching: backgroundView,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName
+            )
         }
     }
 

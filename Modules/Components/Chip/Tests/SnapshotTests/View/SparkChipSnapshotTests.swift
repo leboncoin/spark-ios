@@ -26,36 +26,33 @@ struct SparkChipSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = ChipScenarioSnapshotTests.allCases
+    @Test(arguments: ChipScenarioSnapshotTests.allCases)
+    func test(scenario: ChipScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = self.components(configuration: configuration)
+                .sparkTheme(self.theme)
+                .sparkChipAlignment(configuration.alignment)
+                .sparkChipIntent(configuration.intent)
+                .sparkChipVariant(configuration.variant)
+                .sparkChipSize(configuration.size)
+                .sparkIsSelected(configuration.isSelected)
+                .disabled(configuration.isDisabled)
+                .padding(.horizontal, 30)
+                .padding(.vertical, 30)
+                .background(.background)
+                .fixedSize()
 
-            for configuration in configurations {
-                let view = self.components(configuration: configuration)
-                    .sparkTheme(self.theme)
-                    .sparkChipAlignment(configuration.alignment)
-                    .sparkChipIntent(configuration.intent)
-                    .sparkChipVariant(configuration.variant)
-                    .sparkChipSize(configuration.size)
-                    .sparkIsSelected(configuration.isSelected)
-                    .disabled(configuration.isDisabled)
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 30)
-                    .background(.background)
-                    .fixedSize()
-
-                self.assertSnapshot(
-                    matching: view,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName,
-                    addPadding: false,
-                    forDocumentation: scenario.isDocumentation
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName,
+                addPadding: false,
+                forDocumentation: scenario.isDocumentation
+            )
         }
     }
 

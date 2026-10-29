@@ -26,64 +26,59 @@ struct SparkUIBadgeSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = BadgeScenarioSnapshotTests.allCases.filter {
-            $0 != .documentation
-        }
+    @Test(arguments: BadgeScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    func test(scenario: BadgeScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
+        for configuration in configurations {
+            let badge = SparkUIBadge(theme: self.theme)
+            badge.intent = configuration.intent
+            badge.size = configuration.size
+            badge.value = configuration.content.value
+            badge.unit = configuration.content.unit
+            badge.isBorder = configuration.isBorder
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
-            for configuration in configurations {
-                let badge = SparkUIBadge(theme: self.theme)
-                badge.intent = configuration.intent
-                badge.size = configuration.size
-                badge.value = configuration.content.value
-                badge.unit = configuration.content.unit
-                badge.isBorder = configuration.isBorder
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .systemBackground
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
 
-                let backgroundView = UIView()
-                backgroundView.backgroundColor = .systemBackground
-                backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            if let attachPosition = configuration.attachPosition {
 
-                if let attachPosition = configuration.attachPosition {
+                let rectangleView = UIView()
+                rectangleView.backgroundColor = .blue
+                rectangleView.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    rectangleView.widthAnchor.constraint(equalToConstant: 40),
+                    rectangleView.heightAnchor.constraint(equalToConstant: 40)
+                ])
 
-                    let rectangleView = UIView()
-                    rectangleView.backgroundColor = .blue
-                    rectangleView.translatesAutoresizingMaskIntoConstraints = false
-                    NSLayoutConstraint.activate([
-                        rectangleView.widthAnchor.constraint(equalToConstant: 40),
-                        rectangleView.heightAnchor.constraint(equalToConstant: 40)
-                    ])
+                backgroundView.addSubview(rectangleView)
+                backgroundView.addSubview(badge)
 
-                    backgroundView.addSubview(rectangleView)
-                    backgroundView.addSubview(badge)
+                badge.attach(to: rectangleView, position: attachPosition)
 
-                    badge.attach(to: rectangleView, position: attachPosition)
+                NSLayoutConstraint.stickEdges(
+                    from: rectangleView,
+                    to: backgroundView,
+                    insets: .init(vertical: 20, horizontal: 50)
+                )
 
-                    NSLayoutConstraint.stickEdges(
-                        from: rectangleView,
-                        to: backgroundView,
-                        insets: .init(vertical: 20, horizontal: 50)
-                    )
+            } else {
+                backgroundView.addSubview(badge)
 
-                } else {
-                    backgroundView.addSubview(badge)
-
-                    NSLayoutConstraint.stickEdges(
-                        from: badge,
-                        to: backgroundView,
-                        insets: .init(all: 20)
-                    )
-                }
-
-                self.assertSnapshot(
-                    matching: backgroundView,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName
+                NSLayoutConstraint.stickEdges(
+                    from: badge,
+                    to: backgroundView,
+                    insets: .init(all: 20)
                 )
             }
+
+            await self.assertSnapshot(
+                matching: backgroundView,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName
+            )
         }
     }
 }

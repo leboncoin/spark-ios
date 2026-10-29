@@ -26,49 +26,41 @@ struct SparkUITabSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = TabScenarioSnapshotTests.allCases.filter {
-            $0 != .documentation
-        }
+    @Test(arguments: TabScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    func test(scenario: TabScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
 
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
+            let containerView = self.containerView(for: view)
 
-                let containerView = self.containerView(for: view)
-
-                self.assertSnapshot(
-                    matching: containerView,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName
-                )
-            }
+            await self.assertSnapshot(
+                matching: containerView,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName
+            )
         }
     }
 
-    @Test func testOther() {
-        let scenarios = TabScenarioOtherSnapshotTests.allCases
+    @Test(arguments: TabScenarioOtherSnapshotTests.allCases)
+    func testOther(scenario: TabScenarioOtherSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
 
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
+            let containerView = self.containerView(for: view)
 
-                let containerView = self.containerView(for: view)
-
-                self.assertSnapshot(
-                    matching: containerView,
-                    named: configuration.name,
-                    modes: [.light],
-                    sizes: [.accessibilityLarge],
-                    testName: configuration.testName
-                )
-            }
+            await self.assertSnapshot(
+                matching: containerView,
+                named: configuration.name,
+                modes: [.light],
+                sizes: [.accessibilityLarge],
+                testName: configuration.testName
+            )
         }
     }
 

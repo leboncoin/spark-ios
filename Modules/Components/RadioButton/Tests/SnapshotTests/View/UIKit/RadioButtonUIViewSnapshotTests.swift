@@ -20,27 +20,27 @@ struct RadioButtonUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     private let theme: any Theme = SparkTheme.shared
 
-    @Test func test1() {
-        self._test(.test1)
+    @Test func test1() async {
+        await self._test(.test1)
     }
 
-    @Test func test2() {
-        self._test(.test2)
+    @Test func test2() async {
+        await self._test(.test2)
     }
 
-    @Test func test3() {
-        self._test(.test3)
+    @Test func test3() async {
+        await self._test(.test3)
     }
 
-    @Test func test4() {
-        self._test(.test4)
+    @Test func test4() async {
+        await self._test(.test4)
     }
 
-    @Test func test5() {
-        self._test(.test5)
+    @Test func test5() async {
+        await self._test(.test5)
     }
 
-    private func _test(_ scenario: RadioButtonScenario) {
+    private func _test(_ scenario: RadioButtonScenario) async {
         for configuration in scenario.configurations {
             let view = RadioButtonUIGroupView(
                 theme: self.theme,
@@ -81,7 +81,7 @@ struct RadioButtonUIViewSnapshotTests: UIKitComponentSnapshotTesting {
                 containerView.widthAnchor.constraint(equalToConstant: 300).isActive = true
             }
 
-            self.assertSnapshot(
+            await self.assertSnapshot(
                 matching: containerView,
                 modes: configuration.modes,
                 sizes: configuration.sizes,

@@ -27,33 +27,30 @@ struct SparkCircularMeterSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = CircularMeterScenarioSnapshotTests.allCases
+    @Test(arguments: CircularMeterScenarioSnapshotTests.allCases)
+    func test(scenario: CircularMeterScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
+                .sparkTheme(self.theme)
+                .sparkCircularMeterIntent(configuration.intent)
+                .sparkCircularMeterSize(configuration.size)
+                .frame(height: configuration.size.size)
+                .frame(minWidth: configuration.size.size)
+                .padding(20)
+                .background(.background)
+                .fixedSize()
 
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
-                    .sparkTheme(self.theme)
-                    .sparkCircularMeterIntent(configuration.intent)
-                    .sparkCircularMeterSize(configuration.size)
-                    .frame(height: configuration.size.size)
-                    .frame(minWidth: configuration.size.size)
-                    .padding(20)
-                    .background(.background)
-                    .fixedSize()
-
-                self.assertSnapshot(
-                    matching: view,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName,
-                    addPadding: false,
-                    forDocumentation: scenario.isDocumentation
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName,
+                addPadding: false,
+                forDocumentation: scenario.isDocumentation
+            )
         }
     }
 

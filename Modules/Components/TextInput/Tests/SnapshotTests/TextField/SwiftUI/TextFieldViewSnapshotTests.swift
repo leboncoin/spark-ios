@@ -27,49 +27,46 @@ struct TextFieldViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
-        let scenarios = TextFieldScenarioSnapshotTests.allCases
+    @Test(arguments: TextFieldScenarioSnapshotTests.allCases)
+    func test(scenario: TextFieldScenarioSnapshotTests) async throws {
+        let configurations: [TextFieldConfigurationSnapshotTests] = try scenario.configuration(
+            isSwiftUIComponent: true
+        )
 
-        for scenario in scenarios {
-            let configurations: [TextFieldConfigurationSnapshotTests] = try scenario.configuration(
-                isSwiftUIComponent: true
+        for configuration in configurations {
+            let view = SparkTextField(
+                LocalizedStringKey(configuration.placeholder.text ?? ""),
+                text: .constant(configuration.content.text),
+                leftView: {
+                    self.sideView(from: configuration.leftContent)
+                },
+                rightView: {
+                    self.sideView(from: configuration.rightContent)
+                },
+                leftAddon: {
+                    self.sideView(from: configuration.leftAddonContent)
+                },
+                rightAddon: {
+                    self.sideView(from: configuration.rightAddonContent)
+                }
             )
+                .sparkTheme(self.theme)
+                .sparkTextFieldIntent(configuration.intent)
+                .sparkTextFieldReadOnly(configuration.state.isReadOnly)
+                .sparkTextFieldClearMode(configuration.isClearButton ? .always : .never)
+                .sparkTextFieldSecureEntry(configuration.isSecureEntry)
+                .sparkTextFieldLeftAddonConfiguration(.init(configuration: configuration))
+                .sparkTextFieldRightAddonConfiguration(.init(configuration: configuration))
+                .disabled(!configuration.state.isEnabled)
+                .style(forDocumentation: false)
 
-            for configuration in configurations {
-                let view = SparkTextField(
-                    LocalizedStringKey(configuration.placeholder.text ?? ""),
-                    text: .constant(configuration.content.text),
-                    leftView: {
-                        self.sideView(from: configuration.leftContent)
-                    },
-                    rightView: {
-                        self.sideView(from: configuration.rightContent)
-                    },
-                    leftAddon: {
-                        self.sideView(from: configuration.leftAddonContent)
-                    },
-                    rightAddon: {
-                        self.sideView(from: configuration.rightAddonContent)
-                    }
-                )
-                    .sparkTheme(self.theme)
-                    .sparkTextFieldIntent(configuration.intent)
-                    .sparkTextFieldReadOnly(configuration.state.isReadOnly)
-                    .sparkTextFieldClearMode(configuration.isClearButton ? .always : .never)
-                    .sparkTextFieldSecureEntry(configuration.isSecureEntry)
-                    .sparkTextFieldLeftAddonConfiguration(.init(configuration: configuration))
-                    .sparkTextFieldRightAddonConfiguration(.init(configuration: configuration))
-                    .disabled(!configuration.state.isEnabled)
-                    .style(forDocumentation: false)
-
-                self.assertSnapshot(
-                    matching: view,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName(),
-                    addPadding: false
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName(),
+                addPadding: false
+            )
         }
     }
 

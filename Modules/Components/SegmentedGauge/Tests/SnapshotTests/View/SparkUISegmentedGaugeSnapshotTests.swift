@@ -27,42 +27,37 @@ struct SparkUISegmentedGaugeSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = SegmentedGaugeScenarioSnapshotTests.allCases.filter {
-            $0 != .documentation
-        }
+    @Test(arguments: SegmentedGaugeScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    func test(scenario: SegmentedGaugeScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
+        for configuration in configurations {
+            let segmentedGauge = SparkUISegmentedGauge(theme: self.theme)
+            segmentedGauge.alignment = configuration.alignment
+            segmentedGauge.withMarker = configuration.withMarker
+            segmentedGauge.segments = configuration.segments
+            segmentedGauge.size = configuration.size
+            segmentedGauge.type = configuration.type.toType(self.theme)
+            segmentedGauge.title(configuration.title)
+            segmentedGauge.description(configuration.description)
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
-            for configuration in configurations {
-                let segmentedGauge = SparkUISegmentedGauge(theme: self.theme)
-                segmentedGauge.alignment = configuration.alignment
-                segmentedGauge.withMarker = configuration.withMarker
-                segmentedGauge.segments = configuration.segments
-                segmentedGauge.size = configuration.size
-                segmentedGauge.type = configuration.type.toType(self.theme)
-                segmentedGauge.title(configuration.title)
-                segmentedGauge.description(configuration.description)
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .systemBackground
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundView.addSubview(segmentedGauge)
 
-                let backgroundView = UIView()
-                backgroundView.backgroundColor = .systemBackground
-                backgroundView.translatesAutoresizingMaskIntoConstraints = false
-                backgroundView.addSubview(segmentedGauge)
+            NSLayoutConstraint.stickEdges(
+                from: segmentedGauge,
+                to: backgroundView,
+                insets: .init(all: 20)
+            )
 
-                NSLayoutConstraint.stickEdges(
-                    from: segmentedGauge,
-                    to: backgroundView,
-                    insets: .init(all: 20)
-                )
-
-                self.assertSnapshot(
-                    matching: backgroundView,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName
-                )
-            }
+            await self.assertSnapshot(
+                matching: backgroundView,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName
+            )
         }
     }
 }

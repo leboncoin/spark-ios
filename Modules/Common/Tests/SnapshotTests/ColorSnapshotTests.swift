@@ -18,38 +18,38 @@ import Testing
 struct ColorSnapshotTests {
     let colors = SparkTheme.shared.colors
 
-    @Test func test_base_colors() throws {
+    @Test func test_base_colors() async throws {
         let mirror = Mirror(reflecting: self.colors.base)
-        self.testAllColors(colors: self.getColors(for: mirror))
+        await self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    @Test func test_feedback_colors() throws {
+    @Test func test_feedback_colors() async throws {
         let mirror = Mirror(reflecting: self.colors.feedback)
-        self.testAllColors(colors: self.getColors(for: mirror))
+        await self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    @Test func test_main_colors() throws {
+    @Test func test_main_colors() async throws {
         let mirror = Mirror(reflecting: self.colors.main)
-        self.testAllColors(colors: self.getColors(for: mirror))
+        await self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    @Test func test_support_colors() throws {
+    @Test func test_support_colors() async throws {
         let mirror = Mirror(reflecting: self.colors.support)
-        self.testAllColors(colors: self.getColors(for: mirror))
+        await self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    @Test func test_state_colors() throws {
+    @Test func test_state_colors() async throws {
         let mirror = Mirror(reflecting: self.colors.states)
-        self.testAllColors(colors: self.getColors(for: mirror))
+        await self.testAllColors(colors: self.getColors(for: mirror))
     }
 
-    private func testAllColors(colors: [String: any ColorToken], testName: String = #function) {
+    private func testAllColors(colors: [String: any ColorToken], testName: String = #function) async {
         for value in colors {
             let view = Spacer().background(value.value.color)
             let vc = UIHostingController(rootView: view)
             vc.view.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
             vc.overrideUserInterfaceStyle = .light
-            sparkExpectSnapshot(
+            await sparkExpectSnapshot(
                 matching: vc.view,
                 as: .image,
                 named: value.key,
@@ -57,7 +57,7 @@ struct ColorSnapshotTests {
             )
 
             vc.overrideUserInterfaceStyle = .dark
-            sparkExpectSnapshot(
+            await sparkExpectSnapshot(
                 matching: vc.view,
                 as: .image,
                 named: value.key + "-dark",

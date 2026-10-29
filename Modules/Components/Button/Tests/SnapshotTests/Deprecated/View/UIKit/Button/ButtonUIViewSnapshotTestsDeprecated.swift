@@ -29,7 +29,7 @@ struct ButtonUIViewSnapshotTestsDeprecated: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = ButtonScenarioSnapshotTestsDeprecated.allCases
 
         for scenario in scenarios {
@@ -60,7 +60,7 @@ struct ButtonUIViewSnapshotTestsDeprecated: UIKitComponentSnapshotTesting {
                     view.setImage(image.leftValue, for: state)
                 }
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

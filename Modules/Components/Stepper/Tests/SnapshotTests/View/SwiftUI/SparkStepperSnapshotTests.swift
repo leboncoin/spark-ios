@@ -26,28 +26,25 @@ struct SparkStepperSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
-        let scenarios = StepperScenarioSnapshotTests.allCases
+    @Test(arguments: StepperScenarioSnapshotTests.allCases)
+    func test(scenario: StepperScenarioSnapshotTests) async throws {
+        let configurations = try scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = try scenario.configuration()
+        for configuration in configurations {
+            let view = self.createComponent(for: configuration)
+                .sparkTheme(self.theme)
+                .disabled(configuration.state == .disabled)
+                .frame(width: configuration.width)
+                .padding(1)
+                .background(.background)
 
-            for configuration in configurations {
-                let view = self.createComponent(for: configuration)
-                    .sparkTheme(self.theme)
-                    .disabled(configuration.state == .disabled)
-                    .frame(width: configuration.width)
-                    .padding(1)
-                    .background(.background)
-
-                self.assertSnapshot(
-                    matching: view,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName(),
-                    addPadding: false
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName(),
+                addPadding: false
+            )
         }
     }
 

@@ -31,35 +31,32 @@ struct TextEditorViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
-        let scenarios = TextEditorScenarioSnapshotTests.allCases
+    @Test(arguments: TextEditorScenarioSnapshotTests.allCases)
+    func test(scenario: TextEditorScenarioSnapshotTests) async throws {
+        let configurations: [TextEditorConfigurationSnapshotTests] = try scenario.configuration(
+            isSwiftUIComponent: true
+        )
 
-        for scenario in scenarios {
-            let configurations: [TextEditorConfigurationSnapshotTests] = try scenario.configuration(
-                isSwiftUIComponent: true
+        for configuration in configurations {
+            let view = SparkTextEditor(
+                configuration.placeholder.text ?? configuration.content.text,
+                text: .constant(configuration.content.text)
             )
+                .sparkTheme(self.theme)
+                .sparkTextEditorIntent(configuration.intent)
+                .sparkTextEditorReadOnly(configuration.state.isReadOnly)
+                .disabled(!configuration.state.isEnabled)
+                .frame(width: Constants.width)
+                .frame(height: configuration.height.value)
+                .style(forDocumentation: false)
 
-            for configuration in configurations {
-                let view = SparkTextEditor(
-                    configuration.placeholder.text ?? configuration.content.text,
-                    text: .constant(configuration.content.text)
-                )
-                    .sparkTheme(self.theme)
-                    .sparkTextEditorIntent(configuration.intent)
-                    .sparkTextEditorReadOnly(configuration.state.isReadOnly)
-                    .disabled(!configuration.state.isEnabled)
-                    .frame(width: Constants.width)
-                    .frame(height: configuration.height.value)
-                    .style(forDocumentation: false)
-
-                self.assertSnapshot(
-                    matching: view,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName(),
-                    addPadding: false
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName(),
+                addPadding: false
+            )
         }
     }
 }

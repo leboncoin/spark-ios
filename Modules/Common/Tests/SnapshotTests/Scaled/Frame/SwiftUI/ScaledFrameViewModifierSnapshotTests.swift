@@ -19,8 +19,8 @@ struct ScaledFrameViewModifierSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
-        self.assertSnapshot(
+    @Test func test() async throws {
+        await self.assertSnapshot(
             matching: SnapshotView(),
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all,

@@ -31,34 +31,31 @@ struct SparkUISwitchSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
-        let scenarios = ToggleScenarioSnapshotTests.allCases()
+    @Test(arguments: ToggleScenarioSnapshotTests.allCases())
+    func test(scenario: ToggleScenarioSnapshotTests) async throws {
+        let configurations: [ToggleConfigurationSnapshotTests] = try scenario.configuration()
+        for configuration in configurations {
+            let view = SparkUISwitch(
+                theme: self.theme
+            )
+            view.isOn = configuration.value.isOn
+            view.isEnabled = configuration.status.isEnabled
 
-        for scenario in scenarios {
-            let configurations: [ToggleConfigurationSnapshotTests] = try scenario.configuration()
-            for configuration in configurations {
-                let view = SparkUISwitch(
-                    theme: self.theme
-                )
-                view.isOn = configuration.value.isOn
-                view.isEnabled = configuration.status.isEnabled
-
-                if let text = configuration.content.text {
-                    view.text = text
-                } else if configuration.content == .other {
-                    view.attributedText = .snapshot()
-                }
-                view.addBackgroundColor()
-
-                let backgroundView = view.createBackgroundView()
-
-                self.assertSnapshot(
-                    matching: backgroundView,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName()
-                )
+            if let text = configuration.content.text {
+                view.text = text
+            } else if configuration.content == .other {
+                view.attributedText = .snapshot()
             }
+            view.addBackgroundColor()
+
+            let backgroundView = view.createBackgroundView()
+
+            await self.assertSnapshot(
+                matching: backgroundView,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName()
+            )
         }
     }
 }

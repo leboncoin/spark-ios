@@ -22,25 +22,22 @@ struct CheckboxGroupViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = CheckboxGroupScenarioSnapshotTests.allCases
+    @Test(arguments: CheckboxGroupScenarioSnapshotTests.allCases)
+    func test(scenario: CheckboxGroupScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
 
-            for configuration in configurations {
+            let view = CheckboxGroupContainerView(configuration: configuration)
+            .fixedSize()
 
-                let view = CheckboxGroupContainerView(configuration: configuration)
-                .fixedSize()
-
-                self.assertSnapshot(
-                    matching: view,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName(),
-                    addPadding: false
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName(),
+                addPadding: false
+            )
         }
     }
 }

@@ -27,16 +27,16 @@ struct SparkFileUploadPreviewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
-        try self.testView()
+    @Test func test() async throws {
+        try await self.testView()
     }
 
-    @Test func test_with_error() throws {
-        try self.testView(isSucceed: false, testName: "test.isError")
+    @Test func test_with_error() async throws {
+        try await self.testView(isSucceed: false, testName: "test.isError")
     }
 
-    @Test func test_documentation() throws {
-        try self.testView(forDocumentation: true)
+    @Test func test_documentation() async throws {
+        try await self.testView(forDocumentation: true)
     }
 
     // MARK: - Private
@@ -45,7 +45,7 @@ struct SparkFileUploadPreviewSnapshotTests: SwiftUIComponentSnapshotTesting {
         isSucceed: Bool = true,
         testName: String = #function,
         forDocumentation: Bool = false
-    ) throws {
+    ) async throws {
         let pdfURL = try URL.pdfMock
         let file = isSucceed ? FileUpload(
             id: "test-id",
@@ -74,7 +74,7 @@ struct SparkFileUploadPreviewSnapshotTests: SwiftUIComponentSnapshotTesting {
         .fixedSize()
         .background(.background)
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view,
             named: forDocumentation ? "" : "preview",
             modes: ComponentSnapshotTestConstants.Modes.all,

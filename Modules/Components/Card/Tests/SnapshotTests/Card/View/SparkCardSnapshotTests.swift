@@ -26,14 +26,14 @@ struct SparkCardSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = CardScenarioSnapshotTests.allCases
-        self.loadScenarios(scenarios)
+    @Test(arguments: CardScenarioSnapshotTests.allCases)
+    func test(scenario: CardScenarioSnapshotTests) async {
+        await self.loadScenarios([scenario])
     }
 
     // MARK: - Scenarios
 
-    private func loadScenarios(_ scenarios: [CardScenarioSnapshotTests]) {
+    private func loadScenarios(_ scenarios: [CardScenarioSnapshotTests]) async {
         for scenario in scenarios {
             let configurations = scenario.configuration()
 
@@ -59,7 +59,7 @@ struct SparkCardSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .background(.gray)
                     .fixedSize()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

@@ -27,29 +27,26 @@ struct SparkRadioButtonSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test(arguments: RadioButtonScenarioSnapshotTests.allCases(forDocumentation: false))
+    func test(scenario: RadioButtonScenarioSnapshotTests) async throws {
         let forDocumentation = false
 
-        let scenarios = RadioButtonScenarioSnapshotTests.allCases(forDocumentation: forDocumentation)
+        let configurations: [RadioButtonConfigurationSnapshotTests] = try scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations: [RadioButtonConfigurationSnapshotTests] = try scenario.configuration()
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
+                .sparkTheme(self.theme)
+                .sparkRadioButtonIntent(configuration.intent)
+                .disabled(!configuration.status.isEnabled)
+                .style(forDocumentation: forDocumentation)
 
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
-                    .sparkTheme(self.theme)
-                    .sparkRadioButtonIntent(configuration.intent)
-                    .disabled(!configuration.status.isEnabled)
-                    .style(forDocumentation: forDocumentation)
-
-                self.assertSnapshot(
-                    matching: view,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName(),
-                    addPadding: false
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName(),
+                addPadding: false
+            )
         }
     }
 

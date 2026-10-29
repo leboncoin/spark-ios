@@ -31,97 +31,94 @@ struct SwitchUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
-        let scenarios = SwitchScenarioSnapshotTests.allCases
+    @Test(arguments: SwitchScenarioSnapshotTests.allCases)
+    func test(scenario: SwitchScenarioSnapshotTests) async throws {
+        let configurations: [SwitchConfigurationSnapshotTests] = try scenario.configuration()
+        for configuration in configurations {
+            var view: SwitchUIView!
 
-        for scenario in scenarios {
-            let configurations: [SwitchConfigurationSnapshotTests] = try scenario.configuration()
-            for configuration in configurations {
-                var view: SwitchUIView!
+            let text = configuration.content.text
+            let attributedText = configuration.content.attributedLabel(isSwiftUIComponent: false)?.leftValue
 
-                let text = configuration.content.text
-                let attributedText = configuration.content.attributedLabel(isSwiftUIComponent: false)?.leftValue
-
-                // Images + Text
-                if configuration.isIcon, let text {
-                    view = SwitchUIView(
-                        theme: self.theme,
-                        isOn: configuration.value.isOn,
-                        alignment: configuration.alignment,
-                        intent: configuration.intent,
-                        isEnabled: configuration.status.isEnabled,
-                        images: UIImage.images,
-                        text: text
-                    )
-                } else if configuration.isIcon, let attributedText { // Images + Attributed Text
-                    view = SwitchUIView(
-                        theme: self.theme,
-                        isOn: configuration.value.isOn,
-                        alignment: configuration.alignment,
-                        intent: configuration.intent,
-                        isEnabled: configuration.status.isEnabled,
-                        images: UIImage.images,
-                        attributedText: attributedText
-                    )
-                } else if configuration.isIcon { // Only Image
-                    view = SwitchUIView(
-                        theme: self.theme,
-                        isOn: configuration.value.isOn,
-                        alignment: configuration.alignment,
-                        intent: configuration.intent,
-                        isEnabled: configuration.status.isEnabled,
-                        images: UIImage.images
-                    )
-                } else if let text { // Only Text
-                    view = SwitchUIView(
-                        theme: self.theme,
-                        isOn: configuration.value.isOn,
-                        alignment: configuration.alignment,
-                        intent: configuration.intent,
-                        isEnabled: configuration.status.isEnabled,
-                        text: text
-                    )
-                } else if let attributedText { // Only Attributed Text
-                    view = SwitchUIView(
-                        theme: self.theme,
-                        isOn: configuration.value.isOn,
-                        alignment: configuration.alignment,
-                        intent: configuration.intent,
-                        isEnabled: configuration.status.isEnabled,
-                        attributedText: attributedText
-                    )
-                } else { // Without image and text
-                    view = SwitchUIView(
-                        theme: self.theme,
-                        isOn: configuration.value.isOn,
-                        alignment: configuration.alignment,
-                        intent: configuration.intent,
-                        isEnabled: configuration.status.isEnabled
-                    )
-                }
-
-                view.backgroundColor = .secondarySystemBackground
-
-                let backgroundView = UIView()
-                backgroundView.backgroundColor = .systemBackground
-                backgroundView.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    backgroundView.widthAnchor.constraint(lessThanOrEqualToConstant: Constants.maxWidth)
-                ])
-                backgroundView.addSubview(view)
-                NSLayoutConstraint.stickEdges(
-                    from: view,
-                    to: backgroundView,
-                    insets: .init(all: Constants.padding)
+            // Images + Text
+            if configuration.isIcon, let text {
+                view = SwitchUIView(
+                    theme: self.theme,
+                    isOn: configuration.value.isOn,
+                    alignment: configuration.alignment,
+                    intent: configuration.intent,
+                    isEnabled: configuration.status.isEnabled,
+                    images: UIImage.images,
+                    text: text
                 )
-
-                self.assertSnapshot(
-                    matching: backgroundView,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName()
+            } else if configuration.isIcon, let attributedText { // Images + Attributed Text
+                view = SwitchUIView(
+                    theme: self.theme,
+                    isOn: configuration.value.isOn,
+                    alignment: configuration.alignment,
+                    intent: configuration.intent,
+                    isEnabled: configuration.status.isEnabled,
+                    images: UIImage.images,
+                    attributedText: attributedText
+                )
+            } else if configuration.isIcon { // Only Image
+                view = SwitchUIView(
+                    theme: self.theme,
+                    isOn: configuration.value.isOn,
+                    alignment: configuration.alignment,
+                    intent: configuration.intent,
+                    isEnabled: configuration.status.isEnabled,
+                    images: UIImage.images
+                )
+            } else if let text { // Only Text
+                view = SwitchUIView(
+                    theme: self.theme,
+                    isOn: configuration.value.isOn,
+                    alignment: configuration.alignment,
+                    intent: configuration.intent,
+                    isEnabled: configuration.status.isEnabled,
+                    text: text
+                )
+            } else if let attributedText { // Only Attributed Text
+                view = SwitchUIView(
+                    theme: self.theme,
+                    isOn: configuration.value.isOn,
+                    alignment: configuration.alignment,
+                    intent: configuration.intent,
+                    isEnabled: configuration.status.isEnabled,
+                    attributedText: attributedText
+                )
+            } else { // Without image and text
+                view = SwitchUIView(
+                    theme: self.theme,
+                    isOn: configuration.value.isOn,
+                    alignment: configuration.alignment,
+                    intent: configuration.intent,
+                    isEnabled: configuration.status.isEnabled
                 )
             }
+
+            view.backgroundColor = .secondarySystemBackground
+
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .systemBackground
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                backgroundView.widthAnchor.constraint(lessThanOrEqualToConstant: Constants.maxWidth)
+            ])
+            backgroundView.addSubview(view)
+            NSLayoutConstraint.stickEdges(
+                from: view,
+                to: backgroundView,
+                insets: .init(all: Constants.padding)
+            )
+
+            await self.assertSnapshot(
+                matching: backgroundView,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName()
+            )
         }
     }
 }

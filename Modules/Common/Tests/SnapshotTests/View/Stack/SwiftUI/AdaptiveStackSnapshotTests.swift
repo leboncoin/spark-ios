@@ -17,7 +17,7 @@ struct AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test_with_accessibilitySizeClass_at_nil() throws {
+    @Test func test_with_accessibilitySizeClass_at_nil() async throws {
         // GIVEN / WHEN
         let view = SparkAdaptiveStack(
             axis: .horizontal,
@@ -31,7 +31,7 @@ struct AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTesting {
             Text.text2
         }
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all,
@@ -39,7 +39,7 @@ struct AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
     }
 
-    @Test func test_with_showAccessibilityStack_at_true() throws {
+    @Test func test_with_showAccessibilityStack_at_true() async throws {
         // GIVEN / WHEN
         let view = SparkAdaptiveStack(
             axis: .horizontal,
@@ -53,7 +53,7 @@ struct AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTesting {
             Text.text2
         }
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all,
@@ -61,7 +61,7 @@ struct AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
     }
 
-    @Test func test_with_showAccessibilityStack_at_false() throws {
+    @Test func test_with_showAccessibilityStack_at_false() async throws {
         // GIVEN / WHEN
         let view = SparkAdaptiveStack(
             axis: .horizontal,
@@ -76,7 +76,7 @@ struct AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         }
 
         // THEN
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all,

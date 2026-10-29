@@ -27,29 +27,26 @@ struct SparkCheckboxSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test(arguments: CheckboxScenarioSnapshotTests.allCases(forDocumentation: false))
+    func test(scenario: CheckboxScenarioSnapshotTests) async throws {
         let forDocumentation = false
 
-        let scenarios = CheckboxScenarioSnapshotTests.allCases(forDocumentation: forDocumentation)
+        let configurations: [CheckboxConfigurationSnapshotTests] = try scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations: [CheckboxConfigurationSnapshotTests] = try scenario.configuration()
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
+                .sparkTheme(self.theme)
+                .sparkCheckboxIntent(configuration.intent)
+                .disabled(!configuration.status.isEnabled)
+                .style(forDocumentation: forDocumentation)
 
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
-                    .sparkTheme(self.theme)
-                    .sparkCheckboxIntent(configuration.intent)
-                    .disabled(!configuration.status.isEnabled)
-                    .style(forDocumentation: forDocumentation)
-
-                self.assertSnapshot(
-                    matching: view,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName(),
-                    addPadding: false
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName(),
+                addPadding: false
+            )
         }
     }
 

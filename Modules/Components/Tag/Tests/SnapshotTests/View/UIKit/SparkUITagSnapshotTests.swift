@@ -26,45 +26,42 @@ struct SparkUITagSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = TagScenarioSnapshotTests.allCases
+    @Test(arguments: TagScenarioSnapshotTests.allCases)
+    func test(scenario: TagScenarioSnapshotTests) async {
+        let configurations = scenario.configuration(isSwiftUIComponent: false)
+        for configuration in configurations {
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration(isSwiftUIComponent: false)
-            for configuration in configurations {
-
-                let view: SparkUITag = .init(
-                    theme: self.theme
-                )
-                view.intent = configuration.intent
-                view.size = configuration.size
-                view.variant = configuration.variant
-                view.isHighlighted = configuration.isHighlighted
-                view.icon = configuration.isIcon ? .mock : nil
-                view.text(configuration: configuration)
-                view.translatesAutoresizingMaskIntoConstraints = false
-                if let width = configuration.width {
-                    view.widthAnchor.constraint(equalToConstant: width).isActive = true
-                }
-
-                let backgroundView = UIView()
-                backgroundView.backgroundColor = .systemBackground
-                backgroundView.translatesAutoresizingMaskIntoConstraints = false
-                backgroundView.addSubview(view)
-                NSLayoutConstraint.stickEdges(
-                    from: view,
-                    to: backgroundView,
-                    insets: .init(all: 2)
-                )
-
-                self.assertSnapshot(
-                    matching: backgroundView,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName
-                )
+            let view: SparkUITag = .init(
+                theme: self.theme
+            )
+            view.intent = configuration.intent
+            view.size = configuration.size
+            view.variant = configuration.variant
+            view.isHighlighted = configuration.isHighlighted
+            view.icon = configuration.isIcon ? .mock : nil
+            view.text(configuration: configuration)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            if let width = configuration.width {
+                view.widthAnchor.constraint(equalToConstant: width).isActive = true
             }
+
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .systemBackground
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundView.addSubview(view)
+            NSLayoutConstraint.stickEdges(
+                from: view,
+                to: backgroundView,
+                insets: .init(all: 2)
+            )
+
+            await self.assertSnapshot(
+                matching: backgroundView,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName
+            )
         }
     }
 }

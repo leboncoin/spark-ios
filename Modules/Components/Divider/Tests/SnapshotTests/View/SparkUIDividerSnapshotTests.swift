@@ -27,45 +27,40 @@ struct SparkUIDividerSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = DividerScenarioSnapshotTests.allCases.filter {
-            $0 != .documentation
-        }
+    @Test(arguments: DividerScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    func test(scenario: DividerScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = SparkUIDivider(
+                theme: self.theme
+            )
+            view.alignment = configuration.alignment
+            view.axis = configuration.axis
+            view.intent = configuration.intent
+            view.content(configuration.content)
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
-            for configuration in configurations {
-                let view = SparkUIDivider(
-                    theme: self.theme
-                )
-                view.alignment = configuration.alignment
-                view.axis = configuration.axis
-                view.intent = configuration.intent
-                view.content(configuration.content)
+            NSLayoutConstraint.activate([
+                view.widthAnchor.constraint(greaterThanOrEqualToConstant: configuration.axis.width),
+                view.heightAnchor.constraint(greaterThanOrEqualToConstant: configuration.axis.height)
+            ])
 
-                NSLayoutConstraint.activate([
-                    view.widthAnchor.constraint(greaterThanOrEqualToConstant: configuration.axis.width),
-                    view.heightAnchor.constraint(greaterThanOrEqualToConstant: configuration.axis.height)
-                ])
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .systemBackground
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundView.addSubview(view)
+            NSLayoutConstraint.stickEdges(
+                from: view,
+                to: backgroundView,
+                insets: .init(all: 4)
+            )
 
-                let backgroundView = UIView()
-                backgroundView.backgroundColor = .systemBackground
-                backgroundView.translatesAutoresizingMaskIntoConstraints = false
-                backgroundView.addSubview(view)
-                NSLayoutConstraint.stickEdges(
-                    from: view,
-                    to: backgroundView,
-                    insets: .init(all: 4)
-                )
-
-                self.assertSnapshot(
-                    matching: backgroundView,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName
-                )
-            }
+            await self.assertSnapshot(
+                matching: backgroundView,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName
+            )
         }
     }
 }

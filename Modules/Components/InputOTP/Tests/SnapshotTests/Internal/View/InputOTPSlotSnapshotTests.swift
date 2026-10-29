@@ -26,14 +26,14 @@ struct InputOTPSlotSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = InputOTPSlotScenarioSnapshotTests.allCases
-        self.loadScenarios(scenarios)
+    @Test(arguments: InputOTPSlotScenarioSnapshotTests.allCases)
+    func test(scenario: InputOTPSlotScenarioSnapshotTests) async {
+        await self.loadScenarios([scenario])
     }
 
     // MARK: - Scenarios
 
-    private func loadScenarios(_ scenarios: [InputOTPSlotScenarioSnapshotTests]) {
+    private func loadScenarios(_ scenarios: [InputOTPSlotScenarioSnapshotTests]) async {
         for scenario in scenarios {
             let configurations = scenario.configuration()
 
@@ -53,7 +53,7 @@ struct InputOTPSlotSnapshotTests: SwiftUIComponentSnapshotTesting {
                 .background(.background)
                 .fixedSize()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

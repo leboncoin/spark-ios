@@ -19,21 +19,21 @@ struct AdaptiveUIStackViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test_with_default_properties() {
+    @Test func test_with_default_properties() async {
         let view = SparkAdaptiveUIStackView(arrangedSubviews: [
             UILabel.label1,
             UILabel.label2
         ])
         view.setStyle()
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view,
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all
         )
     }
 
-    @Test func test_with_override_default_properties() {
+    @Test func test_with_override_default_properties() async {
         let view = SparkAdaptiveUIStackView(arrangedSubviews: [
             UILabel.label1,
             UILabel.label2
@@ -45,14 +45,14 @@ struct AdaptiveUIStackViewSnapshotTests: UIKitComponentSnapshotTesting {
         view.alignment = .trailing
         view.spacing = 32
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view,
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all
         )
     }
 
-    @Test func test_with_regular_and_accessibilities_properties() {
+    @Test func test_with_regular_and_accessibilities_properties() async {
         let view = SparkAdaptiveUIStackView(arrangedSubviews: [
             UILabel.label1,
             UILabel.label2
@@ -71,7 +71,7 @@ struct AdaptiveUIStackViewSnapshotTests: UIKitComponentSnapshotTesting {
         view.regularSpacing = 8
         view.accessibilitySpacing = 16
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view,
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all
@@ -83,21 +83,21 @@ struct AdaptiveUIStackViewSnapshotTests: UIKitComponentSnapshotTesting {
 
 private extension UILabel {
 
-    static let label1: UILabel = {
+    static var label1: UILabel {
         let label = UILabel()
         label.text = "Hey"
         label.adjustsFontForContentSizeCategory = true
         label.backgroundColor = .yellow
         return label
-    }()
+    }
 
-    static let label2: UILabel = {
+    static var label2: UILabel {
         let label = UILabel()
         label.text = "Bye"
         label.adjustsFontForContentSizeCategory = true
         label.backgroundColor = .green
         return label
-    }()
+    }
 }
 
 private extension UIView {

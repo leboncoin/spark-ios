@@ -19,7 +19,7 @@ struct UIViewVisualIdentificationExtensionSnapshotTests: UIKitComponentSnapshotT
 
     // MARK: - Tests
 
-    @Test func test_sparkVisualIdentification_when_toggle_is_true() {
+    @Test func test_sparkVisualIdentification_when_toggle_is_true() async {
         // GIVEN
         let featureTogglesService = SparkFeatureToggleServicingGeneratedMock()
         featureTogglesService.visualIdentification = true
@@ -31,7 +31,7 @@ struct UIViewVisualIdentificationExtensionSnapshotTests: UIKitComponentSnapshotT
         )
 
         // THEN
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view,
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.default,
@@ -39,7 +39,7 @@ struct UIViewVisualIdentificationExtensionSnapshotTests: UIKitComponentSnapshotT
         )
     }
 
-    @Test func test_sparkVisualIdentification_when_toggle_is_false() {
+    @Test func test_sparkVisualIdentification_when_toggle_is_false() async {
         // GIVEN
         let featureTogglesService = SparkFeatureToggleServicingGeneratedMock()
         featureTogglesService.visualIdentification = false
@@ -51,7 +51,7 @@ struct UIViewVisualIdentificationExtensionSnapshotTests: UIKitComponentSnapshotT
         )
 
         // THEN
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view,
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.default,

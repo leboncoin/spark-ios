@@ -30,59 +30,56 @@ struct FormFieldUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = FormFieldScenarioSnapshotTests.allCases
+    @Test(arguments: FormFieldScenarioSnapshotTests.allCases)
+    func test(scenario: FormFieldScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
 
-            for configuration in configurations {
+            let component = UITextField()
+            component.borderStyle = .roundedRect
+            component.text = "Your username"
 
-                let component = UITextField()
-                component.borderStyle = .roundedRect
-                component.text = "Your username"
+            let view = FormFieldUIView(
+                theme: self.theme,
+                component: component,
+                feedbackState: configuration.feedbackState,
+                title: configuration.titleType.value(from: .title),
+                helper: configuration.helperType.value(from: .helper),
+                isRequired: configuration.isRequired
+            )
 
-                let view = FormFieldUIView(
-                    theme: self.theme,
-                    component: component,
-                    feedbackState: configuration.feedbackState,
-                    title: configuration.titleType.value(from: .title),
-                    helper: configuration.helperType.value(from: .helper),
-                    isRequired: configuration.isRequired
-                )
+            view.clearButtonImage = .init(configuration.clearButtonImageName)
+            view.helperImage = .init(configuration.helperImageName)
 
-                view.clearButtonImage = .init(configuration.clearButtonImageName)
-                view.helperImage = .init(configuration.helperImageName)
-
-                if configuration.isCounter {
-                    view.setCounter(
-                        on: FormFieldSnapshotConstants.Counter.text,
-                        limit: FormFieldSnapshotConstants.Counter.limit
-                    )
-                }
-
-                view.backgroundColor = .systemBackground
-
-                let backgroundView = UIView()
-                backgroundView.backgroundColor = .secondarySystemBackground
-                backgroundView.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    backgroundView.widthAnchor.constraint(equalToConstant: Constants.maxWidth)
-                ])
-                backgroundView.addSubview(view)
-                NSLayoutConstraint.stickEdges(
-                    from: view,
-                    to: backgroundView,
-                    insets: .init(all: Constants.padding)
-                )
-
-                self.assertSnapshot(
-                    matching: backgroundView,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName()
+            if configuration.isCounter {
+                view.setCounter(
+                    on: FormFieldSnapshotConstants.Counter.text,
+                    limit: FormFieldSnapshotConstants.Counter.limit
                 )
             }
+
+            view.backgroundColor = .systemBackground
+
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .secondarySystemBackground
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                backgroundView.widthAnchor.constraint(equalToConstant: Constants.maxWidth)
+            ])
+            backgroundView.addSubview(view)
+            NSLayoutConstraint.stickEdges(
+                from: view,
+                to: backgroundView,
+                insets: .init(all: Constants.padding)
+            )
+
+            await self.assertSnapshot(
+                matching: backgroundView,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName()
+            )
         }
     }
 }

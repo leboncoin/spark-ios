@@ -25,57 +25,54 @@ struct CheckboxUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = CheckboxScenarioSnapshotTests.allCases
+    @Test(arguments: CheckboxScenarioSnapshotTests.allCases)
+    func test(scenario: CheckboxScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
 
-            for configuration in configurations {
+            let view = CheckboxUIView(
+                theme: self.theme,
+                intent: configuration.intent,
+                text: configuration.textType.value,
+                checkedImage: configuration.image,
+                isEnabled: configuration.state == .disabled ? false : true,
+                selectionState: configuration.selectionState,
+                alignment: configuration.alignment
+            )
+            view.backgroundColor = UIColor.systemBackground
 
-                let view = CheckboxUIView(
-                    theme: self.theme,
-                    intent: configuration.intent,
-                    text: configuration.textType.value,
-                    checkedImage: configuration.image,
-                    isEnabled: configuration.state == .disabled ? false : true,
-                    selectionState: configuration.selectionState,
-                    alignment: configuration.alignment
-                )
-                view.backgroundColor = UIColor.systemBackground
+            NSLayoutConstraint.activate([
+                view.widthAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.size.width)
+            ])
+
+            if configuration.state == .pressed {
+                view.isHighlighted = true
+
+                let containerView = UIView()
+                containerView.translatesAutoresizingMaskIntoConstraints = false
+                containerView.addSubview(view)
 
                 NSLayoutConstraint.activate([
-                    view.widthAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.size.width)
+                    view.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 5),
+                    view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -5),
+                    view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 5),
+                    view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -5)
                 ])
 
-                if configuration.state == .pressed {
-                    view.isHighlighted = true
-
-                    let containerView = UIView()
-                    containerView.translatesAutoresizingMaskIntoConstraints = false
-                    containerView.addSubview(view)
-
-                    NSLayoutConstraint.activate([
-                        view.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 5),
-                        view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -5),
-                        view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 5),
-                        view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -5)
-                    ])
-
-                    self.assertSnapshot(
-                        matching: containerView,
-                        modes: configuration.modes,
-                        sizes: configuration.sizes,
-                        testName: configuration.testName()
-                    )
-                } else {
-                    self.assertSnapshot(
-                        matching: view,
-                        modes: configuration.modes,
-                        sizes: configuration.sizes,
-                        testName: configuration.testName()
-                    )
-                }
+                await self.assertSnapshot(
+                    matching: containerView,
+                    modes: configuration.modes,
+                    sizes: configuration.sizes,
+                    testName: configuration.testName()
+                )
+            } else {
+                await self.assertSnapshot(
+                    matching: view,
+                    modes: configuration.modes,
+                    sizes: configuration.sizes,
+                    testName: configuration.testName()
+                )
             }
         }
     }

@@ -19,8 +19,8 @@ struct ScaledBorderViewModifierSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test_default() throws {
-        self.assertSnapshot(
+    @Test func test_default() async throws {
+        await self.assertSnapshot(
             matching: SnapshotView(state: .default),
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all,
@@ -28,8 +28,8 @@ struct ScaledBorderViewModifierSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
     }
 
-    @Test func test_dashed() throws {
-        self.assertSnapshot(
+    @Test func test_dashed() async throws {
+        await self.assertSnapshot(
             matching: SnapshotView(state: .dashed),
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all,

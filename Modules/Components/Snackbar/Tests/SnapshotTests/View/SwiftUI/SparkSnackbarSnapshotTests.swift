@@ -27,7 +27,7 @@ struct SnackbarSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = SnackbarScenario.allCases
 
         for scenario in scenarios {
@@ -43,7 +43,7 @@ struct SnackbarSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .padding(.horizontal, 20)
                     .background(.background)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

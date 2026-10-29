@@ -26,41 +26,38 @@ struct SparkUIStepperSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
-        let scenarios = StepperScenarioSnapshotTests.allCases
+    @Test(arguments: StepperScenarioSnapshotTests.allCases)
+    func test(scenario: StepperScenarioSnapshotTests) async throws {
+        let configurations: [StepperConfigurationSnapshotTests] = try scenario.configuration()
+        for configuration in configurations {
+            let view: SparkUIStepper = .init(
+                theme: self.theme
+            )
+            view.value = configuration.state.value(from: configuration.range)
+            view.minimumValue = configuration.range.lowerBound
+            view.maximumValue = configuration.range.upperBound
+            view.valueNumberFormatter(configuration)
+            view.isEnabled = configuration.state.isEnabled()
 
-        for scenario in scenarios {
-            let configurations: [StepperConfigurationSnapshotTests] = try scenario.configuration()
-            for configuration in configurations {
-                let view: SparkUIStepper = .init(
-                    theme: self.theme
-                )
-                view.value = configuration.state.value(from: configuration.range)
-                view.minimumValue = configuration.range.lowerBound
-                view.maximumValue = configuration.range.upperBound
-                view.valueNumberFormatter(configuration)
-                view.isEnabled = configuration.state.isEnabled()
-
-                if let width = configuration.width {
-                    NSLayoutConstraint.activate([
-                        view.widthAnchor.constraint(equalToConstant: width)
-                    ])
-                }
-
-                let backgroundView = UIView()
-                backgroundView.backgroundColor = .systemBackground
-                backgroundView.translatesAutoresizingMaskIntoConstraints = false
-                backgroundView.addSubview(view)
-
-                NSLayoutConstraint.stickEdges(from: view, to: backgroundView, insets: .init(all: 1))
-
-                self.assertSnapshot(
-                    matching: backgroundView,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName()
-                )
+            if let width = configuration.width {
+                NSLayoutConstraint.activate([
+                    view.widthAnchor.constraint(equalToConstant: width)
+                ])
             }
+
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .systemBackground
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundView.addSubview(view)
+
+            NSLayoutConstraint.stickEdges(from: view, to: backgroundView, insets: .init(all: 1))
+
+            await self.assertSnapshot(
+                matching: backgroundView,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName()
+            )
         }
     }
 }

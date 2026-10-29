@@ -27,31 +27,28 @@ struct SparkSliderSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = SliderScenarioSnapshotTests.allCases
+    @Test(arguments: SliderScenarioSnapshotTests.allCases)
+    func test(scenario: SliderScenarioSnapshotTests) async {
+        let configurations = scenario.configuration(isSwiftUIComponent: true)
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration(isSwiftUIComponent: true)
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
+                .sparkTheme(self.theme)
+                .sparkSliderIntent(configuration.intent)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 20)
+                .background(.background)
+                .frame(width: 300)
 
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
-                    .sparkTheme(self.theme)
-                    .sparkSliderIntent(configuration.intent)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 20)
-                    .background(.background)
-                    .frame(width: 300)
-
-                self.assertSnapshot(
-                    matching: view,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName,
-                    addPadding: false,
-                    forDocumentation: scenario.isDocumentation
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName,
+                addPadding: false,
+                forDocumentation: scenario.isDocumentation
+            )
         }
     }
 

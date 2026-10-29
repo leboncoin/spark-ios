@@ -26,34 +26,32 @@ struct CheckboxViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = CheckboxScenarioSnapshotTests.allCases
+    @Test(arguments: CheckboxScenarioSnapshotTests.allCases)
+    func test(scenario: CheckboxScenarioSnapshotTests) async {
+        let configurations = scenario.configuration(isSwiftUIComponent: true)
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration(isSwiftUIComponent: true)
+        for configuration in configurations {
+            let checkboxView = CheckboxView(
+                text: configuration.textType.value,
+                checkedImage: Image(uiImage: configuration.image),
+                alignment: configuration.alignment,
+                theme: self.theme,
+                intent: configuration.intent,
+                isEnabled: configuration.state == .disabled ? false : true,
+                selectionState: .constant(configuration.selectionState)
+            )
+            .background(Color(UIColor.systemBackground))
+            .disabled(configuration.state == .disabled)
 
-            for configuration in configurations {
-                let checkboxView = CheckboxView(
-                    text: configuration.textType.value,
-                    checkedImage: Image(uiImage: configuration.image),
-                    alignment: configuration.alignment,
-                    theme: self.theme,
-                    intent: configuration.intent,
-                    isEnabled: configuration.state == .disabled ? false : true,
-                    selectionState: .constant(configuration.selectionState)
-                )
-                .background(Color(UIColor.systemBackground))
+            let view = self.view(text: configuration.textType.value, checkbox: checkboxView)
 
-                let view = self.view(text: configuration.textType.value, checkbox: checkboxView)
-
-                self.assertSnapshot(
-                    matching: view,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName(),
-                    addPadding: false
-                )
-            }
+            await self.assertSnapshot(
+                matching: view,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName(),
+                addPadding: false
+            )
         }
     }
 
