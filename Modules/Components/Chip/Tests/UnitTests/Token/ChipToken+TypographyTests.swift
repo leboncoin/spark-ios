@@ -7,9 +7,12 @@
 //
 
 import Testing
+import Foundation
 @testable import SparkComponentChip
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
+
+// MARK: - Tests
 
 struct ChipTokenTypographyTests {
 
@@ -17,47 +20,36 @@ struct ChipTokenTypographyTests {
 
     private let theme = ThemeGeneratedMock.mocked()
 
+    private var token: ChipToken.Typography {
+        return .init(theme: self.theme)
+    }
+
     // MARK: - Tests
 
     @Test
-    func initialization_sets_titleFont_from_theme() {
-        // GIVEN / WHEN
-        let typography = ChipToken.Typography(theme: self.theme)
-
-        // THEN
-        #expect(typography.titleFont.equals(self.theme.typography.body1))
+    func titleShouldReturnBody1() {
+        #expect(self.token.title.equals(self.theme.typography.body1))
     }
 
-    @Test
-    func initialization_with_different_theme_values() {
-        // GIVEN
-        let customTheme = ThemeGeneratedMock.mocked2()
-
-        // WHEN
-        let typography = ChipToken.Typography(theme: customTheme)
-
-        // THEN
-        #expect(typography.titleFont.equals(customTheme.typography.body1))
-    }
+    // MARK: - Equatable Tests
 
     @Test
-    func equatable_returns_true_when_typographies_are_equal() {
+    func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
-        let typography1 = ChipToken.Typography(theme: self.theme)
-        let typography2 = ChipToken.Typography(theme: self.theme)
+        let lhs = ChipToken.Typography(theme: self.theme)
+        let rhs = ChipToken.Typography(theme: self.theme)
 
         // WHEN / THEN
-        #expect(typography1 == typography2)
+        #expect(lhs == rhs)
     }
 
     @Test
-    func equatable_returns_false_when_typographies_are_different() {
+    func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
-        let theme2 = ThemeGeneratedMock.mocked2()
-        let typography1 = ChipToken.Typography(theme: self.theme)
-        let typography2 = ChipToken.Typography(theme: theme2)
+        let lhs = ChipToken.Typography(theme: self.theme)
+        let rhs = ChipToken.Typography(theme: ThemeGeneratedMock.mocked2())
 
         // WHEN / THEN
-        #expect(typography1 != typography2)
+        #expect(lhs != rhs)
     }
 }

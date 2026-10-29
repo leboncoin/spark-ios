@@ -13,28 +13,34 @@ import SparkTheming
 
 public extension ChipToken {
 
-    /// Contains border-related token properties for the Chip component.
+    /// Contains the border token values of the Chip.
     struct Border: Equatable {
 
         // MARK: - Properties
 
+        let theme: any Theme
+
         /// The width of the chip border.
-        public let width: CGFloat
+        public var width: CGFloat {
+            return self.theme.border.width.small
+        }
 
         /// The radius of the chip border.
-        public let radius: CGFloat
+        public var radius: CGFloat {
+            return self.theme.border.radius.full
+        }
 
-        /// The dash length for dashed borders.
-        public let dashLength: CGFloat = 2
+        // MARK: - Methods
 
-        // MARK: - Initialization
+        /// The dash length of the chip border. Zero when the variant isn't dashed.
+        public func dash(variant: ChipVariant) -> CGFloat {
+            return variant == .dashed ? 2 : .zero
+        }
 
-        /// Creates a Border token with the given theme.
-        ///
-        /// - Parameter theme: The theme to use for border values.
-        public init(theme: any Theme) {
-            self.width = theme.border.width.small
-            self.radius = theme.border.radius.full
+        // MARK: - Equatable
+
+        public static func == (lhs: Border, rhs: Border) -> Bool {
+            return lhs.theme.equals(rhs.theme)
         }
     }
 }

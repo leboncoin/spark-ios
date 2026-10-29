@@ -32,7 +32,7 @@ final class ChipGetBorderUseCase: ChipGetBorderUseCaseable {
         return .init(
             width: token.width,
             radius: token.radius,
-            dash: variant == .dashed ? token.dashLength : .zero
+            dash: token.dash(variant: variant)
         )
     }
 }

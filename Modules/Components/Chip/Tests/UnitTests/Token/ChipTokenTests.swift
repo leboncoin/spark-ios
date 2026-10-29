@@ -26,10 +26,12 @@ struct ChipTokenTests {
 
         // THEN
         #expect(token.border == ChipToken.Border(theme: self.theme))
-        #expect(token.opacity == ChipToken.Opacity(theme: self.theme))
-        #expect(token.size == ChipToken.Size())
+        #expect(token.colors == ChipToken.Colors(theme: self.theme))
         #expect(token.layout == ChipToken.Layout(theme: self.theme))
+        #expect(token.opacity == ChipToken.Opacity(theme: self.theme))
         #expect(token.typography == ChipToken.Typography(theme: self.theme))
+        #expect(token.size == ChipToken.Size())
+        #expect(token.alignment == ChipToken.Alignment())
     }
 
     @Test

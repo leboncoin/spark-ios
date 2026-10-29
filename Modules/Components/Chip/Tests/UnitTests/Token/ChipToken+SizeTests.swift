@@ -7,66 +7,38 @@
 //
 
 import Testing
+import Foundation
 @testable import SparkComponentChip
+@_spi(SI_SPI) import SparkTheming
+@_spi(SI_SPI) import SparkThemingTesting
+
+// MARK: - Tests
 
 struct ChipTokenSizeTests {
 
+    // MARK: - Properties
+
+    private let token = ChipToken.Size()
+
     // MARK: - Tests
 
-    @Test
-    func mediumHeight_constant() {
-        // GIVEN / WHEN
-        let size = ChipToken.Size()
-
-        // THEN
-        #expect(size.mediumHeight == 32)
+    @Test(arguments: [
+        (ChipSize.medium, CGFloat(32)),
+        (ChipSize.large, CGFloat(40))
+    ])
+    func heightShouldReturnExpectedValue(size: ChipSize, expectedHeight: CGFloat) {
+        #expect(self.token.height(for: size) == expectedHeight)
     }
 
     @Test
-    func largeHeight_constant() {
-        // GIVEN / WHEN
-        let size = ChipToken.Size()
-
-        // THEN
-        #expect(size.largeHeight == 40)
+    func iconShouldReturn16() {
+        #expect(self.token.icon == 16)
     }
 
-    @Test
-    func iconSize_constant() {
-        // GIVEN / WHEN
-        let size = ChipToken.Size()
-
-        // THEN
-        #expect(size.iconSize == 16)
-    }
+    // MARK: - Equatable Tests
 
     @Test
-    func largeHeight_is_greater_than_mediumHeight() {
-        // GIVEN / WHEN
-        let size = ChipToken.Size()
-
-        // THEN
-        #expect(size.largeHeight > size.mediumHeight)
-    }
-
-    @Test
-    func all_size_properties_are_positive() {
-        // GIVEN / WHEN
-        let size = ChipToken.Size()
-
-        // THEN
-        #expect(size.mediumHeight > 0)
-        #expect(size.largeHeight > 0)
-        #expect(size.iconSize > 0)
-    }
-
-    @Test
-    func equatable_returns_true_when_sizes_are_equal() {
-        // GIVEN
-        let size1 = ChipToken.Size()
-        let size2 = ChipToken.Size()
-
-        // WHEN / THEN
-        #expect(size1 == size2)
+    func equatableShouldReturnTrue() {
+        #expect(ChipToken.Size() == ChipToken.Size())
     }
 }
