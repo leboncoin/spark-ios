@@ -45,8 +45,6 @@ struct SparkAvatarSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .sparkAvatarActionType(configuration.actionType)
                     .sparkAvatarIsBorder(configuration.isBorder)
                     .disabled(configuration.isDisabled)
-                    .padding(configuration.size.padding)
-                    .background(.background)
                     .fixedSize()
                     .sparkIsSnapshot(true)
 
@@ -56,7 +54,6 @@ struct SparkAvatarSnapshotTests: SwiftUIComponentSnapshotTesting {
                     modes: configuration.modes,
                     sizes: configuration.sizes,
                     testName: configuration.testName,
-                    addPadding: false,
                     forDocumentation: scenario.isDocumentation
                 )
             }
@@ -186,19 +183,4 @@ struct SparkAvatarSnapshotTests: SwiftUIComponentSnapshotTesting {
 
 private extension String {
     static var mock = "Bunny"
-}
-
-private extension AvatarSize {
-
-    var padding: CGFloat {
-        switch self {
-        case .xs: 14
-        case .sm: 20
-        case .md: 24
-        case .lg: 34
-        case .xl: 40
-        case .xxl: 56
-        case .xxxl: 72
-        }
-    }
 }
