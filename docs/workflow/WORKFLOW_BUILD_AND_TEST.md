@@ -27,7 +27,7 @@ This workflow runs automatically and manually:
 ## Environment Variables
 
 - `swift_version`: `6.2` - Swift version used for all jobs
-- `xcode_path`: `/Applications/Xcode_27.0.app` - Xcode installation path
+- `xcode_path`: `/Applications/Xcode_26.6.app` - Xcode installation path
 - `demo_app_name`: `SparkDemoApp` - Name of the demo app scheme, used to build it and to name the uploaded xcresult artifact
 
 ## Jobs
