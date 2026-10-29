@@ -1,5 +1,7 @@
 {
   "$schema": "https://context7.com/schema/context7.json",
+  "url": "https://context7.com/leboncoin/spark-ios",
+  "public_key": "pk_g4Ak4xeS3LPCAVafcHMcc",
   "projectTitle": "Spark iOS",
   "description": "Spark is the Leboncoin iOS design system for SwiftUI and UIKit: theming (colors, typography, spacing, border, elevation, dims), components (Button, Chip, InputOTP, TextInput, ...) and iconography, distributed as a Swift package.",
   "branch": "main",
