@@ -47,6 +47,21 @@ self.assertSnapshot(matching: view)
 |:---:|:---:|:---:|
 | ![SegmentedControl rendering with 3 items.](segmentedcontrol_three_items.png) | ![SegmentedControl rendering with 6 items.](segmentedcontrol_six_items.png) | ![SegmentedControl rendering with 7 items.](segmentedcontrol_seven_items.png) |
 
+## Custom SegmentedControl
+
+If you need to create a custom segmented control component, you can use the ``SegmentedControlToken`` struct, available from the theme with `theme.component.segmentedControl`, to access theme-based style values.
+
+The ``SegmentedControlToken`` provides:
+- **Border properties** (``SegmentedControlToken/Border``): width and radius of the control and the selected item
+- **Colors** (``SegmentedControlToken/Colors``): background, border, separator, item and accessibility color tokens
+- **Layout properties** (``SegmentedControlToken/Layout``): paddings and spacings of the control, the items and the accessibility list
+- **Opacity** (``SegmentedControlToken/Opacity``): opacity for enabled and disabled states
+- **Typography** (``SegmentedControlToken/Typography``): font token of the item text
+- **Scale effect constants** (``SegmentedControlToken/ScaleEffect``): scale effect of a pressed item
+- **Size constants** (``SegmentedControlToken/Size``): icon, minimum height and separator sizes
+
+> Tip: If you only need specific tokens, you can use the individual categories directly. For example, use `theme.component.segmentedControl.size` if you only need size constants, or `theme.component.segmentedControl.border` for border properties.
+
 ### Resources
 
 - Specification on [ZeroHeight](https://zeroheight.com/1186e1705/p/049d6e-segmented-control)

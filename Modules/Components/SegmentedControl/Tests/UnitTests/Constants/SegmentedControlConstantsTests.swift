@@ -14,38 +14,11 @@ import Testing
 struct SegmentedControlConstantsTests {
 
     @Test
-    func iconSize_hasExpectedValue() {
+    func animationDuration_hasExpectedValue() {
         // GIVEN / WHEN
-        let iconSize = SegmentedControlConstants.iconSize
+        let animationDuration = SegmentedControlConstants.animationDuration
 
         // THEN
-        #expect(iconSize == 16)
-    }
-
-    @Test
-    func minHeight_hasExpectedValue() {
-        // GIVEN / WHEN
-        let minHeight = SegmentedControlConstants.minHeight
-
-        // THEN
-        #expect(minHeight == 44)
-    }
-
-    @Test
-    func separatorWidth_hasExpectedValue() {
-        // GIVEN / WHEN
-        let separatorWidth = SegmentedControlConstants.Separator.width
-
-        // THEN
-        #expect(separatorWidth == 1)
-    }
-
-    @Test
-    func separatorHeight_hasExpectedValue() {
-        // GIVEN / WHEN
-        let separatorHeight = SegmentedControlConstants.Separator.height
-
-        // THEN
-        #expect(separatorHeight == 24)
+        #expect(animationDuration == 0.15)
     }
 }

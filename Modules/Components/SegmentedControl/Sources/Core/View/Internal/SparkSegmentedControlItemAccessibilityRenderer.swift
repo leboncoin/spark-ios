@@ -16,7 +16,7 @@ struct SparkSegmentedControlItemAccessibilityRenderer<Label>: View where Label: 
     private let icon: Image?
     private let label: () -> Label
 
-    @Environment(\.segmentedControlLayout) private var layout
+    @Environment(\.theme) private var theme
 
     // MARK: - Initialization
 
@@ -31,7 +31,7 @@ struct SparkSegmentedControlItemAccessibilityRenderer<Label>: View where Label: 
     // MARK: - View
 
     var body: some View {
-        HStack(spacing: self.layout.spacing) {
+        HStack(spacing: self.theme.layout.spacing) {
             self.icon
             self.label()
         }
