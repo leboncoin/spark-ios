@@ -2,51 +2,45 @@
 //  XXXToken+SizeTests.swift
 //  SparkComponentXXXTests
 //
-//  Created by robin.lemaire on 09/09/2026.
-//  Copyright © 2026 Leboncoin. All rights reserved.
+//  Created by {Firstname Lastname} on DD/MM/YYYY.
+//  Copyright © YYYY Leboncoin. All rights reserved.
 //
 
 import Testing
+import Foundation
 @testable import SparkComponentXXX
+@_spi(SI_SPI) import SparkTheming
+@_spi(SI_SPI) import SparkThemingTesting
+
+// MARK: - Tests
 
 struct XXXTokenSizeTests {
+
+    // MARK: - Properties
+
+    private let token = XXXToken.Size()
 
     // MARK: - Tests
 
     @Test
-    func mediumHeight_constant() {
-        // GIVEN / WHEN
-        let size = XXXToken.Size()
-
-        // THEN
-        #expect(size.mediumHeight == 32)
+    func mediumHeightShouldReturn32() {
+        #expect(self.token.mediumHeight == 32)
     }
 
     @Test
-    func largeHeight_constant() {
-        // GIVEN / WHEN
-        let size = XXXToken.Size()
-
-        // THEN
-        #expect(size.largeHeight == 40)
+    func largeHeightShouldReturn40() {
+        #expect(self.token.largeHeight == 40)
     }
 
     @Test
-    func iconSize_constant() {
-        // GIVEN / WHEN
-        let size = XXXToken.Size()
-
-        // THEN
-        #expect(size.iconSize == 16)
+    func iconSizeShouldReturn16() {
+        #expect(self.token.iconSize == 16)
     }
 
-    @Test
-    func equatable_returns_true_when_sizes_are_equal() {
-        // GIVEN
-        let size1 = XXXToken.Size()
-        let size2 = XXXToken.Size()
+    // MARK: - Equatable Tests
 
-        // WHEN / THEN
-        #expect(size1 == size2)
+    @Test
+    func equatableShouldReturnTrue() {
+        #expect(XXXToken.Size() == XXXToken.Size())
     }
 }

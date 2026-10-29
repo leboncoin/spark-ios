@@ -2,8 +2,8 @@
 //  XXXToken+Border.swift
 //  SparkComponentXXX
 //
-//  Created by robin.lemaire on 09/09/2026.
-//  Copyright © 2026 Leboncoin. All rights reserved.
+//  Created by {Firstname Lastname} on DD/MM/YYYY.
+//  Copyright © YYYY Leboncoin. All rights reserved.
 //
 
 import Foundation
@@ -13,28 +13,31 @@ import SparkTheming
 
 public extension XXXToken {
 
-    /// Contains border-related token properties for the XXX component.
-    ///
-    /// This category depends on the theme, so it exposes a `theme:` initializer
-    /// and its properties are plain `CGFloat`, which are natively `Equatable`.
+    /// Contains the border token values of the XXX.
     struct Border: Equatable {
 
         // MARK: - Properties
 
-        /// The width of the XXX border.
-        public let width: CGFloat
+        let theme: any Theme
 
-        /// The radius of the XXX border.
-        public let radius: CGFloat
+        /// The border radius of the XXX.
+        public var radius: CGFloat {
+            return self.theme.border.radius.full
+        }
 
-        // MARK: - Initialization
+        // MARK: - Methods
 
-        /// Creates a Border token with the given theme.
-        ///
-        /// - Parameter theme: The theme to use for border values.
-        public init(theme: any Theme) {
-            self.width = theme.border.width.small
-            self.radius = theme.border.radius.full
+        /// The border width of the XXX.
+        public func width(isSelected: Bool) -> CGFloat {
+            let width = self.theme.border.width
+
+            return isSelected ? width.medium : width.small
+        }
+
+        // MARK: - Equatable
+
+        public static func == (lhs: Border, rhs: Border) -> Bool {
+            return lhs.theme.equals(rhs.theme)
         }
     }
 }

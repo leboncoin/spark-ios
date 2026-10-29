@@ -2,8 +2,8 @@
 //  XXXToken+Size.swift
 //  SparkComponentXXX
 //
-//  Created by robin.lemaire on 09/09/2026.
-//  Copyright © 2026 Leboncoin. All rights reserved.
+//  Created by {Firstname Lastname} on DD/MM/YYYY.
+//  Copyright © YYYY Leboncoin. All rights reserved.
 //
 
 import Foundation
@@ -12,26 +12,18 @@ import Foundation
 
 public extension XXXToken {
 
-    /// Contains size-related constants for the XXX component.
-    ///
-    /// This category only exposes fixed constants (no theme-dependent values),
-    /// so it has a parameterless initializer and can be used without a theme.
+    /// Contains the theme-independent size values of the XXX.
     struct Size: Equatable {
 
         // MARK: - Properties
 
-        /// The height for a medium-sized XXX.
+        /// The height of a medium XXX.
         public let mediumHeight: CGFloat = 32
 
-        /// The height for a large-sized XXX.
+        /// The height of a large XXX.
         public let largeHeight: CGFloat = 40
 
-        /// The size of the icon within the XXX.
+        /// The size of the icon.
         public let iconSize: CGFloat = 16
-
-        // MARK: - Initialization
-
-        /// Creates a Size token.
-        public init() {}
     }
 }

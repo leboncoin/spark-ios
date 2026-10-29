@@ -10,12 +10,19 @@ This document provides comprehensive documentation for all Claude Code skills av
 4. [Quality Assurance Skills](#quality-assurance-skills)
 5. [Git & Deployment Skills](#git--deployment-skills)
 6. [Demo App Skills](#demo-app-skills)
+7. [Release Skills](#release-skills)
 
 ---
 
 ## Overview
 
 Claude skills are specialized workflows that automate common development tasks in the Spark iOS project. They follow a structured approach to ensure consistency and quality across the codebase.
+
+### SwiftUI-only components: Token & ViewModifier
+
+New components are developed **for SwiftUI only**. They no longer use **UseCase**, **Model** and **ViewModel**: the styling rules live in the **Token** (exposed through `theme.component.xxx`) and are applied by the views through private **ViewModifiers**. See `Modules/Components/InputOTP` for the reference implementation.
+
+The `spark-component-model`, `spark-component-use-case` and `spark-component-view-model` skills are kept for the **legacy components** that still have a UIKit view (`SparkUIXXX`), which relies on the ViewModel. Use `spark-component-migrate-token` to migrate a legacy component's SwiftUI part.
 
 ### Skill Invocation
 
@@ -156,6 +163,8 @@ All component development skills support parameter-based targeting:
 
 ### spark-component-model
 
+> ⚠️ **Legacy**: only for the components with a UIKit view. New SwiftUI-only components use Tokens instead.
+
 **Purpose**: Create or update model files in component.
 
 **Usage**: `/spark-component-model [component-name]`
@@ -186,30 +195,66 @@ All component development skills support parameter-based targeting:
 
 ### spark-component-token
 
-**Purpose**: Create or update token files (theme-derived values grouped by category) in component.
+**Purpose**: Create or update token files (theme-derived values grouped by category) in component. Replaces the styling UseCases and Models.
 
 **Usage**: `/spark-component-token [component-name]`
 
 **Location**: `Sources/Core/Token`
 
+**Reference**: `Modules/Components/InputOTP/Sources/Core/Token`
+
 **Rules**:
-- Root file `XXXToken.swift` is a `public struct XXXToken: Equatable` with one property per category the component actually needs (no fixed list or count — categories are whatever the component needs, e.g. `Opacity`, `Layout`, `Border`, `Size`, `Typography`, `Color`, ...)
+- Root file `XXXToken.swift` is a `public struct XXXToken: Equatable` with one property per category the component actually needs (e.g. `Border`, `Colors`, `Layout`, `Opacity`, `Size`, `Typography`, ...) and a `public init(theme: any Theme)`
 - Each category lives in its own file `XXXToken+CategoryName.swift` as a `public extension XXXToken` with a nested `struct CategoryName: Equatable`
-- Constant-only category (no theme dependency): parameterless `public init()`, stored as a default value on the root struct (not assigned in the root `init(theme:)`)
-- Theme-dependent category: `public init(theme: any Theme)`, assigned in the root `init(theme:)`
-- Category holding `any ColorToken`, `any TypographyFontToken`, or any other non-natively-`Equatable` existential: manual `static func ==` using `.equals()`
-- Root file's top-level doc comment must list every category with a doc link, a "Creating a Custom XXX" usage example, and a section on using sub-structs directly
+- Theme-dependent category:
+  - stores an internal `let theme: any Theme` (internal memberwise init)
+  - exposes fixed values as `public var` computed properties
+  - exposes state-dependent values as `public func` (e.g. `width(isSelected:)`, `value(isEnabled:)`) — they replace the old styling use cases
+  - manual `static func ==` using `lhs.theme.equals(rhs.theme)`
+- Constant-only category (`Size`): only `public let` constants, stored as a default value on the root struct (`public let size = Size()`)
+- Root file's doc comment lists every category with a doc link, a tip on `theme.component.xxx`, and a "Creating a Custom XXX" example
 
 **Workflow**:
 1. Add/Update token code
 2. Add/Update documentation (token files are always public)
 3. Run swiftlint: `$ swiftlint`
 4. Run sourcery: `$ sourcery`
-5. Implement unit tests using Swift Testing framework
+5. Implement unit tests using Swift Testing framework (one test per property, `@Test(arguments:)` per method, equatable true/false)
+
+---
+
+### spark-component-migrate-token
+
+**Purpose**: Migrate the SwiftUI part of a legacy component from UseCases / Models / ViewModels to Tokens and ViewModifiers.
+
+**Usage**: `/spark-component-migrate-token [component-name]`
+
+**Reference**: `Modules/Components/InputOTP`
+
+**Creates**:
+- `Sources/Core/Token/XXXToken(+Category).swift` (via `spark-component-token`)
+- `Sources/Core/Extension/Token/ComponentToken+XXX.swift`: exposes the token publicly through `theme.component.xxx`
+- `Sources/Core/Extension/Token/EnvironmentTheme+XXXToken.swift`: internal shortcuts (`self.theme.colors`, `self.theme.border`, ...) for the views
+- `Sources/Core/ViewModifier/XXXYyyViewModifier.swift`: a `private struct` ViewModifier reading `@Environment(\.theme)` + an internal `View` extension
+- Internal extensions (`Sources/Core/Extension/...`) for the non-styling rules (formatting, validation, ...)
+
+**Rules**:
+- Analyse first which UseCases / Models / ViewModels are used by the UIKit view: **they must be kept**
+- Remove only what was used by the SwiftUI view alone (code + tests)
+- UIKit views are not modified
+
+**Workflow**:
+1. Analysis (created / removed / kept for UIKit)
+2. Tokens, ComponentToken, EnvironmentTheme, ViewModifiers
+3. Migrate the SwiftUI views, clean up
+4. Run sourcery, unit tests (Swift Testing), snapshot tests, DocC
+5. Run swiftlint
 
 ---
 
 ### spark-component-use-case
+
+> ⚠️ **Legacy**: only for the components with a UIKit view. New SwiftUI-only components use Tokens (styling) and internal extensions (business rules) instead.
 
 **Purpose**: Create or update use case files (business logic) in component.
 
@@ -233,6 +278,8 @@ All component development skills support parameter-based targeting:
 ---
 
 ### spark-component-view-model
+
+> ⚠️ **Legacy**: only for the components with a UIKit view. New SwiftUI-only components use ViewModifiers instead.
 
 **Purpose**: Create or update view model files in component.
 
@@ -263,7 +310,7 @@ All component development skills support parameter-based targeting:
 
 ### spark-component-view
 
-**Purpose**: Create or update view files for UIKit and SwiftUI.
+**Purpose**: Create or update view files for UIKit and SwiftUI (new components: SwiftUI only).
 
 **Usage**: `/spark-component-view [component-name]`
 
@@ -279,6 +326,7 @@ All component development skills support parameter-based targeting:
 - Follow template naming conventions
 - Add dynamic type only if requested
 - Manage all possible inits (separate file if more than 4 public inits)
+- New components: no ViewModel, read the tokens with `@Environment(\.theme)` and apply the ViewModifiers
 
 **Workflow**:
 1. Read templates
@@ -333,6 +381,23 @@ All component development skills support parameter-based targeting:
 ---
 
 ## Quality Assurance Skills
+
+### spark-replace-xctests
+
+**Purpose**: Migrate the XCTest unit tests of a component (or Common/Theming) to Swift Testing, without adding or removing tests.
+
+**Usage**: `/spark-replace-xctests [component-name]`
+
+**Rules**:
+- Each `func test_xxx()` becomes one named `@Test("...")` in a `@Suite("...") struct`
+- Functions renamed in lowerCamelCase without the `test_` prefix
+- Snapshot tests and Deprecated files are not touched
+
+**Workflow**:
+1. Run sourcery
+2. Migrate folder by folder (AccessibilityIdentifier → Constants → Enum → Model → Token → Environment → UseCase → ViewModel ...), building and running the tests after each folder
+
+---
 
 ### spark-check-before-push
 
@@ -406,12 +471,30 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 ---
 
+## Release Skills
+
+### spark-changelog
+
+**Purpose**: Replace the placeholder of the new version in `CHANGELOG.md` with the description of the changes since the previous release.
+
+**Usage**: `/spark-changelog`
+
+**Prerequisites**: `.script/update-changelog.swift` must have added the new version placeholder.
+
+**Workflow**:
+1. Get the new version and the previous tag
+2. List the merged pull requests since the previous tag
+3. Group them by category (Breaking Changes, New Features, Improvements, Bug Fixes, ...)
+4. Replace the placeholder and ask for confirmation
+
+---
+
 ## Common Conventions
 
 ### Code Conventions (All Skills)
 
-- File headers: `Created by {firstname.lastname} on DD/MM/YYYY`
-- Copyright line includes current year
+- File headers: `Created by {Firstname Lastname} on DD/MM/YYYY`
+- Copyright line includes current year for new files (keep the year of existing files)
 - No empty lines contain whitespace or tabs
 - All class members accessed with `self.`
 - Protocols marked with `// sourcery: AutoMockable`
@@ -420,7 +503,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 ### Test Implementation (Component Skills)
 
 - Tests must be written in **Swift Testing** framework
-- Exceptions using XCTest:
+- Exceptions using XCTest (legacy components only):
   - View model tests
   - Use cases containing other use cases
 - Proper imports:
@@ -468,11 +551,14 @@ Modules/Components/{component-name}/
 │       ├── Documentation.docc/
 │       ├── Enum/
 │       ├── Environment/
-│       ├── Model/
+│       ├── Extension/
+│       │   └── Token/          — ComponentToken+XXX, EnvironmentTheme+XXXToken
 │       ├── Token/
-│       ├── UseCase/
 │       ├── View/
-│       └── ViewModel/
+│       ├── ViewModifier/
+│       ├── Model/              — legacy (UIKit) only
+│       ├── UseCase/            — legacy (UIKit) only
+│       └── ViewModel/          — legacy (UIKit) only
 └── Tests/
     ├── SnapshotTests/
     └── UnitTests/
@@ -480,6 +566,16 @@ Modules/Components/{component-name}/
 
 ### Development Order
 
+**New component (SwiftUI only)**:
+1. Enum
+2. Token (+ `ComponentToken+XXX`, `EnvironmentTheme+XXXToken`)
+3. Environment
+4. ViewModifier
+5. View
+6. Tests
+7. Documentation
+
+**Legacy component (with UIKit)**:
 1. Enum
 2. Model
 3. Token
@@ -501,6 +597,8 @@ Modules/Components/{component-name}/
 5. **Follow template patterns**: Templates provide the correct structure
 6. **Check before pushing**: Always run `spark-check-before-push` before `spark-push`
 7. **Component selection**: Use parameters to skip selection prompts
+8. **New components are SwiftUI only**: use Token + ViewModifier, never UseCase / ViewModel
+9. **Keep the UIKit dependencies**: when migrating a legacy component, never remove a ViewModel/UseCase still used by `SparkUIXXX`
 
 ---
 
@@ -517,6 +615,11 @@ Modules/Components/{component-name}/
 /spark-component-enum button
 # Or without parameter to select from list:
 /spark-component-enum
+```
+
+### Migrating a legacy component to tokens:
+```bash
+/spark-component-migrate-token chip
 ```
 
 ### Preparing code for push:
