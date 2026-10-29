@@ -2,14 +2,17 @@
 //  XXXToken+BorderTests.swift
 //  SparkComponentXXXTests
 //
-//  Created by robin.lemaire on 09/09/2026.
-//  Copyright © 2026 Leboncoin. All rights reserved.
+//  Created by {Firstname Lastname} on DD/MM/YYYY.
+//  Copyright © YYYY Leboncoin. All rights reserved.
 //
 
 import Testing
+import Foundation
 @testable import SparkComponentXXX
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
+
+// MARK: - Tests
 
 struct XXXTokenBorderTests {
 
@@ -17,57 +20,38 @@ struct XXXTokenBorderTests {
 
     private let theme = ThemeGeneratedMock.mocked()
 
+    private var token: XXXToken.Border {
+        return .init(theme: self.theme)
+    }
+
     // MARK: - Tests
 
     @Test
-    func initialization_sets_width_from_theme() {
-        // GIVEN / WHEN
-        let border = XXXToken.Border(theme: self.theme)
-
-        // THEN
-        #expect(border.width == self.theme.border.width.small)
+    func radiusShouldReturnRadiusFull() {
+        #expect(self.token.radius == self.theme.border.radius.full)
     }
 
-    @Test
-    func initialization_sets_radius_from_theme() {
-        // GIVEN / WHEN
-        let border = XXXToken.Border(theme: self.theme)
-
-        // THEN
-        #expect(border.radius == self.theme.border.radius.full)
-    }
-
-    @Test
-    func initialization_with_different_theme_values() {
+    @Test(arguments: [true, false])
+    func widthShouldReturnExpectedValue(isSelected: Bool) {
         // GIVEN
-        let customTheme = ThemeGeneratedMock.mocked2()
+        let expected = isSelected ? self.theme.border.width.medium : self.theme.border.width.small
 
         // WHEN
-        let border = XXXToken.Border(theme: customTheme)
+        let result = self.token.width(isSelected: isSelected)
 
         // THEN
-        #expect(border.width == customTheme.border.width.small)
-        #expect(border.radius == customTheme.border.radius.full)
+        #expect(result == expected)
+    }
+
+    // MARK: - Equatable Tests
+
+    @Test
+    func equatableWithSameThemeShouldReturnTrue() {
+        #expect(XXXToken.Border(theme: self.theme) == XXXToken.Border(theme: self.theme))
     }
 
     @Test
-    func equatable_returns_true_when_borders_are_equal() {
-        // GIVEN
-        let border1 = XXXToken.Border(theme: self.theme)
-        let border2 = XXXToken.Border(theme: self.theme)
-
-        // WHEN / THEN
-        #expect(border1 == border2)
-    }
-
-    @Test
-    func equatable_returns_false_when_borders_are_different() {
-        // GIVEN
-        let theme2 = ThemeGeneratedMock.mocked2()
-        let border1 = XXXToken.Border(theme: self.theme)
-        let border2 = XXXToken.Border(theme: theme2)
-
-        // WHEN / THEN
-        #expect(border1 != border2)
+    func equatableWithDifferentThemeShouldReturnFalse() {
+        #expect(XXXToken.Border(theme: self.theme) != XXXToken.Border(theme: ThemeGeneratedMock.mocked2()))
     }
 }

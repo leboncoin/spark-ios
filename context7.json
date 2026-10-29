@@ -1,0 +1,45 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "Spark iOS",
+  "description": "Spark is the Leboncoin iOS design system for SwiftUI and UIKit: theming (colors, typography, spacing, border, elevation, dims), components (Button, Chip, InputOTP, TextInput, ...) and iconography, distributed as a Swift package.",
+  "branch": "main",
+  "folders": [
+    "Modules",
+    "Resources",
+    "Spark",
+    "docs"
+  ],
+  "excludeFolders": [
+    ".claude",
+    ".github",
+    ".script",
+    "Demo",
+    "**/Tests",
+    "**/Testing",
+    "**/Deprecated",
+    "**/.__snapshots__",
+    "docs/script",
+    "docs/workflow"
+  ],
+  "excludeFiles": [
+    "CHANGELOG.md",
+    "CLAUDE.md",
+    "CLAUDE_SKILLS.md",
+    "CODE_OF_CONDUCT.md",
+    "WORKFLOWS.md",
+    "SCRIPTS.md",
+    "MAKEFILE.md",
+    "SPARK_TOKENS_BRIDGE_SETUP.md",
+    "Sourcery.generated.swift"
+  ],
+  "rules": [
+    "Add the `Spark` product of the `https://github.com/leboncoin/spark-ios.git` package and use `import Spark` to access every component, the theming and the icons. The minimum platform is iOS 17.",
+    "Always provide a theme with `.sparkTheme(theme)` on the SwiftUI view hierarchy (use `SparkTheme.shared` for the default Spark theme). Spark SwiftUI components require it.",
+    "Prefer the SwiftUI components (`SparkXXX`). New components are SwiftUI only; UIKit components (`SparkUIXXX`) only exist for the legacy components.",
+    "Configure SwiftUI components with their environment view modifiers prefixed by `spark` (e.g. `.sparkButtonIntent(.main)`, `.sparkInputOTPDigits(.four)`) instead of init parameters.",
+    "Use the theme values (`theme.colors`, `theme.typography`, `theme.layout.spacing`, `theme.border`, `theme.dims`) instead of hardcoded colors, fonts or sizes.",
+    "To build a custom view with the look of a component, use its token from `theme.component.xxx` (e.g. `theme.component.inputOTP.colors`).",
+    "Use the Spark icons with `Image(spark: \\.iconName)` or `UIImage(spark: \\.iconName)`.",
+    "Never use the code marked `@_spi(SI_SPI)`: it is internal to the Spark team."
+  ]
+}
