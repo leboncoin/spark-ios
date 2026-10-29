@@ -19,9 +19,6 @@ final class ChipGetIsReversedUseCase: ChipGetIsReversedUseCaseable {
     // MARK: - Methods
 
     func execute(alignment: ChipAlignment) -> Bool {
-        return switch alignment {
-        case .leadingIcon: true
-        case .trailingIcon: false
-        }
+        return ChipToken.Alignment().isReversed(for: alignment)
     }
 }

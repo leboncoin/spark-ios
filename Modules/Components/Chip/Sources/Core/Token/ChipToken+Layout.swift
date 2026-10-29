@@ -13,34 +13,39 @@ import SparkTheming
 
 public extension ChipToken {
 
-    /// Contains layout-related properties (spacing and padding) for the Chip component.
+    /// Contains the layout token values of the Chip.
     struct Layout: Equatable {
 
         // MARK: - Properties
 
-        /// The spacing between content and icon when the icon is leading.
-        public let spacingWhenLeadingIcon: CGFloat
+        let theme: any Theme
 
-        /// The spacing between content and icon when the icon is trailing.
-        public let spacingWhenTrailingIcon: CGFloat
+        /// The spacing between the label and the extra content.
+        public var extraContentSpacing: CGFloat {
+            return self.theme.layout.spacing.medium
+        }
 
-        /// The spacing between label and extra content.
-        public let extraContentSpacing: CGFloat
+        /// The horizontal padding of the chip.
+        public var horizontalPadding: CGFloat {
+            return 12
+        }
 
-        /// The horizontal padding.
-        public let horizontalPadding: CGFloat = 12
+        // MARK: - Methods
 
-        // MARK: - Initialization
+        /// The spacing between the content and the icon.
+        public func spacing(alignment: ChipAlignment) -> CGFloat {
+            let spacing = self.theme.layout.spacing
 
-        /// Creates a Layout token with the given theme.
-        ///
-        /// - Parameter theme: The theme to use for layout values.
-        public init(theme: any Theme) {
-            let spacing = theme.layout.spacing
+            return switch alignment {
+            case .leadingIcon: spacing.small
+            case .trailingIcon: spacing.medium
+            }
+        }
 
-            self.spacingWhenLeadingIcon = spacing.small
-            self.spacingWhenTrailingIcon = spacing.medium
-            self.extraContentSpacing = spacing.medium
+        // MARK: - Equatable
+
+        public static func == (lhs: Layout, rhs: Layout) -> Bool {
+            return lhs.theme.equals(rhs.theme)
         }
     }
 }

@@ -49,16 +49,18 @@ Even if we can put all types of view in the **extra content**, we recommend usin
 
 ## Custom Chip
 
-If you need to create a custom chip component, you can use the ``ChipToken`` struct to access theme-based style values.
+If you need to create a custom chip component, you can use the ``ChipToken`` struct, available from the theme with `theme.component.chip`, to access theme-based style values.
 
 The ``ChipToken`` provides:
 - **Border properties** (``ChipToken/Border``): width, radius, and dash length
-- **Opacity values** (``ChipToken/Opacity``): different values for enabled and disabled states
+- **Colors** (``ChipToken/Colors``): background, border and content color tokens
 - **Layout properties** (``ChipToken/Layout``): spacing and padding values
-- **Size constants** (``ChipToken/Size``): heights and icon size
+- **Opacity** (``ChipToken/Opacity``): opacity for enabled and disabled states
 - **Typography** (``ChipToken/Typography``): font token for the chip title
+- **Size constants** (``ChipToken/Size``): heights and icon size
+- **Alignment** (``ChipToken/Alignment``): order of the icon and the title
 
-> Tip: If you only need specific tokens, you can use the individual sub-structs directly. For example, use `ChipToken.Size()` if you only need size constants, or `ChipToken.Border(theme:)` for border properties.
+> Tip: If you only need specific tokens, you can use the individual categories directly. For example, use `theme.component.chip.size` if you only need size constants, or `theme.component.chip.border` for border properties.
 
 ## Resources
 

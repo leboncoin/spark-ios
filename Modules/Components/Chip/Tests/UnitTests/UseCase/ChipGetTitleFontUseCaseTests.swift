@@ -26,6 +26,6 @@ final class ChipGetTitleFontUseCaseTests: XCTestCase {
         let result = useCase.execute(theme: theme)
 
         // THEN
-        XCTAssertTrue(result.equals(token.titleFont))
+        XCTAssertTrue(result.equals(token.title))
     }
 }

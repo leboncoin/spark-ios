@@ -38,8 +38,14 @@ struct SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTesting {
                 .sparkSegmentedControlRowLength(configuration.rowLength.value)
                 .sparkTheme(self.theme)
                 .frame(width: configuration.rowLength.width)
-                .padding(.vertical, 50)
-                .padding(.horizontal, 20)
+                .padding(
+                    .vertical,
+                    self.padding(
+                        items: configuration.items,
+                        rowLength: configuration.rowLength,
+                        contentType: configuration.contentType
+                    )
+                )
                 .background(.background)
                 .sparkIsSnapshot(true)
 
@@ -49,7 +55,6 @@ struct SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTesting {
                 modes: configuration.modes,
                 sizes: configuration.sizes,
                 testName: configuration.testName,
-                addPadding: false,
                 forDocumentation: scenario.isDocumentation
             )
         }
@@ -146,5 +151,27 @@ struct SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTesting {
             Image(spark: \.check)
         ]
         return icons[index % icons.count]
+    }
+
+    private func padding(
+        items: SegmentedControlItems,
+        rowLength: SegmentedControlRowLength,
+        contentType: SegmentedControlContentType
+    ) -> CGFloat {
+        guard contentType != .label else {
+            return 25
+        }
+
+        return if rowLength.rawValue == SegmentedControlRowLength.zero.rawValue {
+            0
+        } else if rowLength.rawValue <= SegmentedControlRowLength.two.rawValue {
+            50
+        } else if rowLength == .three {
+            30
+        } else if items.rawValue <= SegmentedControlItems.four.rawValue {
+            0
+        } else {
+            25
+        }
     }
 }

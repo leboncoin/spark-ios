@@ -21,14 +21,10 @@ final class ChipGetSizesUseCase: ChipGetSizesUseCaseable {
 
     func execute(theme: any Theme, size: ChipSize) -> ChipSizes {
         let token = ChipToken.Size()
-        let height = switch size {
-        case .medium: token.mediumHeight
-        case .large: token.largeHeight
-        }
 
         return ChipSizes(
-            height: height,
-            iconSize: token.iconSize
+            height: token.height(for: size),
+            iconSize: token.icon
         )
     }
 }

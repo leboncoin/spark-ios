@@ -13,25 +13,26 @@ import SparkTheming
 
 public extension ChipToken {
 
-    /// Contains opacity values based on the chip's state.
+    /// Contains the opacity token values of the Chip.
     struct Opacity: Equatable {
 
         // MARK: - Properties
 
-        /// The opacity value when the chip is enabled.
-        public let whenEnabled: CGFloat
+        let theme: any Theme
 
-        /// The opacity value when the chip is disabled.
-        public let whenDisabled: CGFloat
+        // MARK: - Methods
 
-        // MARK: - Initialization
+        /// The opacity of the chip.
+        public func value(isEnabled: Bool) -> CGFloat {
+            let dims = self.theme.dims
 
-        /// Creates an Opacity token with the given theme.
-        ///
-        /// - Parameter theme: The theme to use for opacity values.
-        public init(theme: any Theme) {
-            self.whenEnabled = theme.dims.none
-            self.whenDisabled = theme.dims.dim3
+            return isEnabled ? dims.none : dims.dim3
+        }
+
+        // MARK: - Equatable
+
+        public static func == (lhs: Opacity, rhs: Opacity) -> Bool {
+            return lhs.theme.equals(rhs.theme)
         }
     }
 }

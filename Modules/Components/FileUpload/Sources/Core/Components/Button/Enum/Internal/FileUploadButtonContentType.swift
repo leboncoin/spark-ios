@@ -8,12 +8,24 @@
 
 @_spi(SI_SPI) import SparkCommon
 import SwiftUI
+import PhotosUI
 
 enum FileUploadButtonContentType {
     case photos
     case files
     case all
     case none
+
+    // MARK: - Initialization
+
+    init(photoTypes: [PHPickerFilter], fileTypes: [UTType]) {
+        self = switch (photoTypes.isEmpty, fileTypes.isEmpty) {
+        case (false, false): .all
+        case (true, false): .files
+        case (false, true): .photos
+        default: .none
+        }
+    }
 
     // MARK: - Properties
 

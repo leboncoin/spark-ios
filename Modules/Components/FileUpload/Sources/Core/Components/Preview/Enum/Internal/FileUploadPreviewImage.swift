@@ -17,6 +17,22 @@ enum FileUploadPreviewImage {
     case video
     case error
 
+    // MARK: - Initialization
+
+    init(file: FileUpload) {
+        guard case .success(let details) = file.result else {
+            self = .error
+            return
+        }
+
+        self = switch details.previewType {
+        case .file: .file
+        case .image: .image
+        case .pdf: .pdf
+        case .video: .video
+        }
+    }
+
     // MARK: - Properties
 
     var swiftUIImage: Image {

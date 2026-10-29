@@ -77,6 +77,6 @@ final class ChipGetBorderUseCaseTests: XCTestCase {
         // THEN
         XCTAssertEqual(result.width, token.width)
         XCTAssertEqual(result.radius, token.radius)
-        XCTAssertEqual(result.dash, token.dashLength)
+        XCTAssertEqual(result.dash, token.dash(variant: .dashed))
     }
 }

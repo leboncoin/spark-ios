@@ -17,11 +17,6 @@ struct SparkSegmentedControlItemRenderer<Label>: View where Label: View {
     private let label: () -> Label
 
     @Environment(\.theme) private var theme
-    @Environment(\.segmentedControlItemIsSelected) private var isSelected
-    @Environment(\.segmentedControlItemIsPressed) private var isPressed
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-
-    @StateObject private var viewModel = SegmentedControlItemViewModel()
 
     // MARK: - Initialization
 
@@ -36,51 +31,22 @@ struct SparkSegmentedControlItemRenderer<Label>: View where Label: View {
     // MARK: - View
 
     var body: some View {
-        HStack(spacing: self.viewModel.layout.spacing) {
+        HStack(spacing: self.theme.layout.itemSpacing) {
             self.icon?
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundStyle(self.viewModel.colors.contentColorToken)
-                .frame(size: SegmentedControlConstants.iconSize)
+                .scaledToFit()
+                .segmentedControlItemContentColor()
+                .segmentedControlItemIconFrame()
 
             self.label()
-                .foregroundStyle(self.viewModel.colors.contentColorToken)
-                .foregroundStyle(.orange)
-                .font(self.viewModel.typographies.textFontToken)
-                .optionalAnimation(
-                    .easeInOut(duration: SegmentedControlConstants.animationDuration),
-                    value: self.viewModel.typographies.textFontToken.font
-                )
+                .segmentedControlItemContentColor()
+                .segmentedControlItemFont()
                 .lineLimit(1)
         }
-        .padding(self.viewModel.layout.padding)
+        .padding(self.theme.layout.itemPadding)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(self.viewModel.colors.backgroundColorToken)
-        .optionalAnimation(
-            .easeInOut(duration: SegmentedControlConstants.animationDuration),
-            value: self.viewModel.colors.backgroundColorToken.color
-        )
-        .scaleEffect(self.viewModel.isPressed ? 1.05 : 1.0)
-        .optionalAnimation(
-            .easeInOut(duration: SegmentedControlConstants.animationDuration),
-            value: self.viewModel.isPressed
-        )
+        .segmentedControlItemBackground()
+        .segmentedControlItemScaleEffect()
         .contentShape(Rectangle())
-        .onAppear() {
-            self.viewModel.setup(
-                theme: self.theme.value,
-                isSelected: self.isSelected,
-                isPressed: self.isPressed
-            )
-        }
-        .onChange(of: self.theme) {
-            self.viewModel.theme = self.theme.value
-        }
-        .onChange(of: self.isSelected) {
-            self.viewModel.isSelected = self.isSelected
-        }
-        .onChange(of: self.isPressed) {
-            self.viewModel.isPressed = self.isPressed
-        }
     }
 }

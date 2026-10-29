@@ -7,9 +7,12 @@
 //
 
 import Testing
+import Foundation
 @testable import SparkComponentChip
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
+
+// MARK: - Tests
 
 struct ChipTokenBorderTests {
 
@@ -17,67 +20,50 @@ struct ChipTokenBorderTests {
 
     private let theme = ThemeGeneratedMock.mocked()
 
+    private var token: ChipToken.Border {
+        return .init(theme: self.theme)
+    }
+
     // MARK: - Tests
 
     @Test
-    func initialization_sets_width_from_theme() {
-        // GIVEN / WHEN
-        let border = ChipToken.Border(theme: self.theme)
-
-        // THEN
-        #expect(border.width == self.theme.border.width.small)
+    func widthShouldReturnBorderWidthSmall() {
+        #expect(self.token.width == self.theme.border.width.small)
     }
 
     @Test
-    func initialization_sets_radius_from_theme() {
-        // GIVEN / WHEN
-        let border = ChipToken.Border(theme: self.theme)
-
-        // THEN
-        #expect(border.radius == self.theme.border.radius.full)
+    func radiusShouldReturnBorderRadiusFull() {
+        #expect(self.token.radius == self.theme.border.radius.full)
     }
 
-    @Test
-    func dashLength_has_correct_default_value() {
-        // GIVEN / WHEN
-        let border = ChipToken.Border(theme: self.theme)
-
-        // THEN
-        #expect(border.dashLength == 2)
+    @Test(arguments: [
+        (ChipVariant.dashed, CGFloat(2)),
+        (ChipVariant.outlined, CGFloat.zero),
+        (ChipVariant.tinted, CGFloat.zero)
+    ])
+    func dashShouldReturnExpectedValue(variant: ChipVariant, expectedDash: CGFloat) {
+        #expect(self.token.dash(variant: variant) == expectedDash)
     }
 
+    // MARK: - Equatable Tests
+
     @Test
-    func initialization_with_different_theme_values() {
+    func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
-        let customTheme = ThemeGeneratedMock.mocked2()
-
-        // WHEN
-        let border = ChipToken.Border(theme: customTheme)
-
-        // THEN
-        #expect(border.width == customTheme.border.width.small)
-        #expect(border.radius == customTheme.border.radius.full)
-        #expect(border.dashLength == 2)
-    }
-
-    @Test
-    func equatable_returns_true_when_borders_are_equal() {
-        // GIVEN
-        let border1 = ChipToken.Border(theme: self.theme)
-        let border2 = ChipToken.Border(theme: self.theme)
+        let lhs = ChipToken.Border(theme: self.theme)
+        let rhs = ChipToken.Border(theme: self.theme)
 
         // WHEN / THEN
-        #expect(border1 == border2)
+        #expect(lhs == rhs)
     }
 
     @Test
-    func equatable_returns_false_when_borders_are_different() {
+    func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
-        let theme2 = ThemeGeneratedMock.mocked2()
-        let border1 = ChipToken.Border(theme: self.theme)
-        let border2 = ChipToken.Border(theme: theme2)
+        let lhs = ChipToken.Border(theme: self.theme)
+        let rhs = ChipToken.Border(theme: ThemeGeneratedMock.mocked2())
 
         // WHEN / THEN
-        #expect(border1 != border2)
+        #expect(lhs != rhs)
     }
 }

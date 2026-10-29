@@ -12,23 +12,24 @@ import Foundation
 
 public extension ChipToken {
 
-    /// Contains size-related constants for the Chip component.
+    /// Contains the theme-independent size values of the Chip.
     struct Size: Equatable {
 
         // MARK: - Properties
 
-        /// The height for a medium-sized chip.
-        public let mediumHeight: CGFloat = 32
+        /// The width and height of the icon.
+        public var icon: CGFloat {
+            return 16
+        }
 
-        /// The height for a large-sized chip.
-        public let largeHeight: CGFloat = 40
+        // MARK: - Methods
 
-        /// The size of the icon within the chip.
-        public let iconSize: CGFloat = 16
-
-        // MARK: - Initialization
-
-        /// Creates a Size token.
-        public init() {}
+        /// The height of the chip.
+        public func height(for size: ChipSize) -> CGFloat {
+            return switch size {
+            case .medium: 32
+            case .large: 40
+            }
+        }
     }
 }

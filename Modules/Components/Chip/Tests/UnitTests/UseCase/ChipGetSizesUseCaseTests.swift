@@ -32,8 +32,8 @@ struct ChipGetSizesUseCaseTests {
         )
 
         // THEN
-        #expect(result.height == token.mediumHeight)
-        #expect(result.iconSize == token.iconSize)
+        #expect(result.height == token.height(for: .medium))
+        #expect(result.iconSize == token.icon)
     }
 
     @Test
@@ -48,8 +48,8 @@ struct ChipGetSizesUseCaseTests {
         )
 
         // THEN
-        #expect(result.height == token.largeHeight)
-        #expect(result.iconSize == token.iconSize)
+        #expect(result.height == token.height(for: .large))
+        #expect(result.iconSize == token.icon)
     }
 
     @Test

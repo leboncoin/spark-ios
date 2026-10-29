@@ -43,7 +43,6 @@ public struct SparkFileUploadPreviewGroup: View {
 
     @Environment(\.theme) private var theme
 
-    @StateObject private var viewModel = FileUploadPreviewGroupViewModel()
     @State private var fileToDelete: FileUpload?
     @State private var showDeleteAlert = false
 
@@ -83,7 +82,7 @@ public struct SparkFileUploadPreviewGroup: View {
     // MARK: - View
 
     public var body: some View {
-        SparkLazyVStack(spacing: self.viewModel.layout.spacing) {
+        SparkLazyVStack(spacing: self.theme.fileUpload.previewGroup.layout.spacing) {
             ForEach(self.files, id: \.id) { file in
                 SparkFileUploadPreview(
                     file: file,
@@ -95,13 +94,5 @@ public struct SparkFileUploadPreviewGroup: View {
         }
         .accessibilityIdentifier(FileUploadPreviewGroupAccessibilityIdentifier.view)
         .sparkVisualIdentification()
-        .onAppear() {
-            self.viewModel.setup(
-                theme: self.theme.value
-            )
-        }
-        .onChange(of: self.theme) {
-            self.viewModel.theme = self.theme.value
-        }
     }
 }
