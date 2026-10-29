@@ -25,7 +25,7 @@ private struct FileUploadDropzoneContainerViewModifier: ViewModifier {
         content
             .sparkPadding(token.layout.padding)
             .frame(maxWidth: .infinity)
-            .background(token.colors.background(isTargeted: self.isTargeted).color)
+            .background(token.colors.background(isTargeted: self.isTargeted))
             .sparkBorder(
                 width: token.border.width,
                 radius: token.border.radius,

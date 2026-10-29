@@ -6,15 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class CommonGetDimUseCaseTests: XCTestCase {
+@Suite("Common Get Dim UseCase Tests")
+struct CommonGetDimUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_whenEnabled_returnsNoneDim() {
+    @Test("Execute when enabled returns none dim")
+    func executeWhenEnabledReturnsNoneDim() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let useCase = CommonGetDimUseCase()
@@ -26,10 +28,11 @@ final class CommonGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_whenDisabled_returnsDim3() {
+    @Test("Execute when disabled returns dim 3")
+    func executeWhenDisabledReturnsDim3() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let useCase = CommonGetDimUseCase()
@@ -41,6 +44,6 @@ final class CommonGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.dim3)
+        #expect(result == theme.dims.dim3)
     }
 }

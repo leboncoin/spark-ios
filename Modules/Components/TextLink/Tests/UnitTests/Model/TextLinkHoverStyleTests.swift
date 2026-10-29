@@ -6,28 +6,32 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 @testable import SparkComponentTextLink
 
-final class TextLinkHoverStyleTests: XCTestCase {
+@Suite("Text Link Hover Style Tests")
+struct TextLinkHoverStyleTests {
 
     // MARK: - Tests
 
-    func test_default_values() {
+    @Test("Default values")
+    func defaultValues() {
         // GIVEN / WHEN
         let hoverStyle = TextLinkHoverStyle()
 
         // THEN
-        XCTAssertEqual(hoverStyle.horizontalPadding, 0, "Default horizontal padding should be 0")
-        XCTAssertEqual(hoverStyle.verticalPadding, 0, "Default vertical padding should be 0")
-        XCTAssertEqual(hoverStyle.cornerRadius, 0, "Default corner radius should be 0")
-        XCTAssertEqual(hoverStyle.dim, 0, "Default dim should be 0")
-        XCTAssertTrue(hoverStyle.backgroundColor is ColorTokenClear, "Default background color should be ColorTokenClear")
+        #expect(hoverStyle.horizontalPadding == 0, "Default horizontal padding should be 0")
+        #expect(hoverStyle.verticalPadding == 0, "Default vertical padding should be 0")
+        #expect(hoverStyle.cornerRadius == 0, "Default corner radius should be 0")
+        #expect(hoverStyle.dim == 0, "Default dim should be 0")
+        #expect(hoverStyle.backgroundColor is ColorTokenClear, "Default background color should be ColorTokenClear")
     }
 
-    func test_init_with_custom_values() {
+    @Test("Init with custom values")
+    func initWithCustomValues() {
         // GIVEN
         let horizontalPadding: CGFloat = 10
         let verticalPadding: CGFloat = 8
@@ -44,14 +48,15 @@ final class TextLinkHoverStyleTests: XCTestCase {
         hoverStyle.dim = dim
 
         // THEN
-        XCTAssertEqual(hoverStyle.horizontalPadding, horizontalPadding, "Horizontal padding should be set correctly")
-        XCTAssertEqual(hoverStyle.verticalPadding, verticalPadding, "Vertical padding should be set correctly")
-        XCTAssertEqual(hoverStyle.cornerRadius, cornerRadius, "Corner radius should be set correctly")
-        XCTAssertTrue(hoverStyle.backgroundColor.equals(backgroundColor), "Background color should be set correctly")
-        XCTAssertEqual(hoverStyle.dim, dim, "Dim should be set correctly")
+        #expect(hoverStyle.horizontalPadding == horizontalPadding, "Horizontal padding should be set correctly")
+        #expect(hoverStyle.verticalPadding == verticalPadding, "Vertical padding should be set correctly")
+        #expect(hoverStyle.cornerRadius == cornerRadius, "Corner radius should be set correctly")
+        #expect(hoverStyle.backgroundColor.equals(backgroundColor), "Background color should be set correctly")
+        #expect(hoverStyle.dim == dim, "Dim should be set correctly")
     }
 
-    func test_equatable_equal_instances() {
+    @Test("Equatable equal instances")
+    func equatableEqualInstances() {
         // GIVEN
         let backgroundColor = ColorTokenGeneratedMock.blue()
 
@@ -70,10 +75,11 @@ final class TextLinkHoverStyleTests: XCTestCase {
         hoverStyle2.dim = 0.3
 
         // WHEN / THEN
-        XCTAssertEqual(hoverStyle1, hoverStyle2, "Hover styles with same values should be equal")
+        #expect(hoverStyle1 == hoverStyle2, "Hover styles with same values should be equal")
     }
 
-    func test_equatable_different_horizontal_padding() {
+    @Test("Equatable different horizontal padding")
+    func equatableDifferentHorizontalPadding() {
         // GIVEN
         var hoverStyle1 = TextLinkHoverStyle()
         hoverStyle1.horizontalPadding = 10
@@ -82,10 +88,11 @@ final class TextLinkHoverStyleTests: XCTestCase {
         hoverStyle2.horizontalPadding = 15
 
         // WHEN / THEN
-        XCTAssertNotEqual(hoverStyle1, hoverStyle2, "Hover styles with different horizontal padding should not be equal")
+        #expect(hoverStyle1 != hoverStyle2, "Hover styles with different horizontal padding should not be equal")
     }
 
-    func test_equatable_different_vertical_padding() {
+    @Test("Equatable different vertical padding")
+    func equatableDifferentVerticalPadding() {
         // GIVEN
         var hoverStyle1 = TextLinkHoverStyle()
         hoverStyle1.verticalPadding = 8
@@ -94,10 +101,11 @@ final class TextLinkHoverStyleTests: XCTestCase {
         hoverStyle2.verticalPadding = 12
 
         // WHEN / THEN
-        XCTAssertNotEqual(hoverStyle1, hoverStyle2, "Hover styles with different vertical padding should not be equal")
+        #expect(hoverStyle1 != hoverStyle2, "Hover styles with different vertical padding should not be equal")
     }
 
-    func test_equatable_different_corner_radius() {
+    @Test("Equatable different corner radius")
+    func equatableDifferentCornerRadius() {
         // GIVEN
         var hoverStyle1 = TextLinkHoverStyle()
         hoverStyle1.cornerRadius = 5
@@ -106,10 +114,11 @@ final class TextLinkHoverStyleTests: XCTestCase {
         hoverStyle2.cornerRadius = 10
 
         // WHEN / THEN
-        XCTAssertNotEqual(hoverStyle1, hoverStyle2, "Hover styles with different corner radius should not be equal")
+        #expect(hoverStyle1 != hoverStyle2, "Hover styles with different corner radius should not be equal")
     }
 
-    func test_equatable_different_background_color() {
+    @Test("Equatable different background color")
+    func equatableDifferentBackgroundColor() {
         // GIVEN
         var hoverStyle1 = TextLinkHoverStyle()
         hoverStyle1.backgroundColor = ColorTokenGeneratedMock.red()
@@ -118,10 +127,11 @@ final class TextLinkHoverStyleTests: XCTestCase {
         hoverStyle2.backgroundColor = ColorTokenGeneratedMock.blue()
 
         // WHEN / THEN
-        XCTAssertNotEqual(hoverStyle1, hoverStyle2, "Hover styles with different background colors should not be equal")
+        #expect(hoverStyle1 != hoverStyle2, "Hover styles with different background colors should not be equal")
     }
 
-    func test_equatable_different_dim() {
+    @Test("Equatable different dim")
+    func equatableDifferentDim() {
         // GIVEN
         var hoverStyle1 = TextLinkHoverStyle()
         hoverStyle1.dim = 0.3
@@ -130,6 +140,6 @@ final class TextLinkHoverStyleTests: XCTestCase {
         hoverStyle2.dim = 0.7
 
         // WHEN / THEN
-        XCTAssertNotEqual(hoverStyle1, hoverStyle2, "Hover styles with different dim values should not be equal")
+        #expect(hoverStyle1 != hoverStyle2, "Hover styles with different dim values should not be equal")
     }
 }

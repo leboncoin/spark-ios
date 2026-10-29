@@ -25,7 +25,7 @@ struct ChipTokenColorsTintedTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Colors with accent intent should return expected colors")
     func colorsWithAccentIntentShouldReturnExpectedColors() {
         self.expectColors(
             intent: .accent,
@@ -47,7 +47,7 @@ struct ChipTokenColorsTintedTests {
         )
     }
 
-    @Test
+    @Test("Colors with alert intent should return expected colors")
     func colorsWithAlertIntentShouldReturnExpectedColors() {
         self.expectColors(
             intent: .alert,
@@ -69,7 +69,7 @@ struct ChipTokenColorsTintedTests {
         )
     }
 
-    @Test
+    @Test("Colors with danger intent should return expected colors")
     func colorsWithDangerIntentShouldReturnExpectedColors() {
         self.expectColors(
             intent: .danger,
@@ -91,7 +91,7 @@ struct ChipTokenColorsTintedTests {
         )
     }
 
-    @Test
+    @Test("Colors with info intent should return expected colors")
     func colorsWithInfoIntentShouldReturnExpectedColors() {
         self.expectColors(
             intent: .info,
@@ -113,7 +113,7 @@ struct ChipTokenColorsTintedTests {
         )
     }
 
-    @Test
+    @Test("Colors with main intent should return expected colors")
     func colorsWithMainIntentShouldReturnExpectedColors() {
         self.expectColors(
             intent: .main,
@@ -135,7 +135,7 @@ struct ChipTokenColorsTintedTests {
         )
     }
 
-    @Test
+    @Test("Colors with neutral intent should return expected colors")
     func colorsWithNeutralIntentShouldReturnExpectedColors() {
         self.expectColors(
             intent: .neutral,
@@ -157,7 +157,7 @@ struct ChipTokenColorsTintedTests {
         )
     }
 
-    @Test
+    @Test("Colors with support intent should return expected colors")
     func colorsWithSupportIntentShouldReturnExpectedColors() {
         self.expectColors(
             intent: .support,
@@ -179,7 +179,7 @@ struct ChipTokenColorsTintedTests {
         )
     }
 
-    @Test
+    @Test("Colors with surface intent should return expected colors")
     func colorsWithSurfaceIntentShouldReturnExpectedColors() {
         self.expectColors(
             intent: .surface,
@@ -201,7 +201,7 @@ struct ChipTokenColorsTintedTests {
         )
     }
 
-    @Test
+    @Test("Colors with success intent should return expected colors")
     func colorsWithSuccessIntentShouldReturnExpectedColors() {
         self.expectColors(
             intent: .success,

@@ -6,17 +6,18 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 
-final class SegmentedGaugeAlignmentTests: XCTestCase {
+@Suite("SegmentedGauge Alignment Tests")
+struct SegmentedGaugeAlignmentTests {
 
     // MARK: - Tests
 
-    func test_default_isHorizontal() {
-        XCTAssertEqual(
-            SegmentedGaugeAlignment.default,
-            .horizontal
+    @Test("Default is horizontal")
+    func defaultIsHorizontal() {
+        #expect(
+            SegmentedGaugeAlignment.default == .horizontal
         )
     }
 }

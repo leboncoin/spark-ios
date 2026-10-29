@@ -27,7 +27,7 @@ struct SparkToggleSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: ToggleScenarioSnapshotTests.allCases(forDocumentation: false))
+    @Test("Spark toggle snapshot", arguments: ToggleScenarioSnapshotTests.allCases(forDocumentation: false))
     func test(scenario: ToggleScenarioSnapshotTests) async throws {
         let forDocumentation = false
 

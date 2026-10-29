@@ -19,7 +19,7 @@ struct ChipTokenAlignmentTests {
 
     // MARK: - Tests
 
-    @Test(arguments: [
+    @Test("Is reversed should return expected value", arguments: [
         (ChipAlignment.leadingIcon, true),
         (ChipAlignment.trailingIcon, false)
     ])
@@ -29,7 +29,7 @@ struct ChipTokenAlignmentTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable should return true")
     func equatableShouldReturnTrue() {
         #expect(ChipToken.Alignment() == ChipToken.Alignment())
     }

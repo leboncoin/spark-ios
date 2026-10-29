@@ -28,7 +28,7 @@ struct FormFieldViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: FormFieldScenarioSnapshotTests.allCases)
+    @Test("Form field view snapshot", arguments: FormFieldScenarioSnapshotTests.allCases)
     func test(scenario: FormFieldScenarioSnapshotTests) async {
         var _isOn: Bool = true
         lazy var isOn: Binding<Bool> = {

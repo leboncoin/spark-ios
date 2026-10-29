@@ -6,25 +6,28 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 
-final class SegmentedGaugeLevelsTests: XCTestCase {
+@Suite("SegmentedGauge Levels Tests")
+struct SegmentedGaugeLevelsTests {
 
     // MARK: - Default Values Tests
 
-    func test_defaultInitializer_setsZeroValues() {
+    @Test("Default initializer sets zero values")
+    func defaultInitializerSetsZeroValues() {
         // GIVEN / WHEN
         let levels = SegmentedGaugeLevels()
 
         // THEN
-        XCTAssertEqual(levels.currentLevel, 0)
-        XCTAssertEqual(levels.levels, 1)
+        #expect(levels.currentLevel == 0)
+        #expect(levels.levels == 1)
     }
 
     // MARK: - Accessibility Label Tests
 
-    func test_accessibilityLabel_withDefaultValues() {
+    @Test("Accessibility label with default values")
+    func accessibilityLabelWithDefaultValues() {
         // GIVEN
         let levels = SegmentedGaugeLevels()
 
@@ -32,12 +35,13 @@ final class SegmentedGaugeLevelsTests: XCTestCase {
         let accessibilityLabel = levels.accessibilityLabel
 
         // THEN
-        XCTAssertFalse(accessibilityLabel.isEmpty)
-        XCTAssertTrue(accessibilityLabel.contains("0"))
-        XCTAssertTrue(accessibilityLabel.contains("1"))
+        #expect(!accessibilityLabel.isEmpty)
+        #expect(accessibilityLabel.contains("0"))
+        #expect(accessibilityLabel.contains("1"))
     }
 
-    func test_accessibilityLabel_withCustomValues() {
+    @Test("Accessibility label with custom values")
+    func accessibilityLabelWithCustomValues() {
         // GIVEN
         let levels = SegmentedGaugeLevels(currentLevel: 3, levels: 5)
 
@@ -45,92 +49,99 @@ final class SegmentedGaugeLevelsTests: XCTestCase {
         let accessibilityLabel = levels.accessibilityLabel
 
         // THEN
-        XCTAssertFalse(accessibilityLabel.isEmpty)
-        XCTAssertTrue(accessibilityLabel.contains("3"))
-        XCTAssertTrue(accessibilityLabel.contains("5"))
+        #expect(!accessibilityLabel.isEmpty)
+        #expect(accessibilityLabel.contains("3"))
+        #expect(accessibilityLabel.contains("5"))
     }
 
     // MARK: - Display Marker Tests
 
-    func test_displayMarker_behaviorConsistency_with_withMarker_at_true() {
+    @Test("Display marker behavior consistency with with marker at true")
+    func displayMarkerBehaviorConsistencyWithWithMarkerAtTrue() {
         // GIVEN
         let levels = SegmentedGaugeLevels(currentLevel: 3, levels: 5)
 
         // WHEN / THEN
-        XCTAssertFalse(levels.displayMarker(at: 0, withMarker: true))
-        XCTAssertFalse(levels.displayMarker(at: 1, withMarker: true))
-        XCTAssertFalse(levels.displayMarker(at: 2, withMarker: true))
-        XCTAssertTrue(levels.displayMarker(at: 3, withMarker: true))
-        XCTAssertFalse(levels.displayMarker(at: 4, withMarker: true))
+        #expect(!levels.displayMarker(at: 0, withMarker: true))
+        #expect(!levels.displayMarker(at: 1, withMarker: true))
+        #expect(!levels.displayMarker(at: 2, withMarker: true))
+        #expect(levels.displayMarker(at: 3, withMarker: true))
+        #expect(!levels.displayMarker(at: 4, withMarker: true))
     }
 
-    func test_displayMarker_behaviorConsistency_with_withMarker_at_false() {
+    @Test("Display marker behavior consistency with with marker at false")
+    func displayMarkerBehaviorConsistencyWithWithMarkerAtFalse() {
         // GIVEN
         let levels = SegmentedGaugeLevels(currentLevel: 3, levels: 5)
 
         // WHEN / THEN
-        XCTAssertFalse(levels.displayMarker(at: 0, withMarker: false))
-        XCTAssertFalse(levels.displayMarker(at: 1, withMarker: false))
-        XCTAssertFalse(levels.displayMarker(at: 2, withMarker: false))
-        XCTAssertFalse(levels.displayMarker(at: 3, withMarker: false))
-        XCTAssertFalse(levels.displayMarker(at: 4, withMarker: false))
+        #expect(!levels.displayMarker(at: 0, withMarker: false))
+        #expect(!levels.displayMarker(at: 1, withMarker: false))
+        #expect(!levels.displayMarker(at: 2, withMarker: false))
+        #expect(!levels.displayMarker(at: 3, withMarker: false))
+        #expect(!levels.displayMarker(at: 4, withMarker: false))
     }
 
     // MARK: - Is Plain Segment Tests
 
-    func test_isPlainSegment_edgeCases() {
+    @Test("Is plain segment edge cases")
+    func isPlainSegmentEdgeCases() {
         // GIVEN
         let levels = SegmentedGaugeLevels(currentLevel: 2, levels: 5)
 
         // WHEN / THEN
-        XCTAssertTrue(levels.isPlainSegment(at: 0)) // Well below
-        XCTAssertTrue(levels.isPlainSegment(at: 1)) // Just below
-        XCTAssertTrue(levels.isPlainSegment(at: 2)) // Equal
-        XCTAssertFalse(levels.isPlainSegment(at: 3)) // Just above
-        XCTAssertFalse(levels.isPlainSegment(at: 4)) // Well above
-        XCTAssertFalse(levels.isPlainSegment(at: 5)) // At max levels
+        #expect(levels.isPlainSegment(at: 0)) // Well below
+        #expect(levels.isPlainSegment(at: 1)) // Just below
+        #expect(levels.isPlainSegment(at: 2)) // Equal
+        #expect(!levels.isPlainSegment(at: 3)) // Just above
+        #expect(!levels.isPlainSegment(at: 4)) // Well above
+        #expect(!levels.isPlainSegment(at: 5)) // At max levels
     }
 
     // MARK: - Is Segment Tests
 
-    func test_isSegment_edgeCases() {
+    @Test("Is segment edge cases")
+    func isSegmentEdgeCases() {
         // GIVEN
         let levels = SegmentedGaugeLevels(currentLevel: 2, levels: 5)
 
         // WHEN / THEN
-        XCTAssertTrue(levels.isSegment(at: 0)) // Well below
-        XCTAssertTrue(levels.isSegment(at: 1)) // Just below current level
-        XCTAssertTrue(levels.isSegment(at: 2)) // Equal to current level
-        XCTAssertTrue(levels.isSegment(at: 3)) // Above current level but within total levels
-        XCTAssertTrue(levels.isSegment(at: 4)) // Just below max levels
-        XCTAssertTrue(levels.isSegment(at: 5)) // Equal to max levels
-        XCTAssertFalse(levels.isSegment(at: 6)) // Above max levels
-        XCTAssertFalse(levels.isSegment(at: 10)) // Well above max levels
+        #expect(levels.isSegment(at: 0)) // Well below
+        #expect(levels.isSegment(at: 1)) // Just below current level
+        #expect(levels.isSegment(at: 2)) // Equal to current level
+        #expect(levels.isSegment(at: 3)) // Above current level but within total levels
+        #expect(levels.isSegment(at: 4)) // Just below max levels
+        #expect(levels.isSegment(at: 5)) // Equal to max levels
+        #expect(!levels.isSegment(at: 6)) // Above max levels
+        #expect(!levels.isSegment(at: 10)) // Well above max levels
     }
 
     // MARK: - Equatable Tests
 
-    func test_equality_whenValuesMatch() {
+    @Test("Equality when values match")
+    func equalityWhenValuesMatch() {
         // GIVEN / WHEN
         let lhs = SegmentedGaugeLevels(currentLevel: 2, levels: 5)
         let rhs = SegmentedGaugeLevels(currentLevel: 2, levels: 5)
 
-        XCTAssertEqual(lhs, rhs)
+        #expect(lhs == rhs)
     }
 
-    func test_inequality_whenCurrentLevelDiffers() {
+    @Test("Inequality when current level differs")
+    func inequalityWhenCurrentLevelDiffers() {
         // GIVEN / WHEN
         let lhs = SegmentedGaugeLevels(currentLevel: 2, levels: 5)
         let rhs = SegmentedGaugeLevels(currentLevel: 3, levels: 5)
 
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 
-    func test_inequality_whenLevelsDiffers() {
+    @Test("Inequality when levels differs")
+    func inequalityWhenLevelsDiffers() {
         // GIVEN / WHEN
         let lhs = SegmentedGaugeLevels(currentLevel: 3, levels: 5)
         let rhs = SegmentedGaugeLevels(currentLevel: 3, levels: 4)
 
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 }

@@ -7,23 +7,26 @@
 //
 
 @testable import SparkComponentSpinner
-import XCTest
+import Testing
 
-final class SpinnerSizeTests: XCTestCase {
+@Suite("Spinner Size Tests")
+struct SpinnerSizeTests {
 
     // MARK: - Tests
 
-    func test_allCases_containsExpectedCases() {
+    @Test("All cases contains expected cases")
+    func allCasesContainsExpectedCases() {
         // GIVEN
         let expectedCases: [SpinnerSize] = [.medium, .small]
 
         // WHEN / THEN
-        XCTAssertEqual(SpinnerSize.allCases.count, expectedCases.count)
-        XCTAssertEqual(Set(SpinnerSize.allCases), Set(expectedCases))
+        #expect(SpinnerSize.allCases.count == expectedCases.count)
+        #expect(Set(SpinnerSize.allCases) == Set(expectedCases))
     }
 
-    func test_defaultValue_isMedium() {
+    @Test("Default value is medium")
+    func defaultValueIsMedium() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(SpinnerSize.default, .medium)
+        #expect(SpinnerSize.default == .medium)
     }
 }

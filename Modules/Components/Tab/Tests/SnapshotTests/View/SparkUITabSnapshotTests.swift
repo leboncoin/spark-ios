@@ -26,7 +26,7 @@ struct SparkUITabSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: TabScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    @Test("Spark UITab snapshot", arguments: TabScenarioSnapshotTests.allCases.filter { $0 != .documentation })
     func test(scenario: TabScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
 
@@ -45,7 +45,7 @@ struct SparkUITabSnapshotTests: UIKitComponentSnapshotTesting {
         }
     }
 
-    @Test(arguments: TabScenarioOtherSnapshotTests.allCases)
+    @Test("Other", arguments: TabScenarioOtherSnapshotTests.allCases)
     func testOther(scenario: TabScenarioOtherSnapshotTests) async {
         let configurations = scenario.configuration()
 

@@ -87,6 +87,7 @@ Only for what was flagged *SwiftUI only* in Step 0:
 
 - Run `sourcery` before writing tests.
 - **Swift Testing** for all new tests (see `template/*Tests.swift`):
+  - Every `@Test` must have a description, written as the function name in a sentence (e.g. `@Test("Radius should return radius full")`, `@Test("Value should return expected scale", arguments: [...])`). Never use a bare `@Test`.
   - `Tests/UnitTests/Token/XXXToken(+Category)Tests.swift` (skill **spark-component-token**).
   - `Tests/UnitTests/Extension/ComponentToken+XXXTests.swift`.
   - `Tests/UnitTests/Extension/EnvironmentTheme+XXXTokenTests.swift`.

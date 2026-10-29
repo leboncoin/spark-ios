@@ -6,15 +6,19 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import Foundation
 @_spi(SI_SPI) @testable import SparkCommon
 @_spi(SI_SPI) @testable import SparkCommonTesting
 
-final class DisplayedTextViewModelTests: XCTestCase {
+@MainActor
+@Suite("Displayed Text ViewModel Tests")
+struct DisplayedTextViewModelTests {
 
     // MARK: - Tests Init
 
-    func test_properties_after_init() {
+    @Test("Properties after init")
+    func propertiesAfterInit() {
         // GIVEN
         let textMock = "Hello"
         let attributedTextMock: AttributedStringEither = .left(.init(string: "Holà"))
@@ -31,42 +35,51 @@ final class DisplayedTextViewModelTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(viewModel.displayedTextType,
-                       displayedTextTypeMock,
-                       "Wrong displayedTextType value")
-        XCTAssertEqual(viewModel.displayedText?.text,
-                       textMock,
-                       "Wrong displayedTextType text value")
-        XCTAssertEqual(viewModel.displayedText?.attributedText,
-                       attributedTextMock,
-                       "Wrong displayedTextType attributedText value")
-        XCTAssertEqual(viewModel.containsText,
-                       displayedTextTypeMock.containsText,
-                       "Wrong containsText value")
+        #expect(
+            viewModel.displayedTextType == displayedTextTypeMock,
+            "Wrong displayedTextType value"
+        )
+        #expect(
+            viewModel.displayedText?.text == textMock,
+            "Wrong displayedTextType text value"
+        )
+        #expect(
+            viewModel.displayedText?.attributedText == attributedTextMock,
+            "Wrong displayedTextType attributedText value"
+        )
+        #expect(
+            viewModel.containsText == displayedTextTypeMock.containsText,
+            "Wrong containsText value"
+        )
 
         // **
         // GetDisplayedTextTypeUseCase
-        XCTAssertEqual(getDisplayedTextTypeUseCaseMock.executeWithTextAndAttributedTextCallsCount,
-                       1,
-                       "Wrong call number on execute with text and attributedText parameters on getDisplayedTextTypeUseCase")
+        #expect(
+            getDisplayedTextTypeUseCaseMock.executeWithTextAndAttributedTextCallsCount == 1,
+            "Wrong call number on execute with text and attributedText parameters on getDisplayedTextTypeUseCase"
+        )
 
         let getDisplayedTextTypeUseCaseArgs = getDisplayedTextTypeUseCaseMock.executeWithTextAndAttributedTextReceivedArguments
-        XCTAssertEqual(getDisplayedTextTypeUseCaseArgs?.text,
-                       textMock,
-                       "Wrong text parameter on execute on getDisplayedTextTypeUseCase")
-        XCTAssertEqual(getDisplayedTextTypeUseCaseArgs?.attributedText,
-                       attributedTextMock,
-                       "Wrong attributedText parameter on execute on getDisplayedTextTypeUseCase")
+        #expect(
+            getDisplayedTextTypeUseCaseArgs?.text == textMock,
+            "Wrong text parameter on execute on getDisplayedTextTypeUseCase"
+        )
+        #expect(
+            getDisplayedTextTypeUseCaseArgs?.attributedText == attributedTextMock,
+            "Wrong attributedText parameter on execute on getDisplayedTextTypeUseCase"
+        )
         // **
     }
 
     // MARK: - Tests TextChanged
 
-    func test_textChanged_when_getDidDisplayedTextChangeUseCase_return_true() {
+    @Test("Text changed when get did displayed text change use case return true")
+    func textChangedWhenGetDidDisplayedTextChangeUseCaseReturnTrue() {
         self.testTextChanged(givenGetDidDisplayedTextChange: true)
     }
 
-    func test_textChanged_when_getDidDisplayedTextChangeUseCase_return_false() {
+    @Test("Text changed when get did displayed text change use case return false")
+    func textChangedWhenGetDidDisplayedTextChangeUseCaseReturnFalse() {
         self.testTextChanged(givenGetDidDisplayedTextChange: false)
     }
 
@@ -96,60 +109,72 @@ final class DisplayedTextViewModelTests: XCTestCase {
         let textChanged = viewModel.textChanged(newText)
 
         // THEN
-        XCTAssertEqual(textChanged,
-                       givenGetDidDisplayedTextChange,
-                       "Wrong textChanged value")
+        #expect(
+            textChanged == givenGetDidDisplayedTextChange,
+            "Wrong textChanged value"
+        )
 
-        XCTAssertEqual(viewModel.displayedText,
-                       .init(text: givenGetDidDisplayedTextChange ? newText : textMock),
-                       "Wrong displayedText value")
-        XCTAssertEqual(viewModel.displayedTextType,
-                       givenGetDidDisplayedTextChange ? .none : displayedTextTypeMock,
-                       "Wrong displayedTextType value")
-        XCTAssertEqual(viewModel.containsText,
-                       givenGetDidDisplayedTextChange ? DisplayedTextType.none.containsText : displayedTextTypeMock.containsText,
-                       "Wrong containsText value")
+        #expect(
+            viewModel.displayedText == (.init(text: givenGetDidDisplayedTextChange ? newText : textMock)),
+            "Wrong displayedText value"
+        )
+        #expect(
+            viewModel.displayedTextType == (givenGetDidDisplayedTextChange ? .none : displayedTextTypeMock),
+            "Wrong displayedTextType value"
+        )
+        #expect(
+            viewModel.containsText == (givenGetDidDisplayedTextChange ? DisplayedTextType.none.containsText : displayedTextTypeMock.containsText),
+            "Wrong containsText value"
+        )
 
         // **
         // GetDidDisplayedTextChangeUseCase
-        XCTAssertEqual(getDidDisplayedTextChangeUseCaseMock.executeWithCurrentTextAndNewTextAndDisplayedTextTypeCallsCount,
-                       1,
-                       "Wrong call number on execute parameters on getDidDisplayedTextChangeUseCase")
+        #expect(
+            getDidDisplayedTextChangeUseCaseMock.executeWithCurrentTextAndNewTextAndDisplayedTextTypeCallsCount == 1,
+            "Wrong call number on execute parameters on getDidDisplayedTextChangeUseCase"
+        )
 
         let getDidDisplayedTextChangeUseCaseMockArgs = getDidDisplayedTextChangeUseCaseMock.executeWithCurrentTextAndNewTextAndDisplayedTextTypeReceivedArguments
 
-        XCTAssertEqual(getDidDisplayedTextChangeUseCaseMockArgs?.currentText,
-                       textMock,
-                       "Wrong currentText parameter on execute on getDidDisplayedTextChangeUseCase")
-        XCTAssertEqual(getDidDisplayedTextChangeUseCaseMockArgs?.newText,
-                       newText,
-                       "Wrong newText parameter on execute on getDidDisplayedTextChangeUseCase")
-        XCTAssertEqual(getDidDisplayedTextChangeUseCaseMockArgs?.displayedTextType,
-                       displayedTextTypeMock,
-                       "Wrong displayedTextType parameter on execute on getDidDisplayedTextChangeUseCase")
+        #expect(
+            getDidDisplayedTextChangeUseCaseMockArgs?.currentText == textMock,
+            "Wrong currentText parameter on execute on getDidDisplayedTextChangeUseCase"
+        )
+        #expect(
+            getDidDisplayedTextChangeUseCaseMockArgs?.newText == newText,
+            "Wrong newText parameter on execute on getDidDisplayedTextChangeUseCase"
+        )
+        #expect(
+            getDidDisplayedTextChangeUseCaseMockArgs?.displayedTextType == displayedTextTypeMock,
+            "Wrong displayedTextType parameter on execute on getDidDisplayedTextChangeUseCase"
+        )
         // **
 
         // **
         // GetDisplayedTextTypeUseCase
-        XCTAssertEqual(getDisplayedTextTypeUseCaseMock.executeWithTextCallsCount,
-                       givenGetDidDisplayedTextChange ? 1 : 0,
-                       "Wrong call number on execute on getDisplayedTextTypeUseCase")
+        #expect(
+            getDisplayedTextTypeUseCaseMock.executeWithTextCallsCount == (givenGetDidDisplayedTextChange ? 1 : 0),
+            "Wrong call number on execute on getDisplayedTextTypeUseCase"
+        )
 
         if givenGetDidDisplayedTextChange {
-            XCTAssertEqual(getDisplayedTextTypeUseCaseMock.executeWithTextReceivedText,
-                           newText,
-                           "Wrong text parameter on execute on getDisplayedTextTypeUseCase")
+            #expect(
+                getDisplayedTextTypeUseCaseMock.executeWithTextReceivedText == newText,
+                "Wrong text parameter on execute on getDisplayedTextTypeUseCase"
+            )
         }
         // **
     }
 
     // MARK: - Tests AttributedTextChanged
 
-    func test_attributedTextChanged_when_getIsDisplayedAttributedTextChangedUseCase_return_true() {
+    @Test("Attributed text changed when get is displayed attributed text changed use case return true")
+    func attributedTextChangedWhenGetIsDisplayedAttributedTextChangedUseCaseReturnTrue() {
         self.testAttributedTextChanged(givenGetIsDisplayedAttributedTextChanged: true)
     }
 
-    func test_attributedTextChanged_when_getIsDisplayedAttributedTextChangedUseCase_return_false() {
+    @Test("Attributed text changed when get is displayed attributed text changed use case return false")
+    func attributedTextChangedWhenGetIsDisplayedAttributedTextChangedUseCaseReturnFalse() {
         self.testAttributedTextChanged(givenGetIsDisplayedAttributedTextChanged: false)
     }
 
@@ -179,48 +204,58 @@ final class DisplayedTextViewModelTests: XCTestCase {
         let attributedTextChanged = viewModel.attributedTextChanged(newAttributedTextMock)
 
         // THEN
-        XCTAssertEqual(attributedTextChanged,
-                       givenGetIsDisplayedAttributedTextChanged,
-                       "Wrong attributedTextChanged value")
+        #expect(
+            attributedTextChanged == givenGetIsDisplayedAttributedTextChanged,
+            "Wrong attributedTextChanged value"
+        )
 
-        XCTAssertEqual(viewModel.displayedText,
-                       .init(attributedText: givenGetIsDisplayedAttributedTextChanged ? newAttributedTextMock : attributedTextMock),
-                       "Wrong displayedText value")
-        XCTAssertEqual(viewModel.displayedTextType,
-                       givenGetIsDisplayedAttributedTextChanged ? .none : displayedTextTypeMock,
-                       "Wrong displayedTextType value")
-        XCTAssertEqual(viewModel.containsText,
-                       givenGetIsDisplayedAttributedTextChanged ? DisplayedTextType.none.containsText : displayedTextTypeMock.containsText,
-                       "Wrong containsText value")
+        #expect(
+            viewModel.displayedText == (.init(attributedText: givenGetIsDisplayedAttributedTextChanged ? newAttributedTextMock : attributedTextMock)),
+            "Wrong displayedText value"
+        )
+        #expect(
+            viewModel.displayedTextType == (givenGetIsDisplayedAttributedTextChanged ? .none : displayedTextTypeMock),
+            "Wrong displayedTextType value"
+        )
+        #expect(
+            viewModel.containsText == (givenGetIsDisplayedAttributedTextChanged ? DisplayedTextType.none.containsText : displayedTextTypeMock.containsText),
+            "Wrong containsText value"
+        )
 
         // **
         // GetDidDisplayedTextChangeUseCase
-        XCTAssertEqual(getDidDisplayedTextChangeUseCaseMock.executeWithCurrentAttributedTextAndNewAttributedTextAndDisplayedTextTypeCallsCount,
-                       1,
-                       "Wrong call number on execute parameters on getDidDisplayedTextChangeUseCase")
+        #expect(
+            getDidDisplayedTextChangeUseCaseMock.executeWithCurrentAttributedTextAndNewAttributedTextAndDisplayedTextTypeCallsCount == 1,
+            "Wrong call number on execute parameters on getDidDisplayedTextChangeUseCase"
+        )
 
         let getDidDisplayedTextChangeUseCaseMockArgs = getDidDisplayedTextChangeUseCaseMock.executeWithCurrentAttributedTextAndNewAttributedTextAndDisplayedTextTypeReceivedArguments
-        XCTAssertEqual(getDidDisplayedTextChangeUseCaseMockArgs?.currentAttributedText,
-                       attributedTextMock,
-                       "Wrong currentAttributedText parameter on execute on getDidDisplayedTextChangeUseCase")
-        XCTAssertEqual(getDidDisplayedTextChangeUseCaseMockArgs?.newAttributedText,
-                       newAttributedTextMock,
-                       "Wrong newAttributedText parameter on execute on getDidDisplayedTextChangeUseCase")
-        XCTAssertEqual(getDidDisplayedTextChangeUseCaseMockArgs?.displayedTextType,
-                       displayedTextTypeMock,
-                       "Wrong displayedTextType parameter on execute on getDidDisplayedTextChangeUseCase")
+        #expect(
+            getDidDisplayedTextChangeUseCaseMockArgs?.currentAttributedText == attributedTextMock,
+            "Wrong currentAttributedText parameter on execute on getDidDisplayedTextChangeUseCase"
+        )
+        #expect(
+            getDidDisplayedTextChangeUseCaseMockArgs?.newAttributedText == newAttributedTextMock,
+            "Wrong newAttributedText parameter on execute on getDidDisplayedTextChangeUseCase"
+        )
+        #expect(
+            getDidDisplayedTextChangeUseCaseMockArgs?.displayedTextType == displayedTextTypeMock,
+            "Wrong displayedTextType parameter on execute on getDidDisplayedTextChangeUseCase"
+        )
         // **
 
         // **
         // GetDisplayedTextTypeUseCase
-        XCTAssertEqual(getDisplayedTextTypeUseCaseMock.executeWithAttributedTextCallsCount,
-                       givenGetIsDisplayedAttributedTextChanged ? 1 : 0,
-                       "Wrong call number on execute on getDisplayedTextTypeUseCase")
+        #expect(
+            getDisplayedTextTypeUseCaseMock.executeWithAttributedTextCallsCount == (givenGetIsDisplayedAttributedTextChanged ? 1 : 0),
+            "Wrong call number on execute on getDisplayedTextTypeUseCase"
+        )
 
         if givenGetIsDisplayedAttributedTextChanged {
-            XCTAssertEqual(getDisplayedTextTypeUseCaseMock.executeWithAttributedTextReceivedAttributedText,
-                           newAttributedTextMock,
-                           "Wrong attributedText parameter on execute on getDisplayedTextTypeUseCase")
+            #expect(
+                getDisplayedTextTypeUseCaseMock.executeWithAttributedTextReceivedAttributedText == newAttributedTextMock,
+                "Wrong attributedText parameter on execute on getDisplayedTextTypeUseCase"
+            )
         }
         // **
     }

@@ -6,11 +6,12 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SegmentedGaugeGetLabelsStyleUseCaseTests: XCTestCase {
+@Suite("SegmentedGauge Get Labels Style UseCase Tests")
+struct SegmentedGaugeGetLabelsStyleUseCaseTests {
 
     // MARK: - Properties
 
@@ -19,7 +20,8 @@ final class SegmentedGaugeGetLabelsStyleUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_returnsCorrectLabelsStyle() {
+    @Test("Execute returns correct labels style")
+    func executeReturnsCorrectLabelsStyle() {
         // GIVEN
         let expectedStyle = SegmentedGaugeLabelsStyle(
             titleTypography: self.theme.typography.subhead,
@@ -31,6 +33,6 @@ final class SegmentedGaugeGetLabelsStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme)
 
         // THEN
-        XCTAssertEqual(result, expectedStyle)
+        #expect(result == expectedStyle)
     }
 }

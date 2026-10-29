@@ -7,11 +7,12 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentRating
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class RatingGetColorsUseCaseTests: XCTestCase {
+@Suite("Rating Get Colors Use Case Tests")
+struct RatingGetColorsUseCaseTests {
 
     // MARK: - Properties
 
@@ -20,8 +21,7 @@ final class RatingGetColorsUseCaseTests: XCTestCase {
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
 
         self.theme = ThemeGeneratedMock.mocked()
         self.sut = RatingGetColorsUseCase()
@@ -29,7 +29,8 @@ final class RatingGetColorsUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute() {
+    @Test("Execute")
+    func execute() {
         // GIVEN / WHEN
         let colors = self.sut.execute(theme: self.theme)
 
@@ -39,6 +40,6 @@ final class RatingGetColorsUseCaseTests: XCTestCase {
             strokeStarTintColorToken: self.theme.colors.base.onSurface.opacity(self.theme.dims.dim3)
         )
 
-        XCTAssertEqual(colors, expectedColors)
+        #expect(colors == expectedColors)
     }
 }

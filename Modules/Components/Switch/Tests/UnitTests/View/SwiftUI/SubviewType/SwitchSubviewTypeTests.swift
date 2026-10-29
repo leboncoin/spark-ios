@@ -6,14 +6,16 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSwitch
 
-final class SwitchSubviewTypeTests: XCTestCase {
+@Suite("Switch Subview Type Tests")
+struct SwitchSubviewTypeTests {
 
     // MARK: - Tests
 
-    func test_allCases_when_isLeftAlignment_is_true_and_showSpace_is_false() {
+    @Test("All cases when is left alignment is true and show space is false")
+    func allCasesWhenIsLeftAlignmentIsTrueAndShowSpaceIsFalse() {
         // GIVEN / WHEN
         let allCases = SwitchSubviewType.allCases(
             isLeftAlignment: true,
@@ -21,13 +23,13 @@ final class SwitchSubviewTypeTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            allCases,
-            [.toggle, .text]
+        #expect(
+            allCases == [.toggle, .text]
         )
     }
 
-    func test_allCases_when_isLeftAlignment_is_true_and_showSpace_is_true() {
+    @Test("All cases when is left alignment is true and show space is true")
+    func allCasesWhenIsLeftAlignmentIsTrueAndShowSpaceIsTrue() {
         // GIVEN / WHEN
         let allCases = SwitchSubviewType.allCases(
             isLeftAlignment: true,
@@ -35,13 +37,13 @@ final class SwitchSubviewTypeTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            allCases,
-            [.toggle, .space, .text]
+        #expect(
+            allCases == [.toggle, .space, .text]
         )
     }
 
-    func test_allCases_when_isLeftAlignment_is_false_and_showSpace_is_false() {
+    @Test("All cases when is left alignment is false and show space is false")
+    func allCasesWhenIsLeftAlignmentIsFalseAndShowSpaceIsFalse() {
         // GIVEN / WHEN
         let allCases = SwitchSubviewType.allCases(
             isLeftAlignment: false,
@@ -49,13 +51,13 @@ final class SwitchSubviewTypeTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            allCases,
-            [.text, .toggle]
+        #expect(
+            allCases == [.text, .toggle]
         )
     }
 
-    func test_allCases_when_isLeftAlignment_is_false_and_showSpace_is_true() {
+    @Test("All cases when is left alignment is false and show space is true")
+    func allCasesWhenIsLeftAlignmentIsFalseAndShowSpaceIsTrue() {
         // GIVEN / WHEN
         let allCases = SwitchSubviewType.allCases(
             isLeftAlignment: false,
@@ -63,9 +65,8 @@ final class SwitchSubviewTypeTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            allCases,
-            [.text, .space, .toggle]
+        #expect(
+            allCases == [.text, .space, .toggle]
         )
     }
 }

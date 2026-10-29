@@ -20,7 +20,7 @@ struct AvatarTokenScaleEffectTests {
 
     // MARK: - Tests
 
-    @Test(
+    @Test("Value when pressed should return expected scale effect",
         arguments: [
             (AvatarSize.xs, 1.1),
             (.sm, 1.1),
@@ -42,7 +42,7 @@ struct AvatarTokenScaleEffectTests {
         #expect(result == expectedScaleEffect)
     }
 
-    @Test(arguments: AvatarSize.allCases)
+    @Test("Value when not pressed should return one", arguments: AvatarSize.allCases)
     func valueWhenNotPressedShouldReturnOne(size: AvatarSize) {
         // GIVEN / WHEN
         let result = self.token.value(for: size, isPressed: false)
@@ -53,7 +53,7 @@ struct AvatarTokenScaleEffectTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable should return true")
     func equatableShouldReturnTrue() {
         #expect(AvatarToken.ScaleEffect() == AvatarToken.ScaleEffect())
     }

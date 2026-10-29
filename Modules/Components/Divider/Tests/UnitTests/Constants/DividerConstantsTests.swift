@@ -6,28 +6,31 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import Foundation
 
 @testable import SparkComponentDivider
 
-final class DividerConstantsTests: XCTestCase {
+@Suite("Divider Constants Tests")
+struct DividerConstantsTests {
 
     // MARK: - Tests
 
-    func test_minimumWidth_value() {
+    @Test("Minimum width value")
+    func minimumWidthValue() {
         // GIVEN & WHEN
         let minimumWidth = DividerConstants.minimumWidth
 
         // THEN
-        XCTAssertEqual(minimumWidth, 40)
+        #expect(minimumWidth == 40)
     }
 
-    func test_thickness_value() {
+    @Test("Thickness value")
+    func thicknessValue() {
         // GIVEN & WHEN
         let thickness = DividerConstants.thickness
 
         // THEN
-        XCTAssertEqual(thickness, 1)
+        #expect(thickness == 1)
     }
 }

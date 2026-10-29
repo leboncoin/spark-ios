@@ -17,7 +17,7 @@ struct AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test_with_accessibilitySizeClass_at_nil() async throws {
+    @Test("With accessibility size class at nil") func test_with_accessibilitySizeClass_at_nil() async throws {
         // GIVEN / WHEN
         let view = SparkAdaptiveStack(
             axis: .horizontal,
@@ -39,7 +39,7 @@ struct AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
     }
 
-    @Test func test_with_showAccessibilityStack_at_true() async throws {
+    @Test("With show accessibility stack at true") func test_with_showAccessibilityStack_at_true() async throws {
         // GIVEN / WHEN
         let view = SparkAdaptiveStack(
             axis: .horizontal,
@@ -61,7 +61,7 @@ struct AdaptiveStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
     }
 
-    @Test func test_with_showAccessibilityStack_at_false() async throws {
+    @Test("With show accessibility stack at false") func test_with_showAccessibilityStack_at_false() async throws {
         // GIVEN / WHEN
         let view = SparkAdaptiveStack(
             axis: .horizontal,

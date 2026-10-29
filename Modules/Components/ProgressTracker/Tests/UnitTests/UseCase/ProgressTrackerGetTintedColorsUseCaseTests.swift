@@ -6,27 +6,28 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentProgressTracker
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ProgressTrackerGetTintedColorsUseCaseTests: XCTestCase {
+@Suite("Progress Tracker Get Tinted Colors Use Case Tests")
+struct ProgressTrackerGetTintedColorsUseCaseTests {
 
     // MARK: Properties
     var sut: ProgressTrackerGetTintedColorsUseCase!
     var colors: ColorsGeneratedMock!
 
     // MARK: Setup
-    override func setUp() {
-        super.setUp()
+    init() {
 
         self.sut = ProgressTrackerGetTintedColorsUseCase()
         self.colors = ColorsGeneratedMock.mocked()
     }
 
     // MARK: - Tests
-    func test_selected_colors() {
+    @Test("Selected colors")
+    func selectedColors() {
         // GIVEN
 
         for intent in ProgressTrackerIntent.allCases {
@@ -34,11 +35,12 @@ final class ProgressTrackerGetTintedColorsUseCaseTests: XCTestCase {
             let colors = self.sut.execute(colors: self.colors, intent: intent, state: .selected)
 
             // THEN
-            XCTAssertEqual(colors, intent.selectedColors(self.colors), "Selected colors for intent \(intent) not as expected")
+            #expect(colors == intent.selectedColors(self.colors), "Selected colors for intent \(intent) not as expected")
         }
     }
 
-    func test_enabled_colors() {
+    @Test("Enabled colors")
+    func enabledColors() {
         // GIVEN
 
         for intent in ProgressTrackerIntent.allCases {
@@ -47,11 +49,12 @@ final class ProgressTrackerGetTintedColorsUseCaseTests: XCTestCase {
             let colors = self.sut.execute(colors: self.colors, intent: intent, state: .normal)
 
             // THEN
-            XCTAssertEqual(colors, intent.enabledColors(self.colors), "Enabled colors for intent \(intent) not as expected")
+            #expect(colors == intent.enabledColors(self.colors), "Enabled colors for intent \(intent) not as expected")
         }
     }
 
-    func test_pressed_colors() {
+    @Test("Pressed colors")
+    func pressedColors() {
         // GIVEN
 
         for intent in ProgressTrackerIntent.allCases {
@@ -60,11 +63,12 @@ final class ProgressTrackerGetTintedColorsUseCaseTests: XCTestCase {
             let colors = self.sut.execute(colors: self.colors, intent: intent, state: .pressed)
 
             // THEN
-            XCTAssertEqual(colors, intent.pressedColors(self.colors), "Pressed colors for intent \(intent) not as expected")
+            #expect(colors == intent.pressedColors(self.colors), "Pressed colors for intent \(intent) not as expected")
         }
     }
 
-    func test_colors_disabled() {
+    @Test("Colors disabled")
+    func colorsDisabled() {
         // GIVEN
 
         for intent in ProgressTrackerIntent.allCases {
@@ -75,7 +79,7 @@ final class ProgressTrackerGetTintedColorsUseCaseTests: XCTestCase {
             let expectedColors = intent.enabledColors(self.colors)
 
             // THEN
-            XCTAssertEqual(colors, expectedColors, "Disabled colors for intent \(intent) not as expected")
+            #expect(colors == expectedColors, "Disabled colors for intent \(intent) not as expected")
         }
     }
 }

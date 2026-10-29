@@ -8,27 +8,32 @@
 
 import Foundation
 @_spi(SI_SPI) @testable import SparkCommon
-import XCTest
+import Testing
 
-final class EitherTests: XCTestCase {
+@Suite("Either Tests")
+struct EitherTests {
 
-    func test_left_value() {
+    @Test("Left value")
+    func leftValue() {
         let sut: Either<Int, String> = .left(1)
-        XCTAssertEqual(sut.leftValue, 1)
+        #expect(sut.leftValue == 1)
     }
 
-    func test_right_value() {
+    @Test("Right value")
+    func rightValue() {
         let sut: Either<Int, String> = .right("A")
-        XCTAssertEqual(sut.rightValue, "A")
+        #expect(sut.rightValue == "A")
     }
 
-    func test_or_value() {
+    @Test("Or value")
+    func orValue() {
         let sut: Either<Int, String> = .of(1, or: "Hello")
-        XCTAssertEqual(sut, .left(1))
+        #expect(sut == .left(1))
     }
 
-    func test_or_other_value() {
+    @Test("Or other value")
+    func orOtherValue() {
         let sut: Either<Int, String> = .of(nil, or: "Hello")
-        XCTAssertEqual(sut, .right("Hello"))
+        #expect(sut == .right("Hello"))
     }
 }

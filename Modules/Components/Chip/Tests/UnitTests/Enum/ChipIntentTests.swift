@@ -6,18 +6,21 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentChip
 
-final class ChipIntentTests: XCTestCase {
+@Suite("Chip Intent Tests")
+struct ChipIntentTests {
 
     // MARK: - Tests
 
-    func test_default_intent_is_support() {
-        XCTAssertEqual(ChipIntent.default, .support)
+    @Test("Default intent is support")
+    func defaultIntentIsSupport() {
+        #expect(ChipIntent.default == .support)
     }
 
-    func test_allCases_contains_only_non_deprecated_cases() {
+    @Test("All cases contains only non deprecated cases")
+    func allCasesContainsOnlyNonDeprecatedCases() {
         // Given
         let expectedCases: [ChipIntent] = [.danger, .main, .neutral, .support, .surface]
 
@@ -25,22 +28,24 @@ final class ChipIntentTests: XCTestCase {
         let allCases = ChipIntent.allCases
 
         // Then
-        XCTAssertEqual(allCases.count, 5)
-        XCTAssertEqual(allCases, expectedCases)
+        #expect(allCases.count == 5)
+        #expect(allCases == expectedCases)
     }
 
-    func test_allCases_does_not_contain_deprecated_cases() {
+    @Test("All cases does not contain deprecated cases")
+    func allCasesDoesNotContainDeprecatedCases() {
         // Given
         let allCases = ChipIntent.allCases
 
         // Then
-        XCTAssertFalse(allCases.contains(.accent))
-        XCTAssertFalse(allCases.contains(.alert))
-        XCTAssertFalse(allCases.contains(.info))
-        XCTAssertFalse(allCases.contains(.success))
+        #expect(!allCases.contains(.accent))
+        #expect(!allCases.contains(.alert))
+        #expect(!allCases.contains(.info))
+        #expect(!allCases.contains(.success))
     }
 
-    func test_allCases_is_ordered_alphabetically() {
+    @Test("All cases is ordered alphabetically")
+    func allCasesIsOrderedAlphabetically() {
         // Given
         let expectedOrder: [ChipIntent] = [.danger, .main, .neutral, .support, .surface]
 
@@ -48,6 +53,6 @@ final class ChipIntentTests: XCTestCase {
         let allCases = ChipIntent.allCases
 
         // Then
-        XCTAssertEqual(allCases, expectedOrder)
+        #expect(allCases == expectedOrder)
     }
 }

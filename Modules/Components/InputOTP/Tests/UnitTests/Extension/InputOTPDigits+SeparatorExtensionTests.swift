@@ -15,14 +15,14 @@ struct InputOTPDigitsSeparatorExtensionTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Is separator should return expected value")
     func isSeparatorShouldReturnExpectedValue() {
         #expect(InputOTPDigits.four.isSeparator == false)
         #expect(InputOTPDigits.six.isSeparator == true)
         #expect(InputOTPDigits.eight.isSeparator == true)
     }
 
-    @Test(arguments: InputOTPDigits.allCases)
+    @Test("Show separator should only be true at middle index when separator", arguments: InputOTPDigits.allCases)
     func showSeparatorShouldOnlyBeTrueAtMiddleIndexWhenSeparator(digits: InputOTPDigits) {
         for index in 0..<digits.rawValue {
             #expect(digits.showSeparator(at: index) == (digits.isSeparator && index == digits.rawValue / 2))

@@ -22,7 +22,7 @@ struct XXXTokenTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Init should set all categories")
     func initShouldSetAllCategories() {
         // GIVEN / WHEN
         let token = XXXToken(theme: self.theme)
@@ -33,12 +33,12 @@ struct XXXTokenTests {
         #expect(token.size == .init())
     }
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         #expect(XXXToken(theme: self.theme) == XXXToken(theme: self.theme))
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         #expect(XXXToken(theme: self.theme) != XXXToken(theme: ThemeGeneratedMock.mocked2()))
     }

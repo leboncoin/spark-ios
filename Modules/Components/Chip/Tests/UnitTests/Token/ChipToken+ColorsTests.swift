@@ -25,7 +25,7 @@ struct ChipTokenColorsTests {
 
     // MARK: - Tests
 
-    @Test(arguments: ChipIntent.allCases)
+    @Test("Colors with dashed variant should return outlined colors", arguments: ChipIntent.allCases)
     func colorsWithDashedVariantShouldReturnOutlinedColors(intent: ChipIntent) {
         for isSelected in [true, false] {
             for isPressed in [true, false] {
@@ -74,7 +74,7 @@ struct ChipTokenColorsTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = ChipToken.Colors(theme: self.theme)
@@ -84,7 +84,7 @@ struct ChipTokenColorsTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = ChipToken.Colors(theme: self.theme)

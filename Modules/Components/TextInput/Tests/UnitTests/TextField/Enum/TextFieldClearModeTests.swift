@@ -6,56 +6,62 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 
-final class TextFieldClearModeTests: XCTestCase {
+@Suite("Text Field Clear Mode Tests")
+struct TextFieldClearModeTests {
 
     // MARK: - Default Value Tests
 
-    func testDefaultValue() {
+    @Test("Default value")
+    func defaultValue() {
         // GIVEN / WHEN
         let defaultValue = TextFieldClearMode.default
 
         // THEN
-        XCTAssertEqual(defaultValue, .never)
+        #expect(defaultValue == .never)
     }
 
     // MARK: - Show Clear Button Tests
 
-    func testShowClearButton_never() {
+    @Test("Show clear button never")
+    func showClearButtonNever() {
         // GIVEN / WHEN
         let mode = TextFieldClearMode.never
 
         // THEN
-        XCTAssertFalse(mode.showClearButton(isFocused: true))
-        XCTAssertFalse(mode.showClearButton(isFocused: false))
+        #expect(!mode.showClearButton(isFocused: true))
+        #expect(!mode.showClearButton(isFocused: false))
     }
 
-    func testShowClearButton_always() {
+    @Test("Show clear button always")
+    func showClearButtonAlways() {
         // GIVEN / WHEN
         let mode = TextFieldClearMode.always
 
         // THEN
-        XCTAssertTrue(mode.showClearButton(isFocused: true))
-        XCTAssertTrue(mode.showClearButton(isFocused: false))
+        #expect(mode.showClearButton(isFocused: true))
+        #expect(mode.showClearButton(isFocused: false))
     }
 
-    func testShowClearButton_whileEditing() {
+    @Test("Show clear button while editing")
+    func showClearButtonWhileEditing() {
         // GIVEN / WHEN
         let mode = TextFieldClearMode.whileEditing
 
         // THEN
-        XCTAssertTrue(mode.showClearButton(isFocused: true))
-        XCTAssertFalse(mode.showClearButton(isFocused: false))
+        #expect(mode.showClearButton(isFocused: true))
+        #expect(!mode.showClearButton(isFocused: false))
     }
 
-    func testShowClearButton_unlessEditing() {
+    @Test("Show clear button unless editing")
+    func showClearButtonUnlessEditing() {
         // GIVEN / WHEN
         let mode = TextFieldClearMode.unlessEditing
 
         // THEN
-        XCTAssertFalse(mode.showClearButton(isFocused: true))
-        XCTAssertTrue(mode.showClearButton(isFocused: false))
+        #expect(!mode.showClearButton(isFocused: true))
+        #expect(mode.showClearButton(isFocused: false))
     }
 }

@@ -6,25 +6,28 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 
 @testable import SparkComponentDivider
 
-final class DividerSeparatorWidthTypeTests: XCTestCase {
+@Suite("Divider Separator Width Type Tests")
+struct DividerSeparatorWidthTypeTests {
 
     // MARK: - Tests
 
-    func test_default() {
+    @Test("Default")
+    func defaultValue() {
         // GIVEN & WHEN
         let defaultWidthType = DividerSeparatorWidthType.default
 
         // THEN
-        XCTAssertEqual(defaultWidthType, .equal, "DividerSeparatorWidthType.default should be .equal")
+        #expect(defaultWidthType == .equal, "DividerSeparatorWidthType.default should be .equal")
     }
 
     // MARK: - IsEqual Tests
 
-    func test_isEqual_whenEqual() {
+    @Test("Is equal when equal")
+    func isEqualWhenEqual() {
         // GIVEN
         let widthType = DividerSeparatorWidthType.equal
 
@@ -32,10 +35,11 @@ final class DividerSeparatorWidthTypeTests: XCTestCase {
         let isEqual = widthType.isEqual
 
         // THEN
-        XCTAssertTrue(isEqual, "DividerSeparatorWidthType.equal.isEqual should be true")
+        #expect(isEqual, "DividerSeparatorWidthType.equal.isEqual should be true")
     }
 
-    func test_isEqual_whenFixed() {
+    @Test("Is equal when fixed")
+    func isEqualWhenFixed() {
         // GIVEN
         let widthType = DividerSeparatorWidthType.fixed
 
@@ -43,10 +47,11 @@ final class DividerSeparatorWidthTypeTests: XCTestCase {
         let isEqual = widthType.isEqual
 
         // THEN
-        XCTAssertFalse(isEqual, "DividerSeparatorWidthType.fixed.isEqual should be false")
+        #expect(!isEqual, "DividerSeparatorWidthType.fixed.isEqual should be false")
     }
 
-    func test_isEqual_whenDynamic() {
+    @Test("Is equal when dynamic")
+    func isEqualWhenDynamic() {
         // GIVEN
         let widthType = DividerSeparatorWidthType.dynamic
 
@@ -54,12 +59,13 @@ final class DividerSeparatorWidthTypeTests: XCTestCase {
         let isEqual = widthType.isEqual
 
         // THEN
-        XCTAssertFalse(isEqual, "DividerSeparatorWidthType.dynamic.isEqual should be false")
+        #expect(!isEqual, "DividerSeparatorWidthType.dynamic.isEqual should be false")
     }
 
     // MARK: - IsFixed Tests
 
-    func test_isFixed_whenFixed() {
+    @Test("Is fixed when fixed")
+    func isFixedWhenFixed() {
         // GIVEN
         let widthType = DividerSeparatorWidthType.fixed
 
@@ -67,10 +73,11 @@ final class DividerSeparatorWidthTypeTests: XCTestCase {
         let isFixed = widthType.isFixed
 
         // THEN
-        XCTAssertTrue(isFixed, "DividerSeparatorWidthType.fixed.isFixed should be true")
+        #expect(isFixed, "DividerSeparatorWidthType.fixed.isFixed should be true")
     }
 
-    func test_isFixed_whenEqual() {
+    @Test("Is fixed when equal")
+    func isFixedWhenEqual() {
         // GIVEN
         let widthType = DividerSeparatorWidthType.equal
 
@@ -78,10 +85,11 @@ final class DividerSeparatorWidthTypeTests: XCTestCase {
         let isFixed = widthType.isFixed
 
         // THEN
-        XCTAssertFalse(isFixed, "DividerSeparatorWidthType.equal.isFixed should be false")
+        #expect(!isFixed, "DividerSeparatorWidthType.equal.isFixed should be false")
     }
 
-    func test_isFixed_whenDynamic() {
+    @Test("Is fixed when dynamic")
+    func isFixedWhenDynamic() {
         // GIVEN
         let widthType = DividerSeparatorWidthType.dynamic
 
@@ -89,6 +97,6 @@ final class DividerSeparatorWidthTypeTests: XCTestCase {
         let isFixed = widthType.isFixed
 
         // THEN
-        XCTAssertFalse(isFixed, "DividerSeparatorWidthType.dynamic.isFixed should be false")
+        #expect(!isFixed, "DividerSeparatorWidthType.dynamic.isFixed should be false")
     }
 }

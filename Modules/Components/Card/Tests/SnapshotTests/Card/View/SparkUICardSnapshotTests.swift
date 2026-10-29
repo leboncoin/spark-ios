@@ -26,7 +26,7 @@ struct SparkUICardSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
+    @Test("Spark UICard snapshot") func test() async {
         let scenarios = CardScenarioSnapshotTests.uiKitAllCases.filter {
             $0 != .documentation
         }

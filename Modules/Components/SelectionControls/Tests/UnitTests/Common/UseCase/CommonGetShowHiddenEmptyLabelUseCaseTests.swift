@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class CommonGetShowHiddenEmptyLabelUseCaseTests: XCTestCase {
+@Suite("Common Get Show Hidden Empty Label UseCase Tests")
+struct CommonGetShowHiddenEmptyLabelUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_whenIsCustomLabel_returnsLeft() {
+    @Test("Execute when is custom label returns left")
+    func executeWhenIsCustomLabelReturnsLeft() {
         // GIVEN
         let useCase = CommonGetShowHiddenEmptyLabelUseCase()
 
@@ -21,10 +23,11 @@ final class CommonGetShowHiddenEmptyLabelUseCaseTests: XCTestCase {
         let result = useCase.execute(isCustomLabel: true)
 
         // THEN
-        XCTAssertTrue(result)
+        #expect(result)
     }
 
-    func test_execute_whenIsNotCustomLabel_returnsRight() {
+    @Test("Execute when is not custom label returns right")
+    func executeWhenIsNotCustomLabelReturnsRight() {
         // GIVEN
         let useCase = CommonGetShowHiddenEmptyLabelUseCase()
 
@@ -32,6 +35,6 @@ final class CommonGetShowHiddenEmptyLabelUseCaseTests: XCTestCase {
         let result = useCase.execute(isCustomLabel: false)
 
         // THEN
-        XCTAssertFalse(result)
+        #expect(!result)
     }
 }

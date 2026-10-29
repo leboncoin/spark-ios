@@ -5,23 +5,27 @@
 //  Created on 23/04/2025.
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkCommon
 
-final class ScaledFrameTests: XCTestCase {
+@MainActor
+@Suite("Scaled Frame Tests")
+struct ScaledFrameTests {
 
     // MARK: - Tests Inits
 
-    func test_init_without_value() {
+    @Test("Init without value")
+    func initWithoutValue() {
         // GIVEN / WHEN
         let metric = ScaledFrame(value: nil, relativeTo: .largeTitle)
 
         // THEN
-        XCTAssertNil(metric.wrappedValue)
+        #expect(metric.wrappedValue == nil)
     }
 
-    func test_init_with_value() {
+    @Test("Init with value")
+    func initWithValue() {
         // GIVEN
         let baseValue: CGFloat = 10
 
@@ -29,6 +33,6 @@ final class ScaledFrameTests: XCTestCase {
         let metric = ScaledFrame(value: baseValue, relativeTo: .largeTitle)
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue)
+        #expect(metric.wrappedValue == baseValue)
     }
 }

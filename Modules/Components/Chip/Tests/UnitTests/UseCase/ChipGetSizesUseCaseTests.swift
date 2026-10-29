@@ -20,7 +20,7 @@ struct ChipGetSizesUseCaseTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Execute with medium size")
     func execute_with_medium_size() {
         // GIVEN
         let token = ChipToken.Size()
@@ -36,7 +36,7 @@ struct ChipGetSizesUseCaseTests {
         #expect(result.iconSize == token.icon)
     }
 
-    @Test
+    @Test("Execute with large size")
     func execute_with_large_size() {
         // GIVEN
         let token = ChipToken.Size()
@@ -52,7 +52,7 @@ struct ChipGetSizesUseCaseTests {
         #expect(result.iconSize == token.icon)
     }
 
-    @Test
+    @Test("Execute returns different heights for different sizes")
     func execute_returns_different_heights_for_different_sizes() {
         // GIVEN / WHEN
         let mediumResult = self.useCase.execute(
@@ -70,7 +70,7 @@ struct ChipGetSizesUseCaseTests {
         #expect(largeResult.height > mediumResult.height)
     }
 
-    @Test
+    @Test("Execute returns same icon size for all sizes")
     func execute_returns_same_iconSize_for_all_sizes() {
         // GIVEN / WHEN
         let mediumResult = self.useCase.execute(

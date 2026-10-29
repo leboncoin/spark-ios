@@ -6,16 +6,18 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import UIKit
+import Testing
 
 @testable import SparkComponentProgressTracker
 
-final class ProgressTrackerUITouchHandlerCreationTests: XCTestCase {
+@MainActor
+@Suite("Progress Tracker UI Touch Handler Creation Tests")
+struct ProgressTrackerUITouchHandlerCreationTests {
     var controls: [UIControl]!
 
     // MARK: - Setup
-    override func setUp() {
-        super.setUp()
+    init() {
         self.controls = (0...4)
             .map { index in
                 return CGRect(x: index * 50, y: 0, width: 50, height: 50)
@@ -24,28 +26,32 @@ final class ProgressTrackerUITouchHandlerCreationTests: XCTestCase {
     }
 
     // MARK: - Tests
-    func test_setup_none() {
+    @Test("Setup none")
+    func setupNone() {
         let sut = ProgressTrackerInteractionState.none.touchHandler(currentPageIndex: 0, indicatorViews: self.controls)
 
-        XCTAssertTrue(sut is ProgressTrackerNoneUITouchHandler)
+        #expect(sut is ProgressTrackerNoneUITouchHandler)
     }
 
-    func test_setup_discrete() {
+    @Test("Setup discrete")
+    func setupDiscrete() {
         let sut = ProgressTrackerInteractionState.discrete.touchHandler(currentPageIndex: 0, indicatorViews: self.controls)
 
-        XCTAssertTrue(sut is ProgressTrackerDiscreteUITouchHandler)
+        #expect(sut is ProgressTrackerDiscreteUITouchHandler)
     }
 
-    func test_setup_continuous() {
+    @Test("Setup continuous")
+    func setupContinuous() {
         let sut = ProgressTrackerInteractionState.continuous.touchHandler(currentPageIndex: 0, indicatorViews: self.controls)
 
-        XCTAssertTrue(sut is ProgressTrackerContinuousUITouchHandler)
+        #expect(sut is ProgressTrackerContinuousUITouchHandler)
     }
 
-    func test_setup_independent() {
+    @Test("Setup independent")
+    func setupIndependent() {
         let sut = ProgressTrackerInteractionState.independent.touchHandler(currentPageIndex: 0, indicatorViews: self.controls)
 
-        XCTAssertTrue(sut is ProgressTrackerIndependentUITouchHandler)
+        #expect(sut is ProgressTrackerIndependentUITouchHandler)
     }
 
 }

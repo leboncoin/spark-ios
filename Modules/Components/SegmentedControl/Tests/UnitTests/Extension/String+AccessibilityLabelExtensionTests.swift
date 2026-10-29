@@ -15,7 +15,7 @@ struct StringAccessibilityLabelExtensionTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Accessibility label with first index returns expected value")
     func accessibilityLabel_withFirstIndex_returnsExpectedValue() {
         // GIVEN
         let index = 0
@@ -29,7 +29,7 @@ struct StringAccessibilityLabelExtensionTests {
         #expect(result.contains("3"), "Result should contain '3' for total count")
     }
 
-    @Test
+    @Test("Accessibility label with middle index returns expected value")
     func accessibilityLabel_withMiddleIndex_returnsExpectedValue() {
         // GIVEN
         let index = 1

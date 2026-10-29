@@ -26,7 +26,7 @@ private struct FileUploadPreviewContainerViewModifier: ViewModifier {
         content
             .sparkPadding(.horizontal, token.layout.horizontalPadding)
             .sparkPadding(.vertical, token.layout.verticalPadding)
-            .background(token.colors.background(isPressed: self.isPressed).color)
+            .background(token.colors.background(isPressed: self.isPressed))
             .sparkBorder(
                 width: token.border.width(isSucceed: self.isSucceed),
                 radius: token.border.radius,

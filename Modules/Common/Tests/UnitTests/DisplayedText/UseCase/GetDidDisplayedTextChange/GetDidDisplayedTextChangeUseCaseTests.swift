@@ -6,14 +6,17 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
+@Suite("Get Did Displayed Text Change Use Case Tests")
+struct GetDidDisplayedTextChangeUseCaseTests {
 
     // MARK: - Tests Execute with text
 
-    func test_execute_when_currentText_is_equal_to_newText_and_displayedTextType_is_none() {
+    @Test("Execute when current text is equal to new text and displayed text type is none")
+    func executeWhenCurrentTextIsEqualToNewTextAndDisplayedTextTypeIsNone() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -25,10 +28,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isChanged)
+        #expect(isChanged)
     }
 
-    func test_execute_when_currentText_is_equal_to_newText_and_displayedTextType_is_text() {
+    @Test("Execute when current text is equal to new text and displayed text type is text")
+    func executeWhenCurrentTextIsEqualToNewTextAndDisplayedTextTypeIsText() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -40,10 +44,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(isChanged)
+        #expect(!isChanged)
     }
 
-    func test_execute_when_currentText_is_equal_to_newText_and_displayedTextType_is_attributedText() {
+    @Test("Execute when current text is equal to new text and displayed text type is attributed text")
+    func executeWhenCurrentTextIsEqualToNewTextAndDisplayedTextTypeIsAttributedText() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -55,10 +60,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isChanged)
+        #expect(isChanged)
     }
 
-    func test_execute_when_currentText_is_not_equal_to_newText_and_displayedTextType_is_none() {
+    @Test("Execute when current text is not equal to new text and displayed text type is none")
+    func executeWhenCurrentTextIsNotEqualToNewTextAndDisplayedTextTypeIsNone() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -70,10 +76,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isChanged)
+        #expect(isChanged)
     }
 
-    func test_execute_when_currentText_is_not_equal_to_newText_and_displayedTextType_is_text() {
+    @Test("Execute when current text is not equal to new text and displayed text type is text")
+    func executeWhenCurrentTextIsNotEqualToNewTextAndDisplayedTextTypeIsText() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -85,10 +92,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isChanged)
+        #expect(isChanged)
     }
 
-    func test_execute_when_currentText_is_not_equal_to_newText_and_displayedTextType_is_attributedText() {
+    @Test("Execute when current text is not equal to new text and displayed text type is attributed text")
+    func executeWhenCurrentTextIsNotEqualToNewTextAndDisplayedTextTypeIsAttributedText() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -100,10 +108,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isChanged)
+        #expect(isChanged)
     }
 
-    func test_execute_when_currentText_and_newText_are_nil_and_displayedTextType_is_none() {
+    @Test("Execute when current text and new text are nil and displayed text type is none")
+    func executeWhenCurrentTextAndNewTextAreNilAndDisplayedTextTypeIsNone() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -115,10 +124,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(isChanged)
+        #expect(!isChanged)
     }
 
-    func test_execute_when_currentText_and_newText_are_nil_and_displayedTextType_is_text() {
+    @Test("Execute when current text and new text are nil and displayed text type is text")
+    func executeWhenCurrentTextAndNewTextAreNilAndDisplayedTextTypeIsText() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -130,10 +140,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isChanged)
+        #expect(isChanged)
     }
 
-    func test_execute_when_currentText_and_newText_are_nil_and_displayedTextType_is_attributedText() {
+    @Test("Execute when current text and new text are nil and displayed text type is attributed text")
+    func executeWhenCurrentTextAndNewTextAreNilAndDisplayedTextTypeIsAttributedText() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -145,12 +156,13 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(isChanged)
+        #expect(!isChanged)
     }
 
     // MARK: - Tests Execute with attributed text
 
-    func test_execute_when_currentAttributedText_is_equal_to_newAttributedText_and_displayedTextType_is_none() {
+    @Test("Execute when current attributed text is equal to new attributed text and displayed text type is none")
+    func executeWhenCurrentAttributedTextIsEqualToNewAttributedTextAndDisplayedTextTypeIsNone() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -162,10 +174,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isChanged)
+        #expect(isChanged)
     }
 
-    func test_execute_when_currentAttributedText_is_equal_to_newAttributedText_and_displayedTextType_is_text() {
+    @Test("Execute when current attributed text is equal to new attributed text and displayed text type is text")
+    func executeWhenCurrentAttributedTextIsEqualToNewAttributedTextAndDisplayedTextTypeIsText() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -177,10 +190,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isChanged)
+        #expect(isChanged)
     }
 
-    func test_execute_when_currentAttributedText_is_equal_to_newAttributedText_and_displayedTextType_is_attributedText() {
+    @Test("Execute when current attributed text is equal to new attributed text and displayed text type is attributed text")
+    func executeWhenCurrentAttributedTextIsEqualToNewAttributedTextAndDisplayedTextTypeIsAttributedText() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -192,10 +206,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(isChanged)
+        #expect(!isChanged)
     }
 
-    func test_execute_when_currentAttributedText_is_not_equal_to_newAttributedText_and_displayedTextType_is_none() {
+    @Test("Execute when current attributed text is not equal to new attributed text and displayed text type is none")
+    func executeWhenCurrentAttributedTextIsNotEqualToNewAttributedTextAndDisplayedTextTypeIsNone() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -207,10 +222,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isChanged)
+        #expect(isChanged)
     }
 
-    func test_execute_when_currentAttributedText_is_not_equal_to_newAttributedText_and_displayedTextType_is_text() {
+    @Test("Execute when current attributed text is not equal to new attributed text and displayed text type is text")
+    func executeWhenCurrentAttributedTextIsNotEqualToNewAttributedTextAndDisplayedTextTypeIsText() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -222,10 +238,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isChanged)
+        #expect(isChanged)
     }
 
-    func test_execute_when_currentAttributedText_is_not_equal_to_newAttributedText_and_displayedTextType_is_attributedText() {
+    @Test("Execute when current attributed text is not equal to new attributed text and displayed text type is attributed text")
+    func executeWhenCurrentAttributedTextIsNotEqualToNewAttributedTextAndDisplayedTextTypeIsAttributedText() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -237,10 +254,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isChanged)
+        #expect(isChanged)
     }
 
-    func test_execute_when_currentAttributedText_and_newAttributedText_are_nil_and_displayedTextType_is_none() {
+    @Test("Execute when current attributed text and new attributed text are nil and displayed text type is none")
+    func executeWhenCurrentAttributedTextAndNewAttributedTextAreNilAndDisplayedTextTypeIsNone() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -252,10 +270,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(isChanged)
+        #expect(!isChanged)
     }
 
-    func test_execute_when_currentAttributedText_and_newAttributedText_are_nil_and_displayedTextType_is_text() {
+    @Test("Execute when current attributed text and new attributed text are nil and displayed text type is text")
+    func executeWhenCurrentAttributedTextAndNewAttributedTextAreNilAndDisplayedTextTypeIsText() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -267,10 +286,11 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(isChanged)
+        #expect(!isChanged)
     }
 
-    func test_execute_when_currentAttributedText_and_newAttributedText_are_nil_and_displayedTextType_is_attributedText() {
+    @Test("Execute when current attributed text and new attributed text are nil and displayed text type is attributed text")
+    func executeWhenCurrentAttributedTextAndNewAttributedTextAreNilAndDisplayedTextTypeIsAttributedText() {
         // GIVEN
         let useCase = GetDidDisplayedTextChangeUseCase()
 
@@ -282,6 +302,6 @@ final class GetDidDisplayedTextChangeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(isChanged)
+        #expect(isChanged)
     }
 }

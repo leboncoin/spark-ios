@@ -6,15 +6,18 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class UnevenRoundedRectangleHighlightedExtensionTests: XCTestCase {
+@MainActor
+@Suite("Uneven Rounded Rectangle Highlighted Extension Tests")
+struct UnevenRoundedRectangleHighlightedExtensionTests {
 
     // MARK: - Tests
 
-    func test_init_with_individual_radii_not_highlighted() {
+    @Test("Init with individual radii not highlighted")
+    func initWithIndividualRadiiNotHighlighted() {
         // GIVEN/WHEN
         let shape = UnevenRoundedRectangle(
             topLeadingRadius: 5.0,
@@ -26,14 +29,15 @@ final class UnevenRoundedRectangleHighlightedExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(shape.cornerRadii.topLeading, 5.0, "Wrong topLeading value")
-        XCTAssertEqual(shape.cornerRadii.bottomLeading, 10.0, "Wrong bottomLeading value")
-        XCTAssertEqual(shape.cornerRadii.bottomTrailing, 15.0, "Wrong bottomTrailing value")
-        XCTAssertEqual(shape.cornerRadii.topTrailing, 20.0, "Wrong topTrailing value")
-        XCTAssertEqual(shape.style, .continuous, "Wrong style value")
+        #expect(shape.cornerRadii.topLeading == 5.0, "Wrong topLeading value")
+        #expect(shape.cornerRadii.bottomLeading == 10.0, "Wrong bottomLeading value")
+        #expect(shape.cornerRadii.bottomTrailing == 15.0, "Wrong bottomTrailing value")
+        #expect(shape.cornerRadii.topTrailing == 20.0, "Wrong topTrailing value")
+        #expect(shape.style == .continuous, "Wrong style value")
     }
 
-    func test_init_with_individual_radii_highlighted() {
+    @Test("Init with individual radii highlighted")
+    func initWithIndividualRadiiHighlighted() {
         // GIVEN/WHEN
         let shape = UnevenRoundedRectangle(
             topLeadingRadius: 5.0,
@@ -45,14 +49,15 @@ final class UnevenRoundedRectangleHighlightedExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(shape.cornerRadii.topLeading, 5.0, "Wrong topLeading value")
-        XCTAssertEqual(shape.cornerRadii.bottomLeading, 0.0, "Wrong bottomLeading value when highlighted")
-        XCTAssertEqual(shape.cornerRadii.bottomTrailing, 15.0, "Wrong bottomTrailing value")
-        XCTAssertEqual(shape.cornerRadii.topTrailing, 20.0, "Wrong topTrailing value")
-        XCTAssertEqual(shape.style, .continuous, "Wrong style value")
+        #expect(shape.cornerRadii.topLeading == 5.0, "Wrong topLeading value")
+        #expect(shape.cornerRadii.bottomLeading == 0.0, "Wrong bottomLeading value when highlighted")
+        #expect(shape.cornerRadii.bottomTrailing == 15.0, "Wrong bottomTrailing value")
+        #expect(shape.cornerRadii.topTrailing == 20.0, "Wrong topTrailing value")
+        #expect(shape.style == .continuous, "Wrong style value")
     }
 
-    func test_init_with_individual_radii_default_style() {
+    @Test("Init with individual radii default style")
+    func initWithIndividualRadiiDefaultStyle() {
         // GIVEN/WHEN
         let shape = UnevenRoundedRectangle(
             topLeadingRadius: 8.0,
@@ -63,14 +68,15 @@ final class UnevenRoundedRectangleHighlightedExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(shape.cornerRadii.topLeading, 8.0, "Wrong topLeading value")
-        XCTAssertEqual(shape.cornerRadii.bottomLeading, 12.0, "Wrong bottomLeading value")
-        XCTAssertEqual(shape.cornerRadii.bottomTrailing, 16.0, "Wrong bottomTrailing value")
-        XCTAssertEqual(shape.cornerRadii.topTrailing, 20.0, "Wrong topTrailing value")
-        XCTAssertEqual(shape.style, .circular, "Wrong default style value")
+        #expect(shape.cornerRadii.topLeading == 8.0, "Wrong topLeading value")
+        #expect(shape.cornerRadii.bottomLeading == 12.0, "Wrong bottomLeading value")
+        #expect(shape.cornerRadii.bottomTrailing == 16.0, "Wrong bottomTrailing value")
+        #expect(shape.cornerRadii.topTrailing == 20.0, "Wrong topTrailing value")
+        #expect(shape.style == .circular, "Wrong default style value")
     }
 
-    func test_init_with_individual_zero_radii_highlighted() {
+    @Test("Init with individual zero radii highlighted")
+    func initWithIndividualZeroRadiiHighlighted() {
         // GIVEN/WHEN
         let shape = UnevenRoundedRectangle(
             topLeadingRadius: 3.0,
@@ -82,14 +88,15 @@ final class UnevenRoundedRectangleHighlightedExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(shape.cornerRadii.topLeading, 3.0, "Wrong topLeading value")
-        XCTAssertEqual(shape.cornerRadii.bottomLeading, 0.0, "Wrong bottomLeading value when highlighted")
-        XCTAssertEqual(shape.cornerRadii.bottomTrailing, 0.0, "Wrong bottomTrailing value")
-        XCTAssertEqual(shape.cornerRadii.topTrailing, 7.0, "Wrong topTrailing value")
-        XCTAssertEqual(shape.style, .circular, "Wrong style value")
+        #expect(shape.cornerRadii.topLeading == 3.0, "Wrong topLeading value")
+        #expect(shape.cornerRadii.bottomLeading == 0.0, "Wrong bottomLeading value when highlighted")
+        #expect(shape.cornerRadii.bottomTrailing == 0.0, "Wrong bottomTrailing value")
+        #expect(shape.cornerRadii.topTrailing == 7.0, "Wrong topTrailing value")
+        #expect(shape.style == .circular, "Wrong style value")
     }
 
-    func test_init_with_zero_bottomLeading_radius_highlighted() {
+    @Test("Init with zero bottom leading radius highlighted")
+    func initWithZeroBottomLeadingRadiusHighlighted() {
         // GIVEN/WHEN
         let shape = UnevenRoundedRectangle(
             topLeadingRadius: 10.0,
@@ -101,10 +108,10 @@ final class UnevenRoundedRectangleHighlightedExtensionTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(shape.cornerRadii.topLeading, 10.0, "Wrong topLeading value")
-        XCTAssertEqual(shape.cornerRadii.bottomLeading, 0.0, "Wrong bottomLeading value when highlighted")
-        XCTAssertEqual(shape.cornerRadii.bottomTrailing, 8.0, "Wrong bottomTrailing value")
-        XCTAssertEqual(shape.cornerRadii.topTrailing, 12.0, "Wrong topTrailing value")
-        XCTAssertEqual(shape.style, .circular, "Wrong style value")
+        #expect(shape.cornerRadii.topLeading == 10.0, "Wrong topLeading value")
+        #expect(shape.cornerRadii.bottomLeading == 0.0, "Wrong bottomLeading value when highlighted")
+        #expect(shape.cornerRadii.bottomTrailing == 8.0, "Wrong bottomTrailing value")
+        #expect(shape.cornerRadii.topTrailing == 12.0, "Wrong topTrailing value")
+        #expect(shape.style == .circular, "Wrong style value")
     }
 }

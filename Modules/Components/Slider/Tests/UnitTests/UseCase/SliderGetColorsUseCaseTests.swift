@@ -8,114 +8,121 @@
 
 @testable import SparkComponentSlider
 @_spi(SI_SPI) import SparkThemingTesting
-import XCTest
+import Testing
 
-final class SliderGetColorsUseCaseTests: XCTestCase {
+@Suite("Slider Get Colors UseCase Tests")
+struct SliderGetColorsUseCaseTests {
 
     // MARK: - Private properties
 
-    private var sut: SliderGetColorsUseCase!
-    private var theme: ThemeGeneratedMock!
+    private let sut: SliderGetColorsUseCase
+    private let theme: ThemeGeneratedMock
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = SliderGetColorsUseCase()
         self.theme = ThemeGeneratedMock.mocked()
     }
 
     // MARK: - Tests
 
-    func test_execute_accent() {
+    @Test("Execute accent")
+    func executeAccent() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .accent)
 
         // THEN
-        XCTAssertTrue(result.tintColorToken.equals(self.theme.colors.accent.accent))
-        XCTAssertTrue(result.titleColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.titleColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.valueColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
+        #expect(result.tintColorToken.equals(self.theme.colors.accent.accent))
+        #expect(result.titleColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.titleColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.valueColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
     }
 
-    func test_execute_main() {
+    @Test("Execute main")
+    func executeMain() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .main)
 
         // THEN
-        XCTAssertTrue(result.tintColorToken.equals(self.theme.colors.main.main))
-        XCTAssertTrue(result.titleColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.valueColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
+        #expect(result.tintColorToken.equals(self.theme.colors.main.main))
+        #expect(result.titleColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.valueColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
     }
 
     // MARK: - Tests for deprecated intents
 
-    func test_execute_info() {
+    @Test("Execute info")
+    func executeInfo() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .info)
 
         // THEN
-        XCTAssertTrue(result.tintColorToken.equals(self.theme.colors.feedback.info))
-        XCTAssertTrue(result.titleColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.valueColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
+        #expect(result.tintColorToken.equals(self.theme.colors.feedback.info))
+        #expect(result.titleColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.valueColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
     }
 
-    func test_execute_neutral() {
+    @Test("Execute neutral")
+    func executeNeutral() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .neutral)
 
         // THEN
-        XCTAssertTrue(result.tintColorToken.equals(self.theme.colors.feedback.neutral))
-        XCTAssertTrue(result.titleColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.valueColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
+        #expect(result.tintColorToken.equals(self.theme.colors.feedback.neutral))
+        #expect(result.titleColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.valueColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
     }
 
-    func test_execute_support() {
+    @Test("Execute support")
+    func executeSupport() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .support)
 
         // THEN
-        XCTAssertTrue(result.tintColorToken.equals(self.theme.colors.support.support))
-        XCTAssertTrue(result.titleColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.valueColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
+        #expect(result.tintColorToken.equals(self.theme.colors.support.support))
+        #expect(result.titleColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.valueColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
     }
 
-    func test_execute_alert() {
+    @Test("Execute alert")
+    func executeAlert() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .alert)
 
         // THEN
-        XCTAssertTrue(result.tintColorToken.equals(self.theme.colors.feedback.alert))
-        XCTAssertTrue(result.titleColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.valueColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
+        #expect(result.tintColorToken.equals(self.theme.colors.feedback.alert))
+        #expect(result.titleColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.valueColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
     }
 
-    func test_execute_error() {
+    @Test("Execute error")
+    func executeError() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .error)
 
         // THEN
-        XCTAssertTrue(result.tintColorToken.equals(self.theme.colors.feedback.error))
-        XCTAssertTrue(result.titleColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.valueColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
+        #expect(result.tintColorToken.equals(self.theme.colors.feedback.error))
+        #expect(result.titleColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.valueColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
     }
 
-    func test_execute_success() {
+    @Test("Execute success")
+    func executeSuccess() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .success)
 
         // THEN
-        XCTAssertTrue(result.tintColorToken.equals(self.theme.colors.feedback.success))
-        XCTAssertTrue(result.titleColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.valueColorToken.equals(self.theme.colors.base.onSurface))
-        XCTAssertTrue(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
+        #expect(result.tintColorToken.equals(self.theme.colors.feedback.success))
+        #expect(result.titleColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.valueColorToken.equals(self.theme.colors.base.onSurface))
+        #expect(result.rangeValuesColorToken.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
     }
 }

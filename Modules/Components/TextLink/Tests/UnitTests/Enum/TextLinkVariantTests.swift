@@ -6,22 +6,25 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextLink
 
-final class TextLinkVariantTests: XCTestCase {
+@Suite("Text Link Variant Tests")
+struct TextLinkVariantTests {
 
     // MARK: - Tests
 
-    func test_default_case() {
+    @Test("Default case")
+    func defaultCase() {
         // GIVEN / WHEN
         let defaultVariant = TextLinkVariant.default
 
         // THEN
-        XCTAssertEqual(defaultVariant, .underline, "Default case should be .underline")
+        #expect(defaultVariant == .underline, "Default case should be .underline")
     }
 
-    func test_case_iterable_contains_all_cases() {
+    @Test("Case iterable contains all cases")
+    func caseIterableContainsAllCases() {
         // GIVEN
         let expectedCases: [TextLinkVariant] = [
             .underline,
@@ -32,7 +35,7 @@ final class TextLinkVariantTests: XCTestCase {
         let allCases = TextLinkVariant.allCases
 
         // THEN
-        XCTAssertEqual(allCases.count, 2, "Should have exactly 2 cases")
-        XCTAssertEqual(Set(allCases), Set(expectedCases), "All cases should match expected cases")
+        #expect(allCases.count == 2, "Should have exactly 2 cases")
+        #expect(Set(allCases) == Set(expectedCases), "All cases should match expected cases")
     }
 }

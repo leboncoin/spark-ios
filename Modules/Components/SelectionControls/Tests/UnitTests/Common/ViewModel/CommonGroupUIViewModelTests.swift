@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) @testable import SparkComponentSelectionControlsTesting
 @_spi(SI_SPI) import SparkCommon
@@ -14,22 +14,25 @@ import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 import SwiftUI
 
-final class CommonGroupUIViewModelTests: XCTestCase {
+@MainActor
+@Suite("Common Group UI ViewModel Tests")
+struct CommonGroupUIViewModelTests {
 
     // MARK: - Initialization Tests
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherSpacing: 0
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacing: true
         )
@@ -37,7 +40,8 @@ final class CommonGroupUIViewModelTests: XCTestCase {
 
     // MARK: - Load Tests
 
-    func test_load_shouldCallAllUseCases() {
+    @Test("Load should call all use cases")
+    func loadShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -46,11 +50,11 @@ final class CommonGroupUIViewModelTests: XCTestCase {
         viewModel.load(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        CommonGroupGetSpacingUseCaseableMockTest.XCTAssert(
+        CommonGroupGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -63,7 +67,8 @@ final class CommonGroupUIViewModelTests: XCTestCase {
 
     // MARK: - Setter Tests
 
-    func test_themeChanged_shouldUpdateSpacing() {
+    @Test("Theme changed should update spacing")
+    func themeChangedShouldUpdateSpacing() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -77,11 +82,11 @@ final class CommonGroupUIViewModelTests: XCTestCase {
         viewModel.theme = givenTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        CommonGroupGetSpacingUseCaseableMockTest.XCTAssert(
+        CommonGroupGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -92,7 +97,8 @@ final class CommonGroupUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_axisChanged_shouldUpdateSpacing() {
+    @Test("Axis changed should update spacing")
+    func axisChangedShouldUpdateSpacing() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -106,11 +112,11 @@ final class CommonGroupUIViewModelTests: XCTestCase {
         viewModel.axis = givenAxis
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        CommonGroupGetSpacingUseCaseableMockTest.XCTAssert(
+        CommonGroupGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -121,7 +127,8 @@ final class CommonGroupUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_isAccessibilitySizeChanged_shouldUpdateSpacing() {
+    @Test("Is accessibility size changed should update spacing")
+    func isAccessibilitySizeChangedShouldUpdateSpacing() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -135,11 +142,11 @@ final class CommonGroupUIViewModelTests: XCTestCase {
         viewModel.isAccessibilitySize = givenIsAccessibilitySize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        CommonGroupGetSpacingUseCaseableMockTest.XCTAssert(
+        CommonGroupGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -150,7 +157,8 @@ final class CommonGroupUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_allSetter_withoutChange() {
+    @Test("All setter without change")
+    func allSetterWithoutChange() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -164,16 +172,17 @@ final class CommonGroupUIViewModelTests: XCTestCase {
         viewModel.isAccessibilitySize = stub.givenIsAccessibilitySize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacing: true
         )
     }
 
-    func test_allSetter_withoutLoadBefore() {
+    @Test("All setter without load before")
+    func allSetterWithoutLoadBefore() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -184,13 +193,13 @@ final class CommonGroupUIViewModelTests: XCTestCase {
         viewModel.isAccessibilitySize = true
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherSpacing: 0
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacing: true
         )
@@ -239,27 +248,30 @@ private extension CommonGroupUIViewModel {
     }
 }
 
-// MARK: - XCT
+// MARK: - Expectations
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
-    getSpacing getSpacingNotCalled: Bool = false
+    getSpacing getSpacingNotCalled: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    CommonGroupGetSpacingUseCaseableMockTest.XCTCalled(
+    CommonGroupGetSpacingUseCaseableMockTest.expectCalled(
         stub.getSpacingUseCaseMock,
-        executeWithThemeAndAxisAndIsAccessibilitySizeCalled: !getSpacingNotCalled
+        executeWithThemeAndAxisAndIsAccessibilitySizeCalled: !getSpacingNotCalled,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
-    otherSpacing: CGFloat? = nil
+    otherSpacing: CGFloat? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.spacing,
-        otherSpacing ?? stub.expectedSpacing,
-        "Wrong spacing value"
+    #expect(
+        viewModel.spacing == (otherSpacing ?? stub.expectedSpacing),
+        "Wrong spacing value",
+        sourceLocation: sourceLocation
     )
 }

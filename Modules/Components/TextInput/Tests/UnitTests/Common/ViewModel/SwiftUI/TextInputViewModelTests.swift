@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) @testable import SparkComponentTextInputTesting
 @_spi(SI_SPI) import SparkCommon
@@ -14,11 +14,14 @@ import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 import SwiftUI
 
-final class TextInputViewModelTests: XCTestCase {
+@MainActor
+@Suite("TextInput ViewModel Tests")
+struct TextInputViewModelTests {
 
     // MARK: - Tests
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN
         let stub = Stub()
 
@@ -26,62 +29,58 @@ final class TextInputViewModelTests: XCTestCase {
         let viewModel = stub.viewModel
 
         // THEN
-        XCTAssertEqual(
-            viewModel.borderLayout,
-            .init(),
+        #expect(
+            viewModel.borderLayout == .init(),
             "Wrong borderLayout value"
         )
-        XCTAssertEqual(
-            viewModel.colors,
-            .init(),
+        #expect(
+            viewModel.colors == .init(),
             "Wrong colors value"
         )
-        XCTAssertEqual(
-            viewModel.dim,
-            1,
+        #expect(
+            viewModel.dim == 1,
             "Wrong dim value"
         )
-        XCTAssertEqual(
-            viewModel.font,
-            .body,
+        #expect(
+            viewModel.font == .body,
             "Wrong font value"
         )
-        XCTAssertEqual(
-            viewModel.spacings,
-            .init(),
+        #expect(
+            viewModel.spacings == .init(),
             "Wrong spacings value"
         )
 
         // **
         // UseCase Calls Count
-        TextInputGetBorderLayoutUseCaseableMockTest.XCTCallsCount(
+        TextInputGetBorderLayoutUseCaseableMockTest.expectCallsCount(
             stub.getBorderLayoutUseCaseMock,
             executeWithThemeAndIsFocusedNumberOfCalls: 0
         )
 
-        TextInputGetColorsUseCaseableMockTest.XCTCallsCount(
+        TextInputGetColorsUseCaseableMockTest.expectCallsCount(
             stub.getColorsUseCaseMock,
             executeWithThemeAndIntentAndIsFocusedAndIsEnabledAndIsReadOnlyNumberOfCalls: 0
         )
 
-        TextInputGetDimUseCaseableMockTest.XCTCallsCount(
+        TextInputGetDimUseCaseableMockTest.expectCallsCount(
             stub.getDimUseCaseMock,
             executeWithThemeAndIsEnabledNumberOfCalls: 0
         )
 
-        TextInputGetFontUseCaseableMockTest.XCTCallsCount(
+        TextInputGetFontUseCaseableMockTest.expectCallsCount(
             stub.getFontUseCaseMock,
             executeFontWithThemeNumberOfCalls: 0
         )
 
-        TextInputGetSpacingsUseCaseableMockTest.XCTCallsCount(
+        TextInputGetSpacingsUseCaseableMockTest.expectCallsCount(
             stub.getSpacingsUseCaseMock,
             executeWithThemeNumberOfCalls: 0
         )
         // **
     }
 
-    func test_updateAll_shouldCallAllUseCases() {
+    @Test("Update all should call all use cases")
+    func updateAllShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -90,35 +89,30 @@ final class TextInputViewModelTests: XCTestCase {
         viewModel.updateAll(stub: stub)
 
         // THEN
-        XCTAssertEqual(
-            viewModel.borderLayout,
-            stub.expectedBorderLayout,
+        #expect(
+            viewModel.borderLayout == stub.expectedBorderLayout,
             "Wrong borderLayout value"
         )
-        XCTAssertEqual(
-            viewModel.colors,
-            stub.expectedColors,
+        #expect(
+            viewModel.colors == stub.expectedColors,
             "Wrong colors value"
         )
-        XCTAssertEqual(
-            viewModel.dim,
-            stub.expectedDim,
+        #expect(
+            viewModel.dim == stub.expectedDim,
             "Wrong dim value"
         )
-        XCTAssertEqual(
-            viewModel.font,
-            stub.expectedFont,
+        #expect(
+            viewModel.font == stub.expectedFont,
             "Wrong font value"
         )
-        XCTAssertEqual(
-            viewModel.spacings,
-            stub.expectedSpacings,
+        #expect(
+            viewModel.spacings == stub.expectedSpacings,
             "Wrong spacings value"
         )
 
         // **
         // UseCase Calls Count
-        TextInputGetBorderLayoutUseCaseableMockTest.XCTAssert(
+        TextInputGetBorderLayoutUseCaseableMockTest.expect(
             stub.getBorderLayoutUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -126,7 +120,7 @@ final class TextInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedBorderLayout
         )
 
-        TextInputGetColorsUseCaseableMockTest.XCTAssert(
+        TextInputGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -137,7 +131,7 @@ final class TextInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        TextInputGetDimUseCaseableMockTest.XCTAssert(
+        TextInputGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -145,14 +139,14 @@ final class TextInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        TextInputGetFontUseCaseableMockTest.XCTAssert(
+        TextInputGetFontUseCaseableMockTest.expect(
             stub.getFontUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedFont
         )
 
-        TextInputGetSpacingsUseCaseableMockTest.XCTAssert(
+        TextInputGetSpacingsUseCaseableMockTest.expect(
             stub.getSpacingsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -161,7 +155,8 @@ final class TextInputViewModelTests: XCTestCase {
         // **
     }
 
-    func test_themeChanged_shouldUpdateAllProperties() {
+    @Test("Theme changed should update all properties")
+    func themeChangedShouldUpdateAllProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -175,35 +170,30 @@ final class TextInputViewModelTests: XCTestCase {
         viewModel.theme = givenTheme
 
         // THEN
-        XCTAssertEqual(
-            viewModel.borderLayout,
-            stub.expectedBorderLayout,
+        #expect(
+            viewModel.borderLayout == stub.expectedBorderLayout,
             "Wrong borderLayout value"
         )
-        XCTAssertEqual(
-            viewModel.colors,
-            stub.expectedColors,
+        #expect(
+            viewModel.colors == stub.expectedColors,
             "Wrong colors value"
         )
-        XCTAssertEqual(
-            viewModel.dim,
-            stub.expectedDim,
+        #expect(
+            viewModel.dim == stub.expectedDim,
             "Wrong dim value"
         )
-        XCTAssertEqual(
-            viewModel.font,
-            stub.expectedFont,
+        #expect(
+            viewModel.font == stub.expectedFont,
             "Wrong font value"
         )
-        XCTAssertEqual(
-            viewModel.spacings,
-            stub.expectedSpacings,
+        #expect(
+            viewModel.spacings == stub.expectedSpacings,
             "Wrong spacings value"
         )
 
         // **
         // UseCase Calls Count
-        TextInputGetBorderLayoutUseCaseableMockTest.XCTAssert(
+        TextInputGetBorderLayoutUseCaseableMockTest.expect(
             stub.getBorderLayoutUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -211,7 +201,7 @@ final class TextInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedBorderLayout
         )
 
-        TextInputGetColorsUseCaseableMockTest.XCTAssert(
+        TextInputGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -222,7 +212,7 @@ final class TextInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        TextInputGetDimUseCaseableMockTest.XCTAssert(
+        TextInputGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -230,14 +220,14 @@ final class TextInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        TextInputGetFontUseCaseableMockTest.XCTAssert(
+        TextInputGetFontUseCaseableMockTest.expect(
             stub.getFontUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
             expectedReturnValue: stub.expectedFont
         )
 
-        TextInputGetSpacingsUseCaseableMockTest.XCTAssert(
+        TextInputGetSpacingsUseCaseableMockTest.expect(
             stub.getSpacingsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -246,7 +236,8 @@ final class TextInputViewModelTests: XCTestCase {
         // **
     }
 
-    func test_intentChanged_shouldUpdateColors() {
+    @Test("Intent changed should update colors")
+    func intentChangedShouldUpdateColors() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -260,20 +251,19 @@ final class TextInputViewModelTests: XCTestCase {
         viewModel.intent = givenIntent
 
         // THEN
-        XCTAssertEqual(
-            viewModel.colors,
-            stub.expectedColors,
+        #expect(
+            viewModel.colors == stub.expectedColors,
             "Wrong colors value"
         )
 
         // **
         // UseCase Calls Count
-        TextInputGetBorderLayoutUseCaseableMockTest.XCTCallsCount(
+        TextInputGetBorderLayoutUseCaseableMockTest.expectCallsCount(
             stub.getBorderLayoutUseCaseMock,
             executeWithThemeAndIsFocusedNumberOfCalls: 0
         )
 
-        TextInputGetColorsUseCaseableMockTest.XCTAssert(
+        TextInputGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -284,24 +274,25 @@ final class TextInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        TextInputGetDimUseCaseableMockTest.XCTCallsCount(
+        TextInputGetDimUseCaseableMockTest.expectCallsCount(
             stub.getDimUseCaseMock,
             executeWithThemeAndIsEnabledNumberOfCalls: 0
         )
 
-        TextInputGetFontUseCaseableMockTest.XCTCallsCount(
+        TextInputGetFontUseCaseableMockTest.expectCallsCount(
             stub.getFontUseCaseMock,
             executeFontWithThemeNumberOfCalls: 0
         )
 
-        TextInputGetSpacingsUseCaseableMockTest.XCTCallsCount(
+        TextInputGetSpacingsUseCaseableMockTest.expectCallsCount(
             stub.getSpacingsUseCaseMock,
             executeWithThemeNumberOfCalls: 0
         )
         // **
     }
 
-    func test_isFocusedChanged_shouldUpdateColorsAndBorderLayout() {
+    @Test("Is focused changed should update colors and border layout")
+    func isFocusedChangedShouldUpdateColorsAndBorderLayout() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -315,20 +306,18 @@ final class TextInputViewModelTests: XCTestCase {
         viewModel.isFocused = givenIsFocused
 
         // THEN
-        XCTAssertEqual(
-            viewModel.borderLayout,
-            .init(),
+        #expect(
+            viewModel.borderLayout == .init(),
             "Wrong borderLayout value"
         )
-        XCTAssertEqual(
-            viewModel.colors,
-            stub.expectedColors,
+        #expect(
+            viewModel.colors == stub.expectedColors,
             "Wrong colors value"
         )
 
         // **
         // UseCase Calls Count
-        TextInputGetBorderLayoutUseCaseableMockTest.XCTAssert(
+        TextInputGetBorderLayoutUseCaseableMockTest.expect(
             stub.getBorderLayoutUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -336,7 +325,7 @@ final class TextInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedBorderLayout
         )
 
-        TextInputGetColorsUseCaseableMockTest.XCTAssert(
+        TextInputGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -347,24 +336,25 @@ final class TextInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        TextInputGetDimUseCaseableMockTest.XCTCallsCount(
+        TextInputGetDimUseCaseableMockTest.expectCallsCount(
             stub.getDimUseCaseMock,
             executeWithThemeAndIsEnabledNumberOfCalls: 0
         )
 
-        TextInputGetFontUseCaseableMockTest.XCTCallsCount(
+        TextInputGetFontUseCaseableMockTest.expectCallsCount(
             stub.getFontUseCaseMock,
             executeFontWithThemeNumberOfCalls: 0
         )
 
-        TextInputGetSpacingsUseCaseableMockTest.XCTCallsCount(
+        TextInputGetSpacingsUseCaseableMockTest.expectCallsCount(
             stub.getSpacingsUseCaseMock,
             executeWithThemeNumberOfCalls: 0
         )
         // **
     }
 
-    func test_isEnabledChanged_shouldUpdateColorsAndDim() {
+    @Test("Is enabled changed should update colors and dim")
+    func isEnabledChangedShouldUpdateColorsAndDim() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -378,25 +368,23 @@ final class TextInputViewModelTests: XCTestCase {
         viewModel.isEnabled = givenIsEnabled
 
         // THEN
-        XCTAssertEqual(
-            viewModel.colors,
-            stub.expectedColors,
+        #expect(
+            viewModel.colors == stub.expectedColors,
             "Wrong colors value"
         )
-        XCTAssertEqual(
-            viewModel.dim,
-            stub.expectedDim,
+        #expect(
+            viewModel.dim == stub.expectedDim,
             "Wrong dim value"
         )
 
         // **
         // UseCase Calls Count
-        TextInputGetBorderLayoutUseCaseableMockTest.XCTCallsCount(
+        TextInputGetBorderLayoutUseCaseableMockTest.expectCallsCount(
             stub.getBorderLayoutUseCaseMock,
             executeWithThemeAndIsFocusedNumberOfCalls: 0
         )
 
-        TextInputGetColorsUseCaseableMockTest.XCTAssert(
+        TextInputGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -407,7 +395,7 @@ final class TextInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        TextInputGetDimUseCaseableMockTest.XCTAssert(
+        TextInputGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -415,19 +403,20 @@ final class TextInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        TextInputGetFontUseCaseableMockTest.XCTCallsCount(
+        TextInputGetFontUseCaseableMockTest.expectCallsCount(
             stub.getFontUseCaseMock,
             executeFontWithThemeNumberOfCalls: 0
         )
 
-        TextInputGetSpacingsUseCaseableMockTest.XCTCallsCount(
+        TextInputGetSpacingsUseCaseableMockTest.expectCallsCount(
             stub.getSpacingsUseCaseMock,
             executeWithThemeNumberOfCalls: 0
         )
         // **
     }
 
-    func test_isReadOnlyChanged_shouldUpdateColors() {
+    @Test("Is read only changed should update colors")
+    func isReadOnlyChangedShouldUpdateColors() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -441,20 +430,19 @@ final class TextInputViewModelTests: XCTestCase {
         viewModel.isReadOnly = givenIsReadOnly
 
         // THEN
-        XCTAssertEqual(
-            viewModel.colors,
-            stub.expectedColors,
+        #expect(
+            viewModel.colors == stub.expectedColors,
             "Wrong colors value"
         )
 
         // **
         // UseCase Calls Count
-        TextInputGetBorderLayoutUseCaseableMockTest.XCTCallsCount(
+        TextInputGetBorderLayoutUseCaseableMockTest.expectCallsCount(
             stub.getBorderLayoutUseCaseMock,
             executeWithThemeAndIsFocusedNumberOfCalls: 0
         )
 
-        TextInputGetColorsUseCaseableMockTest.XCTAssert(
+        TextInputGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -465,17 +453,17 @@ final class TextInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        TextInputGetDimUseCaseableMockTest.XCTCallsCount(
+        TextInputGetDimUseCaseableMockTest.expectCallsCount(
             stub.getDimUseCaseMock,
             executeWithThemeAndIsEnabledNumberOfCalls: 0
         )
 
-        TextInputGetFontUseCaseableMockTest.XCTCallsCount(
+        TextInputGetFontUseCaseableMockTest.expectCallsCount(
             stub.getFontUseCaseMock,
             executeFontWithThemeNumberOfCalls: 0
         )
 
-        TextInputGetSpacingsUseCaseableMockTest.XCTCallsCount(
+        TextInputGetSpacingsUseCaseableMockTest.expectCallsCount(
             stub.getSpacingsUseCaseMock,
             executeWithThemeNumberOfCalls: 0
         )

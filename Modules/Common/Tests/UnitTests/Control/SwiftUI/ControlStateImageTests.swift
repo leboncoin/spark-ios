@@ -6,24 +6,28 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class ControlStateImageTests: XCTestCase {
+@MainActor
+@Suite("Control State Image Tests")
+struct ControlStateImageTests {
 
     // MARK: - Tests
 
-    func test_default_image() {
+    @Test("Default image")
+    func defaultImage() {
         // GIVEN / WHEN
         let controlStateImage = ControlStateImage()
 
         // THEN
-        XCTAssertNil(controlStateImage.image)
+        #expect(controlStateImage.image == nil)
     }
 
-    func test_setImage() {
+    @Test("Set image")
+    func setImage() {
         // GIVEN
         let givenImage = Image("arrow")
 
@@ -43,13 +47,11 @@ final class ControlStateImageTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            controlStateImage.image,
-            statesMock.value(for: .normal)
-        )
+        #expect(controlStateImage.image == statesMock.value(for: .normal))
     }
 
-    func test_updateContent() {
+    @Test("Update content")
+    func updateContent() {
         // GIVEN
         let givenDisabledImage = Image("switchOff")
 
@@ -73,9 +75,6 @@ final class ControlStateImageTests: XCTestCase {
         controlStateImage.updateContent(from: control)
 
         // THEN
-        XCTAssertEqual(
-            controlStateImage.image,
-            statesMock.value(for: .disabled)
-        )
+        #expect(controlStateImage.image == statesMock.value(for: .disabled))
     }
 }

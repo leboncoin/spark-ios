@@ -6,26 +6,26 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentBadge
 
-final class BadgeGetTextUseCaseTests: XCTestCase {
+@Suite("Badge Get Text UseCase Tests")
+struct BadgeGetTextUseCaseTests {
 
     // MARK: - Properties
 
-    private var sut: BadgeGetTextUseCase!
+    private let sut: BadgeGetTextUseCase
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = BadgeGetTextUseCase()
     }
 
     // MARK: - Tests
 
-    func test_execute_with_nil_value_should_return_nil() {
+    @Test("Execute with nil value should return nil")
+    func executeWithNilValueShouldReturnNil() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             value: nil,
@@ -33,10 +33,11 @@ final class BadgeGetTextUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_execute_with_nil_value_and_unit_should_return_nil() {
+    @Test("Execute with nil value and unit should return nil")
+    func executeWithNilValueAndUnitShouldReturnNil() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             value: nil,
@@ -44,10 +45,11 @@ final class BadgeGetTextUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_execute_with_value_and_nil_unit_should_return_string_value() {
+    @Test("Execute with value and nil unit should return string value")
+    func executeWithValueAndNilUnitShouldReturnStringValue() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             value: 5,
@@ -55,10 +57,11 @@ final class BadgeGetTextUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, "5")
+        #expect(result == "5")
     }
 
-    func test_execute_with_value_and_unit_should_return_concatenated_string() {
+    @Test("Execute with value and unit should return concatenated string")
+    func executeWithValueAndUnitShouldReturnConcatenatedString() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             value: 10,
@@ -66,10 +69,11 @@ final class BadgeGetTextUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, "10€")
+        #expect(result == "10€")
     }
 
-    func test_execute_with_zero_value_and_nil_unit_should_return_zero_string() {
+    @Test("Execute with zero value and nil unit should return zero string")
+    func executeWithZeroValueAndNilUnitShouldReturnZeroString() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             value: 0,
@@ -77,10 +81,11 @@ final class BadgeGetTextUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, "0")
+        #expect(result == "0")
     }
 
-    func test_execute_with_zero_value_and_unit_should_return_concatenated_string() {
+    @Test("Execute with zero value and unit should return concatenated string")
+    func executeWithZeroValueAndUnitShouldReturnConcatenatedString() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             value: 0,
@@ -88,10 +93,11 @@ final class BadgeGetTextUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, "0€")
+        #expect(result == "0€")
     }
 
-    func test_execute_with_value_below_max_and_nil_unit_should_return_string_value() {
+    @Test("Execute with value below max and nil unit should return string value")
+    func executeWithValueBelowMaxAndNilUnitShouldReturnStringValue() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             value: 50,
@@ -99,10 +105,11 @@ final class BadgeGetTextUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, "50")
+        #expect(result == "50")
     }
 
-    func test_execute_with_value_at_max_and_nil_unit_should_return_string_value() {
+    @Test("Execute with value at max and nil unit should return string value")
+    func executeWithValueAtMaxAndNilUnitShouldReturnStringValue() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             value: 99,
@@ -110,10 +117,11 @@ final class BadgeGetTextUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, "99")
+        #expect(result == "99")
     }
 
-    func test_execute_with_value_above_max_and_nil_unit_should_return_max_value() {
+    @Test("Execute with value above max and nil unit should return max value")
+    func executeWithValueAboveMaxAndNilUnitShouldReturnMaxValue() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             value: 150,
@@ -121,10 +129,11 @@ final class BadgeGetTextUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, "99+")
+        #expect(result == "99+")
     }
 
-    func test_execute_with_value_above_max_and_unit_should_return_max_value_with_unit() {
+    @Test("Execute with value above max and unit should return max value with unit")
+    func executeWithValueAboveMaxAndUnitShouldReturnMaxValueWithUnit() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             value: 200,
@@ -132,6 +141,6 @@ final class BadgeGetTextUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, "99+€")
+        #expect(result == "99+€")
     }
 }

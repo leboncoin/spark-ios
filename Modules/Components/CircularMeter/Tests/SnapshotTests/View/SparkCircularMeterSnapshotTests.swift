@@ -27,7 +27,7 @@ struct SparkCircularMeterSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: CircularMeterScenarioSnapshotTests.allCases)
+    @Test("Spark circular meter snapshot", arguments: CircularMeterScenarioSnapshotTests.allCases)
     func test(scenario: CircularMeterScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
 

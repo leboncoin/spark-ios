@@ -6,15 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class CommonGetColorUseCaseTests: XCTestCase {
+@Suite("Common Get Color UseCase Tests")
+struct CommonGetColorUseCaseTests {
 
     // MARK: - ExecuteContent Tests
 
-    func test_executeContent_withSupportIntent_returnsSupportColor() {
+    @Test("Execute content with support intent returns support color")
+    func executeContentWithSupportIntentReturnsSupportColor() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.support
@@ -28,10 +30,11 @@ final class CommonGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.support.support))
+        #expect(result.equals(theme.colors.support.support))
     }
 
-    func test_executeContent_withErrorIntent_returnsErrorColor() {
+    @Test("Execute content with error intent returns error color")
+    func executeContentWithErrorIntentReturnsErrorColor() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.error
@@ -45,12 +48,13 @@ final class CommonGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.error))
+        #expect(result.equals(theme.colors.feedback.error))
     }
 
     // MARK: - ExecuteBorder Tests
 
-    func test_executeBorder_withSupportIntentAndSelected_returnsSupportColor() {
+    @Test("Execute border with support intent and selected returns support color")
+    func executeBorderWithSupportIntentAndSelectedReturnsSupportColor() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.support
@@ -66,10 +70,11 @@ final class CommonGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.support.support))
+        #expect(result.equals(theme.colors.support.support))
     }
 
-    func test_executeBorder_withSupportIntentAndNotSelected_returnsOutlineColor() {
+    @Test("Execute border with support intent and not selected returns outline color")
+    func executeBorderWithSupportIntentAndNotSelectedReturnsOutlineColor() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.support
@@ -85,10 +90,11 @@ final class CommonGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.base.outline))
+        #expect(result.equals(theme.colors.base.outline))
     }
 
-    func test_executeBorder_withErrorIntentAndSelected_returnsErrorColor() {
+    @Test("Execute border with error intent and selected returns error color")
+    func executeBorderWithErrorIntentAndSelectedReturnsErrorColor() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.error
@@ -104,10 +110,11 @@ final class CommonGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.error))
+        #expect(result.equals(theme.colors.feedback.error))
     }
 
-    func test_executeBorder_withErrorIntentAndNotSelected_returnsErrorColor() {
+    @Test("Execute border with error intent and not selected returns error color")
+    func executeBorderWithErrorIntentAndNotSelectedReturnsErrorColor() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.error
@@ -123,12 +130,13 @@ final class CommonGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.error))
+        #expect(result.equals(theme.colors.feedback.error))
     }
 
     // MARK: - ExecuteHover Tests
 
-    func test_executeHover_withSupportIntent_returnsSupportContainerColor() {
+    @Test("Execute hover with support intent returns support container color")
+    func executeHoverWithSupportIntentReturnsSupportContainerColor() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.support
@@ -142,10 +150,11 @@ final class CommonGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.support.supportContainer))
+        #expect(result.equals(theme.colors.support.supportContainer))
     }
 
-    func test_executeHover_withErrorIntent_returnsErrorContainerColor() {
+    @Test("Execute hover with error intent returns error container color")
+    func executeHoverWithErrorIntentReturnsErrorContainerColor() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.error
@@ -159,6 +168,6 @@ final class CommonGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.errorContainer))
+        #expect(result.equals(theme.colors.feedback.errorContainer))
     }
 }

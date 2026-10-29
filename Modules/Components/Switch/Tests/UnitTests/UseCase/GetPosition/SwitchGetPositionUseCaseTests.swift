@@ -6,12 +6,14 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkComponentSwitch
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SwitchGetPositionUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Switch Get Position UseCase Tests")
+struct SwitchGetPositionUseCaseTests {
 
     // MARK: - Properties
 
@@ -19,7 +21,8 @@ final class SwitchGetPositionUseCaseTests: XCTestCase {
 
     // MARK: - Alignment Tests
 
-    func test_execute_when_switchAlignment_is_left_case() throws {
+    @Test("Execute when switch alignment is left case")
+    func executeWhenSwitchAlignmentIsLeftCase() throws {
         try self.testExecute(
             givenAlignment: .left,
             givenContainsText: true,
@@ -30,7 +33,8 @@ final class SwitchGetPositionUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_when_switchAlignment_is_right_case() throws {
+    @Test("Execute when switch alignment is right case")
+    func executeWhenSwitchAlignmentIsRightCase() throws {
         try self.testExecute(
             givenAlignment: .left,
             givenContainsText: true,
@@ -43,7 +47,8 @@ final class SwitchGetPositionUseCaseTests: XCTestCase {
 
     // MARK: - Contains Text Tests
 
-    func test_execute_when_containsText_is_false() throws {
+    @Test("Execute when contains text is false")
+    func executeWhenContainsTextIsFalse() throws {
         try self.testExecute(
             givenAlignment: .left,
             givenContainsText: false,
@@ -77,11 +82,13 @@ private extension SwitchGetPositionUseCaseTests {
         )
 
         // THEN
-        XCTAssertEqual(position.isToggleOnLeft,
-                       expectedPosition.isToggleOnLeft,
-                       "Wrong isToggleOnLeft position" + errorPrefixMessage)
-        XCTAssertEqual(position.horizontalSpacing,
-                       expectedPosition.horizontalSpacing,
-                       "Wrong horizontalSpacing position" + errorPrefixMessage)
+        #expect(
+            position.isToggleOnLeft == expectedPosition.isToggleOnLeft,
+            "Wrong isToggleOnLeft position\(errorPrefixMessage)"
+        )
+        #expect(
+            position.horizontalSpacing == expectedPosition.horizontalSpacing,
+            "Wrong horizontalSpacing position\(errorPrefixMessage)"
+        )
     }
 }

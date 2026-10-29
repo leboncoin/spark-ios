@@ -26,7 +26,7 @@ struct AvatarTokenTypographyTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Placeholder should return expected font tokens")
     func placeholderShouldReturnExpectedFontTokens() {
         // GIVEN
         let typography = self.theme.typography
@@ -40,7 +40,7 @@ struct AvatarTokenTypographyTests {
         #expect(self.token.placeholder(size: .xxl).equals(typography.display1))
     }
 
-    @Test
+    @Test("Placeholder with xxxl size should return custom font token")
     func placeholderWithXxxlSizeShouldReturnCustomFontToken() throws {
         // GIVEN
         let typographyMocked = try #require(self.theme.typography as? TypographyGeneratedMock)
@@ -60,7 +60,7 @@ struct AvatarTokenTypographyTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = AvatarToken.Typography(theme: self.theme)
@@ -70,7 +70,7 @@ struct AvatarTokenTypographyTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = AvatarToken.Typography(theme: self.theme)

@@ -30,7 +30,7 @@ struct SparkFileUploadDropzoneSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: FileUploadDropzoneScenarioSnapshotTests.allCases)
+    @Test("Spark file upload dropzone snapshot", arguments: FileUploadDropzoneScenarioSnapshotTests.allCases)
     func test(scenario: FileUploadDropzoneScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
 

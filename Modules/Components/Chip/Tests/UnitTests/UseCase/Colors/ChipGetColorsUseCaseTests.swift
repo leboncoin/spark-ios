@@ -22,7 +22,7 @@ struct ChipGetColorsUseCaseTests {
 
     // MARK: - Tests
 
-    @Test(arguments: ChipVariant.allCases, [true, false])
+    @Test("Execute should return colors from token", arguments: ChipVariant.allCases, [true, false])
     func executeShouldReturnColorsFromToken(variant: ChipVariant, isSelected: Bool) {
         let token = ChipToken.Colors(theme: self.theme)
 

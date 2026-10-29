@@ -25,7 +25,7 @@ struct CircularMeterTokenTypographyTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Content should return expected font token")
     func contentShouldReturnExpectedFontToken() {
         let typography = self.theme.typography
         let expected: [(CircularMeterSize, any TypographyFontToken)] = [
@@ -40,7 +40,7 @@ struct CircularMeterTokenTypographyTests {
         }
     }
 
-    @Test
+    @Test("Value should return expected font token")
     func valueShouldReturnExpectedFontToken() {
         let typography = self.theme.typography
         let expected: [(CircularMeterSize, any TypographyFontToken)] = [
@@ -57,7 +57,7 @@ struct CircularMeterTokenTypographyTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = CircularMeterToken.Typography(theme: self.theme)
@@ -67,7 +67,7 @@ struct CircularMeterTokenTypographyTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = CircularMeterToken.Typography(theme: self.theme)

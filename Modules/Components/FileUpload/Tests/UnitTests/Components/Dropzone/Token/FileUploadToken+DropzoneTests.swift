@@ -22,7 +22,7 @@ struct FileUploadTokenDropzoneTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Init should set all categories")
     func initShouldSetAllCategories() {
         // GIVEN / WHEN
         let token = FileUploadToken.Dropzone(theme: self.theme)
@@ -37,7 +37,7 @@ struct FileUploadTokenDropzoneTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = FileUploadToken.Dropzone(theme: self.theme)
@@ -47,7 +47,7 @@ struct FileUploadTokenDropzoneTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = FileUploadToken.Dropzone(theme: self.theme)

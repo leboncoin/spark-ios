@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import UIKit
 
@@ -16,28 +16,31 @@ import UIKit
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkCommonTesting
 
-final class SpinnerViewModelTests: XCTestCase {
+@MainActor
+@Suite("Spinner ViewModel Tests")
+struct SpinnerViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
         let viewModel = stub.viewModel
 
         // THEN
-        XCTAssertNil(viewModel.theme)
-        XCTAssertNil(viewModel.intent)
-        XCTAssertNil(viewModel.size)
+        #expect(viewModel.theme == nil)
+        #expect(viewModel.intent == nil)
+        #expect(viewModel.size == nil)
 
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             othercolorToken: ColorTokenClear(),
             otherContentSize: 0,
             otherIsAnimated: false
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizeUseCase: true,
             getColorUseCase: true
@@ -46,7 +49,8 @@ final class SpinnerViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -55,16 +59,16 @@ final class SpinnerViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SpinnerGetSizeUseCaseableMockTest.XCTAssert(
+        SpinnerGetSizeUseCaseableMockTest.expect(
             stub.getSizeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSize: stub.givenSize,
             expectedReturnValue: stub.expectedContentSize
         )
 
-        SpinnerGetColorUseCaseableMockTest.XCTAssert(
+        SpinnerGetColorUseCaseableMockTest.expect(
             stub.getColorUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -75,7 +79,8 @@ final class SpinnerViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateTintColorOnly() {
+    @Test("Theme changed should update tint color only")
+    func themeChangedShouldUpdateTintColorOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -89,9 +94,9 @@ final class SpinnerViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SpinnerGetColorUseCaseableMockTest.XCTAssert(
+        SpinnerGetColorUseCaseableMockTest.expect(
             stub.getColorUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -99,13 +104,14 @@ final class SpinnerViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedcolorToken
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizeUseCase: true
         )
     }
 
-    func test_intentChanged_shouldUpdateTintColorOnly() {
+    @Test("Intent changed should update tint color only")
+    func intentChangedShouldUpdateTintColorOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -119,9 +125,9 @@ final class SpinnerViewModelTests: XCTestCase {
         viewModel.intent = newIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SpinnerGetColorUseCaseableMockTest.XCTAssert(
+        SpinnerGetColorUseCaseableMockTest.expect(
             stub.getColorUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -129,13 +135,14 @@ final class SpinnerViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedcolorToken
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizeUseCase: true
         )
     }
 
-    func test_sizeChanged_shouldUpdateContentSizeOnly() {
+    @Test("Size changed should update content size only")
+    func sizeChangedShouldUpdateContentSizeOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -149,22 +156,23 @@ final class SpinnerViewModelTests: XCTestCase {
         viewModel.size = newSize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SpinnerGetSizeUseCaseableMockTest.XCTAssert(
+        SpinnerGetSizeUseCaseableMockTest.expect(
             stub.getSizeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSize: newSize,
             expectedReturnValue: stub.expectedContentSize
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorUseCase: true
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -175,21 +183,22 @@ final class SpinnerViewModelTests: XCTestCase {
         viewModel.size = stub.givenSize.otherRandom
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             othercolorToken: ColorTokenClear(),
             otherContentSize: 0,
             otherIsAnimated: false
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizeUseCase: true,
             getColorUseCase: true
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -203,16 +212,17 @@ final class SpinnerViewModelTests: XCTestCase {
         viewModel.size = stub.givenSize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizeUseCase: true,
             getColorUseCase: true
         )
     }
 
-    func test_propertiesChanged_withNilValues_shouldNotCallUseCases() {
+    @Test("Properties changed with nil values should not call use cases")
+    func propertiesChangedWithNilValuesShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -226,9 +236,9 @@ final class SpinnerViewModelTests: XCTestCase {
         viewModel.size = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizeUseCase: true,
             getColorUseCase: true
@@ -300,43 +310,48 @@ private extension SpinnerViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getSizeUseCase: Bool = false,
-    getColorUseCase: Bool = false
+    getColorUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    SpinnerGetSizeUseCaseableMockTest.XCTCalled(
+    SpinnerGetSizeUseCaseableMockTest.expectCalled(
         stub.getSizeUseCaseMock,
-        executeWithSizeCalled: !getSizeUseCase
+        executeWithSizeCalled: !getSizeUseCase,
+        sourceLocation: sourceLocation
     )
 
-    SpinnerGetColorUseCaseableMockTest.XCTCalled(
+    SpinnerGetColorUseCaseableMockTest.expectCalled(
         stub.getColorUseCaseMock,
-        executeWithThemeAndIntentCalled: !getColorUseCase
+        executeWithThemeAndIntentCalled: !getColorUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     othercolorToken: (any ColorToken)? = nil,
     otherContentSize: CGFloat? = nil,
-    otherIsAnimated: Bool? = nil
+    otherIsAnimated: Bool? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertTrue(
+    #expect(
         viewModel.colorToken.equals(othercolorToken ?? stub.expectedcolorToken),
-        "Wrong colorToken value"
+        "Wrong colorToken value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.contentSize,
-        otherContentSize ?? stub.expectedContentSize,
-        "Wrong contentSize value"
+    #expect(
+        viewModel.contentSize == (otherContentSize ?? stub.expectedContentSize),
+        "Wrong contentSize value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.isAnimated,
-        otherIsAnimated ?? stub.expectedIsAnimated,
-        "Wrong isAnimated value"
+    #expect(
+        viewModel.isAnimated == (otherIsAnimated ?? stub.expectedIsAnimated),
+        "Wrong isAnimated value",
+        sourceLocation: sourceLocation
     )
 }
 
@@ -371,48 +386,51 @@ private final class SpinnerGetSizeUseCaseableMock: SpinnerGetSizeUseCaseable {
 
 private enum SpinnerGetSizeUseCaseableMockTest {
 
-    static func XCTCalled(
+    static func expectCalled(
         _ mock: SpinnerGetSizeUseCaseableMock,
-        executeWithSizeCalled isCalled: Bool
+        executeWithSizeCalled isCalled: Bool,
+        sourceLocation: Testing.SourceLocation = #_sourceLocation
     ) {
-        XCTAssertEqual(
-            mock.executeWithSizeCalled,
-            isCalled,
-            "Wrong execute(size: SpinnerSize) isCalled on SpinnerGetSizeUseCaseable"
+        #expect(
+            mock.executeWithSizeCalled == isCalled,
+            "Wrong execute(size: SpinnerSize) isCalled on SpinnerGetSizeUseCaseable",
+            sourceLocation: sourceLocation
         )
     }
 
-    static func XCTAssert(
+    static func expect(
         _ mock: SpinnerGetSizeUseCaseableMock,
         expectedNumberOfCalls: Int,
         givenSize: SpinnerSize? = nil,
-        expectedReturnValue: CGFloat
+        expectedReturnValue: CGFloat,
+        sourceLocation: Testing.SourceLocation = #_sourceLocation
     ) {
-        XCTAssertEqual(
-            mock.executeWithSizeCallsCount,
-            expectedNumberOfCalls,
-            "Wrong execute(size: SpinnerSize) number of called on SpinnerGetSizeUseCaseable"
+        #expect(
+            mock.executeWithSizeCallsCount == expectedNumberOfCalls,
+            "Wrong execute(size: SpinnerSize) number of called on SpinnerGetSizeUseCaseable",
+            sourceLocation: sourceLocation
         )
 
         if expectedNumberOfCalls > 0 {
             if let givenSize {
-                XCTAssertEqual(
-                    mock.executeWithSizeReceivedSize,
-                    givenSize,
-                    "Wrong execute(size: SpinnerSize) size parameter on SpinnerGetSizeUseCaseable"
+                #expect(
+                    mock.executeWithSizeReceivedSize == givenSize,
+                    "Wrong execute(size: SpinnerSize) size parameter on SpinnerGetSizeUseCaseable",
+                    sourceLocation: sourceLocation
                 )
             } else {
-                XCTAssertNil(
-                    mock.executeWithSizeReceivedSize,
-                    "Wrong execute(size: SpinnerSize) size parameter value on SpinnerGetSizeUseCaseable. Should be nil"
+                #expect(
+                    mock.executeWithSizeReceivedSize == nil,
+                    "Wrong execute(size: SpinnerSize) size parameter value on SpinnerGetSizeUseCaseable. Should be nil",
+                    sourceLocation: sourceLocation
                 )
             }
         }
 
-        XCTAssertEqual(
-            mock.executeWithSizeReturnValue,
-            expectedReturnValue,
-            "Wrong execute(size: SpinnerSize) return value on SpinnerGetSizeUseCaseable"
+        #expect(
+            mock.executeWithSizeReturnValue == expectedReturnValue,
+            "Wrong execute(size: SpinnerSize) return value on SpinnerGetSizeUseCaseable",
+            sourceLocation: sourceLocation
         )
     }
 }

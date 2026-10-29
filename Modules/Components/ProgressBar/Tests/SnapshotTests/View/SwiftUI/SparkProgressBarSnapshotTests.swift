@@ -24,7 +24,7 @@ struct SparkProgressBarSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: ProgressBarScenarioSnapshotTests.allCases)
+    @Test("Spark progress bar snapshot", arguments: ProgressBarScenarioSnapshotTests.allCases)
     func test(scenario: ProgressBarScenarioSnapshotTests) async throws {
         let configurations = scenario.configuration()
 

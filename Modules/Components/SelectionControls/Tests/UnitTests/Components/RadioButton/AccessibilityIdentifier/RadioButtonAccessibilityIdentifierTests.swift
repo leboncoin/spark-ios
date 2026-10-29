@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class RadioButtonAccessibilityIdentifierTests: XCTestCase {
+@Suite("Radio Button Accessibility Identifier Tests")
+struct RadioButtonAccessibilityIdentifierTests {
 
     // MARK: - Method Tests
 
-    func test_radioButtonItem_withIntId_shouldReturnExpectedValue() {
+    @Test("Radio button item with int id should return expected value")
+    func radioButtonItemWithIntIdShouldReturnExpectedValue() {
         // GIVEN
         let givenId = 123
 
@@ -21,10 +23,11 @@ final class RadioButtonAccessibilityIdentifierTests: XCTestCase {
         let result = RadioButtonAccessibilityIdentifier.radioButtonItem(id: givenId)
 
         // THEN
-        XCTAssertEqual(result, "spark-radio-button-123")
+        #expect(result == "spark-radio-button-123")
     }
 
-    func test_radioButtonItem_withStringId_shouldReturnExpectedValue() {
+    @Test("Radio button item with string id should return expected value")
+    func radioButtonItemWithStringIdShouldReturnExpectedValue() {
         // GIVEN
         let givenId = "test-item"
 
@@ -32,10 +35,11 @@ final class RadioButtonAccessibilityIdentifierTests: XCTestCase {
         let result = RadioButtonAccessibilityIdentifier.radioButtonItem(id: givenId)
 
         // THEN
-        XCTAssertEqual(result, "spark-radio-button-test-item")
+        #expect(result == "spark-radio-button-test-item")
     }
 
-    func test_radioButtonItem_withComplexId_shouldReturnExpectedValue() {
+    @Test("Radio button item with complex id should return expected value")
+    func radioButtonItemWithComplexIdShouldReturnExpectedValue() {
         // GIVEN
         let givenId = "complex.id-with_symbols"
 
@@ -43,6 +47,6 @@ final class RadioButtonAccessibilityIdentifierTests: XCTestCase {
         let result = RadioButtonAccessibilityIdentifier.radioButtonItem(id: givenId)
 
         // THEN
-        XCTAssertEqual(result, "spark-radio-button-complex.id-with_symbols")
+        #expect(result == "spark-radio-button-complex.id-with_symbols")
     }
 }

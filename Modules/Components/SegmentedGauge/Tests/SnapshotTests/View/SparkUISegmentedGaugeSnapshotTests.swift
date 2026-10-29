@@ -27,7 +27,7 @@ struct SparkUISegmentedGaugeSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: SegmentedGaugeScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    @Test("Spark UISegmented gauge snapshot", arguments: SegmentedGaugeScenarioSnapshotTests.allCases.filter { $0 != .documentation })
     func test(scenario: SegmentedGaugeScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
         for configuration in configurations {

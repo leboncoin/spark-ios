@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import UIKit
 
@@ -15,22 +15,25 @@ import UIKit
 @_spi(SI_SPI) import SparkThemingTesting
 @_spi(SI_SPI) import SparkTheming
 
-final class IconViewModelTests: XCTestCase {
+@MainActor
+@Suite("Icon ViewModel Tests")
+struct IconViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherTintColorToken: ColorTokenClear(),
             otherContentSize: 0
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizeUseCase: true,
             getTintColorUseCase: true
@@ -39,7 +42,8 @@ final class IconViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -48,16 +52,16 @@ final class IconViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        IconGetSizeUseCaseableMockTest.XCTAssert(
+        IconGetSizeUseCaseableMockTest.expect(
             stub.getSizeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSize: stub.givenSize,
             expectedReturnValue: stub.expectedContentSize
         )
 
-        IconGetTintColorUseCaseableMockTest.XCTAssert(
+        IconGetTintColorUseCaseableMockTest.expect(
             stub.getTintColorUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -68,7 +72,8 @@ final class IconViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateTintColorOnly() {
+    @Test("Theme changed should update tint color only")
+    func themeChangedShouldUpdateTintColorOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -82,9 +87,9 @@ final class IconViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        IconGetTintColorUseCaseableMockTest.XCTAssert(
+        IconGetTintColorUseCaseableMockTest.expect(
             stub.getTintColorUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -92,13 +97,14 @@ final class IconViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedTintColorToken
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizeUseCase: true
         )
     }
 
-    func test_intentChanged_shouldUpdateTintColorOnly() {
+    @Test("Intent changed should update tint color only")
+    func intentChangedShouldUpdateTintColorOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -112,9 +118,9 @@ final class IconViewModelTests: XCTestCase {
         viewModel.intent = newIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        IconGetTintColorUseCaseableMockTest.XCTAssert(
+        IconGetTintColorUseCaseableMockTest.expect(
             stub.getTintColorUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -122,13 +128,14 @@ final class IconViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedTintColorToken
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizeUseCase: true
         )
     }
 
-    func test_sizeChanged_shouldUpdateContentSizeOnly() {
+    @Test("Size changed should update content size only")
+    func sizeChangedShouldUpdateContentSizeOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -142,22 +149,23 @@ final class IconViewModelTests: XCTestCase {
         viewModel.size = newSize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        IconGetSizeUseCaseableMockTest.XCTAssert(
+        IconGetSizeUseCaseableMockTest.expect(
             stub.getSizeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSize: newSize,
             expectedReturnValue: stub.expectedContentSize
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getTintColorUseCase: true
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -168,20 +176,21 @@ final class IconViewModelTests: XCTestCase {
         viewModel.size = .large
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherTintColorToken: ColorTokenClear(),
             otherContentSize: 0
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizeUseCase: true,
             getTintColorUseCase: true
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -195,16 +204,17 @@ final class IconViewModelTests: XCTestCase {
         viewModel.size = stub.givenSize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizeUseCase: true,
             getTintColorUseCase: true
         )
     }
 
-    func test_propertiesChanged_withNilValues_shouldNotCallUseCases() {
+    @Test("Properties changed with nil values should not call use cases")
+    func propertiesChangedWithNilValuesShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -218,9 +228,9 @@ final class IconViewModelTests: XCTestCase {
         viewModel.size = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizeUseCase: true,
             getTintColorUseCase: true
@@ -291,36 +301,41 @@ private extension IconViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getSizeUseCase: Bool = false,
-    getTintColorUseCase: Bool = false
+    getTintColorUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    IconGetSizeUseCaseableMockTest.XCTCalled(
+    IconGetSizeUseCaseableMockTest.expectCalled(
         stub.getSizeUseCaseMock,
-        executeWithSizeCalled: !getSizeUseCase
+        executeWithSizeCalled: !getSizeUseCase,
+        sourceLocation: sourceLocation
     )
 
-    IconGetTintColorUseCaseableMockTest.XCTCalled(
+    IconGetTintColorUseCaseableMockTest.expectCalled(
         stub.getTintColorUseCaseMock,
-        executeWithThemeAndIntentCalled: !getTintColorUseCase
+        executeWithThemeAndIntentCalled: !getTintColorUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherTintColorToken: (any ColorToken)? = nil,
-    otherContentSize: CGFloat? = nil
+    otherContentSize: CGFloat? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertTrue(
+    #expect(
         viewModel.tintColorToken.equals(otherTintColorToken ?? stub.expectedTintColorToken),
-        "Wrong tintColorToken value"
+        "Wrong tintColorToken value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.contentSize,
-        otherContentSize ?? stub.expectedContentSize,
-        "Wrong contentSize value"
+    #expect(
+        viewModel.contentSize == (otherContentSize ?? stub.expectedContentSize),
+        "Wrong contentSize value",
+        sourceLocation: sourceLocation
     )
 }

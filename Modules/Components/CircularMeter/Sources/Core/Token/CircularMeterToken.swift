@@ -64,7 +64,7 @@ import SparkTheming
 ///             if token.content.isInside(size: self.size) {
 ///                 Text("\(Int(self.value * 100))%")
 ///                     .font(token.typography.value(size: self.size))
-///                     .foregroundStyle(token.colors.value.color)
+///                     .foregroundStyle(token.colors.value)
 ///             }
 ///         }
 ///         .sparkFrame(size: token.size.gaugeDiameter(for: self.size))

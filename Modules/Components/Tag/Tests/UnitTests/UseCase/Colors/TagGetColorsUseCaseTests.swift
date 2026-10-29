@@ -16,7 +16,7 @@ struct TagGetColorsUseCaseTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Execute variant filled")
     func test_execute_variant_filled() throws {
         // GIVEN
         let expectedValue = TagColors.mocked()
@@ -60,7 +60,7 @@ struct TagGetColorsUseCaseTests {
         #expect(sut == expectedValue)
     }
 
-    @Test
+    @Test("Execute variant outlined")
     func test_execute_variant_outlined() throws {
         // GIVEN
         let expectedValue = TagColors.mocked()
@@ -104,7 +104,7 @@ struct TagGetColorsUseCaseTests {
         #expect(sut == expectedValue)
     }
 
-    @Test
+    @Test("Execute variant tinted")
     func test_execute_variant_tinted() throws {
         // GIVEN
         let expectedValue = TagColors.mocked()

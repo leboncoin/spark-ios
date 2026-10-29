@@ -6,14 +6,16 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkComponentSwitch
 @_spi(SI_SPI) @testable import SparkComponentSwitchTesting
 @_spi(SI_SPI) import SparkThemingTesting
 import SparkTheming
 
-final class SwitchGetColorUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Switch Get Color UseCase Tests")
+struct SwitchGetColorUseCaseTests {
 
     // MARK: - Properties
 
@@ -21,56 +23,64 @@ final class SwitchGetColorUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_when_intent_is_alert_case() throws {
+    @Test("Execute when intent is alert case")
+    func executeWhenIntentIsAlertCase() throws {
         try self.testExecute(
             givenIntent: .alert,
             expectedColorToken: self.colorsMock.feedback.alert
         )
     }
 
-    func test_execute_when_intent_is_error_case() throws {
+    @Test("Execute when intent is error case")
+    func executeWhenIntentIsErrorCase() throws {
         try self.testExecute(
             givenIntent: .error,
             expectedColorToken: self.colorsMock.feedback.error
         )
     }
 
-    func test_execute_when_intent_is_info_case() throws {
+    @Test("Execute when intent is info case")
+    func executeWhenIntentIsInfoCase() throws {
         try self.testExecute(
             givenIntent: .info,
             expectedColorToken: self.colorsMock.feedback.info
         )
     }
 
-    func test_execute_when_intent_is_neutral_case() throws {
+    @Test("Execute when intent is neutral case")
+    func executeWhenIntentIsNeutralCase() throws {
         try self.testExecute(
             givenIntent: .neutral,
             expectedColorToken: self.colorsMock.feedback.neutral
         )
     }
 
-    func test_execute_when_intent_is_main_case() throws {
+    @Test("Execute when intent is main case")
+    func executeWhenIntentIsMainCase() throws {
         try self.testExecute(
             givenIntent: .main,
             expectedColorToken: self.colorsMock.main.main
         )
     }
 
-    func test_execute_when_intent_is_support_case() throws {
+    @Test("Execute when intent is support case")
+    func executeWhenIntentIsSupportCase() throws {
         try self.testExecute(
             givenIntent: .support,
             expectedColorToken: self.colorsMock.support.support
         )
     }
 
-    func test_execute_when_intent_is_success_case() throws {
+    @Test("Execute when intent is success case")
+    func executeWhenIntentIsSuccessCase() throws {
         try self.testExecute(
             givenIntent: .success,
             expectedColorToken: self.colorsMock.feedback.success
         )
     }
 
-    func test_execute_when_intent_is_accent_case() throws {
+    @Test("Execute when intent is accent case")
+    func executeWhenIntentIsAccentCase() throws {
         try self.testExecute(
             givenIntent: .accent,
             expectedColorToken: self.colorsMock.accent.accent
@@ -96,8 +106,9 @@ private extension SwitchGetColorUseCaseTests {
         )
 
         // THEN
-        XCTAssertIdentical(colorToken as? ColorTokenGeneratedMock,
-                           expectedColorToken as? ColorTokenGeneratedMock,
-                           "Wrong color for .\(givenIntent) case")
+        #expect(
+            colorToken as? ColorTokenGeneratedMock === expectedColorToken as? ColorTokenGeneratedMock,
+            "Wrong color for .\(givenIntent) case"
+        )
     }
 }

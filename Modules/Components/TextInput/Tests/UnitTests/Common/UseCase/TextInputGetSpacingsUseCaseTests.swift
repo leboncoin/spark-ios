@@ -6,12 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SparkTheming
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class TextInputGetSpacingsUseCaseTests: XCTestCase {
+@Suite("Text Input Get Spacings UseCase Tests")
+struct TextInputGetSpacingsUseCaseTests {
 
     // MARK: - Properties
 
@@ -19,7 +20,8 @@ final class TextInputGetSpacingsUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_withThemeAndNoneBorderStyle() {
+    @Test("Execute with theme and none border style")
+    func executeWithThemeAndNoneBorderStyle() {
         // GIVEN
         let useCase = TextInputGetSpacingsUseCase()
 
@@ -30,19 +32,18 @@ final class TextInputGetSpacingsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            result.horizontal,
-            self.themeMock.layout.spacing.none,
+        #expect(
+            result.horizontal == self.themeMock.layout.spacing.none,
             "Wrong horizontal value"
         )
-        XCTAssertEqual(
-            result.content,
-            self.themeMock.layout.spacing.medium,
+        #expect(
+            result.content == self.themeMock.layout.spacing.medium,
             "Wrong content value"
         )
     }
 
-    func test_execute_withThemeAndRoundedRectBorderStyle() {
+    @Test("Execute with theme and rounded rect border style")
+    func executeWithThemeAndRoundedRectBorderStyle() {
         // GIVEN
         let useCase = TextInputGetSpacingsUseCase()
 
@@ -53,19 +54,18 @@ final class TextInputGetSpacingsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            result.horizontal,
-            self.themeMock.layout.spacing.large,
+        #expect(
+            result.horizontal == self.themeMock.layout.spacing.large,
             "Wrong horizontal value"
         )
-        XCTAssertEqual(
-            result.content,
-            self.themeMock.layout.spacing.medium,
+        #expect(
+            result.content == self.themeMock.layout.spacing.medium,
             "Wrong content value"
         )
     }
 
-    func test_execute_withThemeOnly() {
+    @Test("Execute with theme only")
+    func executeWithThemeOnly() {
         // GIVEN
         let useCase = TextInputGetSpacingsUseCase()
 
@@ -75,14 +75,12 @@ final class TextInputGetSpacingsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            result.horizontal,
-            self.themeMock.layout.spacing.large,
+        #expect(
+            result.horizontal == self.themeMock.layout.spacing.large,
             "Wrong horizontal value"
         )
-        XCTAssertEqual(
-            result.content,
-            self.themeMock.layout.spacing.medium,
+        #expect(
+            result.content == self.themeMock.layout.spacing.medium,
             "Wrong content value"
         )
     }

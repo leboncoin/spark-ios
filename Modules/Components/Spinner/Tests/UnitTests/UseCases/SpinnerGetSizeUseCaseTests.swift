@@ -7,37 +7,38 @@
 //
 
 @testable import SparkComponentSpinner
-import XCTest
+import Testing
 
-final class SpinnerGetSizeUseCaseTests: XCTestCase {
+@Suite("Spinner Get Size UseCase Tests")
+struct SpinnerGetSizeUseCaseTests {
 
     // MARK: - Private properties
 
-    private var sut: SpinnerGetSizeUseCase!
+    private let sut: SpinnerGetSizeUseCase
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = SpinnerGetSizeUseCase()
     }
 
     // MARK: - Tests
 
-    func test_execute_medium() {
+    @Test("Execute medium")
+    func executeMedium() {
         // GIVEN / WHEN
         let result = self.sut.execute(size: .medium)
 
         // THEN
-        XCTAssertEqual(result, 28)
+        #expect(result == 28)
     }
 
-    func test_execute_small() {
+    @Test("Execute small")
+    func executeSmall() {
         // GIVEN / WHEN
         let result = self.sut.execute(size: .small)
 
         // THEN
-        XCTAssertEqual(result, 20)
+        #expect(result == 20)
     }
 }

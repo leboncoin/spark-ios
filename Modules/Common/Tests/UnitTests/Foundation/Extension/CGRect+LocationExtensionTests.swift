@@ -6,41 +6,29 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class CGRectLocationTests: XCTestCase {
+@Suite("CG Rect Location Tests")
+struct CGRectLocationTests {
 
-    func test_last_element() throws {
+    @Test("Last element")
+    func lastElement() throws {
         let sut = CGRect(x: 0, y: 0, width: 100, height: 20)
 
-        XCTAssertEqual(
-            sut.pointIndex(of: CGPoint(x: 0, y: 0), horizontalSlices: 5),
-            0,
-            "Expected to be index 0")
-        XCTAssertEqual(
-            sut.pointIndex(of: CGPoint(x: 80, y: 0), horizontalSlices: 5),
-            3,
-            "Expected to be index 3")
-        XCTAssertEqual(
-            sut.pointIndex(of: CGPoint(x: 81, y: 0), horizontalSlices: 5),
-            4,
-            "Expected to be index 4")
-        XCTAssertEqual(
-            sut.pointIndex(of: CGPoint(x: 99, y: 0), horizontalSlices: 5),
-            4,
-            "Expected to be index 4")
+        #expect(sut.pointIndex(of: CGPoint(x: 0, y: 0), horizontalSlices: 5) == 0, "Expected to be index 0")
+        #expect(sut.pointIndex(of: CGPoint(x: 80, y: 0), horizontalSlices: 5) == 3, "Expected to be index 3")
+        #expect(sut.pointIndex(of: CGPoint(x: 81, y: 0), horizontalSlices: 5) == 4, "Expected to be index 4")
+        #expect(sut.pointIndex(of: CGPoint(x: 99, y: 0), horizontalSlices: 5) == 4, "Expected to be index 4")
     }
 
-    func test_edge_cases() throws {
+    @Test("Edge cases")
+    func edgeCases() throws {
         let sut = CGRect(x: 0, y: 0, width: 100, height: 20)
 
-        XCTAssertNil(
-            sut.pointIndex(of: CGPoint(x: 99, y: 0), horizontalSlices: 0),
-            "Expected not to have an index")
-        XCTAssertNil(
-            sut.pointIndex(of: CGPoint(x: 101, y: 10), horizontalSlices: 5),
-            "Expected point outside of frame to have no index")
+        #expect(sut.pointIndex(of: CGPoint(x: 99, y: 0), horizontalSlices: 0) == nil, "Expected not to have an index")
+        #expect(sut.pointIndex(of: CGPoint(x: 101, y: 10), horizontalSlices: 5) == nil, "Expected point outside of frame to have no index")
     }
 }

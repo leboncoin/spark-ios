@@ -6,19 +6,22 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class CGRectCenterTests: XCTestCase {
+@Suite("CG Rect Center Tests")
+struct CGRectCenterTests {
 
-    func testExample() throws {
+    @Test("Example")
+    func example() throws {
         let rect = CGRect(x: 10, y: 10, width: 110, height: 30)
 
-        XCTAssertEqual(rect.centerX, 65, "CenterX doesn't match expected value")
-        XCTAssertEqual(rect.centerY, 25, "CenterY doesn't match expected value")
+        #expect(rect.centerX == 65, "CenterX doesn't match expected value")
+        #expect(rect.centerY == 25, "CenterY doesn't match expected value")
 
-        XCTAssertEqual(rect.center, CGPoint(x: 65, y: 25), "Center point is not correct")
+        #expect(rect.center == CGPoint(x: 65, y: 25), "Center point is not correct")
     }
 
 }

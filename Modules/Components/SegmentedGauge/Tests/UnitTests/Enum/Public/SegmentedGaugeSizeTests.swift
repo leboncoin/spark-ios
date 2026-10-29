@@ -6,17 +6,18 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 
-final class SegmentedGaugeSizeTests: XCTestCase {
+@Suite("SegmentedGauge Size Tests")
+struct SegmentedGaugeSizeTests {
 
     // MARK: - Tests
 
-    func test_default_isMedium() {
-        XCTAssertEqual(
-            SegmentedGaugeSize.default,
-            .medium
+    @Test("Default is medium")
+    func defaultIsMedium() {
+        #expect(
+            SegmentedGaugeSize.default == .medium
         )
     }
 }

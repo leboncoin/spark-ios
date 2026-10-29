@@ -6,15 +6,18 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkComponentProgressBar
 
-final class ProgressBarIndeterminateAnimationTypeTests: XCTestCase {
+@MainActor
+@Suite("Progress Bar Indeterminate Animation Type Tests")
+struct ProgressBarIndeterminateAnimationTypeTests {
 
     // MARK: - Tests
 
-    func test_next() throws {
+    @Test("Next")
+    func next() throws {
         // GIVEN
         let items: [(
             givenType: ProgressBarIndeterminateAnimationType,
@@ -40,11 +43,7 @@ final class ProgressBarIndeterminateAnimationTypeTests: XCTestCase {
             type.next()
 
             // THEN
-            XCTAssertEqual(
-                type,
-                item.expectedNextType,
-                "Wrong next type when type is \(item.givenType)"
-            )
+            #expect(type == item.expectedNextType, "Wrong next type when type is \(item.givenType)")
         }
     }
 }

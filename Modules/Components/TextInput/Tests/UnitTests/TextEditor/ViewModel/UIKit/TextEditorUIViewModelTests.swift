@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) @testable import SparkComponentTextInputTesting
 @_spi(SI_SPI) import SparkCommon
@@ -17,24 +17,18 @@ import SparkTheming
 import SparkTheme
 import Combine
 
-final class TextEditorUIViewModelTests: XCTestCase {
+@MainActor
+@Suite("TextEditor UI ViewModel Tests")
+final class TextEditorUIViewModelTests {
 
     // MARK: - Properties
 
     private var subscriptions = Set<AnyCancellable>()
 
-    // MARK: - Setup
-
-    override func tearDown() {
-        super.tearDown()
-
-        // Clear publishers
-        self.subscriptions.removeAll()
-    }
-
     // MARK: - Init Tests
 
-    func test_properties_on_init() {
+    @Test("Properties on init")
+    func propertiesOnInit() {
         // GIVEN / WHEN
         let stub = Stub()
 
@@ -46,14 +40,14 @@ final class TextEditorUIViewModelTests: XCTestCase {
         // Published properties
 
         // Should Update Vertical Spacing
-        TextEditorUIViewModelPublisherTest.XCTAssert(
+        TextEditorUIViewModelPublisherTest.expect(
             updateVerticalSpacingCounter: stub.updateVerticalSpacingCounterPublisherMock,
             expectedNumberOfSinks: 1,
             expectedValue: 0
         )
 
         // Is Placeholder
-        TextEditorUIViewModelPublisherTest.XCTAssert(
+        TextEditorUIViewModelPublisherTest.expect(
             shouldShowPlaceholder: stub.shouldShowPlaceholderPublisherMock,
             expectedNumberOfSinks: 1,
             expectedValue: true
@@ -61,7 +55,7 @@ final class TextEditorUIViewModelTests: XCTestCase {
         // **
 
         // Use Cases
-        TextEditorGetVerticalSpacingUseCaseableMockTest.XCTCallsCount(
+        TextEditorGetVerticalSpacingUseCaseableMockTest.expectCallsCount(
             stub.getVerticalSpacingUseCaseMock,
             executeWithHeightAndFontNumberOfCalls: 0
         )
@@ -69,15 +63,18 @@ final class TextEditorUIViewModelTests: XCTestCase {
 
     // MARK: - Update
 
-    func test_contentChanged_without_content() {
+    @Test("Content changed without content")
+    func contentChangedWithoutContent() {
         self.testContentChanged(content: nil, expectedShouldShowPlaceholder: true)
     }
 
-    func test_contentChanged_with_empty_content() {
+    @Test("Content changed with empty content")
+    func contentChangedWithEmptyContent() {
         self.testContentChanged(content: "", expectedShouldShowPlaceholder: true)
     }
 
-    func test_contentChanged_with_content() {
+    @Test("Content changed with content")
+    func contentChangedWithContent() {
         self.testContentChanged(content: "Hey", expectedShouldShowPlaceholder: false)
     }
 
@@ -100,13 +97,13 @@ final class TextEditorUIViewModelTests: XCTestCase {
         // Published properties
 
         // Should Update Vertical Spacing
-        TextEditorUIViewModelPublisherTest.XCTSinksCount(
+        TextEditorUIViewModelPublisherTest.expectSinksCount(
             updateVerticalSpacingCounter: stub.updateVerticalSpacingCounterPublisherMock,
             expectedNumberOfSinks: 0
         )
 
         // Is Placeholder
-        TextEditorUIViewModelPublisherTest.XCTAssert(
+        TextEditorUIViewModelPublisherTest.expect(
             shouldShowPlaceholder: stub.shouldShowPlaceholderPublisherMock,
             expectedNumberOfSinks: 1,
             expectedValue: expectedShouldShowPlaceholder
@@ -114,7 +111,7 @@ final class TextEditorUIViewModelTests: XCTestCase {
         // **
 
         // Use Cases
-        TextEditorGetVerticalSpacingUseCaseableMockTest.XCTCallsCount(
+        TextEditorGetVerticalSpacingUseCaseableMockTest.expectCallsCount(
             stub.getVerticalSpacingUseCaseMock,
             executeWithHeightAndFontNumberOfCalls: 0
         )
@@ -122,7 +119,8 @@ final class TextEditorUIViewModelTests: XCTestCase {
 
     // MARK: - Setter
 
-    func test_setFont() {
+    @Test("Set font")
+    func setFont() {
         // GIVEN
         let stub = Stub()
 
@@ -138,21 +136,21 @@ final class TextEditorUIViewModelTests: XCTestCase {
         // Published properties
 
         // Should Update Vertical Spacing
-        TextEditorUIViewModelPublisherTest.XCTAssert(
+        TextEditorUIViewModelPublisherTest.expect(
             updateVerticalSpacingCounter: stub.updateVerticalSpacingCounterPublisherMock,
             expectedNumberOfSinks: 1,
             expectedValue: 1
         )
 
         // Is Placeholder
-        TextEditorUIViewModelPublisherTest.XCTSinksCount(
+        TextEditorUIViewModelPublisherTest.expectSinksCount(
             shouldShowPlaceholder: stub.shouldShowPlaceholderPublisherMock,
             expectedNumberOfSinks: 0
         )
         // **
 
         // Use Cases
-        TextEditorGetVerticalSpacingUseCaseableMockTest.XCTCallsCount(
+        TextEditorGetVerticalSpacingUseCaseableMockTest.expectCallsCount(
             stub.getVerticalSpacingUseCaseMock,
             executeWithHeightAndFontNumberOfCalls: 0
         )
@@ -160,7 +158,8 @@ final class TextEditorUIViewModelTests: XCTestCase {
 
     // MARK: - Getter
 
-    func test_getVerticalSpacing() {
+    @Test("Get vertical spacing")
+    func getVerticalSpacing() {
         // GIVEN
         let stub = Stub()
         let height: CGFloat = 200
@@ -171,9 +170,8 @@ final class TextEditorUIViewModelTests: XCTestCase {
         let verticalSpacing = stub.viewModel.getVerticalSpacing(from: height)
 
         // THEN
-        XCTAssertEqual(
-            verticalSpacing,
-            stub.verticalSpacing,
+        #expect(
+            verticalSpacing == stub.verticalSpacing,
             "Wrong VerticalSpacing value"
         )
 
@@ -181,20 +179,20 @@ final class TextEditorUIViewModelTests: XCTestCase {
         // Published properties
 
         // Should Update Vertical Spacing
-        TextEditorUIViewModelPublisherTest.XCTSinksCount(
+        TextEditorUIViewModelPublisherTest.expectSinksCount(
             updateVerticalSpacingCounter: stub.updateVerticalSpacingCounterPublisherMock,
             expectedNumberOfSinks: 0
         )
 
         // Is Placeholder
-        TextEditorUIViewModelPublisherTest.XCTSinksCount(
+        TextEditorUIViewModelPublisherTest.expectSinksCount(
             shouldShowPlaceholder: stub.shouldShowPlaceholderPublisherMock,
             expectedNumberOfSinks: 0
         )
         // **
 
         // Use Cases
-        TextEditorGetVerticalSpacingUseCaseableMockTest.XCTAssert(
+        TextEditorGetVerticalSpacingUseCaseableMockTest.expect(
             stub.getVerticalSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenHeight: height,

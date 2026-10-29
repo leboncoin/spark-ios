@@ -104,7 +104,7 @@ struct AvatarTokenCornerViewOffsetTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable should return true")
     func equatableShouldReturnTrue() {
         #expect(AvatarToken.CornerViewOffset() == AvatarToken.CornerViewOffset())
     }

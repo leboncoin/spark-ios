@@ -6,12 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 @testable import SparkComponentTextLink
 
-final class TextLinkGetColorUseCaseTests: XCTestCase {
+@Suite("Text Link Get Color UseCase Tests")
+struct TextLinkGetColorUseCaseTests {
 
     // MARK: - Properties
 
@@ -20,7 +21,8 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_accent_not_highlighted() {
+    @Test("Execute accent not highlighted")
+    func executeAccentNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.accent
         let isHighlighted = false
@@ -33,10 +35,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.accent.accent))
+        #expect(result.equals(theme.colors.accent.accent))
     }
 
-    func test_execute_accent_highlighted() {
+    @Test("Execute accent highlighted")
+    func executeAccentHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.accent
         let isHighlighted = true
@@ -49,10 +52,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.states.accentPressed))
+        #expect(result.equals(theme.colors.states.accentPressed))
     }
 
-    func test_execute_alert_not_highlighted() {
+    @Test("Execute alert not highlighted")
+    func executeAlertNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.alert
         let isHighlighted = false
@@ -65,10 +69,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.alert))
+        #expect(result.equals(theme.colors.feedback.alert))
     }
 
-    func test_execute_alert_highlighted() {
+    @Test("Execute alert highlighted")
+    func executeAlertHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.alert
         let isHighlighted = true
@@ -81,10 +86,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.states.alertPressed))
+        #expect(result.equals(theme.colors.states.alertPressed))
     }
 
-    func test_execute_support_not_highlighted() {
+    @Test("Execute support not highlighted")
+    func executeSupportNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.support
         let isHighlighted = false
@@ -97,10 +103,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.support.support))
+        #expect(result.equals(theme.colors.support.support))
     }
 
-    func test_execute_support_highlighted() {
+    @Test("Execute support highlighted")
+    func executeSupportHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.support
         let isHighlighted = true
@@ -113,10 +120,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.states.supportPressed))
+        #expect(result.equals(theme.colors.states.supportPressed))
     }
 
-    func test_execute_danger_not_highlighted() {
+    @Test("Execute danger not highlighted")
+    func executeDangerNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.danger
         let isHighlighted = false
@@ -129,10 +137,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.error))
+        #expect(result.equals(theme.colors.feedback.error))
     }
 
-    func test_execute_danger_highlighted() {
+    @Test("Execute danger highlighted")
+    func executeDangerHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.danger
         let isHighlighted = true
@@ -145,10 +154,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.states.errorPressed))
+        #expect(result.equals(theme.colors.states.errorPressed))
     }
 
-    func test_execute_info_not_highlighted() {
+    @Test("Execute info not highlighted")
+    func executeInfoNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.info
         let isHighlighted = false
@@ -161,10 +171,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.info))
+        #expect(result.equals(theme.colors.feedback.info))
     }
 
-    func test_execute_info_highlighted() {
+    @Test("Execute info highlighted")
+    func executeInfoHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.info
         let isHighlighted = true
@@ -177,10 +188,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.states.infoPressed))
+        #expect(result.equals(theme.colors.states.infoPressed))
     }
 
-    func test_execute_main_not_highlighted() {
+    @Test("Execute main not highlighted")
+    func executeMainNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.main
         let isHighlighted = false
@@ -193,10 +205,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.main.main))
+        #expect(result.equals(theme.colors.main.main))
     }
 
-    func test_execute_main_highlighted() {
+    @Test("Execute main highlighted")
+    func executeMainHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.main
         let isHighlighted = true
@@ -209,10 +222,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.states.mainPressed))
+        #expect(result.equals(theme.colors.states.mainPressed))
     }
 
-    func test_execute_neutral_not_highlighted() {
+    @Test("Execute neutral not highlighted")
+    func executeNeutralNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.neutral
         let isHighlighted = false
@@ -225,10 +239,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.neutral))
+        #expect(result.equals(theme.colors.feedback.neutral))
     }
 
-    func test_execute_neutral_highlighted() {
+    @Test("Execute neutral highlighted")
+    func executeNeutralHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.neutral
         let isHighlighted = true
@@ -241,10 +256,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.states.neutralPressed))
+        #expect(result.equals(theme.colors.states.neutralPressed))
     }
 
-    func test_execute_success_not_highlighted() {
+    @Test("Execute success not highlighted")
+    func executeSuccessNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.success
         let isHighlighted = false
@@ -257,10 +273,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.success))
+        #expect(result.equals(theme.colors.feedback.success))
     }
 
-    func test_execute_success_highlighted() {
+    @Test("Execute success highlighted")
+    func executeSuccessHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.success
         let isHighlighted = true
@@ -273,10 +290,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.states.successPressed))
+        #expect(result.equals(theme.colors.states.successPressed))
     }
 
-    func test_execute_custom() {
+    @Test("Execute custom")
+    func executeCustom() {
         // GIVEN
         let customColorToken = ColorTokenGeneratedMock.red()
         let intent = TextLinkIntent.custom(customColorToken)
@@ -290,10 +308,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(customColorToken))
+        #expect(result.equals(customColorToken))
     }
 
-    func test_execute_custom_highlighted() {
+    @Test("Execute custom highlighted")
+    func executeCustomHighlighted() {
         // GIVEN
         let customColorToken = ColorTokenGeneratedMock.red()
         let intent = TextLinkIntent.custom(customColorToken)
@@ -307,12 +326,13 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(customColorToken))
+        #expect(result.equals(customColorToken))
     }
 
     // MARK: - Deprecated Tests
 
-    func test_execute_deprecated_accent_container() {
+    @Test("Execute deprecated accent container")
+    func executeDeprecatedAccentContainer() {
         // GIVEN
         let intent = TextLinkIntent.accentContainer
         let isHighlighted = false
@@ -325,10 +345,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.accent.onAccentContainer))
+        #expect(result.equals(theme.colors.accent.onAccentContainer))
     }
 
-    func test_execute_deprecated_surface() {
+    @Test("Execute deprecated surface")
+    func executeDeprecatedSurface() {
         // GIVEN
         let intent = TextLinkIntent.surface
         let isHighlighted = false
@@ -341,10 +362,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.base.onSurface))
+        #expect(result.equals(theme.colors.base.onSurface))
     }
 
-    func test_execute_deprecated_alert_container() {
+    @Test("Execute deprecated alert container")
+    func executeDeprecatedAlertContainer() {
         // GIVEN
         let intent = TextLinkIntent.alertContainer
         let isHighlighted = false
@@ -357,10 +379,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.onAlertContainer))
+        #expect(result.equals(theme.colors.feedback.onAlertContainer))
     }
 
-    func test_execute_deprecated_support_container() {
+    @Test("Execute deprecated support container")
+    func executeDeprecatedSupportContainer() {
         // GIVEN
         let intent = TextLinkIntent.supportContainer
         let isHighlighted = false
@@ -373,10 +396,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.support.onSupportContainer))
+        #expect(result.equals(theme.colors.support.onSupportContainer))
     }
 
-    func test_execute_deprecated_danger_container() {
+    @Test("Execute deprecated danger container")
+    func executeDeprecatedDangerContainer() {
         // GIVEN
         let intent = TextLinkIntent.dangerContainer
         let isHighlighted = false
@@ -389,10 +413,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.onErrorContainer))
+        #expect(result.equals(theme.colors.feedback.onErrorContainer))
     }
 
-    func test_execute_deprecated_info_container() {
+    @Test("Execute deprecated info container")
+    func executeDeprecatedInfoContainer() {
         // GIVEN
         let intent = TextLinkIntent.infoContainer
         let isHighlighted = false
@@ -405,10 +430,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.onInfoContainer))
+        #expect(result.equals(theme.colors.feedback.onInfoContainer))
     }
 
-    func test_execute_deprecated_main_container() {
+    @Test("Execute deprecated main container")
+    func executeDeprecatedMainContainer() {
         // GIVEN
         let intent = TextLinkIntent.mainContainer
         let isHighlighted = false
@@ -421,10 +447,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.main.onMainContainer))
+        #expect(result.equals(theme.colors.main.onMainContainer))
     }
 
-    func test_execute_deprecated_neutral_container() {
+    @Test("Execute deprecated neutral container")
+    func executeDeprecatedNeutralContainer() {
         // GIVEN
         let intent = TextLinkIntent.neutralContainer
         let isHighlighted = false
@@ -437,10 +464,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.onNeutralContainer))
+        #expect(result.equals(theme.colors.feedback.onNeutralContainer))
     }
 
-    func test_execute_deprecated_on_accent_container() {
+    @Test("Execute deprecated on accent container")
+    func executeDeprecatedOnAccentContainer() {
         // GIVEN
         let intent = TextLinkIntent.onAccentContainer
         let isHighlighted = false
@@ -453,10 +481,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.accent.onAccentContainer))
+        #expect(result.equals(theme.colors.accent.onAccentContainer))
     }
 
-    func test_execute_deprecated_on_surface() {
+    @Test("Execute deprecated on surface")
+    func executeDeprecatedOnSurface() {
         // GIVEN
         let intent = TextLinkIntent.onSurface
         let isHighlighted = false
@@ -469,10 +498,11 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.base.onSurface))
+        #expect(result.equals(theme.colors.base.onSurface))
     }
 
-    func test_execute_deprecated_success_container() {
+    @Test("Execute deprecated success container")
+    func executeDeprecatedSuccessContainer() {
         // GIVEN
         let intent = TextLinkIntent.successContainer
         let isHighlighted = false
@@ -485,6 +515,6 @@ final class TextLinkGetColorUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.colors.feedback.onSuccessContainer))
+        #expect(result.equals(theme.colors.feedback.onSuccessContainer))
     }
 }

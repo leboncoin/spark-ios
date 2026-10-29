@@ -26,7 +26,7 @@ struct AvatarTokenBorderTests {
 
     // MARK: - Width Tests
 
-    @Test(arguments: [AvatarSize.xs, .sm, .md])
+    @Test("Width with small size and border should return small width", arguments: [AvatarSize.xs, .sm, .md])
     func widthWithSmallSizeAndBorderShouldReturnSmallWidth(size: AvatarSize) {
         // GIVEN / WHEN
         let result = self.token.width(isBorder: true, size: size)
@@ -35,7 +35,7 @@ struct AvatarTokenBorderTests {
         #expect(result == self.theme.border.width.small)
     }
 
-    @Test(arguments: [AvatarSize.lg, .xl, .xxl, .xxxl])
+    @Test("Width with large size and border should return medium width", arguments: [AvatarSize.lg, .xl, .xxl, .xxxl])
     func widthWithLargeSizeAndBorderShouldReturnMediumWidth(size: AvatarSize) {
         // GIVEN / WHEN
         let result = self.token.width(isBorder: true, size: size)
@@ -44,7 +44,7 @@ struct AvatarTokenBorderTests {
         #expect(result == self.theme.border.width.medium)
     }
 
-    @Test(arguments: AvatarSize.allCases)
+    @Test("Width without border should return none width", arguments: AvatarSize.allCases)
     func widthWithoutBorderShouldReturnNoneWidth(size: AvatarSize) {
         // GIVEN / WHEN
         let result = self.token.width(isBorder: false, size: size)
@@ -55,7 +55,7 @@ struct AvatarTokenBorderTests {
 
     // MARK: - Radius Tests
 
-    @Test
+    @Test("Radius with user content type should return full radius")
     func radiusWithUserContentTypeShouldReturnFullRadius() {
         // GIVEN / WHEN
         let result = self.token.radius(contentType: .user)
@@ -64,7 +64,7 @@ struct AvatarTokenBorderTests {
         #expect(result == self.theme.border.radius.full)
     }
 
-    @Test
+    @Test("Radius with company content type should return medium radius")
     func radiusWithCompanyContentTypeShouldReturnMediumRadius() {
         // GIVEN / WHEN
         let result = self.token.radius(contentType: .company)
@@ -75,7 +75,7 @@ struct AvatarTokenBorderTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = AvatarToken.Border(theme: self.theme)
@@ -85,7 +85,7 @@ struct AvatarTokenBorderTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = AvatarToken.Border(theme: self.theme)

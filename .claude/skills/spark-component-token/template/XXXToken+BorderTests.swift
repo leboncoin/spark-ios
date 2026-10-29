@@ -26,12 +26,12 @@ struct XXXTokenBorderTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Radius should return radius full")
     func radiusShouldReturnRadiusFull() {
         #expect(self.token.radius == self.theme.border.radius.full)
     }
 
-    @Test(arguments: [true, false])
+    @Test("Width should return expected value", arguments: [true, false])
     func widthShouldReturnExpectedValue(isSelected: Bool) {
         // GIVEN
         let expected = isSelected ? self.theme.border.width.medium : self.theme.border.width.small
@@ -45,12 +45,12 @@ struct XXXTokenBorderTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         #expect(XXXToken.Border(theme: self.theme) == XXXToken.Border(theme: self.theme))
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         #expect(XXXToken.Border(theme: self.theme) != XXXToken.Border(theme: ThemeGeneratedMock.mocked2()))
     }

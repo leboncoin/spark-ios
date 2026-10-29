@@ -6,14 +6,16 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkComponentSwitch
 @_spi(SI_SPI) @testable import SparkComponentSwitchTesting
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SwitchGetToggleColorUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Switch Get Toggle Color UseCase Tests")
+struct SwitchGetToggleColorUseCaseTests {
 
     // MARK: - Properties
 
@@ -21,14 +23,16 @@ final class SwitchGetToggleColorUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_when_isOn_is_true() throws {
+    @Test("Execute when is on is true")
+    func executeWhenIsOnIsTrue() throws {
         try self.testExecute(
             givenIsOn: true,
             expectedColorToken: self.statusAndStateColorMock.onColorToken
         )
     }
 
-    func test_execute_when_isOn_is_false() throws {
+    @Test("Execute when is on is false")
+    func executeWhenIsOnIsFalse() throws {
         try self.testExecute(
             givenIsOn: false,
             expectedColorToken: self.statusAndStateColorMock.offColorToken
@@ -56,8 +60,9 @@ private extension SwitchGetToggleColorUseCaseTests {
         )
 
         // THEN
-        XCTAssertEqual(colorToken as? ColorTokenGeneratedMock,
-                       expectedColorToken as? ColorTokenGeneratedMock,
-                       "Wrong interactionEnabled" + errorPrefixMessage)
+        #expect(
+            colorToken as? ColorTokenGeneratedMock == expectedColorToken as? ColorTokenGeneratedMock,
+            "Wrong interactionEnabled\(errorPrefixMessage)"
+        )
     }
 }

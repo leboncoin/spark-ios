@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 
 @testable import SparkComponentTextLink
@@ -14,25 +14,28 @@ import SwiftUI
 @_spi(SI_SPI) import SparkThemingTesting
 import SparkTheming
 
-final class TextLinkCommonViewModelTests: XCTestCase {
+@MainActor
+@Suite("TextLink Common ViewModel Tests")
+struct TextLinkCommonViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
         let viewModel = stub.viewModel
 
         // THEN
-        XCTAssertNil(viewModel.theme)
-        XCTAssertNil(viewModel.intent)
-        XCTAssertFalse(viewModel.isHighlighted)
-        XCTAssertNil(viewModel.text)
-        XCTAssertNil(viewModel.textHighlightRange)
-        XCTAssertNil(viewModel.typography)
-        XCTAssertNil(viewModel.variant)
+        #expect(viewModel.theme == nil)
+        #expect(viewModel.intent == nil)
+        #expect(!viewModel.isHighlighted)
+        #expect(viewModel.text == nil)
+        #expect(viewModel.textHighlightRange == nil)
+        #expect(viewModel.typography == nil)
+        #expect(viewModel.variant == nil)
 
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherSpacing: .zero,
             otherImageSize: TextLinkImageSize(),
@@ -41,9 +44,9 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             otherHoverStyle: TextLinkHoverStyle()
         )
 
-        XCTAssertFalse(viewModel.setAttributedStringCalled)
+        #expect(!viewModel.setAttributedStringCalled)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getImageSizeUseCase: true,
@@ -55,7 +58,8 @@ final class TextLinkCommonViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -64,24 +68,24 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertGreaterThan(viewModel.setAttributedStringCallCount, 0)
+        #expect(viewModel.setAttributedStringCallCount > 0)
 
-        TextLinkGetSpacingUseCaseableMockTest.XCTAssert(
+        TextLinkGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedSpacing
         )
-        TextLinkGetImageSizeUseCaseableMockTest.XCTAssert(
+        TextLinkGetImageSizeUseCaseableMockTest.expect(
             stub.getImageSizeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             givenTypography: stub.givenTypography,
             expectedReturnValue: stub.expectedImageSize
         )
-        TextLinkGetColorUseCaseableMockTest.XCTAssert(
+        TextLinkGetColorUseCaseableMockTest.expect(
             stub.getColorUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -89,7 +93,7 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             givenIsHighlighted: stub.givenIsHighlighted,
             expectedReturnValue: stub.expectedImageColor
         )
-        TextLinkGetDimUseCaseableMockTest.XCTAssert(
+        TextLinkGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -97,7 +101,7 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             givenIsHighlighted: stub.givenIsHighlighted,
             expectedReturnValue: stub.expectedDim
         )
-        TextLinkGetHoverStyleUseCaseableMockTest.XCTAssert(
+        TextLinkGetHoverStyleUseCaseableMockTest.expect(
             stub.getHoverStyleUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -108,7 +112,8 @@ final class TextLinkCommonViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateDependentProperties() {
+    @Test("Theme changed should update dependent properties")
+    func themeChangedShouldUpdateDependentProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -122,24 +127,24 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertEqual(viewModel.setAttributedStringCallCount, 1)
+        #expect(viewModel.setAttributedStringCallCount == 1)
 
-        TextLinkGetSpacingUseCaseableMockTest.XCTAssert(
+        TextLinkGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             expectedReturnValue: stub.expectedSpacing
         )
-        TextLinkGetImageSizeUseCaseableMockTest.XCTAssert(
+        TextLinkGetImageSizeUseCaseableMockTest.expect(
             stub.getImageSizeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             givenTypography: stub.givenTypography,
             expectedReturnValue: stub.expectedImageSize
         )
-        TextLinkGetColorUseCaseableMockTest.XCTAssert(
+        TextLinkGetColorUseCaseableMockTest.expect(
             stub.getColorUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -147,7 +152,7 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             givenIsHighlighted: stub.givenIsHighlighted,
             expectedReturnValue: stub.expectedImageColor
         )
-        TextLinkGetDimUseCaseableMockTest.XCTAssert(
+        TextLinkGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -155,7 +160,7 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             givenIsHighlighted: stub.givenIsHighlighted,
             expectedReturnValue: stub.expectedDim
         )
-        TextLinkGetHoverStyleUseCaseableMockTest.XCTAssert(
+        TextLinkGetHoverStyleUseCaseableMockTest.expect(
             stub.getHoverStyleUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -164,7 +169,8 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         )
     }
 
-    func test_intentChanged_shouldUpdateDependentProperties() {
+    @Test("Intent changed should update dependent properties")
+    func intentChangedShouldUpdateDependentProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -178,11 +184,11 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         viewModel.intent = newIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertEqual(viewModel.setAttributedStringCallCount, 1)
+        #expect(viewModel.setAttributedStringCallCount == 1)
 
-        TextLinkGetColorUseCaseableMockTest.XCTAssert(
+        TextLinkGetColorUseCaseableMockTest.expect(
             stub.getColorUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -190,7 +196,7 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             givenIsHighlighted: stub.givenIsHighlighted,
             expectedReturnValue: stub.expectedImageColor
         )
-        TextLinkGetDimUseCaseableMockTest.XCTAssert(
+        TextLinkGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -198,7 +204,7 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             givenIsHighlighted: stub.givenIsHighlighted,
             expectedReturnValue: stub.expectedDim
         )
-        TextLinkGetHoverStyleUseCaseableMockTest.XCTAssert(
+        TextLinkGetHoverStyleUseCaseableMockTest.expect(
             stub.getHoverStyleUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -206,14 +212,15 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedHoverStyle
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getImageSizeUseCase: true
         )
     }
 
-    func test_isHighlightedChanged_shouldUpdateDependentProperties() {
+    @Test("Is highlighted changed should update dependent properties")
+    func isHighlightedChangedShouldUpdateDependentProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -227,11 +234,11 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         viewModel.isHighlighted = newIsHighlighted
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertEqual(viewModel.setAttributedStringCallCount, 1)
+        #expect(viewModel.setAttributedStringCallCount == 1)
 
-        TextLinkGetColorUseCaseableMockTest.XCTAssert(
+        TextLinkGetColorUseCaseableMockTest.expect(
             stub.getColorUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -239,7 +246,7 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             givenIsHighlighted: newIsHighlighted,
             expectedReturnValue: stub.expectedImageColor
         )
-        TextLinkGetDimUseCaseableMockTest.XCTAssert(
+        TextLinkGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -248,7 +255,7 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getImageSizeUseCase: true,
@@ -256,7 +263,8 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         )
     }
 
-    func test_typographyChanged_shouldUpdateDependentProperties() {
+    @Test("Typography changed should update dependent properties")
+    func typographyChangedShouldUpdateDependentProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -270,10 +278,10 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         viewModel.typography = newTypography
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
-        XCTAssertEqual(viewModel.setAttributedStringCallCount, 1)
+        expectEqualToExpected(on: stub)
+        #expect(viewModel.setAttributedStringCallCount == 1)
 
-        TextLinkGetImageSizeUseCaseableMockTest.XCTAssert(
+        TextLinkGetImageSizeUseCaseableMockTest.expect(
             stub.getImageSizeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -281,7 +289,7 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedImageSize
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getColorUseCase: true,
@@ -290,7 +298,8 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         )
     }
 
-    func test_variantChanged_shouldUpdateAttributedStringOnly() {
+    @Test("Variant changed should update attributed string only")
+    func variantChangedShouldUpdateAttributedStringOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -304,10 +313,10 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         viewModel.variant = newVariant
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
-        XCTAssertEqual(viewModel.setAttributedStringCallCount, 1)
+        expectEqualToExpected(on: stub)
+        #expect(viewModel.setAttributedStringCallCount == 1)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getImageSizeUseCase: true,
@@ -317,7 +326,8 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         )
     }
 
-    func test_textChanged_shouldUpdateAttributedStringOnly() {
+    @Test("Text changed should update attributed string only")
+    func textChangedShouldUpdateAttributedStringOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -331,10 +341,10 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         viewModel.text = newText
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
-        XCTAssertEqual(viewModel.setAttributedStringCallCount, 1)
+        expectEqualToExpected(on: stub)
+        #expect(viewModel.setAttributedStringCallCount == 1)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getImageSizeUseCase: true,
@@ -344,7 +354,8 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         )
     }
 
-    func test_textHighlightRangeChanged_shouldUpdateAttributedStringOnly() {
+    @Test("Text highlight range changed should update attributed string only")
+    func textHighlightRangeChangedShouldUpdateAttributedStringOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -361,10 +372,10 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             viewModel.textHighlightRange = newRange
 
             // THEN
-            XCTAssertEqualToExpected(on: stub)
-            XCTAssertEqual(viewModel.setAttributedStringCallCount, 1)
+            expectEqualToExpected(on: stub)
+            #expect(viewModel.setAttributedStringCallCount == 1)
 
-            XCTAssertNotCalled(
+            expectNotCalled(
                 on: stub,
                 getSpacingUseCase: true,
                 getImageSizeUseCase: true,
@@ -375,7 +386,8 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         }
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -390,7 +402,7 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         viewModel.variant = TextLinkVariant.none
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherSpacing: .zero,
             otherImageSize: TextLinkImageSize(),
@@ -398,9 +410,9 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             otherDim: .zero,
             otherHoverStyle: TextLinkHoverStyle()
         )
-        XCTAssertFalse(viewModel.setAttributedStringCalled)
+        #expect(!viewModel.setAttributedStringCalled)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getImageSizeUseCase: true,
@@ -410,7 +422,8 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -428,11 +441,11 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         viewModel.variant = stub.givenVariant
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertFalse(viewModel.setAttributedStringCalled)
+        #expect(!viewModel.setAttributedStringCalled)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getImageSizeUseCase: true,
@@ -442,7 +455,8 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_for_nil_shouldNotCallAllUseCases() {
+    @Test("Properties changed for nil should not call all use cases")
+    func propertiesChangedForNilShouldNotCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -459,11 +473,11 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         viewModel.variant = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertTrue(viewModel.setAttributedStringCalled)
+        #expect(viewModel.setAttributedStringCalled)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getImageSizeUseCase: true,
@@ -473,7 +487,8 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         )
     }
 
-    func test_contentSizeCategoryDidUpdate() {
+    @Test("Content size category did update")
+    func contentSizeCategoryDidUpdate() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -485,9 +500,9 @@ final class TextLinkCommonViewModelTests: XCTestCase {
         viewModel.contentSizeCategoryDidUpdate()
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TextLinkGetImageSizeUseCaseableMockTest.XCTAssert(
+        TextLinkGetImageSizeUseCaseableMockTest.expect(
             stub.getImageSizeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -495,7 +510,7 @@ final class TextLinkCommonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedImageSize
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getColorUseCase: true,
@@ -608,72 +623,80 @@ private final class TextLinkCommonViewModelTestDouble: TextLinkCommonViewModel {
     }
 }
 
-// MARK: - XCTAssert
+// MARK: - Expectations
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getSpacingUseCase: Bool = false,
     getImageSizeUseCase: Bool = false,
     getColorUseCase: Bool = false,
     getDimUseCase: Bool = false,
-    getHoverStyleUseCase: Bool = false
+    getHoverStyleUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    TextLinkGetSpacingUseCaseableMockTest.XCTCalled(
+    TextLinkGetSpacingUseCaseableMockTest.expectCalled(
         stub.getSpacingUseCaseMock,
-        executeWithThemeCalled: !getSpacingUseCase
+        executeWithThemeCalled: !getSpacingUseCase,
+        sourceLocation: sourceLocation
     )
-    TextLinkGetImageSizeUseCaseableMockTest.XCTCalled(
+    TextLinkGetImageSizeUseCaseableMockTest.expectCalled(
         stub.getImageSizeUseCaseMock,
-        executeWithThemeAndTypographyCalled: !getImageSizeUseCase
+        executeWithThemeAndTypographyCalled: !getImageSizeUseCase,
+        sourceLocation: sourceLocation
     )
-    TextLinkGetColorUseCaseableMockTest.XCTCalled(
+    TextLinkGetColorUseCaseableMockTest.expectCalled(
         stub.getColorUseCaseMock,
-        executeWithThemeAndIntentAndIsHighlightedCalled: !getColorUseCase
+        executeWithThemeAndIntentAndIsHighlightedCalled: !getColorUseCase,
+        sourceLocation: sourceLocation
     )
-    TextLinkGetDimUseCaseableMockTest.XCTCalled(
+    TextLinkGetDimUseCaseableMockTest.expectCalled(
         stub.getDimUseCaseMock,
-        executeWithThemeAndIntentAndIsHighlightedCalled: !getDimUseCase
+        executeWithThemeAndIntentAndIsHighlightedCalled: !getDimUseCase,
+        sourceLocation: sourceLocation
     )
-    TextLinkGetHoverStyleUseCaseableMockTest.XCTCalled(
+    TextLinkGetHoverStyleUseCaseableMockTest.expectCalled(
         stub.getHoverStyleUseCaseMock,
-        executeWithThemeAndIntentCalled: !getHoverStyleUseCase
+        executeWithThemeAndIntentCalled: !getHoverStyleUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherSpacing: CGFloat? = nil,
     otherImageSize: TextLinkImageSize? = nil,
     otherImageColor: (any ColorToken)? = nil,
     otherDim: CGFloat? = nil,
-    otherHoverStyle: TextLinkHoverStyle? = nil
+    otherHoverStyle: TextLinkHoverStyle? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.spacing,
-        otherSpacing ?? stub.expectedSpacing,
-        "Wrong spacing value"
+    #expect(
+        viewModel.spacing == otherSpacing ?? stub.expectedSpacing,
+        "Wrong spacing value",
+        sourceLocation: sourceLocation
     )
 
-    XCTAssertEqual(
-        viewModel.imageSize,
-        otherImageSize ?? stub.expectedImageSize,
-        "Wrong imageSize value"
+    #expect(
+        viewModel.imageSize == otherImageSize ?? stub.expectedImageSize,
+        "Wrong imageSize value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertTrue(
+    #expect(
         viewModel.imageColor.equals(otherImageColor ?? stub.expectedImageColor),
-        "Wrong imageColor value"
+        "Wrong imageColor value",
+        sourceLocation: sourceLocation
     )
 
-    XCTAssertEqual(
-        viewModel.dim,
-        otherDim ?? stub.expectedDim,
-        "Wrong dim value"
+    #expect(
+        viewModel.dim == otherDim ?? stub.expectedDim,
+        "Wrong dim value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.hoverStyle,
-        otherHoverStyle ?? stub.expectedHoverStyle,
-        "Wrong hoverStyle value"
+    #expect(
+        viewModel.hoverStyle == otherHoverStyle ?? stub.expectedHoverStyle,
+        "Wrong hoverStyle value",
+        sourceLocation: sourceLocation
     )
 }

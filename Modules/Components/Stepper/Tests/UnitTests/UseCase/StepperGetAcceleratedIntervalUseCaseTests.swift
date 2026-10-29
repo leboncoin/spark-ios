@@ -6,10 +6,11 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentStepper
 
-class StepperGetAcceleratedIntervalUseCaseTests: XCTestCase {
+@Suite("Stepper Get Accelerated Interval UseCase Tests")
+struct StepperGetAcceleratedIntervalUseCaseTests {
 
     // MARK: - Properties
 
@@ -17,15 +18,18 @@ class StepperGetAcceleratedIntervalUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testExecuteWithNormalValue() {
-        XCTAssertEqual(self.useCase.execute(from: 1.0), 0.85, accuracy: 0.001)
+    @Test("Execute with normal value")
+    func executeWithNormalValue() {
+        #expect(abs(self.useCase.execute(from: 1.0) - 0.85) < 0.001)
     }
 
-    func testExecuteWithLowerValue() {
-        XCTAssertEqual(self.useCase.execute(from: 0.01), 0.035, accuracy: 0.001)
+    @Test("Execute with lower value")
+    func executeWithLowerValue() {
+        #expect(abs(self.useCase.execute(from: 0.01) - 0.035) < 0.001)
     }
 
-    func testExecuteWithBigValue() {
-        XCTAssertEqual(self.useCase.execute(from: 10.0), 8.5, accuracy: 0.001)
+    @Test("Execute with big value")
+    func executeWithBigValue() {
+        #expect(abs(self.useCase.execute(from: 10.0) - 8.5) < 0.001)
     }
 }

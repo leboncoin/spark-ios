@@ -6,10 +6,11 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentStepper
 
-class StepperGetIsDisabledUseCaseTests: XCTestCase {
+@Suite("Stepper Get Is Disabled UseCase Tests")
+struct StepperGetIsDisabledUseCaseTests {
 
     // MARK: - Properties
 
@@ -17,30 +18,35 @@ class StepperGetIsDisabledUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testDecrementButtonWhenValueAtLowerBound() {
+    @Test("Decrement button when value at lower bound")
+    func decrementButtonWhenValueAtLowerBound() {
         let result = self.useCase.execute(for: .decrement, value: 0, bounds: 0...10, componentIsDisabled: false)
-        XCTAssertTrue(result)
+        #expect(result)
     }
 
-    func testDecrementButtonWhenValueAboveLowerBound() {
+    @Test("Decrement button when value above lower bound")
+    func decrementButtonWhenValueAboveLowerBound() {
         let result = self.useCase.execute(for: .decrement, value: 5, bounds: 0...10, componentIsDisabled: false)
-        XCTAssertFalse(result)
+        #expect(!result)
     }
 
-    func testIncrementButtonWhenValueAtUpperBound() {
+    @Test("Increment button when value at upper bound")
+    func incrementButtonWhenValueAtUpperBound() {
         let result = self.useCase.execute(for: .increment, value: 10, bounds: 0...10, componentIsDisabled: false)
-        XCTAssertTrue(result)
+        #expect(result)
     }
 
-    func testIncrementButtonEnabledWhenValueBelowUpperBound() {
+    @Test("Increment button enabled when value below upper bound")
+    func incrementButtonEnabledWhenValueBelowUpperBound() {
         let result = self.useCase.execute(for: .increment, value: 5, bounds: 0...10, componentIsDisabled: false)
-        XCTAssertFalse(result)
+        #expect(!result)
     }
 
-    func testBothButtonsWhenComponentIsDisabled() {
+    @Test("Both buttons when component is disabled")
+    func bothButtonsWhenComponentIsDisabled() {
         let decrementResult = self.useCase.execute(for: .decrement, value: 5, bounds: 0...10, componentIsDisabled: true)
         let incrementResult = self.useCase.execute(for: .increment, value: 5, bounds: 0...10, componentIsDisabled: true)
-        XCTAssertFalse(decrementResult)
-        XCTAssertFalse(incrementResult)
+        #expect(!decrementResult)
+        #expect(!incrementResult)
     }
 }

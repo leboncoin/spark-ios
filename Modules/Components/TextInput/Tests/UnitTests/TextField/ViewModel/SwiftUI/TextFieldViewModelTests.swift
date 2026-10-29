@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) @testable import SparkComponentTextInputTesting
 @_spi(SI_SPI) import SparkCommon
@@ -14,11 +14,14 @@ import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 import SwiftUI
 
-final class TextFieldViewModelTests: XCTestCase {
+@MainActor
+@Suite("TextField ViewModel Tests")
+struct TextFieldViewModelTests {
 
     // MARK: - Tests
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN
         let stub = Stub()
 
@@ -26,51 +29,49 @@ final class TextFieldViewModelTests: XCTestCase {
         let viewModel = stub.viewModel
 
         // THEN
-        XCTAssertEqual(
-            viewModel.leftAddonPadding,
-            .init(),
+        #expect(
+            viewModel.leftAddonPadding == .init(),
             "Wrong leftAddonPadding value"
         )
-        XCTAssertEqual(
-            viewModel.rightAddonPadding,
-            .init(),
+        #expect(
+            viewModel.rightAddonPadding == .init(),
             "Wrong rightAddonPadding value"
         )
-        XCTAssertEqual(
-            viewModel.contentPadding,
-            .init(),
+        #expect(
+            viewModel.contentPadding == .init(),
             "Wrong contentPadding value"
         )
-        XCTAssertFalse(
-            viewModel.isClearButton,
+        #expect(
+            !viewModel.isClearButton,
             "Wrong isClearButton value"
         )
 
         // **
         // UseCase Calls Count
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expectCallsCount(
             stub.getAddonPaddingUseCaseMock,
             executeLeftWithSpacingsAndLeftConfigurationNumberOfCalls: 0
         )
 
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expectCallsCount(
             stub.getAddonPaddingUseCaseMock,
             executeRightWithSpacingsAndRightConfigurationNumberOfCalls: 0
         )
 
-        TextFieldGetContentPaddingUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetContentPaddingUseCaseableMockTest.expectCallsCount(
             stub.getContentPaddingUseCaseMock,
             executeWithSpacingsAndIsClearButtonNumberOfCalls: 0
         )
 
-        TextFieldGetIsClearButtonUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetIsClearButtonUseCaseableMockTest.expectCallsCount(
             stub.getIsClearButtonUseCaseMock,
             executeWithClearModeAndIsFocusedNumberOfCalls: 0
         )
         // **
     }
 
-    func test_updateAll_shouldSetAllProperties() {
+    @Test("Update all should set all properties")
+    func updateAllShouldSetAllProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -79,30 +80,26 @@ final class TextFieldViewModelTests: XCTestCase {
         viewModel.updateAll(stub: stub)
 
         // THEN
-        XCTAssertEqual(
-            viewModel.leftAddonPadding,
-            stub.expectedAddonLeftPadding,
+        #expect(
+            viewModel.leftAddonPadding == stub.expectedAddonLeftPadding,
             "Wrong leftAddonPadding value"
         )
-        XCTAssertEqual(
-            viewModel.rightAddonPadding,
-            stub.expectedAddonRightPadding,
+        #expect(
+            viewModel.rightAddonPadding == stub.expectedAddonRightPadding,
             "Wrong rightAddonPadding value"
         )
-        XCTAssertEqual(
-            viewModel.contentPadding,
-            stub.expectedContentPadding,
+        #expect(
+            viewModel.contentPadding == stub.expectedContentPadding,
             "Wrong contentPadding value"
         )
-        XCTAssertEqual(
-            viewModel.isClearButton,
-            stub.expectedIsClearButton,
+        #expect(
+            viewModel.isClearButton == stub.expectedIsClearButton,
             "Wrong isClearButton value"
         )
 
         // **
         // UseCase Calls Count
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTAssert(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expect(
             stub.getAddonPaddingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSpacings: viewModel.spacings,
@@ -110,7 +107,7 @@ final class TextFieldViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedAddonLeftPadding
         )
 
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTAssert(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expect(
             stub.getAddonPaddingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSpacings: viewModel.spacings,
@@ -118,7 +115,7 @@ final class TextFieldViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedAddonRightPadding
         )
 
-        TextFieldGetContentPaddingUseCaseableMockTest.XCTAssert(
+        TextFieldGetContentPaddingUseCaseableMockTest.expect(
             stub.getContentPaddingUseCaseMock,
             expectedNumberOfCalls: 2,
             givenSpacings: viewModel.spacings,
@@ -126,7 +123,7 @@ final class TextFieldViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentPadding
         )
 
-        TextFieldGetIsClearButtonUseCaseableMockTest.XCTAssert(
+        TextFieldGetIsClearButtonUseCaseableMockTest.expect(
             stub.getIsClearButtonUseCaseMock,
             expectedNumberOfCalls: 1,
             givenClearMode: stub.givenClearMode,
@@ -136,7 +133,8 @@ final class TextFieldViewModelTests: XCTestCase {
         // **
     }
 
-    func test_setIsClearButton_whenClearModeChanges() {
+    @Test("Set is clear button when clear mode changes")
+    func setIsClearButtonWhenClearModeChanges() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -150,25 +148,24 @@ final class TextFieldViewModelTests: XCTestCase {
         viewModel.clearMode = givenClearMode
 
         // THEN
-        XCTAssertEqual(
-            viewModel.isClearButton,
-            stub.expectedIsClearButton,
+        #expect(
+            viewModel.isClearButton == stub.expectedIsClearButton,
             "Wrong isClearButton value"
         )
 
         // **
         // UseCase Calls Count
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expectCallsCount(
             stub.getAddonPaddingUseCaseMock,
             executeLeftWithSpacingsAndLeftConfigurationNumberOfCalls: 0
         )
 
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expectCallsCount(
             stub.getAddonPaddingUseCaseMock,
             executeRightWithSpacingsAndRightConfigurationNumberOfCalls: 0
         )
 
-        TextFieldGetContentPaddingUseCaseableMockTest.XCTAssert(
+        TextFieldGetContentPaddingUseCaseableMockTest.expect(
             stub.getContentPaddingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSpacings: viewModel.spacings,
@@ -176,7 +173,7 @@ final class TextFieldViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentPadding
         )
 
-        TextFieldGetIsClearButtonUseCaseableMockTest.XCTAssert(
+        TextFieldGetIsClearButtonUseCaseableMockTest.expect(
             stub.getIsClearButtonUseCaseMock,
             expectedNumberOfCalls: 1,
             givenClearMode: givenClearMode,
@@ -186,7 +183,8 @@ final class TextFieldViewModelTests: XCTestCase {
         // **
     }
 
-    func test_setIsClearButton_whenFocusChanges() {
+    @Test("Set is clear button when focus changes")
+    func setIsClearButtonWhenFocusChanges() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -200,25 +198,24 @@ final class TextFieldViewModelTests: XCTestCase {
         viewModel.isFocused = givenIsFocused
 
         // THEN
-        XCTAssertEqual(
-            viewModel.isClearButton,
-            stub.expectedIsClearButton,
+        #expect(
+            viewModel.isClearButton == stub.expectedIsClearButton,
             "Wrong isClearButton value"
         )
 
         // **
         // UseCase Calls Count
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expectCallsCount(
             stub.getAddonPaddingUseCaseMock,
             executeLeftWithSpacingsAndLeftConfigurationNumberOfCalls: 0
         )
 
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expectCallsCount(
             stub.getAddonPaddingUseCaseMock,
             executeRightWithSpacingsAndRightConfigurationNumberOfCalls: 0
         )
 
-        TextFieldGetContentPaddingUseCaseableMockTest.XCTAssert(
+        TextFieldGetContentPaddingUseCaseableMockTest.expect(
             stub.getContentPaddingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSpacings: viewModel.spacings,
@@ -226,7 +223,7 @@ final class TextFieldViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentPadding
         )
 
-        TextFieldGetIsClearButtonUseCaseableMockTest.XCTAssert(
+        TextFieldGetIsClearButtonUseCaseableMockTest.expect(
             stub.getIsClearButtonUseCaseMock,
             expectedNumberOfCalls: 1,
             givenClearMode: stub.givenClearMode,
@@ -236,7 +233,8 @@ final class TextFieldViewModelTests: XCTestCase {
         // **
     }
 
-    func test_setAddonPadding_whenLeftAddonConfigurationChanges() {
+    @Test("Set addon padding when left addon configuration changes")
+    func setAddonPaddingWhenLeftAddonConfigurationChanges() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -253,15 +251,14 @@ final class TextFieldViewModelTests: XCTestCase {
         viewModel.leftAddonConfiguration = givenLeftAddonConfiguration
 
         // THEN
-        XCTAssertEqual(
-            viewModel.leftAddonPadding,
-            stub.expectedAddonLeftPadding,
+        #expect(
+            viewModel.leftAddonPadding == stub.expectedAddonLeftPadding,
             "Wrong leftAddonPadding value"
         )
 
         // **
         // UseCase Calls Count
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTAssert(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expect(
             stub.getAddonPaddingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSpacings: viewModel.spacings,
@@ -269,24 +266,25 @@ final class TextFieldViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedAddonLeftPadding
         )
 
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expectCallsCount(
             stub.getAddonPaddingUseCaseMock,
             executeRightWithSpacingsAndRightConfigurationNumberOfCalls: 0
         )
 
-        TextFieldGetContentPaddingUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetContentPaddingUseCaseableMockTest.expectCallsCount(
             stub.getContentPaddingUseCaseMock,
             executeWithSpacingsAndIsClearButtonNumberOfCalls: 0
         )
 
-        TextFieldGetIsClearButtonUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetIsClearButtonUseCaseableMockTest.expectCallsCount(
             stub.getIsClearButtonUseCaseMock,
             executeWithClearModeAndIsFocusedNumberOfCalls: 0
         )
         // **
     }
 
-    func test_setAddonPadding_whenRightAddonConfigurationChanges() {
+    @Test("Set addon padding when right addon configuration changes")
+    func setAddonPaddingWhenRightAddonConfigurationChanges() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -303,20 +301,19 @@ final class TextFieldViewModelTests: XCTestCase {
         viewModel.rightAddonConfiguration = givenRightAddonConfiguration
 
         // THEN
-        XCTAssertEqual(
-            viewModel.rightAddonPadding,
-            stub.expectedAddonRightPadding,
+        #expect(
+            viewModel.rightAddonPadding == stub.expectedAddonRightPadding,
             "Wrong rightAddonPadding value"
         )
 
         // **
         // UseCase Calls Count
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expectCallsCount(
             stub.getAddonPaddingUseCaseMock,
             executeLeftWithSpacingsAndLeftConfigurationNumberOfCalls: 0
         )
 
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTAssert(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expect(
             stub.getAddonPaddingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSpacings: viewModel.spacings,
@@ -324,19 +321,20 @@ final class TextFieldViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedAddonRightPadding
         )
 
-        TextFieldGetContentPaddingUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetContentPaddingUseCaseableMockTest.expectCallsCount(
             stub.getContentPaddingUseCaseMock,
             executeWithSpacingsAndIsClearButtonNumberOfCalls: 0
         )
 
-        TextFieldGetIsClearButtonUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetIsClearButtonUseCaseableMockTest.expectCallsCount(
             stub.getIsClearButtonUseCaseMock,
             executeWithClearModeAndIsFocusedNumberOfCalls: 0
         )
         // **
     }
 
-    func test_spacingDidUpdate_shouldUpdatePaddings() {
+    @Test("Spacing did update should update paddings")
+    func spacingDidUpdateShouldUpdatePaddings() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -348,25 +346,22 @@ final class TextFieldViewModelTests: XCTestCase {
         viewModel.spacingDidUpdate()
 
         // THEN
-        XCTAssertEqual(
-            viewModel.leftAddonPadding,
-            stub.expectedAddonLeftPadding,
+        #expect(
+            viewModel.leftAddonPadding == stub.expectedAddonLeftPadding,
             "Wrong leftAddonPadding value"
         )
-        XCTAssertEqual(
-            viewModel.rightAddonPadding,
-            stub.expectedAddonRightPadding,
+        #expect(
+            viewModel.rightAddonPadding == stub.expectedAddonRightPadding,
             "Wrong rightAddonPadding value"
         )
-        XCTAssertEqual(
-            viewModel.contentPadding,
-            stub.expectedContentPadding,
+        #expect(
+            viewModel.contentPadding == stub.expectedContentPadding,
             "Wrong contentPadding value"
         )
 
         // **
         // UseCase Calls Count
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTAssert(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expect(
             stub.getAddonPaddingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSpacings: viewModel.spacings,
@@ -374,7 +369,7 @@ final class TextFieldViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedAddonLeftPadding
         )
 
-        TextFieldGetAddonPaddingUseCaseableMockTest.XCTAssert(
+        TextFieldGetAddonPaddingUseCaseableMockTest.expect(
             stub.getAddonPaddingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSpacings: viewModel.spacings,
@@ -382,7 +377,7 @@ final class TextFieldViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedAddonRightPadding
         )
 
-        TextFieldGetContentPaddingUseCaseableMockTest.XCTAssert(
+        TextFieldGetContentPaddingUseCaseableMockTest.expect(
             stub.getContentPaddingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSpacings: viewModel.spacings,
@@ -390,7 +385,7 @@ final class TextFieldViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentPadding
         )
 
-        TextFieldGetIsClearButtonUseCaseableMockTest.XCTCallsCount(
+        TextFieldGetIsClearButtonUseCaseableMockTest.expectCallsCount(
             stub.getIsClearButtonUseCaseMock,
             executeWithClearModeAndIsFocusedNumberOfCalls: 0
         )

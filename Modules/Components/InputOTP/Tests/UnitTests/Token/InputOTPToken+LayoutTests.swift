@@ -26,24 +26,24 @@ struct InputOTPTokenLayoutTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Spacing should return spacing medium")
     func spacingShouldReturnSpacingMedium() {
         #expect(self.token.spacing == self.theme.layout.spacing.medium)
     }
 
-    @Test
+    @Test("Padding should return spacing medium")
     func paddingShouldReturnSpacingMedium() {
         #expect(self.token.padding == self.theme.layout.spacing.medium)
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         #expect(InputOTPToken.Layout(theme: self.theme) == InputOTPToken.Layout(theme: self.theme))
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         #expect(InputOTPToken.Layout(theme: self.theme) != InputOTPToken.Layout(theme: ThemeGeneratedMock.mocked2()))
     }

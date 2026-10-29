@@ -20,29 +20,29 @@ struct SegmentedControlTokenSizeTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Icon should return 16")
     func iconShouldReturn16() {
         #expect(self.token.icon == 16)
     }
 
-    @Test
+    @Test("Min height should return 44")
     func minHeightShouldReturn44() {
         #expect(self.token.minHeight == 44)
     }
 
-    @Test
+    @Test("Separator height should return 24")
     func separatorHeightShouldReturn24() {
         #expect(self.token.separatorHeight == 24)
     }
 
-    @Test
+    @Test("Separator width should return 1")
     func separatorWidthShouldReturn1() {
         #expect(self.token.separatorWidth == 1)
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable should return true")
     func equatableShouldReturnTrue() {
         #expect(SegmentedControlToken.Size() == SegmentedControlToken.Size())
     }

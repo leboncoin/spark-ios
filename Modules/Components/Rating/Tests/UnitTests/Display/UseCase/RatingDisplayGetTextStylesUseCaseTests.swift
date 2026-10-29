@@ -7,11 +7,12 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentRating
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class RatingDisplayGetTextStylesUseCaseTests: XCTestCase {
+@Suite("Rating Display Get Text Styles Use Case Tests")
+struct RatingDisplayGetTextStylesUseCaseTests {
 
     // MARK: - Properties
 
@@ -20,8 +21,7 @@ final class RatingDisplayGetTextStylesUseCaseTests: XCTestCase {
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
 
         self.theme = ThemeGeneratedMock.mocked()
         self.sut = RatingDisplayGetTextStylesUseCase()
@@ -29,7 +29,8 @@ final class RatingDisplayGetTextStylesUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_with_small_size() {
+    @Test("Execute with small size")
+    func executeWithSmallSize() {
         // GIVEN / WHEN
         let textStyles = self.sut.execute(
             theme: self.theme,
@@ -52,10 +53,11 @@ final class RatingDisplayGetTextStylesUseCaseTests: XCTestCase {
             )
         )
 
-        XCTAssertEqual(textStyles, expectedTextStyles)
+        #expect(textStyles == expectedTextStyles)
     }
 
-    func test_execute_with_medium_size() {
+    @Test("Execute with medium size")
+    func executeWithMediumSize() {
         // GIVEN / WHEN
         let textStyles = self.sut.execute(
             theme: self.theme,
@@ -78,10 +80,11 @@ final class RatingDisplayGetTextStylesUseCaseTests: XCTestCase {
             )
         )
 
-        XCTAssertEqual(textStyles, expectedTextStyles)
+        #expect(textStyles == expectedTextStyles)
     }
 
-    func test_execute_with_large_size() {
+    @Test("Execute with large size")
+    func executeWithLargeSize() {
         // GIVEN / WHEN
         let textStyles = self.sut.execute(
             theme: self.theme,
@@ -104,10 +107,11 @@ final class RatingDisplayGetTextStylesUseCaseTests: XCTestCase {
             )
         )
 
-        XCTAssertEqual(textStyles, expectedTextStyles)
+        #expect(textStyles == expectedTextStyles)
     }
 
-    func test_execute_with_deprecated_input_case_for_undefined_size() {
+    @Test("Execute with deprecated input case for undefined size")
+    func executeWithDeprecatedInputCaseForUndefinedSize() {
         // GIVEN
         let customSize: RatingDisplaySize = .input
 
@@ -133,6 +137,6 @@ final class RatingDisplayGetTextStylesUseCaseTests: XCTestCase {
             )
         )
 
-        XCTAssertEqual(textStyles, expectedTextStyles)
+        #expect(textStyles == expectedTextStyles)
     }
 }

@@ -6,39 +6,44 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentRating
 
-final class RatingDisplayStarsTests: XCTestCase {
+@Suite("Rating Display Stars Tests")
+struct RatingDisplayStarsTests {
 
     // MARK: - Tests
 
-    func test_default_is_five() {
+    @Test("Default is five")
+    func defaultIsFive() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(RatingDisplayStars.default, .five)
+        #expect(RatingDisplayStars.default == .five)
     }
 
-    func test_raw_values() {
+    @Test("Raw values")
+    func rawValues() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(RatingDisplayStars.one.rawValue, 1)
-        XCTAssertEqual(RatingDisplayStars.five.rawValue, 5)
+        #expect(RatingDisplayStars.one.rawValue == 1)
+        #expect(RatingDisplayStars.five.rawValue == 5)
     }
 
-    func test_all_cases() {
+    @Test("All cases")
+    func allCases() {
         // GIVEN / WHEN
         let allCases = RatingDisplayStars.allCases
 
         // THEN
-        XCTAssertEqual(allCases.count, 2)
-        XCTAssertTrue(allCases.contains(.one))
-        XCTAssertTrue(allCases.contains(.five))
+        #expect(allCases.count == 2)
+        #expect(allCases.contains(.one))
+        #expect(allCases.contains(.five))
     }
 
-    func test_initialization_from_raw_value() {
+    @Test("Initialization from raw value")
+    func initializationFromRawValue() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(RatingDisplayStars(rawValue: 1), .one)
-        XCTAssertEqual(RatingDisplayStars(rawValue: 5), .five)
-        XCTAssertNil(RatingDisplayStars(rawValue: 3))
-        XCTAssertNil(RatingDisplayStars(rawValue: 999))
+        #expect(RatingDisplayStars(rawValue: 1) == .one)
+        #expect(RatingDisplayStars(rawValue: 5) == .five)
+        #expect(RatingDisplayStars(rawValue: 3) == nil)
+        #expect(RatingDisplayStars(rawValue: 999) == nil)
     }
 }

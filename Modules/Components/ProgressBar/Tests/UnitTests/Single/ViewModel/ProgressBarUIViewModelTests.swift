@@ -6,7 +6,8 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import Foundation
 import SwiftUI
 import UIKit
 
@@ -15,23 +16,26 @@ import UIKit
 @_spi(SI_SPI) import SparkThemingTesting
 @_spi(SI_SPI) import SparkTheming
 
-final class ProgressBarUIViewModelTests: XCTestCase {
+@MainActor
+@Suite("ProgressBar UI ViewModel Tests")
+struct ProgressBarUIViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertTrue(stub.viewModel.indicatorIsHidden)
+        #expect(stub.viewModel.indicatorIsHidden)
 
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherIndicatorIsHidden: true
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getIsIndicatorHiddenUseCase: true
         )
@@ -39,7 +43,8 @@ final class ProgressBarUIViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -48,9 +53,9 @@ final class ProgressBarUIViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ProgressBarGetIsIndicatorHiddenUseCaseableMockTest.XCTAssert(
+        ProgressBarGetIsIndicatorHiddenUseCaseableMockTest.expect(
             stub.getIsIndicatorHiddenUseCaseMock,
             expectedNumberOfCalls: 1,
             givenValue: stub.givenValue,
@@ -60,7 +65,8 @@ final class ProgressBarUIViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_valueChanged_shouldUpdateIndicatorIsHiddenOnly() {
+    @Test("Value changed should update indicator is hidden only")
+    func valueChangedShouldUpdateIndicatorIsHiddenOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -74,21 +80,22 @@ final class ProgressBarUIViewModelTests: XCTestCase {
         viewModel.value = newValue
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ProgressBarGetIsIndicatorHiddenUseCaseableMockTest.XCTAssert(
+        ProgressBarGetIsIndicatorHiddenUseCaseableMockTest.expect(
             stub.getIsIndicatorHiddenUseCaseMock,
             expectedNumberOfCalls: 1,
             givenValue: newValue,
             expectedReturnValue: stub.expectedIndicatorIsHidden
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -100,18 +107,19 @@ final class ProgressBarUIViewModelTests: XCTestCase {
         viewModel.value = 0.5
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherIndicatorIsHidden: true
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getIsIndicatorHiddenUseCase: true
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -126,15 +134,16 @@ final class ProgressBarUIViewModelTests: XCTestCase {
         viewModel.value = stub.givenValue
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getIsIndicatorHiddenUseCase: true
         )
     }
 
-    func test_propertiesChanged_withNilValues_shouldNotCallUseCases() {
+    @Test("Properties changed with nil values should not call use cases")
+    func propertiesChangedWithNilValuesShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -149,9 +158,9 @@ final class ProgressBarUIViewModelTests: XCTestCase {
         viewModel.value = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getIsIndicatorHiddenUseCase: true
         )
@@ -215,25 +224,28 @@ private extension ProgressBarUIViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
-    getIsIndicatorHiddenUseCase: Bool = false
+    getIsIndicatorHiddenUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    ProgressBarGetIsIndicatorHiddenUseCaseableMockTest.XCTCalled(
+    ProgressBarGetIsIndicatorHiddenUseCaseableMockTest.expectCalled(
         stub.getIsIndicatorHiddenUseCaseMock,
-        executeWithValueCalled: !getIsIndicatorHiddenUseCase
+        executeWithValueCalled: !getIsIndicatorHiddenUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
-    otherIndicatorIsHidden: Bool? = nil
+    otherIndicatorIsHidden: Bool? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.indicatorIsHidden,
-        otherIndicatorIsHidden ?? stub.expectedIndicatorIsHidden,
-        "Wrong indicatorIsHidden value"
+    #expect(
+        viewModel.indicatorIsHidden == otherIndicatorIsHidden ?? stub.expectedIndicatorIsHidden,
+        "Wrong indicatorIsHidden value",
+        sourceLocation: sourceLocation
     )
 }

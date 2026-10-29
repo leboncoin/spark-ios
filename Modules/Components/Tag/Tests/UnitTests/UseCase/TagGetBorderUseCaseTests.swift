@@ -20,7 +20,7 @@ struct TagGetBorderUseCaseTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Execute with medium size")
     func test_execute_with_medium_size() {
         // GIVEN
         let useCase = TagGetBorderUseCase()
@@ -36,7 +36,7 @@ struct TagGetBorderUseCaseTests {
         #expect(border.radius == self.theme.border.radius.small)
     }
 
-    @Test
+    @Test("Execute with large size")
     func test_execute_with_large_size() {
         // GIVEN
         let useCase = TagGetBorderUseCase()

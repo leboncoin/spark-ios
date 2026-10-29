@@ -19,7 +19,7 @@ struct ScaledCornerRadiusViewModifierSnapshotTests: SwiftUIComponentSnapshotTest
 
     // MARK: - Tests
 
-    @Test func test_default() async throws {
+    @Test("Default") func test_default() async throws {
         let theme: any Theme = SparkTheme.shared
 
         for radius in BorderRadius.allCases {
@@ -36,7 +36,7 @@ struct ScaledCornerRadiusViewModifierSnapshotTests: SwiftUIComponentSnapshotTest
         }
     }
 
-    @Test func test_highlighted() async throws {
+    @Test("Highlighted") func test_highlighted() async throws {
         let theme: any Theme = SparkTheme.shared
 
         for radius in BorderRadius.allCases {

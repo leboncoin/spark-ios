@@ -21,7 +21,7 @@ struct FileUploadTokenButtonStylesTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Alignment should return leading image")
     func alignmentShouldReturnLeadingImage() {
         // GIVEN / WHEN
         let result = self.token.alignment
@@ -30,7 +30,7 @@ struct FileUploadTokenButtonStylesTests {
         #expect(result == .leadingImage)
     }
 
-    @Test
+    @Test("Intent should return support")
     func intentShouldReturnSupport() {
         // GIVEN / WHEN
         let result = self.token.intent
@@ -39,7 +39,7 @@ struct FileUploadTokenButtonStylesTests {
         #expect(result == .support)
     }
 
-    @Test
+    @Test("Variant should return default")
     func variantShouldReturnDefault() {
         // GIVEN / WHEN
         let result = self.token.variant

@@ -19,7 +19,7 @@ struct ChipTokenTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Initialization sets all properties")
     func initialization_sets_all_properties() {
         // GIVEN / WHEN
         let token = ChipToken(theme: self.theme)
@@ -34,7 +34,7 @@ struct ChipTokenTests {
         #expect(token.alignment == ChipToken.Alignment())
     }
 
-    @Test
+    @Test("Border property returns border instance")
     func border_property_returns_border_instance() {
         // GIVEN / WHEN
         let token = ChipToken(theme: self.theme)
@@ -43,7 +43,7 @@ struct ChipTokenTests {
         #expect(token.border == ChipToken.Border(theme: self.theme))
     }
 
-    @Test
+    @Test("Opacity property returns opacity instance")
     func opacity_property_returns_opacity_instance() {
         // GIVEN / WHEN
         let token = ChipToken(theme: self.theme)
@@ -52,7 +52,7 @@ struct ChipTokenTests {
         #expect(token.opacity == ChipToken.Opacity(theme: self.theme))
     }
 
-    @Test
+    @Test("Size property returns size instance")
     func size_property_returns_size_instance() {
         // GIVEN / WHEN
         let token = ChipToken(theme: self.theme)
@@ -61,7 +61,7 @@ struct ChipTokenTests {
         #expect(token.size == ChipToken.Size())
     }
 
-    @Test
+    @Test("Layout property returns layout instance")
     func layout_property_returns_layout_instance() {
         // GIVEN / WHEN
         let token = ChipToken(theme: self.theme)
@@ -70,7 +70,7 @@ struct ChipTokenTests {
         #expect(token.layout == ChipToken.Layout(theme: self.theme))
     }
 
-    @Test
+    @Test("Typography property returns typography instance")
     func typography_property_returns_typography_instance() {
         // GIVEN / WHEN
         let token = ChipToken(theme: self.theme)
@@ -79,7 +79,7 @@ struct ChipTokenTests {
         #expect(token.typography == ChipToken.Typography(theme: self.theme))
     }
 
-    @Test
+    @Test("Equatable returns true when tokens are equal")
     func equatable_returns_true_when_tokens_are_equal() {
         // GIVEN
         let token1 = ChipToken(theme: self.theme)
@@ -89,7 +89,7 @@ struct ChipTokenTests {
         #expect(token1 == token2)
     }
 
-    @Test
+    @Test("Equatable returns false when tokens are different")
     func equatable_returns_false_when_tokens_are_different() {
         // GIVEN
         let theme2 = ThemeGeneratedMock.mocked2()

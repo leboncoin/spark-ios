@@ -26,29 +26,29 @@ struct SegmentedControlTokenBorderTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Radius should return half of min height")
     func radiusShouldReturnHalfOfMinHeight() {
         #expect(self.token.radius == 22)
     }
 
-    @Test
+    @Test("Selected item radius should return radius minus spacing small")
     func selectedItemRadiusShouldReturnRadiusMinusSpacingSmall() {
         #expect(self.token.selectedItemRadius == 22 - self.theme.layout.spacing.small)
     }
 
-    @Test
+    @Test("Selected item width should return border width small")
     func selectedItemWidthShouldReturnBorderWidthSmall() {
         #expect(self.token.selectedItemWidth == self.theme.border.width.small)
     }
 
-    @Test
+    @Test("Width should return border width small")
     func widthShouldReturnBorderWidthSmall() {
         #expect(self.token.width == self.theme.border.width.small)
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = SegmentedControlToken.Border(theme: self.theme)
@@ -58,7 +58,7 @@ struct SegmentedControlTokenBorderTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = SegmentedControlToken.Border(theme: self.theme)

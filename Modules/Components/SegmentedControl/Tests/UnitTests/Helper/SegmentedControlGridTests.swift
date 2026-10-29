@@ -15,7 +15,7 @@ struct SegmentedControlGridTests {
 
     // MARK: - Rows Tests
 
-    @Test(
+    @Test("Rows should return balanced rows",
         arguments: [
             (1, 4, [[0]]),
             (4, 4, [[0, 1, 2, 3]]),
@@ -48,7 +48,7 @@ struct SegmentedControlGridTests {
 
     // MARK: - Vertical Separator Tests
 
-    @Test(
+    @Test("Is vertical separator should return expected value",
         arguments: [
             (2, 3, 0, true),
             (2, 3, 1, true),
@@ -77,7 +77,7 @@ struct SegmentedControlGridTests {
 
     // MARK: - Horizontal Separator Tests
 
-    @Test(
+    @Test("Is horizontal separator should return expected value",
         arguments: [
             (1, 0, false),
             (2, 0, true),

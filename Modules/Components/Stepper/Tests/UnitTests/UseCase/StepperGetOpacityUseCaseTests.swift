@@ -6,11 +6,12 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentStepper
 @_spi(SI_SPI) import SparkThemingTesting
 
-class StepperGetOpacityUseCaseTests: XCTestCase {
+@Suite("Stepper Get Opacity UseCase Tests")
+struct StepperGetOpacityUseCaseTests {
 
     // MARK: - Properties
 
@@ -19,7 +20,8 @@ class StepperGetOpacityUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testExecuteWhenDisabledReturnsDim3() {
+    @Test("Execute when disabled returns dim3")
+    func executeWhenDisabledReturnsDim3() {
         // GIVEN
         let isDisabled = true
 
@@ -27,10 +29,11 @@ class StepperGetOpacityUseCaseTests: XCTestCase {
         let result = self.useCase.execute(dims: self.dimsMock, isDisabled: isDisabled)
 
         // THEN
-        XCTAssertEqual(result, self.dimsMock.dim3)
+        #expect(result == self.dimsMock.dim3)
     }
 
-    func testExecuteWhenEnabledReturnsNone() {
+    @Test("Execute when enabled returns none")
+    func executeWhenEnabledReturnsNone() {
         // GIVEN
         let isDisabled = false
 
@@ -38,6 +41,6 @@ class StepperGetOpacityUseCaseTests: XCTestCase {
         let result = self.useCase.execute(dims: self.dimsMock, isDisabled: isDisabled)
 
         // THEN
-        XCTAssertEqual(result, self.dimsMock.none)
+        #expect(result == self.dimsMock.none)
     }
 }

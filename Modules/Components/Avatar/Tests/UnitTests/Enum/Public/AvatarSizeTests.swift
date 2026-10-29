@@ -15,7 +15,7 @@ struct AvatarSizeTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Default should return expected value")
     func defaultShouldReturnExpectedValue() {
         // GIVEN / WHEN
         let result = AvatarSize.default
@@ -24,7 +24,7 @@ struct AvatarSizeTests {
         #expect(result == .lg)
     }
 
-    @Test(
+    @Test("Is icon button should return expected value",
         arguments: [
             (AvatarSize.xs, false),
             (.sm, false),
@@ -43,7 +43,7 @@ struct AvatarSizeTests {
         #expect(result == expectedValue)
     }
 
-    @Test
+    @Test("All cases should contain all expected values")
     func allCasesShouldContainAllExpectedValues() {
         // GIVEN / WHEN
         let result = AvatarSize.allCases

@@ -6,48 +6,54 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentStepper
 
-class StepperFormattedTextObservableTests: XCTestCase {
+@Suite("Stepper Formatted Text Observable Tests")
+struct StepperFormattedTextObservableTests {
 
     // MARK: - Tests Without Format
 
-    func testGetTextOnInitWithValue() {
+    @Test("Get text on init with value")
+    func getTextOnInitWithValue() {
         // GIVEN / WHEN
         let observable = StepperFormattedTextObservable(value: 5)
 
         // THEN
-        XCTAssertEqual(observable.getText(), "5")
+        #expect(observable.getText() == "5")
     }
 
-    func testGetTextOnSetValue() {
+    @Test("Get text on set value")
+    func getTextOnSetValue() {
         // GIVEN / WHEN
         let observable = StepperFormattedTextObservable(value: 5)
         observable.setValue(10)
 
         // THEN
-        XCTAssertEqual(observable.getText(), "10")
+        #expect(observable.getText() == "10")
     }
 
     // MARK: - Tests With Format
 
-    func testGetTextOnInitWithValueAndFormat() {
+    @Test("Get text on init with value and format")
+    func getTextOnInitWithValueAndFormat() {
         // GIVEN / WHEN
         let locale = Locale(identifier: "fr_FR")
         let observable = StepperFormattedTextObservable(value: 5, format: .percent.locale(locale))
 
         // THEN
-        XCTAssertEqual(observable.getText(), "5 %")
+        #expect(observable.getText() == "5 %")
     }
 
-    func testGetTextOnSetValueWithFormat() {
+    @Test("Get text on set value with format")
+    func getTextOnSetValueWithFormat() {
         // GIVEN / WHEN
         let locale = Locale(identifier: "en_US")
         let observable = StepperFormattedTextObservable(value: 5, format: .percent.locale(locale))
         observable.setValue(10)
 
         // THEN
-        XCTAssertEqual(observable.getText(), "10%")
+        #expect(observable.getText() == "10%")
     }
 }

@@ -6,26 +6,29 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkCommon
 
-final class LimitedScaledMetricConstantsTests: XCTestCase {
+@Suite("Limited Scaled Metric Constants Tests")
+struct LimitedScaledMetricConstantsTests {
 
     // MARK: - Tests
 
-    func test_minValueFactor() {
+    @Test("Min value factor")
+    func minValueFactor() {
         // GIVEN / WHEN
         let minValueFactor = LimitedScaledMetricConstants.minValueFactor
 
         // THEN
-        XCTAssertEqual(minValueFactor, 1.0)
+        #expect(minValueFactor == 1.0)
     }
 
-    func test_maxValueFactor() {
+    @Test("Max value factor")
+    func maxValueFactor() {
         // GIVEN / WHEN
         let maxValueFactor = LimitedScaledMetricConstants.maxValueFactor
 
         // THEN
-        XCTAssertEqual(maxValueFactor, 1.5)
+        #expect(maxValueFactor == 1.5)
     }
 }

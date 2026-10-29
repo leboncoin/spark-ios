@@ -15,7 +15,7 @@ struct TagColorsTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Default values")
     func test_default_values() {
         // GIVEN / WHEN
         let colors = TagColors()
@@ -27,7 +27,7 @@ struct TagColorsTests {
         #expect(colors.textColor.equals(ColorTokenClear()))
     }
 
-    @Test
+    @Test("Init with all parameters")
     func test_init_with_all_parameters() {
         // GIVEN / WHEN
         let colors = SparkTheme.shared.colors
@@ -46,7 +46,7 @@ struct TagColorsTests {
         #expect(tagColors.textColor.equals(colors.feedback.info))
     }
 
-    @Test
+    @Test("Init with tint color")
     func test_init_with_tintColor() {
         // GIVEN / WHEN
         let colors = SparkTheme.shared.colors
@@ -64,7 +64,7 @@ struct TagColorsTests {
         #expect(tagColors.textColor.equals(colors.feedback.success))
     }
 
-    @Test
+    @Test("Equal")
     func test_equal() {
         // GIVEN / WHEN
         let colors = SparkTheme.shared.colors
@@ -87,7 +87,7 @@ struct TagColorsTests {
         #expect(colors1 == colors2)
     }
 
-    @Test
+    @Test("Not equal background color")
     func test_not_equal_backgroundColor() {
         // GIVEN / WHEN
         let colors = SparkTheme.shared.colors
@@ -110,7 +110,7 @@ struct TagColorsTests {
         #expect(colors1 != colors2)
     }
 
-    @Test
+    @Test("Not equal border color")
     func test_not_equal_borderColor() {
         // GIVEN / WHEN
         let colors = SparkTheme.shared.colors
@@ -133,7 +133,7 @@ struct TagColorsTests {
         #expect(colors1 != colors2)
     }
 
-    @Test
+    @Test("Not equal icon color")
     func test_not_equal_iconColor() {
         // GIVEN / WHEN
         let colors = SparkTheme.shared.colors
@@ -156,7 +156,7 @@ struct TagColorsTests {
         #expect(colors1 != colors2)
     }
 
-    @Test
+    @Test("Not equal text color")
     func test_not_equal_textColor() {
         // GIVEN / WHEN
         let colors = SparkTheme.shared.colors
@@ -179,7 +179,7 @@ struct TagColorsTests {
         #expect(colors1 != colors2)
     }
 
-    @Test
+    @Test("Hashable")
     func test_hashable() {
         // GIVEN / WHEN
         let colors = SparkTheme.shared.colors

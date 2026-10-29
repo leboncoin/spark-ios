@@ -6,10 +6,12 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentProgressBar
 
-final class ProgressBarIndeterminateGetAnimationDataUseCaseTests: XCTestCase {
+@Suite("Progress Bar Indeterminate Get Animation Data Use Case Tests")
+struct ProgressBarIndeterminateGetAnimationDataUseCaseTests {
 
     // MARK: - Properties
 
@@ -17,7 +19,8 @@ final class ProgressBarIndeterminateGetAnimationDataUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_when_type_is_easeIn() {
+    @Test("Execute when type is ease in")
+    func executeWhenTypeIsEaseIn() {
         // GIVEN / WHEN / THEN
         let indicatorMaxWidth = self.trackWidth * ProgressBarIndeterminateConstants.Animation.maxWidthRatio
         self.testExecute(
@@ -29,7 +32,8 @@ final class ProgressBarIndeterminateGetAnimationDataUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_when_type_is_easeOut() {
+    @Test("Execute when type is ease out")
+    func executeWhenTypeIsEaseOut() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenType: .easeOut,
@@ -40,7 +44,8 @@ final class ProgressBarIndeterminateGetAnimationDataUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_when_type_is_reset() {
+    @Test("Execute when type is reset")
+    func executeWhenTypeIsReset() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenType: .reset,
@@ -51,7 +56,8 @@ final class ProgressBarIndeterminateGetAnimationDataUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_when_type_is_none() {
+    @Test("Execute when type is none")
+    func executeWhenTypeIsNone() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenType: .none,
@@ -62,7 +68,8 @@ final class ProgressBarIndeterminateGetAnimationDataUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_when_type_is_nil() {
+    @Test("Execute when type is nil")
+    func executeWhenTypeIsNil() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenType: nil,
@@ -92,10 +99,6 @@ private extension ProgressBarIndeterminateGetAnimationDataUseCaseTests {
         )
 
         // THEN
-        XCTAssertEqual(
-            animatedData,
-            expectedAnimatedData,
-            "Wrong animated data for type \(String(describing: givenType))"
-        )
+        #expect(animatedData == expectedAnimatedData, "Wrong animated data for type \(String(describing: givenType))")
     }
 }

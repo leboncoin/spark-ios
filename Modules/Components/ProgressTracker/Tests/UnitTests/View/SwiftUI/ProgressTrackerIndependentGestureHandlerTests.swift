@@ -7,11 +7,13 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 
 @testable import SparkComponentProgressTracker
 
-final class ProgressTrackerIndependentGestureHandlerTests: XCTestCase {
+@MainActor
+@Suite("Progress Tracker Independent Gesture Handler Tests")
+final class ProgressTrackerIndependentGestureHandlerTests {
 
     var _currentPageIndex: Int = 0
 
@@ -32,7 +34,8 @@ final class ProgressTrackerIndependentGestureHandlerTests: XCTestCase {
     private var disabledIndices = Set<Int>()
 
     // MARK: - Tests
-    func test_index_0_is_current_3_may_be_selected() {
+    @Test("Index 0 is current 3 may be selected")
+    func index0IsCurrent3MayBeSelected() {
         // Given
         self._currentPageIndex = 0
         let sut = self.sut()
@@ -41,18 +44,19 @@ final class ProgressTrackerIndependentGestureHandlerTests: XCTestCase {
         sut.onChanged(location: CGPoint(x: 140, y: 0))
 
         // Then
-        XCTAssertEqual(self._currentTouchedPageIndex, 3, "Next select page is 1")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == 3, "Next select page is 1")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
 
         // When
         sut.onEnded(location: CGPoint(x: 140, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Next select page is nil")
-        XCTAssertEqual(self._currentPageIndex, 3, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Next select page is nil")
+        #expect(self._currentPageIndex == 3, "Current page is not updated")
     }
 
-    func test_index_3_is_current_0_may_be_selected() {
+    @Test("Index 3 is current 0 may be selected")
+    func index3IsCurrent0MayBeSelected() {
         // Given
         self._currentPageIndex = 3
         let sut = self.sut()
@@ -61,18 +65,19 @@ final class ProgressTrackerIndependentGestureHandlerTests: XCTestCase {
         sut.onChanged(location: CGPoint(x: 0, y: 0))
 
         // Then
-        XCTAssertEqual(self._currentTouchedPageIndex, 0, "Next select page is 1")
-        XCTAssertEqual(self._currentPageIndex, 3, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == 0, "Next select page is 1")
+        #expect(self._currentPageIndex == 3, "Current page is not updated")
 
         // When
         sut.onEnded(location: CGPoint(x: 0, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Next select page is nil")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Next select page is nil")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
     }
 
-    func test_can_skip_disabled() {
+    @Test("Can skip disabled")
+    func canSkipDisabled() {
         // Given
         self._currentPageIndex = 0
         self.disabledIndices.insert(1)
@@ -82,18 +87,19 @@ final class ProgressTrackerIndependentGestureHandlerTests: XCTestCase {
         sut.onChanged(location: CGPoint(x: 81, y: 0))
 
         // Then
-        XCTAssertEqual(self._currentTouchedPageIndex, 2, "Current touched page is 2")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == 2, "Current touched page is 2")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
 
         // When
         sut.onEnded(location: CGPoint(x: 81, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Next select page is nil")
-        XCTAssertEqual(self._currentPageIndex, 2, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Next select page is nil")
+        #expect(self._currentPageIndex == 2, "Current page is not updated")
     }
 
-    func test_touch_outside_frame_ignored() {
+    @Test("Touch outside frame ignored")
+    func touchOutsideFrameIgnored() {
         // Given
         self._currentPageIndex = 0
         self.disabledIndices.insert(1)
@@ -103,18 +109,19 @@ final class ProgressTrackerIndependentGestureHandlerTests: XCTestCase {
         sut.onChanged(location: CGPoint(x: 161, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Current touched page is nil")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Current touched page is nil")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
 
         // When
         sut.onEnded(location: CGPoint(x: 161, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Next select page is nil")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Next select page is nil")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
     }
 
-    func test_disabled_cant_be_selected() {
+    @Test("Disabled cant be selected")
+    func disabledCantBeSelected() {
         // Given
         self._currentPageIndex = 0
         self.disabledIndices.insert(2)
@@ -124,15 +131,15 @@ final class ProgressTrackerIndependentGestureHandlerTests: XCTestCase {
         sut.onChanged(location: CGPoint(x: 81, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Current touched page is nil")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Current touched page is nil")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
 
         // When
         sut.onEnded(location: CGPoint(x: 81, y: 0))
 
         // Then
-        XCTAssertNil(self._currentTouchedPageIndex, "Next select page is nil")
-        XCTAssertEqual(self._currentPageIndex, 0, "Current page is not updated")
+        #expect(self._currentTouchedPageIndex == nil, "Next select page is nil")
+        #expect(self._currentPageIndex == 0, "Current page is not updated")
     }
 
     // MARK: Private helpers

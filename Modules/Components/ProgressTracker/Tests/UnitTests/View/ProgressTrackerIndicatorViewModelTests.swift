@@ -7,20 +7,23 @@
 //
 
 import Combine
-import XCTest
+import Foundation
+import Testing
+import UIKit
 @testable import SparkComponentProgressTracker
 @_spi(SI_SPI) @testable import SparkComponentProgressTrackerTesting
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ProgressTrackerIndicatorViewModelTests: XCTestCase {
+@MainActor
+@Suite("ProgressTracker Indicator ViewModel Tests")
+final class ProgressTrackerIndicatorViewModelTests {
 
     var cancellables = Set<AnyCancellable>()
-    var theme: ThemeGeneratedMock!
-    var colorsUseCase: ProgressTrackerGetColorsUseCaseableGeneratedMock!
+    let theme: ThemeGeneratedMock
+    let colorsUseCase: ProgressTrackerGetColorsUseCaseableGeneratedMock
 
-    // MARK: - Setup
-    override func setUp() {
-        super.setUp()
+    // MARK: - Initialization
+    init() {
         self.theme = ThemeGeneratedMock.mocked()
         self.colorsUseCase = ProgressTrackerGetColorsUseCaseableGeneratedMock()
 
@@ -33,28 +36,29 @@ final class ProgressTrackerIndicatorViewModelTests: XCTestCase {
     }
 
     // MARK: - Tests
-    func test_initialization() {
+    @Test("Initialization")
+    func initialization() {
         // Given
         let sut = self.sut(intent: .alert, variant: .tinted, size: .small, state: .selected)
 
         // Then
-        XCTAssertEqual(sut.state, .selected, "Expected state to be selected")
-        XCTAssertEqual(sut.intent, .alert, "Expected intent to be alert")
-        XCTAssertEqual(sut.variant, .tinted, "Expected variant to be tinted")
-        XCTAssertEqual(sut.size, .small, "Expected size to be small")
-        XCTAssertIdentical(sut.theme as? ThemeGeneratedMock, self.theme, "Expected theme to be identical")
+        #expect(sut.state == .selected, "Expected state to be selected")
+        #expect(sut.intent == .alert, "Expected intent to be alert")
+        #expect(sut.variant == .tinted, "Expected variant to be tinted")
+        #expect(sut.size == .small, "Expected size to be small")
+        #expect(sut.theme as? ThemeGeneratedMock === self.theme, "Expected theme to be identical")
 
-        XCTAssertEqual(self.colorsUseCase.executeWithColorsAndIntentAndVariantAndStateCallsCount, 1)
+        #expect(self.colorsUseCase.executeWithColorsAndIntentAndVariantAndStateCallsCount == 1)
     }
 
-    func test_update_theme() {
+    @Test("Update theme")
+    func updateTheme() {
         // Given
         let sut = self.sut()
-        let expectation = expectation(description: "Expect colors to have been triggered")
-        expectation.expectedFulfillmentCount = 2
+        var fulfillmentCount = 0
 
         sut.$colors.sink { _ in
-            expectation.fulfill()
+            fulfillmentCount += 1
         }
         .store(in: &self.cancellables)
 
@@ -62,17 +66,17 @@ final class ProgressTrackerIndicatorViewModelTests: XCTestCase {
         sut.theme = self.theme
 
         // Then
-        wait(for: [expectation])
+        #expect(fulfillmentCount == 2, "Expect colors to have been triggered")
     }
 
-    func test_intent_change() {
+    @Test("Intent change")
+    func intentChange() {
         // Given
         let sut = self.sut(intent: .support)
-        let expectation = expectation(description: "Expect colors to have been triggered twice")
-        expectation.expectedFulfillmentCount = 2
+        var fulfillmentCount = 0
 
         sut.$colors.sink { _ in
-            expectation.fulfill()
+            fulfillmentCount += 1
         }
         .store(in: &self.cancellables)
 
@@ -80,17 +84,17 @@ final class ProgressTrackerIndicatorViewModelTests: XCTestCase {
         sut.intent = .danger
 
         // Then
-        wait(for: [expectation])
+        #expect(fulfillmentCount == 2, "Expect colors to have been triggered twice")
     }
 
-    func test_intent_no_change() {
+    @Test("Intent no change")
+    func intentNoChange() {
         // Given
         let sut = self.sut(intent: .support)
-        let expectation = expectation(description: "Expect colors to have been triggered once")
-        expectation.expectedFulfillmentCount = 1
+        var fulfillmentCount = 0
 
         sut.$colors.sink { _ in
-            expectation.fulfill()
+            fulfillmentCount += 1
         }
         .store(in: &self.cancellables)
 
@@ -98,17 +102,17 @@ final class ProgressTrackerIndicatorViewModelTests: XCTestCase {
         sut.intent = .support
 
         // Then
-        wait(for: [expectation])
+        #expect(fulfillmentCount == 1, "Expect colors to have been triggered once")
     }
 
-    func test_variant_change() {
+    @Test("Variant change")
+    func variantChange() {
         // Given
         let sut = self.sut(variant: .outlined)
-        let expectation = expectation(description: "Expect colors to have been triggered twice")
-        expectation.expectedFulfillmentCount = 2
+        var fulfillmentCount = 0
 
         sut.$colors.sink { _ in
-            expectation.fulfill()
+            fulfillmentCount += 1
         }
         .store(in: &self.cancellables)
 
@@ -116,17 +120,17 @@ final class ProgressTrackerIndicatorViewModelTests: XCTestCase {
         sut.variant = .tinted
 
         // Then
-        wait(for: [expectation])
+        #expect(fulfillmentCount == 2, "Expect colors to have been triggered twice")
     }
 
-    func test_variant_no_change() {
+    @Test("Variant no change")
+    func variantNoChange() {
         // Given
         let sut = self.sut(variant: .outlined)
-        let expectation = expectation(description: "Expect colors to have been triggered once")
-        expectation.expectedFulfillmentCount = 1
+        var fulfillmentCount = 0
 
         sut.$colors.sink { _ in
-            expectation.fulfill()
+            fulfillmentCount += 1
         }
         .store(in: &self.cancellables)
 
@@ -134,17 +138,17 @@ final class ProgressTrackerIndicatorViewModelTests: XCTestCase {
         sut.variant = .outlined
 
         // Then
-        wait(for: [expectation])
+        #expect(fulfillmentCount == 1, "Expect colors to have been triggered once")
     }
 
-    func test_state_change() {
+    @Test("State change")
+    func stateChange() {
         // Given
         let sut = self.sut(state: .normal)
-        let expectation = expectation(description: "Expect colors to have been triggered twice")
-        expectation.expectedFulfillmentCount = 2
+        var fulfillmentCount = 0
 
         sut.$colors.sink { _ in
-            expectation.fulfill()
+            fulfillmentCount += 1
         }
         .store(in: &self.cancellables)
 
@@ -152,17 +156,17 @@ final class ProgressTrackerIndicatorViewModelTests: XCTestCase {
         sut.state = .pressed
 
         // Then
-        wait(for: [expectation])
+        #expect(fulfillmentCount == 2, "Expect colors to have been triggered twice")
     }
 
-    func test_state_no_change() {
+    @Test("State no change")
+    func stateNoChange() {
         // Given
         let sut = self.sut(state: .pressed)
-        let expectation = expectation(description: "Expect colors to have been triggered once")
-        expectation.expectedFulfillmentCount = 1
+        var fulfillmentCount = 0
 
         sut.$colors.sink { _ in
-            expectation.fulfill()
+            fulfillmentCount += 1
         }
         .store(in: &self.cancellables)
 
@@ -170,17 +174,17 @@ final class ProgressTrackerIndicatorViewModelTests: XCTestCase {
         sut.state = .pressed
 
         // Then
-        wait(for: [expectation])
+        #expect(fulfillmentCount == 1, "Expect colors to have been triggered once")
     }
 
-    func test_selected_changed() {
+    @Test("Selected changed")
+    func selectedChanged() {
         // Given
         let sut = self.sut(state: .normal)
-        let expectation = expectation(description: "Expect colors to have been triggered twice")
-        expectation.expectedFulfillmentCount = 2
+        var fulfillmentCount = 0
 
         sut.$colors.sink { _ in
-            expectation.fulfill()
+            fulfillmentCount += 1
         }
         .store(in: &self.cancellables)
 
@@ -188,17 +192,17 @@ final class ProgressTrackerIndicatorViewModelTests: XCTestCase {
         sut.set(selected: true)
 
         // Then
-        wait(for: [expectation])
+        #expect(fulfillmentCount == 2, "Expect colors to have been triggered twice")
     }
 
-    func test_enabled_changed() {
+    @Test("Enabled changed")
+    func enabledChanged() {
         // Given
         let sut = self.sut(state: .normal)
-        let expectation = expectation(description: "Expect colors to have been triggered twice")
-        expectation.expectedFulfillmentCount = 2
+        var fulfillmentCount = 0
 
         sut.$colors.sink { _ in
-            expectation.fulfill()
+            fulfillmentCount += 1
         }
         .store(in: &self.cancellables)
 
@@ -206,17 +210,17 @@ final class ProgressTrackerIndicatorViewModelTests: XCTestCase {
         sut.set(enabled: false)
 
         // Then
-        wait(for: [expectation])
+        #expect(fulfillmentCount == 2, "Expect colors to have been triggered twice")
     }
 
-    func test_highlighted_changed() {
+    @Test("Highlighted changed")
+    func highlightedChanged() {
         // Given
         let sut = self.sut(state: .normal)
-        let expectation = expectation(description: "Expect colors to have been triggered twice")
-        expectation.expectedFulfillmentCount = 2
+        var fulfillmentCount = 0
 
         sut.$colors.sink { _ in
-            expectation.fulfill()
+            fulfillmentCount += 1
         }
         .store(in: &self.cancellables)
 
@@ -224,7 +228,7 @@ final class ProgressTrackerIndicatorViewModelTests: XCTestCase {
         sut.set(highlighted: true)
 
         // Then
-        wait(for: [expectation])
+        #expect(fulfillmentCount == 2, "Expect colors to have been triggered twice")
     }
 
     // MARK: Private functions

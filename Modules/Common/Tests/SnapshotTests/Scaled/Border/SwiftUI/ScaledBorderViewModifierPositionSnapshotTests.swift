@@ -19,7 +19,7 @@ struct ScaledBorderViewModifierPositionSnapshotTests: SwiftUIComponentSnapshotTe
 
     // MARK: - Tests
 
-    @Test func test() async throws {
+    @Test("Scaled border view modifier position snapshot") func test() async throws {
         await self.assertSnapshot(
             matching: SnapshotView(),
             modes: ComponentSnapshotTestConstants.Modes.default,

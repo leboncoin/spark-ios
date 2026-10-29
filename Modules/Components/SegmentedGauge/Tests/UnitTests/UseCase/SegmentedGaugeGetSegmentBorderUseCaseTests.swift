@@ -6,16 +6,18 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import Foundation
 @testable import SparkComponentSegmentedGauge
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SegmentedGaugeGetSegmentBorderUseCaseTests: XCTestCase {
+@Suite("SegmentedGauge Get Segment Border UseCase Tests")
+struct SegmentedGaugeGetSegmentBorderUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_returnsCorrectBorder() {
+    @Test("Execute returns correct border")
+    func executeReturnsCorrectBorder() {
         // GIVEN
         let useCase = SegmentedGaugeGetSegmentBorderUseCase()
         let theme = ThemeGeneratedMock.mocked()
@@ -29,6 +31,6 @@ final class SegmentedGaugeGetSegmentBorderUseCaseTests: XCTestCase {
         let result = useCase.execute(theme: theme)
 
         // THEN
-        XCTAssertEqual(result, expectedBorder)
+        #expect(result == expectedBorder)
     }
 }

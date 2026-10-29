@@ -6,32 +6,30 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import UIKit
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) @testable import SparkComponentSelectionControlsTesting
 @_spi(SI_SPI) import SparkCommon
 
-final class CommonResetAnimationUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Common Reset Animation UseCase Tests")
+struct CommonResetAnimationUseCaseTests {
 
     // MARK: - Properties
 
-    private var useCase: CommonResetAnimationUseCase!
+    private let useCase: CommonResetAnimationUseCase
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
+    init() {
         self.useCase = CommonResetAnimationUseCase()
-    }
-
-    override func tearDown() {
-        self.useCase = nil
-        super.tearDown()
     }
 
     // MARK: - Test execute when all animations completed
 
-    func test_execute_whenAllAnimationsCompleted_shouldResetValues() {
+    @Test("Execute when all animations completed should reset values")
+    func executeWhenAllAnimationsCompletedShouldResetValues() {
         // GIVEN
         var animationType: UIExecuteAnimationType = .animated(duration: 0.3)
         var completedAnimations: [CommonCompletedAnimationMock] = [.one, .two]
@@ -47,12 +45,13 @@ final class CommonResetAnimationUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(animationType, .unanimated)
-        XCTAssertTrue(completedAnimations.isEmpty)
-        XCTAssertFalse(selectedValueAnimated)
+        #expect(animationType == .unanimated)
+        #expect(completedAnimations.isEmpty)
+        #expect(!selectedValueAnimated)
     }
 
-    func test_execute_whenAllAnimationsCompletedInDifferentOrder_shouldResetValues() {
+    @Test("Execute when all animations completed in different order should reset values")
+    func executeWhenAllAnimationsCompletedInDifferentOrderShouldResetValues() {
         // GIVEN
         var animationType: UIExecuteAnimationType = .animated(duration: 0.5)
         var completedAnimations: [CommonCompletedAnimationMock] = [.two, .one] // Different order
@@ -68,14 +67,15 @@ final class CommonResetAnimationUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(animationType, .unanimated)
-        XCTAssertTrue(completedAnimations.isEmpty)
-        XCTAssertFalse(selectedValueAnimated)
+        #expect(animationType == .unanimated)
+        #expect(completedAnimations.isEmpty)
+        #expect(!selectedValueAnimated)
     }
 
     // MARK: - Test execute when not all animations completed
 
-    func test_execute_whenNotAllAnimationsCompleted_shouldNotResetValues() {
+    @Test("Execute when not all animations completed should not reset values")
+    func executeWhenNotAllAnimationsCompletedShouldNotResetValues() {
         // GIVEN
         var animationType: UIExecuteAnimationType = .animated(duration: 0.3)
         var completedAnimations: [CommonCompletedAnimationMock] = [.one] // Missing .two
@@ -95,12 +95,13 @@ final class CommonResetAnimationUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(animationType, originalAnimationType)
-        XCTAssertEqual(completedAnimations, originalCompletedAnimations)
-        XCTAssertEqual(selectedValueAnimated, originalSelectedValueAnimated)
+        #expect(animationType == originalAnimationType)
+        #expect(completedAnimations == originalCompletedAnimations)
+        #expect(selectedValueAnimated == originalSelectedValueAnimated)
     }
 
-    func test_execute_whenEmptyCompletedAnimations_shouldNotResetValues() {
+    @Test("Execute when empty completed animations should not reset values")
+    func executeWhenEmptyCompletedAnimationsShouldNotResetValues() {
         // GIVEN
         var animationType: UIExecuteAnimationType = .animated(duration: 0.3)
         var completedAnimations: [CommonCompletedAnimationMock] = []
@@ -120,14 +121,15 @@ final class CommonResetAnimationUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(animationType, originalAnimationType)
-        XCTAssertEqual(completedAnimations, originalCompletedAnimations)
-        XCTAssertEqual(selectedValueAnimated, originalSelectedValueAnimated)
+        #expect(animationType == originalAnimationType)
+        #expect(completedAnimations == originalCompletedAnimations)
+        #expect(selectedValueAnimated == originalSelectedValueAnimated)
     }
 
     // MARK: - Test edge cases
 
-    func test_execute_whenTooManyCompletedAnimations_shouldStillReset() {
+    @Test("Execute when too many completed animations should still reset")
+    func executeWhenTooManyCompletedAnimationsShouldStillReset() {
         // GIVEN
         var animationType: UIExecuteAnimationType = .animated(duration: 0.3)
         var completedAnimations: [CommonCompletedAnimationMock] = [.one, .two, .one, .two, .two] // Duplicate
@@ -143,12 +145,13 @@ final class CommonResetAnimationUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(animationType, .unanimated)
-        XCTAssertTrue(completedAnimations.isEmpty)
-        XCTAssertFalse(selectedValueAnimated)
+        #expect(animationType == .unanimated)
+        #expect(completedAnimations.isEmpty)
+        #expect(!selectedValueAnimated)
     }
 
-    func test_execute_whenUnanimatedAnimationTypeAndAllAnimationsCompleted_shouldStillReset() {
+    @Test("Execute when unanimated animation type and all animations completed should still reset")
+    func executeWhenUnanimatedAnimationTypeAndAllAnimationsCompletedShouldStillReset() {
         // GIVEN
         var animationType: UIExecuteAnimationType = .unanimated
         var completedAnimations: [CommonCompletedAnimationMock] = [.one, .two]
@@ -164,12 +167,13 @@ final class CommonResetAnimationUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(animationType, .unanimated)
-        XCTAssertTrue(completedAnimations.isEmpty)
-        XCTAssertFalse(selectedValueAnimated)
+        #expect(animationType == .unanimated)
+        #expect(completedAnimations.isEmpty)
+        #expect(!selectedValueAnimated)
     }
 
-    func test_execute_whenSelectedValueAnimatedFalseAndAllAnimationsCompleted_shouldStillReset() {
+    @Test("Execute when selected value animated false and all animations completed should still reset")
+    func executeWhenSelectedValueAnimatedFalseAndAllAnimationsCompletedShouldStillReset() {
         // GIVEN
         var animationType: UIExecuteAnimationType = .animated(duration: 0.2)
         var completedAnimations: [CommonCompletedAnimationMock] = [.two, .one]
@@ -185,8 +189,8 @@ final class CommonResetAnimationUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(animationType, .unanimated)
-        XCTAssertTrue(completedAnimations.isEmpty)
-        XCTAssertFalse(selectedValueAnimated)
+        #expect(animationType == .unanimated)
+        #expect(completedAnimations.isEmpty)
+        #expect(!selectedValueAnimated)
     }
 }

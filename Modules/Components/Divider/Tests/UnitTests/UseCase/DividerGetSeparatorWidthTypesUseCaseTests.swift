@@ -6,31 +6,27 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 
 @testable import SparkComponentDivider
 
-final class DividerGetSeparatorWidthTypesUseCaseTests: XCTestCase {
+@Suite("Divider Get Separator Width Types UseCase Tests")
+struct DividerGetSeparatorWidthTypesUseCaseTests {
 
     // MARK: - Properties
 
-    private var useCase: DividerGetSeparatorWidthTypesUseCase!
+    private let useCase: DividerGetSeparatorWidthTypesUseCase
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
         self.useCase = DividerGetSeparatorWidthTypesUseCase()
-    }
-
-    override func tearDown() {
-        self.useCase = nil
-        super.tearDown()
     }
 
     // MARK: - Execute Tests - Vertical Axis
 
-    func test_execute_vertical_top() {
+    @Test("Execute vertical top")
+    func executeVerticalTop() {
         // GIVEN
         let alignment: DividerAlignment = .top
         let axis: DividerAxis = .vertical
@@ -39,19 +35,18 @@ final class DividerGetSeparatorWidthTypesUseCaseTests: XCTestCase {
         let result = self.useCase.execute(alignment: alignment, axis: axis)
 
         // THEN
-        XCTAssertEqual(
-            result.first,
-            .fixed,
+        #expect(
+            result.first == .fixed,
             "First separator should be fixed for vertical axis with top alignment"
         )
-        XCTAssertEqual(
-            result.last,
-            .dynamic,
+        #expect(
+            result.last == .dynamic,
             "Last separator should be dynamic for vertical axis with top alignment"
         )
     }
 
-    func test_execute_vertical_bottom() {
+    @Test("Execute vertical bottom")
+    func executeVerticalBottom() {
         // GIVEN
         let alignment: DividerAlignment = .bottom
         let axis: DividerAxis = .vertical
@@ -60,19 +55,18 @@ final class DividerGetSeparatorWidthTypesUseCaseTests: XCTestCase {
         let result = self.useCase.execute(alignment: alignment, axis: axis)
 
         // THEN
-        XCTAssertEqual(
-            result.first,
-            .dynamic,
+        #expect(
+            result.first == .dynamic,
             "First separator should be dynamic for vertical axis with bottom alignment"
         )
-        XCTAssertEqual(
-            result.last,
-            .fixed,
+        #expect(
+            result.last == .fixed,
             "Last separator should be fixed for vertical axis with bottom alignment"
         )
     }
 
-    func test_execute_vertical_center() {
+    @Test("Execute vertical center")
+    func executeVerticalCenter() {
         // GIVEN
         let alignment: DividerAlignment = .center
         let axis: DividerAxis = .vertical
@@ -81,19 +75,18 @@ final class DividerGetSeparatorWidthTypesUseCaseTests: XCTestCase {
         let result = self.useCase.execute(alignment: alignment, axis: axis)
 
         // THEN
-        XCTAssertEqual(
-            result.first,
-            .equal,
+        #expect(
+            result.first == .equal,
             "First separator should be equal for vertical axis with center alignment"
         )
-        XCTAssertEqual(
-            result.last,
-            .equal,
+        #expect(
+            result.last == .equal,
             "Last separator should be equal for vertical axis with center alignment"
         )
     }
 
-    func test_execute_vertical_leading() {
+    @Test("Execute vertical leading")
+    func executeVerticalLeading() {
         // GIVEN
         let alignment: DividerAlignment = .leading
         let axis: DividerAxis = .vertical
@@ -102,19 +95,18 @@ final class DividerGetSeparatorWidthTypesUseCaseTests: XCTestCase {
         let result = self.useCase.execute(alignment: alignment, axis: axis)
 
         // THEN
-        XCTAssertEqual(
-            result.first,
-            .equal,
+        #expect(
+            result.first == .equal,
             "First separator should be equal for vertical axis with leading alignment"
         )
-        XCTAssertEqual(
-            result.last,
-            .equal,
+        #expect(
+            result.last == .equal,
             "Last separator should be equal for vertical axis with leading alignment"
         )
     }
 
-    func test_execute_vertical_trailing() {
+    @Test("Execute vertical trailing")
+    func executeVerticalTrailing() {
         // GIVEN
         let alignment: DividerAlignment = .trailing
         let axis: DividerAxis = .vertical
@@ -123,21 +115,20 @@ final class DividerGetSeparatorWidthTypesUseCaseTests: XCTestCase {
         let result = self.useCase.execute(alignment: alignment, axis: axis)
 
         // THEN
-        XCTAssertEqual(
-            result.first,
-            .equal,
+        #expect(
+            result.first == .equal,
             "First separator should be equal for vertical axis with trailing alignment"
         )
-        XCTAssertEqual(
-            result.last,
-            .equal,
+        #expect(
+            result.last == .equal,
             "Last separator should be equal for vertical axis with trailing alignment"
         )
     }
 
     // MARK: - Execute Tests - Horizontal Axis
 
-    func test_execute_horizontal_leading() {
+    @Test("Execute horizontal leading")
+    func executeHorizontalLeading() {
         // GIVEN
         let alignment: DividerAlignment = .leading
         let axis: DividerAxis = .horizontal
@@ -146,19 +137,18 @@ final class DividerGetSeparatorWidthTypesUseCaseTests: XCTestCase {
         let result = self.useCase.execute(alignment: alignment, axis: axis)
 
         // THEN
-        XCTAssertEqual(
-            result.first,
-            .fixed,
+        #expect(
+            result.first == .fixed,
             "First separator should be fixed for horizontal axis with leading alignment"
         )
-        XCTAssertEqual(
-            result.last,
-            .dynamic,
+        #expect(
+            result.last == .dynamic,
             "Last separator should be dynamic for horizontal axis with leading alignment"
         )
     }
 
-    func test_execute_horizontal_trailing() {
+    @Test("Execute horizontal trailing")
+    func executeHorizontalTrailing() {
         // GIVEN
         let alignment: DividerAlignment = .trailing
         let axis: DividerAxis = .horizontal
@@ -167,19 +157,18 @@ final class DividerGetSeparatorWidthTypesUseCaseTests: XCTestCase {
         let result = self.useCase.execute(alignment: alignment, axis: axis)
 
         // THEN
-        XCTAssertEqual(
-            result.first,
-            .dynamic,
+        #expect(
+            result.first == .dynamic,
             "First separator should be dynamic for horizontal axis with trailing alignment"
         )
-        XCTAssertEqual(
-            result.last,
-            .fixed,
+        #expect(
+            result.last == .fixed,
             "Last separator should be fixed for horizontal axis with trailing alignment"
         )
     }
 
-    func test_execute_horizontal_center() {
+    @Test("Execute horizontal center")
+    func executeHorizontalCenter() {
         // GIVEN
         let alignment: DividerAlignment = .center
         let axis: DividerAxis = .horizontal
@@ -188,19 +177,18 @@ final class DividerGetSeparatorWidthTypesUseCaseTests: XCTestCase {
         let result = self.useCase.execute(alignment: alignment, axis: axis)
 
         // THEN
-        XCTAssertEqual(
-            result.first,
-            .equal,
+        #expect(
+            result.first == .equal,
             "First separator should be equal for horizontal axis with center alignment"
         )
-        XCTAssertEqual(
-            result.last,
-            .equal,
+        #expect(
+            result.last == .equal,
             "Last separator should be equal for horizontal axis with center alignment"
         )
     }
 
-    func test_execute_horizontal_top() {
+    @Test("Execute horizontal top")
+    func executeHorizontalTop() {
         // GIVEN
         let alignment: DividerAlignment = .top
         let axis: DividerAxis = .horizontal
@@ -209,19 +197,18 @@ final class DividerGetSeparatorWidthTypesUseCaseTests: XCTestCase {
         let result = self.useCase.execute(alignment: alignment, axis: axis)
 
         // THEN
-        XCTAssertEqual(
-            result.first,
-            .equal,
+        #expect(
+            result.first == .equal,
             "First separator should be equal for horizontal axis with top alignment"
         )
-        XCTAssertEqual(
-            result.last,
-            .equal,
+        #expect(
+            result.last == .equal,
             "Last separator should be equal for horizontal axis with top alignment"
         )
     }
 
-    func test_execute_horizontal_bottom() {
+    @Test("Execute horizontal bottom")
+    func executeHorizontalBottom() {
         // GIVEN
         let alignment: DividerAlignment = .bottom
         let axis: DividerAxis = .horizontal
@@ -230,14 +217,12 @@ final class DividerGetSeparatorWidthTypesUseCaseTests: XCTestCase {
         let result = self.useCase.execute(alignment: alignment, axis: axis)
 
         // THEN
-        XCTAssertEqual(
-            result.first,
-            .equal,
+        #expect(
+            result.first == .equal,
             "First separator should be equal for horizontal axis with bottom alignment"
         )
-        XCTAssertEqual(
-            result.last,
-            .equal,
+        #expect(
+            result.last == .equal,
             "Last separator should be equal for horizontal axis with bottom alignment"
         )
     }

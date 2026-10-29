@@ -31,32 +31,32 @@ struct EnvironmentThemeXXXTokenTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Border should return XXX border")
     func borderShouldReturnXXXBorder() {
         #expect(self.environmentTheme.border == self.token.border)
     }
 
-    @Test
+    @Test("Colors should return XXX colors")
     func colorsShouldReturnXXXColors() {
         #expect(self.environmentTheme.colors == self.token.colors)
     }
 
-    @Test
+    @Test("Layout should return XXX layout")
     func layoutShouldReturnXXXLayout() {
         #expect(self.environmentTheme.layout == self.token.layout)
     }
 
-    @Test
+    @Test("Opacity should return XXX opacity")
     func opacityShouldReturnXXXOpacity() {
         #expect(self.environmentTheme.opacity == self.token.opacity)
     }
 
-    @Test
+    @Test("Typography should return XXX typography")
     func typographyShouldReturnXXXTypography() {
         #expect(self.environmentTheme.typography == self.token.typography)
     }
 
-    @Test
+    @Test("Size should return XXX size")
     func sizeShouldReturnXXXSize() {
         #expect(self.environmentTheme.size == self.token.size)
     }

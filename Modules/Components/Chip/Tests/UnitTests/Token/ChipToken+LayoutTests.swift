@@ -26,29 +26,29 @@ struct ChipTokenLayoutTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Spacing when leading icon should return spacing small")
     func spacingWhenLeadingIconShouldReturnSpacingSmall() {
         #expect(self.token.spacing(alignment: .leadingIcon) == self.theme.layout.spacing.small)
     }
 
-    @Test
+    @Test("Spacing when trailing icon should return spacing medium")
     func spacingWhenTrailingIconShouldReturnSpacingMedium() {
         #expect(self.token.spacing(alignment: .trailingIcon) == self.theme.layout.spacing.medium)
     }
 
-    @Test
+    @Test("Extra content spacing should return spacing medium")
     func extraContentSpacingShouldReturnSpacingMedium() {
         #expect(self.token.extraContentSpacing == self.theme.layout.spacing.medium)
     }
 
-    @Test
+    @Test("Horizontal padding should return 12")
     func horizontalPaddingShouldReturn12() {
         #expect(self.token.horizontalPadding == 12)
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = ChipToken.Layout(theme: self.theme)
@@ -58,7 +58,7 @@ struct ChipTokenLayoutTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = ChipToken.Layout(theme: self.theme)

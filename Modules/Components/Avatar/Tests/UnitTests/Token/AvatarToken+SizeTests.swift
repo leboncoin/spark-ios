@@ -21,7 +21,7 @@ struct AvatarTokenSizeTests {
 
     // MARK: - Tests
 
-    @Test(
+    @Test("Sizes should return expected values",
         arguments: [
             (AvatarSize.xs, 24.0, 16.0, 0.0, BadgeSize.small),
             (.sm, 32.0, 24.0, 0.0, .small),
@@ -48,7 +48,7 @@ struct AvatarTokenSizeTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable should return true")
     func equatableShouldReturnTrue() {
         #expect(AvatarToken.Size() == AvatarToken.Size())
     }

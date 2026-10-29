@@ -22,7 +22,7 @@ struct InputOTPTokenTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Init should set all categories")
     func initShouldSetAllCategories() {
         // GIVEN / WHEN
         let token = InputOTPToken(theme: self.theme)
@@ -36,12 +36,12 @@ struct InputOTPTokenTests {
         #expect(token.size == .init())
     }
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         #expect(InputOTPToken(theme: self.theme) == InputOTPToken(theme: self.theme))
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         #expect(InputOTPToken(theme: self.theme) != InputOTPToken(theme: ThemeGeneratedMock.mocked2()))
     }

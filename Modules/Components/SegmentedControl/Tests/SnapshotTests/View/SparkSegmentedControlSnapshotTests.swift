@@ -27,7 +27,7 @@ struct SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: SegmentedControlScenarioSnapshotTests.allCases)
+    @Test("Spark segmented control snapshot", arguments: SegmentedControlScenarioSnapshotTests.allCases)
     func test(scenario: SegmentedControlScenarioSnapshotTests) async {
         // Remove animation
 

@@ -12,26 +12,26 @@ import Combine
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 import SwiftUI
-import XCTest
+import Testing
 
-final class RadioButtonViewModelTests: XCTestCase {
+@MainActor
+@Suite("RadioButton ViewModel Tests")
+final class RadioButtonViewModelTests {
 
     // MARK: - Properties
-    var theme: ThemeGeneratedMock!
+    let theme: ThemeGeneratedMock
     var bindingValue: Int? = 0
-    var subscriptions: Set<AnyCancellable>!
+    var subscriptions = Set<AnyCancellable>()
 
     // MARK: - Setup
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-
-        self.subscriptions = Set<AnyCancellable>()
+    init() {
         // Given
         self.theme = ThemeGeneratedMock.mocked()
     }
 
     // MARK: - Tests
-    func test_opacity_for_enabled() throws {
+    @Test("Opacity should be full when enabled")
+    func opacityForEnabled() throws {
         // Given
         let sut = self.sut(intent: .support)
 
@@ -40,10 +40,11 @@ final class RadioButtonViewModelTests: XCTestCase {
         let opacity = sut.opacity
 
         // Then
-        XCTAssertEqual(opacity, 1.00)
+        #expect(opacity == 1.00)
     }
 
-    func test_opacity_for_disabled() throws {
+    @Test("Opacity should be dimmed when disabled")
+    func opacityForDisabled() throws {
         // Given
         let sut = self.sut(intent: .support)
 
@@ -52,89 +53,83 @@ final class RadioButtonViewModelTests: XCTestCase {
         let opacity = sut.opacity
 
         // Then
-        XCTAssertEqual(opacity, 0.40)
+        #expect(opacity == 0.40)
     }
 
-    func test_colors_reset_when_selected_value_set() {
+    @Test("Colors should be reset when the selected value is set")
+    func colorsResetWhenSelectedValueSet() async {
         // Given
         let sut = self.sut(intent: .support)
-        let expectation = XCTestExpectation(description: "Colors published when selection changes.")
-        expectation.expectedFulfillmentCount = 2
 
-        sut.$colors.sink(receiveValue: { _ in
-            expectation.fulfill()
-        })
-        .store(in: &self.subscriptions)
-
-        // When
-        sut.set(selected: true)
-
-        // Then
-        wait(for: [expectation], timeout: 0.5)
-        XCTAssertEqual(self.bindingValue, 1)
-    }
-
-    func test_theme_update_publishes_changed_values() {
-        // Given
-        let sut = self.sut(intent: .support)
-        let expectation = XCTestExpectation(description: "Changes to theme publishes value changes.")
-        expectation.expectedFulfillmentCount = 2
-
-        let publishers = Publishers.Zip4(sut.$opacity, sut.$spacing, sut.$font, sut.$colors)
-
-        Publishers.Zip(publishers, sut.$colors)
-            .sink { _ in
-                expectation.fulfill()
-            }
+        await confirmation("Colors published when selection changes.", expectedCount: 2...) { confirm in
+            sut.$colors.sink(receiveValue: { _ in
+                confirm()
+            })
             .store(in: &self.subscriptions)
 
-        // When
-        sut.set(theme: ThemeGeneratedMock.mocked())
+            // When
+            sut.set(selected: true)
+        }
 
         // Then
-        wait(for: [expectation], timeout: 0.5)
+        #expect(self.bindingValue == 1)
     }
 
-    func test_state_update_publishes_changed_values() {
+    @Test("Theme update should publish changed values")
+    func themeUpdatePublishesChangedValues() async {
         // Given
         let sut = self.sut(intent: .support)
-        let expectation = XCTestExpectation(description: "Changes to state publishes value changes.")
-        expectation.expectedFulfillmentCount = 2
 
-        Publishers.Zip(sut.$isDisabled, sut.$colors)
-            .sink { _ in
-                expectation.fulfill()
-            }
-            .store(in: &self.subscriptions)
+        await confirmation("Changes to theme publishes value changes.", expectedCount: 2...) { confirm in
+            let publishers = Publishers.Zip4(sut.$opacity, sut.$spacing, sut.$font, sut.$colors)
 
-        // When
-        sut.set(enabled: false)
+            Publishers.Zip(publishers, sut.$colors)
+                .sink { _ in
+                    confirm()
+                }
+                .store(in: &self.subscriptions)
 
-        // Then
-        wait(for: [expectation], timeout: 0.5)
+            // When
+            sut.set(theme: ThemeGeneratedMock.mocked())
+        }
     }
 
-    func test_spacing_update_publishes_changed_values() {
+    @Test("State update should publish changed values")
+    func stateUpdatePublishesChangedValues() async {
         // Given
         let sut = self.sut(intent: .support)
-        let expectation = XCTestExpectation(description: "Changes to label position publishes value changes.")
-        expectation.expectedFulfillmentCount = 2
 
+        await confirmation("Changes to state publishes value changes.", expectedCount: 2...) { confirm in
+            Publishers.Zip(sut.$isDisabled, sut.$colors)
+                .sink { _ in
+                    confirm()
+                }
+                .store(in: &self.subscriptions)
+
+            // When
+            sut.set(enabled: false)
+        }
+    }
+
+    @Test("Spacing update should publish changed values")
+    func spacingUpdatePublishesChangedValues() async {
+        // Given
+        let sut = self.sut(intent: .support)
         var spacings = Set<CGFloat>()
 
-        sut.$spacing.sink { spacing in
-            spacings.insert(spacing)
-            expectation.fulfill()
-        }
-        .store(in: &self.subscriptions)
+        await confirmation("Changes to label position publishes value changes.", expectedCount: 2...) { confirm in
+            sut.$spacing.sink { spacing in
+                spacings.insert(spacing)
+                confirm()
+            }
+            .store(in: &self.subscriptions)
 
-        // When
-        sut.set(alignment: .leading)
+            // When
+            sut.set(alignment: .leading)
+        }
 
         // Then
-        wait(for: [expectation], timeout: 0.5)
-
-        XCTAssertEqual(spacings, [self.theme.layout.spacing.medium])
+        #expect(spacings == [self.theme.layout.spacing.medium])
     }
 
     // MARK: - Private Helper Functions
@@ -142,7 +137,7 @@ final class RadioButtonViewModelTests: XCTestCase {
     private func sutValues<T>(for keyPath: KeyPath<RadioButtonViewModel<Int>, T>) -> [T] {
         return RadioButtonIntent.allCases
             .map(self.sut(intent:))
-            .map{ $0[keyPath: keyPath] }
+            .map { $0[keyPath: keyPath] }
     }
 
     private func sut(intent: RadioButtonIntent) -> RadioButtonViewModel<Int> {

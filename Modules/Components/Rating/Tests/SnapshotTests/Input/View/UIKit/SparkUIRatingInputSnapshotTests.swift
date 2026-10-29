@@ -25,7 +25,7 @@ struct SparkUIRatingInputSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: RatingInputScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    @Test("Spark UIRating input snapshot", arguments: RatingInputScenarioSnapshotTests.allCases.filter { $0 != .documentation })
     func test(scenario: RatingInputScenarioSnapshotTests) async throws {
         let configurations = scenario.configuration()
 

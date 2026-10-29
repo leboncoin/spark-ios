@@ -6,21 +6,24 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentIcon
 
-final class IconSizeTests: XCTestCase {
+@Suite("Icon Size Tests")
+struct IconSizeTests {
 
     // MARK: - Tests
 
-    func test_default_equals_medium() {
+    @Test("Default equals medium")
+    func defaultEqualsMedium() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(IconSize.default, .medium)
+        #expect(IconSize.default == .medium)
     }
 
     // MARK: - Equatable Tests
 
-    func test_equality_same_cases() {
+    @Test("Equality same cases")
+    func equalitySameCases() {
         // GIVEN
         let testCases: [(IconSize, IconSize)] = [
             (.small, .small),
@@ -32,11 +35,12 @@ final class IconSizeTests: XCTestCase {
 
         // WHEN / THEN
         for (lhs, rhs) in testCases {
-            XCTAssertEqual(lhs, rhs, "Expected \(lhs) to equal \(rhs)")
+            #expect(lhs == rhs, "Expected \(lhs) to equal \(rhs)")
         }
     }
 
-    func test_equality_different_cases() {
+    @Test("Equality different cases")
+    func equalityDifferentCases() {
         // GIVEN
         let testCases: [(IconSize, IconSize)] = [
             (.small, .medium),
@@ -49,7 +53,7 @@ final class IconSizeTests: XCTestCase {
 
         // WHEN / THEN
         for (lhs, rhs) in testCases {
-            XCTAssertNotEqual(lhs, rhs, "Expected \(lhs) to not equal \(rhs)")
+            #expect(lhs != rhs, "Expected \(lhs) to not equal \(rhs)")
         }
     }
 }

@@ -20,7 +20,7 @@ struct UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test_sparkBorderRadius() async {
+    @Test("Spark border radius") func test_sparkBorderRadius() async {
         let widths: [Int] = [0, 4]
         let isHighlighteds = [true, false]
 
@@ -44,7 +44,7 @@ struct UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTesting {
         }
     }
 
-    @Test func test_sparkBorderRadius_with_dash() async {
+    @Test("Spark border radius with dash") func test_sparkBorderRadius_with_dash() async {
         let widths: [Int] = [0, 4]
         let dashes: [Int] = [0, 10]
 
@@ -68,7 +68,7 @@ struct UIViewRadiusExtensionSnapshotTests: UIKitComponentSnapshotTesting {
         }
     }
 
-    @Test func test_sparkCornerRadius() async {
+    @Test("Spark corner radius") func test_sparkCornerRadius() async {
         let values: [Bool?] = [true, false, nil]
 
         for value in values {

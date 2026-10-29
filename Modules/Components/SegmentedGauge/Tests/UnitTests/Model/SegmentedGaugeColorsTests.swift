@@ -6,32 +6,35 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 @_spi(SI_SPI) import SparkThemingTesting
 @_spi(SI_SPI) import SparkTheming
 
-final class SegmentedGaugeColorsTests: XCTestCase {
+@Suite("SegmentedGauge Colors Tests")
+struct SegmentedGaugeColorsTests {
 
     // MARK: - Default Values Tests
 
-    func test_defaultInitializer_setsDefaultColorTokens() {
+    @Test("Default initializer sets default color tokens")
+    func defaultInitializerSetsDefaultColorTokens() {
         // GIVEN / WHEN
         let colors = SegmentedGaugeColors()
 
         // THEN
-        XCTAssertTrue(colors.plainSegmentBackground is ColorTokenClear)
-        XCTAssertTrue(colors.otherSegmentBackground is ColorTokenClear)
-        XCTAssertTrue(colors.plainSegmentBorder is ColorTokenClear)
-        XCTAssertTrue(colors.otherSegmentBorder is ColorTokenClear)
-        XCTAssertTrue(colors.markerOuterBackground is ColorTokenClear)
-        XCTAssertTrue(colors.markerInnerBackground is ColorTokenClear)
-        XCTAssertEqual(colors.plainSegmentOpacity, 0.0)
+        #expect(colors.plainSegmentBackground is ColorTokenClear)
+        #expect(colors.otherSegmentBackground is ColorTokenClear)
+        #expect(colors.plainSegmentBorder is ColorTokenClear)
+        #expect(colors.otherSegmentBorder is ColorTokenClear)
+        #expect(colors.markerOuterBackground is ColorTokenClear)
+        #expect(colors.markerInnerBackground is ColorTokenClear)
+        #expect(colors.plainSegmentOpacity == 0.0)
     }
 
     // MARK: - Segment Background Tests
 
-    func test_segmentBackground_whenIsPlainTrue_returnsPlainSegmentBackground() {
+    @Test("Segment background when is plain true returns plain segment background")
+    func segmentBackgroundWhenIsPlainTrueReturnsPlainSegmentBackground() {
         // GIVEN
         let colors = SegmentedGaugeColors()
 
@@ -39,10 +42,11 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         let background = colors.segmentBackground(isPlain: true)
 
         // THEN
-        XCTAssertTrue(background.equals(colors.plainSegmentBackground))
+        #expect(background.equals(colors.plainSegmentBackground))
     }
 
-    func test_segmentBackground_whenIsPlainFalse_returnsOtherSegmentBackground() {
+    @Test("Segment background when is plain false returns other segment background")
+    func segmentBackgroundWhenIsPlainFalseReturnsOtherSegmentBackground() {
         // GIVEN
         let colors = SegmentedGaugeColors()
 
@@ -50,12 +54,13 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         let background = colors.segmentBackground(isPlain: false)
 
         // THEN
-        XCTAssertTrue(background.equals(colors.otherSegmentBackground))
+        #expect(background.equals(colors.otherSegmentBackground))
     }
 
     // MARK: - Segment Border Tests
 
-    func test_segmentBorder_whenIsPlainTrue_returnsPlainSegmentBorder() {
+    @Test("Segment border when is plain true returns plain segment border")
+    func segmentBorderWhenIsPlainTrueReturnsPlainSegmentBorder() {
         // GIVEN
         let colors = SegmentedGaugeColors()
 
@@ -63,10 +68,11 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         let border = colors.segmentBorder(isPlain: true)
 
         // THEN
-        XCTAssertTrue(border.equals(colors.plainSegmentBorder))
+        #expect(border.equals(colors.plainSegmentBorder))
     }
 
-    func test_segmentBorder_whenIsPlainFalse_returnsOtherSegmentBorder() {
+    @Test("Segment border when is plain false returns other segment border")
+    func segmentBorderWhenIsPlainFalseReturnsOtherSegmentBorder() {
         // GIVEN
         let colors = SegmentedGaugeColors()
 
@@ -74,12 +80,13 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         let border = colors.segmentBorder(isPlain: false)
 
         // THEN
-        XCTAssertTrue(border.equals(colors.otherSegmentBorder))
+        #expect(border.equals(colors.otherSegmentBorder))
     }
 
     // MARK: - Segment Opacity Tests
 
-    func test_segmentOpacity_whenIsPlainTrue_returnsPlainSegmentOpacity() {
+    @Test("Segment opacity when is plain true returns plain segment opacity")
+    func segmentOpacityWhenIsPlainTrueReturnsPlainSegmentOpacity() {
         // GIVEN
         var colors = SegmentedGaugeColors()
         colors.plainSegmentOpacity = 0.5
@@ -88,10 +95,11 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         let opacity = colors.segmentOpacity(isPlain: true)
 
         // THEN
-        XCTAssertEqual(opacity, 0.5)
+        #expect(opacity == 0.5)
     }
 
-    func test_segmentOpacity_whenIsPlainFalse_returnsOne() {
+    @Test("Segment opacity when is plain false returns one")
+    func segmentOpacityWhenIsPlainFalseReturnsOne() {
         // GIVEN
         let colors = SegmentedGaugeColors()
 
@@ -99,12 +107,13 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         let opacity = colors.segmentOpacity(isPlain: false)
 
         // THEN
-        XCTAssertEqual(opacity, 1.0)
+        #expect(opacity == 1.0)
     }
 
     // MARK: - Segment Is Opacity Tests
 
-    func test_segmentIsOpacity_whenPlainOpacityLessThanOne_returnsTrue() {
+    @Test("Segment is opacity when plain opacity less than one returns true")
+    func segmentIsOpacityWhenPlainOpacityLessThanOneReturnsTrue() {
         // GIVEN
         var colors = SegmentedGaugeColors()
         colors.plainSegmentOpacity = 0.5
@@ -113,10 +122,11 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         let isOpacity = colors.segmentIsOpacity(isPlain: true)
 
         // THEN
-        XCTAssertTrue(isOpacity)
+        #expect(isOpacity)
     }
 
-    func test_segmentIsOpacity_whenPlainOpacityEqualsOne_returnsFalse() {
+    @Test("Segment is opacity when plain opacity equals one returns false")
+    func segmentIsOpacityWhenPlainOpacityEqualsOneReturnsFalse() {
         // GIVEN
         var colors = SegmentedGaugeColors()
         colors.plainSegmentOpacity = 1.0
@@ -125,10 +135,11 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         let isOpacity = colors.segmentIsOpacity(isPlain: true)
 
         // THEN
-        XCTAssertFalse(isOpacity)
+        #expect(!isOpacity)
     }
 
-    func test_segmentIsOpacity_whenIsPlainFalse_returnsFalse() {
+    @Test("Segment is opacity when is plain false returns false")
+    func segmentIsOpacityWhenIsPlainFalseReturnsFalse() {
         // GIVEN
         let colors = SegmentedGaugeColors()
 
@@ -136,21 +147,23 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         let isOpacity = colors.segmentIsOpacity(isPlain: false)
 
         // THEN
-        XCTAssertFalse(isOpacity)
+        #expect(!isOpacity)
     }
 
     // MARK: - Equatable Tests
 
-    func test_equality_whenAllPropertiesMatch() {
+    @Test("Equality when all properties match")
+    func equalityWhenAllPropertiesMatch() {
         // GIVEN
         let lhs = SegmentedGaugeColors()
         let rhs = SegmentedGaugeColors()
 
         // WHEN / THEN
-        XCTAssertEqual(lhs, rhs)
+        #expect(lhs == rhs)
     }
 
-    func test_inequality_whenPlainSegmentBackgroundDiffers() {
+    @Test("Inequality when plain segment background differs")
+    func inequalityWhenPlainSegmentBackgroundDiffers() {
         // GIVEN
         var lhs = SegmentedGaugeColors()
         var rhs = SegmentedGaugeColors()
@@ -158,10 +171,11 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         rhs.plainSegmentBackground = ColorTokenGeneratedMock.blue()
 
         // WHEN / THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 
-    func test_inequality_whenOtherSegmentBackgroundDiffers() {
+    @Test("Inequality when other segment background differs")
+    func inequalityWhenOtherSegmentBackgroundDiffers() {
         // GIVEN
         var lhs = SegmentedGaugeColors()
         var rhs = SegmentedGaugeColors()
@@ -169,10 +183,11 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         rhs.otherSegmentBackground = ColorTokenGeneratedMock.blue()
 
         // WHEN / THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 
-    func test_inequality_whenPlainSegmentBorderDiffers() {
+    @Test("Inequality when plain segment border differs")
+    func inequalityWhenPlainSegmentBorderDiffers() {
         // GIVEN
         var lhs = SegmentedGaugeColors()
         var rhs = SegmentedGaugeColors()
@@ -180,10 +195,11 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         rhs.plainSegmentBorder = ColorTokenGeneratedMock.blue()
 
         // WHEN / THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 
-    func test_inequality_whenOtherSegmentBorderDiffers() {
+    @Test("Inequality when other segment border differs")
+    func inequalityWhenOtherSegmentBorderDiffers() {
         // GIVEN
         var lhs = SegmentedGaugeColors()
         var rhs = SegmentedGaugeColors()
@@ -191,10 +207,11 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         rhs.otherSegmentBorder = ColorTokenGeneratedMock.blue()
 
         // WHEN / THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 
-    func test_inequality_whenMarkerOuterBackgroundDiffers() {
+    @Test("Inequality when marker outer background differs")
+    func inequalityWhenMarkerOuterBackgroundDiffers() {
         // GIVEN
         var lhs = SegmentedGaugeColors()
         var rhs = SegmentedGaugeColors()
@@ -202,10 +219,11 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         rhs.markerOuterBackground = ColorTokenGeneratedMock.blue()
 
         // WHEN / THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 
-    func test_inequality_whenMarkerInnerBackgroundDiffers() {
+    @Test("Inequality when marker inner background differs")
+    func inequalityWhenMarkerInnerBackgroundDiffers() {
         // GIVEN
         var lhs = SegmentedGaugeColors()
         var rhs = SegmentedGaugeColors()
@@ -213,6 +231,6 @@ final class SegmentedGaugeColorsTests: XCTestCase {
         rhs.markerInnerBackground = ColorTokenGeneratedMock.blue()
 
         // WHEN / THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 }

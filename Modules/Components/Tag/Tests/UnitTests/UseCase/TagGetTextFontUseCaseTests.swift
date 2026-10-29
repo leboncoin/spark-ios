@@ -16,7 +16,7 @@ struct TagGetTextFontUseCaseTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Execute returns typography font token from theme")
     func test_execute_returnsTypographyFontTokenFromTheme() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()

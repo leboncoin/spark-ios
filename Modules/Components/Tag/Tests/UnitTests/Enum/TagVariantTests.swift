@@ -13,7 +13,7 @@ struct TagVariantTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Default")
     func test_default() {
         #expect(TagVariant.default == .filled)
     }

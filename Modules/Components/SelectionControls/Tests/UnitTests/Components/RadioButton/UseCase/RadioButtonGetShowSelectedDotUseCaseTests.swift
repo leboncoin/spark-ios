@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class RadioButtonGetShowSelectedDotUseCaseTests: XCTestCase {
+@Suite("Radio Button Get Show Selected Dot UseCase Tests")
+struct RadioButtonGetShowSelectedDotUseCaseTests {
 
     // MARK: - Execute Tests
 
-    func test_execute_withIsSelectedTrue_returnsTrue() {
+    @Test("Execute with is selected true returns true")
+    func executeWithIsSelectedTrueReturnsTrue() {
         // GIVEN
         let isSelected = true
 
@@ -23,10 +25,11 @@ final class RadioButtonGetShowSelectedDotUseCaseTests: XCTestCase {
         let result = useCase.execute(isSelected: isSelected)
 
         // THEN
-        XCTAssertTrue(result)
+        #expect(result)
     }
 
-    func test_execute_withIsSelectedFalse_returnsFalse() {
+    @Test("Execute with is selected false returns false")
+    func executeWithIsSelectedFalseReturnsFalse() {
         // GIVEN
         let isSelected = false
 
@@ -36,6 +39,6 @@ final class RadioButtonGetShowSelectedDotUseCaseTests: XCTestCase {
         let result = useCase.execute(isSelected: isSelected)
 
         // THEN
-        XCTAssertFalse(result)
+        #expect(!result)
     }
 }

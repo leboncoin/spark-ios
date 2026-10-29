@@ -49,6 +49,8 @@ Use the files in the **template** folder as reference to manage the *view model*
 - [ ] Tests must be written in **Swift Testing** framework
 - [ ] Proper imports (SparkComponentXXX, SparkCommon, SparkTheming, @testable, @_spi(SI_SPI) @testable import SparkComponentXXXTesting, Testing, ...)
 
+- [ ] Every `@Test` must have a description, written as the function name in a sentence (e.g. `@Test("Radius should return radius full")` for `func radiusShouldReturnRadiusFull()`, `@Test("Value should return expected scale", arguments: [...])` for a parameterized test). Never use a bare `@Test` or `@Test(arguments:)`
+
 ### When to Ask for Help
 
 If you encounter:

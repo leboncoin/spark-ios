@@ -8,43 +8,44 @@
 
 @testable import SparkComponentSlider
 @_spi(SI_SPI) import SparkThemingTesting
-import XCTest
+import Testing
 
-final class SliderGetTypographiesUseCaseTests: XCTestCase {
+@Suite("Slider Get Typographies UseCase Tests")
+struct SliderGetTypographiesUseCaseTests {
 
     // MARK: - Private properties
 
-    private var sut: SliderGetTypographiesUseCase!
-    private var theme: ThemeGeneratedMock!
+    private let sut: SliderGetTypographiesUseCase
+    private let theme: ThemeGeneratedMock
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = SliderGetTypographiesUseCase()
         self.theme = ThemeGeneratedMock.mocked()
     }
 
     // MARK: - Tests
 
-    func test_execute_when_isFloatingValueLabel_is_false() {
+    @Test("Execute when is floating value label is false")
+    func executeWhenIsFloatingValueLabelIsFalse() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, isFloatingValueLabel: false)
 
         // THEN
-        XCTAssertTrue(result.titleFontToken.equals(self.theme.typography.body1))
-        XCTAssertTrue(result.valueFontToken.equals(self.theme.typography.body1Highlight))
-        XCTAssertTrue(result.rangeValuesFontToken.equals(self.theme.typography.body2))
+        #expect(result.titleFontToken.equals(self.theme.typography.body1))
+        #expect(result.valueFontToken.equals(self.theme.typography.body1Highlight))
+        #expect(result.rangeValuesFontToken.equals(self.theme.typography.body2))
     }
 
-    func test_execute_when_isFloatingValueLabel_is_true() {
+    @Test("Execute when is floating value label is true")
+    func executeWhenIsFloatingValueLabelIsTrue() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, isFloatingValueLabel: true)
 
         // THEN
-        XCTAssertTrue(result.titleFontToken.equals(self.theme.typography.body1Highlight))
-        XCTAssertTrue(result.valueFontToken.equals(self.theme.typography.body2Highlight))
-        XCTAssertTrue(result.rangeValuesFontToken.equals(self.theme.typography.body2))
+        #expect(result.titleFontToken.equals(self.theme.typography.body1Highlight))
+        #expect(result.valueFontToken.equals(self.theme.typography.body2Highlight))
+        #expect(result.rangeValuesFontToken.equals(self.theme.typography.body2))
     }
 }

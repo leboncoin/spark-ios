@@ -6,21 +6,24 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SegmentedGaugeLabelsStyleTests: XCTestCase {
+@Suite("SegmentedGauge Labels Style Tests")
+struct SegmentedGaugeLabelsStyleTests {
 
     // MARK: - Default Values Tests
 
-    func test_defaultInitializer_producesEqualInstances() {
-        XCTAssertEqual(SegmentedGaugeLabelsStyle(), SegmentedGaugeLabelsStyle())
+    @Test("Default initializer produces equal instances")
+    func defaultInitializerProducesEqualInstances() {
+        #expect(SegmentedGaugeLabelsStyle() == SegmentedGaugeLabelsStyle())
     }
 
     // MARK: - Equatable Tests
 
-    func test_equality_whenTokensMatch() {
+    @Test("Equality when tokens match")
+    func equalityWhenTokensMatch() {
         // GIVEN / WHEN
         let lhs = SegmentedGaugeLabelsStyle(
             titleTypography: TypographyFontTokenGeneratedMock.mocked(
@@ -46,10 +49,11 @@ final class SegmentedGaugeLabelsStyleTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(lhs, rhs)
+        #expect(lhs == rhs)
     }
 
-    func test_inequality_whenValuesDiffer() {
+    @Test("Inequality when values differ")
+    func inequalityWhenValuesDiffer() {
         // GIVEN / WHEN
         let lhs = SegmentedGaugeLabelsStyle(
             titleTypography: TypographyFontTokenGeneratedMock.mocked(
@@ -75,6 +79,6 @@ final class SegmentedGaugeLabelsStyleTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 }

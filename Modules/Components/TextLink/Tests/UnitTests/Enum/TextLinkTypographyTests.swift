@@ -6,22 +6,25 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextLink
 
-final class TextLinkTypographyTests: XCTestCase {
+@Suite("Text Link Typography Tests")
+struct TextLinkTypographyTests {
 
     // MARK: - Tests
 
-    func test_default_case() {
+    @Test("Default case")
+    func defaultCase() {
         // GIVEN / WHEN
         let defaultTypography = TextLinkTypography.default
 
         // THEN
-        XCTAssertEqual(defaultTypography, .body1, "Default case should be .body1")
+        #expect(defaultTypography == .body1, "Default case should be .body1")
     }
 
-    func test_case_iterable_contains_all_cases() {
+    @Test("Case iterable contains all cases")
+    func caseIterableContainsAllCases() {
         // GIVEN
         let expectedCases: [TextLinkTypography] = [
             .display1,
@@ -41,7 +44,7 @@ final class TextLinkTypographyTests: XCTestCase {
         let allCases = TextLinkTypography.allCases
 
         // THEN
-        XCTAssertEqual(allCases.count, 11, "Should have exactly 11 cases")
-        XCTAssertEqual(Set(allCases), Set(expectedCases), "All cases should match expected cases")
+        #expect(allCases.count == 11, "Should have exactly 11 cases")
+        #expect(Set(allCases) == Set(expectedCases), "All cases should match expected cases")
     }
 }

@@ -6,10 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import UIKit
+import Testing
 @testable import SparkCommon
 
-final class ScaledUIPaddingTests: XCTestCase {
+@MainActor
+@Suite("Scaled UI Padding Tests")
+struct ScaledUIPaddingTests {
 
     // MARK: - Properties
 
@@ -21,15 +24,17 @@ final class ScaledUIPaddingTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_init() {
+    @Test("Init")
+    func initialization() {
         // GIVEN / WHEN
         let padding = ScaledUIPadding(wrappedValue: Constants.baseValue)
 
         // THEN
-        XCTAssertEqual(padding.wrappedValue, Constants.baseValue)
+        #expect(padding.wrappedValue == Constants.baseValue)
     }
 
-    func test_wrappedValue_setter() {
+    @Test("Wrapped value setter")
+    func wrappedValueSetter() {
         // GIVEN
         var padding = ScaledUIPadding(wrappedValue: Constants.baseValue)
         let newValue: CGFloat = 24.0
@@ -38,10 +43,11 @@ final class ScaledUIPaddingTests: XCTestCase {
         padding.wrappedValue = newValue
 
         // THEN
-        XCTAssertEqual(padding.wrappedValue, newValue)
+        #expect(padding.wrappedValue == newValue)
     }
 
-    func test_updateTraitCollection() {
+    @Test("Update trait collection")
+    func updateTraitCollection() {
         // GIVEN
         var padding = ScaledUIPadding(wrappedValue: Constants.baseValue)
         let traitCollection = UITraitCollection(preferredContentSizeCategory: .large)
@@ -51,11 +57,12 @@ final class ScaledUIPaddingTests: XCTestCase {
         let scaledValue = padding.scaledValue(for: traitCollection)
 
         // THEN
-        XCTAssertGreaterThanOrEqual(scaledValue, Constants.baseValue * Constants.minValueFactor)
-        XCTAssertLessThanOrEqual(scaledValue, Constants.baseValue * Constants.maxValueFactor)
+        #expect(scaledValue >= Constants.baseValue * Constants.minValueFactor)
+        #expect(scaledValue <= Constants.baseValue * Constants.maxValueFactor)
     }
 
-    func test_scaledValue_with_traitCollection() {
+    @Test("Scaled value with trait collection")
+    func scaledValueWithTraitCollection() {
         // GIVEN
         let padding = ScaledUIPadding(wrappedValue: Constants.baseValue)
 
@@ -66,10 +73,10 @@ final class ScaledUIPaddingTests: XCTestCase {
         // WHEN & THEN
         // Test with small content size (should be at least minValue)
         let smallScaledValue = padding.scaledValue(for: smallTraitCollection)
-        XCTAssertGreaterThanOrEqual(smallScaledValue, Constants.baseValue * Constants.minValueFactor)
+        #expect(smallScaledValue >= Constants.baseValue * Constants.minValueFactor)
 
         // Test with large content size (should be at most maxValue)
         let largeScaledValue = padding.scaledValue(for: largeTraitCollection)
-        XCTAssertLessThanOrEqual(largeScaledValue, Constants.baseValue * Constants.maxValueFactor)
+        #expect(largeScaledValue <= Constants.baseValue * Constants.maxValueFactor)
     }
 }

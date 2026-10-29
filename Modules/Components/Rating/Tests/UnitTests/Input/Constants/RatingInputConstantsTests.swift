@@ -6,30 +6,35 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentRating
 
-final class RatingInputConstantsTests: XCTestCase {
+@Suite("Rating Input Constants Tests")
+struct RatingInputConstantsTests {
 
     // MARK: - Tests
 
-    func test_size_constant() {
+    @Test("Size constant")
+    func sizeConstant() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(RatingInputConstants.size, 40.0)
+        #expect(RatingInputConstants.size == 40.0)
     }
 
-    func test_scaledRatio_constant() {
+    @Test("Scaled ratio constant")
+    func scaledRatioConstant() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(RatingInputConstants.scaledRatio, 1.5)
+        #expect(RatingInputConstants.scaledRatio == 1.5)
     }
 
-    func test_stars_constant() {
+    @Test("Stars constant")
+    func starsConstant() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(RatingInputConstants.stars, 5)
+        #expect(RatingInputConstants.stars == 5)
     }
 
-    func test_scaledAnimationDuration_constant() {
+    @Test("Scaled animation duration constant")
+    func scaledAnimationDurationConstant() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(RatingInputConstants.scaledAnimationDuration, 0.2)
+        #expect(RatingInputConstants.scaledAnimationDuration == 0.2)
     }
 }

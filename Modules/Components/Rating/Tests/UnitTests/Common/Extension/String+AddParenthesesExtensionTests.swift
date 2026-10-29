@@ -7,14 +7,16 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentRating
 
-final class StringAddParenthesesExtensionTests: XCTestCase {
+@Suite("String Add Parentheses Extension Tests")
+struct StringAddParenthesesExtensionTests {
 
     // MARK: - Tests
 
-    func test_addParentheses_with_simple_text() {
+    @Test("Add parentheses with simple text")
+    func addParenthesesWithSimpleText() {
         // GIVEN
         let text = "120"
 
@@ -22,10 +24,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(120)")
+        #expect(result == "(120)")
     }
 
-    func test_addParentheses_with_single_character() {
+    @Test("Add parentheses with single character")
+    func addParenthesesWithSingleCharacter() {
         // GIVEN
         let text = "1"
 
@@ -33,10 +36,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(1)")
+        #expect(result == "(1)")
     }
 
-    func test_addParentheses_with_empty_string() {
+    @Test("Add parentheses with empty string")
+    func addParenthesesWithEmptyString() {
         // GIVEN
         let text = ""
 
@@ -44,10 +48,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "()")
+        #expect(result == "()")
     }
 
-    func test_addParentheses_with_long_text() {
+    @Test("Add parentheses with long text")
+    func addParenthesesWithLongText() {
         // GIVEN
         let text = "999999"
 
@@ -55,10 +60,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(999999)")
+        #expect(result == "(999999)")
     }
 
-    func test_addParentheses_with_text_containing_spaces() {
+    @Test("Add parentheses with text containing spaces")
+    func addParenthesesWithTextContainingSpaces() {
         // GIVEN
         let text = "100 reviews"
 
@@ -66,10 +72,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(100 reviews)")
+        #expect(result == "(100 reviews)")
     }
 
-    func test_addParentheses_with_already_parenthesized_text() {
+    @Test("Add parentheses with already parenthesized text")
+    func addParenthesesWithAlreadyParenthesizedText() {
         // GIVEN
         let text = "(50)"
 
@@ -77,10 +84,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(50)")
+        #expect(result == "(50)")
     }
 
-    func test_addParentheses_with_only_opening_parenthesis() {
+    @Test("Add parentheses with only opening parenthesis")
+    func addParenthesesWithOnlyOpeningParenthesis() {
         // GIVEN
         let text = "(50"
 
@@ -88,10 +96,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(50)")
+        #expect(result == "(50)")
     }
 
-    func test_addParentheses_with_only_closing_parenthesis() {
+    @Test("Add parentheses with only closing parenthesis")
+    func addParenthesesWithOnlyClosingParenthesis() {
         // GIVEN
         let text = "50)"
 
@@ -99,10 +108,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(50)")
+        #expect(result == "(50)")
     }
 
-    func test_addParentheses_with_multiple_nested_parentheses() {
+    @Test("Add parentheses with multiple nested parentheses")
+    func addParenthesesWithMultipleNestedParentheses() {
         // GIVEN
         let text = "((50))"
 
@@ -110,10 +120,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "((50))")
+        #expect(result == "((50))")
     }
 
-    func test_addParentheses_with_parentheses_in_middle() {
+    @Test("Add parentheses with parentheses in middle")
+    func addParenthesesWithParenthesesInMiddle() {
         // GIVEN
         let text = "50 (test) 100"
 
@@ -121,10 +132,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(50 (test) 100)")
+        #expect(result == "(50 (test) 100)")
     }
 
-    func test_addParentheses_with_special_characters() {
+    @Test("Add parentheses with special characters")
+    func addParenthesesWithSpecialCharacters() {
         // GIVEN
         let text = "1.5k+"
 
@@ -132,10 +144,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(1.5k+)")
+        #expect(result == "(1.5k+)")
     }
 
-    func test_addParentheses_with_formatted_number() {
+    @Test("Add parentheses with formatted number")
+    func addParenthesesWithFormattedNumber() {
         // GIVEN
         let text = "1,234"
 
@@ -143,10 +156,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(1,234)")
+        #expect(result == "(1,234)")
     }
 
-    func test_addParentheses_with_whitespace_only() {
+    @Test("Add parentheses with whitespace only")
+    func addParenthesesWithWhitespaceOnly() {
         // GIVEN
         let text = "   "
 
@@ -154,10 +168,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(   )")
+        #expect(result == "(   )")
     }
 
-    func test_addParentheses_with_unicode_characters() {
+    @Test("Add parentheses with unicode characters")
+    func addParenthesesWithUnicodeCharacters() {
         // GIVEN
         let text = "100 ⭐"
 
@@ -165,10 +180,11 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(100 ⭐)")
+        #expect(result == "(100 ⭐)")
     }
 
-    func test_addParentheses_with_multiline_text() {
+    @Test("Add parentheses with multiline text")
+    func addParenthesesWithMultilineText() {
         // GIVEN
         let text = "line1\nline2"
 
@@ -176,6 +192,6 @@ final class StringAddParenthesesExtensionTests: XCTestCase {
         let result = text.addParentheses
 
         // THEN
-        XCTAssertEqual(result, "(line1\nline2)")
+        #expect(result == "(line1\nline2)")
     }
 }

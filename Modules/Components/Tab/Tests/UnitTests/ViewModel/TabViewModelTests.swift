@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import UIKit
 
@@ -16,22 +16,25 @@ import UIKit
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkCommonTesting
 
-final class TabViewModelTests: XCTestCase {
+@MainActor
+@Suite("Tab ViewModel Tests")
+struct TabViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
         let viewModel = stub.viewModel
 
         // THEN
-        XCTAssertNil(viewModel.theme)
-        XCTAssertNil(viewModel.intent)
-        XCTAssertNil(viewModel.size)
-        XCTAssertNil(viewModel.isEnabled)
+        #expect(viewModel.theme == nil)
+        #expect(viewModel.intent == nil)
+        #expect(viewModel.size == nil)
+        #expect(viewModel.isEnabled == nil)
 
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherLinesColors: TabLinesColors(),
             otherAccessibilityColors: TabAccessibilityColors(),
@@ -40,7 +43,7 @@ final class TabViewModelTests: XCTestCase {
             otherDim: 0
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getLinesColorsUseCase: true,
             getAccessibilityColorsUseCase: true,
@@ -52,7 +55,8 @@ final class TabViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -61,9 +65,9 @@ final class TabViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TabGetLinesColorsUseCaseableMockTest.XCTAssert(
+        TabGetLinesColorsUseCaseableMockTest.expect(
             stub.getLinesColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -71,7 +75,7 @@ final class TabViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLinesColors
         )
 
-        TabAccessibilityColorsUseCaseableMockTest.XCTAssert(
+        TabAccessibilityColorsUseCaseableMockTest.expect(
             stub.getAccessibilityColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -79,14 +83,14 @@ final class TabViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedAccessibilityColors
         )
 
-        TabGetLayoutUseCaseableMockTest.XCTAssert(
+        TabGetLayoutUseCaseableMockTest.expect(
             stub.getLayoutUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedLayout
         )
 
-        TabGetSizesUseCaseableMockTest.XCTAssert(
+        TabGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -94,7 +98,7 @@ final class TabViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSizes
         )
 
-        TabGetDimUseCaseableMockTest.XCTAssert(
+        TabGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -105,7 +109,8 @@ final class TabViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateAllProperties() {
+    @Test("Theme changed should update all properties")
+    func themeChangedShouldUpdateAllProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -119,9 +124,9 @@ final class TabViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TabGetLinesColorsUseCaseableMockTest.XCTAssert(
+        TabGetLinesColorsUseCaseableMockTest.expect(
             stub.getLinesColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -129,7 +134,7 @@ final class TabViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLinesColors
         )
 
-        TabAccessibilityColorsUseCaseableMockTest.XCTAssert(
+        TabAccessibilityColorsUseCaseableMockTest.expect(
             stub.getAccessibilityColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -137,14 +142,14 @@ final class TabViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedAccessibilityColors
         )
 
-        TabGetLayoutUseCaseableMockTest.XCTAssert(
+        TabGetLayoutUseCaseableMockTest.expect(
             stub.getLayoutUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             expectedReturnValue: stub.expectedLayout
         )
 
-        TabGetSizesUseCaseableMockTest.XCTAssert(
+        TabGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -152,7 +157,7 @@ final class TabViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSizes
         )
 
-        TabGetDimUseCaseableMockTest.XCTAssert(
+        TabGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -161,7 +166,8 @@ final class TabViewModelTests: XCTestCase {
         )
     }
 
-    func test_intentChanged_shouldUpdateLinesColorsAndAccessibilityColorsOnly() {
+    @Test("Intent changed should update lines colors and accessibility colors only")
+    func intentChangedShouldUpdateLinesColorsAndAccessibilityColorsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -175,9 +181,9 @@ final class TabViewModelTests: XCTestCase {
         viewModel.intent = newIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TabGetLinesColorsUseCaseableMockTest.XCTAssert(
+        TabGetLinesColorsUseCaseableMockTest.expect(
             stub.getLinesColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -185,7 +191,7 @@ final class TabViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLinesColors
         )
 
-        TabAccessibilityColorsUseCaseableMockTest.XCTAssert(
+        TabAccessibilityColorsUseCaseableMockTest.expect(
             stub.getAccessibilityColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -193,7 +199,7 @@ final class TabViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedAccessibilityColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getLayoutUseCase: true,
             getSizesUseCase: true,
@@ -201,7 +207,8 @@ final class TabViewModelTests: XCTestCase {
         )
     }
 
-    func test_sizeChanged_shouldUpdateSizesOnly() {
+    @Test("Size changed should update sizes only")
+    func sizeChangedShouldUpdateSizesOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -215,9 +222,9 @@ final class TabViewModelTests: XCTestCase {
         viewModel.size = newSize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TabGetSizesUseCaseableMockTest.XCTAssert(
+        TabGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -225,7 +232,7 @@ final class TabViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSizes
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getLinesColorsUseCase: true,
             getAccessibilityColorsUseCase: true,
@@ -234,7 +241,8 @@ final class TabViewModelTests: XCTestCase {
         )
     }
 
-    func test_isEnabledChanged_shouldUpdateDimOnly() {
+    @Test("Is enabled changed should update dim only")
+    func isEnabledChangedShouldUpdateDimOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -248,9 +256,9 @@ final class TabViewModelTests: XCTestCase {
         viewModel.isEnabled = newIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TabGetDimUseCaseableMockTest.XCTAssert(
+        TabGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -258,7 +266,7 @@ final class TabViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getLinesColorsUseCase: true,
             getAccessibilityColorsUseCase: true,
@@ -267,7 +275,8 @@ final class TabViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -279,7 +288,7 @@ final class TabViewModelTests: XCTestCase {
         viewModel.isEnabled = false
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherLinesColors: TabLinesColors(),
             otherAccessibilityColors: TabAccessibilityColors(),
@@ -288,7 +297,7 @@ final class TabViewModelTests: XCTestCase {
             otherDim: 0
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getLinesColorsUseCase: true,
             getAccessibilityColorsUseCase: true,
@@ -298,7 +307,8 @@ final class TabViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -313,9 +323,9 @@ final class TabViewModelTests: XCTestCase {
         viewModel.isEnabled = stub.givenIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getLinesColorsUseCase: true,
             getAccessibilityColorsUseCase: true,
@@ -325,7 +335,8 @@ final class TabViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withNilValues_shouldNotCallUseCases() {
+    @Test("Properties changed with nil values should not call use cases")
+    func propertiesChangedWithNilValuesShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -340,9 +351,9 @@ final class TabViewModelTests: XCTestCase {
         viewModel.isEnabled = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getLinesColorsUseCase: true,
             getAccessibilityColorsUseCase: true,
@@ -452,73 +463,80 @@ private extension TabViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getLinesColorsUseCase: Bool = false,
     getAccessibilityColorsUseCase: Bool = false,
     getLayoutUseCase: Bool = false,
     getSizesUseCase: Bool = false,
-    getDimUseCase: Bool = false
+    getDimUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    TabGetLinesColorsUseCaseableMockTest.XCTCalled(
+    TabGetLinesColorsUseCaseableMockTest.expectCalled(
         stub.getLinesColorsUseCaseMock,
-        executeWithThemeAndIntentCalled: !getLinesColorsUseCase
+        executeWithThemeAndIntentCalled: !getLinesColorsUseCase,
+        sourceLocation: sourceLocation
     )
 
-    TabAccessibilityColorsUseCaseableMockTest.XCTCalled(
+    TabAccessibilityColorsUseCaseableMockTest.expectCalled(
         stub.getAccessibilityColorsUseCaseMock,
-        executeWithThemeAndIntentCalled: !getAccessibilityColorsUseCase
+        executeWithThemeAndIntentCalled: !getAccessibilityColorsUseCase,
+        sourceLocation: sourceLocation
     )
 
-    TabGetLayoutUseCaseableMockTest.XCTCalled(
+    TabGetLayoutUseCaseableMockTest.expectCalled(
         stub.getLayoutUseCaseMock,
-        executeWithThemeCalled: !getLayoutUseCase
+        executeWithThemeCalled: !getLayoutUseCase,
+        sourceLocation: sourceLocation
     )
 
-    TabGetSizesUseCaseableMockTest.XCTCalled(
+    TabGetSizesUseCaseableMockTest.expectCalled(
         stub.getSizesUseCaseMock,
-        executeWithThemeAndSizeCalled: !getSizesUseCase
+        executeWithThemeAndSizeCalled: !getSizesUseCase,
+        sourceLocation: sourceLocation
     )
 
-    TabGetDimUseCaseableMockTest.XCTCalled(
+    TabGetDimUseCaseableMockTest.expectCalled(
         stub.getDimUseCaseMock,
-        executeWithThemeAndIsEnabledCalled: !getDimUseCase
+        executeWithThemeAndIsEnabledCalled: !getDimUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherLinesColors: TabLinesColors? = nil,
     otherAccessibilityColors: TabAccessibilityColors? = nil,
     otherSizes: TabSizes? = nil,
     otherLayout: TabLayout? = nil,
-    otherDim: CGFloat? = nil
+    otherDim: CGFloat? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.linesColors,
-        otherLinesColors ?? stub.expectedLinesColors,
-        "Wrong linesColors value"
+    #expect(
+        viewModel.linesColors == (otherLinesColors ?? stub.expectedLinesColors),
+        "Wrong linesColors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.accessibilityColors,
-        otherAccessibilityColors ?? stub.expectedAccessibilityColors,
-        "Wrong accessibilityColors value"
+    #expect(
+        viewModel.accessibilityColors == (otherAccessibilityColors ?? stub.expectedAccessibilityColors),
+        "Wrong accessibilityColors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.sizes,
-        otherSizes ?? stub.expectedSizes,
-        "Wrong sizes value"
+    #expect(
+        viewModel.sizes == (otherSizes ?? stub.expectedSizes),
+        "Wrong sizes value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.layout,
-        otherLayout ?? stub.expectedLayout,
-        "Wrong layout value"
+    #expect(
+        viewModel.layout == (otherLayout ?? stub.expectedLayout),
+        "Wrong layout value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.dim,
-        otherDim ?? stub.expectedDim,
-        "Wrong dim value"
+    #expect(
+        viewModel.dim == (otherDim ?? stub.expectedDim),
+        "Wrong dim value",
+        sourceLocation: sourceLocation
     )
 }

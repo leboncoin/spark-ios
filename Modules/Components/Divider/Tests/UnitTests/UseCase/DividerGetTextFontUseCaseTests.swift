@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SparkTheming
 
 @_spi(SI_SPI) import SparkComponentDividerTesting
@@ -14,11 +14,13 @@ import SparkTheming
 
 @testable import SparkComponentDivider
 
-final class DividerGetTextFontUseCaseTests: XCTestCase {
+@Suite("Divider Get Text Font UseCase Tests")
+struct DividerGetTextFontUseCaseTests {
 
     // MARK: - Execute Tests
 
-    func test_execute_returns_body1_typography() {
+    @Test("Execute returns body1 typography")
+    func executeReturnsBody1Typography() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let useCase = DividerGetTextFontUseCase()
@@ -27,7 +29,7 @@ final class DividerGetTextFontUseCaseTests: XCTestCase {
         let font = useCase.execute(theme: theme)
 
         // THEN
-        XCTAssertTrue(
+        #expect(
             font.equals(theme.typography.body1),
             "Execute should return theme.typography.body1"
         )

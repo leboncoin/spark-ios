@@ -6,14 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentProgressBar
 
-final class CGFloatAccessibilityValueExtensionTests: XCTestCase {
+@Suite("CG Float Accessibility Value Extension Tests")
+struct CGFloatAccessibilityValueExtensionTests {
 
     // MARK: - Tests
 
-    func test_accessibilityValue_returns_correct_percentage_for_zero() {
+    @Test("Accessibility value returns correct percentage for zero")
+    func accessibilityValueReturnsCorrectPercentageForZero() {
         // GIVEN / WHEN / THEN
         self.testAccessibilityValue(
             givenValue: 0.0,
@@ -21,7 +24,8 @@ final class CGFloatAccessibilityValueExtensionTests: XCTestCase {
         )
     }
 
-    func test_accessibilityValue_returns_correct_percentage_for_one() {
+    @Test("Accessibility value returns correct percentage for one")
+    func accessibilityValueReturnsCorrectPercentageForOne() {
         // GIVEN / WHEN / THEN
         self.testAccessibilityValue(
             givenValue: 1.0,
@@ -29,7 +33,8 @@ final class CGFloatAccessibilityValueExtensionTests: XCTestCase {
         )
     }
 
-    func test_accessibilityValue_returns_correct_percentage_for_half() {
+    @Test("Accessibility value returns correct percentage for half")
+    func accessibilityValueReturnsCorrectPercentageForHalf() {
         // GIVEN / WHEN / THEN
         self.testAccessibilityValue(
             givenValue: 0.5,
@@ -37,7 +42,8 @@ final class CGFloatAccessibilityValueExtensionTests: XCTestCase {
         )
     }
 
-    func test_accessibilityValue_returns_correct_percentage_for_quarter() {
+    @Test("Accessibility value returns correct percentage for quarter")
+    func accessibilityValueReturnsCorrectPercentageForQuarter() {
         // GIVEN / WHEN / THEN
         self.testAccessibilityValue(
             givenValue: 0.25,
@@ -45,7 +51,8 @@ final class CGFloatAccessibilityValueExtensionTests: XCTestCase {
         )
     }
 
-    func test_accessibilityValue_returns_correct_percentage_for_three_quarters() {
+    @Test("Accessibility value returns correct percentage for three quarters")
+    func accessibilityValueReturnsCorrectPercentageForThreeQuarters() {
         // GIVEN / WHEN / THEN
         self.testAccessibilityValue(
             givenValue: 0.75,
@@ -53,7 +60,8 @@ final class CGFloatAccessibilityValueExtensionTests: XCTestCase {
         )
     }
 
-    func test_accessibilityValue_returns_correct_percentage_for_small_decimal() {
+    @Test("Accessibility value returns correct percentage for small decimal")
+    func accessibilityValueReturnsCorrectPercentageForSmallDecimal() {
         // GIVEN / WHEN / THEN
         self.testAccessibilityValue(
             givenValue: 0.123,
@@ -77,10 +85,6 @@ private extension CGFloatAccessibilityValueExtensionTests {
         let accessibilityValue = value.accessibilityValue
 
         // THEN
-        XCTAssertEqual(
-            accessibilityValue,
-            expectedString,
-            "Wrong accessibility value for \(givenValue)"
-        )
+        #expect(accessibilityValue == expectedString, "Wrong accessibility value for \(givenValue)")
     }
 }

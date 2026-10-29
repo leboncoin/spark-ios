@@ -20,7 +20,7 @@ struct FileUploadTokenPreviewSizeTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Image should return 24")
     func imageShouldReturn24() {
         // GIVEN / WHEN
         let result = self.token.image
@@ -29,7 +29,7 @@ struct FileUploadTokenPreviewSizeTests {
         #expect(result == 24)
     }
 
-    @Test
+    @Test("Image container should return 36")
     func imageContainerShouldReturn36() {
         // GIVEN / WHEN
         let result = self.token.imageContainer

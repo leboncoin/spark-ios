@@ -20,23 +20,23 @@ struct RadioButtonUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     private let theme: any Theme = SparkTheme.shared
 
-    @Test func test1() async {
+    @Test("1") func test1() async {
         await self._test(.test1)
     }
 
-    @Test func test2() async {
+    @Test("2") func test2() async {
         await self._test(.test2)
     }
 
-    @Test func test3() async {
+    @Test("3") func test3() async {
         await self._test(.test3)
     }
 
-    @Test func test4() async {
+    @Test("4") func test4() async {
         await self._test(.test4)
     }
 
-    @Test func test5() async {
+    @Test("5") func test5() async {
         await self._test(.test5)
     }
 

@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentChip
 @_spi(SI_SPI) @testable import SparkComponentChipTesting
 @_spi(SI_SPI) import SparkCommon
@@ -14,16 +14,19 @@ import XCTest
 @_spi(SI_SPI) import SparkThemingTesting
 import SwiftUI
 
-final class ChipViewModelTests: XCTestCase {
+@MainActor
+@Suite("Chip ViewModel Tests")
+struct ChipViewModelTests {
 
     // MARK: - Initialization Test
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherBorder: ChipBorder(),
             otherColors: ChipColors(),
@@ -35,7 +38,7 @@ final class ChipViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -49,7 +52,8 @@ final class ChipViewModelTests: XCTestCase {
 
     // MARK: - Setup Tests
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -58,10 +62,10 @@ final class ChipViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        ChipGetColorsUseCaseableMockTest.XCTAssert(
+        ChipGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -72,7 +76,7 @@ final class ChipViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        ChipGetBorderUseCaseableMockTest.XCTAssert(
+        ChipGetBorderUseCaseableMockTest.expect(
             stub.getBorderUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -80,7 +84,7 @@ final class ChipViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedBorder
         )
 
-        ChipGetDimUseCaseableMockTest.XCTAssert(
+        ChipGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -88,14 +92,14 @@ final class ChipViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        ChipGetIsReversedUseCaseableMockTest.XCTAssert(
+        ChipGetIsReversedUseCaseableMockTest.expect(
             stub.getIsReversedUseCaseMock,
             expectedNumberOfCalls: 1,
             givenAlignment: stub.givenAlignment,
             expectedReturnValue: stub.expectedIsReversed
         )
 
-        ChipGetLayoutUseCaseableMockTest.XCTAssert(
+        ChipGetLayoutUseCaseableMockTest.expect(
             stub.getLayoutUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -103,7 +107,7 @@ final class ChipViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLayout
         )
 
-        ChipGetSizesUseCaseableMockTest.XCTAssert(
+        ChipGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -111,7 +115,7 @@ final class ChipViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSizes
         )
 
-        ChipGetTitleFontUseCaseableMockTest.XCTAssert(
+        ChipGetTitleFontUseCaseableMockTest.expect(
             stub.getTitleFontUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -121,7 +125,8 @@ final class ChipViewModelTests: XCTestCase {
 
     // MARK: - Property Change Tests
 
-    func test_themeChanged_shouldUpdateColors() {
+    @Test("Theme changed should update colors")
+    func themeChangedShouldUpdateColors() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -135,15 +140,15 @@ final class ChipViewModelTests: XCTestCase {
         viewModel.theme = givenTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getIsReversedUseCase: true
         )
 
-        ChipGetColorsUseCaseableMockTest.XCTAssert(
+        ChipGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -154,7 +159,7 @@ final class ChipViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        ChipGetBorderUseCaseableMockTest.XCTAssert(
+        ChipGetBorderUseCaseableMockTest.expect(
             stub.getBorderUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -162,7 +167,7 @@ final class ChipViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedBorder
         )
 
-        ChipGetDimUseCaseableMockTest.XCTAssert(
+        ChipGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -170,7 +175,7 @@ final class ChipViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        ChipGetLayoutUseCaseableMockTest.XCTAssert(
+        ChipGetLayoutUseCaseableMockTest.expect(
             stub.getLayoutUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -178,7 +183,7 @@ final class ChipViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLayout
         )
 
-        ChipGetSizesUseCaseableMockTest.XCTAssert(
+        ChipGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -186,7 +191,7 @@ final class ChipViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSizes
         )
 
-        ChipGetTitleFontUseCaseableMockTest.XCTAssert(
+        ChipGetTitleFontUseCaseableMockTest.expect(
             stub.getTitleFontUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -194,7 +199,8 @@ final class ChipViewModelTests: XCTestCase {
         )
     }
 
-    func test_alignmentChanged_shouldUpdateColors() {
+    @Test("Alignment changed should update colors")
+    func alignmentChangedShouldUpdateColors() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -208,17 +214,17 @@ final class ChipViewModelTests: XCTestCase {
         viewModel.alignment = givenAlignment
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        ChipGetIsReversedUseCaseableMockTest.XCTAssert(
+        ChipGetIsReversedUseCaseableMockTest.expect(
             stub.getIsReversedUseCaseMock,
             expectedNumberOfCalls: 1,
             givenAlignment: givenAlignment,
             expectedReturnValue: stub.expectedIsReversed
         )
 
-        ChipGetLayoutUseCaseableMockTest.XCTAssert(
+        ChipGetLayoutUseCaseableMockTest.expect(
             stub.getLayoutUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -227,7 +233,7 @@ final class ChipViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -237,7 +243,8 @@ final class ChipViewModelTests: XCTestCase {
         )
     }
 
-    func test_intentChanged_shouldUpdateColors() {
+    @Test("Intent changed should update colors")
+    func intentChangedShouldUpdateColors() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -251,10 +258,10 @@ final class ChipViewModelTests: XCTestCase {
         viewModel.intent = givenIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        ChipGetColorsUseCaseableMockTest.XCTAssert(
+        ChipGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -266,7 +273,7 @@ final class ChipViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getDimUseCase: true,
@@ -277,7 +284,8 @@ final class ChipViewModelTests: XCTestCase {
         )
     }
 
-    func test_variantChanged_shouldUpdateColors() {
+    @Test("Variant changed should update colors")
+    func variantChangedShouldUpdateColors() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -291,10 +299,10 @@ final class ChipViewModelTests: XCTestCase {
         viewModel.variant = givenVariant
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        ChipGetColorsUseCaseableMockTest.XCTAssert(
+        ChipGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -305,7 +313,7 @@ final class ChipViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        ChipGetBorderUseCaseableMockTest.XCTAssert(
+        ChipGetBorderUseCaseableMockTest.expect(
             stub.getBorderUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -314,7 +322,7 @@ final class ChipViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDimUseCase: true,
             getIsReversedUseCase: true,
@@ -324,7 +332,8 @@ final class ChipViewModelTests: XCTestCase {
         )
     }
 
-    func test_sizeChanged_shouldUpdateHeight() {
+    @Test("Size changed should update height")
+    func sizeChangedShouldUpdateHeight() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -338,10 +347,10 @@ final class ChipViewModelTests: XCTestCase {
         viewModel.size = givenSize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        ChipGetSizesUseCaseableMockTest.XCTAssert(
+        ChipGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -350,7 +359,7 @@ final class ChipViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -361,7 +370,8 @@ final class ChipViewModelTests: XCTestCase {
         )
     }
 
-    func test_isSelectedChanged_shouldUpdateColors() {
+    @Test("Is selected changed should update colors")
+    func isSelectedChangedShouldUpdateColors() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -375,10 +385,10 @@ final class ChipViewModelTests: XCTestCase {
         viewModel.isSelected = givenIsSelected
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        ChipGetColorsUseCaseableMockTest.XCTAssert(
+        ChipGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -390,7 +400,7 @@ final class ChipViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getDimUseCase: true,
@@ -401,7 +411,8 @@ final class ChipViewModelTests: XCTestCase {
         )
     }
 
-    func test_isPressedChanged_shouldUpdateColors() {
+    @Test("Is pressed changed should update colors")
+    func isPressedChangedShouldUpdateColors() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -415,10 +426,10 @@ final class ChipViewModelTests: XCTestCase {
         viewModel.isPressed = defaultIsPressed
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        ChipGetColorsUseCaseableMockTest.XCTAssert(
+        ChipGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -430,7 +441,7 @@ final class ChipViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getDimUseCase: true,
@@ -441,7 +452,8 @@ final class ChipViewModelTests: XCTestCase {
         )
     }
 
-    func test_isEnabledChanged_shouldUpdateDim() {
+    @Test("Is enabled changed should update dim")
+    func isEnabledChangedShouldUpdateDim() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -455,10 +467,10 @@ final class ChipViewModelTests: XCTestCase {
         viewModel.isEnabled = givenIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        ChipGetDimUseCaseableMockTest.XCTAssert(
+        ChipGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -467,7 +479,7 @@ final class ChipViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -478,7 +490,8 @@ final class ChipViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withoutSetupBefore_shouldNotCallUseCases() {
+    @Test("Properties changed without setup before should not call use cases")
+    func propertiesChangedWithoutSetupBeforeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -494,7 +507,7 @@ final class ChipViewModelTests: XCTestCase {
         viewModel.isEnabled = !stub.givenIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherBorder: ChipBorder(),
             otherColors: ChipColors(),
@@ -506,7 +519,7 @@ final class ChipViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -518,7 +531,8 @@ final class ChipViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withoutChange_shouldNotCallUseCases() {
+    @Test("Properties changed without change should not call use cases")
+    func propertiesChangedWithoutChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -537,9 +551,9 @@ final class ChipViewModelTests: XCTestCase {
         viewModel.isEnabled = stub.givenIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -646,9 +660,9 @@ private extension ChipViewModel {
     }
 }
 
-// MARK: - XCT Helpers
+// MARK: - Expectations
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getBorderUseCase getBorderUseCaseNotCalled: Bool = false,
     getColorsUseCase getColorsUseCaseNotCalled: Bool = false,
@@ -656,45 +670,53 @@ private func XCTAssertNotCalled(
     getIsReversedUseCase getIsReversedUseCaseNotCalled: Bool = false,
     getLayoutUseCase getLayoutUseCaseNotCalled: Bool = false,
     getSizesUseCase getSizesUseCaseNotCalled: Bool = false,
-    getTitleFontUseCase getTitleFontUseCaseNotCalled: Bool = false
+    getTitleFontUseCase getTitleFontUseCaseNotCalled: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    ChipGetBorderUseCaseableMockTest.XCTCalled(
+    ChipGetBorderUseCaseableMockTest.expectCalled(
         stub.getBorderUseCaseMock,
-        executeWithThemeAndVariantCalled: !getBorderUseCaseNotCalled
+        executeWithThemeAndVariantCalled: !getBorderUseCaseNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    ChipGetColorsUseCaseableMockTest.XCTCalled(
+    ChipGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeWithThemeAndIntentAndVariantAndIsSelectedAndIsPressedCalled: !getColorsUseCaseNotCalled
+        executeWithThemeAndIntentAndVariantAndIsSelectedAndIsPressedCalled: !getColorsUseCaseNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    ChipGetDimUseCaseableMockTest.XCTCalled(
+    ChipGetDimUseCaseableMockTest.expectCalled(
         stub.getDimUseCaseMock,
-        executeWithThemeAndIsEnabledCalled: !getDimUseCaseNotCalled
+        executeWithThemeAndIsEnabledCalled: !getDimUseCaseNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    ChipGetIsReversedUseCaseableMockTest.XCTCalled(
+    ChipGetIsReversedUseCaseableMockTest.expectCalled(
         stub.getIsReversedUseCaseMock,
-        executeWithAlignmentCalled: !getIsReversedUseCaseNotCalled
+        executeWithAlignmentCalled: !getIsReversedUseCaseNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    ChipGetLayoutUseCaseableMockTest.XCTCalled(
+    ChipGetLayoutUseCaseableMockTest.expectCalled(
         stub.getLayoutUseCaseMock,
-        executeWithThemeAndAlignmentCalled: !getLayoutUseCaseNotCalled
+        executeWithThemeAndAlignmentCalled: !getLayoutUseCaseNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    ChipGetSizesUseCaseableMockTest.XCTCalled(
+    ChipGetSizesUseCaseableMockTest.expectCalled(
         stub.getSizesUseCaseMock,
-        executeWithThemeAndSizeCalled: !getSizesUseCaseNotCalled
+        executeWithThemeAndSizeCalled: !getSizesUseCaseNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    ChipGetTitleFontUseCaseableMockTest.XCTCalled(
+    ChipGetTitleFontUseCaseableMockTest.expectCalled(
         stub.getTitleFontUseCaseMock,
-        executeWithThemeCalled: !getTitleFontUseCaseNotCalled
+        executeWithThemeCalled: !getTitleFontUseCaseNotCalled,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherBorder: ChipBorder? = nil,
     otherColors: ChipColors? = nil,
@@ -702,42 +724,44 @@ private func XCTAssertEqualToExpected(
     otherIsReversed: Bool? = nil,
     otherLayout: ChipLayout? = nil,
     otherSizes: ChipSizes? = nil,
-    otherTitleFont: (any TypographyFontToken)? = nil
+    otherTitleFont: (any TypographyFontToken)? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.border,
-        otherBorder ?? stub.expectedBorder,
-        "Wrong border value"
+    #expect(
+        viewModel.border == (otherBorder ?? stub.expectedBorder),
+        "Wrong border value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.colors,
-        otherColors ?? stub.expectedColors,
-        "Wrong colors value"
+    #expect(
+        viewModel.colors == (otherColors ?? stub.expectedColors),
+        "Wrong colors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.dim,
-        otherDim ?? stub.expectedDim,
-        "Wrong dim value"
+    #expect(
+        viewModel.dim == (otherDim ?? stub.expectedDim),
+        "Wrong dim value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.isReversed,
-        otherIsReversed ?? stub.expectedIsReversed,
-        "Wrong isReversed value"
+    #expect(
+        viewModel.isReversed == (otherIsReversed ?? stub.expectedIsReversed),
+        "Wrong isReversed value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.layout,
-        otherLayout ?? stub.expectedLayout,
-        "Wrong layout value"
+    #expect(
+        viewModel.layout == (otherLayout ?? stub.expectedLayout),
+        "Wrong layout value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.sizes,
-        otherSizes ?? stub.expectedSizes,
-        "Wrong sizes value"
+    #expect(
+        viewModel.sizes == (otherSizes ?? stub.expectedSizes),
+        "Wrong sizes value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertTrue(
+    #expect(
         viewModel.titleFont.equals(otherTitleFont ?? stub.expectedTitleFont),
-        "Wrong titleFont value"
+        "Wrong titleFont value",
+        sourceLocation: sourceLocation
     )
 }

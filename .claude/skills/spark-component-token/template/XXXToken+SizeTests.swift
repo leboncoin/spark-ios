@@ -22,24 +22,24 @@ struct XXXTokenSizeTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Medium height should return 32")
     func mediumHeightShouldReturn32() {
         #expect(self.token.mediumHeight == 32)
     }
 
-    @Test
+    @Test("Large height should return 40")
     func largeHeightShouldReturn40() {
         #expect(self.token.largeHeight == 40)
     }
 
-    @Test
+    @Test("Icon size should return 16")
     func iconSizeShouldReturn16() {
         #expect(self.token.iconSize == 16)
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable should return true")
     func equatableShouldReturnTrue() {
         #expect(XXXToken.Size() == XXXToken.Size())
     }

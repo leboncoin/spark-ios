@@ -6,19 +6,21 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 
-final class TextInputSpacingsTests: XCTestCase {
+@Suite("Text Input Spacings Tests")
+struct TextInputSpacingsTests {
 
     // MARK: - Tests
 
-    func test_default_values() {
+    @Test("Default values")
+    func defaultValues() {
         // GIVEN / WHEN
         let object = TextInputSpacings()
 
         // THEN
-        XCTAssertEqual(object.horizontal, 0, "Wrong horizontal value")
-        XCTAssertEqual(object.content, 0, "Wrong content value")
+        #expect(object.horizontal == 0, "Wrong horizontal value")
+        #expect(object.content == 0, "Wrong content value")
     }
 }

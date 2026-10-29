@@ -6,16 +6,19 @@
 //  Copyright © 2024 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkComponentFormField
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class FormFieldGetColorsUseCaseTests: XCTestCase {
+@MainActor
+@Suite("FormField Get Colors UseCase Tests")
+struct FormFieldGetColorsUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_for_all_feedback_cases() {
+    @Test("Execute for all feedback cases")
+    func executeForAllFeedbackCases() {
         // GIVEN
         let themeMocked = ThemeGeneratedMock.mocked()
 
@@ -27,24 +30,20 @@ final class FormFieldGetColorsUseCaseTests: XCTestCase {
             let expectedColors = feedbackState.colors(from: themeMocked)
 
             // THEN
-            XCTAssertEqual(
-                colors.title.uiColor,
-                expectedColors.title.uiColor,
+            #expect(
+                colors.title.uiColor == expectedColors.title.uiColor,
                 "Wrong title when feedbackState is equals to .\(feedbackState)"
             )
-            XCTAssertEqual(
-                colors.require.uiColor,
-                expectedColors.require.uiColor,
+            #expect(
+                colors.require.uiColor == expectedColors.require.uiColor,
                 "Wrong require when feedbackState is equals to .\(feedbackState)"
             )
-            XCTAssertEqual(
-                colors.helper.uiColor,
-                expectedColors.helper.uiColor,
+            #expect(
+                colors.helper.uiColor == expectedColors.helper.uiColor,
                 "Wrong helper when feedbackState is equals to .\(feedbackState)"
             )
-            XCTAssertEqual(
-                colors.secondaryHelper.uiColor,
-                expectedColors.secondaryHelper.uiColor,
+            #expect(
+                colors.secondaryHelper.uiColor == expectedColors.secondaryHelper.uiColor,
                 "Wrong secondaryHelper when feedbackState is equals to .\(feedbackState)"
             )
         }
