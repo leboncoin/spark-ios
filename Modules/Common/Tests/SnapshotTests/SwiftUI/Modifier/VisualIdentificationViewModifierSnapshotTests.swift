@@ -19,7 +19,7 @@ struct VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnapshotTe
 
     // MARK: - Tests
 
-    @Test func test_sparkVisualIdentification_when_toggle_is_true() throws {
+    @Test func test_sparkVisualIdentification_when_toggle_is_true() async throws {
         // GIVEN
         let featureTogglesService = SparkFeatureToggleServicingGeneratedMock()
         featureTogglesService.visualIdentification = true
@@ -29,7 +29,7 @@ struct VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnapshotTe
             .style()
 
         // THEN
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view,
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.default,
@@ -37,7 +37,7 @@ struct VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnapshotTe
         )
     }
 
-    @Test func test_sparkVisualIdentification_when_toggle_is_false() throws {
+    @Test func test_sparkVisualIdentification_when_toggle_is_false() async throws {
         // GIVEN
         let featureTogglesService = SparkFeatureToggleServicingGeneratedMock()
         featureTogglesService.visualIdentification = false
@@ -47,7 +47,7 @@ struct VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnapshotTe
             .style()
 
         // THEN
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view,
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.default,
@@ -55,14 +55,14 @@ struct VisualIdentificationViewModifierSnapshotTests: SwiftUIComponentSnapshotTe
         )
     }
 
-    @Test func test_sparkVisualIdentification_with_default_toggle_service() throws {
+    @Test func test_sparkVisualIdentification_with_default_toggle_service() async throws {
         // GIVEN
         let view = Text("Hello World")
             .sparkVisualIdentification()
             .style()
 
         // THEN
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view,
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.default,

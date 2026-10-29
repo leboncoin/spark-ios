@@ -26,7 +26,7 @@ struct SparkChipSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = ChipScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -46,7 +46,7 @@ struct SparkChipSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .background(.background)
                     .fixedSize()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

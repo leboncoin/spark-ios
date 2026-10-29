@@ -27,7 +27,7 @@ struct SparkIconSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = IconScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -43,7 +43,7 @@ struct SparkIconSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .background(.background)
                     .fixedSize()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

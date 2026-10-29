@@ -25,7 +25,7 @@ struct SparkUIProgressBarSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = ProgressBarScenarioSnapshotTests.allCases.filter {
             $0 != .documentation
         }
@@ -54,7 +54,7 @@ struct SparkUIProgressBarSnapshotTests: UIKitComponentSnapshotTesting {
                     insets: .init(all: 4)
                 )
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     named: configuration.name,
                     modes: configuration.modes,

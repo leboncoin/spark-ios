@@ -27,7 +27,7 @@ struct SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         // Remove animation
         let scenarios = SegmentedControlScenarioSnapshotTests.allCases
 
@@ -44,7 +44,7 @@ struct SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .background(.background)
                     .sparkIsSnapshot(true)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

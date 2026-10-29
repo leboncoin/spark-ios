@@ -26,7 +26,7 @@ struct SparkUITabSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = TabScenarioSnapshotTests.allCases.filter {
             $0 != .documentation
         }
@@ -39,7 +39,7 @@ struct SparkUITabSnapshotTests: UIKitComponentSnapshotTesting {
 
                 let containerView = self.containerView(for: view)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: containerView,
                     named: configuration.name,
                     modes: configuration.modes,
@@ -50,7 +50,7 @@ struct SparkUITabSnapshotTests: UIKitComponentSnapshotTesting {
         }
     }
 
-    @Test func testOther() {
+    @Test func testOther() async {
         let scenarios = TabScenarioOtherSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -61,7 +61,7 @@ struct SparkUITabSnapshotTests: UIKitComponentSnapshotTesting {
 
                 let containerView = self.containerView(for: view)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: containerView,
                     named: configuration.name,
                     modes: [.light],

@@ -26,21 +26,21 @@ struct SnackbarViewSnapshotTestsDeprecated: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test1() {
-        self._test(.test1)
+    @Test func test1() async {
+        await self._test(.test1)
     }
 
-    @Test func test2() {
-        self._test(.test2)
+    @Test func test2() async {
+        await self._test(.test2)
     }
 
-    @Test func test3() {
-        self._test(.test3)
+    @Test func test3() async {
+        await self._test(.test3)
     }
 
-    private func _test(_ scenario: SnackbarScenarioDeprecated) {
+    private func _test(_ scenario: SnackbarScenarioDeprecated) async {
         for configuration in scenario.configurations {
-            self.assertSnapshot(
+            await self.assertSnapshot(
                 matching:
                     self.snackbar(configuration: configuration)
                     .frame(width: 300)

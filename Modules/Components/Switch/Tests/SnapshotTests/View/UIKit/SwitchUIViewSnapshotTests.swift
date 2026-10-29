@@ -31,7 +31,7 @@ struct SwitchUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = SwitchScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -115,7 +115,7 @@ struct SwitchUIViewSnapshotTests: UIKitComponentSnapshotTesting {
                     insets: .init(all: Constants.padding)
                 )
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

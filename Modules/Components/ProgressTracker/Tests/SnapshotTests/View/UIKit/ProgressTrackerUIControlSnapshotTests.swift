@@ -25,7 +25,7 @@ struct ProgressTrackerUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = ProgressTrackerScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -87,14 +87,14 @@ struct ProgressTrackerUIViewSnapshotTests: UIKitComponentSnapshotTesting {
                         containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
                     ])
 
-                    self.assertSnapshot(
+                    await self.assertSnapshot(
                         matching: containerView,
                         modes: configuration.modes,
                         sizes: configuration.sizes,
                         testName: configuration.testName()
                     )
                 } else {
-                    self.assertSnapshot(
+                    await self.assertSnapshot(
                         matching: view,
                         modes: configuration.modes,
                         sizes: configuration.sizes,

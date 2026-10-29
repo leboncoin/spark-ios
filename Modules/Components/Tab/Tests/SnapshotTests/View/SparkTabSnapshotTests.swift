@@ -26,7 +26,7 @@ struct SparkTabSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = TabScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -42,7 +42,7 @@ struct SparkTabSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .padding(.vertical, 20)
                     .background(.background)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

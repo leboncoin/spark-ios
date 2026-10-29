@@ -26,7 +26,7 @@ struct CheckboxViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = CheckboxScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -43,10 +43,11 @@ struct CheckboxViewSnapshotTests: SwiftUIComponentSnapshotTesting {
                     selectionState: .constant(configuration.selectionState)
                 )
                 .background(Color(UIColor.systemBackground))
+                .disabled(configuration.state == .disabled)
 
                 let view = self.view(text: configuration.textType.value, checkbox: checkboxView)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

@@ -26,7 +26,7 @@ struct SparkUIButtonSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = ButtonScenarioSnapshotTests.allCases.filter {
             $0 != .documentation
         }
@@ -40,7 +40,7 @@ struct SparkUIButtonSnapshotTests: UIKitComponentSnapshotTesting {
 
                 let containerView = self.containerView(for: view, configuration: configuration)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: containerView,
                     named: configuration.name,
                     modes: configuration.modes,

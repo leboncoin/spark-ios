@@ -26,7 +26,7 @@ struct CheckboxGroupUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = CheckboxGroupScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -58,7 +58,7 @@ struct CheckboxGroupUIViewSnapshotTests: UIKitComponentSnapshotTesting {
                     containerView.widthAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.size.width).isActive = true
                 }
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: containerView,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

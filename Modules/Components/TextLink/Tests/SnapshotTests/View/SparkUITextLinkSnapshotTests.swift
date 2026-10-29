@@ -27,7 +27,7 @@ struct SparkUITextLinkSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = TextLinkScenarioSnapshotTests.allCases.filter {
             $0 != .documentation
         }
@@ -58,7 +58,7 @@ struct SparkUITextLinkSnapshotTests: UIKitComponentSnapshotTesting {
                     insets: .init(all: 4)
                 )
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     named: configuration.name,
                     modes: configuration.modes,

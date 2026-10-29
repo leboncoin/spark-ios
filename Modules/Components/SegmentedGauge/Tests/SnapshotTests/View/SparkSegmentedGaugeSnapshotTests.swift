@@ -27,14 +27,14 @@ struct SparkSegmentedGaugeSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = SegmentedGaugeScenarioSnapshotTests.allCases
-        self.loadScenarios(scenarios)
+        await self.loadScenarios(scenarios)
     }
 
     // MARK: - Scenarios
 
-    private func loadScenarios(_ scenarios: [SegmentedGaugeScenarioSnapshotTests]) {
+    private func loadScenarios(_ scenarios: [SegmentedGaugeScenarioSnapshotTests]) async {
         for scenario in scenarios {
             let configurations = scenario.configuration()
 
@@ -52,7 +52,7 @@ struct SparkSegmentedGaugeSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .background(.background)
                     .fixedSize(horizontal: false, vertical: true)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

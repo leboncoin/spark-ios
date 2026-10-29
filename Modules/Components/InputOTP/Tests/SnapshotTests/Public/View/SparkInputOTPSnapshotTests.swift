@@ -26,14 +26,14 @@ struct SparkInputOTPSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = InputOTPScenarioSnapshotTests.allCases
-        self.loadScenarios(scenarios)
+        await self.loadScenarios(scenarios)
     }
 
     // MARK: - Scenarios
 
-    private func loadScenarios(_ scenarios: [InputOTPScenarioSnapshotTests]) {
+    private func loadScenarios(_ scenarios: [InputOTPScenarioSnapshotTests]) async {
         for scenario in scenarios {
             let configurations = scenario.configuration()
 
@@ -48,7 +48,7 @@ struct SparkInputOTPSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .background(.background)
                     .fixedSize()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

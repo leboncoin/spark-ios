@@ -26,7 +26,7 @@ struct SparkUIChipSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = ChipScenarioSnapshotTests.allCases.filter {
             $0 != .documentation
         }
@@ -84,7 +84,7 @@ struct SparkUIChipSnapshotTests: UIKitComponentSnapshotTesting {
                     insets: .init(all: scenario.isDocumentation ? 4 : 20)
                 )
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     named: configuration.name,
                     modes: configuration.modes,

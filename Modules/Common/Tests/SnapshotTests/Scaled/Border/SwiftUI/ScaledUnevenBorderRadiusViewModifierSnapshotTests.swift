@@ -19,9 +19,9 @@ struct ScaledUnevenBorderRadiusViewModifierSnapshotTests: SwiftUIComponentSnapsh
 
     // MARK: - Tests
 
-    @Test func test_default() throws {
+    @Test func test_default() async throws {
         for type in UnevenBorderType.allCases {
-            self.assertSnapshot(
+            await self.assertSnapshot(
                 matching: SnapshotView(
                     type: type,
                     state: .default
@@ -34,9 +34,9 @@ struct ScaledUnevenBorderRadiusViewModifierSnapshotTests: SwiftUIComponentSnapsh
         }
     }
 
-    @Test func test_highlighted() throws {
+    @Test func test_highlighted() async throws {
         for type in UnevenBorderType.allCases {
-            self.assertSnapshot(
+            await self.assertSnapshot(
                 matching: SnapshotView(
                     type: type,
                     state: .highlighted

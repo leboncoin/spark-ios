@@ -26,7 +26,7 @@ struct SparkUIBadgeSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = BadgeScenarioSnapshotTests.allCases.filter {
             $0 != .documentation
         }
@@ -76,7 +76,7 @@ struct SparkUIBadgeSnapshotTests: UIKitComponentSnapshotTesting {
                     )
                 }
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     named: configuration.name,
                     modes: configuration.modes,

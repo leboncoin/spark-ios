@@ -31,7 +31,7 @@ struct TextFieldUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = TextFieldScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -111,7 +111,7 @@ struct TextFieldUIViewSnapshotTests: UIKitComponentSnapshotTesting {
                     _ = textField.becomeFirstResponder()
                 }
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

@@ -27,17 +27,17 @@ struct SparkFileUploadPreviewGroupSnapshotTests: SwiftUIComponentSnapshotTesting
 
     // MARK: - Tests
 
-    @Test func test() throws {
-        try self.testView()
+    @Test func test() async throws {
+        try await self.testView()
     }
 
-    @Test func test_documentation() throws {
-        try self.testView(forDocumentation: true)
+    @Test func test_documentation() async throws {
+        try await self.testView(forDocumentation: true)
     }
 
     // MARK: - Private
 
-    func testView(forDocumentation: Bool = false) throws {
+    func testView(forDocumentation: Bool = false) async throws {
         let pdfURL = try URL.pdfMock
         let imageURL = try URL.imageMock
         let txtURL = try URL.txtMock
@@ -88,7 +88,7 @@ struct SparkFileUploadPreviewGroupSnapshotTests: SwiftUIComponentSnapshotTesting
         .fixedSize()
         .background(.background)
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view,
             named: forDocumentation ? "" : "preview_group",
             modes: ComponentSnapshotTestConstants.Modes.default,

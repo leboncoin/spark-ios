@@ -27,7 +27,7 @@ struct SparkCheckboxGroupSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let forDocumentation = false
 
         let scenarios = CommonGroupScenarioSnapshotTests.allCases(forDocumentation: forDocumentation)
@@ -49,7 +49,7 @@ struct SparkCheckboxGroupSnapshotTests: SwiftUIComponentSnapshotTesting {
                         useLargePadding: true
                     )
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

@@ -27,7 +27,7 @@ struct TextFieldViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = TextFieldScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -62,7 +62,7 @@ struct TextFieldViewSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .disabled(!configuration.state.isEnabled)
                     .style(forDocumentation: false)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

@@ -27,7 +27,7 @@ struct SparkCircularMeterSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = CircularMeterScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -44,7 +44,7 @@ struct SparkCircularMeterSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .background(.background)
                     .fixedSize()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

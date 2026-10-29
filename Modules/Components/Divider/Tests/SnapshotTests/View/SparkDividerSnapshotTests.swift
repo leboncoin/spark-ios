@@ -27,7 +27,7 @@ struct SparkDividerSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = DividerScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -48,7 +48,7 @@ struct SparkDividerSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .background(.background)
                     .fixedSize()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

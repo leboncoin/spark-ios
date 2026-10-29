@@ -31,7 +31,7 @@ struct TextEditorViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = TextEditorScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -52,7 +52,7 @@ struct TextEditorViewSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .frame(height: configuration.height.value)
                     .style(forDocumentation: false)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

@@ -24,7 +24,7 @@ struct SparkRatingInputSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = RatingInputScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -41,7 +41,7 @@ struct SparkRatingInputSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .background(.background)
                     .fixedSize()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

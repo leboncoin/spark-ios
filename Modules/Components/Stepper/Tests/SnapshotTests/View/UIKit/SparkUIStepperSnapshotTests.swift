@@ -26,7 +26,7 @@ struct SparkUIStepperSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = StepperScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -54,7 +54,7 @@ struct SparkUIStepperSnapshotTests: UIKitComponentSnapshotTesting {
 
                 NSLayoutConstraint.stickEdges(from: view, to: backgroundView, insets: .init(all: 1))
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

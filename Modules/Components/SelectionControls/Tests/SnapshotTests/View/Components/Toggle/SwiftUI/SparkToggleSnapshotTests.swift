@@ -27,7 +27,7 @@ struct SparkToggleSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let forDocumentation = false
 
         let scenarios = ToggleScenarioSnapshotTests.allCases(forDocumentation: forDocumentation)
@@ -41,7 +41,7 @@ struct SparkToggleSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .disabled(!configuration.status.isEnabled)
                     .style(forDocumentation: forDocumentation)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

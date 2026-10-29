@@ -24,7 +24,7 @@ struct SparkProgressBarSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = ProgressBarScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -43,7 +43,7 @@ struct SparkProgressBarSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .background(.background)
                     .fixedSize()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

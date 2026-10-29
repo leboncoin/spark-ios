@@ -30,7 +30,7 @@ struct IconButtonViewSnapshotTestsDeprecated: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = IconButtonScenarioSnapshotTestsDeprecated.allCases
 
         for scenario in scenarios {
@@ -46,7 +46,7 @@ struct IconButtonViewSnapshotTestsDeprecated: SwiftUIComponentSnapshotTesting {
                     .image(configuration.image.rightValue, for: configuration.state)
                     .fixedSize()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

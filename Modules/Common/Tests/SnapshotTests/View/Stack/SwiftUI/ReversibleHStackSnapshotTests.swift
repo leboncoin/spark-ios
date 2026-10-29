@@ -17,7 +17,7 @@ struct ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test_with_default_isReversed() throws {
+    @Test func test_with_default_isReversed() async throws {
         // GIVEN / WHEN
         let view = ReversibleHStack(
             alignment: .center,
@@ -30,7 +30,7 @@ struct ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTesting {
             }
         )
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all,
@@ -38,7 +38,7 @@ struct ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
     }
 
-    @Test func test_when_isReversed_is_true() throws {
+    @Test func test_when_isReversed_is_true() async throws {
         // GIVEN / WHEN
         let view = ReversibleHStack(
             alignment: .top,
@@ -52,7 +52,7 @@ struct ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
             .isReversed(true)
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all,
@@ -60,7 +60,7 @@ struct ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
     }
 
-    @Test func test_when_isReversed_is_false() throws {
+    @Test func test_when_isReversed_is_false() async throws {
         // GIVEN / WHEN
         let view = ReversibleHStack(
             alignment: .bottom,
@@ -74,7 +74,7 @@ struct ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
             .isReversed(false)
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all,

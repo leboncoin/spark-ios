@@ -26,7 +26,7 @@ struct SparkStepperSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = StepperScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -40,7 +40,7 @@ struct SparkStepperSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .padding(1)
                     .background(.background)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

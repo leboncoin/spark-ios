@@ -31,7 +31,7 @@ struct SparkUIRadioButtonSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = RadioButtonScenarioSnapshotTests.allCases()
 
         for scenario in scenarios {
@@ -53,7 +53,7 @@ struct SparkUIRadioButtonSnapshotTests: UIKitComponentSnapshotTesting {
 
                 let backgroundView = view.createBackgroundView()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

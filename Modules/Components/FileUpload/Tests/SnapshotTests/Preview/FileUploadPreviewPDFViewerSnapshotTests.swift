@@ -27,7 +27,7 @@ struct FileUploadPreviewPDFViewerSnapshotTests: SwiftUIComponentSnapshotTesting 
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let pdfURL = try URL.pdfMock
 
         let view = FileUploadPreviewPDFViewer(url: pdfURL)
@@ -35,7 +35,7 @@ struct FileUploadPreviewPDFViewerSnapshotTests: SwiftUIComponentSnapshotTesting 
             .frame(width: 300, height: 400)
             .background(.background)
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view,
             named: "pdf_viewer",
             modes: ComponentSnapshotTestConstants.Modes.default,

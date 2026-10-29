@@ -31,10 +31,10 @@ import SparkTheme
         filePath: StaticString = #filePath,
         testName: String = #function,
         sourceLocation: SourceLocation = #_sourceLocation
-    ) {
+    ) async {
         for mode in modes {
             for size in sizes {
-                sparkExpectSnapshot(
+                await sparkExpectSnapshot(
                     matching: view(),
                     as: .wait(
                         for: delay,

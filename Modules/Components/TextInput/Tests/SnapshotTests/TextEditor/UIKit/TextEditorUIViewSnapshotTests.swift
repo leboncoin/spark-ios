@@ -31,7 +31,7 @@ struct TextEditorUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = TextEditorScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -72,7 +72,7 @@ struct TextEditorUIViewSnapshotTests: UIKitComponentSnapshotTesting {
                     _ = textEditor.becomeFirstResponder()
                 }
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

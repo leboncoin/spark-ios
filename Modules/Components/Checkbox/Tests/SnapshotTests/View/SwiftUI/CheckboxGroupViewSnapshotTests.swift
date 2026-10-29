@@ -22,7 +22,7 @@ struct CheckboxGroupViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = CheckboxGroupScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -33,7 +33,7 @@ struct CheckboxGroupViewSnapshotTests: SwiftUIComponentSnapshotTesting {
                 let view = CheckboxGroupContainerView(configuration: configuration)
                 .fixedSize()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

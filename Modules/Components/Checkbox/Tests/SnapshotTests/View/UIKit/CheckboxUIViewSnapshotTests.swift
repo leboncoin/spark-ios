@@ -25,7 +25,7 @@ struct CheckboxUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = CheckboxScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -62,14 +62,14 @@ struct CheckboxUIViewSnapshotTests: UIKitComponentSnapshotTesting {
                         view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -5)
                     ])
 
-                    self.assertSnapshot(
+                    await self.assertSnapshot(
                         matching: containerView,
                         modes: configuration.modes,
                         sizes: configuration.sizes,
                         testName: configuration.testName()
                     )
                 } else {
-                    self.assertSnapshot(
+                    await self.assertSnapshot(
                         matching: view,
                         modes: configuration.modes,
                         sizes: configuration.sizes,

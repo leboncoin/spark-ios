@@ -31,7 +31,7 @@ struct SparkUICheckboxGroupSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = CommonGroupScenarioSnapshotTests.allCases()
 
         for scenario in scenarios {
@@ -49,7 +49,7 @@ struct SparkUICheckboxGroupSnapshotTests: UIKitComponentSnapshotTesting {
 
                 let backgroundView = view.createBackgroundView(useMaxWidth: false)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

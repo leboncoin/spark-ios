@@ -31,7 +31,7 @@ struct SparkUISwitchSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = ToggleScenarioSnapshotTests.allCases()
 
         for scenario in scenarios {
@@ -52,7 +52,7 @@ struct SparkUISwitchSnapshotTests: UIKitComponentSnapshotTesting {
 
                 let backgroundView = view.createBackgroundView()
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

@@ -28,7 +28,7 @@ struct FormFieldViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = FormFieldScenarioSnapshotTests.allCases
 
         var _isOn: Bool = true
@@ -67,7 +67,7 @@ struct FormFieldViewSnapshotTests: SwiftUIComponentSnapshotTesting {
                 .fixedSize(horizontal: false, vertical: true)
                 .background(Color(uiColor: .secondarySystemBackground))
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

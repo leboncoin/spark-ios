@@ -27,7 +27,7 @@ struct SparkUISliderSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = SliderScenarioSnapshotTests.allCases.filter {
             $0 != .documentation
         }
@@ -49,7 +49,7 @@ struct SparkUISliderSnapshotTests: UIKitComponentSnapshotTesting {
                     insets: .init(all: 4)
                 )
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     named: configuration.name,
                     modes: configuration.modes,

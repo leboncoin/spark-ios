@@ -30,7 +30,7 @@ struct FormFieldUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = FormFieldScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -76,7 +76,7 @@ struct FormFieldUIViewSnapshotTests: UIKitComponentSnapshotTesting {
                     insets: .init(all: Constants.padding)
                 )
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

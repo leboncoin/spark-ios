@@ -27,7 +27,7 @@ struct SparkSliderSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = SliderScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -42,7 +42,7 @@ struct SparkSliderSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .background(.background)
                     .frame(width: 300)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     named: configuration.name,
                     modes: configuration.modes,

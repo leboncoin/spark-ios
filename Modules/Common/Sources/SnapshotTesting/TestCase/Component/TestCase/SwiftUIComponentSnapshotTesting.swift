@@ -32,7 +32,7 @@ import SparkTheme
         sourceLocation: SourceLocation = #_sourceLocation,
         addPadding: Bool = true,
         forDocumentation: Bool = false
-    ) {
+    ) async {
         let modes = forDocumentation ? ComponentSnapshotTestConstants.Modes.all : modes
         let sizes = forDocumentation ? [.large] : sizes
 
@@ -47,7 +47,7 @@ import SparkTheme
                     size: size
                 )
 
-                sparkExpectSnapshot(
+                await sparkExpectSnapshot(
                     matching: snapshotView,
                     as: .image(
                         precision: ComponentSnapshotTestConstants.imagePrecision,

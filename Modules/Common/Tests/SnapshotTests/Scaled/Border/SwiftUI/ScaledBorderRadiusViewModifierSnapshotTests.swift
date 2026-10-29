@@ -19,10 +19,10 @@ struct ScaledBorderRadiusViewModifierSnapshotTests: SwiftUIComponentSnapshotTest
 
     // MARK: - Tests
 
-    @Test func test_default() throws {
+    @Test func test_default() async throws {
         let theme: any Theme = SparkTheme.shared
         for radius in BorderRadius.allCases {
-            self.assertSnapshot(
+            await self.assertSnapshot(
                 matching: SnapshotView(
                     state: .default,
                     cornerRadius: radius.value(from: theme)
@@ -35,9 +35,9 @@ struct ScaledBorderRadiusViewModifierSnapshotTests: SwiftUIComponentSnapshotTest
         }
     }
 
-    @Test func test_dashed() throws {
+    @Test func test_dashed() async throws {
         let theme: any Theme = SparkTheme.shared
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: SnapshotView(
                 state: .dashed,
                 cornerRadius: BorderRadius.medium.value(from: theme)
@@ -48,11 +48,11 @@ struct ScaledBorderRadiusViewModifierSnapshotTests: SwiftUIComponentSnapshotTest
         )
     }
 
-    @Test func test_highlighted() throws {
+    @Test func test_highlighted() async throws {
         let theme: any Theme = SparkTheme.shared
 
         for radius in BorderRadius.allCases {
-            self.assertSnapshot(
+            await self.assertSnapshot(
                 matching: SnapshotView(
                     state: .highlighted,
                     cornerRadius: radius.value(from: theme)

@@ -26,7 +26,7 @@ struct SparkUITagSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
+    @Test func test() async {
         let scenarios = TagScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -57,7 +57,7 @@ struct SparkUITagSnapshotTests: UIKitComponentSnapshotTesting {
                     insets: .init(all: 2)
                 )
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: backgroundView,
                     named: configuration.name,
                     modes: configuration.modes,

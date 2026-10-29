@@ -27,7 +27,7 @@ struct SwitchViewSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() throws {
+    @Test func test() async throws {
         let scenarios = SwitchScenarioSnapshotTests.allCases
 
         for scenario in scenarios {
@@ -36,7 +36,7 @@ struct SwitchViewSnapshotTests: SwiftUIComponentSnapshotTesting {
             for configuration in configurations {
                 let view = SnapshotView(configuration: configuration)
 
-                self.assertSnapshot(
+                await self.assertSnapshot(
                     matching: view,
                     modes: configuration.modes,
                     sizes: configuration.sizes,

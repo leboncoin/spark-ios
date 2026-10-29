@@ -17,7 +17,7 @@ struct OptionalVStackSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test_with_onStack_at_true() throws {
+    @Test func test_with_onStack_at_true() async throws {
         // GIVEN / WHEN
         let view = SparkOptionalVStack(
             alignment: .center,
@@ -28,7 +28,7 @@ struct OptionalVStackSnapshotTests: SwiftUIComponentSnapshotTesting {
             Text.text2
         }
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all,
@@ -36,7 +36,7 @@ struct OptionalVStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
     }
 
-    @Test func test_with_onStack_at_false() throws {
+    @Test func test_with_onStack_at_false() async throws {
         // GIVEN / WHEN
         let view = SparkOptionalVStack(
             alignment: .center,
@@ -47,7 +47,7 @@ struct OptionalVStackSnapshotTests: SwiftUIComponentSnapshotTesting {
             Text.text2
         }
 
-        self.assertSnapshot(
+        await self.assertSnapshot(
             matching: view.style(),
             modes: ComponentSnapshotTestConstants.Modes.default,
             sizes: ComponentSnapshotTestConstants.Sizes.all,
