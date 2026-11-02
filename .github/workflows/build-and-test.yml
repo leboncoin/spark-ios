@@ -45,6 +45,33 @@ jobs:
             echo "Manual run: everything is executed"
             { echo "run_build=true"; echo "run_tests=true"; echo "run_demo=true"; echo "test_targets="; } >> "$GITHUB_OUTPUT"
           fi
+      - name: Summary
+        env:
+          RUN_BUILD: ${{ steps.detect.outputs.run_build }}
+          RUN_TESTS: ${{ steps.detect.outputs.run_tests }}
+          RUN_DEMO: ${{ steps.detect.outputs.run_demo }}
+          TEST_TARGETS: ${{ steps.detect.outputs.test_targets }}
+        run: |
+          status() { [ "$1" = "true" ] && echo "✅ Launched" || echo "⏭️ Skipped"; }
+          if [ "$RUN_TESTS" = "true" ]; then
+            targets="${TEST_TARGETS:-All}"
+          else
+            targets="-"
+          fi
+          summary=$(cat <<EOF
+          ## 🔎 Detected changes
+
+          | Job | Status |
+          |---|---|
+          | ⚒️ Build | $(status "$RUN_BUILD") |
+          | 🧪 Tests | $(status "$RUN_TESTS") |
+          | 📱 Build Demo App | $(status "$RUN_DEMO") |
+
+          **Test targets:** ${targets}
+          EOF
+          )
+          echo "$summary"
+          echo "$summary" >> "$GITHUB_STEP_SUMMARY"
 
   build:
     name: Build
