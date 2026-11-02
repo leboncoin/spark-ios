@@ -17,9 +17,6 @@ struct InputOTPSlot: View {
     private let onError: Bool
     private let isFocus: Bool
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var isCursorHidden = false
-
     // MARK: - Initialization
 
     init(
@@ -49,17 +46,10 @@ struct InputOTPSlot: View {
                     onError: self.onError,
                     isFocus: self.isFocus
                 )
-                .opacity(self.isCursorHidden && !self.reduceMotion ? 0 : 1)
-                .optionalAnimation(
-                    self.isCursorDisplayed ? .easeInOut(duration: InputOTPConstants.slotAnimationDuration).repeatForever() : nil,
-                    value: self.isCursorHidden
+                .optionalBlink(
+                    isEnabled: self.isCursorDisplayed,
+                    duration: InputOTPConstants.slotAnimationDuration
                 )
-        }
-        .onAppear {
-            self.updateCursor()
-        }
-        .onChange(of: self.isCursorDisplayed) {
-            self.updateCursor()
         }
     }
 
@@ -67,11 +57,5 @@ struct InputOTPSlot: View {
 
     private var isCursorDisplayed: Bool {
         self.isFocus && (self.value?.isEmpty ?? true)
-    }
-
-    // MARK: - Setter
-
-    private func updateCursor() {
-        self.isCursorHidden = self.isCursorDisplayed
     }
 }
