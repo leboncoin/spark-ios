@@ -46,8 +46,23 @@ import SwiftUI
 
 public extension View {
 
-    /// Applies the given animation to this view when the specified value
-    /// changes IF the **isReduceMotionEnabled** is disabled.
+    /// Applies the given animation to this view when the specified value changes,
+    /// only if the **accessibilityReduceMotion** is disabled
+    /// and the view is not rendered for a snapshot (**isSnapshot**).
+    ///
+    /// Otherwise, the view is displayed without animation.
+    ///
+    /// ```swift
+    /// struct MyView: View {
+    ///     @State private var isVisible = true
+    ///
+    ///     var body: some View {
+    ///         Text("Hello")
+    ///             .opacity(self.isVisible ? 1 : 0)
+    ///             .optionalAnimation(.easeInOut, value: self.isVisible)
+    ///     }
+    /// }
+    /// ```
     ///
     /// - Parameters:
     ///   - animation: The animation to apply. If `animation` is `nil`, the view

@@ -34,26 +34,33 @@ private struct AccessibleAnimationModifier<Content: View, ModifiedContent: View>
 
 public extension View {
 
-    /// Applies animation to specific modifiers within the body closure, respecting accessibility reduce motion settings.
+    /// Applies the given animation to the modifiers within the body closure,
+    /// only if the **accessibilityReduceMotion** is disabled
+    /// and the view is not rendered for a snapshot (**isSnapshot**).
     ///
-    /// This modifier automatically checks `accessibilityReduceMotion` and only applies
-    /// the animation when motion is allowed. When reduce motion is enabled, the modifiers
-    /// are still applied but without animation.
+    /// Otherwise, the view is displayed without animation.
     ///
-    /// Example:
     /// ```swift
-    /// Text("Hello")
-    ///     .accessibleAnimation(.easeInOut) { content in
-    ///         content
-    ///             .opacity(isVisible ? 1 : 0)
-    ///             .scaleEffect(isVisible ? 1 : 0.8)
+    /// struct MyView: View {
+    ///     @State private var isVisible = true
+    ///
+    ///     var body: some View {
+    ///         Text("Hello")
+    ///             .optionalAnimation(.easeInOut) { content in
+    ///                 content
+    ///                     .opacity(self.isVisible ? 1 : 0)
+    ///                     .scaleEffect(self.isVisible ? 1 : 0.8)
+    ///             }
     ///     }
+    /// }
     /// ```
     ///
     /// - Parameters:
-    ///   - animation: The animation to apply when motion is allowed
-    ///   - body: A closure that receives the content and returns the modified view
-    /// - Returns: The modified view with animation applied only if reduce motion is disabled
+    ///   - animation: The animation to apply. If `animation` is `nil`, the view
+    ///     doesn't animate.
+    ///   - body: A closure that receives the content and returns the modified view.
+    ///
+    /// - Returns: A view that applies `animation` to the modifiers of the `body` closure.
     @ViewBuilder
     func optionalAnimation<V>(
         _ animation: Animation?,
