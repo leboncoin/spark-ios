@@ -50,5 +50,13 @@ The Snapshots file must respect theses rules :
 - [ ] All class members accessed with `self.`
 - [ ] Proper MARK comments in place
 
+### Snapshot Test Structure
+- [ ] The suite is annotated with `@MainActor` and `@Suite(.sparkConfiguration)`
+- [ ] One parameterized test per scenario: `@Test("Spark XXX snapshot", arguments: XXXScenarioSnapshotTests.allCases)` with `func test(scenario:) async` (no loop over all the scenarios)
+- [ ] UIKit tests exclude the documentation scenario: `arguments: XXXScenarioSnapshotTests.allCases.filter { $0 != .documentation }`
+- [ ] `assertSnapshot` is called with `await`
+- [ ] SwiftUI: the component modifiers (`.sparkXXX...`) are applied before `.sparkTheme(self.theme)`, and the view ends with `.background(.background)` then `.sparkIsSnapshot(true)`
+- [ ] SwiftUI: pass `forDocumentation: scenario.isDocumentation` to `assertSnapshot`
+
 ### Test Implementation
 - [ ] Proper imports (SparkComponentXXX, SparkCommon, SparkTheming, @testable, @_spi(SI_SPI) @testable import SparkComponentXXXTesting, Testing, ...)

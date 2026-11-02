@@ -16,6 +16,7 @@ import SnapshotTesting
 import SparkTheming
 import SparkTheme
 
+@MainActor
 @Suite(.sparkConfiguration)
 struct SparkUIXXXSnapshotTests: UIKitComponentSnapshotTesting {
 
@@ -25,49 +26,41 @@ struct SparkUIXXXSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() {
-        let scenarios = XXXScenarioSnapshotTests.allCases.filter {
-            $0 != .documentation
-        }
+    @Test("Spark UIXXX snapshot", arguments: XXXScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    func test(scenario: XXXScenarioSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
 
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
+            let containerView = self.containerView(for: view)
 
-                let containerView = self.containerView(for: view)
-
-                self.assertSnapshot(
-                    matching: containerView,
-                    named: configuration.name,
-                    modes: configuration.modes,
-                    sizes: configuration.sizes,
-                    testName: configuration.testName
-                )
-            }
+            await self.assertSnapshot(
+                matching: containerView,
+                named: configuration.name,
+                modes: configuration.modes,
+                sizes: configuration.sizes,
+                testName: configuration.testName
+            )
         }
     }
 
-    @Test func testOther() {
-        let scenarios = XXXScenarioOtherSnapshotTests.allCases
+    @Test("Spark UIXXX other snapshot", arguments: XXXScenarioOtherSnapshotTests.allCases)
+    func testOther(scenario: XXXScenarioOtherSnapshotTests) async {
+        let configurations = scenario.configuration()
 
-        for scenario in scenarios {
-            let configurations = scenario.configuration()
+        for configuration in configurations {
+            let view = self.component(configuration: configuration)
 
-            for configuration in configurations {
-                let view = self.component(configuration: configuration)
+            let containerView = self.containerView(for: view)
 
-                let containerView = self.containerView(for: view)
-
-                self.assertSnapshot(
-                    matching: containerView,
-                    named: configuration.name,
-                    modes: [.light],
-                    sizes: [.accessibilityLarge],
-                    testName: configuration.testName
-                )
-            }
+            await self.assertSnapshot(
+                matching: containerView,
+                named: configuration.name,
+                modes: [.light],
+                sizes: [.accessibilityLarge],
+                testName: configuration.testName
+            )
         }
     }
 
@@ -391,7 +384,7 @@ private extension UIView {
 private extension NSAttributedString {
 
     static func mock(text: String) -> NSAttributedString {
-        let attributedString = NSMuxxxleAttributedString(string: text)
+        let attributedString = NSMutableAttributedString(string: text)
         attributedString.append(NSAttributedString(
             string: " (*)",
             attributes: [
