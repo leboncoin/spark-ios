@@ -18,7 +18,9 @@ private struct SegmentedControlFrameViewModifier: ViewModifier {
     // MARK: - View
 
     func body(content: Content) -> some View {
-        content.frame(minHeight: self.theme.size.minHeight)
+        content
+            .frame(minHeight: self.theme.size.minHeight)
+            .fixedSize(horizontal: false, vertical: true)
     }
 }
 
