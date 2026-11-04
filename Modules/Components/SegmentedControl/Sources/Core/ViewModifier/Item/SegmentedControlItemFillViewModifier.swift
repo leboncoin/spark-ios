@@ -26,10 +26,19 @@ private struct SegmentedControlItemFillViewModifier: ViewModifier {
         )
 
         content
-            .background(colorToken)
-            .optionalAnimation(
-                .easeInOut(duration: SegmentedControlConstants.animationDuration),
-                value: colorToken.color
+            .background(
+                colorToken.color
+                    // When the item becomes selected, the pressed background is removed
+                    // immediately (even inside the selection withAnimation), before the indicator moves to the item.
+                    .transaction { transaction in
+                        if self.isSelected {
+                            transaction.animation = nil
+                        }
+                    }
+                    .optionalAnimation(
+                        self.isSelected ? nil : .easeInOut(duration: SegmentedControlConstants.animationDuration),
+                        value: colorToken.color
+                    )
             )
     }
 }
