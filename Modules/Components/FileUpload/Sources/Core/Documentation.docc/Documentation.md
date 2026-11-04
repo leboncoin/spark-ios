@@ -371,6 +371,17 @@ The preview group maintains accessibility for all child previews:
 
 ![Component rendering.](fileupload_preview_group.png)
 
+## Custom File Upload
+
+If you need to create a custom file upload component, you can use the ``FileUploadToken`` struct, available from the theme with `theme.component.fileUpload`, to access theme-based style values.
+
+The ``FileUploadToken`` provides:
+- **Dropzone** (``FileUploadToken/Dropzone``): border, colors (depending on the targeted state), layout and typography
+- **Preview** (``FileUploadToken/Preview``): border and colors (depending on the file result and the pressed state), layout and typography
+- **Preview group** (``FileUploadToken/PreviewGroup``): layout
+
+> Tip: If you only need specific tokens, you can use the individual categories directly. For example, use `theme.component.fileUpload.dropzone.colors` if you only need the dropzone colors.
+
 ### Resources
 
 - Specification on [ZeroHeight](https://zeroheight.com/1186e1705/p/737568-fileupload)

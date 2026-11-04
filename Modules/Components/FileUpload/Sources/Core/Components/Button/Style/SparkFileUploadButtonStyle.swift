@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+@_spi(SI_SPI) import SparkCommon
 import SparkComponentButton
 
 /// A button style that applies file upload styling to a ``SparkButton``.
@@ -15,9 +16,9 @@ import SparkComponentButton
 /// styling for file upload buttons across the application.
 public struct SparkFileUploadButtonStyle: SparkButtonStyle {
 
-    // MARK: - Type Alias
+    // MARK: - Properties
 
-    private typealias ButtonStyles = FileUploadButtonConstants.ButtonStyles
+    @Environment(\.theme) private var theme
 
     // MARK: - View
 
@@ -26,10 +27,12 @@ public struct SparkFileUploadButtonStyle: SparkButtonStyle {
     /// - Parameter content: The button content to style.
     /// - Returns: A view with the file upload button style applied.
     public func body(content: Content) -> some View {
+        let styles = self.theme.fileUpload.button.styles
+
         content
-            .sparkButtonIntent(ButtonStyles.intent)
-            .sparkButtonVariant(ButtonStyles.variant)
-            .sparkButtonAlignment(ButtonStyles.alignment)
+            .sparkButtonIntent(styles.intent)
+            .sparkButtonVariant(styles.variant)
+            .sparkButtonAlignment(styles.alignment)
     }
 }
 

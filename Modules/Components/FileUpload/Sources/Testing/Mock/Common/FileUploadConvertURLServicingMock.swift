@@ -139,4 +139,3 @@ import SparkTheming
         self.executeWithUrlReceivedInvocations = []
     }
 }
-
