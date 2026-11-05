@@ -84,6 +84,7 @@ Always use the matching skill (`.claude/skills`):
 | UseCase *(legacy)* | `spark-component-use-case` |
 | ViewModel *(legacy)* | `spark-component-view-model` |
 | Changelog | `spark-changelog` |
+| Tag + GitHub release | `spark-release` |
 | Before push / push | `spark-check-before-push`, `spark-push` |
 
 # Best practices

@@ -456,6 +456,22 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 ## Release Skills
 
+### spark-release
+
+**Purpose**: Update the `CHANGELOG.md`, then create the git tag and the GitHub release of a new version.
+
+**Usage**: `/spark-release`
+
+**Prerequisites**: `gh` authenticated, clean `main` branch up to date with `origin`.
+
+**Workflow**:
+1. Get the latest tag and ask for the new version
+2. Generate the default release notes from GitHub (`releases/generate-notes` API)
+3. Run `.script/update-changelog.swift`, use the `spark-changelog` skill, then commit and push on `main` with `spark-push`
+4. Ask for confirmation, then create and push the tag and the GitHub release
+
+---
+
 ### spark-changelog
 
 **Purpose**: Replace the placeholder of the new version in `CHANGELOG.md` with the description of the changes since the previous release.
