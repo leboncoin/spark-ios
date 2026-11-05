@@ -6,9 +6,9 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
+import UIKit
 @testable import SparkComponentProgressBar
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
-import XCTest
 
 struct ProgressBarConfigurationSnapshotTests {
 

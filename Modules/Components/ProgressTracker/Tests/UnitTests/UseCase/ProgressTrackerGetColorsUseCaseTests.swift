@@ -7,34 +7,37 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentProgressTracker
 @_spi(SI_SPI) @testable import SparkComponentProgressTrackerTesting
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ProgressTrackerGetColorsUseCaseTests: XCTestCase {
+@Suite("ProgressTracker Get Colors UseCase Tests")
+struct ProgressTrackerGetColorsUseCaseTests {
 
-    var sut: ProgressTrackerGetColorsUseCase!
-    var theme: ThemeGeneratedMock!
-    var outlinedUseCase: ProgressTrackerGetVariantColorsUseCaseableGeneratedMock!
-    var tintedUseCase: ProgressTrackerGetVariantColorsUseCaseableGeneratedMock!
+    // MARK: - Properties
+
+    let sut: ProgressTrackerGetColorsUseCase
+    let theme: ThemeGeneratedMock
+    let outlinedUseCase: ProgressTrackerGetVariantColorsUseCaseableGeneratedMock
+    let tintedUseCase: ProgressTrackerGetVariantColorsUseCaseableGeneratedMock
 
     // MARK: - Setup
-    override func setUp() {
-        super.setUp()
+
+    init() {
         self.theme = ThemeGeneratedMock.mocked()
         self.outlinedUseCase = ProgressTrackerGetVariantColorsUseCaseableGeneratedMock()
         self.tintedUseCase = ProgressTrackerGetVariantColorsUseCaseableGeneratedMock()
-        let sut = ProgressTrackerGetColorsUseCase(
+        self.sut = ProgressTrackerGetColorsUseCase(
             getTintedColorsUseCase: self.tintedUseCase,
             getOutlinedColorsUseCase: self.outlinedUseCase
         )
-
-        self.sut = sut
     }
 
     // MARK: - Tests
-    func test_tinted_colors() {
+
+    @Test("Tinted variant should return the tinted colors")
+    func tintedColors() {
         // GIVEN
         let colors = self.theme.colors
         let expectedColors = ProgressTrackerColors(
@@ -52,10 +55,11 @@ final class ProgressTrackerGetColorsUseCaseTests: XCTestCase {
             state: .normal)
 
         // THEN
-        XCTAssertEqual(tabColors, expectedColors)
+        #expect(tabColors == expectedColors)
     }
 
-    func test_outlined_colors() {
+    @Test("Outlined variant should return the outlined colors")
+    func outlinedColors() {
         // GIVEN
         let colors = self.theme.colors
         let expectedColors = ProgressTrackerColors(
@@ -73,6 +77,6 @@ final class ProgressTrackerGetColorsUseCaseTests: XCTestCase {
             state: .normal)
 
         // THEN
-        XCTAssertEqual(tabColors, expectedColors)
+        #expect(tabColors == expectedColors)
     }
 }
