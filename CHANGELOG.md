@@ -6,6 +6,34 @@
 
 _05/11/2026_
 
+❗️❗️ Use the /spark-changelog skills to improve the content ❗️❗️
+
+* chore(changelog): Update CHANGELOG.md for release 2.2.1 by @robergro in https://github.com/leboncoin/spark-ios/pull/1129
+* test(snapshot): migrate snapshot tests to Swift Testing by @robergro in https://github.com/leboncoin/spark-ios/pull/1127
+* fix(snapshot): run snapshot verification on the main run loop to restore test duration by @robergro in https://github.com/leboncoin/spark-ios/pull/1132
+* feat(theming): add ComponentToken exposed through theme.component by @robergro in https://github.com/leboncoin/spark-ios/pull/1131
+* refactor(avatar): replace rules with tokens exposed through theme.component by @robergro in https://github.com/leboncoin/spark-ios/pull/1130
+* refactor(inputotp): replace use cases and view models with tokens and view modifiers by @robergro in https://github.com/leboncoin/spark-ios/pull/1135
+* refactor(circular-meter): replace view model and use cases with tokens and view modifiers by @robergro in https://github.com/leboncoin/spark-ios/pull/1137
+* docs(skills): document SwiftUI-only token architecture and add migrate-token skill by @robergro in https://github.com/leboncoin/spark-ios/pull/1138
+* refactor(chip): move rules from use cases to tokens exposed through theme.component by @robergro in https://github.com/leboncoin/spark-ios/pull/1134
+* refactor(segmented-control): replace view models and use cases with tokens and view modifiers by @robergro in https://github.com/leboncoin/spark-ios/pull/1136
+* docs(mcp): add the Context7 MCP documentation for consumers by @robergro in https://github.com/leboncoin/spark-ios/pull/1139
+* docs(skills): update spark-component-snapshots-testing skill and templates by @robergro in https://github.com/leboncoin/spark-ios/pull/1140
+* feat(common): add optionalBlink modifier and fix optionalAnimation documentation by @robergro in https://github.com/leboncoin/spark-ios/pull/1141
+* fix(inputotp): use optionalBlink for the slot cursor by @robergro in https://github.com/leboncoin/spark-ios/pull/1142
+* fix(segmentedcontrol): keep a constant height when the selection changes by @robergro in https://github.com/leboncoin/spark-ios/pull/1143
+* refactor(fileupload): replace use cases and view models with tokens and view modifiers by @robergro in https://github.com/leboncoin/spark-ios/pull/1133
+* fix(segmentedcontrol): remove the pressed background before moving the indicator by @robergro in https://github.com/leboncoin/spark-ios/pull/1144
+* test: migrate unit tests from XCTest to Swift Testing by @robergro in https://github.com/leboncoin/spark-ios/pull/1145
+
+
+**Full Changelog**: https://github.com/leboncoin/spark-ios/compare/2.2.1...2.3.0
+
+## [2.3.0]
+
+_05/11/2026_
+
 ### ✨ New Features
 
 #### Theming
@@ -201,6 +229,7 @@ _27/03/2025_
 
 [Unreleased]: https://github.com/leboncoin/spark-ios/compare/2.3.0...HEAD
 
+[2.3.0]: https://github.com/leboncoin/spark-ios/compare/2.3.0...2.3.0
 [2.3.0]: https://github.com/leboncoin/spark-ios/compare/2.2.1...2.3.0
 [2.2.1]: https://github.com/leboncoin/spark-ios/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/leboncoin/spark-ios/compare/2.1.0...2.2.0
