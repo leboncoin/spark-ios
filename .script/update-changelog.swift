@@ -1,6 +1,6 @@
 #!/usr/bin/env swift
 
-/// Script to update CHANGELOG.md when a new release is published
+/// Script to update CHANGELOG.md before a new release is created (used by the /spark-release skill)
 /// Direct execution
 /// ```./.script/update-changelog.swift 2.1.0 "Release notes content"```
 /// Or

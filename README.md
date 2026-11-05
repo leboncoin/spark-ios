@@ -108,6 +108,10 @@ Build, test, and development commands are documented in the [Makefile documentat
 
 [Scripts Documentation](docs/SCRIPTS.md) - Utility scripts for code generation and asset management
 
+### Release
+
+[Release Documentation](docs/RELEASE.md) - How to release a new version
+
 ### Configurations
 
 [Spark Tokens Bridge Setup](docs/SPARK_TOKENS_BRIDGE_SETUP.md) - Setup and configuration for the Spark tokens bridge

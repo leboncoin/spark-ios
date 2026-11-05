@@ -58,7 +58,7 @@ The `spark-check-before-push` skill runs all of these checks for you; `spark-pus
 
 Each modification should ship as its own release rather than being batched with several unrelated changes — a small, isolated release is much easier to revert than a large one.
 
-Releases are tracked in [`CHANGELOG.md`](/CHANGELOG.md). When a GitHub release is published, the `📝 Release changelog update` workflow (see [`docs/workflow/WORKFLOW_RELEASE_CHANGELOG_UPDATE.md`](/docs/workflow/WORKFLOW_RELEASE_CHANGELOG_UPDATE.md)) automatically opens a pull request updating it from the release notes.
+Releases are tracked in [`CHANGELOG.md`](/CHANGELOG.md). A new release **must** be created with the `/spark-release` skill, which updates the changelog before creating the tag and the GitHub release (see [`docs/RELEASE.md`](/docs/RELEASE.md)).
 
 ### Versioning
 

@@ -12,7 +12,6 @@ This document provides an overview of all continuous integration and deployment 
   - [Build and Test Workflow](#build-and-test-workflow)
   - [Deploy DocC to GitHub Pages](#deploy-docc-to-github-pages)
   - [PR Icon Updates](#pr-icon-updates)
-  - [Release Changelog Update](#release-changelog-update)
 
 ---
 
@@ -105,20 +104,6 @@ Automated icon processing for pull requests.
 - Processes new or updated icons
 - Generates corresponding Swift code
 - Ensures icon consistency
-
----
-
-### Release Changelog Update
-
-Automated CHANGELOG.md updates when releases are published.
-
-**Documentation:** [WORKFLOW_RELEASE_CHANGELOG_UPDATE.md](workflow/WORKFLOW_RELEASE_CHANGELOG_UPDATE.md)
-
-**Description:**
-- Triggers when a new release is published
-- Updates CHANGELOG.md with release notes
-- Updates version comparison links
-- Creates a pull request for review
 
 ---
 
