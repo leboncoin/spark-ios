@@ -466,7 +466,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 **Workflow**:
 1. Get the latest tag and ask for the new version
-2. Generate the default release notes from GitHub (`releases/generate-notes` API)
+2. Generate the default release notes from GitHub (`releases/generate-notes` API) and propose a release title (`X.Y.Z - <summary>`)
 3. Run `.script/update-changelog.swift`, use the `spark-changelog` skill, then commit and push on `main` with `spark-push`
 4. Ask for confirmation, then create and push the tag and the GitHub release
 

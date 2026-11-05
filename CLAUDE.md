@@ -131,6 +131,7 @@ func test() -> String {
 - Tests:
   - Run sourcery before creating tests.
   - Use **Swift Testing**.
+- A new release **must** be created with the `spark-release` skill (see [`docs/RELEASE.md`](docs/RELEASE.md)). Never create a tag or a GitHub release manually.
 - Do not update the Deprecated files (`XXXDeprecated.swift`) or the files in a Deprecated folder (`ViewModel/Deprecated/MyViewModel.swift`), except when asked to deprecate some code.
 
 # Commands

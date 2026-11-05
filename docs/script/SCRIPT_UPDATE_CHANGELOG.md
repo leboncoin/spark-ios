@@ -2,7 +2,7 @@
 
 ## Overview
 
-This Swift script automatically updates the CHANGELOG.md file when a new release is published. It processes release notes, updates version links, and inserts a new version section with proper formatting.
+This Swift script updates the CHANGELOG.md file before a new release is created (called by the `/spark-release` skill). It processes release notes, updates version links, and inserts a new version section with proper formatting.
 
 ## Script File
 
@@ -214,7 +214,7 @@ _03/12/2026_
 
 ## Notes
 
-- The script is designed to be run by the release workflow automatically
+- The script is run by the `/spark-release` skill (see [RELEASE.md](../RELEASE.md))
 - It uses the current system date for the release date
 - The reminder to use `/spark-changelog` skill is always included
 - Release notes are automatically cleaned of GitHub's standard headers
@@ -223,9 +223,9 @@ _03/12/2026_
 
 ## Related Files
 
-- `.github/workflows/release-changelog-update.yml` - Workflow that triggers this script
+- `.claude/skills/spark-release/SKILL.md` - Skill that runs this script
 - `CHANGELOG.md` - The file being updated
-- `docs/WORKFLOW_RELEASE_CHANGELOG_UPDATE.md` - Workflow documentation
+- `docs/RELEASE.md` - Release documentation
 
 ## Dependencies
 

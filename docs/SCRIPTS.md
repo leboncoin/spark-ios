@@ -134,7 +134,7 @@ Generates the DocC page listing every icon with its image and name.
 
 ### Update Changelog
 
-Automatically updates CHANGELOG.md when a new release is published.
+Updates CHANGELOG.md before a new release is created (used by the `/spark-release` skill).
 
 **Documentation:** [SCRIPT_UPDATE_CHANGELOG.md](script/SCRIPT_UPDATE_CHANGELOG.md)
 

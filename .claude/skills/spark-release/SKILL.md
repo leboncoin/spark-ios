@@ -38,7 +38,12 @@ This skill creates a new version of Spark iOS:
 
   **Full Changelog**: https://github.com/leboncoin/spark-ios/compare/2.2.0...2.2.1
   ```
-- [ ] Show the version and the release notes to the user and **ask for confirmation** before going further.
+- [ ] Propose a **release title**: `<new-version> - <summary>`, where `<summary>` is a short lowercase sentence (no final period) describing the main changes of the release. Examples:
+  - `2.2.1 - include padding in UIKit button intrinsic content size`
+  - `2.2.0 - drop iOS 16 support and set iOS 17 as minimum deployment target`
+  - `2.1.0 - improve segmented control and spinner, update documentation`
+  Check the previous titles with `gh release list -L 5` to keep the same style.
+- [ ] Show the version, the release title and the release notes to the user and **ask for confirmation** before going further.
 - [ ] Update the **changelog** first (it must be in the released commit), staying on `main`:
   - Run the script from the repository root: `swift .script/update-changelog.swift <new-version> "<release notes>"`.
   - Use the **`spark-changelog`** skill to replace the placeholder with the real content.
@@ -51,7 +56,7 @@ This skill creates a new version of Spark iOS:
   ```
 - [ ] Create the **GitHub release** with the generated notes (pass them through a temporary file to keep the formatting):
   ```bash
-  gh release create <new-version> --title "<new-version>" --notes-file <notes-file> --verify-tag --latest
+  gh release create <new-version> --title "<release-title>" --notes-file <notes-file> --verify-tag --latest
   ```
 - [ ] Show the release URL to the user.
 
