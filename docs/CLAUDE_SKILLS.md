@@ -304,7 +304,7 @@ All component development skills support parameter-based targeting:
 1. Add/Update view model code
 2. Run swiftlint: `$ swiftlint`
 3. Run sourcery: `$ sourcery`
-4. Implement unit tests (uses XCTest for view models)
+4. Implement unit tests
 
 ---
 
@@ -381,23 +381,6 @@ All component development skills support parameter-based targeting:
 ---
 
 ## Quality Assurance Skills
-
-### spark-replace-xctests
-
-**Purpose**: Migrate the XCTest unit tests of a component (or Common/Theming) to Swift Testing, without adding or removing tests.
-
-**Usage**: `/spark-replace-xctests [component-name]`
-
-**Rules**:
-- Each `func test_xxx()` becomes one named `@Test("...")` in a `@Suite("...") struct`
-- Functions renamed in lowerCamelCase without the `test_` prefix
-- Snapshot tests and Deprecated files are not touched
-
-**Workflow**:
-1. Run sourcery
-2. Migrate folder by folder (AccessibilityIdentifier → Constants → Enum → Model → Token → Environment → UseCase → ViewModel ...), building and running the tests after each folder
-
----
 
 ### spark-check-before-push
 
@@ -519,9 +502,6 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 ### Test Implementation (Component Skills)
 
 - Tests must be written in **Swift Testing** framework
-- Exceptions using XCTest (legacy components only):
-  - View model tests
-  - Use cases containing other use cases
 - Proper imports:
   - `SparkComponentXXX`
   - `SparkCommon`

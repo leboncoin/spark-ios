@@ -6,13 +6,15 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 @testable import SparkComponentTextLink
 @_spi(SI_SPI) import SparkComponentTextLinkTesting
 
-final class TextLinkGetImageSizeUseCaseTests: XCTestCase {
+@Suite("TextLink Get Image Size UseCase Tests")
+struct TextLinkGetImageSizeUseCaseTests {
 
     // MARK: - Properties
 
@@ -20,12 +22,12 @@ final class TextLinkGetImageSizeUseCaseTests: XCTestCase {
 
     private let typographiesMock = TextLinkTypographies()
     private let mockTypographiesUseCase = TextLinkGetTypographiesUseCaseableGeneratedMock()
-    private lazy var useCase = TextLinkGetImageSizeUseCase(typographiesUseCase: self.mockTypographiesUseCase)
+    private let useCase: TextLinkGetImageSizeUseCase
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
+        self.useCase = TextLinkGetImageSizeUseCase(typographiesUseCase: self.mockTypographiesUseCase)
 
         self.mockTypographiesUseCase.reset()
         self.mockTypographiesUseCase.executeWithThemeAndTypographyReturnValue = self.typographiesMock
@@ -33,18 +35,20 @@ final class TextLinkGetImageSizeUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_init_with_default_dependencies() {
+    @Test("Init with default dependencies should not call the typographies use case")
+    func initWithDefaultDependencies() {
         // GIVEN / WHEN
         let defaultUseCase = TextLinkGetImageSizeUseCase()
 
         // THEN
-        TextLinkGetTypographiesUseCaseableMockTest.XCTCalled(
+        TextLinkGetTypographiesUseCaseableMockTest.expectCalled(
             self.mockTypographiesUseCase,
             executeWithThemeAndTypographyCalled: false
         )
     }
 
-    func test_execute_calls_typographies_use_case() {
+    @Test("Execute should call the typographies use case")
+    func executeCallsTypographiesUseCase() {
         // GIVEN
         let typography = TextLinkTypography.body1
 
@@ -52,7 +56,7 @@ final class TextLinkGetImageSizeUseCaseTests: XCTestCase {
         _ = self.useCase.execute(theme: self.theme, typography: typography)
 
         // THEN
-        TextLinkGetTypographiesUseCaseableMockTest.XCTAssert(
+        TextLinkGetTypographiesUseCaseableMockTest.expect(
             self.mockTypographiesUseCase,
             expectedNumberOfCalls: 1,
             givenTheme: self.theme,
@@ -61,7 +65,8 @@ final class TextLinkGetImageSizeUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_returns_correct_image_size() {
+    @Test("Execute should return the correct image size")
+    func executeReturnsCorrectImageSize() {
         // GIVEN
         let typographies = [TextLinkTypography.body1, .display3]
 
@@ -74,8 +79,8 @@ final class TextLinkGetImageSizeUseCaseTests: XCTestCase {
             let result = self.useCase.execute(theme: self.theme, typography: typography)
 
             // THEN
-            XCTAssertEqual(result.size, expectedPointSize, "Wrong size for \(typography)")
-            XCTAssertEqual(result.padding, expectedPadding, "Wrong padding for \(typography)")
+            #expect(result.size == expectedPointSize, "Wrong size for \(typography)")
+            #expect(result.padding == expectedPadding, "Wrong padding for \(typography)")
         }
     }
 }

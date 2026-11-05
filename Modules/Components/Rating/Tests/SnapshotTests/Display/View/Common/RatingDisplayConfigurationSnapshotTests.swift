@@ -6,9 +6,9 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
+import UIKit
 @testable import SparkComponentRating
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
-import XCTest
 
 struct RatingDisplayConfigurationSnapshotTests {
 

@@ -110,7 +110,7 @@ Run `sourcery` (from the relevant package folder, or `make sourcery` from the re
 ### Conventions that apply everywhere
 
 - **`@_spi(SI_SPI)`**: any public declaration meant only for use across Spark's own repositories (not by consumers of the design system) must carry this attribute.
-- **Testing framework**: use **Swift Testing** by default. The exceptions that still use **XCTest** are view models and use cases that call other use cases (legacy components only).
+- **Testing framework**: use **Swift Testing**.
 - **Deprecated code**: never edit a `XXXDeprecated.swift` file or anything under a `Deprecated/` folder unless explicitly asked to deprecate something.
 - **Switch-returning functions**: prefer `return switch x { case .a: "..." }` over a `return` inside every case.
 - Use the matching skill (`spark-component-enum`, `spark-component-token`, `spark-component-migrate-token`, `spark-component-model`, `spark-component-environment`, `spark-component-use-case`, `spark-component-view-model`, `spark-component-view`, `spark-component-accessibility-identifier`, `spark-component-constants`, `spark-component-documentation`, `spark-component-snapshots-testing`) when creating or updating any of the folders above — each one encodes the exact rules and templates. See `docs/CLAUDE_SKILLS.md` for the full list.
@@ -125,7 +125,7 @@ Every component has two Tests/ subfolders: `UnitTests/` and `SnapshotTests/`.
 
 `Tests/UnitTests/` mirrors `Sources/Core/` one-to-one — `Sources/Core/Enum/Intent.swift` is tested by `Tests/UnitTests/Enum/IntentTests.swift` for example.
 
-- **Framework**: [Swift Testing](https://developer.apple.com/documentation/testing) (`import Testing`, `@Suite`, `@Test`, `#expect`) is the default. The exceptions that still use **XCTest** are ViewModel tests and UseCase tests where the use case calls another use case (legacy components only).
+- **Framework**: [Swift Testing](https://developer.apple.com/documentation/testing) (`import Testing`, `@Suite`, `@Test`, `#expect`) is the only test framework.
 - **Standard imports**: `SparkComponentXXX`, `SparkCommon`, `SparkTheming`, `@testable import SparkComponentXXX`, `@_spi(SI_SPI) @testable import SparkComponentXXXTesting`, `Testing`.
 - **Mocks** come from three `Testing` products, imported as needed: the component's own `SparkComponentXXXTesting`, `SparkCommonTesting`, and `SparkThemingTesting` (e.g. `ThemeGeneratedMock.mocked()` / `.mocked2()`, `ColorTokenGeneratedMock.random()`). All are Sourcery-generated — run `sourcery` (or `make sourcery`) first so they exist.
 - **What each folder typically asserts**:
@@ -134,7 +134,7 @@ Every component has two Tests/ subfolders: `UnitTests/` and `SnapshotTests/`.
   - **Extension** (other): every rule moved from the old use cases (formatting, validation, ...).
   - **Model** / **Enum**: default values, and equality/inequality when properties differ.
   - **UseCase** *(legacy)*: with `// sourcery: AutoMockable, AutoMockTest`, Sourcery generates a default-behavior test for the mock automatically, in addition to any hand-written tests for the real implementation.
-  - **ViewModel** *(legacy, XCTest, `// sourcery: AutoPublisherTest, AutoViewModelStub`)*: asserts that each `@Published private(set)` property updates correctly once its backing use case runs.
+  - **ViewModel** *(legacy, `// sourcery: AutoPublisherTest, AutoViewModelStub`)*: asserts that each `@Published private(set)` property updates correctly once its backing use case runs.
 
 ### Snapshot Tests
 

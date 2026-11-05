@@ -6,10 +6,10 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
+import UIKit
 @testable import SparkComponentSwitch
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
 @_spi(SI_SPI) import SparkCommon
-import XCTest
 
 struct SwitchConfigurationSnapshotTests {
 

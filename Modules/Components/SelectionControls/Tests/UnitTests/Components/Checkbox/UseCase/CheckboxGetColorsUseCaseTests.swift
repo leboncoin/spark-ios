@@ -6,36 +6,31 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkComponentSelectionControlsTesting
 @_spi(SI_SPI) import SparkThemingTesting
 import SparkTheming
 
-final class CheckboxGetColorsUseCaseTests: XCTestCase {
+@Suite("Checkbox Get Colors Use Case Tests")
+struct CheckboxGetColorsUseCaseTests {
 
     // MARK: - Properties
 
-    private var getColorUseCase: CommonGetColorUseCaseableGeneratedMock!
-    private var useCase: CheckboxGetColorsUseCase!
+    private let getColorUseCase: CommonGetColorUseCaseableGeneratedMock
+    private let useCase: CheckboxGetColorsUseCase
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
+    init() {
         self.getColorUseCase = CommonGetColorUseCaseableGeneratedMock()
         self.useCase = CheckboxGetColorsUseCase(getColorUseCase: self.getColorUseCase)
     }
 
-    override func tearDown() {
-        self.getColorUseCase = nil
-        self.useCase = nil
-        super.tearDown()
-    }
-
     // MARK: - ExecuteStatic Tests
 
-    func test_executeStatic_withSupportIntent_returnsExpectedStaticColors() {
+    @Test("ExecuteStatic with support intent returns expected static colors")
+    func executeStaticWithSupportIntentReturnsExpectedStaticColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.support
@@ -47,11 +42,11 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
         let result = self.useCase.executeStatic(theme: theme, intent: intent)
 
         // THEN
-        XCTAssertTrue(result.iconForeground.equals(theme.colors.support.onSupport))
-        XCTAssertTrue(result.hover.equals(expectedHover))
+        #expect(result.iconForeground.equals(theme.colors.support.onSupport))
+        #expect(result.hover.equals(expectedHover))
 
         // Verify use case was called correctly
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenHoverTheme: theme,
@@ -60,7 +55,8 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_executeStatic_withErrorIntent_returnsExpectedStaticColors() {
+    @Test("ExecuteStatic with error intent returns expected static colors")
+    func executeStaticWithErrorIntentReturnsExpectedStaticColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.error
@@ -72,11 +68,11 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
         let result = self.useCase.executeStatic(theme: theme, intent: intent)
 
         // THEN
-        XCTAssertTrue(result.iconForeground.equals(theme.colors.feedback.onError))
-        XCTAssertTrue(result.hover.equals(expectedHover))
+        #expect(result.iconForeground.equals(theme.colors.feedback.onError))
+        #expect(result.hover.equals(expectedHover))
 
         // Verify use case was called correctly
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenHoverTheme: theme,
@@ -87,7 +83,8 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
 
     // MARK: - ExecuteDynamic Tests
 
-    func test_executeDynamic_withSelectedState_returnsExpectedDynamicColors() {
+    @Test("ExecuteDynamic with selected state returns expected dynamic colors")
+    func executeDynamicWithSelectedStateReturnsExpectedDynamicColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.support
@@ -102,11 +99,11 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
         let result = self.useCase.executeDynamic(theme: theme, intent: intent, selectionState: selectionState)
 
         // THEN
-        XCTAssertTrue(result.background.equals(expectedBackground))
-        XCTAssertTrue(result.border.equals(expectedBorder))
+        #expect(result.background.equals(expectedBackground))
+        #expect(result.border.equals(expectedBorder))
 
         // Verify use cases were called correctly
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenContentTheme: theme,
@@ -114,7 +111,7 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
             expectedReturnValue: expectedBackground
         )
 
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenBorderTheme: theme,
@@ -124,7 +121,8 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_executeDynamic_withIndeterminateState_returnsExpectedDynamicColors() {
+    @Test("ExecuteDynamic with indeterminate state returns expected dynamic colors")
+    func executeDynamicWithIndeterminateStateReturnsExpectedDynamicColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.support
@@ -139,11 +137,11 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
         let result = self.useCase.executeDynamic(theme: theme, intent: intent, selectionState: selectionState)
 
         // THEN
-        XCTAssertTrue(result.background.equals(expectedBackground))
-        XCTAssertTrue(result.border.equals(expectedBorder))
+        #expect(result.background.equals(expectedBackground))
+        #expect(result.border.equals(expectedBorder))
 
         // Verify use cases were called with isSelected = true for indeterminate
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenBorderTheme: theme,
@@ -153,7 +151,8 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_executeDynamic_withUnselectedState_returnsExpectedDynamicColors() {
+    @Test("ExecuteDynamic with unselected state returns expected dynamic colors")
+    func executeDynamicWithUnselectedStateReturnsExpectedDynamicColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.support
@@ -166,11 +165,11 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
         let result = self.useCase.executeDynamic(theme: theme, intent: intent, selectionState: selectionState)
 
         // THEN
-        XCTAssertTrue(result.background.equals(ColorTokenDefault.clear))
-        XCTAssertTrue(result.border.equals(expectedBorder))
+        #expect(result.background.equals(ColorTokenDefault.clear))
+        #expect(result.border.equals(expectedBorder))
 
         // Verify use cases were called with isSelected = false for unselected
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenBorderTheme: theme,
@@ -180,13 +179,14 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
         )
 
         // Verify content use case was not called for unselected state
-        CommonGetColorUseCaseableMockTest.XCTCallsCount(
+        CommonGetColorUseCaseableMockTest.expectCallsCount(
             self.getColorUseCase,
             executeContentWithContentThemeAndIntentNumberOfCalls: 0
         )
     }
 
-    func test_executeDynamic_withErrorIntent_returnsExpectedDynamicColors() {
+    @Test("ExecuteDynamic with error intent returns expected dynamic colors")
+    func executeDynamicWithErrorIntentReturnsExpectedDynamicColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.error
@@ -201,11 +201,11 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
         let result = self.useCase.executeDynamic(theme: theme, intent: intent, selectionState: selectionState)
 
         // THEN
-        XCTAssertTrue(result.background.equals(expectedBackground))
-        XCTAssertTrue(result.border.equals(expectedBorder))
+        #expect(result.background.equals(expectedBackground))
+        #expect(result.border.equals(expectedBorder))
 
         // Verify use cases were called correctly
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenContentTheme: theme,
@@ -213,7 +213,7 @@ final class CheckboxGetColorsUseCaseTests: XCTestCase {
             expectedReturnValue: expectedBackground
         )
 
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenBorderTheme: theme,

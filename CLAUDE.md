@@ -83,7 +83,6 @@ Always use the matching skill (`.claude/skills`):
 | Model *(legacy)* | `spark-component-model` |
 | UseCase *(legacy)* | `spark-component-use-case` |
 | ViewModel *(legacy)* | `spark-component-view-model` |
-| Migrate XCTests to Swift Testing | `spark-replace-xctests` |
 | Changelog | `spark-changelog` |
 | Tag + GitHub release | `spark-release` |
 | Before push / push | `spark-check-before-push`, `spark-push` |
@@ -131,9 +130,7 @@ func test() -> String {
 - File headers: `Created by {Firstname Lastname} on DD/MM/YYYY`. The copyright year is the current year for new files only; keep the year of the existing files.
 - Tests:
   - Run sourcery before creating tests.
-  - Use **Swift Testing** as much as possible. Exceptions still using **XCTest** (legacy components only):
-    - The ViewModel tests.
-    - The UseCase tests when the use case contains other use cases.
+  - Use **Swift Testing**.
 - Do not update the Deprecated files (`XXXDeprecated.swift`) or the files in a Deprecated folder (`ViewModel/Deprecated/MyViewModel.swift`), except when asked to deprecate some code.
 
 # Commands

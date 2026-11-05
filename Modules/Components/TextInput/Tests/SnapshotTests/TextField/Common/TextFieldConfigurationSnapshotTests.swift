@@ -6,11 +6,11 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
+import UIKit
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkCommonTesting
-import XCTest
 
 struct TextFieldConfigurationSnapshotTests {
 
