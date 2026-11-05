@@ -6,37 +6,30 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkComponentSelectionControlsTesting
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ToggleGetColorsUseCaseTests: XCTestCase {
+@Suite("Toggle Get Colors Use Case Tests")
+struct ToggleGetColorsUseCaseTests {
 
     // MARK: - Properties
 
-    private var getColorUseCase: CommonGetColorUseCaseableGeneratedMock!
-    private var useCase: ToggleGetColorsUseCase!
+    private let getColorUseCase: CommonGetColorUseCaseableGeneratedMock
+    private let useCase: ToggleGetColorsUseCase
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.getColorUseCase = CommonGetColorUseCaseableGeneratedMock()
         self.useCase = ToggleGetColorsUseCase(getColorUseCase: self.getColorUseCase)
     }
 
-    override func tearDown() {
-        self.getColorUseCase = nil
-        self.useCase = nil
-
-        super.tearDown()
-    }
-
     // MARK: - ExecuteStatic Tests
 
-    func test_executeStatic_returnsExpectedStaticColors() {
+    @Test("ExecuteStatic returns expected static colors")
+    func executeStaticReturnsExpectedStaticColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let expectedHover = ColorTokenGeneratedMock.random()
@@ -47,11 +40,11 @@ final class ToggleGetColorsUseCaseTests: XCTestCase {
         let result = self.useCase.executeStatic(theme: theme)
 
         // THEN
-        XCTAssertTrue(result.dotBackground.equals(theme.colors.base.surface))
-        XCTAssertTrue(result.hover.equals(expectedHover))
+        #expect(result.dotBackground.equals(theme.colors.base.surface))
+        #expect(result.hover.equals(expectedHover))
 
         // Verify use cases were called correctly
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenHoverTheme: theme,
@@ -62,7 +55,8 @@ final class ToggleGetColorsUseCaseTests: XCTestCase {
 
     // MARK: - ExecuteDynamic Tests
 
-    func test_executeDynamic_whenIsOn_returnsExpectedDynamicColors() {
+    @Test("ExecuteDynamic when is on returns expected dynamic colors")
+    func executeDynamicWhenIsOnReturnsExpectedDynamicColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let isOn = true
@@ -77,11 +71,11 @@ final class ToggleGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.background.equals(expectedContent))
-        XCTAssertTrue(result.dotForeground.equals(expectedContent))
+        #expect(result.background.equals(expectedContent))
+        #expect(result.dotForeground.equals(expectedContent))
 
         // Verify use case was called correctly
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenContentTheme: theme,
@@ -90,7 +84,8 @@ final class ToggleGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_executeDynamic_whenIsOff_returnsExpectedDynamicColors() {
+    @Test("ExecuteDynamic when is off returns expected dynamic colors")
+    func executeDynamicWhenIsOffReturnsExpectedDynamicColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let isOn = false
@@ -105,11 +100,11 @@ final class ToggleGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.background.equals(expectedContent.opacity(theme.dims.dim3)))
-        XCTAssertTrue(result.dotForeground.equals(expectedContent.opacity(theme.dims.dim2)))
+        #expect(result.background.equals(expectedContent.opacity(theme.dims.dim3)))
+        #expect(result.dotForeground.equals(expectedContent.opacity(theme.dims.dim2)))
 
         // Verify use case was called correctly
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenContentTheme: theme,

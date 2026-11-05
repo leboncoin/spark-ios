@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import UIKit
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkTheming
@@ -15,7 +15,8 @@ import UIKit
 @_spi(SI_SPI) import SparkComponentTextLinkTesting
 import SwiftUI
 
-final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
+@Suite("TextLink Get Attributed String UseCase Tests")
+struct TextLinkGetAttributedStringUseCaseTests {
 
     // MARK: - Properties
 
@@ -29,16 +30,16 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
     private let mockTypographiesUseCase = TextLinkGetTypographiesUseCaseableGeneratedMock()
     private let mockUnderlineStyleUseCase = TextLinkGetUnderlineStyleUseCaseableGeneratedMock()
 
-    private lazy var useCase = TextLinkGetAttributedStringUseCase(
-        colorUseCase: self.mockColorUseCase,
-        typographiesUseCase: self.mockTypographiesUseCase,
-        getUnderlineStyleUseCase: self.mockUnderlineStyleUseCase
-    )
+    private let useCase: TextLinkGetAttributedStringUseCase
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
+        self.useCase = TextLinkGetAttributedStringUseCase(
+            colorUseCase: self.mockColorUseCase,
+            typographiesUseCase: self.mockTypographiesUseCase,
+            getUnderlineStyleUseCase: self.mockUnderlineStyleUseCase
+        )
 
         self.mockColorUseCase.executeWithThemeAndIntentAndIsHighlightedReturnValue = self.colorTokenMock
         self.mockTypographiesUseCase.executeWithThemeAndTypographyReturnValue = self.typographiesMock
@@ -51,15 +52,17 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_init_with_default_dependencies() {
+    @Test("Init with default dependencies")
+    func initWithDefaultDependencies() {
         // GIVEN / WHEN
         let defaultUseCase = TextLinkGetAttributedStringUseCase()
 
         // THEN
-        XCTAssertNotNil(defaultUseCase, "UseCase should initialize with default dependencies")
+        #expect(defaultUseCase != nil, "UseCase should initialize with default dependencies")
     }
 
-    func test_execute_calls_dependencies() {
+    @Test("Execute should call the dependencies")
+    func executeCallsDependencies() {
         // GIVEN
         let intent = TextLinkIntent.main
         let variant = TextLinkVariant.underline
@@ -82,7 +85,7 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         // THEN
 
         // Color
-        TextLinkGetColorUseCaseableMockTest.XCTAssert(
+        TextLinkGetColorUseCaseableMockTest.expect(
             self.mockColorUseCase,
             expectedNumberOfCalls: 1,
             givenTheme: self.theme,
@@ -92,7 +95,7 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         )
 
         // Typographies
-        TextLinkGetTypographiesUseCaseableMockTest.XCTAssert(
+        TextLinkGetTypographiesUseCaseableMockTest.expect(
             self.mockTypographiesUseCase,
             expectedNumberOfCalls: 1,
             givenTheme: self.theme,
@@ -101,7 +104,7 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         )
 
         // Underline Style
-        TextLinkGetUnderlineStyleUseCaseableMockTest.XCTAssert(
+        TextLinkGetUnderlineStyleUseCaseableMockTest.expect(
             self.mockUnderlineStyleUseCase,
             expectedNumberOfCalls: 1,
             givenVariant: variant,
@@ -110,7 +113,8 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         )
     }
 
-    func test_execute_with_no_highlight_range() {
+    @Test("Execute with no highlight range")
+    func executeWithNoHighlightRange() {
         // GIVEN
         let intent = TextLinkIntent.main
         let variant = TextLinkVariant.underline
@@ -136,10 +140,11 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedResult)
+        #expect(result == expectedResult)
     }
 
-    func test_execute_with_highlight_range() throws {
+    @Test("Execute with highlight range")
+    func executeWithHighlightRange() throws {
         // GIVEN
         let intent = TextLinkIntent.main
         let variant = TextLinkVariant.underline
@@ -152,7 +157,7 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         expectedResult.foregroundColor = self.colorTokenMock.color
         expectedResult.font = self.typographiesMock.normal.font
 
-        let expectedTextHighlightRange = try XCTUnwrap(Range(textHighlightRange, in: expectedResult))
+        let expectedTextHighlightRange = try #require(Range(textHighlightRange, in: expectedResult))
         expectedResult[expectedTextHighlightRange].font = self.typographiesMock.highlight.font
         expectedResult[expectedTextHighlightRange].underlineStyle = self.underlineStyleMock
 
@@ -168,10 +173,11 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedResult)
+        #expect(result == expectedResult)
     }
 
-    func test_executeUI_calls_dependencies() {
+    @Test("ExecuteUI should call the dependencies")
+    func executeUICallsDependencies() {
         // GIVEN
         let intent = TextLinkIntent.main
         let variant = TextLinkVariant.underline
@@ -194,7 +200,7 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         // THEN
 
         // Color
-        TextLinkGetColorUseCaseableMockTest.XCTAssert(
+        TextLinkGetColorUseCaseableMockTest.expect(
             self.mockColorUseCase,
             expectedNumberOfCalls: 1,
             givenTheme: self.theme,
@@ -204,7 +210,7 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         )
 
         // Typographies
-        TextLinkGetTypographiesUseCaseableMockTest.XCTAssert(
+        TextLinkGetTypographiesUseCaseableMockTest.expect(
             self.mockTypographiesUseCase,
             expectedNumberOfCalls: 1,
             givenTheme: self.theme,
@@ -213,7 +219,7 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         )
 
         // Underline Style
-        TextLinkGetUnderlineStyleUseCaseableMockTest.XCTAssert(
+        TextLinkGetUnderlineStyleUseCaseableMockTest.expect(
             self.mockUnderlineStyleUseCase,
             expectedNumberOfCalls: 1,
             givenVariant: variant,
@@ -222,7 +228,8 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         )
     }
 
-    func test_executeUI_with_no_highlight_range() {
+    @Test("ExecuteUI with no highlight range")
+    func executeUIWithNoHighlightRange() {
         // GIVEN
         let intent = TextLinkIntent.main
         let variant = TextLinkVariant.underline
@@ -253,10 +260,11 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedResult)
+        #expect(result == expectedResult)
     }
 
-    func test_executeUI_with_highlight_range() {
+    @Test("ExecuteUI with highlight range")
+    func executeUIWithHighlightRange() {
         // GIVEN
         let intent = TextLinkIntent.main
         let variant = TextLinkVariant.underline
@@ -297,10 +305,11 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedResult)
+        #expect(result == expectedResult)
     }
 
-    func test_executeUI_with_nil_underline_style() {
+    @Test("ExecuteUI with nil underline style")
+    func executeUIWithNilUnderlineStyle() {
         // GIVEN
         let intent = TextLinkIntent.main
         let variant = TextLinkVariant.none
@@ -331,6 +340,6 @@ final class TextLinkGetAttributedStringUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedResult)
+        #expect(result == expectedResult)
     }
 }

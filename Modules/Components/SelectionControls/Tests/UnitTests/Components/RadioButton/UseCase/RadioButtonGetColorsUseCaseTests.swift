@@ -6,37 +6,30 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkComponentSelectionControlsTesting
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class RadioButtonGetColorsUseCaseTests: XCTestCase {
+@Suite("RadioButton Get Colors Use Case Tests")
+struct RadioButtonGetColorsUseCaseTests {
 
     // MARK: - Properties
 
-    private var getColorUseCase: CommonGetColorUseCaseableGeneratedMock!
-    private var useCase: RadioButtonGetColorsUseCase!
+    private let getColorUseCase: CommonGetColorUseCaseableGeneratedMock
+    private let useCase: RadioButtonGetColorsUseCase
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.getColorUseCase = CommonGetColorUseCaseableGeneratedMock()
         self.useCase = RadioButtonGetColorsUseCase(getColorUseCase: self.getColorUseCase)
     }
 
-    override func tearDown() {
-        self.getColorUseCase = nil
-        self.useCase = nil
-
-        super.tearDown()
-    }
-
     // MARK: - ExecuteStatic Tests
 
-    func test_executeStatic_withSupportIntent_returnsExpectedStaticColors() {
+    @Test("ExecuteStatic with support intent returns expected static colors")
+    func executeStaticWithSupportIntentReturnsExpectedStaticColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.support
@@ -53,11 +46,11 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.dot.equals(expectedDot))
-        XCTAssertTrue(result.hover.equals(expectedHover))
+        #expect(result.dot.equals(expectedDot))
+        #expect(result.hover.equals(expectedHover))
 
         // Verify use cases were called correctly
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenContentTheme: theme,
@@ -65,7 +58,7 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
             expectedReturnValue: expectedDot
         )
 
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenHoverTheme: theme,
@@ -74,7 +67,8 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_executeStatic_withErrorIntent_returnsExpectedStaticColors() {
+    @Test("ExecuteStatic with error intent returns expected static colors")
+    func executeStaticWithErrorIntentReturnsExpectedStaticColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.error
@@ -91,11 +85,11 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.dot.equals(expectedDot))
-        XCTAssertTrue(result.hover.equals(expectedHover))
+        #expect(result.dot.equals(expectedDot))
+        #expect(result.hover.equals(expectedHover))
 
         // Verify use cases were called correctly
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenContentTheme: theme,
@@ -103,7 +97,7 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
             expectedReturnValue: expectedDot
         )
 
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenHoverTheme: theme,
@@ -114,7 +108,8 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
 
     // MARK: - ExecuteDynamic Tests
 
-    func test_executeDynamic_withIsOnTrue_returnsExpectedDynamicColors() {
+    @Test("ExecuteDynamic with is on true returns expected dynamic colors")
+    func executeDynamicWithIsOnTrueReturnsExpectedDynamicColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.support
@@ -131,10 +126,10 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.circle.equals(expectedCircle))
+        #expect(result.circle.equals(expectedCircle))
 
         // Verify use case was called correctly
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenBorderTheme: theme,
@@ -144,7 +139,8 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_executeDynamic_withIsOnFalse_returnsExpectedDynamicColors() {
+    @Test("ExecuteDynamic with is on false returns expected dynamic colors")
+    func executeDynamicWithIsOnFalseReturnsExpectedDynamicColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.support
@@ -161,10 +157,10 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.circle.equals(expectedCircle))
+        #expect(result.circle.equals(expectedCircle))
 
         // Verify use case was called correctly
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenBorderTheme: theme,
@@ -174,7 +170,8 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
         )
     }
 
-    func test_executeDynamic_withErrorIntent_returnsExpectedDynamicColors() {
+    @Test("ExecuteDynamic with error intent returns expected dynamic colors")
+    func executeDynamicWithErrorIntentReturnsExpectedDynamicColors() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let intent = SelectionControlsIntent.error
@@ -191,10 +188,10 @@ final class RadioButtonGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.circle.equals(expectedCircle))
+        #expect(result.circle.equals(expectedCircle))
 
         // Verify use case was called correctly
-        CommonGetColorUseCaseableMockTest.XCTAssert(
+        CommonGetColorUseCaseableMockTest.expect(
             self.getColorUseCase,
             expectedNumberOfCalls: 1,
             givenBorderTheme: theme,

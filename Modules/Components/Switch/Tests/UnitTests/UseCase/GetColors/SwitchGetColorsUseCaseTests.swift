@@ -6,18 +6,20 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkComponentSwitch
 @_spi(SI_SPI) @testable import SparkComponentSwitchTesting
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SwitchGetColorsUseCaseTests: XCTestCase {
+@Suite("Switch Get Colors UseCase Tests")
+struct SwitchGetColorsUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute() throws {
+    @Test("Execute should return the colors and call the get color use case")
+    func execute() throws {
         // GIVEN
         let intentMock = SwitchIntent.alert
         let colorTokenMock = ColorTokenGeneratedMock.random()
@@ -43,60 +45,51 @@ final class SwitchGetColorsUseCaseTests: XCTestCase {
 
         // **
         // Status background colors
-        XCTAssertEqual(
-            colors.toggleBackgroundColors.onColorToken.hashValue,
-            expectedOnColorToken.hashValue,
+        #expect(
+            colors.toggleBackgroundColors.onColorToken.hashValue == expectedOnColorToken.hashValue,
             "Wrong onColorToken on toggleBackgroundColors"
         )
-        XCTAssertEqual(
-            colors.toggleBackgroundColors.offColorToken.hashValue,
-            expectedOffColorToken.hashValue,
+        #expect(
+            colors.toggleBackgroundColors.offColorToken.hashValue == expectedOffColorToken.hashValue,
             "Wrong offColorToken on toggleBackgroundColors"
         )
         // **
 
-        XCTAssertEqual(
-            colors.toggleDotBackgroundColor.hashValue,
-            colorsMock.base.surface.hashValue,
+        #expect(
+            colors.toggleDotBackgroundColor.hashValue == colorsMock.base.surface.hashValue,
             "Wrong toggleBackgroundColor color"
         )
 
         // **
         // State foreground colors
-        XCTAssertEqual(
-            colors.toggleDotForegroundColors.onColorToken.hashValue,
-            expectedOnColorToken.hashValue,
+        #expect(
+            colors.toggleDotForegroundColors.onColorToken.hashValue == expectedOnColorToken.hashValue,
             "Wrong onColorToken on toggleDotForegroundColors"
         )
-        XCTAssertEqual(
-            colors.toggleDotForegroundColors.offColorToken.hashValue,
-            expectedOffColorToken.hashValue,
+        #expect(
+            colors.toggleDotForegroundColors.offColorToken.hashValue == expectedOffColorToken.hashValue,
             "Wrong offColorToken on toggleDotForegroundColors"
         )
         // **
 
-        XCTAssertEqual(
-            colors.textForegroundColor.hashValue,
-            colorsMock.base.onSurface.hashValue,
+        #expect(
+            colors.textForegroundColor.hashValue == colorsMock.base.onSurface.hashValue,
             "Wrong textForegroundColor color"
         )
 
         // **
         // GetColorUseCase
         let getColorUseCaseArgs = getColorUseCaseMock.executeWithIntentAndColorsReceivedArguments
-        XCTAssertEqual(
-            getColorUseCaseMock.executeWithIntentAndColorsCallsCount,
-            1,
+        #expect(
+            getColorUseCaseMock.executeWithIntentAndColorsCallsCount == 1,
             "Wrong call number on execute on getColorUseCase"
         )
-        XCTAssertEqual(
-            getColorUseCaseArgs?.intent,
-            intentMock,
+        #expect(
+            getColorUseCaseArgs?.intent == intentMock,
             "Wrong intent parameter on execute on getColorUseCaseMock"
         )
-        XCTAssertIdentical(
-            getColorUseCaseArgs?.colors as? ColorsGeneratedMock,
-            colorsMock,
+        #expect(
+            getColorUseCaseArgs?.colors as? ColorsGeneratedMock === colorsMock,
             "Wrong colors parameter on execute on getColorUseCaseMock"
         )
         // **

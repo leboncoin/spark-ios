@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import XCTest
 
 @_spi(SI_SPI) public struct IconographyTests {
 

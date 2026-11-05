@@ -11,17 +11,23 @@
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkCommonTesting
 @_spi(SI_SPI) import SparkThemingTesting
-import XCTest
+import SparkTheme
+import Testing
 
-final class RadioButtonGetAttributesUseCaseTests: TestCase {
+@Suite("RadioButton Get Attributes UseCase Tests")
+struct RadioButtonGetAttributesUseCaseTests {
 
-    var sut: RadioButtonGetAttributesUseCase!
-    var colorsUseCase: RadioButtonGetColorsUseCaseableGeneratedMock!
-    var theme: ThemeGeneratedMock!
-    var colors: RadioButtonColors!
+    // MARK: - Properties
 
-    override func setUp() {
-        super.setUp()
+    let sut: RadioButtonGetAttributesUseCase
+    let colorsUseCase: RadioButtonGetColorsUseCaseableGeneratedMock
+    let theme: ThemeGeneratedMock
+    let colors: RadioButtonColors
+
+    // MARK: - Initialization
+
+    init() {
+        SparkConfiguration.load()
         self.theme = ThemeGeneratedMock.mocked()
 
         self.colorsUseCase = RadioButtonGetColorsUseCaseableGeneratedMock()
@@ -34,10 +40,12 @@ final class RadioButtonGetAttributesUseCaseTests: TestCase {
             surface: ColorTokenGeneratedMock.random()
         )
         self.colorsUseCase.executeWithThemeAndIntentAndIsSelectedReturnValue = self.colors
-
     }
 
-    func test_attributes_enabled_state_leading_alignment() {
+    // MARK: - Tests
+
+    @Test("Attributes for enabled state with leading alignment")
+    func attributesEnabledStateLeadingAlignment() {
         // Given
         let expectedAttributes = RadioButtonAttributes(
             colors: self.colors,
@@ -53,10 +61,11 @@ final class RadioButtonGetAttributesUseCaseTests: TestCase {
             alignment: .leading
         )
 
-        XCTAssertEqual(givenAttributes, expectedAttributes)
+        #expect(givenAttributes == expectedAttributes)
     }
 
-    func test_attributes_enabled_state_trailing_alignment() {
+    @Test("Attributes for enabled state with trailing alignment")
+    func attributesEnabledStateTrailingAlignment() {
         // Given
         let expectedAttributes = RadioButtonAttributes(
             colors: self.colors,
@@ -72,10 +81,11 @@ final class RadioButtonGetAttributesUseCaseTests: TestCase {
             alignment: .trailing
         )
 
-        XCTAssertEqual(givenAttributes, expectedAttributes)
+        #expect(givenAttributes == expectedAttributes)
     }
 
-    func test_attributes_disabled_state_trailing_alignment() {
+    @Test("Attributes for disabled state with trailing alignment")
+    func attributesDisabledStateTrailingAlignment() {
         // Given
         let expectedAttributes = RadioButtonAttributes(
             colors: self.colors,
@@ -91,7 +101,7 @@ final class RadioButtonGetAttributesUseCaseTests: TestCase {
             alignment: .trailing
         )
 
-        XCTAssertEqual(givenAttributes, expectedAttributes)
+        #expect(givenAttributes == expectedAttributes)
     }
 }
 

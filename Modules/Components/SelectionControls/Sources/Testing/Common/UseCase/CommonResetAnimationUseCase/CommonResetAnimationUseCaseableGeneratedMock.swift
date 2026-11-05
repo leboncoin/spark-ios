@@ -6,8 +6,8 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
+import UIKit
 import Foundation
-import XCTest
 
 import SparkTheming
 @_spi(SI_SPI) import SparkCommon

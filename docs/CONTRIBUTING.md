@@ -36,7 +36,7 @@ This repository is developed and maintained by **Leboncoin iOS developers**. Con
 
 Every component change needs corresponding tests — see [`docs/ARCHITECTURE.md#component-testing`](/docs/ARCHITECTURE.md#component-testing) for the full breakdown of unit tests and snapshot tests. In short:
 
-- Add or update **unit tests** under `Tests/UnitTests/`, mirroring the `Sources/Core/` structure you changed. Use **Swift Testing**, except for ViewModel tests and UseCase-of-UseCase tests, which use XCTest.
+- Add or update **unit tests** under `Tests/UnitTests/`, mirroring the `Sources/Core/` structure you changed. Use **Swift Testing**.
 - Add or update **snapshot tests** under `Tests/SnapshotTests/` for any visual change. Review generated snapshot diffs before committing new baselines — a passing re-record is not the same as an intentional visual change.
 
 ## Before Pushing

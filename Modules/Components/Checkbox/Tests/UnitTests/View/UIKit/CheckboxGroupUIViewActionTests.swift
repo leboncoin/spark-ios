@@ -7,7 +7,7 @@
 //
 
 import Combine
-import XCTest
+import Testing
 @testable import SparkComponentCheckbox
 @_spi(SI_SPI) @testable import SparkComponentCheckboxTesting
 @_spi(SI_SPI) import SparkCommon
@@ -16,13 +16,16 @@ import XCTest
 import SparkTheming
 import SparkTheme
 
-final class CheckboxGroupUIViewActionTests: TestCase {
-    // MARK: Private Properties
-    private var theme: (any Theme)!
-    private var subscriptions: Set<AnyCancellable>!
+@Suite("Checkbox Group UIView Action Tests")
+@MainActor
+struct CheckboxGroupUIViewActionTests {
+
+    // MARK: - Private Properties
+
+    private let theme: any Theme
     // swiftlint:disable weak_delegate
-    private var delegate: CheckboxGroupUIViewDelegateGeneratedMock!
-    private var items: [any CheckboxGroupItemProtocol] = [
+    private let delegate: CheckboxGroupUIViewDelegateGeneratedMock
+    private let items: [any CheckboxGroupItemProtocol] = [
         CheckboxGroupItemDefault(title: "Apple", id: "1", selectionState: .selected, isEnabled: true),
         CheckboxGroupItemDefault(title: "Cake", id: "2", selectionState: .indeterminate, isEnabled: true),
         CheckboxGroupItemDefault(title: "Fish", id: "3", selectionState: .unselected, isEnabled: true),
@@ -31,37 +34,39 @@ final class CheckboxGroupUIViewActionTests: TestCase {
     ]
 
     // MARK: - Setup
-    override func setUp() {
-        super.setUp()
+
+    init() {
+        SparkConfiguration.load()
         self.theme = SparkTheme.shared
-        self.subscriptions = .init()
         self.delegate = .init()
     }
 
     // MARK: - Tests
-    func test_action_from_checbox_item_touchUpInside() {
-        let sut = sut()
 
-        let exp = expectation(description: "Checkbox change should be published")
+    @Test("Touch up inside on a checkbox item should publish and call the delegate")
+    func actionFromCheckboxItemTouchUpInside() async {
+        let sut = self.sut()
+        var subscriptions = Set<AnyCancellable>()
 
         var selectionState: CheckboxSelectionState = .indeterminate
 
-        sut.publisher.sink(receiveValue: { items in
-            selectionState = items[0].selectionState
-            exp.fulfill()
-        })
-        .store(in: &self.subscriptions)
+        await confirmation("Checkbox change should be published") { confirm in
+            sut.publisher.sink(receiveValue: { items in
+                selectionState = items[0].selectionState
+                confirm()
+            })
+            .store(in: &subscriptions)
 
-        sut.checkboxes[0].sendActions(for: .touchUpInside)
+            sut.checkboxes[0].sendActions(for: .touchUpInside)
+        }
 
-        wait(for: [exp], timeout: 3.0)
-
-        XCTAssertEqual(selectionState, .unselected)
-        XCTAssertEqual(self.delegate.checkboxGroupWithCheckboxGroupAndStatesCallsCount, 1)
-        XCTAssertEqual(self.delegate.checkboxGroupWithCheckboxGroupAndStatesReceivedArguments?.states[0].selectionState, .unselected)
+        #expect(selectionState == .unselected)
+        #expect(self.delegate.checkboxGroupWithCheckboxGroupAndStatesCallsCount == 1)
+        #expect(self.delegate.checkboxGroupWithCheckboxGroupAndStatesReceivedArguments?.states[0].selectionState == .unselected)
     }
 
-    // MARK: Private Functions
+    // MARK: - Private Functions
+
     private func sut() -> CheckboxGroupUIView {
         let sut = CheckboxGroupUIView(
             checkedImage: IconographyTests.shared.checkmark,

@@ -61,7 +61,7 @@ import UIKit
 
 /// A Swift Testing main actor job runs as a main queue block, so the main queue is not drained
 /// while SnapshotTesting waits with XCTWaiter, and each rendering stalls until UIKit times out.
-/// A run loop block lets the nested wait drain the main queue, like XCTest did.
+/// A run loop block lets the nested wait drain the main queue, like a classic test case did.
 /// Only one block runs at a time: XCTWaiter interrupts its wait when another wait is nested inside it.
 @MainActor
 private func performOnMainRunLoop(_ body: @escaping @MainActor () -> Void) async {
