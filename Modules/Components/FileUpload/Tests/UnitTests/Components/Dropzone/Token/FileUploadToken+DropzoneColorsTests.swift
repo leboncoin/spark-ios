@@ -26,7 +26,7 @@ struct FileUploadTokenDropzoneColorsTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Border should return outline")
     func borderShouldReturnOutline() {
         // GIVEN / WHEN
         let result = self.token.border
@@ -35,7 +35,7 @@ struct FileUploadTokenDropzoneColorsTests {
         #expect(result.equals(self.theme.colors.base.outline))
     }
 
-    @Test
+    @Test("Image tint should return on surface")
     func imageTintShouldReturnOnSurface() {
         // GIVEN / WHEN
         let result = self.token.imageTint
@@ -44,7 +44,7 @@ struct FileUploadTokenDropzoneColorsTests {
         #expect(result.equals(self.theme.colors.base.onSurface))
     }
 
-    @Test
+    @Test("Description text should return on surface")
     func descriptionTextShouldReturnOnSurface() {
         // GIVEN / WHEN
         let result = self.token.descriptionText
@@ -53,7 +53,7 @@ struct FileUploadTokenDropzoneColorsTests {
         #expect(result.equals(self.theme.colors.base.onSurface))
     }
 
-    @Test
+    @Test("Additional text should return on surface dim 1")
     func additionalTextShouldReturnOnSurfaceDim1() {
         // GIVEN / WHEN
         let result = self.token.additionalText
@@ -62,7 +62,7 @@ struct FileUploadTokenDropzoneColorsTests {
         #expect(result.equals(self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)))
     }
 
-    @Test
+    @Test("Background when targeted should return surface pressed")
     func backgroundWhenTargetedShouldReturnSurfacePressed() {
         // GIVEN / WHEN
         let result = self.token.background(isTargeted: true)
@@ -71,7 +71,7 @@ struct FileUploadTokenDropzoneColorsTests {
         #expect(result.equals(self.theme.colors.states.surfacePressed))
     }
 
-    @Test
+    @Test("Background when not targeted should return surface")
     func backgroundWhenNotTargetedShouldReturnSurface() {
         // GIVEN / WHEN
         let result = self.token.background(isTargeted: false)
@@ -82,7 +82,7 @@ struct FileUploadTokenDropzoneColorsTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = FileUploadToken.Dropzone.Colors(theme: self.theme)
@@ -92,7 +92,7 @@ struct FileUploadTokenDropzoneColorsTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = FileUploadToken.Dropzone.Colors(theme: self.theme)

@@ -26,7 +26,7 @@ struct SparkChipSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: ChipScenarioSnapshotTests.allCases)
+    @Test("Spark chip snapshot", arguments: ChipScenarioSnapshotTests.allCases)
     func test(scenario: ChipScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
 

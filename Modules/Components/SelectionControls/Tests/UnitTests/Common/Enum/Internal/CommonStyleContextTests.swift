@@ -6,18 +6,20 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class CommonStyleContextTests: XCTestCase {
+@Suite("Common Style Context Tests")
+struct CommonStyleContextTests {
 
     // MARK: - Properties Tests
 
-    func test_default_shouldReturnAlone() {
+    @Test("Default should return alone")
+    func defaultShouldReturnAlone() {
         // GIVEN / WHEN
         let result = CommonStyleContext.default
 
         // THEN
-        XCTAssertEqual(result, .alone)
+        #expect(result == .alone)
     }
 }

@@ -7,19 +7,22 @@
 //
 
 @testable import SparkComponentSpinner
-import XCTest
+import Testing
 
-final class SpinnerConstantsTests: XCTestCase {
+@Suite("Spinner Constants Tests")
+struct SpinnerConstantsTests {
 
     // MARK: - Tests
 
-    func test_stroke_hasExpectedValue() {
+    @Test("Stroke has expected value")
+    func strokeHasExpectedValue() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(SpinnerConstants.strokeWidth, 2.0)
+        #expect(SpinnerConstants.strokeWidth == 2.0)
     }
 
-    func test_animationDuration_hasExpectedValue() {
+    @Test("Animation duration has expected value")
+    func animationDurationHasExpectedValue() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(SpinnerConstants.animationDuration, 1.0)
+        #expect(SpinnerConstants.animationDuration == 1.0)
     }
 }

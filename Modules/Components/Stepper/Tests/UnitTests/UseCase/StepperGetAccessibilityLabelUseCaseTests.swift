@@ -6,10 +6,12 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentStepper
 
-class StepperGetAccessibilityLabelUseCaseTests: XCTestCase {
+@Suite("Stepper Get Accessibility Label UseCase Tests")
+struct StepperGetAccessibilityLabelUseCaseTests {
 
     // MARK: - Properties
 
@@ -17,7 +19,8 @@ class StepperGetAccessibilityLabelUseCaseTests: XCTestCase {
 
     // MARK: - With Custom Label Tests
 
-    func testExecute_withCustomLabel_withContext() {
+    @Test("Execute with custom label with context")
+    func executeWithCustomLabelWithContext() {
         // GIVEN
         let customLabel = "Custom Label"
 
@@ -25,10 +28,11 @@ class StepperGetAccessibilityLabelUseCaseTests: XCTestCase {
         let result = self.useCase.execute(for: .increment, context: "Context", customLabel: customLabel)
 
         // THEN
-        XCTAssertEqual(result, customLabel)
+        #expect(result == customLabel)
     }
 
-    func testExecute_withCustomLabel_withoutContext() {
+    @Test("Execute with custom label without context")
+    func executeWithCustomLabelWithoutContext() {
         // GIVEN
         let customLabel = "Custom Label"
 
@@ -36,44 +40,48 @@ class StepperGetAccessibilityLabelUseCaseTests: XCTestCase {
         let result = self.useCase.execute(for: .increment, context: nil, customLabel: customLabel)
 
         // THEN
-        XCTAssertEqual(result, customLabel)
+        #expect(result == customLabel)
     }
 
     // MARK: - Without Custom Label Tests
 
-    func testExecute_withoutCustomLabel_withContext_forIncrement() {
+    @Test("Execute without custom label with context for increment")
+    func executeWithoutCustomLabelWithContextForIncrement() {
         // GIVEN / WHEN
         let result = self.useCase.execute(for: .increment, context: "Context", customLabel: nil)
 
         // THEN
-        XCTAssertEqual(result, "Context, " + String(localized: "accessibility_label_increment", bundle: .module))
-        XCTAssertNotEqual(result, "Context, " + "accessibility_label_increment")
+        #expect(result == "Context, " + String(localized: "accessibility_label_increment", bundle: .module))
+        #expect(result != "Context, " + "accessibility_label_increment")
     }
 
-    func testExecute_withoutCustomLabel_withoutContext_forIncrement() {
+    @Test("Execute without custom label without context for increment")
+    func executeWithoutCustomLabelWithoutContextForIncrement() {
         // GIVEN / WHEN
         let result = self.useCase.execute(for: .increment, context: nil, customLabel: nil)
 
         // THEN
-        XCTAssertEqual(result, String(localized: "accessibility_label_increment", bundle: .module))
-        XCTAssertNotEqual(result, "accessibility_label_increment")
+        #expect(result == String(localized: "accessibility_label_increment", bundle: .module))
+        #expect(result != "accessibility_label_increment")
     }
 
-    func testExecute_withoutCustomLabelWithContext_forDecrement() {
+    @Test("Execute without custom label with context for decrement")
+    func executeWithoutCustomLabelWithContextForDecrement() {
         // GIVEN / WHEN
         let result = self.useCase.execute(for: .decrement, context: "Context", customLabel: nil)
 
         // THEN
-        XCTAssertEqual(result, "Context, " + String(localized: "accessibility_label_decrement", bundle: .module))
-        XCTAssertNotEqual(result, "Context, " + "accessibility_label_decrement")
+        #expect(result == "Context, " + String(localized: "accessibility_label_decrement", bundle: .module))
+        #expect(result != "Context, " + "accessibility_label_decrement")
     }
 
-    func testExecute_withoutCustomLabel_withoutContext_forDecrement() {
+    @Test("Execute without custom label without context for decrement")
+    func executeWithoutCustomLabelWithoutContextForDecrement() {
         // GIVEN / WHEN
         let result = self.useCase.execute(for: .decrement, context: nil, customLabel: nil)
 
         // THEN
-        XCTAssertEqual(result, String(localized: "accessibility_label_decrement", bundle: .module))
-        XCTAssertNotEqual(result, "accessibility_label_decrement")
+        #expect(result == String(localized: "accessibility_label_decrement", bundle: .module))
+        #expect(result != "accessibility_label_decrement")
     }
 }

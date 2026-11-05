@@ -6,26 +6,28 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentFormField
 
-final class FormFieldConstantsTests: XCTestCase {
+@Suite("FormField Constants Tests")
+struct FormFieldConstantsTests {
 
     // MARK: - Tests
 
-    func test_iconSize() {
+    @Test("Icon size")
+    func iconSize() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(
-            FormFieldConstants.iconSize,
-            18
+        #expect(
+            FormFieldConstants.iconSize == 18
         )
     }
 
-    func test_defaultTitle() {
+    @Test("Default title")
+    func defaultTitle() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(
-            FormFieldConstants.defaultTitle,
-            String(localized: "clear", bundle: .current)
+        #expect(
+            FormFieldConstants.defaultTitle == String(localized: "clear", bundle: .current)
         )
     }
 }

@@ -21,7 +21,7 @@ struct ComponentTokenSegmentedControlTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Segmented control should return token from theme")
     func segmentedControlShouldReturnTokenFromTheme() {
         // GIVEN
         let componentToken = ComponentToken(theme: self.theme)
@@ -33,7 +33,7 @@ struct ComponentTokenSegmentedControlTests {
         #expect(token == SegmentedControlToken(theme: self.theme))
     }
 
-    @Test
+    @Test("Segmented control from theme component should return token from theme")
     func segmentedControlFromThemeComponentShouldReturnTokenFromTheme() {
         // GIVEN / WHEN
         let token = self.theme.component.segmentedControl
@@ -42,7 +42,7 @@ struct ComponentTokenSegmentedControlTests {
         #expect(token == SegmentedControlToken(theme: self.theme))
     }
 
-    @Test
+    @Test("Segmented control with different theme should not return token from theme")
     func segmentedControlWithDifferentThemeShouldNotReturnTokenFromTheme() {
         // GIVEN
         let componentToken = ComponentToken(theme: ThemeGeneratedMock.mocked2())

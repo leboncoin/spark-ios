@@ -6,26 +6,30 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import Foundation
 import SwiftUI
 @testable import SparkComponentRating
 @_spi(SI_SPI) @testable import SparkComponentRatingTesting
 @_spi(SI_SPI) import SparkThemingTesting
 @_spi(SI_SPI) import SparkTheming
 
-final class RatingDisplayViewModelTests: XCTestCase {
+@MainActor
+@Suite("Rating Display ViewModel Tests")
+struct RatingDisplayViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertNil(stub.viewModel.theme)
-        XCTAssertNil(stub.viewModel.size)
+        #expect(stub.viewModel.theme == nil)
+        #expect(stub.viewModel.size == nil)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getTextStylesUseCase: true
@@ -34,7 +38,8 @@ final class RatingDisplayViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -43,21 +48,22 @@ final class RatingDisplayViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        RatingDisplayGetSpacingsUseCaseableMockTest.XCTAssert(
+        RatingDisplayGetSpacingsUseCaseableMockTest.expect(
             stub.getSpacingsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedSpacings
         )
 
-        XCTAssertNotCalled(on: stub)
+        expectNotCalled(on: stub)
     }
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateColorsAndSpacingOnly() {
+    @Test("Theme changed should update colors and spacing only")
+    func themeChangedShouldUpdateColorsAndSpacingOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -71,16 +77,16 @@ final class RatingDisplayViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        RatingDisplayGetSpacingsUseCaseableMockTest.XCTAssert(
+        RatingDisplayGetSpacingsUseCaseableMockTest.expect(
             stub.getSpacingsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             expectedReturnValue: stub.expectedSpacings
         )
 
-        RatingDisplayGetTextStylesUseCaseableMockTest.XCTAssert(
+        RatingDisplayGetTextStylesUseCaseableMockTest.expect(
             stub.getTextStylesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -88,10 +94,11 @@ final class RatingDisplayViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedTextStyle
         )
 
-        XCTAssertNotCalled(on: stub)
+        expectNotCalled(on: stub)
     }
 
-    func test_sizeChanged_shouldUpdateSpacingOnly() {
+    @Test("Size changed should update spacing only")
+    func sizeChangedShouldUpdateSpacingOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -105,9 +112,9 @@ final class RatingDisplayViewModelTests: XCTestCase {
         viewModel.size = newSize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        RatingDisplayGetTextStylesUseCaseableMockTest.XCTAssert(
+        RatingDisplayGetTextStylesUseCaseableMockTest.expect(
             stub.getTextStylesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -115,13 +122,14 @@ final class RatingDisplayViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedTextStyle
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -131,20 +139,21 @@ final class RatingDisplayViewModelTests: XCTestCase {
         viewModel.size = .large
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherSpacings: RatingDisplaySpacings(),
             otherTextStyle: RatingDisplayTextStyles()
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getTextStylesUseCase: true
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -157,16 +166,17 @@ final class RatingDisplayViewModelTests: XCTestCase {
         viewModel.size = stub.givenSize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getTextStylesUseCase: true
         )
     }
 
-    func test_propertiesChanged_withNilValues_shouldNotCallUseCases() {
+    @Test("Properties changed with nil values should not call use cases")
+    func propertiesChangedWithNilValuesShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -179,9 +189,9 @@ final class RatingDisplayViewModelTests: XCTestCase {
         viewModel.size = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingUseCase: true,
             getTextStylesUseCase: true
@@ -267,38 +277,42 @@ private extension RatingDisplayViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getSpacingUseCase: Bool = false,
-    getTextStylesUseCase: Bool = false
+    getTextStylesUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    RatingDisplayGetSpacingsUseCaseableMockTest.XCTCalled(
+    RatingDisplayGetSpacingsUseCaseableMockTest.expectCalled(
         stub.getSpacingsUseCaseMock,
-        executeWithThemeCalled: !getSpacingUseCase
+        executeWithThemeCalled: !getSpacingUseCase,
+        sourceLocation: sourceLocation
     )
 
-    RatingDisplayGetTextStylesUseCaseableMockTest.XCTCalled(
+    RatingDisplayGetTextStylesUseCaseableMockTest.expectCalled(
         stub.getTextStylesUseCaseMock,
-        executeWithThemeAndSizeCalled: !getTextStylesUseCase
+        executeWithThemeAndSizeCalled: !getTextStylesUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherSpacings: RatingDisplaySpacings? = nil,
-    otherTextStyle: RatingDisplayTextStyles? = nil
+    otherTextStyle: RatingDisplayTextStyles? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.spacings,
-        otherSpacings ?? stub.expectedSpacings,
-        "Wrong spacings value"
+    #expect(
+        viewModel.spacings == otherSpacings ?? stub.expectedSpacings,
+        "Wrong spacings value",
+        sourceLocation: sourceLocation
     )
 
-    XCTAssertEqual(
-        viewModel.textStyles,
-        otherTextStyle ?? stub.expectedTextStyle,
-        "Wrong textStyles value"
+    #expect(
+        viewModel.textStyles == otherTextStyle ?? stub.expectedTextStyle,
+        "Wrong textStyles value",
+        sourceLocation: sourceLocation
     )
 }

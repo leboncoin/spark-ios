@@ -22,13 +22,13 @@ struct InputOTPTokenSizeTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Slot size should return expected values")
     func slotSizeShouldReturnExpectedValues() {
         #expect(self.token.slotWidth == 40)
         #expect(self.token.slotHeight == 50)
     }
 
-    @Test
+    @Test("Separator size should return expected values")
     func separatorSizeShouldReturnExpectedValues() {
         #expect(self.token.separatorWidth == 8)
         #expect(self.token.separatorHeight == 4)

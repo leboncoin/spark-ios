@@ -6,29 +6,32 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentCheckbox
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class CheckboxGetSpacingUseCaseTests: XCTestCase {
+@Suite("Checkbox Get Spacing UseCase Tests")
+struct CheckboxGetSpacingUseCaseTests {
 
     var sut: CheckboxGetSpacingUseCase!
     var layoutSpacing: LayoutSpacingGeneratedMock!
 
-    override func setUp()  {
+    init() {
         self.layoutSpacing = LayoutSpacingGeneratedMock.mocked()
         self.sut = CheckboxGetSpacingUseCase()
     }
 
-    func test_left_alignment_spacing() {
+    @Test("Left alignment spacing")
+    func leftAlignmentSpacing() {
         let spacing = sut.execute(layoutSpacing: self.layoutSpacing, alignment: .left)
 
-        XCTAssertEqual(spacing, self.layoutSpacing.medium)
+        #expect(spacing == self.layoutSpacing.medium)
     }
 
-    func test_right_alignment_spacing() {
+    @Test("Right alignment spacing")
+    func rightAlignmentSpacing() {
         let spacing = sut.execute(layoutSpacing: self.layoutSpacing, alignment: .right)
 
-        XCTAssertEqual(spacing, self.layoutSpacing.xxxLarge)
+        #expect(spacing == self.layoutSpacing.xxxLarge)
     }
 }

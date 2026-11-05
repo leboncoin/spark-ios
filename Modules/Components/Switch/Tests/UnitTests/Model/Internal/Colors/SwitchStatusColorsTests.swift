@@ -6,13 +6,15 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSwitch
 import SparkTheme
 
-final class SwitchStatusColorsTests: XCTestCase {
+@Suite("Switch Status Colors Tests")
+struct SwitchStatusColorsTests {
 
-    func testEqual() {
+    @Test("Equal")
+    func equal() {
         let colors = SparkTheme.shared.colors
 
         let colors1 = SwitchStatusColors(
@@ -23,10 +25,11 @@ final class SwitchStatusColorsTests: XCTestCase {
             onColorToken: colors.feedback.info,
             offColorToken: colors.feedback.alert)
 
-        XCTAssertEqual(colors1, colors2)
+        #expect(colors1 == colors2)
     }
 
-    func testNotEqual() {
+    @Test("Not equal")
+    func notEqual() {
         let colors = SparkTheme.shared.colors
 
         let colors1 = SwitchStatusColors(
@@ -37,6 +40,6 @@ final class SwitchStatusColorsTests: XCTestCase {
                 onColorToken: colors.main.main,
                 offColorToken: colors.support.support)
 
-        XCTAssertNotEqual(colors1, colors2)
+        #expect(colors1 != colors2)
     }
 }

@@ -6,40 +6,41 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class CommonConstantsTests: XCTestCase {
+@Suite("Common Constants Tests")
+struct CommonConstantsTests {
 
     // MARK: - Animation
 
-    func test_animationDuration() {
-        XCTAssertEqual(
-            CommonConstants.animationDuration,
-            0.2
+    @Test("Animation duration")
+    func animationDuration() {
+        #expect(
+            CommonConstants.animationDuration == 0.2
         )
     }
 
-    func test_toggleSizes_hoverPadding() {
-        XCTAssertEqual(
-            CommonConstants.hoverPadding,
-            4
+    @Test("Toggle sizes hover padding")
+    func toggleSizesHoverPadding() {
+        #expect(
+            CommonConstants.hoverPadding == 4
         )
     }
 
     // MARK: - Scaled
 
-    func test_scaled_minFactor() {
-        XCTAssertEqual(
-            CommonConstants.Scaled.minFactor,
-            0.85
+    @Test("Scaled min factor")
+    func scaledMinFactor() {
+        #expect(
+            CommonConstants.Scaled.minFactor == 0.85
         )
     }
 
-    func test_scaled_maxFactor() {
-        XCTAssertEqual(
-            CommonConstants.Scaled.maxFactor,
-            1.33
+    @Test("Scaled max factor")
+    func scaledMaxFactor() {
+        #expect(
+            CommonConstants.Scaled.maxFactor == 1.33
         )
     }
 }

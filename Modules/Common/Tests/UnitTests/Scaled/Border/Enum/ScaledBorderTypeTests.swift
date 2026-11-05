@@ -6,43 +6,47 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkCommon
 
-final class ScaledBorderTypeTests: XCTestCase {
+@Suite("Scaled Border Type Tests")
+struct ScaledBorderTypeTests {
 
     // MARK: - Tests
 
-    func test_dash_properties() {
+    @Test("Dash properties")
+    func dashProperties() {
         // GIVEN / WHEN
         let borderType = ScaledBorderType.dash
 
         // THEN
-        XCTAssertEqual(borderType.uiKitRelativeTo, .caption2, "Wrong uiKitRelativeTo when value is .dash")
-        XCTAssertEqual(borderType.swiftUIRelativeTo, .caption2, "Wrong swiftUIRelativeTo when value is .dash")
-        XCTAssertEqual(borderType.minValueFactor, 1, "Wrong minValueFactor when value is .dash")
-        XCTAssertEqual(borderType.maxValueFactor, 1.75, "Wrong maxValueFactor when value is .dash")
+        #expect(borderType.uiKitRelativeTo == .caption2, "Wrong uiKitRelativeTo when value is .dash")
+        #expect(borderType.swiftUIRelativeTo == .caption2, "Wrong swiftUIRelativeTo when value is .dash")
+        #expect(borderType.minValueFactor == 1, "Wrong minValueFactor when value is .dash")
+        #expect(borderType.maxValueFactor == 1.75, "Wrong maxValueFactor when value is .dash")
     }
 
-    func test_radius_properties() {
+    @Test("Radius properties")
+    func radiusProperties() {
         // GIVEN / WHEN
         let borderType = ScaledBorderType.radius
 
         // THEN
-        XCTAssertEqual(borderType.uiKitRelativeTo, .body, "Wrong uiKitRelativeTo when value is .radius")
-        XCTAssertNil(borderType.swiftUIRelativeTo, "Wrong swiftUIRelativeTo when value is .radius")
-        XCTAssertEqual(borderType.minValueFactor, 1, "Wrong minValueFactor when value is .radius")
-        XCTAssertEqual(borderType.maxValueFactor, 1.2, "Wrong maxValueFactor when value is .radius")
+        #expect(borderType.uiKitRelativeTo == .body, "Wrong uiKitRelativeTo when value is .radius")
+        #expect(borderType.swiftUIRelativeTo == nil, "Wrong swiftUIRelativeTo when value is .radius")
+        #expect(borderType.minValueFactor == 1, "Wrong minValueFactor when value is .radius")
+        #expect(borderType.maxValueFactor == 1.2, "Wrong maxValueFactor when value is .radius")
     }
 
-    func test_width_properties() {
+    @Test("Width properties")
+    func widthProperties() {
         // GIVEN / WHEN
         let borderType = ScaledBorderType.width
 
         // THEN
-        XCTAssertEqual(borderType.uiKitRelativeTo, .caption2, "Wrong uiKitRelativeTo when value is .radius")
-        XCTAssertEqual(borderType.swiftUIRelativeTo, .caption2, "Wrong swiftUIRelativeTo when value is .radius")
-        XCTAssertEqual(borderType.minValueFactor, 1, "Wrong minValueFactor when value is .radius")
-        XCTAssertEqual(borderType.maxValueFactor, 1.75, "Wrong maxValueFactor when value is .radius")
+        #expect(borderType.uiKitRelativeTo == .caption2, "Wrong uiKitRelativeTo when value is .radius")
+        #expect(borderType.swiftUIRelativeTo == .caption2, "Wrong swiftUIRelativeTo when value is .radius")
+        #expect(borderType.minValueFactor == 1, "Wrong minValueFactor when value is .radius")
+        #expect(borderType.maxValueFactor == 1.75, "Wrong maxValueFactor when value is .radius")
     }
 }

@@ -6,24 +6,25 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 
-final class SegmentedGaugeSegmentTests: XCTestCase {
+@Suite("SegmentedGauge Segment Tests")
+struct SegmentedGaugeSegmentTests {
 
     // MARK: - Tests
 
-    func test_default_isFive() {
-        XCTAssertEqual(
-            SegmentedGaugeSegments.default,
-            .five
+    @Test("Default is five")
+    func defaultIsFive() {
+        #expect(
+            SegmentedGaugeSegments.default == .five
         )
     }
 
-    func test_max() {
-        XCTAssertEqual(
-            SegmentedGaugeSegments.max,
-            5
+    @Test("Max")
+    func max() {
+        #expect(
+            SegmentedGaugeSegments.max == 5
         )
     }
 }

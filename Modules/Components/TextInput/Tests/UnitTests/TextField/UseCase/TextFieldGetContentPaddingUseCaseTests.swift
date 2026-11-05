@@ -6,14 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentTextInput
 
-final class TextFieldGetContentPaddingUseCaseTests: XCTestCase {
+@Suite("Text Field Get Content Padding UseCase Tests")
+struct TextFieldGetContentPaddingUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_withClearButton_shouldReturnCorrectPadding() {
+    @Test("Execute with clear button should return correct padding")
+    func executeWithClearButtonShouldReturnCorrectPadding() {
         // GIVEN
         let useCase = TextFieldGetContentPaddingUseCase()
 
@@ -29,14 +32,15 @@ final class TextFieldGetContentPaddingUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(padding.top, 0)
-        XCTAssertEqual(padding.leading, expectedHorizontalSpacing)
-        XCTAssertEqual(padding.bottom, 0)
-        XCTAssertEqual(padding.trailing, expectedHorizontalSpacing)
-        XCTAssertEqual(padding.inputTrailing, 0)
+        #expect(padding.top == 0)
+        #expect(padding.leading == expectedHorizontalSpacing)
+        #expect(padding.bottom == 0)
+        #expect(padding.trailing == expectedHorizontalSpacing)
+        #expect(padding.inputTrailing == 0)
     }
 
-    func test_execute_withoutClearButton_shouldReturnCorrectPadding() {
+    @Test("Execute without clear button should return correct padding")
+    func executeWithoutClearButtonShouldReturnCorrectPadding() {
         // GIVEN
         let useCase = TextFieldGetContentPaddingUseCase()
 
@@ -52,10 +56,10 @@ final class TextFieldGetContentPaddingUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(padding.top, 0)
-        XCTAssertEqual(padding.leading, expectedHorizontalSpacing)
-        XCTAssertEqual(padding.bottom, 0)
-        XCTAssertEqual(padding.trailing, expectedHorizontalSpacing)
-        XCTAssertEqual(padding.inputTrailing, expectedHorizontalSpacing)
+        #expect(padding.top == 0)
+        #expect(padding.leading == expectedHorizontalSpacing)
+        #expect(padding.bottom == 0)
+        #expect(padding.trailing == expectedHorizontalSpacing)
+        #expect(padding.inputTrailing == expectedHorizontalSpacing)
     }
 }

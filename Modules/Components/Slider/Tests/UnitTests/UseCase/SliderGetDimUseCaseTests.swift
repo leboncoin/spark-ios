@@ -7,30 +7,30 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentSlider
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SliderGetDimUseCaseTests: XCTestCase {
+@Suite("Slider Get Dim UseCase Tests")
+struct SliderGetDimUseCaseTests {
 
     // MARK: - Properties
 
-    var sut: SliderGetDimUseCase!
-    var theme: ThemeGeneratedMock!
+    let sut: SliderGetDimUseCase
+    let theme: ThemeGeneratedMock
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.theme = ThemeGeneratedMock.mocked()
         self.sut = SliderGetDimUseCase()
     }
 
     // MARK: - Tests
 
-    func test_execute_when_enabled_returns_none_dim() {
+    @Test("Execute when enabled returns none dim")
+    func executeWhenEnabledReturnsNoneDim() {
         // GIVEN
         let expectedDim = self.theme.dims.none
 
@@ -41,10 +41,11 @@ final class SliderGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedDim)
+        #expect(result == expectedDim)
     }
 
-    func test_execute_when_disabled_returns_dim3() {
+    @Test("Execute when disabled returns dim3")
+    func executeWhenDisabledReturnsDim3() {
         // GIVEN
         let expectedDim = self.theme.dims.dim3
 
@@ -55,6 +56,6 @@ final class SliderGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedDim)
+        #expect(result == expectedDim)
     }
 }

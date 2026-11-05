@@ -7,16 +7,19 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentChip
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ChipGetDimUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Chip Get Dim UseCase Tests")
+struct ChipGetDimUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_when_isEnabled() {
+    @Test("Execute when is enabled")
+    func executeWhenIsEnabled() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let token = ChipToken.Opacity(theme: theme)
@@ -29,10 +32,11 @@ final class ChipGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, token.value(isEnabled: true))
+        #expect(result == token.value(isEnabled: true))
     }
 
-    func test_execute_when_isDisabled() {
+    @Test("Execute when is disabled")
+    func executeWhenIsDisabled() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let token = ChipToken.Opacity(theme: theme)
@@ -45,6 +49,6 @@ final class ChipGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, token.value(isEnabled: false))
+        #expect(result == token.value(isEnabled: false))
     }
 }

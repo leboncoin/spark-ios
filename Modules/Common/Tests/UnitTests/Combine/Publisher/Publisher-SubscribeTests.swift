@@ -8,20 +8,22 @@
 
 import Combine
 @_spi(SI_SPI) @testable import SparkCommon
-import XCTest
+import Testing
 
-final class Publisher_SubscribeTests: XCTestCase {
+@MainActor
+@Suite("Publisher Subscribe Tests")
+final class PublisherSubscribeTests {
     private var subscriptions = Set<AnyCancellable>()
 
-    func test_subscribe() {
+    @Test("Subscribe should emit the value")
+    func subscribe() async {
         let sut = CurrentValueSubject<Int, Never>(10).eraseToAnyPublisher()
 
-        let exp = expectation(description: "Value should be emitted")
-        sut.subscribe(in: &self.subscriptions) { value in
-            XCTAssertEqual(value, 10)
-            exp.fulfill()
+        await confirmation("Value should be emitted") { confirm in
+            sut.subscribe(in: &self.subscriptions) { value in
+                #expect(value == 10)
+                confirm()
+            }
         }
-
-        wait(for: [exp], timeout: 0.1)
     }
 }

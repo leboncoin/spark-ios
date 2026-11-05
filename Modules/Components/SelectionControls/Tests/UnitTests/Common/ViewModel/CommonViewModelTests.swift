@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) @testable import SparkComponentSelectionControlsTesting
 @_spi(SI_SPI) import SparkCommon
@@ -14,16 +14,19 @@ import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 import SwiftUI
 
-final class CommonViewModelTests: XCTestCase {
+@MainActor
+@Suite("Common ViewModel Tests")
+struct CommonViewModelTests {
 
     // MARK: - Initialization Test
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherContentRadius: 0,
             otherDim: 1,
@@ -33,7 +36,7 @@ final class CommonViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getContentRadius: true,
             getDim: true,
@@ -45,7 +48,8 @@ final class CommonViewModelTests: XCTestCase {
 
     // MARK: - Setup Tests
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -54,11 +58,11 @@ final class CommonViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        CommonGetContentRadiusUseCaseableMockTest.XCTAssert(
+        CommonGetContentRadiusUseCaseableMockTest.expect(
             stub.getContentRadiusUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -66,7 +70,7 @@ final class CommonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentRadius
         )
 
-        CommonGetDimUseCaseableMockTest.XCTAssert(
+        CommonGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -74,21 +78,21 @@ final class CommonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        CommonGetTitleStyleUseCaseableMockTest.XCTAssert(
+        CommonGetTitleStyleUseCaseableMockTest.expect(
             stub.getTitleStyleUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedTitleStyle
         )
 
-        CommonGetShowHiddenEmptyLabelUseCaseableMockTest.XCTAssert(
+        CommonGetShowHiddenEmptyLabelUseCaseableMockTest.expect(
             stub.getShowHiddenEmptyLabelUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsCustomLabel: stub.givenIsCustomLabel,
             expectedReturnValue: stub.expectedShowHiddenEmptyLabel
         )
 
-        CommonGetSpacingUseCaseableMockTest.XCTAssert(
+        CommonGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -99,7 +103,8 @@ final class CommonViewModelTests: XCTestCase {
 
     // MARK: - Setter
 
-    func test_themeChanged_shouldUpdateAllProperties_exceptIsIcon() {
+    @Test("Theme changed should update all properties except is icon")
+    func themeChangedShouldUpdateAllPropertiesExceptIsIcon() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -113,16 +118,16 @@ final class CommonViewModelTests: XCTestCase {
         viewModel.theme = givenTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getShowHiddenEmptyLabel: true
         )
 
-        CommonGetContentRadiusUseCaseableMockTest.XCTAssert(
+        CommonGetContentRadiusUseCaseableMockTest.expect(
             stub.getContentRadiusUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -130,7 +135,7 @@ final class CommonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentRadius
         )
 
-        CommonGetDimUseCaseableMockTest.XCTAssert(
+        CommonGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -138,14 +143,14 @@ final class CommonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        CommonGetTitleStyleUseCaseableMockTest.XCTAssert(
+        CommonGetTitleStyleUseCaseableMockTest.expect(
             stub.getTitleStyleUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
             expectedReturnValue: stub.expectedTitleStyle
         )
 
-        CommonGetSpacingUseCaseableMockTest.XCTAssert(
+        CommonGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -154,7 +159,8 @@ final class CommonViewModelTests: XCTestCase {
         // **
     }
 
-    func test_isEnabledChanged_shouldUpdateDim() {
+    @Test("Is enabled changed should update dim")
+    func isEnabledChangedShouldUpdateDim() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -168,11 +174,11 @@ final class CommonViewModelTests: XCTestCase {
         viewModel.isEnabled = givenIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getContentRadius: true,
             getTitleStyle: true,
@@ -180,7 +186,7 @@ final class CommonViewModelTests: XCTestCase {
             getSpacing: true
         )
 
-        CommonGetDimUseCaseableMockTest.XCTAssert(
+        CommonGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -190,7 +196,8 @@ final class CommonViewModelTests: XCTestCase {
         // **
     }
 
-    func test_allSetter_withoutChange() {
+    @Test("All setter without change")
+    func allSetterWithoutChange() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -203,10 +210,10 @@ final class CommonViewModelTests: XCTestCase {
         viewModel.isEnabled = stub.givenIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getContentRadius: true,
             getDim: true,
@@ -216,7 +223,8 @@ final class CommonViewModelTests: XCTestCase {
         )
     }
 
-    func test_allSetter_withoutSetupBefore() {
+    @Test("All setter without setup before")
+    func allSetterWithoutSetupBefore() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -226,7 +234,7 @@ final class CommonViewModelTests: XCTestCase {
         viewModel.isEnabled = true
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherContentRadius: 0,
             otherDim: 1,
@@ -236,7 +244,7 @@ final class CommonViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getContentRadius: true,
             getDim: true,
@@ -317,75 +325,82 @@ private extension CommonViewModel {
     }
 }
 
-// MARK: - XCT
+// MARK: - Expectations
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getContentRadius getContentRadiusNotCalled: Bool = false,
     getDim getDimNotCalled: Bool = false,
     getTitleStyle getTitleStyleNotCalled: Bool = false,
     getShowHiddenEmptyLabel getShowHiddenEmptyLabelCalled: Bool = false,
-    getSpacing getSpacingNotCalled: Bool = false
+    getSpacing getSpacingNotCalled: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    CommonGetContentRadiusUseCaseableMockTest.XCTCalled(
+    CommonGetContentRadiusUseCaseableMockTest.expectCalled(
         stub.getContentRadiusUseCaseMock,
-        executeWithThemeAndTypeCalled: !getContentRadiusNotCalled
+        executeWithThemeAndTypeCalled: !getContentRadiusNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    CommonGetDimUseCaseableMockTest.XCTCalled(
+    CommonGetDimUseCaseableMockTest.expectCalled(
         stub.getDimUseCaseMock,
-        executeWithThemeAndIsEnabledCalled: !getDimNotCalled
+        executeWithThemeAndIsEnabledCalled: !getDimNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    CommonGetTitleStyleUseCaseableMockTest.XCTCalled(
+    CommonGetTitleStyleUseCaseableMockTest.expectCalled(
         stub.getTitleStyleUseCaseMock,
-        executeWithThemeCalled: !getTitleStyleNotCalled
+        executeWithThemeCalled: !getTitleStyleNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    CommonGetShowHiddenEmptyLabelUseCaseableMockTest.XCTCalled(
+    CommonGetShowHiddenEmptyLabelUseCaseableMockTest.expectCalled(
         stub.getShowHiddenEmptyLabelUseCaseMock,
-        executeWithIsCustomLabelCalled: !getShowHiddenEmptyLabelCalled
+        executeWithIsCustomLabelCalled: !getShowHiddenEmptyLabelCalled,
+        sourceLocation: sourceLocation
     )
 
-    CommonGetSpacingUseCaseableMockTest.XCTCalled(
+    CommonGetSpacingUseCaseableMockTest.expectCalled(
         stub.getSpacingUseCaseMock,
-        executeWithThemeCalled: !getSpacingNotCalled
+        executeWithThemeCalled: !getSpacingNotCalled,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherContentRadius: CGFloat? = nil,
     otherDim: CGFloat? = nil,
     otherTitleStyle: CommonTitleStyle? = nil,
     otherShowHiddenEmptyLabel: Bool? = nil,
-    otherSpacing: CGFloat? = nil
+    otherSpacing: CGFloat? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.contentRadius,
-        otherContentRadius ?? stub.expectedContentRadius,
-        "Wrong contentRadius value"
+    #expect(
+        viewModel.contentRadius == (otherContentRadius ?? stub.expectedContentRadius),
+        "Wrong contentRadius value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.dim,
-        otherDim ?? stub.expectedDim,
-        "Wrong dim value"
+    #expect(
+        viewModel.dim == (otherDim ?? stub.expectedDim),
+        "Wrong dim value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.titleStyle,
-        otherTitleStyle ?? stub.expectedTitleStyle,
-        "Wrong font value"
+    #expect(
+        viewModel.titleStyle == (otherTitleStyle ?? stub.expectedTitleStyle),
+        "Wrong font value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.showHiddenEmptyLabel,
-        otherShowHiddenEmptyLabel ?? stub.expectedShowHiddenEmptyLabel,
-        "Wrong otherShowHiddenEmptyLabel value"
+    #expect(
+        viewModel.showHiddenEmptyLabel == (otherShowHiddenEmptyLabel ?? stub.expectedShowHiddenEmptyLabel),
+        "Wrong otherShowHiddenEmptyLabel value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.spacing,
-        otherSpacing ?? stub.expectedSpacing,
-        "Wrong spacing value"
+    #expect(
+        viewModel.spacing == (otherSpacing ?? stub.expectedSpacing),
+        "Wrong spacing value",
+        sourceLocation: sourceLocation
     )
 }

@@ -27,7 +27,7 @@ struct SparkUISnackbarSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test() async {
+    @Test("Spark UISnackbar snapshot") func test() async {
         let scenarios = SnackbarScenario.allCases.filter {
             $0 != .documentation
         }

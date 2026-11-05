@@ -6,7 +6,7 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 import UIKit
 
@@ -16,28 +16,31 @@ import UIKit
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkCommonTesting
 
-final class ButtonViewModelTests: XCTestCase {
+@MainActor
+@Suite("Button ViewModel Tests")
+struct ButtonViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
         let viewModel = stub.viewModel
 
         // THEN
-        XCTAssertNil(viewModel.theme)
-        XCTAssertNil(viewModel.intent)
-        XCTAssertNil(viewModel.variant)
-        XCTAssertNil(viewModel.shape)
-        XCTAssertNil(viewModel.size)
-        XCTAssertNil(viewModel.contentVisibility)
-        XCTAssertNil(viewModel.type)
-        XCTAssertFalse(viewModel.isPressed)
-        XCTAssertNil(viewModel.isEnabled)
-        XCTAssertNil(viewModel.removeStyles)
+        #expect(viewModel.theme == nil)
+        #expect(viewModel.intent == nil)
+        #expect(viewModel.variant == nil)
+        #expect(viewModel.shape == nil)
+        #expect(viewModel.size == nil)
+        #expect(viewModel.contentVisibility == nil)
+        #expect(viewModel.type == nil)
+        #expect(!viewModel.isPressed)
+        #expect(viewModel.isEnabled == nil)
+        #expect(viewModel.removeStyles == nil)
 
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherBorder: ButtonBorder(),
             otherColors: ButtonColors(),
@@ -48,7 +51,7 @@ final class ButtonViewModelTests: XCTestCase {
             otherShowContent: true
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -62,7 +65,8 @@ final class ButtonViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -71,9 +75,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ButtonGetBorderUseCaseableMockTest.XCTAssert(
+        ButtonGetBorderUseCaseableMockTest.expect(
             stub.getBorderUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -85,7 +89,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedBorder
         )
 
-        ButtonGetColorsUseCaseableMockTest.XCTAssert(
+        ButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -96,14 +100,14 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        ButtonGetTitleFontTokenUseCaseableMockTest.XCTAssert(
+        ButtonGetTitleFontTokenUseCaseableMockTest.expect(
             stub.getTitleFontTokenUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedTitleFontToken
         )
 
-        ButtonGetSpacingsUseCaseableMockTest.XCTAssert(
+        ButtonGetSpacingsUseCaseableMockTest.expect(
             stub.getSpacingsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -112,7 +116,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLayout
         )
 
-        ButtonGetSizesUseCaseableMockTest.XCTAssert(
+        ButtonGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSize: stub.givenSize,
@@ -123,7 +127,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSizes
         )
 
-        ButttonGetDimUseCaseableMockTest.XCTAssert(
+        ButttonGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -131,7 +135,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        ButtonGetShowContentUseCaseableMockTest.XCTAssert(
+        ButtonGetShowContentUseCaseableMockTest.expect(
             stub.getShowContentUseCaseMock,
             expectedNumberOfCalls: 1,
             givenType: stub.givenType,
@@ -143,7 +147,8 @@ final class ButtonViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateAllProperties() {
+    @Test("Theme changed should update all properties")
+    func themeChangedShouldUpdateAllProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -157,15 +162,15 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSizesUseCase: true,
             getShowContentUseCase: true
         )
 
-        ButtonGetBorderUseCaseableMockTest.XCTAssert(
+        ButtonGetBorderUseCaseableMockTest.expect(
             stub.getBorderUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -177,7 +182,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedBorder
         )
 
-        ButtonGetColorsUseCaseableMockTest.XCTAssert(
+        ButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -188,14 +193,14 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        ButtonGetTitleFontTokenUseCaseableMockTest.XCTAssert(
+        ButtonGetTitleFontTokenUseCaseableMockTest.expect(
             stub.getTitleFontTokenUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             expectedReturnValue: stub.expectedTitleFontToken
         )
 
-        ButtonGetSpacingsUseCaseableMockTest.XCTAssert(
+        ButtonGetSpacingsUseCaseableMockTest.expect(
             stub.getSpacingsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -204,7 +209,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLayout
         )
 
-        ButttonGetDimUseCaseableMockTest.XCTAssert(
+        ButttonGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -213,7 +218,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_appearanceChanged_shouldUpdateBorderAndColorsOnly() {
+    @Test("Appearance changed should update border and colors only")
+    func appearanceChangedShouldUpdateBorderAndColorsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -227,9 +233,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.appearance = newAppearance
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ButtonGetBorderUseCaseableMockTest.XCTAssert(
+        ButtonGetBorderUseCaseableMockTest.expect(
             stub.getBorderUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -241,7 +247,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedBorder
         )
 
-        ButtonGetColorsUseCaseableMockTest.XCTAssert(
+        ButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -252,7 +258,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingsUseCase: true,
             getSizesUseCase: true,
@@ -262,7 +268,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_intentChanged_shouldUpdateBorderAndColorsOnly() {
+    @Test("Intent changed should update border and colors only")
+    func intentChangedShouldUpdateBorderAndColorsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -276,9 +283,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.intent = newIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ButtonGetBorderUseCaseableMockTest.XCTAssert(
+        ButtonGetBorderUseCaseableMockTest.expect(
             stub.getBorderUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -290,7 +297,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedBorder
         )
 
-        ButtonGetColorsUseCaseableMockTest.XCTAssert(
+        ButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -301,7 +308,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingsUseCase: true,
             getSizesUseCase: true,
@@ -311,7 +318,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_variantChanged_shouldUpdateBorderAndColorsOnly() {
+    @Test("Variant changed should update border and colors only")
+    func variantChangedShouldUpdateBorderAndColorsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -325,9 +333,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.variant = newVariant
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ButtonGetBorderUseCaseableMockTest.XCTAssert(
+        ButtonGetBorderUseCaseableMockTest.expect(
             stub.getBorderUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -339,7 +347,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedBorder
         )
 
-        ButtonGetColorsUseCaseableMockTest.XCTAssert(
+        ButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -350,7 +358,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getSpacingsUseCase: true,
             getSizesUseCase: true,
@@ -360,7 +368,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_shapeChanged_shouldUpdateBorderOnly() {
+    @Test("Shape changed should update border only")
+    func shapeChangedShouldUpdateBorderOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -374,9 +383,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.shape = newShape
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ButtonGetBorderUseCaseableMockTest.XCTAssert(
+        ButtonGetBorderUseCaseableMockTest.expect(
             stub.getBorderUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -388,7 +397,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedBorder
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getSpacingsUseCase: true,
@@ -399,7 +408,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_sizeChanged_shouldUpdateSizesOnly() {
+    @Test("Size changed should update sizes only")
+    func sizeChangedShouldUpdateSizesOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -413,9 +423,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.size = newSize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ButtonGetSizesUseCaseableMockTest.XCTAssert(
+        ButtonGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSize: newSize,
@@ -426,7 +436,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSizes
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -437,7 +447,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_typeChanged_shouldUpdateLayoutAndSizesAndShowContentOnly() {
+    @Test("Type changed should update layout and sizes and show content only")
+    func typeChangedShouldUpdateLayoutAndSizesAndShowContentOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -451,9 +462,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.type = newType
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ButtonGetSpacingsUseCaseableMockTest.XCTAssert(
+        ButtonGetSpacingsUseCaseableMockTest.expect(
             stub.getSpacingsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -462,7 +473,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLayout
         )
 
-        ButtonGetSizesUseCaseableMockTest.XCTAssert(
+        ButtonGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSize: stub.givenSize,
@@ -473,7 +484,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSizes
         )
 
-        ButtonGetShowContentUseCaseableMockTest.XCTAssert(
+        ButtonGetShowContentUseCaseableMockTest.expect(
             stub.getShowContentUseCaseMock,
             expectedNumberOfCalls: 1,
             givenType: newType,
@@ -482,7 +493,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedShowContent
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -491,7 +502,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_isPressedChanged_shouldUpdateColorsOnly() {
+    @Test("Is pressed changed should update colors only")
+    func isPressedChangedShouldUpdateColorsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -505,9 +517,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.isPressed = newIsPressed
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ButtonGetColorsUseCaseableMockTest.XCTAssert(
+        ButtonGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -518,7 +530,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getSpacingsUseCase: true,
@@ -529,7 +541,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_isEnabledChanged_shouldUpdateDimOnly() {
+    @Test("Is enabled changed should update dim only")
+    func isEnabledChangedShouldUpdateDimOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -543,9 +556,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.isEnabled = newIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ButttonGetDimUseCaseableMockTest.XCTAssert(
+        ButttonGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -553,7 +566,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -564,7 +577,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_contentVisibilityChanged_shouldUpdateLayoutSizesAndShowContentOnly() {
+    @Test("Content visibility changed should update layout sizes and show content only")
+    func contentVisibilityChangedShouldUpdateLayoutSizesAndShowContentOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -578,9 +592,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.contentVisibility = newContentVisibility
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ButtonGetSpacingsUseCaseableMockTest.XCTAssert(
+        ButtonGetSpacingsUseCaseableMockTest.expect(
             stub.getSpacingsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -589,7 +603,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLayout
         )
 
-        ButtonGetSizesUseCaseableMockTest.XCTAssert(
+        ButtonGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSize: stub.givenSize,
@@ -600,7 +614,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSizes
         )
 
-        ButtonGetShowContentUseCaseableMockTest.XCTAssert(
+        ButtonGetShowContentUseCaseableMockTest.expect(
             stub.getShowContentUseCaseMock,
             expectedNumberOfCalls: 1,
             givenType: stub.givenType,
@@ -609,7 +623,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedShowContent
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -618,7 +632,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_isLoadingChanged_shouldUpdateShowContentAndSizesOnly() {
+    @Test("Is loading changed should update show content and sizes only")
+    func isLoadingChangedShouldUpdateShowContentAndSizesOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -632,9 +647,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.isLoading = newIsLoading
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ButtonGetShowContentUseCaseableMockTest.XCTAssert(
+        ButtonGetShowContentUseCaseableMockTest.expect(
             stub.getShowContentUseCaseMock,
             expectedNumberOfCalls: 1,
             givenType: stub.givenType,
@@ -643,7 +658,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedShowContent
         )
 
-        ButtonGetSizesUseCaseableMockTest.XCTAssert(
+        ButtonGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSize: stub.givenSize,
@@ -654,7 +669,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSizes
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -664,7 +679,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_removeStylesChanged_shouldUpdateBorderAndSizesOnly() {
+    @Test("Remove styles changed should update border and sizes only")
+    func removeStylesChangedShouldUpdateBorderAndSizesOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -678,9 +694,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.removeStyles = newRemoveStyles
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ButtonGetBorderUseCaseableMockTest.XCTAssert(
+        ButtonGetBorderUseCaseableMockTest.expect(
             stub.getBorderUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -692,7 +708,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedBorder
         )
 
-        ButtonGetSizesUseCaseableMockTest.XCTAssert(
+        ButtonGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSize: stub.givenSize,
@@ -703,7 +719,7 @@ final class ButtonViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSizes
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getSpacingsUseCase: true,
@@ -713,7 +729,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -733,7 +750,7 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.isLoading = false
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherBorder: ButtonBorder(),
             otherColors: ButtonColors(),
@@ -744,7 +761,7 @@ final class ButtonViewModelTests: XCTestCase {
             otherShowContent: true
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -756,7 +773,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -779,9 +797,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.isLoading = stub.givenIsLoading
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -793,7 +811,8 @@ final class ButtonViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withNilValues_shouldNotCallUseCases() {
+    @Test("Properties changed with nil values should not call use cases")
+    func propertiesChangedWithNilValuesShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -815,9 +834,9 @@ final class ButtonViewModelTests: XCTestCase {
         viewModel.isLoading = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getBorderUseCase: true,
             getColorsUseCase: true,
@@ -963,7 +982,7 @@ private extension ButtonViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getBorderUseCase: Bool = false,
     getColorsUseCase: Bool = false,
@@ -971,45 +990,53 @@ private func XCTAssertNotCalled(
     getSizesUseCase: Bool = false,
     getDimUseCase: Bool = false,
     getTitleFontTokenUseCase: Bool = false,
-    getShowContentUseCase: Bool = false
+    getShowContentUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    ButtonGetBorderUseCaseableMockTest.XCTCalled(
+    ButtonGetBorderUseCaseableMockTest.expectCalled(
         stub.getBorderUseCaseMock,
-        executeWithThemeAndAppearanceAndIntentAndShapeAndVariantAndRemoveStylesCalled: !getBorderUseCase
+        executeWithThemeAndAppearanceAndIntentAndShapeAndVariantAndRemoveStylesCalled: !getBorderUseCase,
+        sourceLocation: sourceLocation
     )
 
-    ButtonGetColorsUseCaseableMockTest.XCTCalled(
+    ButtonGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeWithThemeAndAppearanceAndIntentAndVariantAndIsPressedCalled: !getColorsUseCase
+        executeWithThemeAndAppearanceAndIntentAndVariantAndIsPressedCalled: !getColorsUseCase,
+        sourceLocation: sourceLocation
     )
 
-    ButtonGetTitleFontTokenUseCaseableMockTest.XCTCalled(
+    ButtonGetTitleFontTokenUseCaseableMockTest.expectCalled(
         stub.getTitleFontTokenUseCaseMock,
-        executeWithThemeCalled: !getTitleFontTokenUseCase
+        executeWithThemeCalled: !getTitleFontTokenUseCase,
+        sourceLocation: sourceLocation
     )
 
-    ButtonGetSpacingsUseCaseableMockTest.XCTCalled(
+    ButtonGetSpacingsUseCaseableMockTest.expectCalled(
         stub.getSpacingsUseCaseMock,
-        executeWithThemeAndTypeAndContentVisibilityCalled: !getSpacingsUseCase
+        executeWithThemeAndTypeAndContentVisibilityCalled: !getSpacingsUseCase,
+        sourceLocation: sourceLocation
     )
 
-    ButtonGetSizesUseCaseableMockTest.XCTCalled(
+    ButtonGetSizesUseCaseableMockTest.expectCalled(
         stub.getSizesUseCaseMock,
-        executeWithSizeAndTypeAndContentVisibilityAndRemoveStylesAndIsLoadingCalled: !getSizesUseCase
+        executeWithSizeAndTypeAndContentVisibilityAndRemoveStylesAndIsLoadingCalled: !getSizesUseCase,
+        sourceLocation: sourceLocation
     )
 
-    ButttonGetDimUseCaseableMockTest.XCTCalled(
+    ButttonGetDimUseCaseableMockTest.expectCalled(
         stub.getDimUseCaseMock,
-        executeWithThemeAndIsEnabledCalled: !getDimUseCase
+        executeWithThemeAndIsEnabledCalled: !getDimUseCase,
+        sourceLocation: sourceLocation
     )
 
-    ButtonGetShowContentUseCaseableMockTest.XCTCalled(
+    ButtonGetShowContentUseCaseableMockTest.expectCalled(
         stub.getShowContentUseCaseMock,
-        executeWithTypeAndContentVisibilityAndIsLoadingCalled: !getShowContentUseCase
+        executeWithTypeAndContentVisibilityAndIsLoadingCalled: !getShowContentUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherBorder: ButtonBorder? = nil,
     otherColors: ButtonColors? = nil,
@@ -1017,42 +1044,44 @@ private func XCTAssertEqualToExpected(
     otherSizes: ButtonSizes? = nil,
     otherDim: CGFloat? = nil,
     otherTitleFontToken: (any TypographyFontToken)? = nil,
-    otherShowContent: Bool? = nil
+    otherShowContent: Bool? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.border,
-        otherBorder ?? stub.expectedBorder,
-        "Wrong border value"
+    #expect(
+        viewModel.border == (otherBorder ?? stub.expectedBorder),
+        "Wrong border value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.colors,
-        otherColors ?? stub.expectedColors,
-        "Wrong colors value"
+    #expect(
+        viewModel.colors == (otherColors ?? stub.expectedColors),
+        "Wrong colors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.layout,
-        otherLayout ?? stub.expectedLayout,
-        "Wrong layout value"
+    #expect(
+        viewModel.layout == (otherLayout ?? stub.expectedLayout),
+        "Wrong layout value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.sizes,
-        otherSizes ?? stub.expectedSizes,
-        "Wrong sizes value"
+    #expect(
+        viewModel.sizes == (otherSizes ?? stub.expectedSizes),
+        "Wrong sizes value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.dim,
-        otherDim ?? stub.expectedDim,
-        "Wrong dim value"
+    #expect(
+        viewModel.dim == (otherDim ?? stub.expectedDim),
+        "Wrong dim value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertTrue(
+    #expect(
         viewModel.titleFontToken.equals(otherTitleFontToken ?? stub.expectedTitleFontToken),
-        "Wrong titleFontToken value"
+        "Wrong titleFontToken value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.showContent,
-        otherShowContent ?? stub.expectedShowContent,
-        "Wrong showContent value"
+    #expect(
+        viewModel.showContent == (otherShowContent ?? stub.expectedShowContent),
+        "Wrong showContent value",
+        sourceLocation: sourceLocation
     )
 }

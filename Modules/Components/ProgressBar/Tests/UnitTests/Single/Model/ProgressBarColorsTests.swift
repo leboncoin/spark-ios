@@ -9,22 +9,25 @@
 @testable import SparkComponentProgressBar
 @_spi(SI_SPI) import SparkThemingTesting
 @_spi(SI_SPI) import SparkTheming
-import XCTest
+import Testing
 
-final class ProgressBarColorsTests: XCTestCase {
+@Suite("Progress Bar Colors Tests")
+struct ProgressBarColorsTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let colors = ProgressBarColors()
 
         // THEN
-        XCTAssertTrue(colors.trackBackgroundColorToken is ColorTokenClear)
-        XCTAssertTrue(colors.indicatorBackgroundColorToken is ColorTokenClear)
+        #expect(colors.trackBackgroundColorToken is ColorTokenClear)
+        #expect(colors.indicatorBackgroundColorToken is ColorTokenClear)
     }
 
-    func test_mutable_properties_can_be_modified() {
+    @Test("Mutable properties can be modified")
+    func mutablePropertiesCanBeModified() {
         // GIVEN
         var colors = ProgressBarColors()
         let newTrackColor = ColorTokenClear()
@@ -35,26 +38,28 @@ final class ProgressBarColorsTests: XCTestCase {
         colors.indicatorBackgroundColorToken = newIndicatorColor
 
         // THEN
-        XCTAssertTrue(colors.trackBackgroundColorToken.equals(newTrackColor))
-        XCTAssertTrue(colors.indicatorBackgroundColorToken.equals(newIndicatorColor))
+        #expect(colors.trackBackgroundColorToken.equals(newTrackColor))
+        #expect(colors.indicatorBackgroundColorToken.equals(newIndicatorColor))
     }
 
-    func test_property_modification_affects_equality() {
+    @Test("Property modification affects equality")
+    func propertyModificationAffectsEquality() {
         // GIVEN
         var colors1 = ProgressBarColors()
         let colors2 = ProgressBarColors()
 
         // Initial state - should be equal
-        XCTAssertEqual(colors1, colors2)
+        #expect(colors1 == colors2)
 
         // WHEN - modify one property
         colors1.trackBackgroundColorToken = ColorTokenClear()
 
         // THEN - still equal since both use ColorTokenClear
-        XCTAssertEqual(colors1, colors2)
+        #expect(colors1 == colors2)
     }
 
-    func test_equatable() {
+    @Test("Equatable")
+    func equatable() {
         // GIVEN
         let trackBackgroundColorTokenToken1 = ColorTokenGeneratedMock.red()
         let indicatorBackgroundColorTokenToken1 = ColorTokenGeneratedMock.purple()
@@ -72,8 +77,8 @@ final class ProgressBarColorsTests: XCTestCase {
         let colors4 = ProgressBarColors(trackBackgroundColorToken: trackBackgroundColorTokenToken1, indicatorBackgroundColorToken: differentIndicatorBackgroundColorTokenToken)
 
         // WHEN / THEN
-        XCTAssertEqual(colors1, colors2)
-        XCTAssertNotEqual(colors1, colors3)
-        XCTAssertNotEqual(colors1, colors4)
+        #expect(colors1 == colors2)
+        #expect(colors1 != colors3)
+        #expect(colors1 != colors4)
     }
 }

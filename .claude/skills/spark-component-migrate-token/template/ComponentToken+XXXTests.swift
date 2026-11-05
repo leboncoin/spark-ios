@@ -22,17 +22,17 @@ struct ComponentTokenXXXTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("XXX should return token from theme")
     func xxxShouldReturnTokenFromTheme() {
         #expect(ComponentToken(theme: self.theme).xxx == XXXToken(theme: self.theme))
     }
 
-    @Test
+    @Test("XXX from theme component should return token from theme")
     func xxxFromThemeComponentShouldReturnTokenFromTheme() {
         #expect(self.theme.component.xxx == XXXToken(theme: self.theme))
     }
 
-    @Test
+    @Test("XXX with different theme should not return token from theme")
     func xxxWithDifferentThemeShouldNotReturnTokenFromTheme() {
         #expect(ComponentToken(theme: ThemeGeneratedMock.mocked2()).xxx != XXXToken(theme: self.theme))
     }

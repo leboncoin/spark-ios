@@ -6,24 +6,25 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import UIKit
+import Testing
 import SparkTheming
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkThemingTesting
 @testable import SparkComponentFormField
 
-final class FormFieldGetFormattedTitleUseCaseTests: XCTestCase {
+@MainActor
+@Suite("FormField Get Formatted Title UseCase Tests")
+struct FormFieldGetFormattedTitleUseCaseTests {
 
     // MARK: - Properties
 
-    private var sut: FormFieldGetFormattedTitleUseCase!
-    private var mockColors: FormFieldColors!
-    private var mockFonts: FormFieldFonts!
+    private let sut: FormFieldGetFormattedTitleUseCase
+    private let mockColors: FormFieldColors
+    private let mockFonts: FormFieldFonts
 
     // MARK: - Setup
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = FormFieldGetFormattedTitleUseCase()
 
         // Setup mock colors and fonts
@@ -43,16 +44,10 @@ final class FormFieldGetFormattedTitleUseCaseTests: XCTestCase {
         )
     }
 
-    override func tearDown() {
-        self.sut = nil
-        self.mockColors = nil
-        self.mockFonts = nil
-        super.tearDown()
-    }
-
     // MARK: - Tests - UIKit
 
-    func test_execute_withUIKit_whenTitleIsNil_shouldReturnNil() {
+    @Test("Execute with UIKit when title is nil should return nil")
+    func executeWithUIKitWhenTitleIsNilShouldReturnNil() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             for: .uiKit,
@@ -63,10 +58,11 @@ final class FormFieldGetFormattedTitleUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_execute_withUIKit_whenTitleIsNotNilAndNotRequired_shouldReturnCorrectAttributedString() {
+    @Test("Execute with UIKit when title is not nil and not required should return correct attributed string")
+    func executeWithUIKitWhenTitleIsNotNilAndNotRequiredShouldReturnCorrectAttributedString() {
         // GIVEN
         let title = "Test Title"
 
@@ -81,13 +77,14 @@ final class FormFieldGetFormattedTitleUseCaseTests: XCTestCase {
 
         // THEN
         if case let .left(attributedString) = result {
-            XCTAssertEqual(attributedString.string, title)
+            #expect(attributedString.string == title)
         } else {
-            XCTFail("Expected NSAttributedString but got AttributedString")
+            Issue.record("Expected NSAttributedString but got AttributedString")
         }
     }
 
-    func test_execute_withUIKit_whenTitleIsNotNilAndRequired_shouldReturnCorrectAttributedString() {
+    @Test("Execute with UIKit when title is not nil and required should return correct attributed string")
+    func executeWithUIKitWhenTitleIsNotNilAndRequiredShouldReturnCorrectAttributedString() {
         // GIVEN
         let title = "Test Title"
 
@@ -102,15 +99,16 @@ final class FormFieldGetFormattedTitleUseCaseTests: XCTestCase {
 
         // THEN
         if case let .left(attributedString) = result {
-            XCTAssertEqual(attributedString.string, title + " *")
+            #expect(attributedString.string == title + " *")
         } else {
-            XCTFail("Expected NSAttributedString but got AttributedString")
+            Issue.record("Expected NSAttributedString but got AttributedString")
         }
     }
 
     // MARK: - Tests - SwiftUI
 
-    func test_execute_withSwiftUI_whenTitleIsNil_shouldReturnNil() {
+    @Test("Execute with SwiftUI when title is nil should return nil")
+    func executeWithSwiftUIWhenTitleIsNilShouldReturnNil() {
         // GIVEN / WHEN
         let result = self.sut.execute(
             for: .swiftUI,
@@ -121,9 +119,10 @@ final class FormFieldGetFormattedTitleUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
-    func test_execute_withSwiftUI_whenTitleIsNotNilAndNotRequired_shouldReturnCorrectAttributedString() {
+    @Test("Execute with SwiftUI when title is not nil and not required should return correct attributed string")
+    func executeWithSwiftUIWhenTitleIsNotNilAndNotRequiredShouldReturnCorrectAttributedString() {
         // GIVEN
         let title = "Test Title"
 
@@ -138,13 +137,14 @@ final class FormFieldGetFormattedTitleUseCaseTests: XCTestCase {
 
         // THEN
         if case .right(let attributedString) = result {
-            XCTAssertEqual(String(attributedString.characters), title)
+            #expect(String(attributedString.characters) == title)
         } else {
-            XCTFail("Expected AttributedString but got NSAttributedString")
+            Issue.record("Expected AttributedString but got NSAttributedString")
         }
     }
 
-    func test_execute_withSwiftUI_whenTitleIsNotNilAndRequired_shouldReturnCorrectAttributedString() {
+    @Test("Execute with SwiftUI when title is not nil and required should return correct attributed string")
+    func executeWithSwiftUIWhenTitleIsNotNilAndRequiredShouldReturnCorrectAttributedString() {
         // GIVEN
         let title = "Test Title"
 
@@ -158,9 +158,9 @@ final class FormFieldGetFormattedTitleUseCaseTests: XCTestCase {
         )
 
         if case .right(let attributedString) = result {
-            XCTAssertEqual(String(attributedString.characters), title + " *")
+            #expect(String(attributedString.characters) == title + " *")
         } else {
-            XCTFail("Expected AttributedString but got NSAttributedString")
+            Issue.record("Expected AttributedString but got NSAttributedString")
         }
     }
 }

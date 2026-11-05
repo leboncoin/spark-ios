@@ -19,7 +19,7 @@ struct TagGetColorsFilledUseCaseTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Execute intent accent")
     func test_execute_intent_accent() {
         // GIVEN / WHEN
         let sut = self.useCase.execute(
@@ -34,7 +34,7 @@ struct TagGetColorsFilledUseCaseTests {
         #expect(sut.textColor.equals(self.theme.colors.accent.onAccent))
     }
 
-    @Test
+    @Test("Execute intent ai")
     func test_execute_intent_ai() {
         // GIVEN / WHEN
         let sut = self.useCase.execute(
@@ -49,7 +49,7 @@ struct TagGetColorsFilledUseCaseTests {
         #expect(sut.textColor.equals(self.theme.colors.ai.onAIContainer))
     }
 
-    @Test
+    @Test("Execute intent alert")
     func test_execute_intent_alert() {
         // GIVEN / WHEN
         let sut = self.useCase.execute(
@@ -64,7 +64,7 @@ struct TagGetColorsFilledUseCaseTests {
         #expect(sut.textColor.equals(self.theme.colors.feedback.onAlert))
     }
 
-    @Test
+    @Test("Execute intent danger")
     func test_execute_intent_danger() {
         // GIVEN / WHEN
         let sut = self.useCase.execute(
@@ -79,7 +79,7 @@ struct TagGetColorsFilledUseCaseTests {
         #expect(sut.textColor.equals(self.theme.colors.feedback.onError))
     }
 
-    @Test
+    @Test("Execute intent info")
     func test_execute_intent_info() {
         // GIVEN / WHEN
         let sut = self.useCase.execute(
@@ -94,7 +94,7 @@ struct TagGetColorsFilledUseCaseTests {
         #expect(sut.textColor.equals(self.theme.colors.feedback.onInfo))
     }
 
-    @Test
+    @Test("Execute intent main")
     func test_execute_intent_main() {
         // GIVEN / WHEN
         let sut = self.useCase.execute(
@@ -109,7 +109,7 @@ struct TagGetColorsFilledUseCaseTests {
         #expect(sut.textColor.equals(self.theme.colors.main.onMain))
     }
 
-    @Test
+    @Test("Execute intent neutral")
     func test_execute_intent_neutral() {
         // GIVEN / WHEN
         let sut = self.useCase.execute(
@@ -124,7 +124,7 @@ struct TagGetColorsFilledUseCaseTests {
         #expect(sut.textColor.equals(self.theme.colors.feedback.onNeutral))
     }
 
-    @Test
+    @Test("Execute intent success")
     func test_execute_intent_success() {
         // GIVEN / WHEN
         let sut = self.useCase.execute(
@@ -139,7 +139,7 @@ struct TagGetColorsFilledUseCaseTests {
         #expect(sut.textColor.equals(self.theme.colors.feedback.onSuccess))
     }
 
-    @Test
+    @Test("Execute intent support")
     func test_execute_intent_support() {
         // GIVEN / WHEN
         let sut = self.useCase.execute(
@@ -154,7 +154,7 @@ struct TagGetColorsFilledUseCaseTests {
         #expect(sut.textColor.equals(self.theme.colors.support.onSupport))
     }
 
-    @Test
+    @Test("Execute intent surface")
     func test_execute_intent_surface() {
         // GIVEN / WHEN
         let sut = self.useCase.execute(

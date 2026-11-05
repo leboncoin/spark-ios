@@ -14,7 +14,7 @@ struct TagGetSpacingsUseCaseTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Execute")
     func test_execute() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()

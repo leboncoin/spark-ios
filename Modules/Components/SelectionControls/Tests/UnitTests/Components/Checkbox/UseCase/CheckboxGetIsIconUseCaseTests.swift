@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class CheckboxGetIsIconUseCaseTests: XCTestCase {
+@Suite("Checkbox Get Is Icon UseCase Tests")
+struct CheckboxGetIsIconUseCaseTests {
 
     // MARK: - Execute Tests
 
-    func test_execute_withUnselectedState_returnsFalse() {
+    @Test("Execute with unselected state returns false")
+    func executeWithUnselectedStateReturnsFalse() {
         // GIVEN
         let selectionState = CheckboxSelectionState.unselected
 
@@ -23,10 +25,11 @@ final class CheckboxGetIsIconUseCaseTests: XCTestCase {
         let result = useCase.execute(selectionState: selectionState)
 
         // THEN
-        XCTAssertFalse(result, "Should return false for unselected state")
+        #expect(!result, "Should return false for unselected state")
     }
 
-    func test_execute_withSelectedState_returnsTrue() {
+    @Test("Execute with selected state returns true")
+    func executeWithSelectedStateReturnsTrue() {
         // GIVEN
         let selectionState = CheckboxSelectionState.selected
 
@@ -36,10 +39,11 @@ final class CheckboxGetIsIconUseCaseTests: XCTestCase {
         let result = useCase.execute(selectionState: selectionState)
 
         // THEN
-        XCTAssertTrue(result, "Should return true for selected state")
+        #expect(result, "Should return true for selected state")
     }
 
-    func test_execute_withIndeterminateState_returnsTrue() {
+    @Test("Execute with indeterminate state returns true")
+    func executeWithIndeterminateStateReturnsTrue() {
         // GIVEN
         let selectionState = CheckboxSelectionState.indeterminate
 
@@ -49,6 +53,6 @@ final class CheckboxGetIsIconUseCaseTests: XCTestCase {
         let result = useCase.execute(selectionState: selectionState)
 
         // THEN
-        XCTAssertTrue(result, "Should return true for indeterminate state")
+        #expect(result, "Should return true for indeterminate state")
     }
 }

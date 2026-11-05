@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class ToggleSpaceTests: XCTestCase {
+@Suite("Toggle Space Tests")
+struct ToggleSpaceTests {
 
     // MARK: - Properties Tests
 
-    func test_showLeft_withLeftCase_shouldReturnTrue() {
+    @Test("Show left with left case should return true")
+    func showLeftWithLeftCaseShouldReturnTrue() {
         // GIVEN
         let space = ToggleSpace.left
 
@@ -21,10 +23,11 @@ final class ToggleSpaceTests: XCTestCase {
         let result = space.showLeft
 
         // THEN
-        XCTAssertTrue(result)
+        #expect(result)
     }
 
-    func test_showLeft_withRightCase_shouldReturnFalse() {
+    @Test("Show left with right case should return false")
+    func showLeftWithRightCaseShouldReturnFalse() {
         // GIVEN
         let space = ToggleSpace.right
 
@@ -32,10 +35,11 @@ final class ToggleSpaceTests: XCTestCase {
         let result = space.showLeft
 
         // THEN
-        XCTAssertFalse(result)
+        #expect(!result)
     }
 
-    func test_showRight_withLeftCase_shouldReturnFalse() {
+    @Test("Show right with left case should return false")
+    func showRightWithLeftCaseShouldReturnFalse() {
         // GIVEN
         let space = ToggleSpace.left
 
@@ -43,10 +47,11 @@ final class ToggleSpaceTests: XCTestCase {
         let result = space.showRight
 
         // THEN
-        XCTAssertFalse(result)
+        #expect(!result)
     }
 
-    func test_showRight_withRightCase_shouldReturnTrue() {
+    @Test("Show right with right case should return true")
+    func showRightWithRightCaseShouldReturnTrue() {
         // GIVEN
         let space = ToggleSpace.right
 
@@ -54,6 +59,6 @@ final class ToggleSpaceTests: XCTestCase {
         let result = space.showRight
 
         // THEN
-        XCTAssertTrue(result)
+        #expect(result)
     }
 }

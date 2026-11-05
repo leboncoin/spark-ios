@@ -6,32 +6,27 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentFormField
 
-final class FormFieldGetTitleAccessibilityLabelUseCaseTests: XCTestCase {
+@Suite("FormField Get Title Accessibility Label UseCase Tests")
+struct FormFieldGetTitleAccessibilityLabelUseCaseTests {
 
     // MARK: - Properties
 
-    private var sut: FormFieldGetTitleAccessibilityLabelUseCase!
+    private let sut: FormFieldGetTitleAccessibilityLabelUseCase
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = FormFieldGetTitleAccessibilityLabelUseCase()
-    }
-
-    override func tearDown() {
-        self.sut = nil
-
-        super.tearDown()
     }
 
     // MARK: - Tests - Returns Nil
 
-    func test_execute_whenTitleAndCustomValueAreNil_andIsRequiredIsFalse_shouldReturnNil() {
+    @Test("Execute when title and custom value are nil and is required is false should return nil")
+    func executeWhenTitleAndCustomValueAreNilAndIsRequiredIsFalseShouldReturnNil() {
         // GIVEN
         let title: String? = nil
         let customValue: String? = nil
@@ -41,10 +36,11 @@ final class FormFieldGetTitleAccessibilityLabelUseCaseTests: XCTestCase {
         let result = self.sut.execute(title: title, customValue: customValue, isRequired: isRequired)
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_execute_whenTitleAndCustomValueAreNil_andIsRequiredIsTrue_shouldReturnNil() {
+    @Test("Execute when title and custom value are nil and is required is true should return nil")
+    func executeWhenTitleAndCustomValueAreNilAndIsRequiredIsTrueShouldReturnNil() {
         // GIVEN
         let title: String? = nil
         let customValue: String? = nil
@@ -54,12 +50,13 @@ final class FormFieldGetTitleAccessibilityLabelUseCaseTests: XCTestCase {
         let result = self.sut.execute(title: title, customValue: customValue, isRequired: isRequired)
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
     // MARK: - Tests - Returns Strings
 
-    func test_execute_whenOnlyTitleIsProvided_andIsRequiredIsFalse_shouldReturnTitle() {
+    @Test("Execute when only title is provided and is required is false should return title")
+    func executeWhenOnlyTitleIsProvidedAndIsRequiredIsFalseShouldReturnTitle() {
         // GIVEN
         let title = "Test Title"
         let customValue: String? = nil
@@ -69,10 +66,11 @@ final class FormFieldGetTitleAccessibilityLabelUseCaseTests: XCTestCase {
         let result = self.sut.execute(title: title, customValue: customValue, isRequired: isRequired)
 
         // THEN
-        XCTAssertEqual(result, title)
+        #expect(result == title)
     }
 
-    func test_execute_whenOnlyTitleIsProvided_andIsRequiredIsTrue_shouldReturnTitleWithRequiredSuffix() {
+    @Test("Execute when only title is provided and is required is true should return title with required suffix")
+    func executeWhenOnlyTitleIsProvidedAndIsRequiredIsTrueShouldReturnTitleWithRequiredSuffix() {
         // GIVEN
         let title = "Test Title"
         let customValue: String? = nil
@@ -83,10 +81,11 @@ final class FormFieldGetTitleAccessibilityLabelUseCaseTests: XCTestCase {
         let result = self.sut.execute(title: title, customValue: customValue, isRequired: isRequired)
 
         // THEN
-        XCTAssertEqual(result, title + expectedRequireString)
+        #expect(result == title + expectedRequireString)
     }
 
-    func test_execute_whenOnlyCustomValueIsProvided_andIsRequiredIsFalse_shouldReturnCustomValue() {
+    @Test("Execute when only custom value is provided and is required is false should return custom value")
+    func executeWhenOnlyCustomValueIsProvidedAndIsRequiredIsFalseShouldReturnCustomValue() {
         // GIVEN
         let title: String? = nil
         let customValue = "Custom Value"
@@ -96,10 +95,11 @@ final class FormFieldGetTitleAccessibilityLabelUseCaseTests: XCTestCase {
         let result = self.sut.execute(title: title, customValue: customValue, isRequired: isRequired)
 
         // THEN
-        XCTAssertEqual(result, customValue)
+        #expect(result == customValue)
     }
 
-    func test_execute_whenOnlyCustomValueIsProvided_andIsRequiredIsTrue_shouldReturnCustomValueWithRequiredSuffix() {
+    @Test("Execute when only custom value is provided and is required is true should return custom value with required suffix")
+    func executeWhenOnlyCustomValueIsProvidedAndIsRequiredIsTrueShouldReturnCustomValueWithRequiredSuffix() {
         // GIVEN
         let title: String? = nil
         let customValue = "Custom Value"
@@ -110,10 +110,11 @@ final class FormFieldGetTitleAccessibilityLabelUseCaseTests: XCTestCase {
         let result = self.sut.execute(title: title, customValue: customValue, isRequired: isRequired)
 
         // THEN
-        XCTAssertEqual(result, customValue + expectedRequireString)
+        #expect(result == customValue + expectedRequireString)
     }
 
-    func test_execute_whenBothTitleAndCustomValueAreProvided_andIsRequiredIsFalse_shouldReturnCustomValue() {
+    @Test("Execute when both title and custom value are provided and is required is false should return custom value")
+    func executeWhenBothTitleAndCustomValueAreProvidedAndIsRequiredIsFalseShouldReturnCustomValue() {
         // GIVEN
         let title = "Test Title"
         let customValue = "Custom Value"
@@ -123,10 +124,11 @@ final class FormFieldGetTitleAccessibilityLabelUseCaseTests: XCTestCase {
         let result = self.sut.execute(title: title, customValue: customValue, isRequired: isRequired)
 
         // THEN
-        XCTAssertEqual(result, customValue)
+        #expect(result == customValue)
     }
 
-    func test_execute_whenBothTitleAndCustomValueAreProvided_andIsRequiredIsTrue_shouldReturnCustomValueWithRequiredSuffix() {
+    @Test("Execute when both title and custom value are provided and is required is true should return custom value with required suffix")
+    func executeWhenBothTitleAndCustomValueAreProvidedAndIsRequiredIsTrueShouldReturnCustomValueWithRequiredSuffix() {
         // GIVEN
         let title = "Test Title"
         let customValue = "Custom Value"
@@ -137,6 +139,6 @@ final class FormFieldGetTitleAccessibilityLabelUseCaseTests: XCTestCase {
         let result = self.sut.execute(title: title, customValue: customValue, isRequired: isRequired)
 
         // THEN
-        XCTAssertEqual(result, customValue + expectedRequireString)
+        #expect(result == customValue + expectedRequireString)
     }
 }

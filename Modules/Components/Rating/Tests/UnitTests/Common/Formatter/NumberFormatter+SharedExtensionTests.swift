@@ -7,10 +7,11 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentRating
 
-final class NumberFormatterSharedExtensionTests: XCTestCase {
+@Suite("Number Formatter Shared Extension Tests")
+struct NumberFormatterSharedExtensionTests {
 
     // MARK: - Properties
 
@@ -18,29 +19,30 @@ final class NumberFormatterSharedExtensionTests: XCTestCase {
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
 
         self.formatter = NumberFormatter.shared
     }
 
     // MARK: - Tests
 
-    func test_shared_formatter_configuration() {
+    @Test("Shared formatter configuration")
+    func sharedFormatterConfiguration() {
         // GIVEN / WHEN
         let formatter = NumberFormatter.shared
 
         // THEN
-        XCTAssertEqual(formatter.minimumFractionDigits, 0)
-        XCTAssertEqual(formatter.maximumFractionDigits, 2)
+        #expect(formatter.minimumFractionDigits == 0)
+        #expect(formatter.maximumFractionDigits == 2)
     }
 
-    func test_shared_formatter_is_singleton() {
+    @Test("Shared formatter is singleton")
+    func sharedFormatterIsSingleton() {
         // GIVEN / WHEN
         let formatter1 = NumberFormatter.shared
         let formatter2 = NumberFormatter.shared
 
         // THEN
-        XCTAssertTrue(formatter1 === formatter2)
+        #expect(formatter1 === formatter2)
     }
 }

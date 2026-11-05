@@ -6,11 +6,12 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import Foundation
 @testable import SparkComponentSegmentedGauge
 
-final class SegmentedGaugeGetSizesUseCaseTests: XCTestCase {
+@Suite("SegmentedGauge Get Sizes UseCase Tests")
+struct SegmentedGaugeGetSizesUseCaseTests {
 
     // MARK: - Properties
 
@@ -18,7 +19,8 @@ final class SegmentedGaugeGetSizesUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_smallSize_returnsCorrectSizes() {
+    @Test("Execute small size returns correct sizes")
+    func executeSmallSizeReturnsCorrectSizes() {
         // GIVEN
         let size = SegmentedGaugeSize.small
         let expectedSizes = SegmentedGaugeSizes(
@@ -31,10 +33,11 @@ final class SegmentedGaugeGetSizesUseCaseTests: XCTestCase {
         let result = useCase.execute(size: size)
 
         // THEN
-        XCTAssertEqual(result, expectedSizes)
+        #expect(result == expectedSizes)
     }
 
-    func test_execute_mediumSize_returnsCorrectSizes() {
+    @Test("Execute medium size returns correct sizes")
+    func executeMediumSizeReturnsCorrectSizes() {
         // GIVEN
         let size = SegmentedGaugeSize.medium
         let expectedSizes = SegmentedGaugeSizes(
@@ -47,6 +50,6 @@ final class SegmentedGaugeGetSizesUseCaseTests: XCTestCase {
         let result = useCase.execute(size: size)
 
         // THEN
-        XCTAssertEqual(result, expectedSizes)
+        #expect(result == expectedSizes)
     }
 }

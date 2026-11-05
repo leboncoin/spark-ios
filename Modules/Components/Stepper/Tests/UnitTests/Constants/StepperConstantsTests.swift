@@ -6,22 +6,25 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentStepper
 
-class StepperConstantsTests: XCTestCase {
+@Suite("Stepper Constants Tests")
+struct StepperConstantsTests {
 
     // MARK: - Tests
 
-    func testGlobalConstants() {
-        XCTAssertEqual(StepperConstants.textMinWidth, 48)
-        XCTAssertEqual(StepperConstants.trackingInterval, 0.5)
+    @Test("Global constants")
+    func globalConstants() {
+        #expect(StepperConstants.textMinWidth == 48)
+        #expect(StepperConstants.trackingInterval == 0.5)
     }
 
-    func testIconButtonConstants() {
-        XCTAssertEqual(StepperConstants.IconButton.intent, .support)
-        XCTAssertEqual(StepperConstants.IconButton.variant, .outlined)
-        XCTAssertEqual(StepperConstants.IconButton.size, .medium)
-        XCTAssertEqual(StepperConstants.IconButton.shape, .rounded)
+    @Test("Icon button constants")
+    func iconButtonConstants() {
+        #expect(StepperConstants.IconButton.intent == .support)
+        #expect(StepperConstants.IconButton.variant == .outlined)
+        #expect(StepperConstants.IconButton.size == .medium)
+        #expect(StepperConstants.IconButton.shape == .rounded)
     }
 }

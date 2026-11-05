@@ -26,7 +26,7 @@ struct InputOTPSlotSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: InputOTPSlotScenarioSnapshotTests.allCases)
+    @Test("Input OTPSlot snapshot", arguments: InputOTPSlotScenarioSnapshotTests.allCases)
     func test(scenario: InputOTPSlotScenarioSnapshotTests) async {
         await self.loadScenarios([scenario])
     }

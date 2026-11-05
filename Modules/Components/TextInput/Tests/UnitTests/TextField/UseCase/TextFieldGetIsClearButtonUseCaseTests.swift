@@ -6,14 +6,16 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 
-final class TextFieldGetIsClearButtonUseCaseTests: XCTestCase {
+@Suite("Text Field Get Is Clear Button UseCase Tests")
+struct TextFieldGetIsClearButtonUseCaseTests {
 
     // MARK: - Tests Never mode
 
-    func test_execute_whenClearModeIsNever_andIsFocusedIsTrue_shouldReturnFalse() {
+    @Test("Execute when clear mode is never and is focused is true should return false")
+    func executeWhenClearModeIsNeverAndIsFocusedIsTrueShouldReturnFalse() {
         // GIVEN
         let useCase = TextFieldGetIsClearButtonUseCase()
 
@@ -27,10 +29,11 @@ final class TextFieldGetIsClearButtonUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(result)
+        #expect(!result)
     }
 
-    func test_execute_whenClearModeIsNever_andIsFocusedIsFalse_shouldReturnFalse() {
+    @Test("Execute when clear mode is never and is focused is false should return false")
+    func executeWhenClearModeIsNeverAndIsFocusedIsFalseShouldReturnFalse() {
         // GIVEN
         let useCase = TextFieldGetIsClearButtonUseCase()
 
@@ -44,12 +47,13 @@ final class TextFieldGetIsClearButtonUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(result)
+        #expect(!result)
     }
 
     // MARK: Tests Always mode
 
-    func test_execute_whenClearModeIsAlways_andIsFocusedIsTrue_shouldReturnTrue() {
+    @Test("Execute when clear mode is always and is focused is true should return true")
+    func executeWhenClearModeIsAlwaysAndIsFocusedIsTrueShouldReturnTrue() {
         // GIVEN
         let useCase = TextFieldGetIsClearButtonUseCase()
 
@@ -63,10 +67,11 @@ final class TextFieldGetIsClearButtonUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result)
+        #expect(result)
     }
 
-    func test_execute_whenClearModeIsAlways_andIsFocusedIsFalse_shouldReturnTrue() {
+    @Test("Execute when clear mode is always and is focused is false should return true")
+    func executeWhenClearModeIsAlwaysAndIsFocusedIsFalseShouldReturnTrue() {
         // GIVEN
         let useCase = TextFieldGetIsClearButtonUseCase()
 
@@ -80,12 +85,13 @@ final class TextFieldGetIsClearButtonUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result)
+        #expect(result)
     }
 
     // MARK: Tests WhileEditing mode
 
-    func test_execute_whenClearModeIsWhileEditing_andIsFocusedIsTrue_shouldReturnTrue() {
+    @Test("Execute when clear mode is while editing and is focused is true should return true")
+    func executeWhenClearModeIsWhileEditingAndIsFocusedIsTrueShouldReturnTrue() {
         // GIVEN
         let useCase = TextFieldGetIsClearButtonUseCase()
 
@@ -99,10 +105,11 @@ final class TextFieldGetIsClearButtonUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result)
+        #expect(result)
     }
 
-    func test_execute_whenClearModeIsWhileEditing_andIsFocusedIsFalse_shouldReturnFalse() {
+    @Test("Execute when clear mode is while editing and is focused is false should return false")
+    func executeWhenClearModeIsWhileEditingAndIsFocusedIsFalseShouldReturnFalse() {
         // GIVEN
         let useCase = TextFieldGetIsClearButtonUseCase()
 
@@ -116,12 +123,13 @@ final class TextFieldGetIsClearButtonUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(result)
+        #expect(!result)
     }
 
     // MARK: Tests UnlessEditing mode
 
-    func test_execute_whenClearModeIsUnlessEditing_andIsFocusedIsTrue_shouldReturnFalse() {
+    @Test("Execute when clear mode is unless editing and is focused is true should return false")
+    func executeWhenClearModeIsUnlessEditingAndIsFocusedIsTrueShouldReturnFalse() {
         // GIVEN
         let useCase = TextFieldGetIsClearButtonUseCase()
 
@@ -135,10 +143,11 @@ final class TextFieldGetIsClearButtonUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertFalse(result)
+        #expect(!result)
     }
 
-    func test_execute_whenClearModeIsUnlessEditing_andIsFocusedIsFalse_shouldReturnTrue() {
+    @Test("Execute when clear mode is unless editing and is focused is false should return true")
+    func executeWhenClearModeIsUnlessEditingAndIsFocusedIsFalseShouldReturnTrue() {
         // GIVEN
         let useCase = TextFieldGetIsClearButtonUseCase()
 
@@ -152,6 +161,6 @@ final class TextFieldGetIsClearButtonUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result)
+        #expect(result)
     }
 }

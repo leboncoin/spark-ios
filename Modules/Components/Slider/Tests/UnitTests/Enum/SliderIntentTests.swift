@@ -7,27 +7,31 @@
 //
 
 @testable import SparkComponentSlider
-import XCTest
+import Testing
 
-final class SliderIntentTests: XCTestCase {
+@Suite("Slider Intent Tests")
+struct SliderIntentTests {
 
     // MARK: - Tests
 
-    func test_allCases_containsExpectedCases() {
+    @Test("All cases contains expected cases")
+    func allCasesContainsExpectedCases() {
         // GIVEN
         let expectedCases: [SliderIntent] = [.accent, .main, .support]
 
         // WHEN / THEN
-        XCTAssertEqual(SliderIntent.allCases.count, expectedCases.count)
-        XCTAssertEqual(Set(SliderIntent.allCases), Set(expectedCases))
+        #expect(SliderIntent.allCases.count == expectedCases.count)
+        #expect(Set(SliderIntent.allCases) == Set(expectedCases))
     }
 
-    func test_defaultValue_isMain() {
+    @Test("Default value is main")
+    func defaultValueIsMain() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(SliderIntent.default, .support)
+        #expect(SliderIntent.default == .support)
     }
 
-    func test_allCases_doesNotContainDeprecatedCases() {
+    @Test("All cases does not contain deprecated cases")
+    func allCasesDoesNotContainDeprecatedCases() {
         // GIVEN
         let deprecatedCases: [SliderIntent] = [
             .alert,
@@ -39,7 +43,7 @@ final class SliderIntentTests: XCTestCase {
 
         // WHEN / THEN
         for deprecatedCase in deprecatedCases {
-            XCTAssertFalse(SliderIntent.allCases.contains(deprecatedCase))
+            #expect(!SliderIntent.allCases.contains(deprecatedCase))
         }
     }
 }

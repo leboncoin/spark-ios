@@ -6,12 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 @testable import SparkComponentTextLink
 
-final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
+@Suite("Text Link Get Hover Style UseCase Tests")
+struct TextLinkGetHoverStyleUseCaseTests {
 
     // MARK: - Properties
 
@@ -20,7 +21,8 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_accent_intent() {
+    @Test("Execute accent intent")
+    func executeAccentIntent() {
         // GIVEN
         let intent = TextLinkIntent.accent
 
@@ -28,14 +30,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.accent.accent))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.accent.accent))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_alert_intent() {
+    @Test("Execute alert intent")
+    func executeAlertIntent() {
         // GIVEN
         let intent = TextLinkIntent.alert
 
@@ -43,14 +46,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.feedback.alert))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.feedback.alert))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_support_intent() {
+    @Test("Execute support intent")
+    func executeSupportIntent() {
         // GIVEN
         let intent = TextLinkIntent.support
 
@@ -58,14 +62,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.support.support))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.support.support))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_danger_intent() {
+    @Test("Execute danger intent")
+    func executeDangerIntent() {
         // GIVEN
         let intent = TextLinkIntent.danger
 
@@ -73,14 +78,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.feedback.error))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.feedback.error))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_info_intent() {
+    @Test("Execute info intent")
+    func executeInfoIntent() {
         // GIVEN
         let intent = TextLinkIntent.info
 
@@ -88,14 +94,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.feedback.info))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.feedback.info))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_main_intent() {
+    @Test("Execute main intent")
+    func executeMainIntent() {
         // GIVEN
         let intent = TextLinkIntent.main
 
@@ -103,14 +110,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.main.main))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.main.main))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_neutral_intent() {
+    @Test("Execute neutral intent")
+    func executeNeutralIntent() {
         // GIVEN
         let intent = TextLinkIntent.neutral
 
@@ -118,14 +126,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.feedback.neutral))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.feedback.neutral))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_success_intent() {
+    @Test("Execute success intent")
+    func executeSuccessIntent() {
         // GIVEN
         let intent = TextLinkIntent.success
 
@@ -133,14 +142,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.feedback.success))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.feedback.success))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_custom_intent() {
+    @Test("Execute custom intent")
+    func executeCustomIntent() {
         // GIVEN
         let customColorToken = ColorTokenGeneratedMock.red()
         let intent = TextLinkIntent.custom(customColorToken)
@@ -149,16 +159,17 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(customColorToken))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(customColorToken))
+        #expect(result.dim == theme.dims.dim5)
     }
 
     // MARK: - Deprecated Tests
 
-    func test_execute_accent_container_intent() {
+    @Test("Execute accent container intent")
+    func executeAccentContainerIntent() {
         // GIVEN
         let intent = TextLinkIntent.accentContainer
 
@@ -166,14 +177,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.accent.accent))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.accent.accent))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_alert_container_intent() {
+    @Test("Execute alert container intent")
+    func executeAlertContainerIntent() {
         // GIVEN
         let intent = TextLinkIntent.alertContainer
 
@@ -181,14 +193,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.feedback.alert))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.feedback.alert))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_support_container_intent() {
+    @Test("Execute support container intent")
+    func executeSupportContainerIntent() {
         // GIVEN
         let intent = TextLinkIntent.supportContainer
 
@@ -196,14 +209,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.support.support))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.support.support))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_danger_container_intent() {
+    @Test("Execute danger container intent")
+    func executeDangerContainerIntent() {
         // GIVEN
         let intent = TextLinkIntent.dangerContainer
 
@@ -211,14 +225,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.feedback.error))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.feedback.error))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_info_container_intent() {
+    @Test("Execute info container intent")
+    func executeInfoContainerIntent() {
         // GIVEN
         let intent = TextLinkIntent.infoContainer
 
@@ -226,14 +241,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.feedback.info))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.feedback.info))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_main_container_intent() {
+    @Test("Execute main container intent")
+    func executeMainContainerIntent() {
         // GIVEN
         let intent = TextLinkIntent.mainContainer
 
@@ -241,14 +257,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.main.main))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.main.main))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_neutral_container_intent() {
+    @Test("Execute neutral container intent")
+    func executeNeutralContainerIntent() {
         // GIVEN
         let intent = TextLinkIntent.neutralContainer
 
@@ -256,14 +273,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.feedback.neutral))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.feedback.neutral))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_on_accent_container_intent() {
+    @Test("Execute on accent container intent")
+    func executeOnAccentContainerIntent() {
         // GIVEN
         let intent = TextLinkIntent.onAccentContainer
 
@@ -271,14 +289,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.accent.accent))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.accent.accent))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_on_surface_intent() {
+    @Test("Execute on surface intent")
+    func executeOnSurfaceIntent() {
         // GIVEN
         let intent = TextLinkIntent.onSurface
 
@@ -286,14 +305,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.base.surface))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.base.surface))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_success_container_intent() {
+    @Test("Execute success container intent")
+    func executeSuccessContainerIntent() {
         // GIVEN
         let intent = TextLinkIntent.successContainer
 
@@ -301,14 +321,15 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.feedback.success))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.feedback.success))
+        #expect(result.dim == theme.dims.dim5)
     }
 
-    func test_execute_surface_intent() {
+    @Test("Execute surface intent")
+    func executeSurfaceIntent() {
         // GIVEN
         let intent = TextLinkIntent.surface
 
@@ -316,10 +337,10 @@ final class TextLinkGetHoverStyleUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, intent: intent)
 
         // THEN
-        XCTAssertEqual(result.horizontalPadding, theme.layout.spacing.medium)
-        XCTAssertEqual(result.verticalPadding, theme.layout.spacing.small)
-        XCTAssertEqual(result.cornerRadius, theme.border.radius.medium)
-        XCTAssertTrue(result.backgroundColor.equals(theme.colors.base.surface))
-        XCTAssertEqual(result.dim, theme.dims.dim5)
+        #expect(result.horizontalPadding == theme.layout.spacing.medium)
+        #expect(result.verticalPadding == theme.layout.spacing.small)
+        #expect(result.cornerRadius == theme.border.radius.medium)
+        #expect(result.backgroundColor.equals(theme.colors.base.surface))
+        #expect(result.dim == theme.dims.dim5)
     }
 }

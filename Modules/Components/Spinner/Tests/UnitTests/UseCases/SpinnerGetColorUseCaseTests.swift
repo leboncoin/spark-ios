@@ -8,91 +8,99 @@
 
 @testable import SparkComponentSpinner
 @_spi(SI_SPI) import SparkThemingTesting
-import XCTest
+import Testing
 
-final class SpinnerGetColorUseCaseTests: XCTestCase {
+@Suite("Spinner Get Color UseCase Tests")
+struct SpinnerGetColorUseCaseTests {
 
     // MARK: - Private properties
 
-    private var sut: SpinnerGetColorUseCase!
-    private var theme: ThemeGeneratedMock!
+    private let sut: SpinnerGetColorUseCase
+    private let theme: ThemeGeneratedMock
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = SpinnerGetColorUseCase()
         self.theme = ThemeGeneratedMock.mocked()
     }
 
     // MARK: - Tests
 
-    func test_execute_main() {
+    @Test("Execute main")
+    func executeMain() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .main)
 
         // THEN
-        XCTAssertEqual(result.color, self.theme.colors.main.main.color)
+        #expect(result.color == self.theme.colors.main.main.color)
     }
 
-    func test_execute_support() {
+    @Test("Execute support")
+    func executeSupport() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .support)
 
         // THEN
-        XCTAssertEqual(result.color, self.theme.colors.support.support.color)
+        #expect(result.color == self.theme.colors.support.support.color)
     }
 
-    func test_execute_alert() {
+    @Test("Execute alert")
+    func executeAlert() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .alert)
 
         // THEN
-        XCTAssertEqual(result.color, self.theme.colors.feedback.alert.color)
+        #expect(result.color == self.theme.colors.feedback.alert.color)
     }
 
-    func test_execute_error() {
+    @Test("Execute error")
+    func executeError() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .error)
 
         // THEN
-        XCTAssertEqual(result.color, self.theme.colors.feedback.error.color)
+        #expect(result.color == self.theme.colors.feedback.error.color)
     }
 
-    func test_execute_info() {
+    @Test("Execute info")
+    func executeInfo() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .info)
 
         // THEN
-        XCTAssertEqual(result.color, self.theme.colors.feedback.info.color)
+        #expect(result.color == self.theme.colors.feedback.info.color)
     }
 
-    func test_execute_neutral() {
+    @Test("Execute neutral")
+    func executeNeutral() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .neutral)
 
         // THEN
-        XCTAssertEqual(result.color, self.theme.colors.feedback.neutral.color)
+        #expect(result.color == self.theme.colors.feedback.neutral.color)
     }
 
-    func test_execute_success() {
+    @Test("Execute success")
+    func executeSuccess() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .success)
 
         // THEN
-        XCTAssertEqual(result.color, self.theme.colors.feedback.success.color)
+        #expect(result.color == self.theme.colors.feedback.success.color)
     }
 
-    func test_execute_accent() {
+    @Test("Execute accent")
+    func executeAccent() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .accent)
 
         // THEN
-        XCTAssertEqual(result.color, self.theme.colors.accent.accent.color)
+        #expect(result.color == self.theme.colors.accent.accent.color)
     }
 
-    func test_execute_custom() {
+    @Test("Execute custom")
+    func executeCustom() {
         // GIVEN
         let customColorToken = ColorTokenGeneratedMock.blue()
 
@@ -100,6 +108,6 @@ final class SpinnerGetColorUseCaseTests: XCTestCase {
         let result = self.sut.execute(theme: self.theme, intent: .custom(customColorToken))
 
         // THEN
-        XCTAssertEqual(result.color, customColorToken.color)
+        #expect(result.color == customColorToken.color)
     }
 }

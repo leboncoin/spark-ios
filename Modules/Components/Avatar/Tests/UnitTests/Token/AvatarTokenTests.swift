@@ -23,7 +23,7 @@ struct AvatarTokenTests {
 
     // MARK: - Initialization Tests
 
-    @Test
+    @Test("Init should set theme dependent categories from theme")
     func initShouldSetThemeDependentCategoriesFromTheme() {
         // GIVEN / WHEN
         let token = AvatarToken(theme: self.theme)
@@ -36,7 +36,7 @@ struct AvatarTokenTests {
         #expect(token.typography == AvatarToken.Typography(theme: self.theme))
     }
 
-    @Test
+    @Test("Init should set theme independent categories")
     func initShouldSetThemeIndependentCategories() {
         // GIVEN / WHEN
         let token = AvatarToken(theme: self.theme)
@@ -49,7 +49,7 @@ struct AvatarTokenTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = AvatarToken(theme: self.theme)
@@ -59,7 +59,7 @@ struct AvatarTokenTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = AvatarToken(theme: self.theme)
@@ -69,7 +69,7 @@ struct AvatarTokenTests {
         #expect(lhs != rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should keep theme independent categories equal")
     func equatableWithDifferentThemeShouldKeepThemeIndependentCategoriesEqual() {
         // GIVEN
         let lhs = AvatarToken(theme: self.theme)

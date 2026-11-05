@@ -22,7 +22,7 @@ struct SegmentedControlTokenTests {
 
     // MARK: - Initialization Tests
 
-    @Test
+    @Test("Init should set theme dependent categories from theme")
     func initShouldSetThemeDependentCategoriesFromTheme() {
         // GIVEN / WHEN
         let token = SegmentedControlToken(theme: self.theme)
@@ -35,7 +35,7 @@ struct SegmentedControlTokenTests {
         #expect(token.typography == SegmentedControlToken.Typography(theme: self.theme))
     }
 
-    @Test
+    @Test("Init should set theme independent categories")
     func initShouldSetThemeIndependentCategories() {
         // GIVEN / WHEN
         let token = SegmentedControlToken(theme: self.theme)
@@ -47,7 +47,7 @@ struct SegmentedControlTokenTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = SegmentedControlToken(theme: self.theme)
@@ -57,7 +57,7 @@ struct SegmentedControlTokenTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = SegmentedControlToken(theme: self.theme)

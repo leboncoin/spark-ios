@@ -24,7 +24,7 @@ struct SparkRatingDisplaySnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: RatingDisplayScenarioSnapshotTests.allCases)
+    @Test("Spark rating display snapshot", arguments: RatingDisplayScenarioSnapshotTests.allCases)
     func test(scenario: RatingDisplayScenarioSnapshotTests) async throws {
         let configurations = scenario.configuration()
 

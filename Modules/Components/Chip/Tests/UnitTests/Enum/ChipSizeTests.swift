@@ -13,13 +13,13 @@ struct ChipSizeTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Default size is medium")
     func default_size_is_medium() {
         // Then
         #expect(ChipSize.default == .medium)
     }
 
-    @Test
+    @Test("All cases are present")
     func all_cases_are_present() {
         // Given / When
         let allCases = ChipSize.allCases

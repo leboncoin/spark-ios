@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SparkTheming
 
 @_spi(SI_SPI) import SparkComponentDividerTesting
@@ -14,30 +14,25 @@ import SparkTheming
 
 @testable import SparkComponentDivider
 
-final class DividerGetColorsUseCaseTests: XCTestCase {
+@Suite("Divider Get Colors UseCase Tests")
+struct DividerGetColorsUseCaseTests {
 
     // MARK: - Properties
 
-    private var theme: ThemeGeneratedMock!
-    private var useCase: DividerGetColorsUseCase!
+    private let theme: ThemeGeneratedMock
+    private let useCase: DividerGetColorsUseCase
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
         self.theme = ThemeGeneratedMock.mocked()
         self.useCase = DividerGetColorsUseCase()
     }
 
-    override func tearDown() {
-        self.theme = nil
-        self.useCase = nil
-        super.tearDown()
-    }
-
     // MARK: - Active Intent Tests
 
-    func test_execute_outline() {
+    @Test("Execute outline")
+    func executeOutline() {
         // GIVEN
         let intent: DividerIntent = .outline
 
@@ -48,17 +43,18 @@ final class DividerGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(
+        #expect(
             dividerColors.text.equals(theme.colors.base.onSurface),
             "Text color should be onSurface for outline intent"
         )
-        XCTAssertTrue(
+        #expect(
             dividerColors.separator.equals(theme.colors.base.outline),
             "Separator color should be outline for outline intent"
         )
     }
 
-    func test_execute_outlineHigh() {
+    @Test("Execute outline high")
+    func executeOutlineHigh() {
         // GIVEN
         let intent: DividerIntent = .outlineHigh
 
@@ -69,11 +65,11 @@ final class DividerGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(
+        #expect(
             dividerColors.text.equals(theme.colors.base.onSurface),
             "Text color should be onSurface for outlineHigh intent"
         )
-        XCTAssertTrue(
+        #expect(
             dividerColors.separator.equals(theme.colors.base.outlineHigh),
             "Separator color should be outlineHigh for outlineHigh intent"
         )
@@ -81,7 +77,8 @@ final class DividerGetColorsUseCaseTests: XCTestCase {
 
     // MARK: - Deprecated Intent Tests (Default Fallback)
 
-    func test_execute_deprecated_accent_fallsback_to_outline() {
+    @Test("Execute deprecated accent fallsback to outline")
+    func executeDeprecatedAccentFallsbackToOutline() {
         // GIVEN
         let intent: DividerIntent = .accent
 
@@ -92,17 +89,18 @@ final class DividerGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(
+        #expect(
             dividerColors.text.equals(theme.colors.base.onSurface),
             "Text color should be onSurface for deprecated intent"
         )
-        XCTAssertTrue(
+        #expect(
             dividerColors.separator.equals(theme.colors.base.outline),
             "Separator color should fallback to outline for deprecated intent"
         )
     }
 
-    func test_execute_deprecated_support_fallsback_to_outline() {
+    @Test("Execute deprecated support fallsback to outline")
+    func executeDeprecatedSupportFallsbackToOutline() {
         // GIVEN
         let intent: DividerIntent = .support
 
@@ -113,17 +111,18 @@ final class DividerGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(
+        #expect(
             dividerColors.text.equals(theme.colors.base.onSurface),
             "Text color should be onSurface for deprecated intent"
         )
-        XCTAssertTrue(
+        #expect(
             dividerColors.separator.equals(theme.colors.base.outline),
             "Separator color should fallback to outline for deprecated intent"
         )
     }
 
-    func test_execute_deprecated_success_fallsback_to_outline() {
+    @Test("Execute deprecated success fallsback to outline")
+    func executeDeprecatedSuccessFallsbackToOutline() {
         // GIVEN
         let intent: DividerIntent = .success
 
@@ -134,17 +133,18 @@ final class DividerGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(
+        #expect(
             dividerColors.text.equals(theme.colors.base.onSurface),
             "Text color should be onSurface for deprecated intent"
         )
-        XCTAssertTrue(
+        #expect(
             dividerColors.separator.equals(theme.colors.base.outline),
             "Separator color should fallback to outline for deprecated intent"
         )
     }
 
-    func test_execute_deprecated_alert_fallsback_to_outline() {
+    @Test("Execute deprecated alert fallsback to outline")
+    func executeDeprecatedAlertFallsbackToOutline() {
         // GIVEN
         let intent: DividerIntent = .alert
 
@@ -155,17 +155,18 @@ final class DividerGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(
+        #expect(
             dividerColors.text.equals(theme.colors.base.onSurface),
             "Text color should be onSurface for deprecated intent"
         )
-        XCTAssertTrue(
+        #expect(
             dividerColors.separator.equals(theme.colors.base.outline),
             "Separator color should fallback to outline for deprecated intent"
         )
     }
 
-    func test_execute_deprecated_error_fallsback_to_outline() {
+    @Test("Execute deprecated error fallsback to outline")
+    func executeDeprecatedErrorFallsbackToOutline() {
         // GIVEN
         let intent: DividerIntent = .error
 
@@ -176,17 +177,18 @@ final class DividerGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(
+        #expect(
             dividerColors.text.equals(theme.colors.base.onSurface),
             "Text color should be onSurface for deprecated intent"
         )
-        XCTAssertTrue(
+        #expect(
             dividerColors.separator.equals(theme.colors.base.outline),
             "Separator color should fallback to outline for deprecated intent"
         )
     }
 
-    func test_execute_deprecated_info_fallsback_to_outline() {
+    @Test("Execute deprecated info fallsback to outline")
+    func executeDeprecatedInfoFallsbackToOutline() {
         // GIVEN
         let intent: DividerIntent = .info
 
@@ -197,17 +199,18 @@ final class DividerGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(
+        #expect(
             dividerColors.text.equals(theme.colors.base.onSurface),
             "Text color should be onSurface for deprecated intent"
         )
-        XCTAssertTrue(
+        #expect(
             dividerColors.separator.equals(theme.colors.base.outline),
             "Separator color should fallback to outline for deprecated intent"
         )
     }
 
-    func test_execute_deprecated_neutral_fallsback_to_outline() {
+    @Test("Execute deprecated neutral fallsback to outline")
+    func executeDeprecatedNeutralFallsbackToOutline() {
         // GIVEN
         let intent: DividerIntent = .neutral
 
@@ -218,17 +221,18 @@ final class DividerGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(
+        #expect(
             dividerColors.text.equals(theme.colors.base.onSurface),
             "Text color should be onSurface for deprecated intent"
         )
-        XCTAssertTrue(
+        #expect(
             dividerColors.separator.equals(theme.colors.base.outline),
             "Separator color should fallback to outline for deprecated intent"
         )
     }
 
-    func test_execute_deprecated_main_fallsback_to_outline() {
+    @Test("Execute deprecated main fallsback to outline")
+    func executeDeprecatedMainFallsbackToOutline() {
         // GIVEN
         let intent: DividerIntent = .main
 
@@ -239,11 +243,11 @@ final class DividerGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(
+        #expect(
             dividerColors.text.equals(theme.colors.base.onSurface),
             "Text color should be onSurface for deprecated intent"
         )
-        XCTAssertTrue(
+        #expect(
             dividerColors.separator.equals(theme.colors.base.outline),
             "Separator color should fallback to outline for deprecated intent"
         )

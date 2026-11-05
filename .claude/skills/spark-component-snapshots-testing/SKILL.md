@@ -60,3 +60,4 @@ The Snapshots file must respect theses rules :
 
 ### Test Implementation
 - [ ] Proper imports (SparkComponentXXX, SparkCommon, SparkTheming, @testable, @_spi(SI_SPI) @testable import SparkComponentXXXTesting, Testing, ...)
+- [ ] Every `@Test` must have a description, written as the function name in a sentence (e.g. `@Test("Radius should return radius full")` for `func radiusShouldReturnRadiusFull()`, `@Test("Value should return expected scale", arguments: [...])` for a parameterized test). Never use a bare `@Test` or `@Test(arguments:)`

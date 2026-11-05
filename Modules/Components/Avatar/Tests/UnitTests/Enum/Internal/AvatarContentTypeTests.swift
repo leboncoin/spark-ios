@@ -15,7 +15,7 @@ struct AvatarContentTypeTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("All cases should contain all expected values")
     func allCasesShouldContainAllExpectedValues() {
         // GIVEN / WHEN
         let result = AvatarContentType.allCases

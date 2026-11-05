@@ -6,12 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 @testable import SparkComponentTextLink
 
-final class TextLinkGetDimUseCaseTests: XCTestCase {
+@Suite("Text Link Get Dim UseCase Tests")
+struct TextLinkGetDimUseCaseTests {
 
     // MARK: - Properties
 
@@ -20,7 +21,8 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_support_intent_not_highlighted() {
+    @Test("Execute support intent not highlighted")
+    func executeSupportIntentNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.support
         let isHighlighted = false
@@ -33,10 +35,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_support_intent_highlighted() {
+    @Test("Execute support intent highlighted")
+    func executeSupportIntentHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.support
         let isHighlighted = true
@@ -49,10 +52,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_accent_intent_not_highlighted() {
+    @Test("Execute accent intent not highlighted")
+    func executeAccentIntentNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.accent
         let isHighlighted = false
@@ -65,10 +69,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_custom_intent_not_highlighted() {
+    @Test("Execute custom intent not highlighted")
+    func executeCustomIntentNotHighlighted() {
         // GIVEN
         let customColorToken = ColorTokenGeneratedMock.red()
         let intent = TextLinkIntent.custom(customColorToken)
@@ -82,10 +87,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_custom_intent_highlighted() {
+    @Test("Execute custom intent highlighted")
+    func executeCustomIntentHighlighted() {
         // GIVEN
         let customColorToken = ColorTokenGeneratedMock.red()
         let intent = TextLinkIntent.custom(customColorToken)
@@ -99,12 +105,13 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.dim1)
+        #expect(result == theme.dims.dim1)
     }
 
     // MARK: - Deprecated Tests
 
-    func test_execute_accent_container_not_highlighted() {
+    @Test("Execute accent container not highlighted")
+    func executeAccentContainerNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.accentContainer
         let isHighlighted = false
@@ -117,10 +124,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_accent_container_highlighted() {
+    @Test("Execute accent container highlighted")
+    func executeAccentContainerHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.accentContainer
         let isHighlighted = true
@@ -133,10 +141,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.dim1)
+        #expect(result == theme.dims.dim1)
     }
 
-    func test_execute_on_accent_container_not_highlighted() {
+    @Test("Execute on accent container not highlighted")
+    func executeOnAccentContainerNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.onAccentContainer
         let isHighlighted = false
@@ -149,10 +158,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_on_accent_container_highlighted() {
+    @Test("Execute on accent container highlighted")
+    func executeOnAccentContainerHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.onAccentContainer
         let isHighlighted = true
@@ -165,10 +175,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.dim1)
+        #expect(result == theme.dims.dim1)
     }
 
-    func test_execute_alert_container_not_highlighted() {
+    @Test("Execute alert container not highlighted")
+    func executeAlertContainerNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.alertContainer
         let isHighlighted = false
@@ -181,10 +192,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_alert_container_highlighted() {
+    @Test("Execute alert container highlighted")
+    func executeAlertContainerHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.alertContainer
         let isHighlighted = true
@@ -197,10 +209,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.dim1)
+        #expect(result == theme.dims.dim1)
     }
 
-    func test_execute_support_container_not_highlighted() {
+    @Test("Execute support container not highlighted")
+    func executeSupportContainerNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.supportContainer
         let isHighlighted = false
@@ -213,10 +226,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_support_container_highlighted() {
+    @Test("Execute support container highlighted")
+    func executeSupportContainerHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.supportContainer
         let isHighlighted = true
@@ -229,10 +243,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.dim1)
+        #expect(result == theme.dims.dim1)
     }
 
-    func test_execute_danger_container_not_highlighted() {
+    @Test("Execute danger container not highlighted")
+    func executeDangerContainerNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.dangerContainer
         let isHighlighted = false
@@ -245,10 +260,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_danger_container_highlighted() {
+    @Test("Execute danger container highlighted")
+    func executeDangerContainerHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.dangerContainer
         let isHighlighted = true
@@ -261,10 +277,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.dim1)
+        #expect(result == theme.dims.dim1)
     }
 
-    func test_execute_info_container_not_highlighted() {
+    @Test("Execute info container not highlighted")
+    func executeInfoContainerNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.infoContainer
         let isHighlighted = false
@@ -277,10 +294,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_info_container_highlighted() {
+    @Test("Execute info container highlighted")
+    func executeInfoContainerHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.infoContainer
         let isHighlighted = true
@@ -293,10 +311,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.dim1)
+        #expect(result == theme.dims.dim1)
     }
 
-    func test_execute_main_container_not_highlighted() {
+    @Test("Execute main container not highlighted")
+    func executeMainContainerNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.mainContainer
         let isHighlighted = false
@@ -309,10 +328,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_main_container_highlighted() {
+    @Test("Execute main container highlighted")
+    func executeMainContainerHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.mainContainer
         let isHighlighted = true
@@ -325,10 +345,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.dim1)
+        #expect(result == theme.dims.dim1)
     }
 
-    func test_execute_neutral_container_not_highlighted() {
+    @Test("Execute neutral container not highlighted")
+    func executeNeutralContainerNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.neutralContainer
         let isHighlighted = false
@@ -341,10 +362,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_neutral_container_highlighted() {
+    @Test("Execute neutral container highlighted")
+    func executeNeutralContainerHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.neutralContainer
         let isHighlighted = true
@@ -357,10 +379,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.dim1)
+        #expect(result == theme.dims.dim1)
     }
 
-    func test_execute_success_container_not_highlighted() {
+    @Test("Execute success container not highlighted")
+    func executeSuccessContainerNotHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.successContainer
         let isHighlighted = false
@@ -373,10 +396,11 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.none)
+        #expect(result == theme.dims.none)
     }
 
-    func test_execute_success_container_highlighted() {
+    @Test("Execute success container highlighted")
+    func executeSuccessContainerHighlighted() {
         // GIVEN
         let intent = TextLinkIntent.successContainer
         let isHighlighted = true
@@ -389,6 +413,6 @@ final class TextLinkGetDimUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, theme.dims.dim1)
+        #expect(result == theme.dims.dim1)
     }
 }

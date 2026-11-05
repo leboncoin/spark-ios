@@ -7,41 +7,45 @@
 //
 
 @testable import SparkComponentProgressBar
-import XCTest
+import Testing
 
-final class ProgressBarIntentTests: XCTestCase {
+@Suite("Progress Bar Intent Tests")
+struct ProgressBarIntentTests {
 
     // MARK: - Tests
 
-    func test_default_value() {
+    @Test("Default value")
+    func defaultValue() {
         // GIVEN / WHEN
         let defaultIntent = ProgressBarIntent.default
 
         // THEN
-        XCTAssertEqual(defaultIntent, .support)
+        #expect(defaultIntent == .support)
     }
 
-    func test_all_cases_count() {
+    @Test("All cases count")
+    func allCasesCount() {
         // GIVEN / WHEN
         let allCases = ProgressBarIntent.allCases
 
         // THEN
-        XCTAssertEqual(allCases.count, 8)
+        #expect(allCases.count == 8)
     }
 
-    func test_all_cases_contain_expected_values() {
+    @Test("All cases contain expected values")
+    func allCasesContainExpectedValues() {
         // GIVEN / WHEN
         let allCases = ProgressBarIntent.allCases
 
         // THEN
-        XCTAssertTrue(allCases.contains(.accent))
-        XCTAssertTrue(allCases.contains(.alert))
-        XCTAssertTrue(allCases.contains(.support))
-        XCTAssertTrue(allCases.contains(.danger))
-        XCTAssertTrue(allCases.contains(.info))
-        XCTAssertTrue(allCases.contains(.main))
-        XCTAssertTrue(allCases.contains(.neutral))
-        XCTAssertTrue(allCases.contains(.success))
-        XCTAssertTrue(allCases.contains(.support))
+        #expect(allCases.contains(.accent))
+        #expect(allCases.contains(.alert))
+        #expect(allCases.contains(.support))
+        #expect(allCases.contains(.danger))
+        #expect(allCases.contains(.info))
+        #expect(allCases.contains(.main))
+        #expect(allCases.contains(.neutral))
+        #expect(allCases.contains(.success))
+        #expect(allCases.contains(.support))
     }
 }

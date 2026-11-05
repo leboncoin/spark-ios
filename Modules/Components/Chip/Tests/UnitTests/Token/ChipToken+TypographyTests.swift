@@ -26,14 +26,14 @@ struct ChipTokenTypographyTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Title should return body 1")
     func titleShouldReturnBody1() {
         #expect(self.token.title.equals(self.theme.typography.body1))
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = ChipToken.Typography(theme: self.theme)
@@ -43,7 +43,7 @@ struct ChipTokenTypographyTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = ChipToken.Typography(theme: self.theme)

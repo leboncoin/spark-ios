@@ -27,7 +27,7 @@ struct SparkSliderSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: SliderScenarioSnapshotTests.allCases)
+    @Test("Spark slider snapshot", arguments: SliderScenarioSnapshotTests.allCases)
     func test(scenario: SliderScenarioSnapshotTests) async {
         let configurations = scenario.configuration(isSwiftUIComponent: true)
 

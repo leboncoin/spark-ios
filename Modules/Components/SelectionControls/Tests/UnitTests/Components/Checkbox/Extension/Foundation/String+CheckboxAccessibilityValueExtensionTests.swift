@@ -6,52 +6,57 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class StringCheckboxAccessibilityValueExtensionTests: XCTestCase {
+@Suite("String Checkbox Accessibility Value Extension Tests")
+struct StringCheckboxAccessibilityValueExtensionTests {
 
     // MARK: - Tests
 
-    func test_accessibilityValue_whenSelectionStateSelected_shouldReturnSelectedString() {
+    @Test("Accessibility value when selection state selected should return selected string")
+    func accessibilityValueWhenSelectionStateSelectedShouldReturnSelectedString() {
         // GIVEN / WHEN
         let result = String.accessibilityValue(selectionState: .selected)
 
         // THEN
-        XCTAssertNotEqual(result, "accessibility_value_selected")
-        XCTAssertNotEqual(result, "accessibility_value_not_selected")
-        XCTAssertNotEqual(result, "accessibility_value_indeterminate")
+        #expect(result != "accessibility_value_selected")
+        #expect(result != "accessibility_value_not_selected")
+        #expect(result != "accessibility_value_indeterminate")
     }
 
-    func test_accessibilityValue_whenSelectionStateUnselected_shouldReturnNotSelectedString() {
+    @Test("Accessibility value when selection state unselected should return not selected string")
+    func accessibilityValueWhenSelectionStateUnselectedShouldReturnNotSelectedString() {
         // GIVEN / WHEN
         let result = String.accessibilityValue(selectionState: .unselected)
 
         // THEN
-        XCTAssertNotEqual(result, "accessibility_value_selected")
-        XCTAssertNotEqual(result, "accessibility_value_not_selected")
-        XCTAssertNotEqual(result, "accessibility_value_indeterminate")
+        #expect(result != "accessibility_value_selected")
+        #expect(result != "accessibility_value_not_selected")
+        #expect(result != "accessibility_value_indeterminate")
     }
 
-    func test_accessibilityValue_whenSelectionStateIndeterminate_shouldReturnIndeterminateString() {
+    @Test("Accessibility value when selection state indeterminate should return indeterminate string")
+    func accessibilityValueWhenSelectionStateIndeterminateShouldReturnIndeterminateString() {
         // GIVEN / WHEN
         let result = String.accessibilityValue(selectionState: .indeterminate)
 
         // THEN
-        XCTAssertNotEqual(result, "accessibility_value_selected")
-        XCTAssertNotEqual(result, "accessibility_value_not_selected")
-        XCTAssertNotEqual(result, "accessibility_value_indeterminate")
+        #expect(result != "accessibility_value_selected")
+        #expect(result != "accessibility_value_not_selected")
+        #expect(result != "accessibility_value_indeterminate")
     }
 
-    func test_accessibilityValue_mustBeDifferent() {
+    @Test("Accessibility value must be different")
+    func accessibilityValueMustBeDifferent() {
         // GIVEN / WHEN
         let result1 = String.accessibilityValue(selectionState: .selected)
         let result2 = String.accessibilityValue(selectionState: .unselected)
         let result3 = String.accessibilityValue(selectionState: .indeterminate)
 
         // THEN
-        XCTAssertNotEqual(result1, result2)
-        XCTAssertNotEqual(result1, result3)
-        XCTAssertNotEqual(result2, result3)
+        #expect(result1 != result2)
+        #expect(result1 != result3)
+        #expect(result2 != result3)
     }
 }

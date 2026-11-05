@@ -31,7 +31,7 @@ struct SparkUICheckboxGroupSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: CommonGroupScenarioSnapshotTests.allCases())
+    @Test("Spark UICheckbox group snapshot", arguments: CommonGroupScenarioSnapshotTests.allCases())
     func test(scenario: CommonGroupScenarioSnapshotTests) async throws {
         let configurations: [CommonGroupConfigurationSnapshotTests] = try scenario.configuration()
         for configuration in configurations {

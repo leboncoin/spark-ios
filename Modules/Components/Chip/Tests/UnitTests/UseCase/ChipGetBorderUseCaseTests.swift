@@ -7,32 +7,33 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentChip
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkCommonTesting
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ChipGetBorderUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Chip Get Border UseCase Tests")
+struct ChipGetBorderUseCaseTests {
 
     // MARK: - Properties
 
-    private var sut: ChipGetBorderUseCase!
-    private var theme: ThemeGeneratedMock!
+    private let sut: ChipGetBorderUseCase
+    private let theme: ThemeGeneratedMock
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = ChipGetBorderUseCase()
         self.theme = ThemeGeneratedMock.mocked()
     }
 
     // MARK: - Tests
 
-    func test_execute_with_outlined_variant() {
+    @Test("Execute with outlined variant")
+    func executeWithOutlinedVariant() {
         // GIVEN
         let token = ChipToken.Border(theme: self.theme)
 
@@ -43,12 +44,13 @@ final class ChipGetBorderUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.width, token.width)
-        XCTAssertEqual(result.radius, token.radius)
-        XCTAssertEqual(result.dash, 0)
+        #expect(result.width == token.width)
+        #expect(result.radius == token.radius)
+        #expect(result.dash == 0)
     }
 
-    func test_execute_with_tinted_variant() {
+    @Test("Execute with tinted variant")
+    func executeWithTintedVariant() {
         // GIVEN
         let token = ChipToken.Border(theme: self.theme)
 
@@ -59,12 +61,13 @@ final class ChipGetBorderUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.width, token.width)
-        XCTAssertEqual(result.radius, token.radius)
-        XCTAssertEqual(result.dash, 0)
+        #expect(result.width == token.width)
+        #expect(result.radius == token.radius)
+        #expect(result.dash == 0)
     }
 
-    func test_execute_with_dashed_variant() {
+    @Test("Execute with dashed variant")
+    func executeWithDashedVariant() {
         // GIVEN
         let token = ChipToken.Border(theme: self.theme)
 
@@ -75,8 +78,8 @@ final class ChipGetBorderUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result.width, token.width)
-        XCTAssertEqual(result.radius, token.radius)
-        XCTAssertEqual(result.dash, token.dash(variant: .dashed))
+        #expect(result.width == token.width)
+        #expect(result.radius == token.radius)
+        #expect(result.dash == token.dash(variant: .dashed))
     }
 }

@@ -26,24 +26,24 @@ struct InputOTPTokenOpacityTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Opacity when enabled should return dim none")
     func opacityWhenEnabledShouldReturnDimNone() {
         #expect(self.token.value(isEnabled: true) == self.theme.dims.none)
     }
 
-    @Test
+    @Test("Opacity when disabled should return dim 3")
     func opacityWhenDisabledShouldReturnDim3() {
         #expect(self.token.value(isEnabled: false) == self.theme.dims.dim3)
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         #expect(InputOTPToken.Opacity(theme: self.theme) == InputOTPToken.Opacity(theme: self.theme))
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         #expect(InputOTPToken.Opacity(theme: self.theme) != InputOTPToken.Opacity(theme: ThemeGeneratedMock.mocked2()))
     }

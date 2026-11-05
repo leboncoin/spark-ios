@@ -72,11 +72,13 @@ The Token file must respect theses rules :
 ### Test Implementation
 - [ ] Tests must be written in **Swift Testing** framework
 - [ ] Imports: `Testing`, `Foundation`, `@testable import SparkComponentXXX`, `@_spi(SI_SPI) import SparkTheming`, `@_spi(SI_SPI) import SparkThemingTesting`
+
+- [ ] Every `@Test` must have a description, written as the function name in a sentence (e.g. `@Test("Radius should return radius full")` for `func radiusShouldReturnRadiusFull()`, `@Test("Value should return expected scale", arguments: [...])` for a parameterized test). Never use a bare `@Test` or `@Test(arguments:)`
 - [ ] Function names in lowerCamelCase describing the expectation (e.g. `radiusShouldReturnRadiusFull`)
 - [ ] Use `ThemeGeneratedMock.mocked()` for the values and `ThemeGeneratedMock.mocked2()` for the inequality
 - [ ] For each category:
   - one test per computed property comparing with the theme value (fonts compared with `.font`)
-  - one parameterized test (`@Test(arguments:)`) per method, covering all the combinations of the parameters
+  - one parameterized test (`@Test("Description", arguments:)`) per method, covering all the combinations of the parameters
   - a `// MARK: - Equatable Tests` section: same theme returns true, different theme returns false
   - for a constant category: one test per constant
 - [ ] The root `XXXTokenTests` contains `initShouldSetAllCategories` (each property equals `.init(theme: self.theme)` or `.init()` for constants), plus equatable true/false at the root level

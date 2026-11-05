@@ -7,12 +7,13 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentRating
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class RatingInputGetSpacingUseCaseTests: XCTestCase {
+@Suite("Rating Input Get Spacing Use Case Tests")
+struct RatingInputGetSpacingUseCaseTests {
 
     // MARK: - Properties
 
@@ -21,8 +22,7 @@ final class RatingInputGetSpacingUseCaseTests: XCTestCase {
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
 
         self.theme = ThemeGeneratedMock.mocked()
         self.sut = RatingInputGetSpacingUseCase()
@@ -30,7 +30,8 @@ final class RatingInputGetSpacingUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_returns_medium_spacing() {
+    @Test("Execute returns medium spacing")
+    func executeReturnsMediumSpacing() {
         // GIVEN
         let expectedSpacing = self.theme.layout.spacing.medium
 
@@ -38,6 +39,6 @@ final class RatingInputGetSpacingUseCaseTests: XCTestCase {
         let result = self.sut.execute(theme: self.theme)
 
         // THEN
-        XCTAssertEqual(result, expectedSpacing)
+        #expect(result == expectedSpacing)
     }
 }

@@ -8,7 +8,7 @@
 
 import Combine
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentCheckbox
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkCommonTesting
@@ -17,21 +17,22 @@ import SparkTheming
 import SparkTheme
 
 // swiftlint:disable force_unwrapping
-final class CheckboxViewModelTests: XCTestCase {
+@MainActor
+@Suite("Checkbox ViewModel Tests")
+final class CheckboxViewModelTests {
 
-    var theme: ThemeGeneratedMock!
+    let theme: ThemeGeneratedMock
     var cancellable = Set<AnyCancellable>()
-    var checkedImage = IconographyTests.shared.checkmark
+    let checkedImage = IconographyTests.shared.checkmark
 
     // MARK: - Setup
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-
+    init() {
         self.theme = ThemeGeneratedMock.mocked()
     }
 
     // MARK: - Tests
-    func test_init() throws {
+    @Test("Init should set the values for each state")
+    func initialization() throws {
         let states = [true, false]
 
         for state in states {
@@ -39,41 +40,42 @@ final class CheckboxViewModelTests: XCTestCase {
             let viewModel = sut(isEnabled: state)
 
             // Then
-            XCTAssertEqual(state, viewModel.isEnabled, "wrong state")
-            XCTAssertNotNil(viewModel.theme, "no theme set")
-            XCTAssertNotNil(viewModel.colors, "no colors set")
-            XCTAssertNotNil(viewModel.intent, "no intents set")
-            XCTAssertNotNil(viewModel.alignment, "no alignment set")
+            #expect(state == viewModel.isEnabled, "wrong state")
+            #expect(viewModel.theme != nil, "no theme set")
+            #expect(viewModel.colors != nil, "no colors set")
+            #expect(viewModel.intent != nil, "no intents set")
+            #expect(viewModel.alignment != nil, "no alignment set")
 
-            XCTAssertIdentical(viewModel.theme as? ThemeGeneratedMock,
-                               self.theme,
-                               "Wrong typography value")
+            #expect(viewModel.theme as? ThemeGeneratedMock === self.theme, "Wrong typography value")
 
-            XCTAssertEqual(viewModel.text.leftValue?.string, "Text", "text does not match")
-            XCTAssertEqual(viewModel.checkedImage.leftValue, self.checkedImage, "Checked image does not match")
-            XCTAssertEqual(viewModel.alignment, .left, "Alignment does not match")
-            XCTAssertEqual(viewModel.intent, .main, "Intent does not match")
-            XCTAssertEqual(viewModel.selectionState, .unselected, "Selection state does not match")
+            #expect(viewModel.text.leftValue?.string == "Text", "text does not match")
+            #expect(viewModel.checkedImage.leftValue == self.checkedImage, "Checked image does not match")
+            #expect(viewModel.alignment == .left, "Alignment does not match")
+            #expect(viewModel.intent == .main, "Intent does not match")
+            #expect(viewModel.selectionState == .unselected, "Selection state does not match")
         }
     }
 
-    func test_opacity() throws {
+    @Test("Opacity should depend on the enabled state")
+    func opacity() throws {
         // Given
         let opacities = self.sutValues(for: \.opacity)
 
         // Then
-        XCTAssertEqual(opacities, [self.theme.dims.none, self.theme.dims.dim3])
+        #expect(opacities == [self.theme.dims.none, self.theme.dims.dim3])
     }
 
-    func test_isEnabled() {
+    @Test("IsEnabled should match the given state")
+    func isEnabled() {
         // Given
         let disabledStates = self.sutValues(for: \.isEnabled)
 
         // Then
-        XCTAssertEqual(disabledStates, [true, false])
+        #expect(disabledStates == [true, false])
     }
 
-    func test_text() {
+    @Test("Text should be set with a string")
+    func text() {
         // Given
         let sut = self.sut(isEnabled: true, attributeText: NSAttributedString("Text"))
 
@@ -81,10 +83,11 @@ final class CheckboxViewModelTests: XCTestCase {
         sut.text = .right("Text")
 
         // Then
-        XCTAssertNotNil(sut.text.rightValue)
+        #expect(sut.text.rightValue != nil)
     }
 
-    func test_attributeText() {
+    @Test("Text should be set with an attributed string")
+    func attributeText() {
         // Given
         let sut = self.sut(isEnabled: true)
 
@@ -92,28 +95,27 @@ final class CheckboxViewModelTests: XCTestCase {
         sut.text = .left(NSAttributedString("Text"))
 
         // Then
-        XCTAssertNotNil(sut.text.leftValue)
+        #expect(sut.text.leftValue != nil)
     }
 
-    func test_updateColorsMethod_afterIntentIsSet() async {
+    @Test("Colors should be updated after the intent is set")
+    func updateColorsMethodAfterIntentIsSet() async {
         // Given
         let sut = self.sut(isEnabled: true, attributeText: NSAttributedString("Text"))
         var isColorsUpdated = false
         // When
         sut.intent = .accent
 
-        let expectation = expectation(description: "Colors are updates")
-
-        sut.$colors.sink(receiveValue: { _ in
-            isColorsUpdated = true
-            expectation.fulfill()
-        })
-        .store(in: &cancellable)
-
-        await fulfillment(of: [expectation], timeout: 2.0)
+        await confirmation("Colors are updates") { confirm in
+            sut.$colors.sink(receiveValue: { _ in
+                isColorsUpdated = true
+                confirm()
+            })
+            .store(in: &cancellable)
+        }
 
         // Then
-        XCTAssertTrue(isColorsUpdated)
+        #expect(isColorsUpdated)
     }
 
     // MARK: - Private Helper Functions
@@ -122,8 +124,8 @@ final class CheckboxViewModelTests: XCTestCase {
         let statesToTest: [Bool] = [true, false]
 
         return statesToTest
-            .map{ self.sut(isEnabled: $0)}
-            .map{ $0[keyPath: keyPath] }
+            .map { self.sut(isEnabled: $0) }
+            .map { $0[keyPath: keyPath] }
     }
 
     private func sut(isEnabled: Bool, attributeText: NSAttributedString? = nil) -> CheckboxViewModel {

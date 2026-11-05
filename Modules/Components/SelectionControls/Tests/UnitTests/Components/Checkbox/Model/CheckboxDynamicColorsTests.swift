@@ -6,25 +6,28 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class CheckboxDynamicColorsTests: XCTestCase {
+@Suite("Checkbox Dynamic Colors Tests")
+struct CheckboxDynamicColorsTests {
 
     // MARK: - Initialization Tests
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let dynamicColors = CheckboxDynamicColors()
 
         // THEN
-        XCTAssertTrue(dynamicColors.background.equals(ColorTokenClear()))
-        XCTAssertTrue(dynamicColors.border.equals(ColorTokenClear()))
+        #expect(dynamicColors.background.equals(ColorTokenClear()))
+        #expect(dynamicColors.border.equals(ColorTokenClear()))
     }
 
-    func test_initialization_withCustomValues_shouldUseProvidedValues() {
+    @Test("Initialization with custom values should use provided values")
+    func initializationWithCustomValuesShouldUseProvidedValues() {
         // GIVEN
         let customBackground = ColorTokenGeneratedMock.random()
         let customBorder = ColorTokenGeneratedMock.random()
@@ -36,7 +39,7 @@ final class CheckboxDynamicColorsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(dynamicColors.background.equals(customBackground))
-        XCTAssertTrue(dynamicColors.border.equals(customBorder))
+        #expect(dynamicColors.background.equals(customBackground))
+        #expect(dynamicColors.border.equals(customBorder))
     }
 }

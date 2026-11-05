@@ -6,20 +6,22 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 
-final class TextFieldAddonConfigurationTests: XCTestCase {
+@Suite("Text Field Addon Configuration Tests")
+struct TextFieldAddonConfigurationTests {
 
     // MARK: - Tests
 
-    func test_default_values() {
+    @Test("Default values")
+    func defaultValues() {
         // GIVEN / WHEN
         let object = TextFieldAddonConfiguration()
 
         // THEN
-        XCTAssertEqual(object.hasPadding, false, "Wrong hasPadding value")
-        XCTAssertEqual(object.hasSeparator, false, "Wrong hasSeparator value")
-        XCTAssertEqual(object.layoutPriority, 1, "Wrong layoutPriority value")
+        #expect(object.hasPadding == false, "Wrong hasPadding value")
+        #expect(object.hasSeparator == false, "Wrong hasSeparator value")
+        #expect(object.layoutPriority == 1, "Wrong layoutPriority value")
     }
 }

@@ -6,11 +6,12 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SegmentedGaugeGetLayoutUseCaseTests: XCTestCase {
+@Suite("SegmentedGauge Get Layout UseCase Tests")
+struct SegmentedGaugeGetLayoutUseCaseTests {
 
     // MARK: - Properties
 
@@ -19,7 +20,8 @@ final class SegmentedGaugeGetLayoutUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_withHorizontalAlignment_returnsMediumSubContentSpacing() {
+    @Test("Execute with horizontal alignment returns medium sub content spacing")
+    func executeWithHorizontalAlignmentReturnsMediumSubContentSpacing() {
         // GIVEN
         let alignment = SegmentedGaugeAlignment.horizontal
 
@@ -33,10 +35,11 @@ final class SegmentedGaugeGetLayoutUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, alignment: alignment)
 
         // THEN
-        XCTAssertEqual(result, expectedLayout)
+        #expect(result == expectedLayout)
     }
 
-    func test_execute_withVerticalAlignment_returnsSmallSubContentSpacing() {
+    @Test("Execute with vertical alignment returns small sub content spacing")
+    func executeWithVerticalAlignmentReturnsSmallSubContentSpacing() {
         // GIVEN
         let alignment = SegmentedGaugeAlignment.vertical
 
@@ -50,6 +53,6 @@ final class SegmentedGaugeGetLayoutUseCaseTests: XCTestCase {
         let result = self.useCase.execute(theme: self.theme, alignment: alignment)
 
         // THEN
-        XCTAssertEqual(result, expectedLayout)
+        #expect(result == expectedLayout)
     }
 }

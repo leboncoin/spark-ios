@@ -6,22 +6,25 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentIcon
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class IconIntentTests: XCTestCase {
+@Suite("Icon Intent Tests")
+struct IconIntentTests {
 
     // MARK: - Tests
 
-    func test_default_equals_support() {
+    @Test("Default equals support")
+    func defaultEqualsSupport() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(IconIntent.default, .support)
+        #expect(IconIntent.default == .support)
     }
 
     // MARK: - Equatable Tests
 
-    func test_equality_same_cases() {
+    @Test("Equality same cases")
+    func equalitySameCases() {
         // GIVEN
         let testCases: [(IconIntent, IconIntent)] = [
             (.accent, .accent),
@@ -36,11 +39,12 @@ final class IconIntentTests: XCTestCase {
 
         // WHEN / THEN
         for (lhs, rhs) in testCases {
-            XCTAssertEqual(lhs, rhs, "Expected \(lhs) to equal \(rhs)")
+            #expect(lhs == rhs, "Expected \(lhs) to equal \(rhs)")
         }
     }
 
-    func test_equality_different_cases() {
+    @Test("Equality different cases")
+    func equalityDifferentCases() {
         // GIVEN
         let testCases: [(IconIntent, IconIntent)] = [
             (.accent, .alert),
@@ -52,25 +56,27 @@ final class IconIntentTests: XCTestCase {
 
         // WHEN / THEN
         for (lhs, rhs) in testCases {
-            XCTAssertNotEqual(lhs, rhs, "Expected \(lhs) to not equal \(rhs)")
+            #expect(lhs != rhs, "Expected \(lhs) to not equal \(rhs)")
         }
     }
 
-    func test_equality_custom_same_color_token() {
+    @Test("Equality custom same color token")
+    func equalityCustomSameColorToken() {
         // GIVEN
         let intent1 = IconIntent.custom(ColorTokenGeneratedMock.blue())
         let intent2 = IconIntent.custom(ColorTokenGeneratedMock.blue())
 
         // WHEN / THEN
-        XCTAssertEqual(intent1, intent2)
+        #expect(intent1 == intent2)
     }
 
-    func test_equality_custom_different_color_token() {
+    @Test("Equality custom different color token")
+    func equalityCustomDifferentColorToken() {
         // GIVEN
         let intent1 = IconIntent.custom(ColorTokenGeneratedMock.blue())
         let intent2 = IconIntent.custom(ColorTokenGeneratedMock.red())
 
         // WHEN / THEN
-        XCTAssertNotEqual(intent1, intent2)
+        #expect(intent1 != intent2)
     }
 }

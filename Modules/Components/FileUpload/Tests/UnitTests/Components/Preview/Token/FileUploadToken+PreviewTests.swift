@@ -22,7 +22,7 @@ struct FileUploadTokenPreviewTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Init should set all categories")
     func initShouldSetAllCategories() {
         // GIVEN / WHEN
         let token = FileUploadToken.Preview(theme: self.theme)
@@ -39,7 +39,7 @@ struct FileUploadTokenPreviewTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = FileUploadToken.Preview(theme: self.theme)
@@ -49,7 +49,7 @@ struct FileUploadTokenPreviewTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = FileUploadToken.Preview(theme: self.theme)

@@ -6,12 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentStepper
 @testable import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-class StepperGetTextStyleUseCaseTests: XCTestCase {
+@Suite("Stepper Get Text Style UseCase Tests")
+struct StepperGetTextStyleUseCaseTests {
 
     // MARK: - Properties
 
@@ -20,19 +21,21 @@ class StepperGetTextStyleUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testExecuteReturnsCorrectColorToken() {
+    @Test("Execute returns correct color token")
+    func executeReturnsCorrectColorToken() {
         // GIVEN / WHEN
         let colorToken: any ColorToken = self.useCase.executeColorToken(theme: self.themeMock)
 
         // THEN
-        XCTAssertEqual(colorToken.uiColor, self.themeMock.colors.base.onSurface.uiColor)
+        #expect(colorToken.uiColor == self.themeMock.colors.base.onSurface.uiColor)
     }
 
-    func testExecuteReturnsCorrectTypographyFontToken() {
+    @Test("Execute returns correct typography font token")
+    func executeReturnsCorrectTypographyFontToken() {
         // GIVEN / WHEN
         let font: any TypographyFontToken = self.useCase.executeFontToken(theme: self.themeMock)
 
         // THEN
-        XCTAssertEqual(font.uiFont, self.themeMock.typography.body1.uiFont)
+        #expect(font.uiFont == self.themeMock.typography.body1.uiFont)
     }
 }

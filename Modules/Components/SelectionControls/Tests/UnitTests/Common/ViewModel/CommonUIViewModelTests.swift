@@ -6,7 +6,7 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) @testable import SparkComponentSelectionControlsTesting
 @_spi(SI_SPI) import SparkCommon
@@ -14,16 +14,19 @@ import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 import SwiftUI
 
-final class CommonUIViewModelTests: XCTestCase {
+@MainActor
+@Suite("Common UI ViewModel Tests")
+struct CommonUIViewModelTests {
 
     // MARK: - Initialization Tests
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherSelectedValue: true,
             otherStaticAnimationType: .unanimated,
@@ -35,7 +38,7 @@ final class CommonUIViewModelTests: XCTestCase {
         )
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticAnimationType: true,
             getDynamicAnimationType: true,
@@ -49,7 +52,8 @@ final class CommonUIViewModelTests: XCTestCase {
 
     // MARK: - Load Tests
 
-    func test_load_shouldCallAllUseCases_exceptAnimationType() {
+    @Test("Load should call all use cases except animation type")
+    func loadShouldCallAllUseCasesExceptAnimationType() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -58,23 +62,23 @@ final class CommonUIViewModelTests: XCTestCase {
         viewModel.load(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             resetAnimation: true
         )
 
-        CommonGetAnimationTypeUseCaseableMockTest.XCTAssert(
+        CommonGetAnimationTypeUseCaseableMockTest.expect(
             stub.getAnimationTypeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsReduceMotionEnabled: stub.givenIsReduceMotionEnabled,
             expectedReturnValue: stub.expectedStaticAnimationType
         )
 
-        CommonGetAnimationTypeUseCaseableMockTest.XCTAssert(
+        CommonGetAnimationTypeUseCaseableMockTest.expect(
             stub.getAnimationTypeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSelectedValueAnimated: false,
@@ -82,7 +86,7 @@ final class CommonUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDynamicAnimationType
         )
 
-        CommonGetContentRadiusUseCaseableMockTest.XCTAssert(
+        CommonGetContentRadiusUseCaseableMockTest.expect(
             stub.getContentRadiusUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -90,7 +94,7 @@ final class CommonUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentRadius
         )
 
-        CommonGetDimUseCaseableMockTest.XCTAssert(
+        CommonGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -98,14 +102,14 @@ final class CommonUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        CommonGetSpacingUseCaseableMockTest.XCTAssert(
+        CommonGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedSpacing
         )
 
-        CommonGetTitleStyleUseCaseableMockTest.XCTAssert(
+        CommonGetTitleStyleUseCaseableMockTest.expect(
             stub.getTitleStyleUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -116,7 +120,8 @@ final class CommonUIViewModelTests: XCTestCase {
 
     // MARK: - Setter Tests
 
-    func test_themeChanged_shouldUpdateSomeProperties() {
+    @Test("Theme changed should update some properties")
+    func themeChangedShouldUpdateSomeProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -130,18 +135,18 @@ final class CommonUIViewModelTests: XCTestCase {
         viewModel.theme = givenTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticAnimationType: true,
             getDynamicAnimationType: true,
             resetAnimation: true
         )
 
-        CommonGetContentRadiusUseCaseableMockTest.XCTAssert(
+        CommonGetContentRadiusUseCaseableMockTest.expect(
             stub.getContentRadiusUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -149,7 +154,7 @@ final class CommonUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedContentRadius
         )
 
-        CommonGetDimUseCaseableMockTest.XCTAssert(
+        CommonGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -157,14 +162,14 @@ final class CommonUIViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        CommonGetSpacingUseCaseableMockTest.XCTAssert(
+        CommonGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
             expectedReturnValue: stub.expectedSpacing
         )
 
-        CommonGetTitleStyleUseCaseableMockTest.XCTAssert(
+        CommonGetTitleStyleUseCaseableMockTest.expect(
             stub.getTitleStyleUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: givenTheme,
@@ -173,7 +178,8 @@ final class CommonUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_isEnabledChanged_shouldUpdateDim() {
+    @Test("Is enabled changed should update dim")
+    func isEnabledChangedShouldUpdateDim() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -187,11 +193,11 @@ final class CommonUIViewModelTests: XCTestCase {
         viewModel.isEnabled = givenIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticAnimationType: true,
             getDynamicAnimationType: true,
@@ -201,7 +207,7 @@ final class CommonUIViewModelTests: XCTestCase {
             resetAnimation: true
         )
 
-        CommonGetDimUseCaseableMockTest.XCTAssert(
+        CommonGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -211,7 +217,8 @@ final class CommonUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_isReduceMotionEnabled_shouldUpdateAnimationType() {
+    @Test("Is reduce motion enabled should update animation type")
+    func isReduceMotionEnabledShouldUpdateAnimationType() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -225,11 +232,11 @@ final class CommonUIViewModelTests: XCTestCase {
         viewModel.isReduceMotionEnabled = givenIsReduceMotionEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getContentRadius: true,
             getDim: true,
@@ -238,14 +245,14 @@ final class CommonUIViewModelTests: XCTestCase {
             resetAnimation: true
         )
 
-        CommonGetAnimationTypeUseCaseableMockTest.XCTAssert(
+        CommonGetAnimationTypeUseCaseableMockTest.expect(
             stub.getAnimationTypeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIsReduceMotionEnabled: givenIsReduceMotionEnabled,
             expectedReturnValue: stub.expectedStaticAnimationType
         )
 
-        CommonGetAnimationTypeUseCaseableMockTest.XCTAssert(
+        CommonGetAnimationTypeUseCaseableMockTest.expect(
             stub.getAnimationTypeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSelectedValueAnimated: false,
@@ -255,7 +262,8 @@ final class CommonUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_allSetter_withoutChange() {
+    @Test("All setter without change")
+    func allSetterWithoutChange() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -270,10 +278,10 @@ final class CommonUIViewModelTests: XCTestCase {
         viewModel.setSelectedValue(true)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticAnimationType: true,
             getDynamicAnimationType: true,
@@ -285,7 +293,8 @@ final class CommonUIViewModelTests: XCTestCase {
         )
     }
 
-    func test_allSetter_withoutLoadBefore() {
+    @Test("All setter without load before")
+    func allSetterWithoutLoadBefore() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -300,7 +309,7 @@ final class CommonUIViewModelTests: XCTestCase {
         viewModel.setSelectedValue(false, animated: givenAnimated)
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherSelectedValue: false,
             otherStaticAnimationType: .unanimated,
@@ -313,7 +322,7 @@ final class CommonUIViewModelTests: XCTestCase {
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticAnimationType: true,
             getContentRadius: true,
@@ -323,7 +332,7 @@ final class CommonUIViewModelTests: XCTestCase {
             resetAnimation: true
         )
 
-        CommonGetAnimationTypeUseCaseableMockTest.XCTAssert(
+        CommonGetAnimationTypeUseCaseableMockTest.expect(
             stub.getAnimationTypeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSelectedValueAnimated: givenAnimated,
@@ -335,7 +344,8 @@ final class CommonUIViewModelTests: XCTestCase {
 
     // MARK: - Action
 
-    func test_setSelectedValue_without_animation() {
+    @Test("Set selected value without animation")
+    func setSelectedValueWithoutAnimation() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -349,11 +359,11 @@ final class CommonUIViewModelTests: XCTestCase {
         viewModel.setSelectedValue(givenSelectedValue, animated: givenAnimated)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticAnimationType: true,
             getContentRadius: true,
@@ -363,7 +373,7 @@ final class CommonUIViewModelTests: XCTestCase {
             resetAnimation: true
         )
 
-        CommonGetAnimationTypeUseCaseableMockTest.XCTAssert(
+        CommonGetAnimationTypeUseCaseableMockTest.expect(
             stub.getAnimationTypeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSelectedValueAnimated: givenAnimated,
@@ -373,7 +383,8 @@ final class CommonUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_setSelectedValue_with_animation() {
+    @Test("Set selected value with animation")
+    func setSelectedValueWithAnimation() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -387,11 +398,11 @@ final class CommonUIViewModelTests: XCTestCase {
         viewModel.setSelectedValue(givenSelectedValue, animated: givenAnimated)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticAnimationType: true,
             getContentRadius: true,
@@ -401,7 +412,7 @@ final class CommonUIViewModelTests: XCTestCase {
             resetAnimation: true
         )
 
-        CommonGetAnimationTypeUseCaseableMockTest.XCTAssert(
+        CommonGetAnimationTypeUseCaseableMockTest.expect(
             stub.getAnimationTypeUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSelectedValueAnimated: givenAnimated,
@@ -411,7 +422,8 @@ final class CommonUIViewModelTests: XCTestCase {
         // **
     }
 
-    func test_setCompletedAnimation() {
+    @Test("Set completed animation")
+    func setCompletedAnimation() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -424,11 +436,11 @@ final class CommonUIViewModelTests: XCTestCase {
         viewModel.setCompletedAnimation(givenAnimation)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticAnimationType: true,
             getDynamicAnimationType: true,
@@ -438,7 +450,7 @@ final class CommonUIViewModelTests: XCTestCase {
             getTitleStyle: true
         )
 
-        CommonResetAnimationUseCaseableMockTest.XCTAssert(
+        CommonResetAnimationUseCaseableMockTest.expect(
             stub.resetAnimationUseCaseMock,
             expectedNumberOfCalls: 1,
             givenAnimationType: stub.expectedDynamicAnimationType,
@@ -459,11 +471,11 @@ final class CommonUIViewModelTests: XCTestCase {
         viewModel.setCompletedAnimation(givenAnimation2)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // **
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticAnimationType: true,
             getDynamicAnimationType: true,
@@ -473,7 +485,7 @@ final class CommonUIViewModelTests: XCTestCase {
             getTitleStyle: true
         )
 
-        CommonResetAnimationUseCaseableMockTest.XCTAssert(
+        CommonResetAnimationUseCaseableMockTest.expect(
             stub.resetAnimationUseCaseMock,
             expectedNumberOfCalls: 1,
             givenAnimationType: stub.expectedDynamicAnimationType,
@@ -487,7 +499,8 @@ final class CommonUIViewModelTests: XCTestCase {
 
     // MARK: - Update Tests
 
-    func test_selectedValueChanged() {
+    @Test("Selected value changed")
+    func selectedValueChanged() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -499,10 +512,10 @@ final class CommonUIViewModelTests: XCTestCase {
         viewModel.selectedValueChanged(oldValue: true)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
         // UseCase Calls Count
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getStaticAnimationType: true,
             getDynamicAnimationType: true,
@@ -591,9 +604,9 @@ private extension CommonUIViewModel {
     }
 }
 
-// MARK: - XCT
+// MARK: - Expectations
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getStaticAnimationType getStaticAnimationTypeNotCalled: Bool = false,
     getDynamicAnimationType getDynamicAnimationTypeNotCalled: Bool = false,
@@ -601,40 +614,47 @@ private func XCTAssertNotCalled(
     getDim getDimNotCalled: Bool = false,
     getSpacing getSpacingNotCalled: Bool = false,
     getTitleStyle getTitleStyleNotCalled: Bool = false,
-    resetAnimation resetAnimationNotCalled: Bool = false
+    resetAnimation resetAnimationNotCalled: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    CommonGetAnimationTypeUseCaseableMockTest.XCTCalled(
+    CommonGetAnimationTypeUseCaseableMockTest.expectCalled(
         stub.getAnimationTypeUseCaseMock,
-        executeWithIsReduceMotionEnabledCalled: !getStaticAnimationTypeNotCalled
+        executeWithIsReduceMotionEnabledCalled: !getStaticAnimationTypeNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    CommonGetAnimationTypeUseCaseableMockTest.XCTCalled(
+    CommonGetAnimationTypeUseCaseableMockTest.expectCalled(
         stub.getAnimationTypeUseCaseMock,
-        executeWithSelectedValueAnimatedAndIsReduceMotionEnabledCalled: !getDynamicAnimationTypeNotCalled
+        executeWithSelectedValueAnimatedAndIsReduceMotionEnabledCalled: !getDynamicAnimationTypeNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    CommonGetContentRadiusUseCaseableMockTest.XCTCalled(
+    CommonGetContentRadiusUseCaseableMockTest.expectCalled(
         stub.getContentRadiusUseCaseMock,
-        executeWithThemeAndTypeCalled: !getContentRadiusNotCalled
+        executeWithThemeAndTypeCalled: !getContentRadiusNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    CommonGetSpacingUseCaseableMockTest.XCTCalled(
+    CommonGetSpacingUseCaseableMockTest.expectCalled(
         stub.getSpacingUseCaseMock,
-        executeWithThemeCalled: !getSpacingNotCalled
+        executeWithThemeCalled: !getSpacingNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    CommonGetTitleStyleUseCaseableMockTest.XCTCalled(
+    CommonGetTitleStyleUseCaseableMockTest.expectCalled(
         stub.getTitleStyleUseCaseMock,
-        executeWithThemeCalled: !getTitleStyleNotCalled
+        executeWithThemeCalled: !getTitleStyleNotCalled,
+        sourceLocation: sourceLocation
     )
 
-    CommonResetAnimationUseCaseableMockTest.XCTCalled(
+    CommonResetAnimationUseCaseableMockTest.expectCalled(
         stub.resetAnimationUseCaseMock,
-        executeWithAnimationTypeAndCompletedAnimationsAndSelectedValueAnimatedAndIsReduceMotionEnabledCalled: !resetAnimationNotCalled
+        executeWithAnimationTypeAndCompletedAnimationsAndSelectedValueAnimatedAndIsReduceMotionEnabledCalled: !resetAnimationNotCalled,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherSelectedValue: Bool? = nil,
     otherStaticAnimationType: UIExecuteAnimationType? = nil,
@@ -642,46 +662,47 @@ private func XCTAssertEqualToExpected(
     otherContentRadius: CGFloat? = nil,
     otherDim: CGFloat? = nil,
     otherSpacing: CGFloat? = nil,
-    otherTitleStyle: CommonTitleStyle? = nil
+    otherTitleStyle: CommonTitleStyle? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
     if let otherSelectedValue {
-        XCTAssertEqual(
-            viewModel.selectedValue,
-            otherSelectedValue,
-            "Wrong isOn value"
+        #expect(
+            viewModel.selectedValue == otherSelectedValue,
+            "Wrong isOn value",
+            sourceLocation: sourceLocation
         )
     }
 
-    XCTAssertEqual(
-        viewModel.staticAnimationType,
-        otherStaticAnimationType ?? stub.expectedStaticAnimationType,
-        "Wrong staticAnimationType value"
+    #expect(
+        viewModel.staticAnimationType == (otherStaticAnimationType ?? stub.expectedStaticAnimationType),
+        "Wrong staticAnimationType value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.dynamicAnimationType,
-        otherDynamicAnimationType ?? stub.expectedDynamicAnimationType,
-        "Wrong dynamicAnimationType value"
+    #expect(
+        viewModel.dynamicAnimationType == (otherDynamicAnimationType ?? stub.expectedDynamicAnimationType),
+        "Wrong dynamicAnimationType value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.contentRadius,
-        otherContentRadius ?? stub.expectedContentRadius,
-        "Wrong contentRadius value"
+    #expect(
+        viewModel.contentRadius == (otherContentRadius ?? stub.expectedContentRadius),
+        "Wrong contentRadius value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.dim,
-        otherDim ?? stub.expectedDim,
-        "Wrong dim value"
+    #expect(
+        viewModel.dim == (otherDim ?? stub.expectedDim),
+        "Wrong dim value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.spacing,
-        otherSpacing ?? stub.expectedSpacing,
-        "Wrong spacing value"
+    #expect(
+        viewModel.spacing == (otherSpacing ?? stub.expectedSpacing),
+        "Wrong spacing value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.titleStyle,
-        otherTitleStyle ?? stub.expectedTitleStyle,
-        "Wrong font value"
+    #expect(
+        viewModel.titleStyle == (otherTitleStyle ?? stub.expectedTitleStyle),
+        "Wrong font value",
+        sourceLocation: sourceLocation
     )
 }

@@ -7,30 +7,31 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentBadge
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class BadgeGetColorsUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Badge Get Colors UseCase Tests")
+struct BadgeGetColorsUseCaseTests {
 
     // MARK: - Properties
 
-    private var sut: BadgeGetColorsUseCase!
-    private var theme: ThemeGeneratedMock!
+    private let sut: BadgeGetColorsUseCase
+    private let theme: ThemeGeneratedMock
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
-
+    init() {
         self.sut = BadgeGetColorsUseCase()
         self.theme = ThemeGeneratedMock.mocked()
     }
 
     // MARK: - Tests
 
-    func test_execute_with_accent_intent() {
+    @Test("Execute with accent intent")
+    func executeWithAccentIntent() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .accent)
 
@@ -41,10 +42,11 @@ final class BadgeGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedColors)
+        #expect(result == expectedColors)
     }
 
-    func test_execute_with_alert_intent() {
+    @Test("Execute with alert intent")
+    func executeWithAlertIntent() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .alert)
 
@@ -55,10 +57,11 @@ final class BadgeGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedColors)
+        #expect(result == expectedColors)
     }
 
-    func test_execute_with_danger_intent() {
+    @Test("Execute with danger intent")
+    func executeWithDangerIntent() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .danger)
 
@@ -69,10 +72,11 @@ final class BadgeGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedColors)
+        #expect(result == expectedColors)
     }
 
-    func test_execute_with_info_intent() {
+    @Test("Execute with info intent")
+    func executeWithInfoIntent() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .info)
 
@@ -83,10 +87,11 @@ final class BadgeGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedColors)
+        #expect(result == expectedColors)
     }
 
-    func test_execute_with_neutral_intent() {
+    @Test("Execute with neutral intent")
+    func executeWithNeutralIntent() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .neutral)
 
@@ -97,10 +102,11 @@ final class BadgeGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedColors)
+        #expect(result == expectedColors)
     }
 
-    func test_execute_with_main_intent() {
+    @Test("Execute with main intent")
+    func executeWithMainIntent() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .main)
 
@@ -111,10 +117,11 @@ final class BadgeGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedColors)
+        #expect(result == expectedColors)
     }
 
-    func test_execute_with_support_intent() {
+    @Test("Execute with support intent")
+    func executeWithSupportIntent() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .support)
 
@@ -125,10 +132,11 @@ final class BadgeGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedColors)
+        #expect(result == expectedColors)
     }
 
-    func test_execute_with_success_intent() {
+    @Test("Execute with success intent")
+    func executeWithSuccessIntent() {
         // GIVEN / WHEN
         let result = self.sut.execute(theme: self.theme, intent: .success)
 
@@ -139,6 +147,6 @@ final class BadgeGetColorsUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, expectedColors)
+        #expect(result == expectedColors)
     }
 }

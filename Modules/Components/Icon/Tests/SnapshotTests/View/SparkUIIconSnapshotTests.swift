@@ -27,7 +27,7 @@ struct SparkUIIconSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: IconScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    @Test("Spark UIIcon snapshot", arguments: IconScenarioSnapshotTests.allCases.filter { $0 != .documentation })
     func test(scenario: IconScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
         for configuration in configurations {

@@ -6,45 +6,50 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 
-final class SegmentedGaugeSegmentBorderTests: XCTestCase {
+@Suite("SegmentedGauge Segment Border Tests")
+struct SegmentedGaugeSegmentBorderTests {
 
     // MARK: - Default Values Tests
 
-    func test_defaultInitializer_setsZeroValues() {
+    @Test("Default initializer sets zero values")
+    func defaultInitializerSetsZeroValues() {
         // GIVEN / WHEN
         let border = SegmentedGaugeSegmentBorder()
 
         // THEN
-        XCTAssertEqual(border.width, 0)
-        XCTAssertEqual(border.radius, 0)
+        #expect(border.width == 0)
+        #expect(border.radius == 0)
     }
 
     // MARK: - Equatable Tests
 
-    func test_equality_whenValuesMatch() {
+    @Test("Equality when values match")
+    func equalityWhenValuesMatch() {
         // GIVEN / WHEN
         let lhs = SegmentedGaugeSegmentBorder(width: 2, radius: 5)
         let rhs = SegmentedGaugeSegmentBorder(width: 2, radius: 5)
 
-        XCTAssertEqual(lhs, rhs)
+        #expect(lhs == rhs)
     }
 
-    func test_inequality_whenWidthDiffers() {
+    @Test("Inequality when width differs")
+    func inequalityWhenWidthDiffers() {
         // GIVEN / WHEN
         let lhs = SegmentedGaugeSegmentBorder(width: 2, radius: 5)
         let rhs = SegmentedGaugeSegmentBorder(width: 3, radius: 5)
 
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 
-    func test_inequality_whenRadiusDiffers() {
+    @Test("Inequality when radius differs")
+    func inequalityWhenRadiusDiffers() {
         // GIVEN / WHEN
         let lhs = SegmentedGaugeSegmentBorder(width: 2, radius: 5)
         let rhs = SegmentedGaugeSegmentBorder(width: 2, radius: 4)
 
-        XCTAssertNotEqual(lhs, rhs)
+        #expect(lhs != rhs)
     }
 }

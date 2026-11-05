@@ -7,25 +7,28 @@
 //
 
 @testable import SparkComponentProgressBar
-import XCTest
+import Testing
 
-final class ProgressBarIndeterminateConstantsTests: XCTestCase {
+@Suite("Progress Bar Indeterminate Constants Tests")
+struct ProgressBarIndeterminateConstantsTests {
 
     // MARK: - Animation Tests
 
-    func test_animation_duration_value() {
+    @Test("Animation duration value")
+    func animationDurationValue() {
         // GIVEN / WHEN
         let duration = ProgressBarIndeterminateConstants.Animation.duration
 
         // THEN
-        XCTAssertEqual(duration, 0.4)
+        #expect(duration == 0.4)
     }
 
-    func test_animation_maxWidthRatio_value() {
+    @Test("Animation max width ratio value")
+    func animationMaxWidthRatioValue() {
         // GIVEN / WHEN
         let maxWidthRatio = ProgressBarIndeterminateConstants.Animation.maxWidthRatio
 
         // THEN
-        XCTAssertEqual(maxWidthRatio, 0.5)
+        #expect(maxWidthRatio == 0.5)
     }
 }

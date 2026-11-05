@@ -7,10 +7,11 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import SparkComponentRating
 
-final class RatingGetFillingRatioUseCaseTests: XCTestCase {
+@Suite("Rating Get Filling Ratio Use Case Tests")
+struct RatingGetFillingRatioUseCaseTests {
 
     // MARK: - Properties
 
@@ -18,15 +19,15 @@ final class RatingGetFillingRatioUseCaseTests: XCTestCase {
 
     // MARK: - Setup
 
-    override func setUp() {
-        super.setUp()
+    init() {
 
         self.sut = RatingGetFillingRatioUseCase()
     }
 
     // MARK: - Tests - Double Rating Method
 
-    func test_execute_with_double_rating() {
+    @Test("Execute with double rating")
+    func executeWithDoubleRating() {
         // GIVEN
         let index = 0
         let count = 5
@@ -36,10 +37,11 @@ final class RatingGetFillingRatioUseCaseTests: XCTestCase {
         let result = self.sut.execute(index: index, count: count, rating: rating)
 
         // THEN
-        XCTAssertEqual(result, 1)
+        #expect(result == 1)
     }
 
-    func test_execute_with_decimal_rating() {
+    @Test("Execute with decimal rating")
+    func executeWithDecimalRating() {
         // GIVEN
         let index = 0
         let count = 5
@@ -49,12 +51,13 @@ final class RatingGetFillingRatioUseCaseTests: XCTestCase {
         let result = self.sut.execute(index: index, count: count, rating: rating)
 
         // THEN
-        XCTAssertEqual(result, 1)
+        #expect(result == 1)
     }
 
     // MARK: - Tests - Single Star
 
-    func test_execute_single_star_empty() {
+    @Test("Execute single star empty")
+    func executeSingleStarEmpty() {
         // GIVEN
         typealias Scenario = (
             givenRating: Double,
@@ -94,17 +97,14 @@ final class RatingGetFillingRatioUseCaseTests: XCTestCase {
             )
 
             // THEN
-            XCTAssertEqual(
-                filling,
-                scenario.expectedFillingRatio,
-                "Wrong 1 when rating is equals to \(scenario.givenRating)"
-            )
+            #expect(filling == scenario.expectedFillingRatio, "Wrong 1 when rating is equals to \(scenario.givenRating)")
         }
     }
 
     // MARK: - Tests - Multiple Stars - Filled
 
-    func test_execute_multiple_stars_with_index_is_0() {
+    @Test("Execute multiple stars with index is 0")
+    func executeMultipleStarsWithIndexIs0() {
         // GIVEN
         typealias Scenario = (
             givenRating: Double,
@@ -129,15 +129,12 @@ final class RatingGetFillingRatioUseCaseTests: XCTestCase {
             )
 
             // THEN
-            XCTAssertEqual(
-                filling,
-                scenario.expectedFillingRatio,
-                "Wrong 1 when rating is equals to \(scenario.givenRating)"
-            )
+            #expect(filling == scenario.expectedFillingRatio, "Wrong 1 when rating is equals to \(scenario.givenRating)")
         }
     }
 
-    func test_execute_multiple_stars_with_index_is_1() {
+    @Test("Execute multiple stars with index is 1")
+    func executeMultipleStarsWithIndexIs1() {
         // GIVEN
         typealias Scenario = (
             givenRating: Double,
@@ -169,15 +166,12 @@ final class RatingGetFillingRatioUseCaseTests: XCTestCase {
             )
 
             // THEN
-            XCTAssertEqual(
-                filling,
-                scenario.expectedFillingRatio,
-                "Wrong 1 when rating is equals to \(scenario.givenRating)"
-            )
+            #expect(filling == scenario.expectedFillingRatio, "Wrong 1 when rating is equals to \(scenario.givenRating)")
         }
     }
 
-    func test_execute_multiple_stars_with_index_is_1_and_count_is_2() {
+    @Test("Execute multiple stars with index is 1 and count is 2")
+    func executeMultipleStarsWithIndexIs1AndCountIs2() {
         // GIVEN
         typealias Scenario = (
             givenRating: Double,
@@ -213,33 +207,32 @@ final class RatingGetFillingRatioUseCaseTests: XCTestCase {
             )
 
             // THEN
-            XCTAssertEqual(
-                filling,
-                scenario.expectedFillingRatio,
-                "Wrong 1 when rating is equals to \(scenario.givenRating)"
-            )
+            #expect(filling == scenario.expectedFillingRatio, "Wrong 1 when rating is equals to \(scenario.givenRating)")
         }
     }
 
     // MARK: - Tests - Edge Cases
 
-    func test_execute_with_negative_rating() {
+    @Test("Execute with negative rating")
+    func executeWithNegativeRating() {
         // GIVEN / WHEN
         let result = self.sut.execute(index: 0, count: 5, rating: -1.0)
 
         // THEN
-        XCTAssertEqual(result, 0)
+        #expect(result == 0)
     }
 
-    func test_execute_with_zero_index() {
+    @Test("Execute with zero index")
+    func executeWithZeroIndex() {
         // GIVEN / WHEN
         let result = self.sut.execute(index: 0, count: 5, rating: 2.5)
 
         // THEN
-        XCTAssertEqual(result, 1)
+        #expect(result == 1)
     }
 
-    func test_execute_boundary_values() {
+    @Test("Execute boundary values")
+    func executeBoundaryValues() {
         // Test exact boundary values for ratio calculation
         let scenarios: [(Double, CGFloat)] = [
             (0.25, 0.5),
@@ -250,11 +243,12 @@ final class RatingGetFillingRatioUseCaseTests: XCTestCase {
 
         for (rating, expected) in scenarios {
             let result = self.sut.execute(index: 0, count: 5, rating: rating)
-            XCTAssertEqual(result, expected, "Failed for rating \(rating)")
+            #expect(result == expected, "Failed for rating \(rating)")
         }
     }
 
-    func test_execute_consistency_with_different_double_values() {
+    @Test("Execute consistency with different double values")
+    func executeConsistencyWithDifferentDoubleValues() {
         // GIVEN
         let index = 0
         let count = 5
@@ -262,13 +256,13 @@ final class RatingGetFillingRatioUseCaseTests: XCTestCase {
         // WHEN & THEN
         // Test with whole number
         let wholeResult = self.sut.execute(index: index, count: count, rating: 1.0)
-        XCTAssertEqual(wholeResult, 1)
+        #expect(wholeResult == 1)
 
         // Test with decimal
         let decimalResult = self.sut.execute(index: index, count: count, rating: 1.5)
-        XCTAssertEqual(decimalResult, 1)
+        #expect(decimalResult == 1)
 
         // Both should be the same since rating >= index + 1 (1)
-        XCTAssertEqual(wholeResult, decimalResult)
+        #expect(wholeResult == decimalResult)
     }
 }

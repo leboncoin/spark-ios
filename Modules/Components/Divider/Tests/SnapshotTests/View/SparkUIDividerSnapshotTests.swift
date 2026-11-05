@@ -27,7 +27,7 @@ struct SparkUIDividerSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: DividerScenarioSnapshotTests.allCases.filter { $0 != .documentation })
+    @Test("Spark UIDivider snapshot", arguments: DividerScenarioSnapshotTests.allCases.filter { $0 != .documentation })
     func test(scenario: DividerScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
         for configuration in configurations {

@@ -5,15 +5,18 @@
 //  Created on 23/04/2025.
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
-import XCTest
+import Testing
 import SwiftUI
 @testable import SparkCommon
 
-final class LimitedScaledMetricTests: XCTestCase {
+@MainActor
+@Suite("Limited Scaled Metric Tests")
+struct LimitedScaledMetricTests {
 
     // MARK: - Tests Inits with Values
 
-    func test_init_with_values() {
+    @Test("Init with values")
+    func initWithValues() {
         // GIVEN
         let baseValue: CGFloat = 10
 
@@ -25,10 +28,11 @@ final class LimitedScaledMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue)
+        #expect(metric.wrappedValue == baseValue)
     }
 
-    func test_init_with_values_when_value_below_min() {
+    @Test("Init with values when value below min")
+    func initWithValuesWhenValueBelowMin() {
         // GIVEN
         let baseValue: CGFloat = 1
         let minValue: CGFloat = 8
@@ -42,10 +46,11 @@ final class LimitedScaledMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, minValue)
+        #expect(metric.wrappedValue == minValue)
     }
 
-    func test_init_with_values_when_value_above_max() {
+    @Test("Init with values when value above max")
+    func initWithValuesWhenValueAboveMax() {
         // GIVEN
         let baseValue: CGFloat = 20
         let maxValue: CGFloat = 12
@@ -59,12 +64,13 @@ final class LimitedScaledMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, maxValue)
+        #expect(metric.wrappedValue == maxValue)
     }
 
     // MARK: - Tests Inits with Factors
 
-    func test_init_with_factors() {
+    @Test("Init with factors")
+    func initWithFactors() {
         // GIVEN
         let baseValue: CGFloat = 10
 
@@ -77,10 +83,11 @@ final class LimitedScaledMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue)
+        #expect(metric.wrappedValue == baseValue)
     }
 
-    func test_init_with_default_factors() {
+    @Test("Init with default factors")
+    func initWithDefaultFactors() {
         // GIVEN
         let baseValue: CGFloat = 10
 
@@ -91,6 +98,6 @@ final class LimitedScaledMetricTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(metric.wrappedValue, baseValue)
+        #expect(metric.wrappedValue == baseValue)
     }
 }

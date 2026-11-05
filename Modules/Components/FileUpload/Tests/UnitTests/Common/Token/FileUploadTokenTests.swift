@@ -26,29 +26,29 @@ struct FileUploadTokenTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Button should return button")
     func buttonShouldReturnButton() {
         #expect(self.token.button == FileUploadToken.Button())
     }
 
-    @Test
+    @Test("Dropzone should return dropzone from theme")
     func dropzoneShouldReturnDropzoneFromTheme() {
         #expect(self.token.dropzone == FileUploadToken.Dropzone(theme: self.theme))
     }
 
-    @Test
+    @Test("Preview should return preview from theme")
     func previewShouldReturnPreviewFromTheme() {
         #expect(self.token.preview == FileUploadToken.Preview(theme: self.theme))
     }
 
-    @Test
+    @Test("Preview group should return preview group from theme")
     func previewGroupShouldReturnPreviewGroupFromTheme() {
         #expect(self.token.previewGroup == FileUploadToken.PreviewGroup(theme: self.theme))
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = FileUploadToken(theme: self.theme)
@@ -58,7 +58,7 @@ struct FileUploadTokenTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = FileUploadToken(theme: self.theme)

@@ -6,14 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import SparkComponentProgressBar
 
-final class ProgressBarIndeterminateGetIndicatorOpacityUseCaseTests: XCTestCase {
+@Suite("Progress Bar Indeterminate Get Indicator Opacity Use Case Tests")
+struct ProgressBarIndeterminateGetIndicatorOpacityUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_returns_zero_when_type_is_none() {
+    @Test("Execute returns zero when type is none")
+    func executeReturnsZeroWhenTypeIsNone() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenType: .none,
@@ -21,7 +24,8 @@ final class ProgressBarIndeterminateGetIndicatorOpacityUseCaseTests: XCTestCase 
         )
     }
 
-    func test_execute_returns_one_when_type_is_easeIn() {
+    @Test("Execute returns one when type is ease in")
+    func executeReturnsOneWhenTypeIsEaseIn() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenType: .easeIn,
@@ -29,7 +33,8 @@ final class ProgressBarIndeterminateGetIndicatorOpacityUseCaseTests: XCTestCase 
         )
     }
 
-    func test_execute_returns_one_when_type_is_easeOut() {
+    @Test("Execute returns one when type is ease out")
+    func executeReturnsOneWhenTypeIsEaseOut() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenType: .easeOut,
@@ -37,7 +42,8 @@ final class ProgressBarIndeterminateGetIndicatorOpacityUseCaseTests: XCTestCase 
         )
     }
 
-    func test_execute_returns_one_when_type_is_reset() {
+    @Test("Execute returns one when type is reset")
+    func executeReturnsOneWhenTypeIsReset() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenType: .reset,
@@ -45,7 +51,8 @@ final class ProgressBarIndeterminateGetIndicatorOpacityUseCaseTests: XCTestCase 
         )
     }
 
-    func test_execute_returns_zero_when_type_is_nil() {
+    @Test("Execute returns zero when type is nil")
+    func executeReturnsZeroWhenTypeIsNil() {
         // GIVEN / WHEN / THEN
         self.testExecute(
             givenType: nil,
@@ -69,10 +76,6 @@ private extension ProgressBarIndeterminateGetIndicatorOpacityUseCaseTests {
         let opacity = useCase.execute(type: givenType)
 
         // THEN
-        XCTAssertEqual(
-            opacity,
-            expectedOpacity,
-            "Wrong opacity for type \(String(describing: givenType))"
-        )
+        #expect(opacity == expectedOpacity, "Wrong opacity for type \(String(describing: givenType))")
     }
 }

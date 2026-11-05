@@ -6,30 +6,26 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 
-final class CheckboxGetNewSelectedValueUseCaseTests: XCTestCase {
+@Suite("Checkbox Get New Selected Value UseCase Tests")
+struct CheckboxGetNewSelectedValueUseCaseTests {
 
     // MARK: - Properties
 
-    private var useCase: CheckboxGetNewSelectedValueUseCase!
+    private let useCase: CheckboxGetNewSelectedValueUseCase
 
-    // MARK: - Setup
+    // MARK: - Initialization
 
-    override func setUp() {
-        super.setUp()
+    init() {
         self.useCase = CheckboxGetNewSelectedValueUseCase()
-    }
-
-    override func tearDown() {
-        self.useCase = nil
-        super.tearDown()
     }
 
     // MARK: - Execute With IsEnabled equals to true Tests
 
-    func test_execute_withSelectedState_and_isEnabledAtTrue_returnsUnselected() {
+    @Test("Execute with selected state and is enabled at true returns unselected")
+    func executeWithSelectedStateAndIsEnabledAtTrueReturnsUnselected() {
         // GIVEN
         let selectionState = CheckboxSelectionState.selected
 
@@ -40,10 +36,11 @@ final class CheckboxGetNewSelectedValueUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, .unselected)
+        #expect(result == .unselected)
     }
 
-    func test_execute_withUnselectedState_and_isEnabledAtTrue_returnsSelected() {
+    @Test("Execute with unselected state and is enabled at true returns selected")
+    func executeWithUnselectedStateAndIsEnabledAtTrueReturnsSelected() {
         // GIVEN
         let selectionState = CheckboxSelectionState.unselected
 
@@ -54,10 +51,11 @@ final class CheckboxGetNewSelectedValueUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, .selected)
+        #expect(result == .selected)
     }
 
-    func test_execute_withIndeterminateState_and_isEnabledAtTrue_returnsSelected() {
+    @Test("Execute with indeterminate state and is enabled at true returns selected")
+    func executeWithIndeterminateStateAndIsEnabledAtTrueReturnsSelected() {
         // GIVEN
         let selectionState = CheckboxSelectionState.indeterminate
 
@@ -68,12 +66,13 @@ final class CheckboxGetNewSelectedValueUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, .selected)
+        #expect(result == .selected)
     }
 
     // MARK: - Execute With IsEnabled equals to false Tests
 
-    func test_execute_withSelectedState_and_isEnabledAtFalse_returnsUnselected() {
+    @Test("Execute with selected state and is enabled at false returns unselected")
+    func executeWithSelectedStateAndIsEnabledAtFalseReturnsUnselected() {
         // GIVEN
         let selectionState = CheckboxSelectionState.selected
 
@@ -84,10 +83,11 @@ final class CheckboxGetNewSelectedValueUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_execute_withUnselectedState_and_isEnabledAtFalse_returnsSelected() {
+    @Test("Execute with unselected state and is enabled at false returns selected")
+    func executeWithUnselectedStateAndIsEnabledAtFalseReturnsSelected() {
         // GIVEN
         let selectionState = CheckboxSelectionState.unselected
 
@@ -98,10 +98,11 @@ final class CheckboxGetNewSelectedValueUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 
-    func test_execute_withIndeterminateState_and_isEnabledAtFalse_returnsSelected() {
+    @Test("Execute with indeterminate state and is enabled at false returns selected")
+    func executeWithIndeterminateStateAndIsEnabledAtFalseReturnsSelected() {
         // GIVEN
         let selectionState = CheckboxSelectionState.indeterminate
 
@@ -112,6 +113,6 @@ final class CheckboxGetNewSelectedValueUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNil(result)
+        #expect(result == nil)
     }
 }

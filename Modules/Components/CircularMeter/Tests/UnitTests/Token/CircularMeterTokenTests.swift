@@ -22,7 +22,7 @@ struct CircularMeterTokenTests {
 
     // MARK: - Initialization Tests
 
-    @Test
+    @Test("Init should set theme dependent categories from theme")
     func initShouldSetThemeDependentCategoriesFromTheme() {
         // GIVEN / WHEN
         let token = CircularMeterToken(theme: self.theme)
@@ -33,7 +33,7 @@ struct CircularMeterTokenTests {
         #expect(token.typography == CircularMeterToken.Typography(theme: self.theme))
     }
 
-    @Test
+    @Test("Init should set theme independent categories")
     func initShouldSetThemeIndependentCategories() {
         // GIVEN / WHEN
         let token = CircularMeterToken(theme: self.theme)
@@ -45,7 +45,7 @@ struct CircularMeterTokenTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = CircularMeterToken(theme: self.theme)
@@ -55,7 +55,7 @@ struct CircularMeterTokenTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = CircularMeterToken(theme: self.theme)

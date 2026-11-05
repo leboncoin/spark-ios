@@ -25,19 +25,19 @@ struct CircularMeterTokenLayoutTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Padding should return spacing small")
     func paddingShouldReturnSpacingSmall() {
         #expect(self.token.padding == self.theme.layout.spacing.small)
     }
 
-    @Test
+    @Test("Spacing should return spacing medium")
     func spacingShouldReturnSpacingMedium() {
         #expect(self.token.spacing == self.theme.layout.spacing.medium)
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = CircularMeterToken.Layout(theme: self.theme)
@@ -47,7 +47,7 @@ struct CircularMeterTokenLayoutTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = CircularMeterToken.Layout(theme: self.theme)

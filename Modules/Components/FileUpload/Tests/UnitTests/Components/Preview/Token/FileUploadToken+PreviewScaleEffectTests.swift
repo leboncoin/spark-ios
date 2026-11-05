@@ -20,7 +20,7 @@ struct FileUploadTokenPreviewScaleEffectTests {
 
     // MARK: - Tests
 
-    @Test(arguments: [
+    @Test("Value should return expected scale", arguments: [
         (isPressed: true, expected: CGFloat(1.02)),
         (isPressed: false, expected: CGFloat(1.0))
     ])

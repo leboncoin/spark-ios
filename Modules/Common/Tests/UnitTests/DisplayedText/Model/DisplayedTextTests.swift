@@ -6,14 +6,17 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class DisplayedTextTests: XCTestCase {
+@Suite("Displayed Text Tests")
+struct DisplayedTextTests {
 
     // MARK: - Optional Init
 
-    func test_optional_init_with_only_text() {
+    @Test("Optional init with only text")
+    func optionalInitWithOnlyText() {
         // GIVEN
         let textMock = "My text"
 
@@ -24,18 +27,12 @@ final class DisplayedTextTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            displayedText?.text,
-            textMock,
-            "Wrong text"
-        )
-        XCTAssertNil(
-            displayedText?.attributedText,
-            "Wrong attributedText"
-        )
+        #expect(displayedText?.text == textMock, "Wrong text")
+        #expect(displayedText?.attributedText == nil, "Wrong attributedText")
     }
 
-    func test_optional_init_with_only_attributedText() {
+    @Test("Optional init with only attributed text")
+    func optionalInitWithOnlyAttributedText() {
         // GIVEN
         let attributedMock: AttributedStringEither = .left(.init(string: "Holà"))
 
@@ -46,18 +43,12 @@ final class DisplayedTextTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNil(
-            displayedText?.text,
-            "Wrong text"
-        )
-        XCTAssertEqual(
-            displayedText?.attributedText,
-            attributedMock,
-            "Wrong attributedText"
-        )
+        #expect(displayedText?.text == nil, "Wrong text")
+        #expect(displayedText?.attributedText == attributedMock, "Wrong attributedText")
     }
 
-    func test_optional_init_without_text_and_attributedText() {
+    @Test("Optional init without text and attributed text")
+    func optionalInitWithoutTextAndAttributedText() {
         // GIVEN / WHEN
         let displayedText = DisplayedText(
             text: nil,
@@ -65,15 +56,13 @@ final class DisplayedTextTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNil(
-            displayedText,
-            "Wrong displayedText"
-        )
+        #expect(displayedText == nil, "Wrong displayedText")
     }
 
     // MARK: - Text Init
 
-    func test_init_with_text() {
+    @Test("Init with text")
+    func initWithText() {
         // GIVEN
         let textMock = "My text"
 
@@ -83,20 +72,14 @@ final class DisplayedTextTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(
-            displayedText.text,
-            textMock,
-            "Wrong text"
-        )
-        XCTAssertNil(
-            displayedText.attributedText,
-            "Wrong attributedText"
-        )
+        #expect(displayedText.text == textMock, "Wrong text")
+        #expect(displayedText.attributedText == nil, "Wrong attributedText")
     }
 
     // MARK: - AttributedText Init
 
-    func test_init_with_attributedText() {
+    @Test("Init with attributed text")
+    func initWithAttributedText() {
         // GIVEN
         let attributedMock: AttributedStringEither = .left(.init(string: "Holà"))
 
@@ -106,14 +89,7 @@ final class DisplayedTextTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNil(
-            displayedText.text,
-            "Wrong text"
-        )
-        XCTAssertEqual(
-            displayedText.attributedText,
-            attributedMock,
-            "Wrong attributedText"
-        )
+        #expect(displayedText.text == nil, "Wrong text")
+        #expect(displayedText.attributedText == attributedMock, "Wrong attributedText")
     }
 }

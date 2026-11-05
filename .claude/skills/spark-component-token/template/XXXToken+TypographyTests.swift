@@ -26,19 +26,19 @@ struct XXXTokenTypographyTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Title should return body1")
     func titleShouldReturnBody1() {
         #expect(self.token.title.font == self.theme.typography.body1.font)
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         #expect(XXXToken.Typography(theme: self.theme) == XXXToken.Typography(theme: self.theme))
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         #expect(XXXToken.Typography(theme: self.theme) != XXXToken.Typography(theme: ThemeGeneratedMock.mocked2()))
     }

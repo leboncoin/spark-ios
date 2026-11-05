@@ -6,7 +6,8 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import Foundation
 import SwiftUI
 import UIKit
 
@@ -16,22 +17,25 @@ import UIKit
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkCommonTesting
 
-final class SliderViewModelTests: XCTestCase {
+@MainActor
+@Suite("Slider ViewModel Tests")
+struct SliderViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
         let viewModel = stub.viewModel
 
         // THEN
-        XCTAssertNil(viewModel.theme)
-        XCTAssertNil(viewModel.intent)
-        XCTAssertNil(viewModel.isFloatingValueLabel)
-        XCTAssertNil(viewModel.isEnabled)
+        #expect(viewModel.theme == nil)
+        #expect(viewModel.intent == nil)
+        #expect(viewModel.isFloatingValueLabel == nil)
+        #expect(viewModel.isEnabled == nil)
 
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherColors: SliderColors(),
             otherDim: .zero,
@@ -39,7 +43,7 @@ final class SliderViewModelTests: XCTestCase {
             otherTypographies: SliderTypographies()
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getDimUseCase: true,
@@ -50,7 +54,8 @@ final class SliderViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -59,9 +64,9 @@ final class SliderViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SliderGetColorsUseCaseableMockTest.XCTAssert(
+        SliderGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -69,7 +74,7 @@ final class SliderViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        SliderGetDimUseCaseableMockTest.XCTAssert(
+        SliderGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -77,14 +82,14 @@ final class SliderViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        SliderGetSpacingUseCaseableMockTest.XCTAssert(
+        SliderGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedSpacing
         )
 
-        SliderGetTypographiesUseCaseableMockTest.XCTAssert(
+        SliderGetTypographiesUseCaseableMockTest.expect(
             stub.getTypographiesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -95,7 +100,8 @@ final class SliderViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateColorsAndDimAndTypographiesAndSpacing() {
+    @Test("Theme changed should update colors and dim and typographies and spacing")
+    func themeChangedShouldUpdateColorsAndDimAndTypographiesAndSpacing() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -109,9 +115,9 @@ final class SliderViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SliderGetColorsUseCaseableMockTest.XCTAssert(
+        SliderGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -119,7 +125,7 @@ final class SliderViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        SliderGetDimUseCaseableMockTest.XCTAssert(
+        SliderGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -127,14 +133,14 @@ final class SliderViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        SliderGetSpacingUseCaseableMockTest.XCTAssert(
+        SliderGetSpacingUseCaseableMockTest.expect(
             stub.getSpacingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             expectedReturnValue: stub.expectedSpacing
         )
 
-        SliderGetTypographiesUseCaseableMockTest.XCTAssert(
+        SliderGetTypographiesUseCaseableMockTest.expect(
             stub.getTypographiesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -143,7 +149,8 @@ final class SliderViewModelTests: XCTestCase {
         )
     }
 
-    func test_intentChanged_shouldUpdateColorsOnly() {
+    @Test("Intent changed should update colors only")
+    func intentChangedShouldUpdateColorsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -157,9 +164,9 @@ final class SliderViewModelTests: XCTestCase {
         viewModel.intent = newIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SliderGetColorsUseCaseableMockTest.XCTAssert(
+        SliderGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -167,7 +174,7 @@ final class SliderViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getDimUseCase: true,
             getSpacingUseCase: true,
@@ -175,7 +182,8 @@ final class SliderViewModelTests: XCTestCase {
         )
     }
 
-    func test_isEnabledChanged_shouldUpdateDimOnly() {
+    @Test("Is enabled changed should update dim only")
+    func isEnabledChangedShouldUpdateDimOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -189,9 +197,9 @@ final class SliderViewModelTests: XCTestCase {
         viewModel.isEnabled = newIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SliderGetDimUseCaseableMockTest.XCTAssert(
+        SliderGetDimUseCaseableMockTest.expect(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -199,7 +207,7 @@ final class SliderViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedDim
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getSpacingUseCase: true,
@@ -207,7 +215,8 @@ final class SliderViewModelTests: XCTestCase {
         )
     }
 
-    func test_isFloatingValueLabelChanged_shouldUpdateTypographiesOnly() {
+    @Test("Is floating value label changed should update typographies only")
+    func isFloatingValueLabelChangedShouldUpdateTypographiesOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -221,9 +230,9 @@ final class SliderViewModelTests: XCTestCase {
         viewModel.isFloatingValueLabel = newIsFloatingValueLabel
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SliderGetTypographiesUseCaseableMockTest.XCTAssert(
+        SliderGetTypographiesUseCaseableMockTest.expect(
             stub.getTypographiesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -231,7 +240,7 @@ final class SliderViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedTypographies
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getDimUseCase: true,
@@ -239,7 +248,8 @@ final class SliderViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -251,7 +261,7 @@ final class SliderViewModelTests: XCTestCase {
         viewModel.isEnabled = false
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherColors: SliderColors(),
             otherDim: 0,
@@ -259,7 +269,7 @@ final class SliderViewModelTests: XCTestCase {
             otherTypographies: SliderTypographies()
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getDimUseCase: true,
@@ -268,7 +278,8 @@ final class SliderViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -283,9 +294,9 @@ final class SliderViewModelTests: XCTestCase {
         viewModel.isEnabled = stub.givenIsEnabled
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getDimUseCase: true,
@@ -294,7 +305,8 @@ final class SliderViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withNilValues_shouldNotCallUseCases() {
+    @Test("Properties changed with nil values should not call use cases")
+    func propertiesChangedWithNilValuesShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -309,9 +321,9 @@ final class SliderViewModelTests: XCTestCase {
         viewModel.isEnabled = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getDimUseCase: true,
@@ -411,61 +423,67 @@ private extension SliderViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getColorsUseCase: Bool = false,
     getDimUseCase: Bool = false,
     getSpacingUseCase: Bool = false,
-    getTypographiesUseCase: Bool = false
+    getTypographiesUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    SliderGetColorsUseCaseableMockTest.XCTCalled(
+    SliderGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeWithThemeAndIntentCalled: !getColorsUseCase
+        executeWithThemeAndIntentCalled: !getColorsUseCase,
+        sourceLocation: sourceLocation
     )
 
-    SliderGetDimUseCaseableMockTest.XCTCalled(
+    SliderGetDimUseCaseableMockTest.expectCalled(
         stub.getDimUseCaseMock,
-        executeWithThemeAndIsEnabledCalled: !getDimUseCase
+        executeWithThemeAndIsEnabledCalled: !getDimUseCase,
+        sourceLocation: sourceLocation
     )
 
-    SliderGetSpacingUseCaseableMockTest.XCTCalled(
+    SliderGetSpacingUseCaseableMockTest.expectCalled(
         stub.getSpacingUseCaseMock,
-        executeWithThemeCalled: !getSpacingUseCase
+        executeWithThemeCalled: !getSpacingUseCase,
+        sourceLocation: sourceLocation
     )
 
-    SliderGetTypographiesUseCaseableMockTest.XCTCalled(
+    SliderGetTypographiesUseCaseableMockTest.expectCalled(
         stub.getTypographiesUseCaseMock,
-        executeWithThemeAndIsFloatingValueLabelCalled: !getTypographiesUseCase
+        executeWithThemeAndIsFloatingValueLabelCalled: !getTypographiesUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherColors: SliderColors? = nil,
     otherDim: CGFloat? = nil,
     otherSpacing: CGFloat? = nil,
-    otherTypographies: SliderTypographies? = nil
+    otherTypographies: SliderTypographies? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.colors,
-        otherColors ?? stub.expectedColors,
-        "Wrong colors value"
+    #expect(
+        viewModel.colors == otherColors ?? stub.expectedColors,
+        "Wrong colors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.dim,
-        otherDim ?? stub.expectedDim,
-        "Wrong dim value"
+    #expect(
+        viewModel.dim == otherDim ?? stub.expectedDim,
+        "Wrong dim value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.spacing,
-        otherSpacing ?? stub.expectedSpacing,
-        "Wrong spacing value"
+    #expect(
+        viewModel.spacing == otherSpacing ?? stub.expectedSpacing,
+        "Wrong spacing value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.typographies,
-        otherTypographies ?? stub.expectedTypographies,
-        "Wrong typographies value"
+    #expect(
+        viewModel.typographies == otherTypographies ?? stub.expectedTypographies,
+        "Wrong typographies value",
+        sourceLocation: sourceLocation
     )
 }

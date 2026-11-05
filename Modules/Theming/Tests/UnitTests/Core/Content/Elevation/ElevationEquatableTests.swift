@@ -6,53 +6,59 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class ElevationEquatableTests: XCTestCase {
+@Suite("Elevation Equatable Tests")
+struct ElevationEquatableTests {
 
     // MARK: - Tests
 
-    func testEquatable_SameProperties_ShouldBeEqual() {
+    @Test("Equatable same properties should be equal")
+    func equatableSamePropertiesShouldBeEqual() {
         // GIVEN
         let elevation1 = ElevationMock.createMock1()
         let elevation2 = ElevationMock.createMock2()
 
-        XCTAssertTrue(elevation1.equals(elevation2), "Two elevation with identical properties should be equal")
-        XCTAssertEqual(elevation1, elevation2, "Two elevation with identical properties should be equal using == operator")
+        #expect(elevation1.equals(elevation2), "Two elevation with identical properties should be equal")
+        #expect(elevation1 == elevation2, "Two elevation with identical properties should be equal using == operator")
     }
 
-    func testEquatable_DifferentProperties_ShouldNotBeEqual() {
+    @Test("Equatable different properties should not be equal")
+    func equatableDifferentPropertiesShouldNotBeEqual() {
         // GIVEN
         let elevation1 = ElevationMock.createMock1()
         let differentElevation = ElevationMock.createDifferentMock()
 
-        XCTAssertFalse(elevation1.equals(differentElevation), "Two elevation with different properties should not be equal")
-        XCTAssertNotEqual(elevation1, differentElevation, "Two elevation with different properties should not be equal using == operator")
+        #expect(!(elevation1.equals(differentElevation)), "Two elevation with different properties should not be equal")
+        #expect(elevation1 != differentElevation, "Two elevation with different properties should not be equal using == operator")
     }
 
-    func testEquatable_SelfComparison_ShouldBeEqual() {
+    @Test("Equatable self comparison should be equal")
+    func equatableSelfComparisonShouldBeEqual() {
         // GIVEN
         let elevation = ElevationMock.createMock1()
 
-        XCTAssertTrue(elevation.equals(elevation), "Elevation should be equal to itself")
-        XCTAssertEqual(elevation, elevation, "Elevation should be equal to itself using == operator")
+        #expect(elevation.equals(elevation), "Elevation should be equal to itself")
+        #expect(elevation == elevation, "Elevation should be equal to itself using == operator")
     }
 
-    func testHashable_SameProperties_ShouldHaveSameHashValue() {
+    @Test("Hashable same properties should have same hash value")
+    func hashableSamePropertiesShouldHaveSameHashValue() {
         // GIVEN
         let elevation1 = ElevationMock.createMock1()
         let elevation2 = ElevationMock.createMock2()
 
-        XCTAssertEqual(elevation1.hashValue, elevation2.hashValue, "Elevation with identical properties should have the same hash value")
+        #expect(elevation1.hashValue == elevation2.hashValue, "Elevation with identical properties should have the same hash value")
     }
 
-    func testHashable_DifferentProperties_ShouldHaveDifferentHashValue() {
+    @Test("Hashable different properties should have different hash value")
+    func hashableDifferentPropertiesShouldHaveDifferentHashValue() {
         // GIVEN
         let elevation1 = ElevationMock.createMock1()
         let differentElevation = ElevationMock.createDifferentMock()
 
-        XCTAssertNotEqual(elevation1.hashValue, differentElevation.hashValue, "Elevation with different properties should have different hash values")
+        #expect(elevation1.hashValue != differentElevation.hashValue, "Elevation with different properties should have different hash values")
     }
 }

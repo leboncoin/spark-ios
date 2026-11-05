@@ -6,27 +6,31 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import UIKit
 
 @testable import SparkComponentTextLink
 @_spi(SI_SPI) @testable import SparkComponentTextLinkTesting
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class TextLinkViewModelTests: XCTestCase {
+@MainActor
+@Suite("TextLink ViewModel Tests")
+struct TextLinkViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherAttributedString: .init()
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getAttributedStringUseCase: true
         )
@@ -34,7 +38,8 @@ final class TextLinkViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallUseCaseAndSetAttributedString() {
+    @Test("Setup should call use case and set attributed string")
+    func setupShouldCallUseCaseAndSetAttributedString() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -43,9 +48,9 @@ final class TextLinkViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TextLinkGetAttributedStringUseCaseableMockTest.XCTAssert(
+        TextLinkGetAttributedStringUseCaseableMockTest.expect(
             stub.getAttributedStringUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -61,7 +66,8 @@ final class TextLinkViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_somePropertiesChanged_shouldUpdateAttributedString() {
+    @Test("Some properties changed should update attributed string")
+    func somePropertiesChangedShouldUpdateAttributedString() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -78,9 +84,9 @@ final class TextLinkViewModelTests: XCTestCase {
         viewModel.variant = newVariant
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        TextLinkGetAttributedStringUseCaseableMockTest.XCTAssert(
+        TextLinkGetAttributedStringUseCaseableMockTest.expect(
             stub.getAttributedStringUseCaseMock,
             expectedNumberOfCalls: 3,
             givenTheme: newTheme,
@@ -94,7 +100,8 @@ final class TextLinkViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCase() {
+    @Test("Properties changed before setup should not call use case")
+    func propertiesChangedBeforeSetupShouldNotCallUseCase() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -109,18 +116,19 @@ final class TextLinkViewModelTests: XCTestCase {
         viewModel.variant = TextLinkVariant.none
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherAttributedString: .init()
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getAttributedStringUseCase: true
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCase() {
+    @Test("Properties changed without value change should not call use case")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCase() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -137,9 +145,9 @@ final class TextLinkViewModelTests: XCTestCase {
         viewModel.variant = stub.givenVariant
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getAttributedStringUseCase: true
         )
@@ -191,27 +199,30 @@ private final class Stub: TextLinkViewModelStub {
     }
 }
 
-// MARK: - XCTAssert
+// MARK: - Expectations
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
-    getAttributedStringUseCase: Bool = false
+    getAttributedStringUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    TextLinkGetAttributedStringUseCaseableMockTest.XCTCalled(
+    TextLinkGetAttributedStringUseCaseableMockTest.expectCalled(
         stub.getAttributedStringUseCaseMock,
-        executeUIWithThemeAndIntentAndVariantAndTypographyAndTextAndTextHighlightRangeAndIsHighlightedCalled: !getAttributedStringUseCase
+        executeUIWithThemeAndIntentAndVariantAndTypographyAndTextAndTextHighlightRangeAndIsHighlightedCalled: !getAttributedStringUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
-    otherAttributedString: AttributedString? = nil
+    otherAttributedString: AttributedString? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.attributedString,
-        otherAttributedString ?? stub.expectedAttributedString,
-        "Wrong attributedString value"
+    #expect(
+        viewModel.attributedString == otherAttributedString ?? stub.expectedAttributedString,
+        "Wrong attributedString value",
+        sourceLocation: sourceLocation
     )
 }

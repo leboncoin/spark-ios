@@ -26,7 +26,7 @@ struct SparkTabSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: TabScenarioSnapshotTests.allCases)
+    @Test("Spark tab snapshot", arguments: TabScenarioSnapshotTests.allCases)
     func test(scenario: TabScenarioSnapshotTests) async {
         let configurations = scenario.configuration()
 

@@ -13,48 +13,44 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 
-final class TextFieldAccessibilitySortTests: XCTestCase {
+@Suite("Text Field Accessibility Sort Tests")
+struct TextFieldAccessibilitySortTests {
 
     // MARK: - Tests
 
-    func testEnumRawValues() {
+    @Test("Enum raw values")
+    func enumRawValues() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(
-            TextFieldAccessibilitySort.textField.rawValue,
-            6,
+        #expect(
+            TextFieldAccessibilitySort.textField.rawValue == 6,
             "Wrong textField value"
         )
 
-        XCTAssertEqual(
-            TextFieldAccessibilitySort.leftAddon.rawValue,
-            5,
+        #expect(
+            TextFieldAccessibilitySort.leftAddon.rawValue == 5,
             "Wrong leftAddon value"
         )
 
-        XCTAssertEqual(
-            TextFieldAccessibilitySort.leftView.rawValue,
-            4,
+        #expect(
+            TextFieldAccessibilitySort.leftView.rawValue == 4,
             "Wrong leftView value"
         )
 
-        XCTAssertEqual(
-            TextFieldAccessibilitySort.clearButton.rawValue,
-            3,
+        #expect(
+            TextFieldAccessibilitySort.clearButton.rawValue == 3,
             "Wrong clearButton value"
         )
 
-        XCTAssertEqual(
-            TextFieldAccessibilitySort.rightView.rawValue,
-            2,
+        #expect(
+            TextFieldAccessibilitySort.rightView.rawValue == 2,
             "Wrong rightView value"
         )
 
-        XCTAssertEqual(
-            TextFieldAccessibilitySort.rightAddon.rawValue,
-            1,
+        #expect(
+            TextFieldAccessibilitySort.rightAddon.rawValue == 1,
             "Wrong rightAddon value"
         )
 

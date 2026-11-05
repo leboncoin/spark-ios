@@ -7,23 +7,27 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentRating
 
-final class RatingDisplaySpacingsTests: XCTestCase {
+@MainActor
+@Suite("Rating Display Spacings Tests")
+struct RatingDisplaySpacingsTests {
 
     // MARK: - Tests
 
-    func test_default_initialization() {
+    @Test("Default initialization")
+    func defaultInitialization() {
         // GIVEN / WHEN
         let spacings = RatingDisplaySpacings()
 
         // THEN
-        XCTAssertEqual(spacings.content, 0.0)
-        XCTAssertEqual(spacings.stars, 0.0)
+        #expect(spacings.content == 0.0)
+        #expect(spacings.stars == 0.0)
     }
 
-    func test_custom_initialization() {
+    @Test("Custom initialization")
+    func customInitialization() {
         // GIVEN / WHEN
         let contentValue: CGFloat = 12.0
         let starsValue: CGFloat = 8.0
@@ -34,11 +38,12 @@ final class RatingDisplaySpacingsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(spacings.content, contentValue)
-        XCTAssertEqual(spacings.stars, starsValue)
+        #expect(spacings.content == contentValue)
+        #expect(spacings.stars == starsValue)
     }
 
-    func test_equality_when_same_properties() {
+    @Test("Equality when same properties")
+    func equalityWhenSameProperties() {
         // GIVEN / WHEN
         let contentValue: CGFloat = 10.0
         let starsValue: CGFloat = 5.0
@@ -54,10 +59,11 @@ final class RatingDisplaySpacingsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(spacings1, spacings2)
+        #expect(spacings1 == spacings2)
     }
 
-    func test_inequality_when_different_content_spacing() {
+    @Test("Inequality when different content spacing")
+    func inequalityWhenDifferentContentSpacing() {
         // GIVEN / WHEN
         let contentValue1: CGFloat = 10.0
         let contentValue2: CGFloat = 12.0
@@ -74,10 +80,11 @@ final class RatingDisplaySpacingsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(spacings1, spacings2)
+        #expect(spacings1 != spacings2)
     }
 
-    func test_inequality_when_different_stars_spacing() {
+    @Test("Inequality when different stars spacing")
+    func inequalityWhenDifferentStarsSpacing() {
         // GIVEN / WHEN
         let contentValue: CGFloat = 10.0
         let starsValue1: CGFloat = 5.0
@@ -94,10 +101,11 @@ final class RatingDisplaySpacingsTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertNotEqual(spacings1, spacings2)
+        #expect(spacings1 != spacings2)
     }
 
-    func test_hash_consistency() {
+    @Test("Hash consistency")
+    func hashConsistency() {
         // GIVEN
         let contentValue: CGFloat = 15.0
         let starsValue: CGFloat = 7.0
@@ -122,6 +130,6 @@ final class RatingDisplaySpacingsTests: XCTestCase {
         let hash2 = hasher2.finalize()
 
         // THEN
-        XCTAssertEqual(hash1, hash2)
+        #expect(hash1 == hash2)
     }
 }

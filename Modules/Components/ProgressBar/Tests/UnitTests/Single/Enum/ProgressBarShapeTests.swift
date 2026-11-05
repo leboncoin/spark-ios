@@ -7,34 +7,38 @@
 //
 
 @testable import SparkComponentProgressBar
-import XCTest
+import Testing
 
-final class ProgressBarShapeTests: XCTestCase {
+@Suite("Progress Bar Shape Tests")
+struct ProgressBarShapeTests {
 
     // MARK: - Tests
 
-    func test_default_value() {
+    @Test("Default value")
+    func defaultValue() {
         // GIVEN / WHEN
         let defaultShape = ProgressBarShape.default
 
         // THEN
-        XCTAssertEqual(defaultShape, .rounded)
+        #expect(defaultShape == .rounded)
     }
 
-    func test_all_cases_count() {
+    @Test("All cases count")
+    func allCasesCount() {
         // GIVEN / WHEN
         let allCases = ProgressBarShape.allCases
 
         // THEN
-        XCTAssertEqual(allCases.count, 2)
+        #expect(allCases.count == 2)
     }
 
-    func test_all_cases_contain_expected_values() {
+    @Test("All cases contain expected values")
+    func allCasesContainExpectedValues() {
         // GIVEN / WHEN
         let allCases = ProgressBarShape.allCases
 
         // THEN
-        XCTAssertTrue(allCases.contains(.rounded))
-        XCTAssertTrue(allCases.contains(.square))
+        #expect(allCases.contains(.rounded))
+        #expect(allCases.contains(.square))
     }
 }

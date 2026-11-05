@@ -20,7 +20,7 @@ struct FileUploadTokenDropzoneSizeTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Image should return 24")
     func imageShouldReturn24() {
         // GIVEN / WHEN
         let result = self.token.image

@@ -6,25 +6,28 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class CommonTitleStyleTests: XCTestCase {
+@Suite("Common Title Style Tests")
+struct CommonTitleStyleTests {
 
     // MARK: - Initialization Tests
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let titleStyle = CommonTitleStyle()
 
         // THEN
-        XCTAssertTrue(titleStyle.typography.equals(TypographyFontTokenClear()))
-        XCTAssertTrue(titleStyle.color.equals(ColorTokenClear()))
+        #expect(titleStyle.typography.equals(TypographyFontTokenClear()))
+        #expect(titleStyle.color.equals(ColorTokenClear()))
     }
 
-    func test_initialization_withCustomValues_shouldUseProvidedValues() {
+    @Test("Initialization with custom values should use provided values")
+    func initializationWithCustomValuesShouldUseProvidedValues() {
         // GIVEN
         let customTypography = TypographyFontTokenGeneratedMock()
         let customColor = ColorTokenGeneratedMock.random()
@@ -36,7 +39,7 @@ final class CommonTitleStyleTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(titleStyle.typography.equals(customTypography))
-        XCTAssertTrue(titleStyle.color.equals(customColor))
+        #expect(titleStyle.typography.equals(customTypography))
+        #expect(titleStyle.color.equals(customColor))
     }
 }

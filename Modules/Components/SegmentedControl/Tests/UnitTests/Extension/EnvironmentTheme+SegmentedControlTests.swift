@@ -26,37 +26,37 @@ struct EnvironmentThemeSegmentedControlTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Border should return segmented control border")
     func borderShouldReturnSegmentedControlBorder() {
         #expect(self.environmentTheme.border == self.theme.component.segmentedControl.border)
     }
 
-    @Test
+    @Test("Colors should return segmented control colors")
     func colorsShouldReturnSegmentedControlColors() {
         #expect(self.environmentTheme.colors == self.theme.component.segmentedControl.colors)
     }
 
-    @Test
+    @Test("Layout should return segmented control layout")
     func layoutShouldReturnSegmentedControlLayout() {
         #expect(self.environmentTheme.layout == self.theme.component.segmentedControl.layout)
     }
 
-    @Test
+    @Test("Opacity should return segmented control opacity")
     func opacityShouldReturnSegmentedControlOpacity() {
         #expect(self.environmentTheme.opacity == self.theme.component.segmentedControl.opacity)
     }
 
-    @Test
+    @Test("Typography should return segmented control typography")
     func typographyShouldReturnSegmentedControlTypography() {
         #expect(self.environmentTheme.typography == self.theme.component.segmentedControl.typography)
     }
 
-    @Test
+    @Test("Scale effect should return segmented control scale effect")
     func scaleEffectShouldReturnSegmentedControlScaleEffect() {
         #expect(self.environmentTheme.scaleEffect == self.theme.component.segmentedControl.scaleEffect)
     }
 
-    @Test
+    @Test("Size should return segmented control size")
     func sizeShouldReturnSegmentedControlSize() {
         #expect(self.environmentTheme.size == self.theme.component.segmentedControl.size)
     }

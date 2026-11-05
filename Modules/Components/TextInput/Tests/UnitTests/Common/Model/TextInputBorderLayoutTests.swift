@@ -6,19 +6,21 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 
-final class TextInputBorderLayoutTests: XCTestCase {
+@Suite("Text Input Border Layout Tests")
+struct TextInputBorderLayoutTests {
 
     // MARK: - Tests
 
-    func test_default_values() {
+    @Test("Default values")
+    func defaultValues() {
         // GIVEN / WHEN
         let object = TextInputBorderLayout()
 
         // THEN
-        XCTAssertEqual(object.radius, 0, "Wrong radius value")
-        XCTAssertEqual(object.width, 0, "Wrong width value")
+        #expect(object.radius == 0, "Wrong radius value")
+        #expect(object.width == 0, "Wrong width value")
     }
 }

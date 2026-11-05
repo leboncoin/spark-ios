@@ -28,11 +28,11 @@ struct SparkFileUploadButtonStyleSnapshotTests: SwiftUIComponentSnapshotTesting 
 
     // MARK: - Tests
 
-    @Test func test() async {
+    @Test("Spark file upload button style snapshot") func test() async {
         await self.testView()
     }
 
-    @Test func test_documentation() async {
+    @Test("Documentation") func test_documentation() async {
         await self.testView(forDocumentation: true)
     }
 

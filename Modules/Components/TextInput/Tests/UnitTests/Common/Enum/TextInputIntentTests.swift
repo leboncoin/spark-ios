@@ -6,15 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentTextInput
 
-final class TextInputIntentTests: XCTestCase {
+@Suite("Text Input Intent Tests")
+struct TextInputIntentTests {
 
     // MARK: - Tests
 
-    func test_default() {
+    @Test("Default")
+    func defaultValue() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(TextInputIntent.default, .neutral)
+        #expect(TextInputIntent.default == .neutral)
     }
 }

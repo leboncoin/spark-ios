@@ -21,7 +21,7 @@ struct FileUploadTokenPreviewButtonTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Intent should return surface")
     func intentShouldReturnSurface() {
         // GIVEN / WHEN
         let result = self.token.intent
@@ -30,7 +30,7 @@ struct FileUploadTokenPreviewButtonTests {
         #expect(result == .surface)
     }
 
-    @Test
+    @Test("Variant should return contrast")
     func variantShouldReturnContrast() {
         // GIVEN / WHEN
         let result = self.token.variant
@@ -39,7 +39,7 @@ struct FileUploadTokenPreviewButtonTests {
         #expect(result == .contrast)
     }
 
-    @Test
+    @Test("Size should return small")
     func sizeShouldReturnSmall() {
         // GIVEN / WHEN
         let result = self.token.size

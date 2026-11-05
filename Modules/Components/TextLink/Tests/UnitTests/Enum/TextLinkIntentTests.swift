@@ -6,59 +6,64 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SparkTheming
 @testable import SparkComponentTextLink
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class TextLinkIntentTests: XCTestCase {
+@Suite("Text Link Intent Tests")
+struct TextLinkIntentTests {
 
     // MARK: - Tests
 
-    func test_default_case() {
+    @Test("Default case")
+    func defaultCase() {
         // GIVEN / WHEN
         let defaultIntent = TextLinkIntent.default
 
         // THEN
-        XCTAssertEqual(defaultIntent, .support, "Default case should be .support")
+        #expect(defaultIntent == .support, "Default case should be .support")
     }
 
-    func test_equatable_support_cases() {
+    @Test("Equatable support cases")
+    func equatableSupportCases() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(TextLinkIntent.accent, TextLinkIntent.accent)
-        XCTAssertEqual(TextLinkIntent.alert, TextLinkIntent.alert)
-        XCTAssertEqual(TextLinkIntent.danger, TextLinkIntent.danger)
-        XCTAssertEqual(TextLinkIntent.info, TextLinkIntent.info)
-        XCTAssertEqual(TextLinkIntent.main, TextLinkIntent.main)
-        XCTAssertEqual(TextLinkIntent.neutral, TextLinkIntent.neutral)
-        XCTAssertEqual(TextLinkIntent.success, TextLinkIntent.success)
-        XCTAssertEqual(TextLinkIntent.support, TextLinkIntent.support)
+        #expect(TextLinkIntent.accent == TextLinkIntent.accent)
+        #expect(TextLinkIntent.alert == TextLinkIntent.alert)
+        #expect(TextLinkIntent.danger == TextLinkIntent.danger)
+        #expect(TextLinkIntent.info == TextLinkIntent.info)
+        #expect(TextLinkIntent.main == TextLinkIntent.main)
+        #expect(TextLinkIntent.neutral == TextLinkIntent.neutral)
+        #expect(TextLinkIntent.success == TextLinkIntent.success)
+        #expect(TextLinkIntent.support == TextLinkIntent.support)
 
         // Deprecated
-        XCTAssertEqual(TextLinkIntent.accentContainer, TextLinkIntent.accentContainer)
-        XCTAssertEqual(TextLinkIntent.onAccentContainer, TextLinkIntent.onAccentContainer)
-        XCTAssertEqual(TextLinkIntent.alertContainer, TextLinkIntent.alertContainer)
-        XCTAssertEqual(TextLinkIntent.supportContainer, TextLinkIntent.supportContainer)
-        XCTAssertEqual(TextLinkIntent.dangerContainer, TextLinkIntent.dangerContainer)
-        XCTAssertEqual(TextLinkIntent.infoContainer, TextLinkIntent.infoContainer)
-        XCTAssertEqual(TextLinkIntent.mainContainer, TextLinkIntent.mainContainer)
-        XCTAssertEqual(TextLinkIntent.neutralContainer, TextLinkIntent.neutralContainer)
-        XCTAssertEqual(TextLinkIntent.surface, TextLinkIntent.surface)
-        XCTAssertEqual(TextLinkIntent.onSurface, TextLinkIntent.onSurface)
-        XCTAssertEqual(TextLinkIntent.successContainer, TextLinkIntent.successContainer)
-        XCTAssertEqual(TextLinkIntent.supportContainer, TextLinkIntent.supportContainer)
+        #expect(TextLinkIntent.accentContainer == TextLinkIntent.accentContainer)
+        #expect(TextLinkIntent.onAccentContainer == TextLinkIntent.onAccentContainer)
+        #expect(TextLinkIntent.alertContainer == TextLinkIntent.alertContainer)
+        #expect(TextLinkIntent.supportContainer == TextLinkIntent.supportContainer)
+        #expect(TextLinkIntent.dangerContainer == TextLinkIntent.dangerContainer)
+        #expect(TextLinkIntent.infoContainer == TextLinkIntent.infoContainer)
+        #expect(TextLinkIntent.mainContainer == TextLinkIntent.mainContainer)
+        #expect(TextLinkIntent.neutralContainer == TextLinkIntent.neutralContainer)
+        #expect(TextLinkIntent.surface == TextLinkIntent.surface)
+        #expect(TextLinkIntent.onSurface == TextLinkIntent.onSurface)
+        #expect(TextLinkIntent.successContainer == TextLinkIntent.successContainer)
+        #expect(TextLinkIntent.supportContainer == TextLinkIntent.supportContainer)
     }
 
-    func test_equatable_different_cases() {
+    @Test("Equatable different cases")
+    func equatableDifferentCases() {
         // GIVEN / WHEN / THEN
-        XCTAssertNotEqual(TextLinkIntent.accent, TextLinkIntent.alert)
-        XCTAssertNotEqual(TextLinkIntent.danger, TextLinkIntent.info)
-        XCTAssertNotEqual(TextLinkIntent.main, TextLinkIntent.neutral)
-        XCTAssertNotEqual(TextLinkIntent.success, TextLinkIntent.support)
-        XCTAssertNotEqual(TextLinkIntent.support, TextLinkIntent.accent)
+        #expect(TextLinkIntent.accent != TextLinkIntent.alert)
+        #expect(TextLinkIntent.danger != TextLinkIntent.info)
+        #expect(TextLinkIntent.main != TextLinkIntent.neutral)
+        #expect(TextLinkIntent.success != TextLinkIntent.support)
+        #expect(TextLinkIntent.support != TextLinkIntent.accent)
     }
 
-    func test_equatable_custom_cases_equal() {
+    @Test("Equatable custom cases equal")
+    func equatableCustomCasesEqual() {
         // GIVEN
         let mockColorToken1 = ColorTokenGeneratedMock.blue()
         let mockColorToken2 = ColorTokenGeneratedMock.blue()
@@ -68,10 +73,11 @@ final class TextLinkIntentTests: XCTestCase {
         let customIntent2 = TextLinkIntent.custom(mockColorToken2)
 
         // THEN
-        XCTAssertEqual(customIntent1, customIntent2, "Custom intents should be equal when tokens are equal")
+        #expect(customIntent1 == customIntent2, "Custom intents should be equal when tokens are equal")
     }
 
-    func test_equatable_custom_cases_not_equal() {
+    @Test("Equatable custom cases not equal")
+    func equatableCustomCasesNotEqual() {
         // GIVEN
         let mockColorToken1 = ColorTokenGeneratedMock.blue()
         let mockColorToken2 = ColorTokenGeneratedMock.red()
@@ -81,17 +87,18 @@ final class TextLinkIntentTests: XCTestCase {
         let customIntent2 = TextLinkIntent.custom(mockColorToken2)
 
         // THEN
-        XCTAssertNotEqual(customIntent1, customIntent2, "Custom intents should not be equal when tokens are not equal")
+        #expect(customIntent1 != customIntent2, "Custom intents should not be equal when tokens are not equal")
     }
 
-    func test_equatable_custom_vs_support_cases() {
+    @Test("Equatable custom vs support cases")
+    func equatableCustomVsSupportCases() {
         // GIVEN
         let mockColorToken = ColorTokenGeneratedMock()
         let customIntent = TextLinkIntent.custom(mockColorToken)
 
         // WHEN / THEN
-        XCTAssertNotEqual(customIntent, TextLinkIntent.support)
-        XCTAssertNotEqual(customIntent, TextLinkIntent.accent)
-        XCTAssertNotEqual(TextLinkIntent.main, customIntent)
+        #expect(customIntent != TextLinkIntent.support)
+        #expect(customIntent != TextLinkIntent.accent)
+        #expect(TextLinkIntent.main != customIntent)
     }
 }

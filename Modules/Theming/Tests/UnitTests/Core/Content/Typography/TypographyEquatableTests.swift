@@ -6,53 +6,59 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class TypographyEquatableTests: XCTestCase {
+@Suite("Typography Equatable Tests")
+struct TypographyEquatableTests {
 
     // MARK: - Tests
 
-    func testEquatable_SameProperties_ShouldBeEqual() {
+    @Test("Equatable same properties should be equal")
+    func equatableSamePropertiesShouldBeEqual() {
         let typography1 = TypographyMock.createMock1()
         let typography2 = TypographyMock.createMock2()
 
         // WHEN / THEN
-        XCTAssertTrue(typography1.equals(typography2), "Two typography with identical properties should be equal")
-        XCTAssertEqual(typography1, typography2, "Two typography with identical properties should be equal using == operator")
+        #expect(typography1.equals(typography2), "Two typography with identical properties should be equal")
+        #expect(typography1 == typography2, "Two typography with identical properties should be equal using == operator")
     }
 
-    func testEquatable_DifferentProperties_ShouldNotBeEqual() {
+    @Test("Equatable different properties should not be equal")
+    func equatableDifferentPropertiesShouldNotBeEqual() {
         let typography1 = TypographyMock.createMock1()
         let differentTypography = TypographyMock.createDifferentMock()
 
         // WHEN / THEN
-        XCTAssertFalse(typography1.equals(differentTypography), "Two typography with different properties should not be equal")
-        XCTAssertNotEqual(typography1, differentTypography, "Two typography with different properties should not be equal using == operator")
+        #expect(!(typography1.equals(differentTypography)), "Two typography with different properties should not be equal")
+        #expect(typography1 != differentTypography, "Two typography with different properties should not be equal using == operator")
     }
 
-    func testEquatable_SelfComparison_ShouldBeEqual() {
+    @Test("Equatable self comparison should be equal")
+    func equatableSelfComparisonShouldBeEqual() {
         let typography = TypographyMock.createMock1()
 
         // WHEN / THEN
-        XCTAssertTrue(typography.equals(typography), "Typography should be equal to itself")
-        XCTAssertEqual(typography, typography, "Typography should be equal to itself using == operator")
+        #expect(typography.equals(typography), "Typography should be equal to itself")
+        #expect(typography == typography, "Typography should be equal to itself using == operator")
     }
 
-    func testHashable_SameProperties_ShouldHaveSameHashValue() {
+    @Test("Hashable same properties should have same hash value")
+    func hashableSamePropertiesShouldHaveSameHashValue() {
         let typography1 = TypographyMock.createMock1()
         let typography2 = TypographyMock.createMock2()
 
         // WHEN / THEN
-        XCTAssertEqual(typography1.hashValue, typography2.hashValue, "Typography with identical properties should have the same hash value")
+        #expect(typography1.hashValue == typography2.hashValue, "Typography with identical properties should have the same hash value")
     }
 
-    func testHashable_DifferentProperties_ShouldHaveDifferentHashValue() {
+    @Test("Hashable different properties should have different hash value")
+    func hashableDifferentPropertiesShouldHaveDifferentHashValue() {
         let typography1 = TypographyMock.createMock1()
         let differentTypography = TypographyMock.createDifferentMock()
 
         // WHEN / THEN
-        XCTAssertNotEqual(typography1.hashValue, differentTypography.hashValue, "Typography with different properties should have different hash values")
+        #expect(typography1.hashValue != differentTypography.hashValue, "Typography with different properties should have different hash values")
     }
 }

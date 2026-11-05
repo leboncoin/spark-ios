@@ -7,19 +7,22 @@
 //
 
 @testable import SparkComponentSpinner
-import XCTest
+import Testing
 
-final class SpinnerAccessibilityIdentifierTests: XCTestCase {
+@Suite("Spinner AccessibilityIdentifier Tests")
+struct SpinnerAccessibilityIdentifierTests {
 
     // MARK: - Tests
 
-    func test_view_hasExpectedValue() {
+    @Test("View has expected value")
+    func viewHasExpectedValue() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(SpinnerAccessibilityIdentifier.view, "spark-spinner")
+        #expect(SpinnerAccessibilityIdentifier.view == "spark-spinner")
     }
 
-    func test_spinner_hasExpectedValue() {
+    @Test("Spinner has expected value")
+    func spinnerHasExpectedValue() {
         // GIVEN / WHEN / THEN
-        XCTAssertEqual(SpinnerAccessibilityIdentifier.spinner, "spark-spinner")
+        #expect(SpinnerAccessibilityIdentifier.spinner == "spark-spinner")
     }
 }

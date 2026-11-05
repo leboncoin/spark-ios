@@ -6,31 +6,32 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSegmentedGauge
 
-final class SegmentedGaugeAccessibilitySortTests: XCTestCase {
+@Suite("SegmentedGauge Accessibility Sort Tests")
+struct SegmentedGaugeAccessibilitySortTests {
 
     // MARK: - Tests
 
-    func test_title_rawValue() {
-        XCTAssertEqual(
-            SegmentedGaugeAccessibilitySort.title.rawValue,
-            3.0
+    @Test("Title raw value")
+    func titleRawValue() {
+        #expect(
+            SegmentedGaugeAccessibilitySort.title.rawValue == 3.0
         )
     }
 
-    func test_description_rawValue() {
-        XCTAssertEqual(
-            SegmentedGaugeAccessibilitySort.description.rawValue,
-            2.0
+    @Test("Description raw value")
+    func descriptionRawValue() {
+        #expect(
+            SegmentedGaugeAccessibilitySort.description.rawValue == 2.0
         )
     }
 
-    func test_segments_rawValue() {
-        XCTAssertEqual(
-            SegmentedGaugeAccessibilitySort.segments.rawValue,
-            1.0
+    @Test("Segments raw value")
+    func segmentsRawValue() {
+        #expect(
+            SegmentedGaugeAccessibilitySort.segments.rawValue == 1.0
         )
     }
 }

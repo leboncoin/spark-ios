@@ -20,7 +20,7 @@ struct CircularMeterTokenSizeTests {
 
     // MARK: - Tests
 
-    @Test(arguments: [
+    @Test("Gauge diameter should return expected value", arguments: [
         (CircularMeterSize.small, CGFloat(24)),
         (CircularMeterSize.medium, CGFloat(64)),
         (CircularMeterSize.large, CGFloat(96)),
@@ -30,7 +30,7 @@ struct CircularMeterTokenSizeTests {
         #expect(self.token.gaugeDiameter(for: size) == expectedValue)
     }
 
-    @Test(arguments: [
+    @Test("Gauge stroke should return expected value", arguments: [
         (CircularMeterSize.small, CGFloat(3)),
         (CircularMeterSize.medium, CGFloat(5)),
         (CircularMeterSize.large, CGFloat(8)),
@@ -40,7 +40,7 @@ struct CircularMeterTokenSizeTests {
         #expect(self.token.gaugeStroke(for: size) == expectedValue)
     }
 
-    @Test(arguments: [
+    @Test("Icon should return expected value", arguments: [
         (CircularMeterSize.small, CGFloat.zero),
         (CircularMeterSize.medium, CGFloat(24)),
         (CircularMeterSize.large, CGFloat(32)),
@@ -52,7 +52,7 @@ struct CircularMeterTokenSizeTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable should return true")
     func equatableShouldReturnTrue() {
         #expect(CircularMeterToken.Size() == CircularMeterToken.Size())
     }

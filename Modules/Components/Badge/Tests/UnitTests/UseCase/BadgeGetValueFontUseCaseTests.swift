@@ -7,16 +7,19 @@
 //
 
 import SwiftUI
-import XCTest
+import Testing
 @testable import SparkComponentBadge
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class BadgeGetTextFontUseCaseTests: XCTestCase {
+@MainActor
+@Suite("Badge Get Text Font UseCase Tests")
+struct BadgeGetTextFontUseCaseTests {
 
     // MARK: - Tests
 
-    func test_execute_returns_correct_font_when_size_is_small() {
+    @Test("Execute returns correct font when size is small")
+    func executeReturnsCorrectFontWhenSizeIsSmall() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let useCase = BadgeGetTextFontUseCase()
@@ -28,10 +31,11 @@ final class BadgeGetTextFontUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.typography.smallHighlight))
+        #expect(result.equals(theme.typography.smallHighlight))
     }
 
-    func test_execute_returns_correct_font_when_size_is_medium() {
+    @Test("Execute returns correct font when size is medium")
+    func executeReturnsCorrectFontWhenSizeIsMedium() {
         // GIVEN
         let theme = ThemeGeneratedMock.mocked()
         let useCase = BadgeGetTextFontUseCase()
@@ -43,6 +47,6 @@ final class BadgeGetTextFontUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertTrue(result.equals(theme.typography.captionHighlight))
+        #expect(result.equals(theme.typography.captionHighlight))
     }
 }

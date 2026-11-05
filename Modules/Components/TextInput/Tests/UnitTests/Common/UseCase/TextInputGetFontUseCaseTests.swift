@@ -6,12 +6,13 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SparkTheming
 @testable import SparkComponentTextInput
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class TextInputGetFontUseCaseTests: XCTestCase {
+@Suite("Text Input Get Font UseCase Tests")
+struct TextInputGetFontUseCaseTests {
 
     // MARK: - Properties
 
@@ -19,7 +20,8 @@ final class TextInputGetFontUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func test_execute_shouldReturnBody1Font() throws {
+    @Test("Execute should return body 1 font")
+    func executeShouldReturnBody1Font() throws {
         // GIVEN
         let useCase = TextInputGetFontUseCase()
 
@@ -29,14 +31,13 @@ final class TextInputGetFontUseCaseTests: XCTestCase {
         let result = useCase.execute(theme: themeMock)
 
         // THEN
-        let resultWrap = try XCTUnwrap(
+        let resultWrap = try #require(
             result as? TypographyFontTokenGeneratedMock,
             "Couldn't unwrap result"
         )
 
-        XCTAssertIdentical(
-            resultWrap,
-            themeMock.typography.body1 as? TypographyFontTokenGeneratedMock
+        #expect(
+            resultWrap === themeMock.typography.body1 as? TypographyFontTokenGeneratedMock
         )
     }
 }

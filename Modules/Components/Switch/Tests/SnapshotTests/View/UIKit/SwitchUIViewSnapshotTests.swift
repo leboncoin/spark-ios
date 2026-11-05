@@ -31,7 +31,7 @@ struct SwitchUIViewSnapshotTests: UIKitComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test(arguments: SwitchScenarioSnapshotTests.allCases)
+    @Test("Switch UIView snapshot", arguments: SwitchScenarioSnapshotTests.allCases)
     func test(scenario: SwitchScenarioSnapshotTests) async throws {
         let configurations: [SwitchConfigurationSnapshotTests] = try scenario.configuration()
         for configuration in configurations {

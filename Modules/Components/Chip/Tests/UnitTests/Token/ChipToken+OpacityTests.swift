@@ -26,19 +26,19 @@ struct ChipTokenOpacityTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Opacity when enabled should return dim none")
     func opacityWhenEnabledShouldReturnDimNone() {
         #expect(self.token.value(isEnabled: true) == self.theme.dims.none)
     }
 
-    @Test
+    @Test("Opacity when disabled should return dim 3")
     func opacityWhenDisabledShouldReturnDim3() {
         #expect(self.token.value(isEnabled: false) == self.theme.dims.dim3)
     }
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = ChipToken.Opacity(theme: self.theme)
@@ -48,7 +48,7 @@ struct ChipTokenOpacityTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = ChipToken.Opacity(theme: self.theme)

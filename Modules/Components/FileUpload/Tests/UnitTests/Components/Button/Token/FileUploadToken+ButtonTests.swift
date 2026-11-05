@@ -20,7 +20,7 @@ struct FileUploadTokenButtonTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Styles should return styles")
     func stylesShouldReturnStyles() {
         // GIVEN / WHEN
         let result = self.token.styles

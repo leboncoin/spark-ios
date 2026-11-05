@@ -26,7 +26,7 @@ struct AvatarTokenOpacityTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Opacity when enabled should return dim none")
     func opacityWhenEnabledShouldReturnDimNone() {
         // GIVEN / WHEN
         let result = self.token.value(isEnabled: true)
@@ -35,7 +35,7 @@ struct AvatarTokenOpacityTests {
         #expect(result == self.theme.dims.none)
     }
 
-    @Test
+    @Test("Opacity when disabled should return dim 3")
     func opacityWhenDisabledShouldReturnDim3() {
         // GIVEN / WHEN
         let result = self.token.value(isEnabled: false)
@@ -46,7 +46,7 @@ struct AvatarTokenOpacityTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = AvatarToken.Opacity(theme: self.theme)
@@ -56,7 +56,7 @@ struct AvatarTokenOpacityTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = AvatarToken.Opacity(theme: self.theme)

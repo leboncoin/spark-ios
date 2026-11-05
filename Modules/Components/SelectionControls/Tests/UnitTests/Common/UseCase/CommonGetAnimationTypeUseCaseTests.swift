@@ -6,15 +6,17 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkCommon
 
-final class CommonGetAnimationTypeUseCaseTests: XCTestCase {
+@Suite("Common Get Animation Type UseCase Tests")
+struct CommonGetAnimationTypeUseCaseTests {
 
     // MARK: - Execute with isReduceMotionEnabled Tests
 
-    func test_execute_whenReduceMotionIsFalse_returnsAnimated() {
+    @Test("Execute when reduce motion is false returns animated")
+    func executeWhenReduceMotionIsFalseReturnsAnimated() {
         // GIVEN
         let useCase = CommonGetAnimationTypeUseCase()
 
@@ -24,10 +26,11 @@ final class CommonGetAnimationTypeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, .animated(duration: CommonConstants.animationDuration))
+        #expect(result == .animated(duration: CommonConstants.animationDuration))
     }
 
-    func test_execute_whenReduceMotionIsTrue_returnsUnanimated() {
+    @Test("Execute when reduce motion is true returns unanimated")
+    func executeWhenReduceMotionIsTrueReturnsUnanimated() {
         // GIVEN
         let useCase = CommonGetAnimationTypeUseCase()
 
@@ -37,12 +40,13 @@ final class CommonGetAnimationTypeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, .unanimated)
+        #expect(result == .unanimated)
     }
 
     // MARK: - Execute with isReduceMotionEnabled & isReduceMotionEnabled Tests
 
-    func test_execute_whenAnimatedAndNotReduceMotion_returnsAnimated() {
+    @Test("Execute when animated and not reduce motion returns animated")
+    func executeWhenAnimatedAndNotReduceMotionReturnsAnimated() {
         // GIVEN
         let useCase = CommonGetAnimationTypeUseCase()
 
@@ -53,10 +57,11 @@ final class CommonGetAnimationTypeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, .animated(duration: CommonConstants.animationDuration))
+        #expect(result == .animated(duration: CommonConstants.animationDuration))
     }
 
-    func test_execute_whenNotAnimatedOrReduceMotion_returnsUnanimated() {
+    @Test("Execute when not animated or reduce motion returns unanimated")
+    func executeWhenNotAnimatedOrReduceMotionReturnsUnanimated() {
         // GIVEN
         let useCase = CommonGetAnimationTypeUseCase()
 
@@ -71,7 +76,7 @@ final class CommonGetAnimationTypeUseCaseTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result1, .unanimated)
-        XCTAssertEqual(result2, .unanimated)
+        #expect(result1 == .unanimated)
+        #expect(result2 == .unanimated)
     }
 }

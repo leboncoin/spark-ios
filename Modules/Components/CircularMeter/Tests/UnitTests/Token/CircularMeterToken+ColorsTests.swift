@@ -25,24 +25,24 @@ struct CircularMeterTokenColorsTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Content should return on surface with dim 1")
     func contentShouldReturnOnSurfaceWithDim1() {
         let expected = self.theme.colors.base.onSurface.opacity(self.theme.dims.dim1)
 
         #expect(self.token.content.equals(expected))
     }
 
-    @Test
+    @Test("Icon should return feedback neutral")
     func iconShouldReturnFeedbackNeutral() {
         #expect(self.token.icon.equals(self.theme.colors.feedback.neutral))
     }
 
-    @Test
+    @Test("Value should return on surface")
     func valueShouldReturnOnSurface() {
         #expect(self.token.value.equals(self.theme.colors.base.onSurface))
     }
 
-    @Test
+    @Test("Indicator should return intent color")
     func indicatorShouldReturnIntentColor() {
         let colors = self.theme.colors
         let expected: [(CircularMeterIntent, any ColorToken)] = [
@@ -59,7 +59,7 @@ struct CircularMeterTokenColorsTests {
         }
     }
 
-    @Test(arguments: CircularMeterIntent.allCases)
+    @Test("Track should return indicator with dim 4", arguments: CircularMeterIntent.allCases)
     func trackShouldReturnIndicatorWithDim4(intent: CircularMeterIntent) {
         let expected = self.token.indicator(intent: intent).opacity(self.theme.dims.dim4)
 
@@ -68,7 +68,7 @@ struct CircularMeterTokenColorsTests {
 
     // MARK: - Equatable Tests
 
-    @Test
+    @Test("Equatable with same theme should return true")
     func equatableWithSameThemeShouldReturnTrue() {
         // GIVEN
         let lhs = CircularMeterToken.Colors(theme: self.theme)
@@ -78,7 +78,7 @@ struct CircularMeterTokenColorsTests {
         #expect(lhs == rhs)
     }
 
-    @Test
+    @Test("Equatable with different theme should return false")
     func equatableWithDifferentThemeShouldReturnFalse() {
         // GIVEN
         let lhs = CircularMeterToken.Colors(theme: self.theme)

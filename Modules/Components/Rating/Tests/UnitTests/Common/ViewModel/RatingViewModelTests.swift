@@ -6,30 +6,34 @@
 //  Copyright © 2026 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import Foundation
 import SwiftUI
 @testable import SparkComponentRating
 @_spi(SI_SPI) @testable import SparkComponentRatingTesting
 @_spi(SI_SPI) import SparkThemingTesting
 @_spi(SI_SPI) import SparkTheming
 
-final class RatingViewModelTests: XCTestCase {
+@MainActor
+@Suite("Rating ViewModel Tests")
+struct RatingViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertNil(stub.viewModel.theme)
+        #expect(stub.viewModel.theme == nil)
 
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherColors: RatingColors()
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getFillingUseCase: true
@@ -38,7 +42,8 @@ final class RatingViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -47,16 +52,16 @@ final class RatingViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        RatingGetColorsUseCaseableMockTest.XCTAssert(
+        RatingGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getFillingUseCase: true
         )
@@ -64,7 +69,8 @@ final class RatingViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateColorsAndSpacingOnly() {
+    @Test("Theme changed should update colors and spacing only")
+    func themeChangedShouldUpdateColorsAndSpacingOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -78,22 +84,23 @@ final class RatingViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        RatingGetColorsUseCaseableMockTest.XCTAssert(
+        RatingGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             expectedReturnValue: stub.expectedColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getFillingUseCase: true
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -102,19 +109,20 @@ final class RatingViewModelTests: XCTestCase {
         viewModel.theme = ThemeGeneratedMock.mocked()
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherColors: RatingColors()
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getFillingUseCase: true
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -126,16 +134,17 @@ final class RatingViewModelTests: XCTestCase {
         viewModel.theme = stub.givenTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getFillingUseCase: true
         )
     }
 
-    func test_propertiesChanged_withNilValues_shouldNotCallUseCases() {
+    @Test("Properties changed with nil values should not call use cases")
+    func propertiesChangedWithNilValuesShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -147,9 +156,9 @@ final class RatingViewModelTests: XCTestCase {
         viewModel.theme = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getFillingUseCase: true
@@ -158,7 +167,8 @@ final class RatingViewModelTests: XCTestCase {
 
     // MARK: - GetFilling
 
-    func test_getFilling_shouldCallUseCase() {
+    @Test("Get filling should call use case")
+    func getFillingShouldCallUseCase() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -174,9 +184,9 @@ final class RatingViewModelTests: XCTestCase {
         )
 
         // THEN
-        XCTAssertEqual(result, stub.expectedFilling)
+        #expect(result == stub.expectedFilling)
 
-        RatingGetFillingRatioUseCaseableMockTest.XCTAssert(
+        RatingGetFillingRatioUseCaseableMockTest.expect(
             stub.getFillingUseCaseMock,
             expectedNumberOfCalls: 1,
             givenIndex: stub.givenIndex,
@@ -185,7 +195,7 @@ final class RatingViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedFilling
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true
         )
@@ -257,30 +267,35 @@ private extension RatingViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getColorsUseCase: Bool = false,
-    getFillingUseCase: Bool = false
+    getFillingUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    RatingGetColorsUseCaseableMockTest.XCTCalled(
+    RatingGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeWithThemeCalled: !getColorsUseCase
+        executeWithThemeCalled: !getColorsUseCase,
+        sourceLocation: sourceLocation
     )
 
-    RatingGetFillingRatioUseCaseableMockTest.XCTCalled(
+    RatingGetFillingRatioUseCaseableMockTest.expectCalled(
         stub.getFillingUseCaseMock,
-        executeWithIndexAndCountAndRatingCalled: !getFillingUseCase
+        executeWithIndexAndCountAndRatingCalled: !getFillingUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
-    otherColors: RatingColors? = nil
+    otherColors: RatingColors? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertTrue(
+    #expect(
         viewModel.colors == (otherColors ?? stub.expectedColors),
-        "Wrong colors value"
+        "Wrong colors value",
+        sourceLocation: sourceLocation
     )
 }

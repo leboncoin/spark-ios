@@ -6,7 +6,8 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import Foundation
 import SwiftUI
 import UIKit
 
@@ -14,22 +15,25 @@ import UIKit
 @_spi(SI_SPI) @testable import SparkComponentSegmentedGaugeTesting
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class SegmentedGaugeViewModelTests: XCTestCase {
+@MainActor
+@Suite("SegmentedGauge ViewModel Tests")
+struct SegmentedGaugeViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertNil(stub.viewModel.theme)
-        XCTAssertNil(stub.viewModel.alignment)
-        XCTAssertNil(stub.viewModel.segments)
-        XCTAssertNil(stub.viewModel.size)
-        XCTAssertNil(stub.viewModel.type)
+        #expect(stub.viewModel.theme == nil)
+        #expect(stub.viewModel.alignment == nil)
+        #expect(stub.viewModel.segments == nil)
+        #expect(stub.viewModel.size == nil)
+        #expect(stub.viewModel.type == nil)
 
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherColors: SegmentedGaugeColors(),
             otherLabelsStyle: SegmentedGaugeLabelsStyle(),
@@ -39,7 +43,7 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
             otherSizes: SegmentedGaugeSizes()
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getLabelsStyleUseCase: true,
@@ -52,7 +56,8 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -61,9 +66,9 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SegmentedGaugeGetColorsUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -72,14 +77,14 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        SegmentedGaugeGetLabelsStyleUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetLabelsStyleUseCaseableMockTest.expect(
             stub.getLabelsStyleUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedLabelsStyle
         )
 
-        SegmentedGaugeGetLayoutUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetLayoutUseCaseableMockTest.expect(
             stub.getLayoutUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -87,7 +92,7 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLayout
         )
 
-        SegmentedGaugeGetLevelsUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetLevelsUseCaseableMockTest.expect(
             stub.getLevelsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSegments: stub.givenSegments,
@@ -95,14 +100,14 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLevels
         )
 
-        SegmentedGaugeGetSegmentBorderUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetSegmentBorderUseCaseableMockTest.expect(
             stub.getSegmentBorderUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             expectedReturnValue: stub.expectedSegmentBorder
         )
 
-        SegmentedGaugeGetSizesUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSize: stub.givenSize,
@@ -112,7 +117,8 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateDependentProperties() {
+    @Test("Theme changed should update dependent properties")
+    func themeChangedShouldUpdateDependentProperties() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -126,9 +132,9 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SegmentedGaugeGetColorsUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -137,14 +143,14 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        SegmentedGaugeGetLabelsStyleUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetLabelsStyleUseCaseableMockTest.expect(
             stub.getLabelsStyleUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             expectedReturnValue: stub.expectedLabelsStyle
         )
 
-        SegmentedGaugeGetLayoutUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetLayoutUseCaseableMockTest.expect(
             stub.getLayoutUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -152,21 +158,22 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLayout
         )
 
-        SegmentedGaugeGetSegmentBorderUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetSegmentBorderUseCaseableMockTest.expect(
             stub.getSegmentBorderUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             expectedReturnValue: stub.expectedSegmentBorder
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getLevelsUseCase: true,
             getSizesUseCase: true
         )
     }
 
-    func test_alignmentChanged_shouldUpdateLayoutOnly() {
+    @Test("Alignment changed should update layout only")
+    func alignmentChangedShouldUpdateLayoutOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -180,9 +187,9 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         viewModel.alignment = newAlignment
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SegmentedGaugeGetLayoutUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetLayoutUseCaseableMockTest.expect(
             stub.getLayoutUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -190,7 +197,7 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLayout
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getLabelsStyleUseCase: true,
@@ -200,7 +207,8 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         )
     }
 
-    func test_segmentsChanged_shouldUpdateLevelsOnly() {
+    @Test("Segments changed should update levels only")
+    func segmentsChangedShouldUpdateLevelsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -214,9 +222,9 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         viewModel.segments = newSegments
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SegmentedGaugeGetColorsUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -225,7 +233,7 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        SegmentedGaugeGetLevelsUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetLevelsUseCaseableMockTest.expect(
             stub.getLevelsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSegments: newSegments,
@@ -233,7 +241,7 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLevels
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getLabelsStyleUseCase: true,
             getLayoutUseCase: true,
@@ -242,7 +250,8 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         )
     }
 
-    func test_sizeChanged_shouldUpdateSegmentSizeOnly() {
+    @Test("Size changed should update segment size only")
+    func sizeChangedShouldUpdateSegmentSizeOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -256,16 +265,16 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         viewModel.size = newSize
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SegmentedGaugeGetSizesUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetSizesUseCaseableMockTest.expect(
             stub.getSizesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSize: newSize,
             expectedReturnValue: stub.expectedSizes
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getLabelsStyleUseCase: true,
@@ -275,7 +284,8 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         )
     }
 
-    func test_typeChanged_shouldUpdateColorsAndLevels() {
+    @Test("Type changed should update colors and levels")
+    func typeChangedShouldUpdateColorsAndLevels() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -289,9 +299,9 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         viewModel.type = newType
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        SegmentedGaugeGetColorsUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -300,7 +310,7 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        SegmentedGaugeGetLevelsUseCaseableMockTest.XCTAssert(
+        SegmentedGaugeGetLevelsUseCaseableMockTest.expect(
             stub.getLevelsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenSegments: stub.givenSegments,
@@ -308,7 +318,7 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedLevels
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getLabelsStyleUseCase: true,
             getLayoutUseCase: true,
@@ -317,7 +327,8 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -330,7 +341,7 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         viewModel.type = .veryLow
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherColors: SegmentedGaugeColors(),
             otherLabelsStyle: SegmentedGaugeLabelsStyle(),
@@ -340,7 +351,7 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
             otherSizes: SegmentedGaugeSizes()
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getLabelsStyleUseCase: true,
@@ -351,7 +362,8 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -367,9 +379,9 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         viewModel.type = stub.givenType
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getLabelsStyleUseCase: true,
@@ -380,7 +392,8 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         )
     }
 
-    func test_propertiesChanged_for_nil_shouldNotCallUseCases() {
+    @Test("Properties changed for nil should not call use cases")
+    func propertiesChangedForNilShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -396,9 +409,9 @@ final class SegmentedGaugeViewModelTests: XCTestCase {
         viewModel.type = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getLabelsStyleUseCase: true,
@@ -520,85 +533,93 @@ private extension SegmentedGaugeViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getColorsUseCase: Bool = false,
     getLabelsStyleUseCase: Bool = false,
     getLayoutUseCase: Bool = false,
     getLevelsUseCase: Bool = false,
     getSegmentBorderUseCase: Bool = false,
-    getSizesUseCase: Bool = false
+    getSizesUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    SegmentedGaugeGetColorsUseCaseableMockTest.XCTCalled(
+    SegmentedGaugeGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeWithThemeAndTypeAndSegmentsCalled: !getColorsUseCase
+        executeWithThemeAndTypeAndSegmentsCalled: !getColorsUseCase,
+        sourceLocation: sourceLocation
     )
 
-    SegmentedGaugeGetLabelsStyleUseCaseableMockTest.XCTCalled(
+    SegmentedGaugeGetLabelsStyleUseCaseableMockTest.expectCalled(
         stub.getLabelsStyleUseCaseMock,
-        executeWithThemeCalled: !getLabelsStyleUseCase
+        executeWithThemeCalled: !getLabelsStyleUseCase,
+        sourceLocation: sourceLocation
     )
 
-    SegmentedGaugeGetLayoutUseCaseableMockTest.XCTCalled(
+    SegmentedGaugeGetLayoutUseCaseableMockTest.expectCalled(
         stub.getLayoutUseCaseMock,
-        executeWithThemeAndAlignmentCalled: !getLayoutUseCase
+        executeWithThemeAndAlignmentCalled: !getLayoutUseCase,
+        sourceLocation: sourceLocation
     )
 
-    SegmentedGaugeGetLevelsUseCaseableMockTest.XCTCalled(
+    SegmentedGaugeGetLevelsUseCaseableMockTest.expectCalled(
         stub.getLevelsUseCaseMock,
-        executeWithSegmentsAndTypeCalled: !getLevelsUseCase
+        executeWithSegmentsAndTypeCalled: !getLevelsUseCase,
+        sourceLocation: sourceLocation
     )
 
-    SegmentedGaugeGetSegmentBorderUseCaseableMockTest.XCTCalled(
+    SegmentedGaugeGetSegmentBorderUseCaseableMockTest.expectCalled(
         stub.getSegmentBorderUseCaseMock,
-        executeWithThemeCalled: !getSegmentBorderUseCase
+        executeWithThemeCalled: !getSegmentBorderUseCase,
+        sourceLocation: sourceLocation
     )
 
-    SegmentedGaugeGetSizesUseCaseableMockTest.XCTCalled(
+    SegmentedGaugeGetSizesUseCaseableMockTest.expectCalled(
         stub.getSizesUseCaseMock,
-        executeWithSizeCalled: !getSizesUseCase
+        executeWithSizeCalled: !getSizesUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherColors: SegmentedGaugeColors? = nil,
     otherLabelsStyle: SegmentedGaugeLabelsStyle? = nil,
     otherLayout: SegmentedGaugeLayout? = nil,
     otherLevels: SegmentedGaugeLevels? = nil,
     otherSegmentBorder: SegmentedGaugeSegmentBorder? = nil,
-    otherSizes: SegmentedGaugeSizes? = nil
+    otherSizes: SegmentedGaugeSizes? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertEqual(
-        viewModel.colors,
-        otherColors ?? stub.expectedColors,
-        "Wrong colors value"
+    #expect(
+        viewModel.colors == otherColors ?? stub.expectedColors,
+        "Wrong colors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.labelsStyle,
-        otherLabelsStyle ?? stub.expectedLabelsStyle,
-        "Wrong labelsStyle value"
+    #expect(
+        viewModel.labelsStyle == otherLabelsStyle ?? stub.expectedLabelsStyle,
+        "Wrong labelsStyle value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.layout,
-        otherLayout ?? stub.expectedLayout,
-        "Wrong layout value"
+    #expect(
+        viewModel.layout == otherLayout ?? stub.expectedLayout,
+        "Wrong layout value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.levels,
-        otherLevels ?? stub.expectedLevels,
-        "Wrong levels value"
+    #expect(
+        viewModel.levels == otherLevels ?? stub.expectedLevels,
+        "Wrong levels value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.segmentBorder,
-        otherSegmentBorder ?? stub.expectedSegmentBorder,
-        "Wrong segmentBorder value"
+    #expect(
+        viewModel.segmentBorder == otherSegmentBorder ?? stub.expectedSegmentBorder,
+        "Wrong segmentBorder value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.sizes,
-        otherSizes ?? stub.expectedSizes,
-        "Wrong sizes value"
+    #expect(
+        viewModel.sizes == otherSizes ?? stub.expectedSizes,
+        "Wrong sizes value",
+        sourceLocation: sourceLocation
     )
 }

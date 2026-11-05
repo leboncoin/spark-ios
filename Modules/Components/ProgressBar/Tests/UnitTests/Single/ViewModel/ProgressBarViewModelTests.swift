@@ -6,7 +6,8 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
+import Foundation
 import SwiftUI
 import UIKit
 
@@ -15,26 +16,29 @@ import UIKit
 @_spi(SI_SPI) import SparkThemingTesting
 @_spi(SI_SPI) import SparkTheming
 
-final class ProgressBarViewModelTests: XCTestCase {
+@MainActor
+@Suite("ProgressBar ViewModel Tests")
+struct ProgressBarViewModelTests {
 
     // MARK: - Initialization
 
-    func test_initialization_shouldUseDefaultValues() {
+    @Test("Initialization should use default values")
+    func initializationShouldUseDefaultValues() {
         // GIVEN / WHEN
         let stub = Stub()
 
         // THEN
-        XCTAssertNil(stub.viewModel.theme)
-        XCTAssertNil(stub.viewModel.intent)
-        XCTAssertNil(stub.viewModel.shape)
+        #expect(stub.viewModel.theme == nil)
+        #expect(stub.viewModel.intent == nil)
+        #expect(stub.viewModel.shape == nil)
 
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherColors: ProgressBarColors(),
             otherCornerRadius: 0
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getCornerRadiusUseCase: true
@@ -43,7 +47,8 @@ final class ProgressBarViewModelTests: XCTestCase {
 
     // MARK: - Setup
 
-    func test_setup_shouldCallAllUseCases() {
+    @Test("Setup should call all use cases")
+    func setupShouldCallAllUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -52,9 +57,9 @@ final class ProgressBarViewModelTests: XCTestCase {
         viewModel.setup(stub: stub)
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ProgressBarGetColorsUseCaseableMockTest.XCTAssert(
+        ProgressBarGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -62,7 +67,7 @@ final class ProgressBarViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        ProgressBarGetCornerRadiusUseCaseableMockTest.XCTAssert(
+        ProgressBarGetCornerRadiusUseCaseableMockTest.expect(
             stub.getCornerRadiusUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -70,14 +75,15 @@ final class ProgressBarViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedCornerRadius
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub
         )
     }
 
     // MARK: - Property Changes
 
-    func test_themeChanged_shouldUpdateColorsAndCornerRadiusOnly() {
+    @Test("Theme changed should update colors and corner radius only")
+    func themeChangedShouldUpdateColorsAndCornerRadiusOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -91,9 +97,9 @@ final class ProgressBarViewModelTests: XCTestCase {
         viewModel.theme = newTheme
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ProgressBarGetColorsUseCaseableMockTest.XCTAssert(
+        ProgressBarGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -101,7 +107,7 @@ final class ProgressBarViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        ProgressBarGetCornerRadiusUseCaseableMockTest.XCTAssert(
+        ProgressBarGetCornerRadiusUseCaseableMockTest.expect(
             stub.getCornerRadiusUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
@@ -109,12 +115,13 @@ final class ProgressBarViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedCornerRadius
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub
         )
     }
 
-    func test_intentChanged_shouldUpdateColorsOnly() {
+    @Test("Intent changed should update colors only")
+    func intentChangedShouldUpdateColorsOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -128,9 +135,9 @@ final class ProgressBarViewModelTests: XCTestCase {
         viewModel.intent = newIntent
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ProgressBarGetColorsUseCaseableMockTest.XCTAssert(
+        ProgressBarGetColorsUseCaseableMockTest.expect(
             stub.getColorsUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -138,13 +145,14 @@ final class ProgressBarViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedColors
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getCornerRadiusUseCase: true
         )
     }
 
-    func test_shapeChanged_shouldUpdateCornerRadiusOnly() {
+    @Test("Shape changed should update corner radius only")
+    func shapeChangedShouldUpdateCornerRadiusOnly() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -158,9 +166,9 @@ final class ProgressBarViewModelTests: XCTestCase {
         viewModel.shape = newShape
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        ProgressBarGetCornerRadiusUseCaseableMockTest.XCTAssert(
+        ProgressBarGetCornerRadiusUseCaseableMockTest.expect(
             stub.getCornerRadiusUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
@@ -168,13 +176,14 @@ final class ProgressBarViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedCornerRadius
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true
         )
     }
 
-    func test_propertiesChanged_beforeSetup_shouldNotCallUseCases() {
+    @Test("Properties changed before setup should not call use cases")
+    func propertiesChangedBeforeSetupShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -185,20 +194,21 @@ final class ProgressBarViewModelTests: XCTestCase {
         viewModel.shape = .square
 
         // THEN
-        XCTAssertEqualToExpected(
+        expectEqualToExpected(
             on: stub,
             otherColors: ProgressBarColors(),
             otherCornerRadius: 0
         )
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getCornerRadiusUseCase: true
         )
     }
 
-    func test_propertiesChanged_withoutValueChange_shouldNotCallUseCases() {
+    @Test("Properties changed without value change should not call use cases")
+    func propertiesChangedWithoutValueChangeShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -212,16 +222,17 @@ final class ProgressBarViewModelTests: XCTestCase {
         viewModel.shape = stub.givenShape
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getCornerRadiusUseCase: true
         )
     }
 
-    func test_propertiesChanged_withNilValues_shouldNotCallUseCases() {
+    @Test("Properties changed with nil values should not call use cases")
+    func propertiesChangedWithNilValuesShouldNotCallUseCases() {
         // GIVEN
         let stub = Stub()
         let viewModel = stub.viewModel
@@ -235,9 +246,9 @@ final class ProgressBarViewModelTests: XCTestCase {
         viewModel.shape = nil
 
         // THEN
-        XCTAssertEqualToExpected(on: stub)
+        expectEqualToExpected(on: stub)
 
-        XCTAssertNotCalled(
+        expectNotCalled(
             on: stub,
             getColorsUseCase: true,
             getCornerRadiusUseCase: true
@@ -309,36 +320,41 @@ private extension ProgressBarViewModel {
     }
 }
 
-private func XCTAssertNotCalled(
+private func expectNotCalled(
     on stub: Stub,
     getColorsUseCase: Bool = false,
-    getCornerRadiusUseCase: Bool = false
+    getCornerRadiusUseCase: Bool = false,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
-    ProgressBarGetColorsUseCaseableMockTest.XCTCalled(
+    ProgressBarGetColorsUseCaseableMockTest.expectCalled(
         stub.getColorsUseCaseMock,
-        executeWithThemeAndIntentCalled: !getColorsUseCase
+        executeWithThemeAndIntentCalled: !getColorsUseCase,
+        sourceLocation: sourceLocation
     )
 
-    ProgressBarGetCornerRadiusUseCaseableMockTest.XCTCalled(
+    ProgressBarGetCornerRadiusUseCaseableMockTest.expectCalled(
         stub.getCornerRadiusUseCaseMock,
-        executeWithThemeAndShapeCalled: !getCornerRadiusUseCase
+        executeWithThemeAndShapeCalled: !getCornerRadiusUseCase,
+        sourceLocation: sourceLocation
     )
 }
 
-private func XCTAssertEqualToExpected(
+private func expectEqualToExpected(
     on stub: Stub,
     otherColors: ProgressBarColors? = nil,
-    otherCornerRadius: CGFloat? = nil
+    otherCornerRadius: CGFloat? = nil,
+    sourceLocation: Testing.SourceLocation = #_sourceLocation
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertTrue(
+    #expect(
         viewModel.colors == (otherColors ?? stub.expectedColors),
-        "Wrong colors value"
+        "Wrong colors value",
+        sourceLocation: sourceLocation
     )
-    XCTAssertEqual(
-        viewModel.cornerRadius,
-        otherCornerRadius ?? stub.expectedCornerRadius,
-        "Wrong cornerRadius value"
+    #expect(
+        viewModel.cornerRadius == otherCornerRadius ?? stub.expectedCornerRadius,
+        "Wrong cornerRadius value",
+        sourceLocation: sourceLocation
     )
 }

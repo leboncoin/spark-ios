@@ -6,15 +6,18 @@
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 import SwiftUI
 @_spi(SI_SPI) @testable import SparkCommon
 
-final class ControlPropertyStatesTests: XCTestCase {
+@MainActor
+@Suite("Control Property States Tests")
+struct ControlPropertyStatesTests {
 
     // MARK: - Value for States - Tests
 
-    func test_value_for_all_states_when_value_is_set() {
+    @Test("Value for all states when value is set")
+    func valueForAllStatesWhenValueIsSet() {
         // GIVEN
         let expectedValue = "Value"
 
@@ -28,15 +31,12 @@ final class ControlPropertyStatesTests: XCTestCase {
             let value = states.value(for: state)
 
             // THEN
-            XCTAssertEqual(
-                value,
-                expectedValue,
-                "Wrong value for the .\(state) state"
-            )
+            #expect(value == expectedValue, "Wrong value for the .\(state) state")
         }
     }
 
-    func test_value_for_all_states_when_value_is_nil() {
+    @Test("Value for all states when value is nil")
+    func valueForAllStatesWhenValueIsNil() {
         // GIVEN
         let states = ControlState.allCases
 
@@ -48,16 +48,14 @@ final class ControlPropertyStatesTests: XCTestCase {
             let value = states.value(for: state)
 
             // THEN
-            XCTAssertNil(
-                value,
-                "The value should be nil for the .\(state) state"
-            )
+            #expect(value == nil, "The value should be nil for the .\(state) state")
         }
     }
 
     // MARK: - Value for Status - Tests
 
-    func test_all_values_when_status_isHighlighted() {
+    @Test("All values when status is highlighted")
+    func allValuesWhenStatusIsHighlighted() {
         // GIVEN
         let normalStateValue = "normal"
         let highlightedValue = "highlighted"
@@ -76,11 +74,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         var value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            highlightedValue,
-            "Wrong value WHEN status isHighlighted AND set .highlighted state value"
-        )
+        #expect(value == highlightedValue, "Wrong value WHEN status isHighlighted AND set .highlighted state value")
         // **
 
         // **
@@ -92,11 +86,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            normalStateValue,
-            "Wrong value WHEN status isHighlighted AND nil .highlighted state value"
-        )
+        #expect(value == normalStateValue, "Wrong value WHEN status isHighlighted AND nil .highlighted state value")
         // **
 
         // **
@@ -109,15 +99,12 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            normalStateValue,
-            "Wrong value WHEN status !isHighlighted AND set .highlighted state value"
-        )
+        #expect(value == normalStateValue, "Wrong value WHEN status !isHighlighted AND set .highlighted state value")
         // **
     }
 
-    func test_all_values_when_status_isDisabled() {
+    @Test("All values when status is disabled")
+    func allValuesWhenStatusIsDisabled() {
         // GIVEN
         let normalStateValue = "normal"
         let disabledValue = "disabled"
@@ -137,11 +124,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         var value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            disabledValue,
-            "Wrong value WHEN status isDisabled AND set .disabled state value"
-        )
+        #expect(value == disabledValue, "Wrong value WHEN status isDisabled AND set .disabled state value")
         // **
 
         // **
@@ -153,11 +136,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            normalStateValue,
-            "Wrong value WHEN status isDisabled AND nil .disabled state value"
-        )
+        #expect(value == normalStateValue, "Wrong value WHEN status isDisabled AND nil .disabled state value")
         // **
 
         // **
@@ -170,11 +149,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            normalStateValue,
-            "Wrong value WHEN status !isDisabled AND set .disabled state value"
-        )
+        #expect(value == normalStateValue, "Wrong value WHEN status !isDisabled AND set .disabled state value")
         // **
 
         // **
@@ -189,11 +164,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            highlightedValue,
-            "Wrong value WHEN status isDisabled and isHighlighted AND set .disabled and .highlighted state value"
-        )
+        #expect(value == highlightedValue, "Wrong value WHEN status isDisabled and isHighlighted AND set .disabled and .highlighted state value")
         // **
 
         // **
@@ -208,15 +179,12 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            disabledValue,
-            "Wrong value WHEN status isDisabled and isHighlighted AND set .disabled and nil .highlighted state value"
-        )
+        #expect(value == disabledValue, "Wrong value WHEN status isDisabled and isHighlighted AND set .disabled and nil .highlighted state value")
         // **
     }
 
-    func test_all_values_when_status_isSelected() {
+    @Test("All values when status is selected")
+    func allValuesWhenStatusIsSelected() {
         // GIVEN
         let normalStateValue = "normal"
         let selectedValue = "selected"
@@ -238,11 +206,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         var value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            selectedValue,
-            "Wrong value WHEN status isSelected AND set .selected state value"
-        )
+        #expect(value == selectedValue, "Wrong value WHEN status isSelected AND set .selected state value")
         // **
 
         // **
@@ -253,11 +217,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            normalStateValue,
-            "Wrong value WHEN status isSelected AND nil .selected state value"
-        )
+        #expect(value == normalStateValue, "Wrong value WHEN status isSelected AND nil .selected state value")
         // **
 
         // **
@@ -270,11 +230,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            normalStateValue,
-            "Wrong value WHEN status !isSelected AND set .selected state value"
-        )
+        #expect(value == normalStateValue, "Wrong value WHEN status !isSelected AND set .selected state value")
         // **
 
         // **
@@ -289,11 +245,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            highlightedValue,
-            "Wrong value WHEN status isSelected and isHighlighted AND set .selected and .highlighted state value"
-        )
+        #expect(value == highlightedValue, "Wrong value WHEN status isSelected and isHighlighted AND set .selected and .highlighted state value")
         // **
 
         // **
@@ -308,11 +260,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            selectedValue,
-            "Wrong value WHEN status isSelected and isHighlighted AND set .selected and nil .highlighted state value"
-        )
+        #expect(value == selectedValue, "Wrong value WHEN status isSelected and isHighlighted AND set .selected and nil .highlighted state value")
         // **
 
         // **
@@ -327,11 +275,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            disabledValue,
-            "Wrong value WHEN status isSelected and isDisabled AND set .selected and .disabled state value"
-        )
+        #expect(value == disabledValue, "Wrong value WHEN status isSelected and isDisabled AND set .selected and .disabled state value")
         // **
 
         // **
@@ -346,15 +290,12 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            selectedValue,
-            "Wrong value WHEN status isSelected and isDisabled AND set .selected and nil .disabled state value"
-        )
+        #expect(value == selectedValue, "Wrong value WHEN status isSelected and isDisabled AND set .selected and nil .disabled state value")
         // **
     }
 
-    func test_all_values_when_status_isNormal() {
+    @Test("All values when status is normal")
+    func allValuesWhenStatusIsNormal() {
         // GIVEN
         let normalStateValue = "normal"
 
@@ -369,11 +310,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         var value = states.value(for: status)
 
         // THEN
-        XCTAssertEqual(
-            value,
-            normalStateValue,
-            "Wrong value WHEN all status properties are false AND set .normal state value"
-        )
+        #expect(value == normalStateValue, "Wrong value WHEN all status properties are false AND set .normal state value")
         // **
 
         // **
@@ -385,10 +322,7 @@ final class ControlPropertyStatesTests: XCTestCase {
         value = states.value(for: status)
 
         // THEN
-        XCTAssertNil(
-            value,
-            "Wrong value WHEN all status properties are false AND nil .normal state value"
-        )
+        #expect(value == nil, "Wrong value WHEN all status properties are false AND nil .normal state value")
         // **
     }
 }

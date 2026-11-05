@@ -13,7 +13,7 @@ struct TagConstantsTests {
 
     // MARK: - Tests
 
-    @Test
+    @Test("Icon size constant")
     func test_iconSizeConstant() {
         #expect(TagConstants.iconSize == 12)
     }

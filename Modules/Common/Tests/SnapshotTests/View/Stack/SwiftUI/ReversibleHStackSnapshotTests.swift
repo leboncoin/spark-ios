@@ -17,7 +17,7 @@ struct ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTesting {
 
     // MARK: - Tests
 
-    @Test func test_with_default_isReversed() async throws {
+    @Test("With default is reversed") func test_with_default_isReversed() async throws {
         // GIVEN / WHEN
         let view = ReversibleHStack(
             alignment: .center,
@@ -38,7 +38,7 @@ struct ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
     }
 
-    @Test func test_when_isReversed_is_true() async throws {
+    @Test("When is reversed is true") func test_when_isReversed_is_true() async throws {
         // GIVEN / WHEN
         let view = ReversibleHStack(
             alignment: .top,
@@ -60,7 +60,7 @@ struct ReversibleHStackSnapshotTests: SwiftUIComponentSnapshotTesting {
         )
     }
 
-    @Test func test_when_isReversed_is_false() async throws {
+    @Test("When is reversed is false") func test_when_isReversed_is_false() async throws {
         // GIVEN / WHEN
         let view = ReversibleHStack(
             alignment: .bottom,

@@ -6,24 +6,27 @@
 //  Copyright © 2025 Leboncoin. All rights reserved.
 //
 
-import XCTest
+import Testing
 @testable import SparkComponentSelectionControls
 @_spi(SI_SPI) import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
-final class RadioButtonDynamicColorsTests: XCTestCase {
+@Suite("Radio Button Dynamic Colors Tests")
+struct RadioButtonDynamicColorsTests {
 
     // MARK: - Initialization Tests
 
-    func test_init_shouldUseDefaultValues() {
+    @Test("Init should use default values")
+    func initShouldUseDefaultValues() {
         // GIVEN / WHEN
         let colors = RadioButtonDynamicColors()
 
         // THEN
-        XCTAssertTrue(colors.circle.equals(ColorTokenClear()))
+        #expect(colors.circle.equals(ColorTokenClear()))
     }
 
-    func test_init_withCustomValues_shouldSetProperties() {
+    @Test("Init with custom values should set properties")
+    func initWithCustomValuesShouldSetProperties() {
         // GIVEN
         let customCircle = ColorTokenGeneratedMock.random()
 
@@ -32,6 +35,6 @@ final class RadioButtonDynamicColorsTests: XCTestCase {
         colors.circle = customCircle
 
         // THEN
-        XCTAssertTrue(colors.circle.equals(customCircle))
+        #expect(colors.circle.equals(customCircle))
     }
 }
