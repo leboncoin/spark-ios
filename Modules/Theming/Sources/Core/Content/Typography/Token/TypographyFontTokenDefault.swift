@@ -72,4 +72,15 @@ public struct TypographyFontTokenDefault: TypographyFontToken {
         self.fontSize = size
         self.fontTextStyle = style
     }
+
+    // MARK: - Equatable
+
+    /// Two default tokens are equal if they have the same configuration.
+    /// No need to create the fonts.
+    func isSameFont(_ other: TypographyFontTokenDefault) -> Bool {
+        return self.fontNames == other.fontNames &&
+        self.weight == other.weight &&
+        self.fontSize == other.fontSize &&
+        self.fontTextStyle == other.fontTextStyle
+    }
 }
