@@ -21,11 +21,14 @@ public extension TypographyFontToken {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.font)
-        hasher.combine(self.uiFont)
     }
 
     func equals(_ other: any TypographyFontToken) -> Bool {
-        return self.font == other.font && self.uiFont == other.uiFont
+        if let lhs = self as? TypographyFontTokenDefault, let rhs = other as? TypographyFontTokenDefault {
+            return lhs.isSameFont(rhs)
+        }
+
+        return self.font == other.font
     }
 
     static func == (lhs: Self, rhs: Self) -> Bool {
@@ -38,7 +41,11 @@ public extension TypographyFontToken {
 public extension Optional where Wrapped == any TypographyFontToken {
 
     func equals(_ other: (any TypographyFontToken)?) -> Bool {
-        return self?.font == other?.font && self?.uiFont == other?.uiFont
+        return switch (self, other) {
+        case (.none, .none): true
+        case (.none, .some), (.some, .none): false
+        case (let lhs?, let rhs?): lhs.equals(rhs)
+        }
     }
 }
 
