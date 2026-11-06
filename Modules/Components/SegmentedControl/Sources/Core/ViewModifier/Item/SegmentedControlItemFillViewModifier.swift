@@ -16,13 +16,15 @@ private struct SegmentedControlItemFillViewModifier: ViewModifier {
     @Environment(\.theme) private var theme
     @Environment(\.segmentedControlItemIsSelected) private var isSelected
     @Environment(\.segmentedControlItemIsPressed) private var isPressed
+    @Environment(\.isEnabled) private var isEnabled
 
     // MARK: - View
 
     func body(content: Content) -> some View {
         let colorToken = self.theme.colors.itemBackground(
             isSelected: self.isSelected,
-            isPressed: self.isPressed
+            isPressed: self.isPressed,
+            isEnabled: self.isEnabled
         )
 
         content

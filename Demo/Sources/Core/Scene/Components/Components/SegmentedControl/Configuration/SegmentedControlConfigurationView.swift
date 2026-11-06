@@ -106,6 +106,11 @@ struct SegmentedControlConfigurationView: ConfigurationViewable, ConfigurationUI
                         selectedValue: item.icon
                     )
                 }
+
+                ToggleConfigurationItemView(
+                    name: "is enabled",
+                    isOn: item.isEnabled
+                )
             }
         }
     }

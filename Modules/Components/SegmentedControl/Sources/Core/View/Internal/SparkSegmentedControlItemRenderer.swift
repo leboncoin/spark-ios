@@ -47,6 +47,7 @@ struct SparkSegmentedControlItemRenderer<Label>: View where Label: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .segmentedControlItemBackground()
         .segmentedControlItemScaleEffect()
+        .segmentedControlOpacity()
         .contentShape(Rectangle())
     }
 }

@@ -55,6 +55,7 @@ public struct SparkSegmentedControlItem<Tag, Label>: View where Tag: Hashable, L
 
     @Environment(\.segmentedControlContext) private var context
     @Environment(\.segmentedControlItemTag) private var itemTag
+    @Environment(\.isEnabled) private var isEnabled
 
     // MARK: - Initialization
 
@@ -148,6 +149,10 @@ public struct SparkSegmentedControlItem<Tag, Label>: View where Tag: Hashable, L
             Rectangle()
                 .hidden()
                 .preference(key: SegmentedControlTagsPreferenceKey.self, value: [AnyHashable(self.tag)])
+                .preference(
+                    key: SegmentedControlDisabledPreferenceKey.self,
+                    value: self.isEnabled ? [] : [AnyHashable(self.tag)]
+                )
 
         case .renderer:
             if self.isItem() {

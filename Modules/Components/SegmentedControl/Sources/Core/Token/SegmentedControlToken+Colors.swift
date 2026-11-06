@@ -61,10 +61,10 @@ public extension SegmentedControlToken {
 
         // MARK: - Methods
 
-        /// The background color of an item. Only an unselected pressed item has a background.
-        public func itemBackground(isSelected: Bool, isPressed: Bool) -> any ColorToken {
-            return switch (isSelected, isPressed) {
-            case (false, true): self.theme.colors.states.supportContainerPressed
+        /// The background color of an item. Only an enabled unselected pressed item has a background.
+        public func itemBackground(isSelected: Bool, isPressed: Bool, isEnabled: Bool) -> any ColorToken {
+            return switch (isSelected, isPressed, isEnabled) {
+            case (false, true, true): self.theme.colors.states.supportContainerPressed
             default: ColorTokenClear()
             }
         }

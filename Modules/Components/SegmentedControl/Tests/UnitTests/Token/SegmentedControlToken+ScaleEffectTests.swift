@@ -22,12 +22,14 @@ struct SegmentedControlTokenScaleEffectTests {
 
     @Test("Item should return expected scale effect",
         arguments: [
-            (true, 1.05),
-            (false, 1.0)
+            (true, true, 1.05),
+            (true, false, 1.0),
+            (false, true, 1.0),
+            (false, false, 1.0)
         ]
     )
-    func itemShouldReturnExpectedScaleEffect(isPressed: Bool, expectedScaleEffect: CGFloat) {
-        #expect(self.token.item(isPressed: isPressed) == expectedScaleEffect)
+    func itemShouldReturnExpectedScaleEffect(isPressed: Bool, isEnabled: Bool, expectedScaleEffect: CGFloat) {
+        #expect(self.token.item(isPressed: isPressed, isEnabled: isEnabled) == expectedScaleEffect)
     }
 
     // MARK: - Equatable Tests
