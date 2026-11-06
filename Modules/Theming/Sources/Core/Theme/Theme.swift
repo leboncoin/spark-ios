@@ -33,6 +33,12 @@ public extension Theme {
     }
 
     func equals(_ other: any Theme) -> Bool {
+        if let lhs = self as? ThemeDefault,
+           let rhs = other as? ThemeDefault,
+           lhs.identity === rhs.identity {
+            return true
+        }
+
         return self.border.equals(other.border) &&
         self.colors.equals(other.colors) &&
         self.elevation.equals(other.elevation) &&
