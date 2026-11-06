@@ -92,7 +92,6 @@ BadgeView
 ButtonUIView
 ButtonView
 CheckboxGroupUIView
-CheckboxGroupView
 CheckboxUIView
 CheckboxView
 ChipUIView
