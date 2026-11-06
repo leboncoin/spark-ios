@@ -112,6 +112,7 @@ struct SegmentedControlImplementationView: ComponentImplementationViewable {
             tag: item.id,
             icon: Image(icon: item.icon)
         )
+        .disabled(!item.isEnabled)
     }
 
     @ViewBuilder
@@ -120,6 +121,7 @@ struct SegmentedControlImplementationView: ComponentImplementationViewable {
             tag: item.id,
             text: item.text
         )
+        .disabled(!item.isEnabled)
     }
 
     @ViewBuilder
@@ -129,6 +131,7 @@ struct SegmentedControlImplementationView: ComponentImplementationViewable {
             text: item.text,
             icon: Image(icon: item.icon)
         )
+        .disabled(!item.isEnabled)
     }
 
     @ViewBuilder
@@ -143,5 +146,6 @@ struct SegmentedControlImplementationView: ComponentImplementationViewable {
                     .foregroundColor(.blue)
             }
         }
+        .disabled(!item.isEnabled)
     }
 }

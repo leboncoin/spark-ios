@@ -72,6 +72,7 @@ extension SegmentedControlConfiguration {
         var text: String
         var icon: Iconography
         var contentType: SegmentedControlContentType = .multipleCases.randomElement() ?? .default
+        var isEnabled = true
 
         // MARK: - Initialization
 

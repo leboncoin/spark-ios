@@ -198,6 +198,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
 
     @State private var tags: [[AnyHashable]] = []
     @State private var flattedTags: [AnyHashable] = []
+    @State private var disabledTags: Set<AnyHashable> = []
 
     @State private var pressedId: AnyHashable?
 
@@ -316,6 +317,9 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
                     self.flattedTags = value
                     self.tags = SegmentedControlGrid.rows(from: value, rowLength: self.rowLength)
                 }
+                .onPreferenceChange(SegmentedControlDisabledPreferenceKey.self) { value in
+                    self.disabledTags = value
+                }
         )
         .popover(isPresented: self.$showAccessibilityList, content: {
             self.accessibilityPopoverContent()
@@ -364,6 +368,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
                 },
             isEnabled: self.dynamicTypeSize.isAccessibilitySize
         )
+        .disabled(self.disabledTags.contains(tag))
         .segmentedControlItemCornerRadius()
         .accessibilityIdentifier(SegmentedControlAccessibilityIdentifier.item(at: index))
         .accessibilityValue(String.accessibilityLabel(
@@ -393,6 +398,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
                             .segmentedControlContext(.accessibilityRenderer)
                             .segmentedControlItemTag(tag)
                     }
+                    .disabled(self.disabledTags.contains(tag))
                     .segmentedControlAccessibilityItem(isSelected: isSelected)
                     .clipShape(Capsule())
                     .accessibilityValue(String.accessibilityLabel(

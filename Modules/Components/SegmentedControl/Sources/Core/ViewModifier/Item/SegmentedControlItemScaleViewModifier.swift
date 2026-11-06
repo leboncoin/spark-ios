@@ -15,12 +15,16 @@ private struct SegmentedControlItemScaleViewModifier: ViewModifier {
 
     @Environment(\.theme) private var theme
     @Environment(\.segmentedControlItemIsPressed) private var isPressed
+    @Environment(\.isEnabled) private var isEnabled
 
     // MARK: - View
 
     func body(content: Content) -> some View {
         content
-            .scaleEffect(self.theme.scaleEffect.item(isPressed: self.isPressed))
+            .scaleEffect(self.theme.scaleEffect.item(
+                isPressed: self.isPressed,
+                isEnabled: self.isEnabled
+            ))
             .optionalAnimation(
                 .easeInOut(duration: SegmentedControlConstants.animationDuration),
                 value: self.isPressed

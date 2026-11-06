@@ -20,6 +20,7 @@ enum SegmentedControlScenarioSnapshotTests: String, CaseIterable {
     case test3
     case test4
     case test5
+    case test6
     case documentation
 
     // MARK: - Type Alias
@@ -41,6 +42,7 @@ enum SegmentedControlScenarioSnapshotTests: String, CaseIterable {
         case .test3: self.test3()
         case .test4: self.test4()
         case .test5: self.test5()
+        case .test6: self.test6()
         case .documentation: self.documentation()
         }
     }
@@ -115,6 +117,23 @@ enum SegmentedControlScenarioSnapshotTests: String, CaseIterable {
                 scenario: self,
                 items: rowLength.items,
                 rowLength: rowLength
+            )
+        }
+    }
+
+    /// **Test 6**
+    ///
+    /// Description: To test the disabled items (selected and unselected) for all content types.
+    ///
+    private func test6() -> [SegmentedControlConfigurationSnapshotTests] {
+        let contentTypes = SegmentedControlContentType.allCases
+
+        return contentTypes.map { contentType in
+            .init(
+                scenario: self,
+                contentType: contentType,
+                disabledIndexes: [0, 1],
+                modes: Constants.Modes.all
             )
         }
     }
