@@ -17,9 +17,9 @@ public extension SegmentedControlToken {
 
         // MARK: - Methods
 
-        /// The scale effect of an item.
-        public func item(isPressed: Bool) -> CGFloat {
-            return isPressed ? 1.05 : 1.0
+        /// The scale effect of an item. Only an enabled pressed item is scaled.
+        public func item(isPressed: Bool, isEnabled: Bool) -> CGFloat {
+            return isPressed && isEnabled ? 1.05 : 1.0
         }
     }
 }

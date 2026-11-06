@@ -69,10 +69,10 @@ struct SegmentedControlTokenColorsTests {
         #expect(self.token.selectedItemBorder.equals(self.theme.colors.support.support))
     }
 
-    @Test("Item background when pressed and not selected should return support container pressed")
-    func itemBackgroundWhenPressedAndNotSelectedShouldReturnSupportContainerPressed() {
+    @Test("Item background when pressed, enabled and not selected should return support container pressed")
+    func itemBackgroundWhenPressedAndEnabledAndNotSelectedShouldReturnSupportContainerPressed() {
         // GIVEN / WHEN
-        let result = self.token.itemBackground(isSelected: false, isPressed: true)
+        let result = self.token.itemBackground(isSelected: false, isPressed: true, isEnabled: true)
 
         // THEN
         #expect(result.equals(self.theme.colors.states.supportContainerPressed))
@@ -80,14 +80,18 @@ struct SegmentedControlTokenColorsTests {
 
     @Test("Item background should return clear",
         arguments: [
-            (false, false),
-            (true, false),
-            (true, true)
+            (false, false, true),
+            (true, false, true),
+            (true, true, true),
+            (false, false, false),
+            (false, true, false),
+            (true, false, false),
+            (true, true, false)
         ]
     )
-    func itemBackgroundShouldReturnClear(isSelected: Bool, isPressed: Bool) {
+    func itemBackgroundShouldReturnClear(isSelected: Bool, isPressed: Bool, isEnabled: Bool) {
         // GIVEN / WHEN
-        let result = self.token.itemBackground(isSelected: isSelected, isPressed: isPressed)
+        let result = self.token.itemBackground(isSelected: isSelected, isPressed: isPressed, isEnabled: isEnabled)
 
         // THEN
         #expect(result.equals(ColorTokenClear()))

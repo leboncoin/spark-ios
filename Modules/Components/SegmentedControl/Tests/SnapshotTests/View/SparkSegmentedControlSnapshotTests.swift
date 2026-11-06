@@ -80,6 +80,7 @@ struct SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTesting {
                     tag: index,
                     icon: self.icon(at: index)
                 )
+                .disabled(configuration.disabledIndexes.contains(index))
             }
         }
     }
@@ -94,6 +95,7 @@ struct SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTesting {
                     tag: index,
                     text: self.text(at: index)
                 )
+                .disabled(configuration.disabledIndexes.contains(index))
             }
         }
     }
@@ -109,6 +111,7 @@ struct SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTesting {
                     text: self.text(at: index),
                     icon: self.icon(at: index)
                 )
+                .disabled(configuration.disabledIndexes.contains(index))
             }
         }
     }
@@ -128,6 +131,7 @@ struct SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTesting {
                             .foregroundColor(.blue)
                     }
                 }
+                .disabled(configuration.disabledIndexes.contains(index))
             }
         }
     }

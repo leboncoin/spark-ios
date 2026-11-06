@@ -21,6 +21,7 @@ struct SegmentedControlConfigurationSnapshotTests {
     var contentType: SegmentedControlContentType = .default
     var rowLength: SegmentedControlRowLength = .default
     var selectedIndex: Int = 1
+    var disabledIndexes: [Int] = []
 
     var modes: [ComponentSnapshotTestMode] = ComponentSnapshotTestConstants.Modes.default
     var sizes: [UIContentSizeCategory] = ComponentSnapshotTestConstants.Sizes.default
@@ -36,7 +37,8 @@ struct SegmentedControlConfigurationSnapshotTests {
             "\(self.items)" + "Items",
             "\(self.contentType)" + "ContentType",
             self.rowLength != .default ? "\(self.rowLength)" + "RowLength" : nil,
-            self.selectedIndex >= 0 ? "selectedIndex\(self.selectedIndex)" : "noSelection"
+            self.selectedIndex >= 0 ? "selectedIndex\(self.selectedIndex)" : "noSelection",
+            !self.disabledIndexes.isEmpty ? "disabledIndexes" + self.disabledIndexes.map { "\($0)" }.joined() : nil
         ]
             .compactMap { $0 }
             .joined(separator: "-")
