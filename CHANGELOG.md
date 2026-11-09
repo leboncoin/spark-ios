@@ -2,6 +2,28 @@
 
 ## [Unreleased]
 
+## [2.4.0]
+
+_09/11/2026_
+
+### ✨ New Features
+
+#### SegmentedControl Component
+- Added the disabled state on the items ([#1150](https://github.com/leboncoin/spark-ios/pull/1150))
+
+### 🚀 Improvements
+
+#### Theming
+- Sped up the theme comparison ([#1152](https://github.com/leboncoin/spark-ios/pull/1152))
+
+### 📚 Documentation
+
+- Added the release documentation and removed the changelog workflow ([#1149](https://github.com/leboncoin/spark-ios/pull/1149))
+
+### 🧹 Chores
+
+- Removed the unused deprecated components ([#1151](https://github.com/leboncoin/spark-ios/pull/1151))
+
 ## [2.3.0]
 
 _05/11/2026_
@@ -199,8 +221,9 @@ _27/03/2025_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-ios/compare/2.3.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-ios/compare/2.4.0...HEAD
 
+[2.4.0]: https://github.com/leboncoin/spark-ios/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/leboncoin/spark-ios/compare/2.2.1...2.3.0
 [2.2.1]: https://github.com/leboncoin/spark-ios/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/leboncoin/spark-ios/compare/2.1.0...2.2.0
