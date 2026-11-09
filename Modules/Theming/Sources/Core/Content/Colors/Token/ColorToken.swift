@@ -45,11 +45,10 @@ public extension ColorToken {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.color)
-        hasher.combine(self.uiColor)
     }
 
     func equals(_ other: any ColorToken) -> Bool {
-        return self.color == other.color && self.uiColor == other.uiColor
+        return self.color == other.color
     }
 
     static func == (lhs: Self, rhs: Self) -> Bool {
@@ -62,7 +61,11 @@ public extension ColorToken {
 public extension Optional where Wrapped == any ColorToken {
 
     func equals(_ other: (any ColorToken)?) -> Bool {
-        return self?.color == other?.color && self?.uiColor == other?.uiColor
+        return switch (self, other) {
+        case (.none, .none): true
+        case (.none, .some), (.some, .none): false
+        case (let lhs?, let rhs?): lhs.equals(rhs)
+        }
     }
 }
 

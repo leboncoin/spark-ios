@@ -17,6 +17,12 @@ public struct ThemeDefault: Theme {
     public let typography: any Typography
     public let dims: any Dims
 
+    // MARK: - Internal Properties
+
+    /// Shared by all the copies of this theme.
+    /// Used to compare a theme with itself without comparing all the tokens.
+    let identity = ThemeDefaultIdentity()
+
     // MARK: - Initialization
 
     public init(
@@ -34,4 +40,9 @@ public struct ThemeDefault: Theme {
         self.typography = typography
         self.dims = dims
     }
+}
+
+// MARK: - Identity
+
+final class ThemeDefaultIdentity: Sendable {
 }

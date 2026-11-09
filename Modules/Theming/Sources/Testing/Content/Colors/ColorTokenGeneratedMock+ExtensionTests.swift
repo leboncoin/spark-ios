@@ -16,6 +16,7 @@ public extension ColorTokenGeneratedMock {
     convenience init(uiColor: UIColor) {
       self.init()
       self.uiColor = uiColor
+      self.color = Color(uiColor)
     }
 
     // MARK: - Methods
