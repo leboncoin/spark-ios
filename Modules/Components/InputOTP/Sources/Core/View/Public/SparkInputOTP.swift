@@ -129,7 +129,11 @@ public struct SparkInputOTP: View {
     private var onComplete: ((String) -> Void)?
 
     @FocusState private var isFocused: Bool
-    @State private var lastCharacterIsFiltered: Bool = false
+    /// The text typed in the hidden text field.
+    /// Separated from the *value* to always push the validated text back into the text field
+    /// (the rejected characters must not stay in the text field).
+    @State private var text: String = ""
+    @State private var invalidCharactersCount: Int = 0
 
     // MARK: - Initialization
 
@@ -172,7 +176,7 @@ public struct SparkInputOTP: View {
     public var body: some View {
         ZStack {
             // Hidden text field for actual input
-            TextField("", text: self.$value)
+            TextField("", text: self.$text)
                 .keyboardType(self.codeType.keyboardType)
                 .textContentType(.oneTimeCode)
                 .disableAutocorrection(true)
@@ -220,14 +224,14 @@ public struct SparkInputOTP: View {
             .impact(style: .light),
             trigger: self.value,
             condition: { oldValue, newValue in
-                oldValue != newValue && !self.lastCharacterIsFiltered
+                oldValue != newValue
             }
         )
         .sparkSensoryFeedback(
             .error,
-            trigger: self.value,
-            condition: { _, _ in
-                self.lastCharacterIsFiltered
+            trigger: self.invalidCharactersCount,
+            condition: { oldValue, newValue in
+                oldValue != newValue
             }
         )
         .accessibilityIdentifier(InputOTPAccessibilityIdentifier.view)
@@ -265,14 +269,38 @@ public struct SparkInputOTP: View {
         .dynamicTypeSize(...DynamicTypeSize.large)
         .sparkVisualIdentification()
         .onAppear {
+            self.text = self.value
             self.isFocused = true
         }
-        .onChange(of: self.value) { _, newValue in
-            self.validateAndTruncateValue(newValue)
+        .onChange(of: self.text) { _, newText in
+            // Text typed in the text field.
+            // If invalid, the text is replaced: the text field is refreshed
+            // and the rejected characters are removed from it.
+            let validatedText = self.validate(newText)
+            guard validatedText == newText else {
+                self.text = validatedText
+                return
+            }
 
-            if newValue.count == self.digits.rawValue {
+            if self.value != validatedText {
+                self.value = validatedText
+            }
+        }
+        .onChange(of: self.value) { _, newValue in
+            // Value set from outside the text field (binding, paste, clear, ...)
+            let validatedValue = self.validate(newValue)
+            guard validatedValue == newValue else {
+                self.value = validatedValue
+                return
+            }
+
+            if self.text != validatedValue {
+                self.text = validatedValue
+            }
+
+            if validatedValue.count == self.digits.rawValue {
                 self.isFocused = false
-                self.onComplete?(newValue)
+                self.onComplete?(validatedValue)
             }
         }
     }
@@ -305,16 +333,18 @@ public struct SparkInputOTP: View {
         self.isFocused = true
     }
 
-    private func validateAndTruncateValue(_ newValue: String) {
-        let validatedResult = newValue.validated(
+    /// Validate (filter, truncate and uppercase) the string
+    /// and trigger the error feedback if some characters are invalid.
+    private func validate(_ string: String) -> String {
+        let validatedResult = string.validated(
             codeType: self.codeType,
             digits: self.digits
         )
 
-        self.lastCharacterIsFiltered = validatedResult.hadInvalidCharacters
-
-        if validatedResult.value != newValue {
-            self.value = validatedResult.value
+        if validatedResult.hadInvalidCharacters {
+            self.invalidCharactersCount += 1
         }
+
+        return validatedResult.value
     }
 }
