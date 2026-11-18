@@ -4,9 +4,7 @@ name: 🎨 PR icon updates
 
 on:
   push:
-    # The branch can be suffixed by a random ID (ex: chore-updated-icons-a1b2c3)
-    # to allow many icon updates at the same time.
-    branches: [ "chore-updated-icons", "chore-updated-icons-*" ]
+    branches: [ "chore-updated-icons" ]
 
 permissions:
   contents: write
@@ -35,7 +33,7 @@ jobs:
       - name: Checkout Action
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.ref_name }}
+          ref: chore-updated-icons
           fetch-depth: 0
           token: ${{ secrets.PAT_SPARK || secrets.GITHUB_TOKEN }}
       - name: Create Pull Request
