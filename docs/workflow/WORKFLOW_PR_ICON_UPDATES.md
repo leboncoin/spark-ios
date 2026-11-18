@@ -10,7 +10,7 @@ This GitHub Actions workflow automatically manages iconography updates by proces
 
 ## Trigger
 
-- **Push Event**: Triggers on pushes to the `chore-updated-icons` branch, or to a branch suffixed by a random ID (`chore-updated-icons-*`, ex: `chore-updated-icons-a1b2c3`) to allow many icon updates at the same time
+- **Push Event**: Triggers on pushes to the `chore-updated-icons` branch
 
 ## Permissions
 
@@ -39,7 +39,7 @@ This GitHub Actions workflow automatically manages iconography updates by proces
 
 1. **Set Swift Version** - Uses `swift-actions/setup-swift@v2.4.0` to configure Swift 6.2
 2. **Get swift version** - Verifies Swift installation
-3. **Checkout Action** - Checks out the pushed branch (`github.ref_name`) with:
+3. **Checkout Action** - Checks out the `chore-updated-icons` branch with:
    - Full history (`fetch-depth: 0`)
    - Custom token (`PAT_SPARK` secret or fallback to `GITHUB_TOKEN`)
 4. **Create Pull Request** - Attempts to create a PR using `gh pr create --fill`
@@ -94,7 +94,7 @@ The PAT is necessary if the workflow needs elevated permissions beyond the defau
 
 To trigger this workflow:
 1. Push updated icons to the `spark-token/iconography` directory
-2. Push the changes to a `chore-updated-icons-<random-id>` branch (ex: `chore-updated-icons-$(uuidgen | cut -c1-8)`)
+2. Push the changes to the `chore-updated-icons` branch
 3. The workflow will automatically:
    - Create a PR
    - Process the icons
