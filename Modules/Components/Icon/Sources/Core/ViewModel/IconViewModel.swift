@@ -9,6 +9,7 @@
 import SwiftUI
 @_spi(SI_SPI) import SparkTheming
 
+/// Only used by the UIKit ``SparkUIIcon``. The SwiftUI ``SparkIcon`` reads the ``IconToken`` directly.
 // sourcery: AutoPublisherTest, AutoViewModelStub
 // sourcery: tintColorToken = "Identical"
 final class IconViewModel: ObservableObject {

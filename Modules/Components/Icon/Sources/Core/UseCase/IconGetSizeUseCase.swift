@@ -19,12 +19,6 @@ struct IconGetSizeUseCase: IconGetSizeUseCaseable {
     // MARK: - Methods
 
     func execute(size: IconSize) -> CGFloat {
-        switch size {
-        case .small: 16
-        case .medium: 24
-        case .large: 32
-        case .extraLarge: 40
-        case .custom(let size): size
-        }
+        return IconToken.Size().value(for: size)
     }
 }
