@@ -404,6 +404,21 @@ All component development skills support parameter-based targeting:
 
 ---
 
+## Project Management Skills
+
+### spark-jira-ticket
+
+**Purpose**: Create a new iOS Spark Jira ticket (project `LBCSPARK`) with the Atlassian MCP.
+
+**Usage**: `/spark-jira-ticket`
+
+**Workflow**:
+1. Asks for the title, description (optional), Figma link (optional, added to the description), priority and issue type (default `Tâche`)
+2. Sets the labels `iOS` and `Spark`, and the current user as assignee and reporter
+3. Asks for confirmation, then creates the ticket and returns its URL
+
+---
+
 ## Git & Deployment Skills
 
 ### spark-push

@@ -85,6 +85,7 @@ Always use the matching skill (`.claude/skills`):
 | ViewModel *(legacy)* | `spark-component-view-model` |
 | Changelog | `spark-changelog` |
 | Tag + GitHub release | `spark-release` |
+| Jira ticket (iOS Spark) | `spark-jira-ticket` |
 | Before push / push | `spark-check-before-push`, `spark-push` |
 
 # Best practices
