@@ -2,6 +2,25 @@
 
 ## [Unreleased]
 
+## [2.5.0]
+
+_18/11/2026_
+
+### ✨ New Features
+
+#### Iconography
+- Updated the icons ([#1153](https://github.com/leboncoin/spark-ios/pull/1153))
+
+### 🐛 Bug Fixes
+
+#### InputOTP Component
+- Removed the rejected characters from the hidden text field ([#1154](https://github.com/leboncoin/spark-ios/pull/1154))
+
+### 🔧 Infrastructure & CI/CD
+
+- Added then reverted a random branch ID on the PR icon updates workflow ([#1155](https://github.com/leboncoin/spark-ios/pull/1155), [#1156](https://github.com/leboncoin/spark-ios/pull/1156))
+- Fixed the recursive runs on the PR icon updates workflow ([#1157](https://github.com/leboncoin/spark-ios/pull/1157))
+
 ## [2.4.0]
 
 _09/11/2026_
@@ -221,8 +240,9 @@ _27/03/2025_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-ios/compare/2.4.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-ios/compare/2.5.0...HEAD
 
+[2.5.0]: https://github.com/leboncoin/spark-ios/compare/2.4.0...2.5.0
 [2.4.0]: https://github.com/leboncoin/spark-ios/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/leboncoin/spark-ios/compare/2.2.1...2.3.0
 [2.2.1]: https://github.com/leboncoin/spark-ios/compare/2.2.0...2.2.1

@@ -57,12 +57,6 @@ public struct SparkIcon: View {
 
     private let icon: Image
 
-    @Environment(\.theme) private var theme
-    @Environment(\.iconIntent) private var intent
-    @Environment(\.iconSize) private var size
-
-    @StateObject private var viewModel = IconViewModel()
-
     // MARK: - Initialization
 
     /// Create an icon with an image.
@@ -99,27 +93,11 @@ public struct SparkIcon: View {
     public var body: some View {
         self.icon
             .resizable()
-            .sparkFrame(size: self.viewModel.contentSize)
-            .foregroundStyle(self.viewModel.tintColorToken)
+            .iconFrame()
+            .iconTint()
             .accessibilityIdentifier(IconAccessibilityIdentifier.view)
             .accessibilityHidden(true)
             .dynamicTypeSize(...DynamicTypeSize.large)
             .sparkVisualIdentification()
-            .onAppear() {
-                self.viewModel.setup(
-                    theme: self.theme.value,
-                    intent: self.intent,
-                    size: self.size
-                )
-            }
-            .onChange(of: self.theme) {
-                self.viewModel.theme = self.theme.value
-            }
-            .onChange(of: self.intent) {
-                self.viewModel.intent = self.intent
-            }
-            .onChange(of: self.size) {
-                self.viewModel.size = self.size
-            }
     }
 }

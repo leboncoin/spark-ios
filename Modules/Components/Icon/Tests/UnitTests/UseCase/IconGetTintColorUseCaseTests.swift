@@ -35,6 +35,7 @@ struct IconGetTintColorUseCaseTests {
         let colors = theme.colors
 
         let testCases: [(IconIntent, any ColorToken)] = [
+            (.ai, colors.ai.ai),
             (.accent, colors.accent.accent),
             (.alert, colors.feedback.alert),
             (.error, colors.feedback.error),

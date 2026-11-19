@@ -21,7 +21,7 @@ jobs:
   pr-icon-updates:
     name: PR Icon Updates
     # Detect recursive calls based on last commit message
-    if: ${{ github.event.head_commit.message != '🤖 Update iconography' }}
+    if: ${{ !contains(github.event.head_commit.message, '🤖 Update iconography') }}
     runs-on: macos-26
     steps:
       - name: Set Swift Version
@@ -43,6 +43,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - name: Manage icons and update the pull Request if needed
         run: |
+          if [ ! -d spark-token/iconography ]; then
+            echo "::notice::No spark-token/iconography folder, nothing to update"
+            exit 0
+          fi
           swift .script/generate-iconography-assets.swift spark-token/iconography
           swift .script/generate-iconography-codebase.swift
           swift .script/generate-iconography-documentation.swift

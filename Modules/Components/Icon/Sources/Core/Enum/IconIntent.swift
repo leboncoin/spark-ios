@@ -11,6 +11,8 @@ import SparkTheming
 
 /// Intents of the icon.
 public enum IconIntent: Equatable {
+    /// Use the **ai** colors on current theme.
+    case ai
     /// Use the **accent** colors on current theme.
     case accent
     /// Use the **feedback** colors on current theme.
@@ -39,6 +41,7 @@ public enum IconIntent: Equatable {
 
     public static func == (lhs: IconIntent, rhs: IconIntent) -> Bool {
         return switch (lhs, rhs) {
+        case (.ai, .ai): true
         case (.accent, .accent): true
         case (.alert, .alert): true
         case (.error, .error): true

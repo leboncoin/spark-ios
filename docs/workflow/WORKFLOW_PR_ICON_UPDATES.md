@@ -33,7 +33,7 @@ This GitHub Actions workflow automatically manages iconography updates by proces
 **Name**: pr-icon-updates
 **Runner**: macos-26
 
-**Condition**: Only runs if the last commit message is NOT `🤖 Update iconography` (prevents recursive workflow triggers)
+**Condition**: Only runs if the last commit message does NOT contain `🤖 Update iconography` (prevents recursive workflow triggers)
 
 **Steps**:
 
@@ -45,6 +45,7 @@ This GitHub Actions workflow automatically manages iconography updates by proces
 4. **Create Pull Request** - Attempts to create a PR using `gh pr create --fill`
    - Uses `continue-on-error: true` to proceed even if PR already exists
 5. **Manage icons and update the pull request if needed** - Multi-step process:
+   - Exits successfully if `spark-token/iconography` doesn't exist (already processed by a previous run)
    - Runs `generate-iconography-assets.swift` to process icons from `spark-token/iconography`
    - Runs `generate-iconography-codebase.swift` to generate code
    - Runs `generate-iconography-documentation.swift` to generate the Iconography DocC page
@@ -72,8 +73,9 @@ When icons are pushed to the `chore-updated-icons` branch:
 ### Recursive Prevention
 
 The workflow includes safeguards against infinite loops:
-- Only runs if the last commit message is NOT `🤖 Update iconography`
-- This prevents the workflow from triggering itself when it pushes updates
+- Only runs if the last commit message does NOT contain `🤖 Update iconography` (the bot commit is `chore(icons-bot) 🤖 Update iconography`)
+- This prevents the workflow from triggering itself when it pushes updates (the push uses `PAT_SPARK`, which triggers new runs)
+- If `spark-token/iconography` is missing (removed by the bot commit), the icon step exits without failing
 
 ## Token Usage
 

@@ -21,6 +21,10 @@ final class IconGetColorUseCaseDeprecatedTests: XCTestCase {
 
     // MARK: - Tests
 
+    func test_execute_when_icon_is_ai_case() {
+        testExecute(givenIntent: .ai, expectedColorToken: self.colorsMock.ai.ai)
+    }
+
     func test_execute_when_icon_is_accent_case() {
         testExecute(givenIntent: .accent, expectedColorToken: self.colorsMock.accent.accent)
     }

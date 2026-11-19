@@ -7,6 +7,7 @@
 //
 
 enum IconDemoIntent: CaseIterable {
+    case ai
     case accent
     case alert
     case error
@@ -21,6 +22,7 @@ enum IconDemoIntent: CaseIterable {
 
     static let `default`: Self = {
         switch IconIntent.default {
+        case .ai: .ai
         case .accent: .accent
         case .alert: .alert
         case .error: .error
@@ -37,6 +39,7 @@ enum IconDemoIntent: CaseIterable {
 
     func toRealType(_ configuration: IconConfiguration) -> IconIntent {
         switch self {
+        case .ai: .ai
         case .accent: .accent
         case .alert: .alert
         case .error: .error
