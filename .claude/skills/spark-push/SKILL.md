@@ -19,3 +19,5 @@ This skill verify and launch some actions before push in git.
 - [ ] Add a description from the current updated files.
 - [ ] Ask if the texts are OK.
 - [ ] If yes, push the code.
+- [ ] Ask if a pull request must be created on GitHub.
+- [ ] If yes, create the pull request with `gh pr create` (target the main branch), using the *commit summary* as the title and the description as the body.
