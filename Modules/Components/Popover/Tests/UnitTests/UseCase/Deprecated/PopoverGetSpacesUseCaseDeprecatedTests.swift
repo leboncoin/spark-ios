@@ -1,5 +1,5 @@
 //
-//  PopoverGetSpacesUseCaseTests.swift
+//  PopoverGetSpacesUseCaseDeprecatedTests.swift
 //  SparkComponentPopoverUnitTests
 //
 //  Created by louis.borlee on 25/06/2024.
@@ -11,10 +11,10 @@ import Testing
 @_spi(SI_SPI) import SparkThemingTesting
 
 @Suite("Popover Get Spaces UseCase Tests")
-struct PopoverGetSpacesUseCaseTests {
+struct PopoverGetSpacesUseCaseDeprecatedTests {
 
     private let theme = ThemeGeneratedMock.mocked()
-    private let useCase = PopoverGetSpacesUseCase()
+    private let useCase = PopoverGetSpacesUseCaseDeprecated()
 
     // MARK: - Tests
 

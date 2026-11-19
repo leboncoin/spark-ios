@@ -39,14 +39,11 @@ struct PopoverImplementationView: ComponentImplementationViewable {
                 .frame(maxWidth: .infinity)
         })
         .buttonStyle(.borderedProminent)
-        .popover(
-            theme: self.configurationWrapped.theme.value,
-            intent: self.configurationWrapped.intent,
-            isPresented: self.$isPresented
-        ) { colors in
+        .sparkPopover(isPresented: self.$isPresented) {
             Text(self.configurationWrapped.text)
-                .foregroundStyle(colors.foreground.color)
                 .frame(width: 300)
         }
+        .sparkTheme(self.configurationWrapped.theme.value)
+        .sparkPopoverIntent(self.configurationWrapped.intent)
     }
 }

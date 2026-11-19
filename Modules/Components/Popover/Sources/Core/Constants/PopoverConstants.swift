@@ -10,6 +10,12 @@ import Foundation
 
 enum PopoverConstants {
 
+    // MARK: - Properties
+
+    /// The additional top padding of the UIKit popover content (liquid glass).
+    static let liquidGlassTopPadding: CGFloat = 10
+
+    @available(*, deprecated, message: "Not used anymore by the Spark popover")
     static var isLiquidGlass: Bool {
         return if #available(iOS 26, *) {
             true

@@ -16,33 +16,30 @@ import UIKit
 public final class PopoverViewController: UIViewController, UIPopoverPresentationControllerDelegate {
 
     private let contentViewController: UIViewController
-    private let viewModel: PopoverViewModel
+    private let token: PopoverToken
 
     @ScaledUIMetric private var scaleFactor: CGFloat = 1.0
 
-    init(viewModel: PopoverViewModel, contentViewController: UIViewController) {
-        self.viewModel = viewModel
+    init(token: PopoverToken, contentViewController: UIViewController) {
+        self.token = token
         self.contentViewController = contentViewController
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = .popover
         self.popoverPresentationController?.delegate = self
-
-        if !PopoverConstants.isLiquidGlass {
-            PopoverBackgroundConfiguration.showArrow = self.viewModel.showArrow
-            PopoverBackgroundConfiguration.backgroundColor = self.viewModel.colors.background.uiColor
-            PopoverBackgroundConfiguration.arrowSize = self.viewModel.arrowSize
-            self.popoverPresentationController?.popoverBackgroundViewClass = PopoverBackgroundView.self
-        }
     }
 
     /// PopoverViewController initializer
     /// - Parameters:
-    ///   - contentViewController: The viewController that will be embedded in the popover: it should have a .clear background, no padding and have a well defined preferredContentSize for the popover to calculate its size properly
+    ///   - contentViewController: The viewController that will be embedded in the popover:
+    ///   it should have a .clear background, no padding and have a well defined preferredContentSize for the popover to calculate its size properly
     ///   - theme: The theme of a Popover
     ///   - intent: The intent of the Popover
-    ///   - showArrow: Boolean used to show or hide the tip arrow of the Popover
+    ///   - showArrow: Not used anymore: the arrow is managed by the system
     public convenience init(contentViewController: UIViewController, theme: any Theme, intent: PopoverIntent, showArrow: Bool = true) {
-        self.init(viewModel: .init(theme: theme, intent: intent, showArrow: showArrow), contentViewController: contentViewController)
+        self.init(
+            token: theme.component.popover,
+            contentViewController: contentViewController
+        )
     }
 
     required init?(coder: NSCoder) {
@@ -65,19 +62,19 @@ public final class PopoverViewController: UIViewController, UIPopoverPresentatio
 
         let leadingConstraint = view.leadingAnchor.constraint(
             equalTo: self.view.leadingAnchor,
-            constant: self.viewModel.spaces.horizontal
+            constant: self.token.layout.horizontalPadding
         )
         leadingConstraint.priority = .required - 1
 
         let topConstraint = view.topAnchor.constraint(
             equalTo: self.view.topAnchor,
-            constant: self.viewModel.spaces.vertical + (PopoverConstants.isLiquidGlass ? 10 : 0)
+            constant: self.token.layout.verticalPadding + PopoverConstants.liquidGlassTopPadding
         )
         topConstraint.priority = .required - 1
 
         let bottomConstraint = view.bottomAnchor.constraint(
             equalTo: self.view.bottomAnchor,
-            constant: -self.viewModel.spaces.vertical
+            constant: -self.token.layout.verticalPadding
         )
         bottomConstraint.priority = .required - 1
 

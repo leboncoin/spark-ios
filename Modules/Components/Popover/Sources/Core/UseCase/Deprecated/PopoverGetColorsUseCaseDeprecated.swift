@@ -1,5 +1,5 @@
 //
-//  PopoverGetColorsUseCase.swift
+//  PopoverGetColorsUseCaseDeprecated.swift
 //  Spark
 //
 //  Created by louis.borlee on 25/06/2024.
@@ -10,7 +10,8 @@ import Foundation
 @_spi(SI_SPI) import SparkTheming
 
 // sourcery: AutoMockable
-protocol PopoverGetColorsUseCasable {
+@available(*, deprecated, message: "This use case is no longer used and will be removed in a future version.")
+protocol PopoverGetColorsUseCasableDeprecated {
     func execute(
         colors: any Colors,
         intent: PopoverIntent,
@@ -18,7 +19,8 @@ protocol PopoverGetColorsUseCasable {
     ) -> PopoverColors
 }
 
-final class PopoverGetColorsUseCase: PopoverGetColorsUseCasable {
+@available(*, deprecated, message: "This use case is no longer used and will be removed in a future version.")
+final class PopoverGetColorsUseCaseDeprecated: PopoverGetColorsUseCasableDeprecated {
     func execute(
         colors: any Colors,
         intent: PopoverIntent,

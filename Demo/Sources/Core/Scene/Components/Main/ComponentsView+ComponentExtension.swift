@@ -123,7 +123,7 @@ extension ComponentsView {
             case .icon: .available
             case .inputOTP: .available
             case .microAnimation: .none
-            case .popover: .unavailable
+            case .popover: .available
             case .progressBar: .available
             case .progressBarIndeterminate: .available
             case .progressTracker: .unavailable

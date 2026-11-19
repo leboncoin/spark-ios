@@ -1,5 +1,5 @@
 //
-//  PopoverViewModel.swift
+//  PopoverViewModelDeprecated.swift
 //  SparkComponentPopover
 //
 //  Created by louis.borlee on 26/06/2024.
@@ -9,9 +9,10 @@
 import Foundation
 import SparkTheming
 
-struct PopoverViewModel {
+@available(*, deprecated, message: "This view model is no longer used and will be removed in a future version.")
+struct PopoverViewModelDeprecated {
     let colors: PopoverColors
-    let spaces: PopoverSpaces
+    let spaces: PopoverSpacesDeprecated
     let showArrow: Bool
     let arrowSize: CGFloat
 
@@ -19,8 +20,8 @@ struct PopoverViewModel {
         theme: any Theme,
         intent: PopoverIntent,
         showArrow: Bool,
-        getColorsUseCase: any PopoverGetColorsUseCasable = PopoverGetColorsUseCase(),
-        getSpacesUseCase: any PopoverGetSpacesUseCasable = PopoverGetSpacesUseCase()
+        getColorsUseCase: any PopoverGetColorsUseCasableDeprecated = PopoverGetColorsUseCaseDeprecated(),
+        getSpacesUseCase: any PopoverGetSpacesUseCasableDeprecated = PopoverGetSpacesUseCaseDeprecated()
     ) {
         let isLiquidGlass = PopoverConstants.isLiquidGlass
         self.colors = getColorsUseCase.execute(colors: theme.colors, intent: intent, isLiquidGlass: isLiquidGlass)

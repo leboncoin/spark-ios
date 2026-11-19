@@ -25,6 +25,7 @@ public extension View {
     ///     iOS ignores this parameter.
     ///   - content: A closure returning the content of the popover.
     ///     It has a `PopoverColors` as a parameter.
+    @available(*, deprecated, message: "Replaced by sparkPopover")
     func popover<Content>(
         theme: any Theme,
         intent: PopoverIntent,
@@ -37,7 +38,7 @@ public extension View {
                      attachmentAnchor: attachmentAnchor,
                      arrowEdge: arrowEdge,
                      content: {
-            PopoverView(
+            PopoverViewDeprecated(
                 theme: theme,
                 intent: intent,
                 showArrow: true // There's no way to hide the arrow for now.
