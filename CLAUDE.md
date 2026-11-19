@@ -138,7 +138,7 @@ func test() -> String {
 
 Run from the package folder (e.g. `cd Modules/Components/Button`), or use the `Makefile` from the repository root (see [`docs/MAKEFILE.md`](docs/MAKEFILE.md)).
 
-- Sourcery: `sourcery` (or `make sourcery`)
+- Sourcery: `make sourcery` from the repository root, or `sourcery` from a package folder (never run `sourcery` directly from the repository root)
 - Swiftlint: `swiftlint`
 - Build: `make build`
 - Tests: `make test`
