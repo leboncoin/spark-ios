@@ -30,14 +30,10 @@ struct PopoverCodeSyntaxes {
         Button("Show popover") {
             isPresented = true
         }
-        .popover(
-            theme: theme,
-            intent: .main,
-            isPresented: $isPresented
-        ) { colors in
+        .sparkPopover(isPresented: $isPresented) {
             Text("This is a popover")
-                .foregroundStyle(colors.foreground.color)
         }
+        .sparkTheme(theme)
         """
     }
 
@@ -48,15 +44,11 @@ struct PopoverCodeSyntaxes {
         Button("Show popover") {
             isPresented = true
         }
-        .popover(
-            theme: theme,
-            intent: .success,
-            isPresented: $isPresented
-        ) { colors in
-            Text("Success message")
-                .foregroundStyle(colors.foreground.color)
-                .padding()
+        .sparkPopover(isPresented: $isPresented) {
+            Text("Info message")
         }
+        .sparkTheme(theme)
+        .sparkPopoverIntent(.info)
         """
     }
 
@@ -67,17 +59,14 @@ struct PopoverCodeSyntaxes {
         Button("Show popover") {
             isPresented = true
         }
-        .popover(
-            theme: theme,
-            intent: .main,
+        .sparkPopover(
             isPresented: $isPresented,
             attachmentAnchor: .rect(.bounds),
             arrowEdge: .bottom
-        ) { colors in
+        ) {
             Text("Attached to bottom")
-                .foregroundStyle(colors.foreground.color)
-                .padding()
         }
+        .sparkTheme(theme)
         """
     }
 
@@ -88,25 +77,22 @@ struct PopoverCodeSyntaxes {
         Button("Show popover") {
             isPresented = true
         }
-        .popover(
-            theme: theme,
-            intent: .success,
+        .sparkPopover(
             isPresented: $isPresented,
             attachmentAnchor: .rect(.bounds),
             arrowEdge: .top
-        ) { colors in
+        ) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Popover Title")
                     .font(.headline)
-                    .foregroundStyle(colors.foreground.color)
 
                 Text("This is a comprehensive example showing all major features of the Popover component. You can customize the intent, attachment anchor, and arrow edge.")
                     .font(.body)
-                    .foregroundStyle(colors.foreground.color)
                     .frame(maxWidth: 300)
             }
-            .padding()
         }
+        .sparkTheme(theme)
+        .sparkPopoverIntent(.info)
         """
     }
 }

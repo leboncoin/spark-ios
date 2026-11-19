@@ -1,5 +1,5 @@
 //
-//  PopoverGetColorsUseCaseTests.swift
+//  PopoverGetColorsUseCaseDeprecatedTests.swift
 //  SparkComponentPopoverUnitTests
 //
 //  Created by louis.borlee on 25/06/2024.
@@ -13,12 +13,12 @@ import Testing
 @_spi(SI_SPI) import SparkThemingTesting
 
 @Suite("Popover Get Colors UseCase Tests")
-struct PopoverGetColorsUseCaseTests {
+struct PopoverGetColorsUseCaseDeprecatedTests {
 
     // MARK: - Properties
 
     private let theme = ThemeGeneratedMock.mocked()
-    private let useCase = PopoverGetColorsUseCase()
+    private let useCase = PopoverGetColorsUseCaseDeprecated()
 
     // MARK: - Tests
 

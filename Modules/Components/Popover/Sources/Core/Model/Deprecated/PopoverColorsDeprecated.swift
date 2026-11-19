@@ -1,5 +1,5 @@
 //
-//  PopoverColors.swift
+//  PopoverColorsDeprecated.swift
 //  Spark
 //
 //  Created by louis.borlee on 25/06/2024.
@@ -9,6 +9,7 @@
 import Foundation
 import SparkTheming
 
+@available(*, deprecated, message: "This model is no longer used and will be removed in a future version.")
 public struct PopoverColors {
 
     /// Popover background color

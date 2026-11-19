@@ -1,5 +1,5 @@
 //
-//  PopoverViewModelTests.swift
+//  PopoverViewModelDeprecatedTests.swift
 //  SparkComponentPopoverUnitTests
 //
 //  Created by louis.borlee on 26/06/2024.
@@ -14,27 +14,27 @@ import Foundation
 
 @MainActor
 @Suite("Popover ViewModel Tests")
-struct PopoverViewModelTests {
+struct PopoverViewModelDeprecatedTests {
 
     private let theme = ThemeGeneratedMock.mocked()
 
     @Test("Initialization should set the values and call the use cases")
     func initialization() throws {
         // GIVEN
-        let getColorsUseCaseMock = PopoverGetColorsUseCasableGeneratedMock()
+        let getColorsUseCaseMock = PopoverGetColorsUseCasableDeprecatedGeneratedMock()
         getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassReturnValue = .init(
             background: self.theme.colors.feedback.alertContainer,
             foreground: self.theme.colors.support.supportContainer
         )
 
-        let getSpacesUseCaseMock = PopoverGetSpacesUseCasableGeneratedMock()
+        let getSpacesUseCaseMock = PopoverGetSpacesUseCasableDeprecatedGeneratedMock()
         getSpacesUseCaseMock.executeWithLayoutSpacingAndIsLiquidGlassReturnValue = .init(
             horizontal: 4,
             vertical: 2
         )
 
         // WHEN
-        let viewModel = PopoverViewModel(
+        let viewModel = PopoverViewModelDeprecated(
             theme: self.theme,
             intent: .support,
             showArrow: true,
@@ -55,7 +55,10 @@ struct PopoverViewModelTests {
 
         // THEN - GetColorsUseCase
         #expect(getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassCallsCount == 1, "getColorsUseCaseMock.executeWithColorsAndIntent should have been called once")
-        let getColorsUseCaseReceivedArguments = try #require(getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassReceivedArguments, "Couldn't unwrap getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassReceivedArguments")
+        let getColorsUseCaseReceivedArguments = try #require(
+            getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassReceivedArguments,
+            "Couldn't unwrap getColorsUseCaseMock.executeWithColorsAndIntentAndIsLiquidGlassReceivedArguments"
+        )
         #expect(
             (getColorsUseCaseReceivedArguments.colors as? ColorsGeneratedMock) === (self.theme.colors as? ColorsGeneratedMock),
             "Wrong getColorsUseCaseReceivedArguments.colors"
@@ -65,7 +68,10 @@ struct PopoverViewModelTests {
 
         // THEN - GetSpacesUseCase
         #expect(getSpacesUseCaseMock.executeWithLayoutSpacingAndIsLiquidGlassCallsCount == 1, "getSpacesUseCaseMock.executeWithLayoutSpacing should have been called once")
-        let getSpacesUseCaseReceivedArguments = try #require(getSpacesUseCaseMock.executeWithLayoutSpacingAndIsLiquidGlassReceivedArguments, "Couldn't unwrap getSpacesUseCaseMock.executeWithLayoutSpacingAndIsLiquidGlassReceivedArguments")
+        let getSpacesUseCaseReceivedArguments = try #require(
+            getSpacesUseCaseMock.executeWithLayoutSpacingAndIsLiquidGlassReceivedArguments,
+            "Couldn't unwrap getSpacesUseCaseMock.executeWithLayoutSpacingAndIsLiquidGlassReceivedArguments"
+        )
         #expect(
             (getSpacesUseCaseReceivedArguments.layoutSpacing as? LayoutSpacingGeneratedMock) === (self.theme.layout.spacing as? LayoutSpacingGeneratedMock),
             "Wrong getSpacesUseCaseReceivedLayoutSpacing"

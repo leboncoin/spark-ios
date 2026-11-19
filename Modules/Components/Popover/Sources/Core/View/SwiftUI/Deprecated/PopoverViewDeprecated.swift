@@ -1,5 +1,5 @@
 //
-//  PopoverView.swift
+//  PopoverViewDeprecated.swift
 //  SparkComponentPopover
 //
 //  Created by Michael Zimmermann on 02/07/2024.
@@ -10,9 +10,10 @@ import SwiftUI
 import SparkTheming
 @_spi(SI_SPI) import SparkCommon
 
-struct PopoverView<Content>: View where Content: View {
+@available(*, deprecated, message: "Replaced by sparkPopover")
+struct PopoverViewDeprecated<Content>: View where Content: View {
 
-    private let viewModel: PopoverViewModel
+    private let viewModel: PopoverViewModelDeprecated
     private let content: (PopoverColors) -> Content
 
     init(
