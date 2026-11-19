@@ -27,6 +27,7 @@ struct IconIntentTests {
     func equalitySameCases() {
         // GIVEN
         let testCases: [(IconIntent, IconIntent)] = [
+            (.ai, .ai),
             (.accent, .accent),
             (.alert, .alert),
             (.error, .error),
@@ -47,6 +48,7 @@ struct IconIntentTests {
     func equalityDifferentCases() {
         // GIVEN
         let testCases: [(IconIntent, IconIntent)] = [
+            (.ai, .accent),
             (.accent, .alert),
             (.error, .info),
             (.main, .neutral),

@@ -20,7 +20,7 @@ enum SpinnerDemoIntent: CaseIterable {
     // MARK: - Properties
 
     static let `default`: Self = {
-        switch IconIntent.default {
+        switch SpinnerIntent.default {
         case .accent: .accent
         case .alert: .alert
         case .error: .error

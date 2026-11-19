@@ -11,6 +11,7 @@ import SparkTheming
 @_spi(SI_SPI) import SparkThemingTesting
 
 @_spi(SI_SPI) public enum IconTestingIntent: CaseIterable {
+    case ai
     case accent
     case alert
     case error
@@ -29,6 +30,7 @@ import SparkTheming
 
     public func toIntent(_ theme: any Theme) -> IconIntent {
         switch self {
+        case .ai: .ai
         case .accent: .accent
         case .alert: .alert
         case .error: .error

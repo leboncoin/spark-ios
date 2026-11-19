@@ -21,6 +21,7 @@ struct IconGetColorUseCaseDeprecated: IconGetColorUseCaseDeprecatedable {
 
     func execute(for intent: IconIntent, colors: any Colors) -> any ColorToken {
         return switch intent {
+        case .ai: colors.ai.ai
         case .accent: colors.accent.accent
         case .alert: colors.feedback.alert
         case .error: colors.feedback.error
