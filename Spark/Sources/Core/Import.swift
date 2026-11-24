@@ -15,6 +15,7 @@
 @_exported import SparkComponentChip
 @_exported import SparkComponentCircularMeter
 @_exported import SparkComponentDivider
+@_exported import SparkComponentDotIndicator
 @_exported import SparkComponentFileUpload
 @_exported import SparkComponentFormField
 @_exported import SparkComponentIcon
