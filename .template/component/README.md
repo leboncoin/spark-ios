@@ -1,12 +1,12 @@
 # ___COMPONENT_NAME___
 
-The folder here contains only the **iOS ___COMPONENT_NAME___** for _SwiftUI_ and _UIKit_.
+The folder here contains only the **iOS ___COMPONENT_NAME___** for _SwiftUI_.
 
 ## Specifications
 
 The ___component_name___ specifications is visible on [Zeroheight](TODO).
 
-![Figma anatomy](https://github.com/leboncoin/spark-ios/___COMPONENT_NAME___/blob/main/.github/assets/sparkcomponent-___component_name___-anatomy.png)
+![Figma anatomy](https://github.com/leboncoin/spark-ios/blob/main/.github/assets/anatomy/___component-name___.png)
 
 ## Technical Documentation
 

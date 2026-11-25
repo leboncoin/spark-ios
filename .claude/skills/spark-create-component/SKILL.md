@@ -1,25 +1,29 @@
 ---
 name: spark-create-component
-description: Create a new component in the Modules folder from template with proper documentation and placeholders replacement.
+description: Create a new SwiftUI-only component in the Modules/Components folder (core code + tests + documentation) from the Figma and Zeroheight specifications, with the Token + ViewModifier architecture.
 ---
 
-# Add New Component to Modules Folder
+# Create a New Component
 
 ## Overview & Prerequisites
 
-This skill helps you create a new component in the Modules folder using the template-based approach.
+This skill creates a **complete new component**: the core code, the tests and the documentation.
 
-❗️ This skill should be used from the root of the monorepo project ❗️
+❗️ This skill should be used from the root of the repository ❗️
+
+> **All new components are created for SwiftUI only.** There is no UIKit view (`SparkUIXXX`), and no **UseCase**, **Model** or **ViewModel**: the styling rules live in the **Token** (exposed through `theme.component.xxx`) and are applied by the views through private **ViewModifiers**.
+> Reference implementation: `Modules/Components/InputOTP`. Read it before writing any code.
 
 The skill will:
-1. Copy the component template
-2. Update documentation files with correct metadata
-3. Replace all placeholders in filenames and file contents
-4. Handle anatomy image setup
+1. Get the component specification from **Figma** and **Zeroheight** (through their MCPs)
+2. Create the component structure from the template and register it (`Package.swift`, `Import.swift`, Demo)
+3. Implement the core code with the dedicated skills (Enum, Token, Environment, ViewModifier, View, ...)
+4. Add the unit tests and the snapshot tests
+5. Write the DocC documentation
 
 ## Input Parameters
 
-When executing this skill, gather the required parameters one by one. Check if the user has already provided each piece of information. If not, ask the user for each parameter individually in a conversational message.
+Gather the required parameters one by one. Check if the user has already provided each piece of information. If not, ask for each parameter individually in a conversational message.
 
 **Required Parameters (ask one at a time):**
 
@@ -27,281 +31,194 @@ When executing this skill, gather the required parameters one by one. Check if t
    - Examples: Button, Avatar, Chip, SegmentedControl
    - Ask: "What is the component name? (PascalCase format, e.g., Button, Avatar, Chip)"
 
-2. **Description** (Brief description for documentation)
+2. **Description** (Brief description for the documentation)
    - Examples: "A customizable button component", "User profile image component"
    - Ask: "What is the component description? (Brief description for documentation)"
 
 3. **Figma Link** (URL to the Figma design)
    - Example: https://www.figma.com/design/0QchRdipAVuvVoDfTjLrgQ/Spark-Component-Specs?node-id=643-21226
    - Ask: "What is the Figma link? (URL to the Figma design)"
+   - Used in the documentation **and** by the Figma MCP to get the component specification.
 
 4. **Zeroheight Link** (URL to the Zeroheight specifications)
    - Example: https://zeroheight.com/1186e1705/p/17568d-chip
    - Ask: "What is the Zeroheight link? (URL to the Zeroheight specifications)"
+   - Used in the documentation **and** by the Zeroheight MCP to get the component specification.
 
 5. **Anatomy Image Path** (Local path to the anatomy image file)
    - Example: /Users/username/Desktop/anatomy.png
    - Ask: "What is the anatomy image path? (Local path to the anatomy image file)"
 
 **Important:**
-   - Do NOT use `AskUserQuestion` tool for gathering these parameters
+   - Do NOT use the `AskUserQuestion` tool to gather these parameters
    - Ask for ONE parameter at a time in a conversational message
    - Wait for the user to respond before asking for the next parameter
-   - Only proceed to the workflow steps once ALL parameters have been collected
+   - Only proceed to the workflow once ALL parameters have been collected
 
 ## Workflow
 
 ### Step 1: Validate Parameters
 
-Confirm you have all required parameters:
 - [ ] Component Name (PascalCase)
 - [ ] Description
 - [ ] Figma Link
 - [ ] Zeroheight Link
-- [ ] Anatomy Image Path (verify file exists)
+- [ ] Anatomy Image Path (verify the file exists)
 
 ### Step 2: Prepare Component Names
 
-From the component name (e.g., "Button", "Avatar"), generate:
-- **COMPONENT_NAME_PASCAL**: PascalCase (e.g., "button")
-- **COMPONENT_NAME_LOWER**: Lowercase (e.g., "button")
-- **REMOVE SPARK MENTION**: Remove all *Spark* or *SparkComponent* in the name (e.g, "SparkButton" must be "Button" ; "SparkComponentButton" must be "Button" ; )
+From the component name, generate:
+- **REMOVE SPARK MENTION**: remove *Spark* or *SparkComponent* from the name ("SparkButton" -> "Button", "SparkComponentButton" -> "Button")
+- **COMPONENT_NAME_PASCAL**: PascalCase (e.g. "SegmentedControl")
+- **COMPONENT_NAME_LOWER**: lowercase (e.g. "segmentedcontrol")
+- **COMPONENT_NAME_KEBAB**: kebab-case (e.g. "segmented-control")
+- **COMPONENT_NAME_CAMEL**: camelCase (e.g. "segmentedControl"), used for `theme.component.segmentedControl` and the Demo case
 
-### Step 3: Copy Template to Modules
+### Step 3: Get the Specification (Figma + Zeroheight MCPs)
 
-Copy the template to create the new component directory:
+Use the links with the related MCPs to get the full specification **before** writing any code:
+
+- [ ] **Figma MCP**: parse the link (`fileKey` + `node-id`, convert "-" to ":"), then get the design context, the screenshot and the variables (colors, spacings, radius, typography, sizes, states, variants). Follow the Figma skills when required (e.g. `figma:figma-design-to-code` before `get_design_context`).
+- [ ] **Zeroheight MCP**: read the specification page (usage, anatomy, variants, states, behaviors, accessibility).
+- [ ] If an MCP is not available or fails, tell the user and ask how to continue (do not guess the specification).
+
+Then write a short **specification summary** for the user and wait for their validation:
+- Public API (configuration enums, environment modifiers, initializers)
+- Anatomy (sub-views)
+- Token categories (colors, spacings, sizes, borders, typography, animation, ...) mapped to the theme tokens
+- States (enabled, disabled, pressed, focused, error, ...)
+- Accessibility
+
+### Step 4: Copy the Template
 
 ```bash
 cp -r .template/component/ "Modules/Components/${COMPONENT_NAME_PASCAL}/"
 ```
 
-### Step 4: Handle Anatomy Image
+### Step 5: Anatomy Image
 
-- [ ] Copy anatomy image into the *.github/assets*.
-- [ ] Rename image to `sparkcomponent-{component_name_lower}-anatomy.png`
+- [ ] Copy the anatomy image into `.github/assets/anatomy/`
+- [ ] Rename it `{component-name-kebab}.png` (e.g. `segmented-control.png`)
 
-### Step 5: Update documentation.json
+### Step 6: Replace All Placeholders
 
-Read `Modules/Components/{ComponentName}/documentation.json` and update:
-- [ ] `title`: Set to component name + "SparkComponent" in prefix (e.g., "SparkComponentButton")
-- [ ] `description`: Set to the user-provided description
-- [ ] `figma`: Set to the Figma link
-- [ ] `zeroheight`: Set to the Zeroheight link
-- [ ] `image`: Set to "spark" + component name in lowercase (e.g., "sparkbutton")
-
-### Step 6: Update Documentation.md
-
-Read `Modules/Components/{ComponentName}/Sources/Core/Documentation.docc/Documentation.md` and:
-- [ ] Replace `TODO` in Zeroheight link with actual URL
-- [ ] Replace `TODO` in Figma link with actual URL
-
-### Step 7: Replace All Placeholders
-
-**IMPORTANT**: Replace these exact placeholders in all files:
-- `__COMPONENT_NAME___` (2 underscores prefix, 3 suffix) → PascalCase name
-- `___component_name___` (3 underscores each side) → lowercase name
-- `___COMPONENT_NAME___` (3 underscores each side) → PascalCase name
-
-**Files to process:**
-- [ ] `README.md`
-- [ ] `documentation.json`
-- [ ] `Sources/Core/Documentation.docc/Documentation.md`
-- [ ] `Sources/Core/Spark__COMPONENT_NAME___.swift`
-- [ ] `Sources/Testing/Spark__COMPONENT_NAME___Testing.swift`
-- [ ] `Tests/UnitTests/Spark__COMPONENT_NAME___Tests.swift`
-- [ ] `Tests/SnapshotTests/Spark__COMPONENT_NAME___SnapshotsTests.swift`
-- [ ] `.sourcery.yml`
-- [ ] Any other files containing placeholders
-
-**Process:**
-1. Update file contents first using Edit tool
-2. Rename files with placeholders in names using `mv` command
-
-### Step 8: Verify Component Structure
-
-After all replacements:
-- [ ] List files in the new component directory
-- [ ] Read `documentation.json` to verify all fields are set
-- [ ] Read `README.md` to confirm no placeholders remain
-- [ ] Search for any remaining placeholder strings
-
-### Step 9: Update Import.swift
-
-Update the main Spark module to export the new component:
-
-**File:** `spark-ios/Spark/Sources/Core/Import.swift`
-
-- [ ] Read the Import.swift file to see the current list of imports
-- [ ] Add `@_exported import SparkComponent{ComponentName}` to the file
-- [ ] Insert the new import in alphabetical order among the other component imports
-- [ ] Ensure the import follows the format: `@_exported import SparkComponent{ComponentName}` (with comment syntax as shown in the file)
-
-**Example:**
-```
-@_exported import SparkCommon
-@_exported import SparkComponentAvatar
-@_exported import SparkComponentBadge
-@_exported import SparkComponentButton
-...
-@_exported import SparkTheming
-```
-
-### Step 10: Update Package.swift
-
-Add the new component to the root Package.swift file:
-
-**File:** `spark-ios/Package.swift`
-
-For each new component, you need to add:
-
-1. **Package Dependency** (in `dependencies` array):
-   - [ ] Add `.package(path: "Modules/Components/{ComponentName}")` in alphabetical order
-
-2. **Products** (in `products` array, after main Spark product):
-   - [ ] Add main component library product:
-     ```swift
-     .library(
-         name: "SparkComponent{ComponentName}",
-         targets: ["SparkComponent{ComponentName}"]
-     ),
-     ```
-   - [ ] Add testing library product:
-     ```swift
-     .library(
-         name: "SparkComponent{ComponentName}Testing",
-         targets: ["SparkComponent{ComponentName}Testing"]
-     ),
-     ```
-
-3. **Main Spark Target Dependency** (in main Spark target's `dependencies` array):
-   - [ ] Add `.product(name: "SparkComponent{ComponentName}", package: "Component{ComponentName}")`
-
-4. **Component Targets** (in `targets` array, after core targets, before demo targets):
-   - [ ] Add main component target:
-     ```swift
-     .target(
-         name: "SparkComponent{ComponentName}",
-         dependencies: [
-             "SparkCommon",
-             "SparkTheming",
-             // Add other component dependencies as needed
-         ],
-         path: "Modules/Components/{ComponentName}/Sources/Core"
-     ),
-     ```
-   - [ ] Add testing target:
-     ```swift
-     .target(
-         name: "SparkComponent{ComponentName}Testing",
-         dependencies: [
-             "SparkComponent{ComponentName}",
-             "SparkCommon",
-             "SparkCommonTesting",
-             "SparkThemingTesting",
-             "SparkTheme"
-         ],
-         path: "Modules/Components/{ComponentName}/Sources/Testing"
-     ),
-     ```
-
-5. **Test Targets** (in `targets` array, in test targets section):
-   - [ ] Add unit test target:
-     ```swift
-     .testTarget(
-         name: "SparkComponent{ComponentName}UnitTests",
-         dependencies: [
-             "SparkComponent{ComponentName}",
-             "SparkComponent{ComponentName}Testing",
-             "SparkCommonTesting",
-             "SparkThemingTesting"
-         ],
-         path: "Modules/Components/{ComponentName}/Tests/UnitTests"
-     ),
-     ```
-   - [ ] Add snapshot test target:
-     ```swift
-     .testTarget(
-         name: "SparkComponent{ComponentName}SnapshotTests",
-         dependencies: [
-             "SparkComponent{ComponentName}",
-             "SparkComponent{ComponentName}Testing",
-             "SparkCommonSnapshotTesting",
-         ],
-         path: "Modules/Components/{ComponentName}/Tests/SnapshotTests"
-     ),
-     ```
-
-**Important Notes:**
-- Maintain alphabetical ordering within each section
-- Ensure proper indentation (4 spaces per level)
-- Add dependencies based on what the component actually needs (check the template or similar components)
-
-## Placeholder Details
-
-Pay careful attention to underscores:
+Replace these exact placeholders in the file contents, then rename the files with `mv`:
 
 | Placeholder | Underscores | Replace With | Example |
 |------------|-------------|--------------|---------|
 | `__COMPONENT_NAME___` | 2 prefix, 3 suffix | PascalCase | SegmentedControl |
-| `___component_name___` | 3 each side | lowercase | segmentedcontrol |
 | `___COMPONENT_NAME___` | 3 each side | PascalCase | SegmentedControl |
+| `___component_name___` | 3 each side | lowercase | segmentedcontrol |
+| `___component-name___` | 3 each side | kebab-case | segmented-control |
 
-## Example Usage
+### Step 7: Update documentation.json
 
-**User Request:**
-```
-Add a new component SparkButton with:
-- Description: "A customizable button component"
-- Figma: "https://figma.com/design/..."
-- Zeroheight: "https://zeroheight.com/..."
-- Anatomy image: "./assets/button-anatomy.png"
-```
+`Modules/Components/{ComponentName}/documentation.json`:
+- [ ] `title`: readable name + " Component" (e.g. "Segmented Control Component")
+- [ ] `description`: the user description
+- [ ] `figma`: the Figma link
+- [ ] `zeroheight`: the Zeroheight link
+- [ ] `image`: the anatomy image name without extension (e.g. "segmented-control")
 
-**Expected Result:**
-- ✅ Directory created: `Modules/Components/Button/`
-- ✅ `documentation.json` populated with correct values
-- ✅ All placeholders replaced: "Button" or "button"
-- ✅ Anatomy image: `sparkcomponent-button-anatomy.png`
-- ✅ Documentation links updated
-- ✅ Files renamed: `SparkButton.swift`, `SparkButtonTests.swift`, etc.
+Update the Zeroheight link (`TODO`) in `README.md`.
+
+### Step 8: Register the Component
+
+**`Package.swift`** (single package, keep the alphabetical order, 4 spaces indentation):
+- [ ] Add `"SparkComponent{ComponentName}"` in the dependencies of the main `Spark` target
+- [ ] Add the core and testing targets (after the other component targets, with a `// {ComponentName}` comment):
+  ```swift
+  // {ComponentName}
+  .target(
+      name: "SparkComponent{ComponentName}",
+      dependencies: [
+          "SparkCommon",
+          "SparkTheming"
+          // + "SparkResources" or other components if needed
+      ],
+      path: "Modules/Components/{ComponentName}/Sources/Core"
+  ),
+  .target(
+      name: "SparkComponent{ComponentName}Testing",
+      dependencies: [
+          "SparkComponent{ComponentName}",
+          "SparkCommon",
+          "SparkCommonTesting",
+          "SparkThemingTesting",
+          "SparkTheme"
+      ],
+      path: "Modules/Components/{ComponentName}/Sources/Testing"
+  ),
+  ```
+- [ ] Add the test targets:
+  ```swift
+  .testTarget(
+      name: "SparkComponent{ComponentName}UnitTests",
+      dependencies: [
+          "SparkComponent{ComponentName}",
+          "SparkComponent{ComponentName}Testing",
+          "SparkCommonTesting",
+          "SparkThemingTesting"
+      ],
+      path: "Modules/Components/{ComponentName}/Tests/UnitTests"
+  ),
+  .testTarget(
+      name: "SparkComponent{ComponentName}SnapshotTests",
+      dependencies: [
+          "SparkComponent{ComponentName}",
+          "SparkComponent{ComponentName}Testing",
+          "SparkCommonSnapshotTesting",
+      ],
+      path: "Modules/Components/{ComponentName}/Tests/SnapshotTests"
+  ),
+  ```
+
+**`Spark/Sources/Core/Import.swift`**:
+- [ ] Add `@_exported import SparkComponent{ComponentName}` in alphabetical order
+
+### Step 9: Implement the Core Code
+
+Follow the **creation order** of a new component (see `CLAUDE.md`), using the matching skill for each type:
+
+1. [ ] **Enum** (`spark-component-enum`): the configuration enums (intent, size, variant, ...)
+2. [ ] **Token** (`spark-component-token`): `XXXToken` + categories (`+Colors`, `+Spacing`, `+Animation`, ...), `ComponentToken+XXX` (`theme.component.xxx`) and `EnvironmentTheme+XXXToken`
+3. [ ] **Environment** (`spark-component-environment`): the `EnvironmentValues` and the public view modifiers configuring the component
+4. [ ] **ViewModifier**: private view modifiers reading the tokens from `@Environment(\.theme)`, with an internal `View` extension
+5. [ ] **AccessibilityIdentifier** (`spark-component-accessibility-identifier`)
+6. [ ] **View** (`spark-component-view`): `SparkXXX` in `View/Public` (replace the template file), sub-views in `View/Internal`
+
+❗️ Do **not** create a UIKit view, a UseCase, a Model or a ViewModel.
+
+### Step 10: Tests
+
+- [ ] Run `make sourcery` (or `sourcery` from the component folder)
+- [ ] Unit tests with **Swift Testing**, same nomenclature as the productive code (each skill above adds its tests). Remove `Tests/UnitTests/.gitkeep` once a test exists.
+- [ ] Snapshot tests (`spark-component-snapshots-testing`), replacing the template file
+- [ ] Run `make test TEST_TARGETS="SparkComponent{ComponentName}UnitTests"` and fix the failures
+
+### Step 11: Documentation
+
+- [ ] DocC (`spark-component-documentation`): complete `Documentation.md` (description, Figma and Zeroheight links, usage, rendering images generated by the snapshot tests)
+- [ ] Add the component in the **Demo** app: new case in `Demo/Sources/Core/Scene/Components/Main/ComponentsView+ComponentExtension.swift` (excluded from the UIKit list), and the `Demo/Sources/Core/Scene/Components/Components/{ComponentName}/` folder (Configuration, Integration, Tools) based on `InputOTP`. Use `spark-update-demo-code-syntax` for the code syntax.
+- [ ] Add a `CHANGELOG.md` entry if needed (`spark-changelog`)
+
+### Step 12: Verify
+
+- [ ] No remaining placeholder (`___`, `TODO`) in the component folder
+- [ ] `swiftlint` from the component folder
+- [ ] `make build` and the tests are green
 
 ## Error Handling
 
 If any step fails:
 1. Stop the process immediately
-2. Report the specific error to the user
-3. Provide the step that failed
-4. Suggest corrective action if applicable
-
-## Completion Checklist
-
-Before finishing:
-- [ ] All placeholders replaced in file contents
-- [ ] All files with placeholder names renamed correctly
-- [ ] `documentation.json` has all fields filled (no "TODO")
-- [ ] `Documentation.md` has all fields filled (no "TODO")
-- [ ] Anatomy image renamed and in correct location
-- [ ] Component directory structure matches template
-- [ ] `Import.swift` updated with new component export
-- [ ] `Package.swift` updated with:
-  - [ ] Package dependency added
-  - [ ] Products added (main + testing)
-  - [ ] Main Spark target dependency added
-  - [ ] Component targets added (main + testing)
-  - [ ] Test targets added (unit + snapshot)
-- [ ] No errors reported during execution
+2. Report the specific error and the failing step to the user
+3. Suggest a corrective action if applicable
 
 ## Final Output
 
-When complete, provide the user with:
-1. ✅ Success message
-2. 📁 Path to new component: `Modules/Components/{ComponentName}/`
-3. 📝 Summary of modified files:
-   - Component files created
-   - `Import.swift` updated
-   - `Package.swift` updated
-4. ➡️ Next steps:
-   - Implement component logic in `Sources/Core/{ComponentName}.swift`
-   - Review and customize generated files
-   - Run `swift package resolve` to verify package configuration
-   - Run any required build/test commands
+When complete, give the user:
+1. 📁 The path of the new component: `Modules/Components/{ComponentName}/`
+2. 📝 A summary of the created and modified files (component, `Package.swift`, `Import.swift`, Demo, assets)
+3. ✅ The test results (unit and snapshot)
+4. ⚠️ The parts of the specification not implemented or to confirm with the designers
