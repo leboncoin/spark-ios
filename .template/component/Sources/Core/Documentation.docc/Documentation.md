@@ -4,12 +4,11 @@ TODO:
 
 ## Overview
 
-The component is available on **UIKit** and **SwiftUI** and requires at least **iOS 17**.
+The component is available on **SwiftUI** and requires at least **iOS 17**.
 
 ### Implementation
 
 - On SwiftUI, you need to use the ``Spark___COMPONENT_NAME___`` View.
-- On UIKit, you need to use the ``SparkUI___COMPONENT_NAME___``.
 
 ### Rendering
 

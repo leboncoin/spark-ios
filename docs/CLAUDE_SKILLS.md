@@ -42,33 +42,32 @@ Skills can be invoked using the `/` prefix followed by the skill name:
 
 ### spark-create-component
 
-**Purpose**: Create a new component in the Modules folder using the template-based approach.
+**Purpose**: Create a complete new component (core code + tests + documentation). New components are created for **SwiftUI only**, with the Token + ViewModifier architecture (no UseCase, Model or ViewModel).
 
 **Usage**: `/spark-create-component`
 
-**Description**: This skill helps you create a complete component structure from a template, handling all placeholder replacements and initial setup.
+**Description**: This skill gets the component specification from Figma and Zeroheight (through their MCPs), creates the component structure from the template, then implements it with the dedicated skills.
 
 **Parameters** (gathered interactively):
 1. **Component Name** (PascalCase): e.g., Button, Avatar, Chip
 2. **Description**: Brief description for documentation
-3. **Figma Link**: URL to the Figma design
-4. **Zeroheight Link**: URL to the Zeroheight specifications
+3. **Figma Link**: URL to the Figma design (also used by the Figma MCP)
+4. **Zeroheight Link**: URL to the Zeroheight specifications (also used by the Zeroheight MCP)
 5. **Anatomy Image Path**: Local path to the anatomy image file
 
 **Workflow**:
 1. Validates all required parameters
-2. Copies template to `Modules/Components/{Name}/`
-3. Handles anatomy image setup in `.github/assets`
-4. Updates `documentation.json` with metadata
-5. Replaces all placeholders in files and filenames
-6. Updates `spark-ios/Spark/Sources/Core/Import.swift` to export the new component
-7. Verifies component structure
+2. Gets the specification from the Figma and Zeroheight MCPs, and validates a summary with the user
+3. Copies the template to `Modules/Components/{Name}/`, adds the anatomy image in `.github/assets/anatomy` and replaces the placeholders
+4. Registers the component in `Package.swift` and `Spark/Sources/Core/Import.swift`
+5. Implements Enum, Token, Environment, ViewModifier, AccessibilityIdentifier and View with the matching skills
+6. Adds the unit tests and the snapshot tests
+7. Writes the DocC documentation and adds the component in the Demo app
 
 **Output**:
-- New component directory with complete structure
-- Updated Import.swift with new export
-- Anatomy image in assets folder
-- All documentation properly configured
+- New SwiftUI-only component, tested and documented
+- Updated `Package.swift`, `Import.swift` and Demo app
+- Anatomy image in the assets folder
 
 ---
 
