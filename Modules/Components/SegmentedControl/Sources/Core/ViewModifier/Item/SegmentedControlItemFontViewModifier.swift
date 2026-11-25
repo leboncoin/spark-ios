@@ -24,7 +24,7 @@ private struct SegmentedControlItemFontViewModifier: ViewModifier {
         content
             .font(fontToken)
             .optionalAnimation(
-                .easeInOut(duration: SegmentedControlConstants.animationDuration),
+                self.theme.animation.selection,
                 value: fontToken.font
             )
     }

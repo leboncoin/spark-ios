@@ -60,4 +60,9 @@ struct EnvironmentThemeSegmentedControlTests {
     func sizeShouldReturnSegmentedControlSize() {
         #expect(self.environmentTheme.size == self.theme.component.segmentedControl.size)
     }
+
+    @Test("Animation should return segmentedControl animation")
+    func animationShouldReturnSegmentedControlAnimation() {
+        #expect(self.environmentTheme.animation == self.theme.component.segmentedControl.animation)
+    }
 }

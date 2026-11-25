@@ -37,4 +37,8 @@ extension EnvironmentTheme {
     var size: CircularMeterToken.Size {
         self.token.size
     }
+
+    var animation: CircularMeterToken.Animation {
+        self.token.animation
+    }
 }

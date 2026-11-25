@@ -17,6 +17,7 @@ import SparkTheming
 /// - **Border properties** (``XXXToken/Border``): width and radius
 /// - **Typography** (``XXXToken/Typography``): font token of the title
 /// - **Size constants** (``XXXToken/Size``): heights and icon size
+/// - **Animation constants** (``XXXToken/Animation``): durations and animations
 ///
 /// > Tip: The token is available from the theme with `theme.component.xxx`.
 /// > If you only need specific tokens, use the individual categories directly.
@@ -47,6 +48,7 @@ import SparkTheming
 ///                 radius: token.border.radius,
 ///                 colorToken: theme.colors.main.main
 ///             )
+///             .animation(token.animation.fast, value: isSelected)
 ///     }
 /// }
 /// ```
@@ -63,6 +65,9 @@ public struct XXXToken: Equatable {
 
     /// The size properties (theme-independent).
     public let size = Size()
+
+    /// The animation properties (theme-independent).
+    public let animation = Animation()
 
     // MARK: - Initialization
 

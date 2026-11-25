@@ -60,4 +60,9 @@ struct EnvironmentThemeInputOTPTokenTests {
     func sizeShouldReturnInputOTPSize() {
         #expect(self.environmentTheme.size == self.token.size)
     }
+
+    @Test("Animation should return inputOTP animation")
+    func animationShouldReturnInputOTPAnimation() {
+        #expect(self.environmentTheme.animation == self.theme.component.inputOTP.animation)
+    }
 }

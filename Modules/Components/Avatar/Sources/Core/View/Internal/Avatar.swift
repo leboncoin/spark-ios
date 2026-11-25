@@ -21,6 +21,7 @@ struct Avatar<Placeholder, CornerView>: View where Placeholder: View, CornerView
     private let action: (() -> Void)?
     private let contentType: AvatarContentType
 
+    @Environment(\.theme) private var theme
     @Environment(\.avatarActionType) private var actionType
     @Environment(\.avatarSize) private var size
 
@@ -81,7 +82,7 @@ struct Avatar<Placeholder, CornerView>: View where Placeholder: View, CornerView
         .avatarOpacity()
         .avatarScaleEffect(isPressed: self.isPressed)
         .optionalAnimation(
-            .easeInOut(duration: AvatarConstants.animationDuration),
+            self.theme.animation.pressed,
             value: self.isPressed
         )
         .sparkSensoryFeedback(.selection, trigger: self.feedbackID)

@@ -41,4 +41,8 @@ extension EnvironmentTheme {
     var size: InputOTPToken.Size {
         self.token.size
     }
+
+    var animation: InputOTPToken.Animation {
+        self.token.animation
+    }
 }

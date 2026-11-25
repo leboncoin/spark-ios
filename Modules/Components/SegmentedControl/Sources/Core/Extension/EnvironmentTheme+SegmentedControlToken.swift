@@ -45,4 +45,8 @@ extension EnvironmentTheme {
     var size: SegmentedControlToken.Size {
         self.token.size
     }
+
+    var animation: SegmentedControlToken.Animation {
+        self.token.animation
+    }
 }

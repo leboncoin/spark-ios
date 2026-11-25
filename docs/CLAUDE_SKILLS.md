@@ -99,26 +99,6 @@ All component development skills support parameter-based targeting:
 
 ---
 
-### spark-component-constants
-
-**Purpose**: Create or update constants files in component.
-
-**Usage**: `/spark-component-constants [component-name]`
-
-**Location**: `Sources/Core/Constants`
-
-**Best Practices**:
-- Can contain sub enums
-- Contains only static let or static func
-- Properly documented if public
-
-**Workflow**:
-1. Add/Update constants code
-2. Add/Update documentation if public
-3. Implement unit tests using Swift Testing framework
-
----
-
 ### spark-component-enum
 
 **Purpose**: Create or update enum files in component.

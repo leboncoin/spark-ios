@@ -47,7 +47,7 @@ Use the skill **spark-component-token** to create `Sources/Core/Token/XXXToken.s
 (`XXXToken+Colors.swift`, `+Border`, `+Layout`, `+Opacity`, `+Typography`, `+Size`, ...).
 
 - Each styling UseCase + Model becomes a token category. A UseCase taking parameters (intent, state, isEnabled, ...) becomes a **public method** of the category (e.g. `func value(isEnabled: Bool) -> CGFloat`), a theme-dependent category stores `let theme: any Theme` and implements `==` with `theme.equals(...)`.
-- Size constants previously in `Constants` move to the `Size` category (keep in `Constants` what is not a size/token value).
+- Size constants previously in `Constants` move to the `Size` category, animation constants (durations) move to the `Animation` category (keep in `Constants` what is not a size/animation/token value).
 - Non styling rules (value formatting, validation, separator, ...) move to **internal extensions** in `Sources/Core/Extension/{Enum|Foundation|...}/Type+XXXExtension.swift` (e.g. `String+InputOTPExtension.swift`, `InputOTPDigits+SeparatorExtension.swift`).
 
 ## Step 2 — ComponentToken extension

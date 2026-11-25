@@ -38,7 +38,7 @@ private struct SegmentedControlItemFillViewModifier: ViewModifier {
                         }
                     }
                     .optionalAnimation(
-                        self.isSelected ? nil : .easeInOut(duration: SegmentedControlConstants.animationDuration),
+                        self.isSelected ? nil : self.theme.animation.selection,
                         value: colorToken.color
                     )
             )

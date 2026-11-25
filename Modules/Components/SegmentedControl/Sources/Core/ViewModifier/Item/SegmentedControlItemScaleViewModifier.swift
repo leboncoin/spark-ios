@@ -26,7 +26,7 @@ private struct SegmentedControlItemScaleViewModifier: ViewModifier {
                 isEnabled: self.isEnabled
             ))
             .optionalAnimation(
-                .easeInOut(duration: SegmentedControlConstants.animationDuration),
+                self.theme.animation.selection,
                 value: self.isPressed
             )
     }

@@ -20,6 +20,7 @@ import SparkTheming
 /// - **Opacity** (``InputOTPToken/Opacity``): opacity for enabled and disabled states
 /// - **Typography** (``InputOTPToken/Typography``): font token of the slot content
 /// - **Size constants** (``InputOTPToken/Size``): slot and separator sizes
+/// - **Animation constants** (``InputOTPToken/Animation``): durations and animations
 ///
 /// > Tip: The token is available from the theme with `theme.component.inputOTP`.
 /// > If you only need specific tokens, use the individual categories directly.
@@ -78,6 +79,9 @@ public struct InputOTPToken: Equatable {
 
     /// The size properties (theme-independent).
     public let size = Size()
+
+    /// The animation properties (theme-independent).
+    public let animation = Animation()
 
     // MARK: - Initialization
 
