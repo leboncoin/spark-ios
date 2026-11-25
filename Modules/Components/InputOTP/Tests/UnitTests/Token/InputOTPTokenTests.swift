@@ -34,6 +34,7 @@ struct InputOTPTokenTests {
         #expect(token.opacity == .init(theme: self.theme))
         #expect(token.typography == .init(theme: self.theme))
         #expect(token.size == .init())
+        #expect(token.animation == .init())
     }
 
     @Test("Equatable with same theme should return true")

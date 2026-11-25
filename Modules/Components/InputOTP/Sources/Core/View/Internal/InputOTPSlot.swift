@@ -17,6 +17,8 @@ struct InputOTPSlot: View {
     private let onError: Bool
     private let isFocus: Bool
 
+    @Environment(\.theme) private var theme
+
     // MARK: - Initialization
 
     init(
@@ -48,7 +50,7 @@ struct InputOTPSlot: View {
                 )
                 .optionalBlink(
                     isEnabled: self.isCursorDisplayed,
-                    duration: InputOTPConstants.slotAnimationDuration
+                    duration: self.theme.animation.cursorBlinkDuration
                 )
         }
     }

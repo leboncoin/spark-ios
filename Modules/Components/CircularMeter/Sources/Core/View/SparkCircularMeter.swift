@@ -231,7 +231,7 @@ public struct SparkCircularMeter<ValueLabel, ContentLabel>: View where ValueLabe
                     )
                     .rotationEffect(.degrees(-90))
                     .optionalAnimation(
-                        .easeOut(duration: CircularMeterConstants.Animation.duration),
+                        self.theme.animation.value,
                         value: self.value
                     )
 

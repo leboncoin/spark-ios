@@ -49,4 +49,8 @@ extension EnvironmentTheme {
     var cornerViewOffset: AvatarToken.CornerViewOffset {
         self.token.cornerViewOffset
     }
+
+    var animation: AvatarToken.Animation {
+        self.token.animation
+    }
 }

@@ -26,7 +26,7 @@ This skill guides you to implement/update a token in spark component.
 
 Use the files in the **template** folder as reference to manage the *token* and the *unit tests*. See `Modules/Components/InputOTP/Sources/Core/Token` for a full real-world example.
 
-> The template uses `Border`, `Size`, and `Typography` purely as illustrations of three recurring *patterns* (see Rules below). A real component's token categories are whatever it actually needs — e.g. `Colors`, `Opacity`, `Layout`, `Spacing`, `Icon`, `Animation`, ... Determine the category names and count from the component's design/usage, not from the template names.
+> The template uses `Border`, `Size`, `Typography` and `Animation` purely as illustrations of recurring *patterns* (see Rules below). A real component's token categories are whatever it actually needs — e.g. `Colors`, `Opacity`, `Layout`, `Spacing`, `Icon`, `Animation`, ... Determine the category names and count from the component's design/usage, not from the template names.
 
 > The token is exposed publicly through `theme.component.xxx` (`ComponentToken+XXX.swift`) and consumed by the SwiftUI views through `EnvironmentTheme+XXXToken.swift`. Theses two files are managed by the skill **spark-component-migrate-token**.
 
@@ -43,6 +43,12 @@ The Token file must respect theses rules :
     - implements a manual `static func ==` comparing the themes: `lhs.theme.equals(rhs.theme)`.
     - is assigned in the root `init(theme:)`.
   - a category that only exposes fixed constants (no theme-dependent values, illustrated by ``Size`` in the template) contains only `public let` constants. On the root struct, its property is a stored default value (`public let size = Size()`), **not** assigned in the root `init(theme:)` body.
+  - the **animation** values (durations, curves) are tokens, **not constants**: they replace the `XXXConstants.Animation` enum / `XXXConstants.animationDuration`. They live in an `Animation` category (illustrated by ``Animation`` in the template):
+    - it is a constant category (`public let animation = Animation()` on the root struct, no theme).
+    - the file imports `SwiftUI` and, since the nested struct shadows the SwiftUI type, refers to it as `SwiftUI.Animation`.
+    - exposes each duration as a `public let xxxDuration: TimeInterval` (used by the UIKit views and by delays such as `DispatchQueue.main.asyncAfter`).
+    - exposes the matching SwiftUI animation as a **public computed property** built from the duration (`public var fast: SwiftUI.Animation { .easeInOut(duration: self.fastDuration) }`), used by the views (`.animation(token.animation.fast, value:)`, `withAnimation(token.animation.fast)`).
+    - when migrating, move the animation values from *XXXConstants.swift* to the token, update every usage (`XXXConstants.animationDuration` -> `self.theme.component.xxx.animation...` in the ViewModifiers / views), remove them from the constants (and delete the constants file and its tests if it becomes empty).
   - every public struct, property and method must be documented with a doc comment (`///`).
   - use `// MARK: - Properties`, `// MARK: - Methods` and `// MARK: - Equatable` in the categories.
   - the root *XXXToken.swift* file must have a top-level doc comment that:
@@ -81,6 +87,7 @@ The Token file must respect theses rules :
   - one parameterized test (`@Test("Description", arguments:)`) per method, covering all the combinations of the parameters
   - a `// MARK: - Equatable Tests` section: same theme returns true, different theme returns false
   - for a constant category: one test per constant
+  - for the animation category: one test per duration and one test per animation (compared with the expected `SwiftUI.Animation`, e.g. `#expect(self.token.fast == .easeInOut(duration: 0.1))`)
 - [ ] The root `XXXTokenTests` contains `initShouldSetAllCategories` (each property equals `.init(theme: self.theme)` or `.init()` for constants), plus equatable true/false at the root level
 
 ### When to Ask for Help

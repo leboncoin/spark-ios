@@ -31,6 +31,7 @@ struct XXXTokenTests {
         #expect(token.border == .init(theme: self.theme))
         #expect(token.typography == .init(theme: self.theme))
         #expect(token.size == .init())
+        #expect(token.animation == .init())
     }
 
     @Test("Equatable with same theme should return true")

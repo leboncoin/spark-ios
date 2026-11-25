@@ -41,6 +41,7 @@ struct CircularMeterTokenTests {
         // THEN
         #expect(token.content == CircularMeterToken.Content())
         #expect(token.size == CircularMeterToken.Size())
+        #expect(token.animation == CircularMeterToken.Animation())
     }
 
     // MARK: - Equatable Tests

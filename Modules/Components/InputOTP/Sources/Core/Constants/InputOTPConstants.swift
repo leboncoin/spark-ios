@@ -10,9 +10,6 @@ import Foundation
 
 enum InputOTPConstants {
 
-    /// Animation duration is 500ms
-    static let slotAnimationDuration = 0.5
-
     // MARK: - Content
 
     enum Content {

@@ -65,4 +65,9 @@ struct EnvironmentThemeAvatarTokenTests {
     func cornerViewOffsetShouldReturnAvatarCornerViewOffset() {
         #expect(self.environmentTheme.cornerViewOffset == self.theme.component.avatar.cornerViewOffset)
     }
+
+    @Test("Animation should return avatar animation")
+    func animationShouldReturnAvatarAnimation() {
+        #expect(self.environmentTheme.animation == self.theme.component.avatar.animation)
+    }
 }

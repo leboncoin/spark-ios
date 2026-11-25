@@ -43,6 +43,7 @@ struct SegmentedControlTokenTests {
         // THEN
         #expect(token.scaleEffect == SegmentedControlToken.ScaleEffect())
         #expect(token.size == SegmentedControlToken.Size())
+        #expect(token.animation == SegmentedControlToken.Animation())
     }
 
     // MARK: - Equatable Tests

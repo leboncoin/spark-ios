@@ -50,4 +50,9 @@ struct EnvironmentThemeCircularMeterTokenTests {
     func sizeShouldReturnCircularMeterSize() {
         #expect(self.environmentTheme.size == self.theme.component.circularMeter.size)
     }
+
+    @Test("Animation should return circularMeter animation")
+    func animationShouldReturnCircularMeterAnimation() {
+        #expect(self.environmentTheme.animation == self.theme.component.circularMeter.animation)
+    }
 }

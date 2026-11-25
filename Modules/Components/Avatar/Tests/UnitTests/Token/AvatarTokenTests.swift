@@ -43,6 +43,7 @@ struct AvatarTokenTests {
 
         // THEN
         #expect(token.size == AvatarToken.Size())
+        #expect(token.animation == AvatarToken.Animation())
         #expect(token.scaleEffect == AvatarToken.ScaleEffect())
         #expect(token.cornerViewOffset == AvatarToken.CornerViewOffset())
     }

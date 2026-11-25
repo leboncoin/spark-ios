@@ -22,6 +22,7 @@ import SparkTheming
 /// - **Typography** (``SegmentedControlToken/Typography``): font token of the item text
 /// - **Scale effect** (``SegmentedControlToken/ScaleEffect``): scale applied to a pressed item
 /// - **Size constants** (``SegmentedControlToken/Size``): icon, minimum height and separator sizes
+/// - **Animation constants** (``SegmentedControlToken/Animation``): durations and animations
 ///
 /// > Tip: The token is available from the theme with `theme.component.segmentedControl`.
 /// > If you only need specific tokens, use the individual categories directly.
@@ -135,6 +136,9 @@ public struct SegmentedControlToken: Equatable {
 
     /// The size properties (theme-independent).
     public let size = Size()
+
+    /// The animation properties (theme-independent).
+    public let animation = Animation()
 
     // MARK: - Initialization
 

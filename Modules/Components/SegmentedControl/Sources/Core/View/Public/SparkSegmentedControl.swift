@@ -337,7 +337,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
         let index = self.flattedTags.firstIndex(of: tag) ?? -1
 
         return Button {
-            withOptionalAnimation(.easeInOut(duration: SegmentedControlConstants.animationDuration)) {
+            withOptionalAnimation(self.theme.animation.selection) {
                 if !self.showAccessibilityList,
                    let tagValue = tag.base as? SelectionValue,
                    self.selection != tagValue {
@@ -386,7 +386,7 @@ public struct SparkSegmentedControl<SelectionValue, Content>: View where Selecti
                     let isSelected = self.selection == tag.base as? SelectionValue
 
                     Button {
-                        withOptionalAnimation(.easeInOut(duration: SegmentedControlConstants.animationDuration)) {
+                        withOptionalAnimation(self.theme.animation.selection) {
                             if let tagValue = tag.base as? SelectionValue,
                                self.selection != tagValue {
                                 self.selection = tagValue

@@ -19,6 +19,7 @@ import SparkTheming
 /// - **Typography** (``CircularMeterToken/Typography``): font tokens of the value and the content
 /// - **Content** (``CircularMeterToken/Content``): whether the content is displayed inside the gauge
 /// - **Size constants** (``CircularMeterToken/Size``): gauge diameter, gauge stroke and icon sizes
+/// - **Animation constants** (``CircularMeterToken/Animation``): durations and animations
 ///
 /// > Tip: The token is available from the theme with `theme.component.circularMeter`.
 /// > If you only need specific tokens, use the individual categories directly.
@@ -121,6 +122,9 @@ public struct CircularMeterToken: Equatable {
 
     /// The size properties (theme-independent).
     public let size = Size()
+
+    /// The animation properties (theme-independent).
+    public let animation = Animation()
 
     // MARK: - Initialization
 

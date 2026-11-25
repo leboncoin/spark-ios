@@ -72,7 +72,6 @@ Always use the matching skill (`.claude/skills`):
 |---|---|
 | New component | `spark-create-component` |
 | AccessibilityIdentifier | `spark-component-accessibility-identifier` |
-| Constants | `spark-component-constants` |
 | Enum | `spark-component-enum` |
 | Environment | `spark-component-environment` |
 | Token | `spark-component-token` |

@@ -20,6 +20,7 @@ import SparkTheming
 /// - **Opacity** (``AvatarToken/Opacity``): opacity for enabled and disabled states
 /// - **Typography** (``AvatarToken/Typography``): font token of the placeholder
 /// - **Size constants** (``AvatarToken/Size``): avatar, placeholder, action and badge sizes
+/// - **Animation constants** (``AvatarToken/Animation``): durations and animations
 /// - **Scale effect** (``AvatarToken/ScaleEffect``): scale applied when pressed
 /// - **Corner view offset** (``AvatarToken/CornerViewOffset``): offset of the corner view
 ///
@@ -119,6 +120,9 @@ public struct AvatarToken: Equatable {
 
     /// The size properties (theme-independent).
     public let size = Size()
+
+    /// The animation properties (theme-independent).
+    public let animation = Animation()
 
     /// The scale effect properties (theme-independent).
     public let scaleEffect = ScaleEffect()
