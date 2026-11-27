@@ -47,7 +47,6 @@ struct SparkSegmentedControlSnapshotTests: SwiftUIComponentSnapshotTesting {
                     )
                 )
                 .background(.background)
-                .sparkIsSnapshot(true)
 
             await self.assertSnapshot(
                 matching: view,

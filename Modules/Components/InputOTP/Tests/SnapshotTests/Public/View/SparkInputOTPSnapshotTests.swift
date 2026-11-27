@@ -45,7 +45,6 @@ struct SparkInputOTPSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .disabled(!configuration.isEnabled)
                     .background(.background)
                     .fixedSize()
-                    .sparkIsSnapshot(true)
 
                 await self.assertSnapshot(
                     matching: view,

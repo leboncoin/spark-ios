@@ -57,6 +57,7 @@ let package = Package(
                 "SparkComponentChip",
                 "SparkComponentCircularMeter",
                 "SparkComponentDivider",
+                "SparkComponentDotsIndicator",
                 "SparkComponentFileUpload",
                 "SparkComponentFormField",
                 "SparkComponentIcon",
@@ -331,6 +332,27 @@ let package = Package(
                 "SparkTheme"
             ],
             path: "Modules/Components/Divider/Sources/Testing"
+        ),
+
+        // DotsIndicator
+        .target(
+            name: "SparkComponentDotsIndicator",
+            dependencies: [
+                "SparkCommon",
+                "SparkTheming"
+            ],
+            path: "Modules/Components/DotsIndicator/Sources/Core"
+        ),
+        .target(
+            name: "SparkComponentDotsIndicatorTesting",
+            dependencies: [
+                "SparkComponentDotsIndicator",
+                "SparkCommon",
+                "SparkCommonTesting",
+                "SparkThemingTesting",
+                "SparkTheme"
+            ],
+            path: "Modules/Components/DotsIndicator/Sources/Testing"
         ),
 
         // FileUpload
@@ -995,6 +1017,25 @@ let package = Package(
                 "SparkCommonSnapshotTesting",
             ],
             path: "Modules/Components/Divider/Tests/SnapshotTests"
+        ),
+        .testTarget(
+            name: "SparkComponentDotsIndicatorUnitTests",
+            dependencies: [
+                "SparkComponentDotsIndicator",
+                "SparkComponentDotsIndicatorTesting",
+                "SparkCommonTesting",
+                "SparkThemingTesting"
+            ],
+            path: "Modules/Components/DotsIndicator/Tests/UnitTests"
+        ),
+        .testTarget(
+            name: "SparkComponentDotsIndicatorSnapshotTests",
+            dependencies: [
+                "SparkComponentDotsIndicator",
+                "SparkComponentDotsIndicatorTesting",
+                "SparkCommonSnapshotTesting",
+            ],
+            path: "Modules/Components/DotsIndicator/Tests/SnapshotTests"
         ),
         .testTarget(
             name: "SparkComponentFileUploadUnitTests",

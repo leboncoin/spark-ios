@@ -24,6 +24,7 @@ struct DevModeView: View {
             Spacer()
         }
         .padding(20)
+        .sparkTheme(self.theme.value)
     }
 }
 

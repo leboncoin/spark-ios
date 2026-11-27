@@ -11,8 +11,7 @@ B – Snackbar content.
 C – Container.  
 D – Action button (optional).
 
-![Figma anatomy horizontal](https://github.com/leboncoin/spark-ios/blob/main/.github/assets/anatomy/snackbar-horizontal.png)
-![Figma anatomy vertical](https://github.com/leboncoin/spark-ios/blob/main/.github/assets/anatomy/snackbar-vertical.png)
+![Figma anatomy](https://github.com/leboncoin/spark-ios/blob/main/.github/assets/anatomy/snackbar.png)
 
 ## Technical Documentation
 

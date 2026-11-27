@@ -46,7 +46,6 @@ struct SparkAvatarSnapshotTests: SwiftUIComponentSnapshotTesting {
                     .sparkAvatarIsBorder(configuration.isBorder)
                     .disabled(configuration.isDisabled)
                     .fixedSize()
-                    .sparkIsSnapshot(true)
 
                 await self.assertSnapshot(
                     matching: view,

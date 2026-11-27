@@ -26,6 +26,7 @@ extension ComponentsView {
         case circularMeter
         case cornerRadius
         case divider
+        case dotsIndicator
         case fileUpload
         case formField
         case icon
@@ -72,6 +73,7 @@ extension ComponentsView {
             case .circularMeter: .indicator
             case .cornerRadius: .style
             case .divider: .layout
+            case .dotsIndicator: .indicator
             case .fileUpload: .dataInput
             case .formField: .dataInput
             case .icon: .visualAsset
@@ -118,6 +120,7 @@ extension ComponentsView {
             case .circularMeter: .available
             case .cornerRadius: .available
             case .divider: .available
+            case .dotsIndicator: .available
             case .fileUpload: .available
             case .formField: .available
             case .icon: .available
@@ -160,6 +163,7 @@ extension ComponentsView {
             case .chip: .init(.chip)
             case .circularMeter: .init(.circleMeter)
             case .divider: .init(.divider)
+            case .dotsIndicator: .init(.dotsIndicator)
             case .formField: .init(.formField)
             case .fileUpload: .init(.fileUpload)
             case .icon: .init(.icon)
@@ -235,6 +239,7 @@ extension ComponentsView {
             case .circularMeter: CircularMeterComponentView()
             case .cornerRadius: CornerRadiusComponentView()
             case .divider: DividerComponentView()
+            case .dotsIndicator: DotsIndicatorComponentView()
             case .fileUpload: FileUploadComponentsView()
             case .formField: FormFieldComponentView()
             case .icon: IconComponentView()
@@ -321,6 +326,7 @@ extension ComponentsView {
                     $0 != .awarenessCard &&
                     $0 != .border &&
                     $0 != .circularMeter &&
+                    $0 != .dotsIndicator &&
                     $0 != .fileUpload &&
                     $0 != .inputOTP &&
                     $0 != .segmentedControl
