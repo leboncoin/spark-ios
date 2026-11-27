@@ -37,11 +37,7 @@ struct SparkDotsIndicatorSnapshotTests: SwiftUIComponentSnapshotTesting {
                 .sparkDotsIndicatorIntent(configuration.intent)
                 .disabled(!configuration.isEnabled)
                 .sparkTheme(self.theme)
-                .padding(8)
-                .background(configuration.intent.backgroundMocked)
                 .fixedSize()
-                .background(.background)
-                .sparkIsSnapshot(true)
 
             await self.assertSnapshot(
                 matching: view,
@@ -49,21 +45,9 @@ struct SparkDotsIndicatorSnapshotTests: SwiftUIComponentSnapshotTesting {
                 modes: configuration.modes,
                 sizes: configuration.sizes,
                 testName: configuration.testName,
+                reverseBackground: configuration.intent == .surface,
                 forDocumentation: scenario.isDocumentation
             )
-        }
-    }
-}
-
-// MARK: - Extension
-
-private extension DotsIndicatorIntent {
-
-    /// The surface intent must be displayed on a dark background.
-    var backgroundMocked: Color {
-        return switch self {
-        case .support: .clear
-        case .surface: .black
         }
     }
 }

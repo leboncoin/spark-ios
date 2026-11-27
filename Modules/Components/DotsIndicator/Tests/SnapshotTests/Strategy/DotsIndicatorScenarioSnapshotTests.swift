@@ -13,12 +13,12 @@
 import UIKit
 
 enum DotsIndicatorScenarioSnapshotTests: String, CaseIterable {
-    case test1
-    case test2
-    case test3
-    case test4
-    case test5
-    case test6
+    case testIntents
+    case testCurrentPages
+    case testNumberOfPages
+    case testIsEnabled
+    case testModes
+    case testA11ySizes
     case documentation
 
     // MARK: - Type Alias
@@ -35,23 +35,23 @@ enum DotsIndicatorScenarioSnapshotTests: String, CaseIterable {
 
     func configuration() -> [DotsIndicatorConfigurationSnapshotTests] {
         return switch self {
-        case .test1: self.test1()
-        case .test2: self.test2()
-        case .test3: self.test3()
-        case .test4: self.test4()
-        case .test5: self.test5()
-        case .test6: self.test6()
+        case .testIntents: self.testIntents()
+        case .testCurrentPages: self.testCurrentPages()
+        case .testNumberOfPages: self.testNumberOfPages()
+        case .testIsEnabled: self.testIsEnabled()
+        case .testModes: self.testModes()
+        case .testA11ySizes: self.testA11ySizes()
         case .documentation: self.documentation()
         }
     }
 
     // MARK: - Scenarios
 
-    /// Test 1
+    /// Test Intents
     ///
     /// Description: Test all sizes with all intents
     ///
-    private func test1() -> [DotsIndicatorConfigurationSnapshotTests] {
+    private func testIntents() -> [DotsIndicatorConfigurationSnapshotTests] {
         return DotsIndicatorSize.allCases.flatMap { size in
             DotsIndicatorIntent.allCases.map { intent in
                 .init(
@@ -63,11 +63,11 @@ enum DotsIndicatorScenarioSnapshotTests: String, CaseIterable {
         }
     }
 
-    /// Test 2
+    /// Test Current Pages
     ///
     /// Description: Test all current pages (first, middle, last)
     ///
-    private func test2() -> [DotsIndicatorConfigurationSnapshotTests] {
+    private func testCurrentPages() -> [DotsIndicatorConfigurationSnapshotTests] {
         return [0, 2, 4].map { currentPage in
             .init(
                 scenario: self,
@@ -76,11 +76,11 @@ enum DotsIndicatorScenarioSnapshotTests: String, CaseIterable {
         }
     }
 
-    /// Test 3
+    /// Test Number Of Pages
     ///
     /// Description: Test some number of pages (min and max recommended)
     ///
-    private func test3() -> [DotsIndicatorConfigurationSnapshotTests] {
+    private func testNumberOfPages() -> [DotsIndicatorConfigurationSnapshotTests] {
         return [3, 7].map { numberOfPages in
             .init(
                 scenario: self,
@@ -90,11 +90,11 @@ enum DotsIndicatorScenarioSnapshotTests: String, CaseIterable {
         }
     }
 
-    /// Test 4
+    /// Test Is Enabled
     ///
     /// Description: Test enabled/disabled states
     ///
-    private func test4() -> [DotsIndicatorConfigurationSnapshotTests] {
+    private func testIsEnabled() -> [DotsIndicatorConfigurationSnapshotTests] {
         return [true, false].map { isEnabled in
             .init(
                 scenario: self,
@@ -103,11 +103,11 @@ enum DotsIndicatorScenarioSnapshotTests: String, CaseIterable {
         }
     }
 
-    /// Test 5
+    /// Test Modes
     ///
     /// Description: Test all display modes
     ///
-    private func test5() -> [DotsIndicatorConfigurationSnapshotTests] {
+    private func testModes() -> [DotsIndicatorConfigurationSnapshotTests] {
         return [
             .init(
                 scenario: self,
@@ -116,11 +116,11 @@ enum DotsIndicatorScenarioSnapshotTests: String, CaseIterable {
         ]
     }
 
-    /// Test 6
+    /// Test A11y Sizes
     ///
     /// Description: Test all accessibility sizes
     ///
-    private func test6() -> [DotsIndicatorConfigurationSnapshotTests] {
+    private func testA11ySizes() -> [DotsIndicatorConfigurationSnapshotTests] {
         return [
             .init(
                 scenario: self,
@@ -133,6 +133,7 @@ enum DotsIndicatorScenarioSnapshotTests: String, CaseIterable {
     // MARK: - Documentation
 
     private func documentation() -> [DotsIndicatorConfigurationSnapshotTests] {
+        // All the sizes
         var items: [DotsIndicatorConfigurationSnapshotTests] = DotsIndicatorSize.allCases.map { size in
             .init(
                 scenario: self,
@@ -141,6 +142,7 @@ enum DotsIndicatorScenarioSnapshotTests: String, CaseIterable {
             )
         }
 
+        // All the intents
         items += DotsIndicatorIntent.allCases.map { intent in
             .init(
                 scenario: self,
@@ -149,6 +151,7 @@ enum DotsIndicatorScenarioSnapshotTests: String, CaseIterable {
             )
         }
 
+        // The disabled state
         items.append(
             .init(
                 scenario: self,

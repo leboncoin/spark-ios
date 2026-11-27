@@ -20,6 +20,19 @@ import SparkTheme
 
 @_spi(SI_SPI) public extension UIKitComponentSnapshotTesting {
 
+    /// Asserts the snapshots of a UIKit view, one per mode and size.
+    ///
+    /// - Parameters:
+    ///   - view: The UIKit view to snapshot (recreated for each mode and size).
+    ///   - name: An optional name added to the snapshot file name.
+    ///   - modes: The modes (light, dark, ...) to snapshot.
+    ///   - sizes: The content size categories to snapshot.
+    ///   - recording: Records the snapshots instead of comparing them.
+    ///   - delay: The delay to wait before taking the snapshot (e.g. for animations).
+    ///   - timeout: The maximum time to wait for the snapshot.
+    ///   - filePath: The file path of the test, used to find the snapshots folder.
+    ///   - testName: The name of the test, used in the snapshot file name.
+    ///   - sourceLocation: The source location used to report a failure.
     func assertSnapshot(
         matching view: @autoclosure () -> some UIView,
         named name: String? = nil,

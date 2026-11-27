@@ -39,7 +39,6 @@ struct SparkXXXSnapshotTests: SwiftUIComponentSnapshotTesting {
                 .frame(width: .width(apportionsSegmentWidthsByContent: configuration.apportionsSegmentWidthsByContent))
                 .padding(.vertical, 20)
                 .background(.background)
-                .sparkIsSnapshot(true)
 
             await self.assertSnapshot(
                 matching: view,
